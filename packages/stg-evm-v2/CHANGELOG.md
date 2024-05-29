@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 0.3.32
+
+### Patch Changes
+
+- 4eec1af: Rarible Mainnet
+- Updated dependencies [78669cc]
+  - @stargatefinance/stg-definitions-v2@0.3.22
+
 ## 0.3.31
 
 ### Patch Changes
