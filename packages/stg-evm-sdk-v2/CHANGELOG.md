@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 0.1.5
+
+### Patch Changes
+
+- 4eec1af: Rarible Mainnet
+
 ## 0.1.4
 
 ### Patch Changes

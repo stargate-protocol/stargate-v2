@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 0.3.22
+
+### Patch Changes
+
+- 78669cc: Update Base Gas Limits
+
 ## 0.3.21
 
 ### Patch Changes
