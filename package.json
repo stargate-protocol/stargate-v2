@@ -1,0 +1,49 @@
+{
+  "name": "stargatefinance",
+  "private": true,
+  "scripts": {
+    "build": "$npm_execpath turbo build",
+    "clean": "$npm_execpath turbo clean",
+    "postinstall": "$npm_execpath husky install",
+    "lint": "$npm_execpath turbo lint",
+    "release:publish": "$npm_execpath changeset publish",
+    "release:version": "$npm_execpath changeset version && $npm_execpath install --lockfile-only --prefer-offline --ignore-scripts",
+    "test": "$npm_execpath turbo test"
+  },
+  "lint-staged": {
+    "**/*.sol": [
+      "prettier --ignore-unknown --write"
+    ],
+    "**/*.{js,ts,tsx,json}": [
+      "pnpm prettier --write --ignore-unknown",
+      "pnpm eslint --fix"
+    ]
+  },
+  "resolutions": {
+    "@layerzerolabs/lz-definitions": "2.3.10",
+    "es5-ext": "https://github.com/LayerZero-Labs/es5-ext"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@layerzerolabs/eslint-config-next": "~2.3.10",
+    "@layerzerolabs/prettier-config-next": "~2.3.10",
+    "@layerzerolabs/solhint-config": "~2.3.10",
+    "@rushstack/eslint-patch": "^1.5.1",
+    "eslint-plugin-jest-extended": "2.0.0",
+    "husky": "^8.0.3",
+    "js-toml": "^1.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "turbo": "1.11.0"
+  },
+  "packageManager": "pnpm@8.14.0",
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@matterlabs/hardhat-zksync-deploy@0.9.0": "patches/@matterlabs__hardhat-zksync-deploy@0.9.0.patch",
+      "hardhat-contract-sizer@2.10.0": "patches/hardhat-contract-sizer@2.10.0.patch"
+    }
+  }
+}

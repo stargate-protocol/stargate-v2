@@ -1,0 +1,43 @@
+x-build: &build
+  context: .
+  target: ${STG_EVM_NODE_TARGET:-layerzero-node}
+
+x-layerzero-node: &layerzero-node
+  healthcheck:
+    test: [ "CMD", "curl", "-f", "http://localhost:8545" ]
+    interval: 2s
+    timeout: 3s
+    retries: 200
+  labels:
+    com.container.type: "chain-node"
+
+services:
+  bsc:
+    <<: *layerzero-node
+    image: ${STG_IMAGE_NAME:-438003944538.dkr.ecr.us-east-1.amazonaws.com/stargate-snapshot}:bsc-${STG_IMAGE_TAG:-canary}
+    build:
+      <<: *build
+      args:
+        NETWORK_NAME: bsc
+    ports:
+      - 8502:8545
+
+  ethereum:
+    <<: *layerzero-node
+    image: ${STG_IMAGE_NAME:-438003944538.dkr.ecr.us-east-1.amazonaws.com/stargate-snapshot}:ethereum-${STG_IMAGE_TAG:-canary}
+    build:
+      <<: *build
+      args:
+        NETWORK_NAME: ethereum
+    ports:
+      - 8501:8545
+
+  polygon:
+    <<: *layerzero-node
+    image: ${STG_IMAGE_NAME:-438003944538.dkr.ecr.us-east-1.amazonaws.com/stargate-snapshot}:polygon-${STG_IMAGE_TAG:-canary}
+    build:
+      <<: *build
+      args:
+        NETWORK_NAME: polygon
+    ports:
+      - 8509:8545

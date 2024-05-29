@@ -1,0 +1,58 @@
+{
+  "name": "@stargatefinance/stg-evm-sdk-v2",
+  "version": "0.1.4",
+  "license": "BUSL-1.1",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./deployed": {
+      "types": "./dist/deployed/index.d.ts",
+      "import": "./dist/deployed/index.mjs",
+      "require": "./dist/deployed/index.cjs"
+    },
+    "./deployed/*": {
+      "types": "./dist/deployed/*.d.ts",
+      "import": "./dist/deployed/*.mjs",
+      "require": "./dist/deployed/*.cjs"
+    },
+    "./artifacts/*": {
+      "import": "./artifacts/*",
+      "require": "./artifacts/*"
+    },
+    "./deployments/*": {
+      "import": "./deployments/*",
+      "require": "./deployments/*"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "artifacts/**/*",
+    "deployments/**/*",
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsup --clean > /dev/null 2>&1 || true && rm -rf src/errors && $npm_execpath populate && tsup --clean",
+    "clean": "rm -rf .turbo dist artifacts deployments src/errors",
+    "populate": "$npm_execpath ts-node scripts/populate.ts"
+  },
+  "devDependencies": {
+    "@layerzerolabs/evm-sdks-build": "~2.3.10",
+    "@layerzerolabs/tsup-config-next": "~2.3.10",
+    "@layerzerolabs/typescript-config-next": "~2.3.10",
+    "@stargatefinance/stg-evm-v2": "~0.3.28",
+    "@types/node": "^18.15.11",
+    "esbuild-plugin-clean": "~1.0.1",
+    "esbuild-plugin-copy": "~2.1.1",
+    "ts-node": "^10.9.1",
+    "tsup": "^8.0.1",
+    "typescript": "~5.4.3"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

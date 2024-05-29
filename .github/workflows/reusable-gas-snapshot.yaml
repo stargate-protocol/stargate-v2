@@ -1,0 +1,40 @@
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+#
+#                 Reusable workflow that updates the gas snapshot
+#
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+name: Snapshot gas profile
+
+on:
+  workflow_call:
+
+# We'll default the NPM_TOKEN to an empty value since we use it
+# in .npmrc file and if undefined, the node setup would fail
+env:
+  NPM_TOKEN: ""
+
+jobs:
+  snapshot-gas:
+    name: Snapshot gas
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Restore gas snapshot
+        uses: actions/cache@v4
+        with:
+          path: packages/stg-evm-v2/snapshot.gas
+          key: snapshot.gas-${{ github.ref_name }}-${{ github.sha }}
+
+      - name: Snapshot gas
+        run: pnpm --filter @stargatefinance/stg-evm-v2 run forge snapshot --snap snapshot.gas
+        env:
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}

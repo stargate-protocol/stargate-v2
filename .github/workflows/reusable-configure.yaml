@@ -1,0 +1,77 @@
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+#
+#              Reusable workflow that tests deployment & configuration
+#
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+name: Check deployment & configuration
+
+on:
+  workflow_call:
+
+env:
+  # We'll default the NPM_TOKEN to an empty value since we use it
+  # in .npmrc file and if undefined, the node setup would fail
+  NPM_TOKEN: ""
+
+jobs:
+  deploy-sandbox:
+    name: Deploy and configure sandbox
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Login to Amazon ECR
+        run: docker login --username AWS --password $(aws ecr get-login-password --region us-east-1) 438003944538.dkr.ecr.us-east-1.amazonaws.com
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Deploy sandbox
+        run: make deploy-sandbox DEPLOY_ARGS_COMMON=--ci
+
+      - name: Configure sandbox
+        run: make configure-sandbox CONFIGURE_ARGS_COMMON=--ci
+        env:
+          # We'll setup devtools for the fastest configuation since the sandbox RPCs are reliable
+          LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
+          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+
+  deploy-testnet:
+    name: Deploy and configure testnet (simulation)
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Start simulation
+        run: pnpm --filter @stargatefinance/stg-evm-v2 run hardhat lz:test:simulation:start --daemon --stage testnet
+        env:
+          LZ_ENABLE_EXPERIMENTAL_SIMULATION: 1
+
+      - name: Deploy testnet (simulation)
+        run: make deploy-testnet DEPLOY_ARGS_COMMON="--ci --reset"
+        env:
+          # Run under simulation
+          LZ_EXPERIMENTAL_WITH_SIMULATION: 1
+
+      - name: Configure testnet (simulation)
+        run: make configure-testnet CONFIGURE_ARGS_COMMON=--ci
+        env:
+          # We'll setup devtools for the fastest configuation since the sandbox RPCs are reliable
+          LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
+          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+          # Run under simulation
+          LZ_EXPERIMENTAL_WITH_SIMULATION: 1

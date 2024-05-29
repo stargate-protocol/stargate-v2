@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "compile": {
+      "inputs": ["src/**", "foundry.toml", "hardhat.config.ts"],
+      "outputs": ["artifacts/**", "cache/**", "out/**"],
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build", "compile"]
+    },
+    "clean": {
+      "outputs": [],
+      "cache": false
+    },
+    "lint": {
+      "cache": false
+    },
+    "test": {
+      "cache": false,
+      "dependsOn": ["^build", "compile"],
+      "outputs": []
+    }
+  }
+}

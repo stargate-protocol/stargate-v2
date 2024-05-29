@@ -1,0 +1,38 @@
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+#
+#               Workflow that checks pull requests and branch pushes
+#                      only enabled on development branches
+#
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+name: Check code submission
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+# We want the workflow to stop and yield to a new run if new code is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build code
+    uses: ./.github/workflows/reusable-build.yaml
+    secrets: inherit
+
+  check:
+    name: Check code
+    needs: build
+    uses: ./.github/workflows/reusable-test.yaml
+    secrets: inherit
+
+  sandbox:
+    name: Check deployment & configuration
+    needs: build
+    uses: ./.github/workflows/reusable-configure.yaml
+    secrets: inherit

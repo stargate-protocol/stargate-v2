@@ -1,0 +1,209 @@
+#!/bin/bash
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+# versions
+source "$DIR/.versions"
+
+SOLC_VERSION=${SOLC_VERSION:-0.8.20}
+SLITHER_VERSION=${SLITHER_VERSION:-0.9.6}
+
+NVM_DIR=${NVM_DIR:-"$HOME/.nvm"}
+
+function try_sudo() {
+  if [ "$EUID" -ne 0 ]; then
+    sudo bash -c "$@"
+  else
+    bash -c "$@"
+  fi
+}
+
+function ensure_essentials() {
+  case "$(uname -s)" in
+  Linux)
+    local cmd=$(
+      cat <<-EOF
+    apt-get update
+    apt-get install -y --no-install-recommends ca-certificates direnv zsh
+EOF
+    )
+    try_sudo "${cmd}"
+    ;;
+  Darwin)
+    brew install direnv
+    ;;
+  *)
+    echo ": unsupported platform"
+    exit 1
+    ;;
+  esac
+
+}
+
+ensure_nvm() {
+  if ! command -v nvm &>/dev/null; then
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+    if [ -s "$NVM_DIR/nvm.sh" ]; then
+      \. "$NVM_DIR/nvm.sh"  --no-use
+    fi
+  fi
+}
+
+ensure_nodejs() {
+  if ! nvm ls ${NODE_VERSION} >/dev/null 2>&1; then
+    nvm install v${NODE_VERSION}
+    nvm use ${NODE_VERSION} 
+    corepack enable
+  fi
+}
+
+function ensure_foundry() {
+  command -v foundryup &>/dev/null && return
+
+  curl -L https://foundry.paradigm.xyz | bash
+  case $SHELL in
+  */zsh)
+    eval "$(sed -n '/foundry/p' ~/.zshenv)"
+    ;;
+  */bash)
+    eval "$(sed -n '/foundry/p' ~/.bashrc)"
+    ;;
+  *)
+    echo ": could not detect shell"
+    exit 1
+    ;;
+  esac
+  foundryup
+}
+
+function ensure_slither() {
+  command -v slither &>/dev/null && return
+
+  case "$(uname -s)" in
+  Linux)
+    local cmd=$(
+      cat <<-EOF
+    apt-get update
+    apt-get install -y --no-install-recommends python3 python3-pip
+EOF
+    )
+    try_sudo "${cmd}"
+    ;;
+  Darwin)
+    brew install python@3
+    ;;
+  *)
+    echo ": unsupported platform"
+    exit 1
+    ;;
+  esac
+
+  python3 -m pip install "attrs>=22.2.0" "rlp==3.0.0" slither-analyzer==${SLITHER_VERSION}
+}
+
+function build_z3() {
+  rm -rf /tmp/z3-builder
+  local version=4.11.2
+  if [[ ${SOLC_VERSION} == "0.8.22" ]]; then
+    version=4.12.1
+  fi
+  git clone --depth=1 --branch z3-${version} https://github.com/Z3Prover/z3.git /tmp/z3-builder
+  cd /tmp/z3-builder/
+  mkdir build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/local/ -G Ninja --install /opt/ ../ && ninja
+  try_sudo "ninja install"
+}
+
+function build_solc() {
+  rm -rf /tmp/solc-builder
+  git clone --depth=1 --branch v${SOLC_VERSION} https://github.com/ethereum/solidity.git /tmp/solc-builder
+  cd /tmp/solc-builder/
+  mkdir build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/local/ ../ && make
+  try_sudo "make install"
+}
+
+function ensure_solc() {
+  if ! command -v solc-select &>/dev/null; then
+    python3 -m pip install solc-select
+  fi
+
+  if command -v solc &>/dev/null && [[ $(solc --version | sed -n '/Version/s/.*: \([0-9\.]*\).*/\1/gp') == "${SOLC_VERSION}" ]]; then
+    return
+  fi
+
+  case "$(uname -s)-$(uname -m)" in
+  Linux-x86_64 | Darwin-*)
+    solc-select install "${SOLC_VERSION}"
+    solc-select use "${SOLC_VERSION}"
+    ;;
+  Linux-aarch64 | Linux-arm64)
+    # https://docs.soliditylang.org/en/latest/installing-solidity.html#building-from-source
+    local cmd=$(
+      cat <<-EOF
+    apt-get update
+    apt-get install -y --no-install-recommends \
+      build-essential \
+      cmake \
+      ninja-build \
+      libboost-dev libboost-filesystem-dev libboost-test-dev libboost-program-options-dev \
+      libz3-dev \
+      libcvc4-dev \
+      libcln-dev
+EOF
+    )
+    try_sudo "${cmd}"
+    build_z3
+    build_solc
+    ;;
+  *)
+    echo ": unsupported platform"
+    exit 1
+    ;;
+  esac
+}
+
+function ensure_zsh() {
+  if [[ "$(uname -s)" != "Linux" ]]; then
+    return
+  fi
+
+  [[ -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]] || git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+  [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  [[ -f ~/.p10k.zsh ]] || cp ~/.oh-my-zsh/custom/themes/powerlevel10k/config/p10k-lean.zsh ~/.p10k.zsh
+  [[ -f ~/.zshrc ]] && (echo 'args ~/.zshrc | %s/^plugins.*)/plugins=(git zsh-autosuggestions)/ | %s,^ZSH_THEME=.*,ZSH_THEME="powerlevel10k/powerlevel10k" | x' | ex -s)
+  [[ -f ~/.zshrc ]] && (grep -q p10k ~/.zshrc || echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >>~/.zshrc)
+}
+
+function config_envrc() {
+  cat <<-'EOF' | sed 's/^[[:space:]]*//' >${DIR}/.envrc
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+      export PATH="$HOME/.foundry/bin:$PATH"
+      export PATH="/opt/local/bin:$PATH"
+      export LD_LIBRARY_PATH="/opt/local/lib:$LD_LIBRARY_PATH"
+      export PKG_CONFIG_PATH="/opt/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+      export ZSH_THEME="powerlevel10k/powerlevel10k"
+EOF
+  echo "export PATH="\$HOME/.nvm/versions/node/v${NODE_VERSION}/bin:\$PATH"" >>${DIR}/.envrc
+}
+
+function reload_direnv() {
+  direnv allow
+}
+
+# set PATH for checking dependencies
+PATH=/opt/local/bin:$PATH
+
+ensure_essentials
+ensure_nvm
+ensure_nodejs
+ensure_foundry
+ensure_solc
+ensure_slither
+ensure_zsh
+config_envrc
+reload_direnv

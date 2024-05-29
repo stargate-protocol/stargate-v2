@@ -1,0 +1,144 @@
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+#
+#                 Reusable workflow that runs the whole test suite
+#
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+name: Vape Tests
+
+on:
+  workflow_call:
+
+# We'll default the NPM_TOKEN to an empty value since we use it
+# in .npmrc file and if undefined, the node setup would fail
+env:
+  NPM_TOKEN: ""
+
+jobs:
+  lint-build-test:
+    name: Lint, Build & Test
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+        env:
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}
+
+  profile-gas:
+    name: Profile gas
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Profile gas
+        id: profile-gas
+        run: |
+          pnpm --filter @stargatefinance/stg-evm-v2 run test:forge --gas-report | tee profile.log
+
+          echo 'gas-report<<EOF' >> $GITHUB_OUTPUT
+          cat profile.log | grep -e '\(^|\)\|\(^[[:blank:]]*$\)' >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+        env:
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}
+
+      - name: Create summary
+        run: |
+          echo '### Gas profile' >> $GITHUB_STEP_SUMMARY
+          echo '${{ steps.profile-gas.outputs.gas-report }}' >> $GITHUB_STEP_SUMMARY
+
+      - name: Find comment
+        uses: peter-evans/find-comment@v3
+        if: ${{ github.event_name == 'pull_request' }}
+        id: comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "### Gas profile"
+
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v4
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-id: ${{ steps.comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            ### Gas profile
+
+            ${{ steps.profile-gas.outputs.gas-report }}
+
+  diff-gas:
+    name: Diff gas
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Download gas snapshot
+        uses: actions/cache/restore@v4
+        with:
+          path: packages/stg-evm-v2/snapshot.gas
+          key: snapshot.gas-${{ github.event.repository.default_branch }}-
+          restore-keys: |
+            snapshot.gas-${{ github.event.repository.default_branch }}-
+
+      - name: Diff gas
+        id: diff-gas
+        if: ${{ hashFiles('packages/stg-evm-v2/snapshot.gas') != '' }}
+        run: |
+          pnpm --filter @stargatefinance/stg-evm-v2 run forge snapshot --diff snapshot.gas --desc | tee snapshot.log
+
+          echo 'gas-report<<EOF' >> $GITHUB_OUTPUT
+          cat snapshot.log | \
+            grep -e '^test.*[(]gas:.*[)]' | \
+            grep -v '(gas: 0' | \
+            sed -E 's/^([a-zA-Z0-9_]+)(.*?) \(gas: ([-]?[0-9]+) \(([^%]+)%\).*/| \1 | \3 | \4 |/gm' | \
+            sed '1i\| Name | Δ | Δ% |' | \
+            sed '2i\| --- | --- | --- |' >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+        env:
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}
+
+      - name: Create summary
+        if: ${{ steps.diff-gas.outputs.gas-report }}
+        run: |
+          echo '### Gas diff' >> $GITHUB_STEP_SUMMARY
+          echo '${{ steps.diff-gas.outputs.gas-report }}' >> $GITHUB_STEP_SUMMARY
+
+      - name: Find comment
+        uses: peter-evans/find-comment@v3
+        if: ${{ steps.diff-gas.outputs.gas-report && github.event_name == 'pull_request' }}
+        id: comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "### Gas diff"
+
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v4
+        if: ${{ steps.diff-gas.outputs.gas-report && github.event_name == 'pull_request' }}
+        with:
+          issue-number: ${{ github.event.number }}
+          comment-id: ${{ steps.comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            ### Gas diff
+
+            ${{ steps.diff-gas.outputs.gas-report }}

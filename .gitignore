@@ -1,0 +1,53 @@
+.DS_Store
+node_modules/
+
+dist/
+output/
+cache/
+out/
+**/*-local/
+!**/deployments/ethereum-sandbox-local/
+!**/deployments/polygon-sandbox-local/
+!**/deployments/bsc-sandbox-local/
+
+.turbo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# local ide
+.idea/
+.vscode/
+
+#Hardhat files
+artifacts/
+hh-cache/
+
+#foundry test compilation files
+cache
+out
+reference-out
+optimized-out
+reference-working
+
+# PNPM store
+.pnpm-store
+.cache
+
+.snapshot/
+
+.docker-compose
+solcInputs/
+
+transaction.csv
+
+.envrc
+transactions.csv
+
+# Changesets files
+.netrc

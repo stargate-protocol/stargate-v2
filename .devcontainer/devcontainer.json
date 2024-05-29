@@ -1,0 +1,76 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+  "name": "Node.js & TypeScript",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "SOLC_VERSION": "0.8.22",
+      "SLITHER_VERSION": "0.9.6"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers-contrib/features/fish-apt-get:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": "true",
+      "configureZshAsDefaultShell": "true",
+      "installOhMyZsh": "true",
+      // username should be root and installOhMyZshConfig should be false to avoid overwriting .zshrc in the base image
+      "username": "root",
+      "installOhMyZshConfig": "false"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vivaxy.vscode-conventional-commits",
+        "streetsidesoftware.code-spell-checker",
+        "iliazeus.vscode-ansi",
+        "trailofbits.slither-vscode",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "GitHub.vscode-pull-request-github",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "dbaeumer.vscode-eslint",
+        "arcanis.vscode-zipfs",
+        "github.vscode-github-actions"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/usr/bash"
+          },
+          "zsh": {
+            "path": "/usr/bin/zsh"
+          }
+        }
+      }
+    }
+  },
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // User 'initializeCommand' to run commands on the host machine before the container is created.
+  // "initializeCommand": "",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "./install-dependencies",
+  // Configure tool-specific properties.
+  // "customizations": {},
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "root",
+
+  "remoteEnv": {
+    "NPM_TOKEN": "${localEnv:NPM_TOKEN}"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.zsh_history,target=/root/.zsh_history,type=bind",
+    "type=volume,target=${containerWorkspaceFolder}/node_modules"
+  ]
+}

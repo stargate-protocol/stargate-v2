@@ -1,0 +1,12 @@
+diff --git a/tasks/size_contracts.js b/tasks/size_contracts.js
+index e62331922a6f94d169ed79619daa3ed3e079aefe..7e83cce3ef3cab0f3742ae7cb41ab06321188665 100644
+--- a/tasks/size_contracts.js
++++ b/tasks/size_contracts.js
+@@ -87,6 +87,7 @@ task(
+     outputData.sort((a, b) => a.deploySize - b.deploySize);
+   }
+ 
++  await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
+   await fs.promises.writeFile(outputPath, JSON.stringify(outputData), { flag: 'w' });
+ 
+   const table = new Table({

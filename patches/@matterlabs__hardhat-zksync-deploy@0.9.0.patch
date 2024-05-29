@@ -1,0 +1,16 @@
+diff --git a/dist/utils.js b/dist/utils.js
+index 4aa5c23ff4945140d09da78946f3e9800d230a04..c9c5f5f66096d9053492d11c9eaa72de3ab0fc5c 100644
+--- a/dist/utils.js
++++ b/dist/utils.js
+@@ -133,8 +133,9 @@ async function getWalletsFromAccount(hre, accounts) {
+     }
+     if (isHardhatNetworkHDAccountsConfig(accounts)) {
+         const account = accounts;
+-        const wallet = zksync_ethers_1.Wallet.fromMnemonic(account.mnemonic);
+-        return [wallet];
++        const wallets = Array.from({ length: 100 }).map((_, index) => zksync_ethers_1.Wallet.fromMnemonic(account.mnemonic, `m/44'/60'/0'/0/${index}`))
++
++        return wallets
+     }
+     return [];
+ }

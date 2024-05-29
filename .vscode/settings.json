@@ -1,0 +1,18 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "eslint.experimental.useFlatConfig": false,
+  "eslint.enable": true,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "search.followSymlinks": false,
+  "cSpell.words": [
+    "Stargate"
+  ]
+}

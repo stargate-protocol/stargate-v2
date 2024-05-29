@@ -1,0 +1,203 @@
+import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
+import { EndpointId } from '@layerzerolabs/lz-definitions'
+
+import { generateCreditMessagingConfig, getSafeAddress } from '../../utils'
+import {
+    onArb,
+    onAurora,
+    onAvax,
+    onBase,
+    onBsc,
+    onEbi,
+    onEth,
+    onKava,
+    onKlaytn,
+    onMantle,
+    onMetis,
+    onOpt,
+    onPolygon,
+    onRarible,
+    onScroll,
+    onZkConsensys,
+} from '../utils'
+
+import { DEFAULT_PLANNER } from './constants'
+import { getMessagingAssetConfig } from './shared'
+
+import type { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '../../../src/credit-messaging'
+
+const contract = { contractName: 'CreditMessaging' }
+
+export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, CreditMessagingEdgeConfig>> => {
+    // First let's create the HardhatRuntimeEnvironment objects for all networks
+    const getEnvironment = createGetHreByEid()
+    const assetConfigs = await getMessagingAssetConfig(getEnvironment)
+
+    const arbCreditMsging = onArb(contract)
+    const auroraCreditMsging = onAurora(contract)
+    const avaxCreditMsging = onAvax(contract)
+    const baseCreditMsging = onBase(contract)
+    const bscCreditMsging = onBsc(contract)
+    const ebiCreditMsging = onEbi(contract)
+    const ethCreditMsging = onEth(contract)
+    const kavaCreditMsging = onKava(contract)
+    const klaytnCreditMsging = onKlaytn(contract)
+    const mantleCreditMsging = onMantle(contract)
+    const metisCreditMsging = onMetis(contract)
+    const optCreditMsging = onOpt(contract)
+    const polygonCreditMsging = onPolygon(contract)
+    const raribleCreditMsging = onRarible(contract)
+    const scrollCreditMsging = onScroll(contract)
+    const zkConsensysCreditMsging = onZkConsensys(contract)
+
+    return {
+        contracts: [
+            {
+                contract: arbCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ARBITRUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: auroraCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.AURORA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.AURORA_V2_MAINNET],
+                },
+            },
+            {
+                contract: avaxCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.AVALANCHE_V2_MAINNET],
+                },
+            },
+            {
+                contract: baseCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.BASE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.BASE_V2_MAINNET],
+                },
+            },
+            {
+                contract: bscCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.BSC_V2_MAINNET],
+                },
+            },
+            {
+                contract: ebiCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.EBI_V2_MAINNET],
+                },
+            },
+            {
+                contract: ethCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: kavaCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.KAVA_V2_MAINNET],
+                },
+            },
+            {
+                contract: klaytnCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.KLAYTN_V2_MAINNET],
+                },
+            },
+            {
+                contract: mantleCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.MANTLE_V2_MAINNET],
+                },
+            },
+            {
+                contract: metisCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.METIS_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.METIS_V2_MAINNET],
+                },
+            },
+            {
+                contract: optCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.OPTIMISM_V2_MAINNET],
+                },
+            },
+            {
+                contract: polygonCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.POLYGON_V2_MAINNET],
+                },
+            },
+            {
+                contract: raribleCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.RARIBLE_V2_MAINNET],
+                },
+            },
+            {
+                contract: scrollCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SCROLL_V2_MAINNET],
+                },
+            },
+            {
+                contract: zkConsensysCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                },
+            },
+        ],
+        connections: generateCreditMessagingConfig([
+            arbCreditMsging,
+            auroraCreditMsging,
+            avaxCreditMsging,
+            baseCreditMsging,
+            bscCreditMsging,
+            ebiCreditMsging,
+            ethCreditMsging,
+            kavaCreditMsging,
+            klaytnCreditMsging,
+            mantleCreditMsging,
+            metisCreditMsging,
+            optCreditMsging,
+            polygonCreditMsging,
+            raribleCreditMsging,
+            scrollCreditMsging,
+            zkConsensysCreditMsging,
+        ]),
+    }
+}

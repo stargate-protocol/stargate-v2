@@ -1,0 +1,30 @@
+name: Setup build cache
+description: Setup cache for turbo builds & hardhat compilers
+runs:
+  using: "composite"
+  steps:
+    # Cache build artifacts from turbo
+    #
+    # This step will speed up workflow runs that don't touch the whole codebase
+    # (or the ones that don't touch the codebase at all)
+    - name: Cache turbo build setup
+      uses: actions/cache@v4
+      with:
+        path: node_modules/.cache/turbo
+        key: ${{ runner.os }}-turbo-${{ github.ref_name }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-turbo-${{ github.ref_name }}-
+          ${{ runner.os }}-turbo-${{ github.base_ref || github.event.repository.default_branch }}
+          ${{ runner.os }}-turbo-
+
+    # Cache hardhat compilers
+    #
+    # This step will speed up workflow runs that use hardhat compilation
+    - name: Cache hardhat compilers
+      uses: actions/cache@v4
+      with:
+        path: .cache/hardhat
+        key: ${{ runner.os }}-hardhat-${{ github.ref_name }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-hardhat-${{ github.ref_name }}-
+          ${{ runner.os }}-hardhat-

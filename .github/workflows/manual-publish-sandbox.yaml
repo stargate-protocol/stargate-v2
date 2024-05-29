@@ -1,0 +1,95 @@
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+#
+#              Workflow that deploys, configures and pushes sandbox images
+#
+#   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-  .-.-.   .-.-.   .-.-
+#  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ / / \ \ / / \ \ / / \
+# `-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-'   `-`-'   `-`-'
+name: Build & Push sandbox
+
+# This workflow can be triggered from the UI
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Docker tag
+        required: true
+        type: string
+        default: canary
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.tag }}
+
+# We'll default the NPM_TOKEN to an empty value since we use it
+# in .npmrc file and if undefined, the node setup would fail
+env:
+  NPM_TOKEN: ""
+
+jobs:
+  build-and-push-sandbox:
+    name: Build & Push Sandbox
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Make sure we are on the default branch
+        if: github.ref_name != github.event.repository.default_branch
+        run: |
+          echo "You should not be deploying sandbox from non-default branches!" >> $GITHUB_STEP_SUMMARY
+          exit 1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.STARGATE_BOT_GITHUB_TOKEN }}
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Login to Amazon ECR
+        run: docker login --username AWS --password $(aws ecr get-login-password --region us-east-1) 438003944538.dkr.ecr.us-east-1.amazonaws.com
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Create multiarch docker builder
+        run: docker buildx create --name stargate --driver docker-container --use
+
+      - name: Build & push sandbox
+        run: make sandbox CONFIGURE_ARGS_COMMON=--ci DEPLOY_ARGS_COMMON=--ci
+        env:
+          # We'll setup devtools for the fastest configuation since the sandbox RPCs are reliable
+          LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
+          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+
+          # Set the image tag to the tag from the inputs
+          STG_IMAGE_TAG: ${{ inputs.tag }}
+
+      - name: Create changeset
+        run: |
+          cat << EOF > .changeset/stinky-sandbox-${{ inputs.tag }}.md
+          ---
+          "@stargatefinance/stg-evm-v2": patch
+          "@stargatefinance/stg-evm-sdk-v2": patch
+          ---
+
+          Sandbox deployments for ${{ inputs.tag }} image tag
+          EOF
+
+      # And create a PR to the base branch with any deployments created
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "🗞️ Sandbox deployments for ${{ inputs.tag }} image tag"
+          commit-message: "🗞️ Sandbox deployments for ${{ inputs.tag }} image tag"
+          branch: deployments/${{ github.ref_name }}/${{ inputs.tag }}
+          body: |
+            ### In this PR
+
+            - Sandbox deployments for tag **${{ inputs.tag }}**
+
+            See [the workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more information.
+
+            Created by ${{ github.workflow }} workflow on branch ${{ github.ref }}.
+          token: ${{ secrets.STARGATE_BOT_GITHUB_TOKEN }}

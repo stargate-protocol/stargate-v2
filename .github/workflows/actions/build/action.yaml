@@ -1,0 +1,24 @@
+name: Build project
+description: Builds all the workspaces
+inputs:
+  NODE_ENV:
+    description: 'Node.js environment (development or production)'
+    required: false
+    default: 'development'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup environment
+      uses: ./.github/workflows/actions/setup-environment
+
+    - name: Install dependencies
+      uses: ./.github/workflows/actions/install-dependencies
+
+    - name: Setup build cache
+      uses: ./.github/workflows/actions/setup-build-cache
+
+    - name: Build
+      shell: bash
+      run: pnpm build
+      env:
+        NODE_ENV: ${{ inputs.NODE_ENV }}

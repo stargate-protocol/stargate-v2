@@ -1,0 +1,9 @@
+{
+  "extends": "@layerzerolabs/typescript-config-next/library.json",
+  "include": ["src", "*.config.ts"],
+  "exclude": ["dist", "node_modules"],
+  "compilerOptions": {
+    "types": ["node"],
+    "resolveJsonModule": true
+  }
+}
