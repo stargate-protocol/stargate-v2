@@ -1,6 +1,4 @@
-// The format is 'packageName/contractName', findDeployment will find the corresponding deployment based on these information.
-
-import { parseEther } from 'ethers/lib/utils'
+import { parseEther } from '@ethersproject/units'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
@@ -642,6 +640,18 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xb93Aa694A3De8662E1ca9aD0C811440E48cDFe5E',
             safeUrl: 'https://ebi-tx.lzdevnet.org/',
+            contractNetworks: {
+                [98881]: {
+                    multiSendAddress: '0x00B3FA8E2020e93Cc092508C61DcCa70425635E3',
+                    multiSendCallOnlyAddress: '0xddE16aA6EA27d17c83D43C8f62f828427Ae9848d',
+                    safeMasterCopyAddress: '0xA042C3543E6b546a34ECe6411cD3E3093e7551ec',
+                    safeProxyFactoryAddress: '0x3Dc5fA91e051BB23051Fd424125bc90f24A7DFB9',
+                    fallbackHandlerAddress: '0x075bB7db8EbE09E507295A9Be57da19DEA01aa3B',
+                    createCallAddress: '0x5BF7D6509be83C1e0AA5b9C0bCaF81d626204848',
+                    signMessageLibAddress: '0x9DE94C4F9AB1E1157d3637E04bD96fb8A8143401',
+                    simulateTxAccessorAddress: '0xa60175Fe4Ea218afE3C5dD23203a0fe82BDB6638',
+                },
+            },
         },
     },
     [EndpointId.ETHEREUM_V2_MAINNET]: {
@@ -785,7 +795,19 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x0bB70602d48E1A681B6aCBC788712751A3f0b59d',
-            safeUrl: 'https://rari-mainnet-tx.lzdevnet.org/',
+            safeUrl: 'https://rarible-tx.lzdevnet.org/',
+            contractNetworks: {
+                [1380012617]: {
+                    multiSendAddress: '0xA5B0D16C5B126c58Fe0beD60dDA67Ffce37ad897',
+                    multiSendCallOnlyAddress: '0xa1C6169264FC1157D919DAaA7367082334d8252E',
+                    safeMasterCopyAddress: '0xd2C579a0f0Da63f55D52c3E74e256cae8C4373d8',
+                    safeProxyFactoryAddress: '0x575758E1aBB97d4473709C56330433fa64BdcF00',
+                    fallbackHandlerAddress: '0x58Da6D1445A907e7aF8c7b2ccf5c89EBD56495C5',
+                    signMessageLibAddress: '0xE86ec9806064596DC023B6f9f560e33Ad7372eb8',
+                    createCallAddress: '0x576FDeBAdfB09036Dcb3B3a4B34482A13b5a4407',
+                    simulateTxAccessorAddress: '0xf96B7814BA740fd56511dc698257c41d52683517',
+                },
+            },
         },
     },
     [EndpointId.SCROLL_V2_MAINNET]: {
