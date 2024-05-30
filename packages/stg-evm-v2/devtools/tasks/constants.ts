@@ -1,4 +1,18 @@
+export const TASK_LZ_OAPP_VISUALIZE = `lz:oapp:visualize`
+
+export const SUBTASK_LZ_OAPP_STATE_LOAD = `lz:oapp:state::load`
+export const SUBTASK_LZ_OAPP_VISUALIZE_CONFIGURE = `lz:oapp:visualize::configure`
+
 export const TASK_STG_WIRE_CREDIT_MESSAGING = `stg:wire::credit-messaging`
+export const TASK_STG_VISUALIZE_CREDIT_MESSAGING = `stg:visualize::credit-messaging`
+export const TASK_STG_VISUALIZE_TOKEN_MESSAGING = `stg:visualize::token-messaging`
+export const TASK_STG_VISUALIZE_FEELIBV1 = `stg:visualize::feelib-v1`
+export const TASK_STG_VISUALIZE_ASSET = `stg:visualize::asset`
+export const TASK_STG_VISUALIZE_TREASURER = `stg:visualize::treasurer`
+export const TASK_STG_VISUALIZE_STAKING = `stg:visualize::staking`
+export const TASK_STG_VISUALIZE_REWARDER = `stg:visualize::rewarder`
+export const TASK_STG_VISUALIZE_OFT = `stg:visualize::oft`
+export const TASK_STG_VISUALIZE_TOKEN = `stg:visualize::token`
 
 export const TASK_STG_WIRE_TOKEN_MESSAGING = `stg:wire::token-messaging`
 export const TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE = `stg:wire::token-messaging:initialize-storage`

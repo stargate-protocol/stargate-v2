@@ -8,7 +8,7 @@ import type {
 } from '@layerzerolabs/devtools'
 import type { EndpointId } from '@layerzerolabs/lz-definitions'
 import type { IOwnable, OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
-import type { AssetId } from '@stargatefinance/stg-definitions-v2'
+import type { AssetId, StargateType } from '@stargatefinance/stg-definitions-v2'
 
 export interface AssetEdgeConfig {
     isOFT?: boolean
@@ -24,6 +24,7 @@ export type AssetOmniGraph = OmniGraph<AssetNodeConfig, AssetEdgeConfig>
 export type AssetFactory<TAsset extends IAsset = IAsset, TOmniPoint = OmniPoint> = OmniSDKFactory<TAsset, TOmniPoint>
 
 export interface IAsset extends IOmniSDK, IOwnable {
+    getToken(): Promise<OmniAddress>
     getAddressConfig(): Promise<AddressConfig>
     setAddressConfig(addressConfig: AddressConfig): Promise<OmniTransaction>
     hasAddressConfig(addressConfig: AddressConfig): Promise<boolean>
@@ -34,6 +35,7 @@ export interface IAsset extends IOmniSDK, IOwnable {
     isPaused(): Promise<boolean>
     setPaused(pause: boolean): Promise<OmniTransaction>
 
+    getStargateType(): Promise<StargateType>
     getLPToken(): Promise<OmniAddress | undefined>
 }
 

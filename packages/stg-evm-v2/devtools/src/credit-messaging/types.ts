@@ -9,7 +9,7 @@ export interface CreditMessagingEdgeConfig extends OAppEdgeConfig {
 }
 
 export interface CreditMessagingNodeConfig extends OAppNodeConfig, MessagingNodeConfig {
-    planner: OmniAddress
+    planner?: OmniAddress
 }
 
 export type CreditMessagingOmniGraph = OmniGraph<CreditMessagingNodeConfig, CreditMessagingEdgeConfig>

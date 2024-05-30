@@ -10,6 +10,20 @@ import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 import type { IERC20 } from './types'
 
 export class ERC20 extends Ownable implements IERC20 {
+    @AsyncRetriable()
+    async symbol(): Promise<string> {
+        const symbol = this.contract.contract.symbol()
+
+        return symbol
+    }
+
+    @AsyncRetriable()
+    async name(): Promise<string> {
+        const name = this.contract.contract.name()
+
+        return name
+    }
+
     async approve(spender: OmniAddress, amount: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('approve', [spender, amount])
 

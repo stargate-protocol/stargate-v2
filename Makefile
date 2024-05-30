@@ -335,3 +335,45 @@ transfer-mainnet:
 # 
 # make transfer-mainnet
 mainnet: deploy-mainnet configure-mainnet transfer-mainnet
+
+print-token-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
+print-token-testnet:
+	$(HARDHAT) stg:visualize::token $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts
+
+print-token-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+print-token-mainnet:
+	$(HARDHAT) stg:visualize::token $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts
+
+compare-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
+compare-testnet:
+	$(HARDHAT) stg:visualize::credit-messaging $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --contract-name CreditMessaging
+	$(HARDHAT) stg:visualize::token-messaging $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --contract-name TokenMessaging
+	# $(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --contract-name FeeLibV1ETH
+	# $(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --contract-name FeeLibV1USDC
+	# $(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --contract-name FeeLibV1USDT
+	# $(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts --contract-name Asset
+	# $(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --contract-name Asset
+	# $(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --contract-name Asset
+	# $(HARDHAT) stg:visualize::treasurer $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --contract-name Treasurer
+	# $(HARDHAT) stg:visualize::staking $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts --contract-name Staking
+	# $(HARDHAT) stg:visualize::rewarder $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --contract-name Rewarder
+	# $(HARDHAT) stg:visualize::oft $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --contract-name OFT
+
+compare-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+compare-mainnet:
+	$(HARDHAT) stg:visualize::credit-messaging $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --contract-name CreditMessaging
+	$(HARDHAT) stg:visualize::token-messaging $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --contract-name TokenMessaging
+	$(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --contract-name FeeLibV1ETH
+	$(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.meth.config.ts --contract-name FeeLibV1mETH
+	$(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts --contract-name FeeLibV1METIS
+	$(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --contract-name FeeLibV1USDC
+	$(HARDHAT) stg:visualize::feelib-v1 $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --contract-name FeeLibV1USDT
+	$(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts --contract-name Asset
+	$(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.meth.config.ts --contract-name Asset
+	$(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts --contract-name Asset
+	$(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --contract-name Asset
+	$(HARDHAT) stg:visualize::asset $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --contract-name Asset
+	$(HARDHAT) stg:visualize::treasurer $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --contract-name Treasurer
+	$(HARDHAT) stg:visualize::staking $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts --contract-name Staking
+	$(HARDHAT) stg:visualize::rewarder $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --contract-name Rewarder
+	$(HARDHAT) stg:visualize::oft $(VISUALIZE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --contract-name OFT

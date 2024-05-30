@@ -22,6 +22,8 @@ export type ERC20OmniGraph = OmniGraph<ERC20NodeConfig, unknown>
 export type ERC20Factory<TERC20 extends IERC20 = IERC20, TOmniPoint = OmniPoint> = OmniSDKFactory<TERC20, TOmniPoint>
 
 export interface IERC20 extends IOmniSDK, IOwnable {
+    symbol(): Promise<string>
+    name(): Promise<string>
     approve(spender: OmniAddress, amount: bigint): Promise<OmniTransaction>
     decimals(): Promise<number>
     getAllowance(owner: OmniAddress, spender: OmniAddress): Promise<bigint>

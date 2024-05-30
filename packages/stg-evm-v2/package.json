@@ -67,7 +67,9 @@
     "@stargatefinance/stg-definitions-v2": "~0.3.22",
     "@stargatefinance/stg-evm-v1": "~1.0.31",
     "@types/sinon": "~17.0.3",
-    "ethers": "^5.7.2"
+    "deep-object-diff": "^1.1.9",
+    "ethers": "^5.7.2",
+    "table": "^6.8.2"
   },
   "devDependencies": {
     "@ensdomains/buffer": "^0.1.1",

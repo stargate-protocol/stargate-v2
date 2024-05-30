@@ -1,3 +1,4 @@
+import { StargateType } from '@stargatefinance/stg-definitions-v2'
 import { BigNumber } from 'ethers'
 
 import {
@@ -20,6 +21,14 @@ const UNLIMITED_CREDIT = BigNumber.from('0xffffffffffffffff')
 const PAUSED = 3
 
 export class Asset extends Ownable implements IAsset {
+    @AsyncRetriable()
+    async getToken(): Promise<OmniAddress> {
+        this.logger.debug(`Getting token address`)
+        const address = await this.contract.contract.token()
+
+        return address
+    }
+
     @AsyncRetriable()
     async getAddressConfig(): Promise<AddressConfig> {
         const config = await this.contract.contract.getAddressConfig()
@@ -77,6 +86,17 @@ export class Asset extends Ownable implements IAsset {
             ...this.createTransaction(data),
             description: `Setting isOFT path for ${this.label} on ${formatEid(dstEid)} to ${isOft}`,
         }
+    }
+
+    @AsyncRetriable()
+    async getStargateType(): Promise<StargateType> {
+        const stargateType = await this.contract.contract.stargateType()
+
+        if (stargateType === 0) {
+            return StargateType.Pool
+        }
+
+        return StargateType.Oft
     }
 
     @AsyncRetriable()

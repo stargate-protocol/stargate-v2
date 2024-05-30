@@ -301,9 +301,15 @@ importers:
       '@types/sinon':
         specifier: ~17.0.3
         version: 17.0.3
+      deep-object-diff:
+        specifier: ^1.1.9
+        version: 1.1.9
       ethers:
         specifier: ^5.7.2
         version: 5.7.2
+      table:
+        specifier: ^6.8.2
+        version: 6.8.2
     devDependencies:
       '@ensdomains/buffer':
         specifier: ^0.1.1
@@ -6187,6 +6193,10 @@ packages:
   /deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
+
+  /deep-object-diff@1.1.9:
+    resolution: {integrity: sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==}
+    dev: false
 
   /deepmerge@4.3.1:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}

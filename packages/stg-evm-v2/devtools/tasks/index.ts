@@ -92,6 +92,8 @@ import {
     TASK_STG_WIRE_USDC_SET_ADMIN,
 } from './constants'
 
+import './visualize.ts'
+
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 
 /**
@@ -107,7 +109,7 @@ wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_CONFIG_LOAD,
         'Load credit messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
             runSuper({
                 ...args,
                 schema: CreditMessagingOmniGraphHardhatSchema,
@@ -116,7 +118,7 @@ wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure credit messaging',
-        (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureCreditMessaging,
@@ -140,7 +142,7 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_CONFIG_LOAD,
         'Load token messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
             runSuper({
                 ...args,
                 schema: TokenMessagingOmniGraphHardhatSchema,
@@ -149,7 +151,7 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure token messaging',
-        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureTokenMessaging,
@@ -173,7 +175,7 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE).setAction(async (args
     subtask(
         SUBTASK_LZ_OAPP_CONFIG_LOAD,
         'Load token messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
             runSuper({
                 ...args,
                 schema: TokenMessagingOmniGraphHardhatSchema,
@@ -182,7 +184,7 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE).setAction(async (args
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Initialize storage for token messaging',
-        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: initializeBusQueueStorage,
@@ -203,7 +205,7 @@ wireTask(TASK_STG_WIRE_ASSET).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load asset config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load asset config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: AssetOmniGraphHardhatSchema,
@@ -213,7 +215,7 @@ wireTask(TASK_STG_WIRE_ASSET).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure asset',
-        (args: SubtaskConfigureTaskArgs<AssetOmniGraph, IAsset>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<AssetOmniGraph, IAsset>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureAsset,
@@ -234,7 +236,7 @@ wireTask(TASK_STG_WIRE_FEELIB_V1).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load feelib config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load feelib config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: FeeLibV1OmniGraphHardhatSchema,
@@ -244,7 +246,7 @@ wireTask(TASK_STG_WIRE_FEELIB_V1).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure feelib V1',
-        (args: SubtaskConfigureTaskArgs<FeeLibV1OmniGraph, IFeeLibV1>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<FeeLibV1OmniGraph, IFeeLibV1>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureFeeLibV1,
@@ -265,7 +267,7 @@ wireTask(TASK_STG_WIRE_TREASURER).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load treasurer config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load treasurer config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: TreasurerOmniGraphHardhatSchema,
@@ -275,7 +277,7 @@ wireTask(TASK_STG_WIRE_TREASURER).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure treasurer',
-        (args: SubtaskConfigureTaskArgs<TreasurerOmniGraph, ITreasurer>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<TreasurerOmniGraph, ITreasurer>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureTreasurer,
@@ -296,7 +298,7 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load OFT config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load OFT config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: MintableOmniGraphHardhatSchema,
@@ -306,7 +308,7 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure OFT',
-        (args: SubtaskConfigureTaskArgs<MintableOmniGraph, IMintable>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<MintableOmniGraph, IMintable>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureMintable,
@@ -327,7 +329,7 @@ wireTask(TASK_STG_WIRE_USDC).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: USDCOmniGraphHardhatSchema,
@@ -337,7 +339,7 @@ wireTask(TASK_STG_WIRE_USDC).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureUSDC,
@@ -358,7 +360,7 @@ wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: USDCOmniGraphHardhatSchema,
@@ -367,7 +369,7 @@ wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Set admin for USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureProxyAdmin,
@@ -388,7 +390,7 @@ wireTask(TASK_STG_WIRE_USDC_INITIALIZE_MINTER).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: USDCOmniGraphHardhatSchema,
@@ -397,7 +399,7 @@ wireTask(TASK_STG_WIRE_USDC_INITIALIZE_MINTER).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Initialize minters for USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: initializeMinters,
@@ -418,7 +420,7 @@ wireTask(TASK_STG_WIRE_REWARDER).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: RewarderOmniGraphHardhatSchema,
@@ -428,7 +430,7 @@ wireTask(TASK_STG_WIRE_REWARDER).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure rewarder',
-        (args: SubtaskConfigureTaskArgs<RewarderOmniGraph, IRewarder>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<RewarderOmniGraph, IRewarder>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureRewarder,
@@ -449,7 +451,7 @@ wireTask(TASK_STG_SET_REWARDS).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: RewarderRewardsOmniGraphHardhatSchema,
@@ -459,7 +461,7 @@ wireTask(TASK_STG_SET_REWARDS).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Set rewards',
-        (args: SubtaskConfigureTaskArgs<RewarderRewardsOmniGraph, IRewarder>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<RewarderRewardsOmniGraph, IRewarder>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureRewards,
@@ -480,7 +482,7 @@ wireTask(TASK_STG_WIRE_STAKING).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load staking config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load staking config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: StakingOmniGraphHardhatSchema,
@@ -490,7 +492,7 @@ wireTask(TASK_STG_WIRE_STAKING).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure staking',
-        (args: SubtaskConfigureTaskArgs<StakingOmniGraph, IStaking>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<StakingOmniGraph, IStaking>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureStaking,
@@ -511,7 +513,7 @@ wireTask(TASK_STG_SET_MINT_ALLOWANCE).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load allowance config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load allowance config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: ERC20OmniGraphHardhatSchema,
@@ -521,7 +523,7 @@ wireTask(TASK_STG_SET_MINT_ALLOWANCE).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure allowance',
-        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureERC20,
@@ -542,7 +544,7 @@ wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load liquidity config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load liquidity config', (args: SubtaskLoadConfigTaskArgs, _hre, runSuper) =>
         runSuper({
             ...args,
             schema: PoolOmniGraphHardhatSchema,
@@ -552,7 +554,7 @@ wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure liquidity',
-        (args: SubtaskConfigureTaskArgs<PoolOmniGraph, IPool>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<PoolOmniGraph, IPool>, _hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureDeposit,

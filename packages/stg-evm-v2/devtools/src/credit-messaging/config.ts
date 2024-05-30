@@ -17,6 +17,10 @@ export const configurePlanner: CreditMessagingConfigurator = createConfigureNode
     const planner = await sdk.getPlanner()
     if (areBytes32Equal(planner, config.planner)) return []
 
+    if (!config.planner) {
+        return [] // No planner to set, do not overwrite the existing one
+    }
+
     return [await sdk.setPlanner(config.planner)]
 })
 
