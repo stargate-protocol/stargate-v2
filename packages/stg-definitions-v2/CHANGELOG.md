@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 0.3.23
+
+### Patch Changes
+
+- f5a0eb6: Fix Rarible Safe URL
+- f5a0eb6: Add Safe config for EBI and Rarible
+
 ## 0.3.22
 
 ### Patch Changes
