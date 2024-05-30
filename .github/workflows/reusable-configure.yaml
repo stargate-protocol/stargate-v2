@@ -75,3 +75,42 @@ jobs:
           LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
           # Run under simulation
           LZ_EXPERIMENTAL_WITH_SIMULATION: 1
+
+  deploy-mainnet:
+    name: Deploy and configure mainnet (simulation)
+    runs-on: ubuntu-latest-4xlarge
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        uses: ./.github/workflows/actions/build
+
+      - name: Start simulation
+        run: pnpm --filter @stargatefinance/stg-evm-v2 run hardhat lz:test:simulation:start --daemon --stage mainnet
+        env:
+          LZ_ENABLE_EXPERIMENTAL_SIMULATION: 1
+
+      - name: Deploy mainnet (simulation)
+        run: make deploy-mainnet DEPLOY_ARGS_COMMON="--ci --reset"
+        env:
+          # Run under simulation
+          LZ_EXPERIMENTAL_WITH_SIMULATION: 1
+
+      - name: Configure mainnet (simulation)
+        run: make configure-mainnet CONFIGURE_ARGS_COMMON=--ci
+        env:
+          LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
+          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+          # Run under simulation
+          LZ_EXPERIMENTAL_WITH_SIMULATION: 1
+
+      - name: Transfer mainnet ownership (simulation)
+        run: make transfer-mainnet CONFIGURE_ARGS_COMMON=--ci
+        env:
+          LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
+          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+          # Run under simulation
+          LZ_EXPERIMENTAL_WITH_SIMULATION: 1
