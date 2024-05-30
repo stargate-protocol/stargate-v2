@@ -32,7 +32,7 @@
     "@layerzerolabs/solhint-config": "~2.3.10",
     "@layerzerolabs/test-devtools-evm-foundry": "^0.2.3",
     "@layerzerolabs/toolbox-foundry": "~0.1.5",
-    "@layerzerolabs/toolbox-hardhat": "~0.2.24",
+    "@layerzerolabs/toolbox-hardhat": "~0.2.26",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
