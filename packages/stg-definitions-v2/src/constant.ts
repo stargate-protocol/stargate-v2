@@ -795,7 +795,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x0bB70602d48E1A681B6aCBC788712751A3f0b59d',
-            safeUrl: 'https://rari-mainnet-tx.lzdevnet.org/',
+            safeUrl: 'https://rarible-tx.lzdevnet.org/',
             contractNetworks: {
                 [1380012617]: {
                     multiSendAddress: '0xA5B0D16C5B126c58Fe0beD60dDA67Ffce37ad897',
