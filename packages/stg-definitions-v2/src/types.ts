@@ -1,4 +1,5 @@
-import { EndpointId } from '@layerzerolabs/lz-definitions'
+import type { EndpointId } from '@layerzerolabs/lz-definitions'
+import type { ContractNetworksConfig } from '@safe-global/protocol-kit/dist/src/types'
 
 export enum StargateType {
     Pool = 'Pool',
@@ -74,6 +75,7 @@ export type NetworksConfig = Partial<Record<EndpointId, NetworkConfig>>
 export interface SafeConfig {
     safeUrl: string
     safeAddress: string
+    contractNetworks?: ContractNetworksConfig
 }
 
 export interface NetworkConfig {

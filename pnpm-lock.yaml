@@ -55,11 +55,10 @@ importers:
         version: 1.11.0
 
   packages/stg-definitions-v2:
-    dependencies:
-      ethers:
-        specifier: ^5.7.2
-        version: 5.7.2
     devDependencies:
+      '@ethersproject/units':
+        specifier: ~5.7.0
+        version: 5.7.0
       '@layerzerolabs/lz-definitions':
         specifier: 2.3.10
         version: 2.3.10
@@ -69,6 +68,9 @@ importers:
       '@layerzerolabs/typescript-config-next':
         specifier: ~2.3.10
         version: 2.3.10
+      '@safe-global/protocol-kit':
+        specifier: ^1.3.0
+        version: 1.3.0(ethers@5.7.2)
       '@types/node':
         specifier: ^18.15.11
         version: 18.19.31
@@ -3822,9 +3824,9 @@ packages:
       '@ethersproject/address': 5.7.0
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/solidity': 5.7.0
-      '@safe-global/safe-deployments': 1.34.0
+      '@safe-global/safe-deployments': 1.36.0
       ethereumjs-util: 7.1.5
-      semver: 7.6.0
+      semver: 7.6.2
       web3: 1.10.4
       web3-core: 1.10.4
       web3-utils: 1.10.4
@@ -3854,6 +3856,12 @@ packages:
     resolution: {integrity: sha512-J55iHhB1tiNoPeVQ5s943zrfeKRYPqBtnz/EM7d878WzUmmDlTGKHN98qPYKBxkRKP1UjEWuQDrZxy80lx1rJw==}
     dependencies:
       semver: 7.6.0
+    dev: true
+
+  /@safe-global/safe-deployments@1.36.0:
+    resolution: {integrity: sha512-9MbDJveRR64AbmzjIpuUqmDBDtOZpXpvkyhTUs+5UOPT3WgSO375/ZTO7hZpywP7+EmxnjkGc9EoxjGcC4TAyw==}
+    dependencies:
+      semver: 7.6.2
     dev: true
 
   /@scure/base@1.1.6:
@@ -5334,7 +5342,7 @@ packages:
     engines: {node: '>=6.14.2'}
     requiresBuild: true
     dependencies:
-      node-gyp-build: 4.8.0
+      node-gyp-build: 4.8.1
 
   /bufio@1.2.1:
     resolution: {integrity: sha512-9oR3zNdupcg/Ge2sSHQF3GX+kmvL/fTPvD0nd5AGLq8SjUYnTz+SlFjK/GXidndbZtIj+pVKXiWeR9w6e9wKCA==}
@@ -7197,6 +7205,7 @@ packages:
     dependencies:
       is-hex-prefixed: 1.0.0
       strip-hex-prefix: 1.0.0
+    bundledDependencies: false
 
   /eventemitter3@4.0.4:
     resolution: {integrity: sha512-rlaVLnVxtxvoyLsQQFBx53YmXHDxRIzzTLbdfxqi4yocpSjAxXwkU0cScM5JgSKMqEhrZpnvQ2D9gjylR0AimQ==}
@@ -10173,8 +10182,6 @@ packages:
     resolution: {integrity: sha512-OSs33Z9yWr148JZcbZd5WiAXhh/n9z8TxQcdMhIOlpN9AhWpLfvVFO73+m77bBABQMaY9XSvIa+qk0jlI7Gcaw==}
     hasBin: true
     requiresBuild: true
-    dev: false
-    optional: true
 
   /node-hid@1.3.0:
     resolution: {integrity: sha512-BA6G4V84kiNd1uAChub/Z/5s/xS3EHBCxotQ0nyYrUG65mXewUDHE1tWOSqA2dp3N+mV0Ffq9wo2AW9t4p/G7g==}
@@ -12931,7 +12938,7 @@ packages:
     engines: {node: '>=6.14.2'}
     requiresBuild: true
     dependencies:
-      node-gyp-build: 4.8.0
+      node-gyp-build: 4.8.1
 
   /utf8@3.0.0:
     resolution: {integrity: sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==}
