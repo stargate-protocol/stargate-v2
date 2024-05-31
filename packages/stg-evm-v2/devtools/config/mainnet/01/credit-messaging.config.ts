@@ -56,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: arbCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ARBITRUM_V2_MAINNET],
                 },
@@ -64,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: auroraCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.AURORA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.AURORA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.AURORA_V2_MAINNET],
                 },
@@ -72,6 +74,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: avaxCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.AVALANCHE_V2_MAINNET],
                 },
@@ -80,6 +83,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: baseCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.BASE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.BASE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BASE_V2_MAINNET],
                 },
@@ -88,6 +92,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: bscCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BSC_V2_MAINNET],
                 },
@@ -96,6 +101,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: ebiCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.EBI_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.EBI_V2_MAINNET],
                 },
@@ -104,6 +110,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: ethCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
                 },
@@ -112,6 +119,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: kavaCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.KAVA_V2_MAINNET],
                 },
@@ -120,6 +128,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: klaytnCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.KLAYTN_V2_MAINNET],
                 },
@@ -128,6 +137,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: mantleCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.MANTLE_V2_MAINNET],
                 },
@@ -136,6 +146,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: metisCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.METIS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.METIS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.METIS_V2_MAINNET],
                 },
@@ -144,6 +155,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: optCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.OPTIMISM_V2_MAINNET],
                 },
@@ -152,6 +164,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: polygonCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.POLYGON_V2_MAINNET],
                 },
@@ -160,6 +173,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: raribleCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.RARIBLE_V2_MAINNET],
                 },
@@ -168,6 +182,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: scrollCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.SCROLL_V2_MAINNET],
                 },
@@ -176,6 +191,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 contract: zkConsensysCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 },

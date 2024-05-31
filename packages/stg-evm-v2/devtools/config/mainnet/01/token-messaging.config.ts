@@ -54,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: arbTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ARBITRUM_V2_MAINNET],
                 },
@@ -62,6 +63,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: auroraTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.AURORA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.AURORA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.AURORA_V2_MAINNET],
                 },
@@ -70,6 +72,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: avaxTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.AVALANCHE_V2_MAINNET],
                 },
@@ -78,6 +81,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: baseTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.BASE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.BASE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BASE_V2_MAINNET],
                 },
@@ -86,6 +90,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: bscTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BSC_V2_MAINNET],
                 },
@@ -94,6 +99,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: ebiTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.EBI_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.EBI_V2_MAINNET],
                 },
@@ -102,6 +108,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: ethTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
                 },
@@ -110,6 +117,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: kavaTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.KAVA_V2_MAINNET],
                 },
@@ -118,6 +126,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: klaytnTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.KLAYTN_V2_MAINNET],
                 },
@@ -126,6 +135,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: mantleTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.MANTLE_V2_MAINNET],
                 },
@@ -134,6 +144,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: metisTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.METIS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.METIS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.METIS_V2_MAINNET],
                 },
@@ -142,6 +153,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: optTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.OPTIMISM_V2_MAINNET],
                 },
@@ -150,6 +162,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: polygonTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.POLYGON_V2_MAINNET],
                 },
@@ -158,6 +171,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: raribleTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.RARIBLE_V2_MAINNET],
                 },
@@ -166,6 +180,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: scrollTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.SCROLL_V2_MAINNET],
                 },
@@ -174,6 +189,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 contract: zkConsensysTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 },
