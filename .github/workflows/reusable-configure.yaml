@@ -64,7 +64,6 @@ jobs:
         env:
           # We'll setup devtools for the fastest configuation since the sandbox RPCs are reliable
           LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
-          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
           LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
 
   deploy-testnet:
@@ -93,7 +92,6 @@ jobs:
         env:
           # We'll setup devtools for the fastest configuation since the sandbox RPCs are reliable
           LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
-          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
           LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
           # Run under simulation
           LZ_EXPERIMENTAL_WITH_SIMULATION: 1
@@ -123,7 +121,6 @@ jobs:
         run: make configure-mainnet CONFIGURE_ARGS_COMMON=--ci
         env:
           LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
-          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
           LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
           # Run under simulation
           LZ_EXPERIMENTAL_WITH_SIMULATION: 1
@@ -132,7 +129,6 @@ jobs:
         run: make transfer-mainnet CONFIGURE_ARGS_COMMON=--ci
         env:
           LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
-          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
           LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
           # Run under simulation
           LZ_EXPERIMENTAL_WITH_SIMULATION: 1

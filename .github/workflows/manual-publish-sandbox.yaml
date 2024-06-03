@@ -60,7 +60,6 @@ jobs:
         env:
           # We'll setup devtools for the fastest configuation since the sandbox RPCs are reliable
           LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
-          LZ_ENABLE_EXPERIMENTAL_RETRY: 1
           LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
 
           # Set the image tag to the tag from the inputs
