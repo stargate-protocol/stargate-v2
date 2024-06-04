@@ -38,6 +38,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const bscTokenMsging = onBsc(contract)
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
+    const iotaTokenMsging = onIota(contract)
     const kavaTokenMsging = onKava(contract)
     const klaytnTokenMsging = onKlaytn(contract)
     const mantleTokenMsging = onMantle(contract)
@@ -111,6 +112,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: iotaTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
                 },
             },
             {
@@ -203,6 +213,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             bscTokenMsging,
             ebiTokenMsging,
             ethTokenMsging,
+            iotaTokenMsging,
             kavaTokenMsging,
             klaytnTokenMsging,
             mantleTokenMsging,

@@ -32,6 +32,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
@@ -99,6 +104,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [ethAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [ethAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [ethAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.IOTA_V2_MAINNET]: {
+            [iotaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [iotaAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [iotaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [kavaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,

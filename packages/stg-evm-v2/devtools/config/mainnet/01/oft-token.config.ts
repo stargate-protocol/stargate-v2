@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onKlaytn, onRarible } from '../utils'
+import { onEbi, onIota, onKlaytn, onRarible } from '../utils'
 
 import type { MintableNodeConfig } from '../../../src/mintable'
 
@@ -19,6 +19,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     // USDT contract pointers
     const ebiUSDT = onEbi(usdtContractTemplate)
+    const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
 
@@ -31,6 +32,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
+    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -45,6 +47,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
                     minters: {
                         [ebiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: iotaUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    minters: {
+                        [iotaAssetAddresses.USDT]: true,
                     },
                 },
             },

@@ -10,12 +10,13 @@ import {
     onAvax,
     onBase,
     onEth,
+    onIota,
     onKlaytn,
     onMantle,
     onOpt,
     onPolygon,
     onRarible,
-    onScroll
+    onScroll,
 } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -33,6 +34,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const avaxFeeLibV1 = onAvax(contract)
     const baseFeeLibV1 = onBase(contract)
     const ethFeeLibV1 = onEth(contract)
+    const iotaFeeLibV1 = onIota(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const mantleFeeLibV1 = onMantle(contract)
     const optFeeLibV1 = onOpt(contract)
@@ -60,6 +62,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: ethFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: iotaFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

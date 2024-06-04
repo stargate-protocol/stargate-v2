@@ -10,6 +10,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onIota,
     onKava,
     onKlaytn,
     onMantle,
@@ -40,6 +41,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const bscCreditMsging = onBsc(contract)
     const ebiCreditMsging = onEbi(contract)
     const ethCreditMsging = onEth(contract)
+    const iotaCreditMsging = onIota(contract)
     const kavaCreditMsging = onKava(contract)
     const klaytnCreditMsging = onKlaytn(contract)
     const mantleCreditMsging = onMantle(contract)
@@ -113,6 +115,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: iotaCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
                 },
             },
             {
@@ -205,6 +216,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             bscCreditMsging,
             ebiCreditMsging,
             ethCreditMsging,
+            iotaCreditMsging,
             kavaCreditMsging,
             klaytnCreditMsging,
             mantleCreditMsging,

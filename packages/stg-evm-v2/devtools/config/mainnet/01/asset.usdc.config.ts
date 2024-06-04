@@ -24,6 +24,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
+    const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
@@ -37,6 +38,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxContract = await getAssetNode(avaxPoint)
     const baseContract = await getAssetNode(basePoint)
     const ethContract = await getAssetNode(ethPoint)
+    const iotaContract = await getAssetNode(iotaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
     const mantleContract = await getAssetNode(mantlePoint)
     const optContract = await getAssetNode(optPoint)
@@ -51,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxContract,
             baseContract,
             ethContract,
+            iotaContract,
             klaytnContract,
             mantleContract,
             optContract,
@@ -64,6 +67,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxPoint,
             basePoint,
             ethPoint,
+            iotaContract,
             klaytnPoint,
             mantlePoint,
             optPoint,
