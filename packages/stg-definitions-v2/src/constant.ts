@@ -159,6 +159,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.SCROLL_V2_MAINNET]: {
                 type: StargateType.Native,
             },
+            [EndpointId.IOTA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.KLAYTN_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
@@ -238,6 +243,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.MANTLE_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x201EBa5CC46D216Ce6DC03F6a759e8E766e956aE',
+            },
+            [EndpointId.IOTA_V2_MAINNET]: {
+                type: StargateType.Oft,
             },
             [EndpointId.KAVA_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -335,6 +343,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.AURORA_V2_MAINNET]: {
                 address: '0x368ebb46aca6b8d0787c96b2b20bd3cc3f2c45f7',
                 type: StargateType.Pool,
+            },
+            [EndpointId.IOTA_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
             },
             [EndpointId.KLAYTN_V2_MAINNET]: {
                 type: StargateType.Oft,
