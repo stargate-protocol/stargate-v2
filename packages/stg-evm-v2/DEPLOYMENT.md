@@ -42,7 +42,6 @@ Set the following environment variables for the fastest sandbox deployment exper
 
 ```bash
 LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION=1
-LZ_ENABLE_EXPERIMENTAL_RETRY=1
 LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT=1
 ```
 
@@ -87,7 +86,6 @@ Set the following environment variables for the fastest & reliable testnet deplo
 
 ```bash
 LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION=1
-LZ_ENABLE_EXPERIMENTAL_RETRY=1
 ```
 
 ### Deploying & configuration
@@ -122,7 +120,6 @@ Set the following environment variables for the fastest & most reliable mainnet 
 
 ```bash
 LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION=1
-LZ_ENABLE_EXPERIMENTAL_RETRY=1
 ```
 
 ### Deploying & configuration
