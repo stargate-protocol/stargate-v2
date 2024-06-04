@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 0.1.6
+
+### Patch Changes
+
+- a771201: Updated @LayerZero-Labs dependencies
+
 ## 0.1.5
 
 ### Patch Changes
