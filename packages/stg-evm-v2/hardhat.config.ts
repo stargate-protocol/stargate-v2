@@ -197,6 +197,12 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.ETHEREUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'iota-mainnet': {
+        eid: EndpointId.IOTA_V2_MAINNET,
+        url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.IOTA_V2_MAINNET),
+    },
     'kava-mainnet': {
         eid: EndpointId.KAVA_V2_MAINNET,
         url: process.env.RPC_URL_KAVA_MAINNET || 'https://evm.kava.chainstacklabs.com',
