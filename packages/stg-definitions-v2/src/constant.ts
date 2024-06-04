@@ -699,7 +699,8 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x9946dea53F93F17A974630F35D533b83C79417a0',
+            // FIXME
+            safeAddress: '0xwat',
             safeUrl: 'https://iota-tx.lzdevnet.org/',
             contractNetworks: {
                 [8822]: {
@@ -869,6 +870,37 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xC02c4Ac2DBaA4eC11C306dDb0ABab5b421bd19fB',
             safeUrl: 'https://scroll-tx.lzdevnet.org/',
+        },
+    },
+    [EndpointId.SEI_V2_MAINNET]: {
+        queueCapacity: 512,
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0042').toBigInt(),
+        },
+        safeConfig: {
+            // FIXME
+            safeAddress: '0xwat',
+            safeUrl: 'https://sei-tx.lzdevnet.org',
+            contractNetworks: {
+                [1329]: {
+                    multiSendAddress: '0x84CDeb280870b531660087f347B2001775C9Ee0F',
+                    multiSendCallOnlyAddress: '0xcE521F12AB380D9a5526410A66932F28f73Cc19B',
+                    safeMasterCopyAddress: '0x1924A4c1C8C9e683E29f62737CfDFB933df1bE73',
+                    safeProxyFactoryAddress: '0xedB7D71C889E00CDcC3838c72CAE8Fb2C46022c1',
+                    fallbackHandlerAddress: '0x68cf966a4a97aD9604e314734260f82D3A9Be44D',
+                    createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
+                    signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
+                    simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
+                },
+            },
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
