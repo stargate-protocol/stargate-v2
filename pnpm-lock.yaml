@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@layerzerolabs/lz-definitions': 2.3.10
+  '@layerzerolabs/lz-definitions': 2.3.20
   es5-ext: https://github.com/LayerZero-Labs/es5-ext
 
 patchedDependencies:
@@ -60,8 +60,8 @@ importers:
         specifier: ~5.7.0
         version: 5.7.0
       '@layerzerolabs/lz-definitions':
-        specifier: 2.3.10
-        version: 2.3.10
+        specifier: 2.3.20
+        version: 2.3.20
       '@layerzerolabs/tsup-config-next':
         specifier: ~2.3.10
         version: 2.3.10(ts-node@10.9.2)(typescript@5.4.5)
@@ -84,8 +84,8 @@ importers:
   packages/stg-error-parser:
     dependencies:
       '@layerzerolabs/evm-sdks-core':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.20
+        version: 2.3.20
     devDependencies:
       '@layerzerolabs/tsup-config-next':
         specifier: ~2.3.10
@@ -137,23 +137,23 @@ importers:
         specifier: ~2.3.10
         version: 2.3.10(typescript@5.4.5)
       '@layerzerolabs/lz-definitions':
-        specifier: 2.3.10
-        version: 2.3.10
+        specifier: 2.3.20
+        version: 2.3.20
       '@layerzerolabs/lz-evm-messagelib-v2':
-        specifier: ~2.3.10
-        version: 2.3.10(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        specifier: ~2.3.20
+        version: 2.3.20(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-oapp-v2':
-        specifier: ~2.3.10
-        version: 2.3.10(@layerzerolabs/lz-evm-messagelib-v2@2.3.10)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        specifier: ~2.3.20
+        version: 2.3.20(@layerzerolabs/lz-evm-messagelib-v2@2.3.20)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-protocol-v2':
-        specifier: ~2.3.10
-        version: 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        specifier: ~2.3.20
+        version: 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-v1-0.7':
-        specifier: ~2.3.10
-        version: 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
+        specifier: ~2.3.20
+        version: 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
       '@layerzerolabs/lz-v2-utilities':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.20
+        version: 2.3.20
       '@layerzerolabs/prettier-config-next':
         specifier: ~2.3.10
         version: 2.3.10
@@ -162,7 +162,7 @@ importers:
         version: 2.3.10(typescript@5.4.5)
       '@layerzerolabs/test-devtools-evm-foundry':
         specifier: ^0.2.3
-        version: 0.2.3(@layerzerolabs/lz-evm-messagelib-v2@2.3.10)(@layerzerolabs/lz-evm-oapp-v2@2.3.10)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)
+        version: 0.2.3(@layerzerolabs/lz-evm-messagelib-v2@2.3.20)(@layerzerolabs/lz-evm-oapp-v2@2.3.20)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)
       '@layerzerolabs/toolbox-foundry':
         specifier: ~0.1.5
         version: 0.1.5
@@ -236,8 +236,8 @@ importers:
   packages/stg-evm-sdk-v2:
     devDependencies:
       '@layerzerolabs/evm-sdks-build':
-        specifier: ~2.3.10
-        version: 2.3.16
+        specifier: ~2.3.20
+        version: 2.3.20
       '@layerzerolabs/tsup-config-next':
         specifier: ~2.3.10
         version: 2.3.10(ts-node@10.9.2)(typescript@5.4.5)
@@ -269,29 +269,29 @@ importers:
   packages/stg-evm-v2:
     dependencies:
       '@layerzerolabs/lz-definitions':
-        specifier: 2.3.10
-        version: 2.3.10
+        specifier: 2.3.20
+        version: 2.3.20
       '@layerzerolabs/lz-evm-messagelib-v2':
         specifier: 2.0.11
-        version: 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        version: 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-oapp-v2':
-        specifier: ^2.3.10
-        version: 2.3.10(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        specifier: ~2.3.20
+        version: 2.3.20(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-protocol-v2':
         specifier: 2.0.11
         version: 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-sdk-v2':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.20
+        version: 2.3.20
       '@layerzerolabs/lz-evm-v1-0.7':
-        specifier: ~2.3.10
-        version: 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
+        specifier: ~2.3.20
+        version: 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
       '@layerzerolabs/lz-utilities':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.20
+        version: 2.3.20
       '@layerzerolabs/lz-v2-utilities':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.20
+        version: 2.3.20
       '@stargatefinance/stg-definitions-v2':
         specifier: ~0.3.22
         version: link:../stg-definitions-v2
@@ -340,13 +340,13 @@ importers:
         version: 5.7.2
       '@layerzerolabs/devtools':
         specifier: ~0.3.14
-        version: 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
+        version: 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
       '@layerzerolabs/devtools-evm':
         specifier: ~0.3.9
-        version: 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
+        version: 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
       '@layerzerolabs/devtools-evm-hardhat':
         specifier: ~0.3.16
-        version: 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+        version: 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@layerzerolabs/export-deployments':
         specifier: ~0.0.8
         version: 0.0.8
@@ -354,14 +354,14 @@ importers:
         specifier: ~0.1.9
         version: 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
       '@layerzerolabs/lz-evm-sdk-v1':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.20
+        version: 2.3.20
       '@layerzerolabs/protocol-devtools':
         specifier: ~0.3.7
-        version: 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
+        version: 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
       '@layerzerolabs/protocol-devtools-evm':
         specifier: ~0.3.7
-        version: 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+        version: 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
       '@layerzerolabs/toolbox-foundry':
         specifier: ~0.1.5
         version: 0.1.5
@@ -376,13 +376,13 @@ importers:
         version: 2.3.10
       '@layerzerolabs/ua-devtools':
         specifier: ~0.3.12
-        version: 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+        version: 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
       '@layerzerolabs/ua-devtools-evm':
         specifier: ~0.3.11
-        version: 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
+        version: 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
       '@layerzerolabs/ua-devtools-evm-hardhat':
         specifier: ~0.3.16
-        version: 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+        version: 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@matterlabs/hardhat-zksync-deploy':
         specifier: ~0.9.0
         version: 0.9.0(patch_hash=26ge35256ho5xcku4o5n47dtoq)(ethers@5.7.2)(hardhat@2.22.3)(zksync-ethers@5.7.2)
@@ -2313,7 +2313,7 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@layerzerolabs/devtools-evm-hardhat@0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
+  /@layerzerolabs/devtools-evm-hardhat@0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
     resolution: {integrity: sha512-oPKDfYnNOjw4cZM0Ni8MZyHI1PPoE5WEgRU/gVyeTaT48joaYSZEQMIa9jW9k6wmI0R64pIoiVtFFewRUfloHg==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
@@ -2323,7 +2323,7 @@ packages:
       '@layerzerolabs/devtools': ~0.3.12
       '@layerzerolabs/devtools-evm': ~0.3.8
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@nomiclabs/hardhat-ethers': ^2.2.3
       fp-ts: ^2.16.2
       hardhat: ^2.22.3
@@ -2333,11 +2333,11 @@ packages:
       '@ethersproject/abstract-signer': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
       '@layerzerolabs/export-deployments': 0.0.8
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@nomiclabs/hardhat-ethers': 2.2.3(ethers@5.7.2)(hardhat@2.22.3)
       '@safe-global/protocol-kit': 1.3.0(ethers@5.7.2)
       fp-ts: 2.16.5
@@ -2354,7 +2354,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/devtools-evm@0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5):
+  /@layerzerolabs/devtools-evm@0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5):
     resolution: {integrity: sha512-otVX7lnbdlgUv41oVOm7+nlZjvvlHYp6FGjZD1G3RKUZrdfRWOpKNlQI/fMO2Oe/OA7eJlu9PLaA6ELIXhFjzA==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
@@ -2367,7 +2367,7 @@ packages:
       '@ethersproject/providers': ^5.7.0
       '@layerzerolabs/devtools': ~0.3.13
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       fp-ts: ^2.16.2
       zod: ^3.22.4
     dependencies:
@@ -2379,9 +2379,9 @@ packages:
       '@ethersproject/constants': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@safe-global/api-kit': 1.3.1
       '@safe-global/protocol-kit': 1.3.0(ethers@5.7.2)
       ethers: 5.7.2
@@ -2395,17 +2395,17 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/devtools@0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5):
+  /@layerzerolabs/devtools@0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5):
     resolution: {integrity: sha512-9YKyFsxqf1K5uEUQVi4sPsEvJrwYJ8Ylsosgzc5R/Nqf0YXxmgZX/+POBSUKtc2dM/OMsBTBn4ykSyFtxS1Rmg==}
     peerDependencies:
       '@ethersproject/bytes': ~5.7.0
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       zod: ^3.22.4
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       exponential-backoff: 3.1.1
       js-yaml: 4.1.0
       zod: 3.22.5
@@ -2431,8 +2431,8 @@ packages:
       - typescript
     dev: true
 
-  /@layerzerolabs/evm-sdks-build@2.3.16:
-    resolution: {integrity: sha512-gapnC5FsgEyl/U1/QU6FoMsqrwLupMFgie+5ibzu/Kv9ikTS3XU1WvX/Rm7Qq/t2LQx+pdrR9H7fapXe2NRkaA==}
+  /@layerzerolabs/evm-sdks-build@2.3.20:
+    resolution: {integrity: sha512-5J8l6ZgYX+Tof/HXMGoRHnit6HJcfeFDVF1wnFSxBBULPVDs6EfqsM6VFSXtp0L78gwObGH5LGl3SXvHZwiIbA==}
     engines: {node: '>=18.19.0'}
     dependencies:
       ethers: 5.7.2
@@ -2442,8 +2442,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/evm-sdks-core@2.3.10:
-    resolution: {integrity: sha512-WkQ+ekOSDBZ71hHMCfVWEGlDpp/MoymBRIWNWqgMgFzHx4Hd08iRArjQRYpuUllyQWgJRKr+WRdLaX1zfgHhuA==}
+  /@layerzerolabs/evm-sdks-core@2.3.20:
+    resolution: {integrity: sha512-ACcs03jz9m6+S2LF6kw+YMJeJvWHN+dlZwYyg7ACnQR5+YqtAMdax/dX1ZqtuLOuJFEoh960dUcL4IwF+8fw/Q==}
     dependencies:
       ethers: 5.7.2
     transitivePeerDependencies:
@@ -2491,12 +2491,12 @@ packages:
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/lz-definitions@2.3.10:
-    resolution: {integrity: sha512-/2du4WOiFcUXy09N2F0tSJ+/HK2IP1OczhgrvOYzOaM/j7hJzVxyWhqNYgkaeIElGjzygHk7H7pQYr/FqBuhlA==}
+  /@layerzerolabs/lz-definitions@2.3.20:
+    resolution: {integrity: sha512-0zpEGtGhWJ8PGwIaB9rl59WTjruioDAABpDbfPoaONAUATpH9/qdBJPnHFDPMUWFrKBYXfwR2YrcFchRBO3VRQ==}
     dependencies:
       tiny-invariant: 1.3.3
 
-  /@layerzerolabs/lz-evm-messagelib-v2@2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+  /@layerzerolabs/lz-evm-messagelib-v2@2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
     resolution: {integrity: sha512-i6nZvzxzH+3bMzGRxIzf6fFXTzxQIZ1vyduAoFTy3U2zK9xZUHunKFfpC+vqCY1goNzjBquX4VnClWMWlc5ZIA==}
     peerDependencies:
       '@axelar-network/axelar-gmp-sdk-solidity': ^5.6.3
@@ -2511,22 +2511,22 @@ packages:
       '@axelar-network/axelar-gmp-sdk-solidity': 5.9.0
       '@chainlink/contracts-ccip': 0.7.6(ethers@5.7.2)
       '@layerzerolabs/lz-evm-protocol-v2': 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 4.9.6
       '@openzeppelin/contracts-upgradeable': 4.9.6
       hardhat-deploy: 0.12.2
       solidity-bytes-utils: 0.8.2
     dev: false
 
-  /@layerzerolabs/lz-evm-messagelib-v2@2.3.10(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-FCblCyAXTDyq2dqY58cThUxWgXvy0pzTlqF/0E6IOSOm2tqAGnuHKHe0skr8TrcX3GilVWndYKK9b/PUceCAOQ==}
+  /@layerzerolabs/lz-evm-messagelib-v2@2.3.20(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-7ffc2U91xUBn92R9NO8IhAb83DypRpbimV+DsE2zUTBT/gdcj7i2aMQf3VFezRPk5XA6iN8UFEYyO0FsES8mng==}
     peerDependencies:
       '@arbitrum/nitro-contracts': ^1.1.0
       '@axelar-network/axelar-gmp-sdk-solidity': ^5.6.4
       '@chainlink/contracts-ccip': ^0.7.6
       '@eth-optimism/contracts': ^0.6.0
-      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.10
-      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.10
+      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.20
+      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.20
       '@openzeppelin/contracts': ^4.8.1 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': ^4.8.1 || ^5.0.0
       hardhat-deploy: ^0.11.44
@@ -2538,48 +2538,48 @@ packages:
       '@axelar-network/axelar-gmp-sdk-solidity': 5.9.0
       '@chainlink/contracts-ccip': 0.7.6(ethers@5.7.2)
       '@eth-optimism/contracts': 0.6.0(ethers@5.7.2)
-      '@layerzerolabs/lz-evm-protocol-v2': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-protocol-v2': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 5.0.2
       '@openzeppelin/contracts-upgradeable': 4.9.6
       hardhat-deploy: 0.12.2
       solidity-bytes-utils: 0.8.2
     dev: true
 
-  /@layerzerolabs/lz-evm-oapp-v2@2.3.10(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-kSLGQiGlOcV8cYw//2d5SkE6HiO9QvbVprSJBP/bAcpw+iDpFR4Jv48laixCCwcP+U+i+GD7FaxjP1yG4m+bRA==}
+  /@layerzerolabs/lz-evm-oapp-v2@2.3.20(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-r2NDMdhoiLtiBfbSmjxGxMz2EptC5SNnh/oPfmHBevwpmyJn7hUCbl40LZDc4384xAaQ5Ra40fpwMT9oKl9suQ==}
     peerDependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': ^2.3.10
-      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.10
-      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.10
+      '@layerzerolabs/lz-evm-messagelib-v2': ^2.3.20
+      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.20
+      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.20
       '@openzeppelin/contracts': ^4.8.1 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': ^4.8.1 || ^5.0.0
       hardhat-deploy: ^0.11.44
       solidity-bytes-utils: ^0.8.0
     dependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-messagelib-v2': 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-protocol-v2': 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 4.9.6
       '@openzeppelin/contracts-upgradeable': 4.9.6
       hardhat-deploy: 0.12.2
       solidity-bytes-utils: 0.8.2
     dev: false
 
-  /@layerzerolabs/lz-evm-oapp-v2@2.3.10(@layerzerolabs/lz-evm-messagelib-v2@2.3.10)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-kSLGQiGlOcV8cYw//2d5SkE6HiO9QvbVprSJBP/bAcpw+iDpFR4Jv48laixCCwcP+U+i+GD7FaxjP1yG4m+bRA==}
+  /@layerzerolabs/lz-evm-oapp-v2@2.3.20(@layerzerolabs/lz-evm-messagelib-v2@2.3.20)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-r2NDMdhoiLtiBfbSmjxGxMz2EptC5SNnh/oPfmHBevwpmyJn7hUCbl40LZDc4384xAaQ5Ra40fpwMT9oKl9suQ==}
     peerDependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': ^2.3.10
-      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.10
-      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.10
+      '@layerzerolabs/lz-evm-messagelib-v2': ^2.3.20
+      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.20
+      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.20
       '@openzeppelin/contracts': ^4.8.1 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': ^4.8.1 || ^5.0.0
       hardhat-deploy: ^0.11.44
       solidity-bytes-utils: ^0.8.0
     dependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': 2.3.10(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-protocol-v2': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-messagelib-v2': 2.3.20(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-protocol-v2': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 5.0.2
       '@openzeppelin/contracts-upgradeable': 4.9.6
       hardhat-deploy: 0.12.2
@@ -2598,8 +2598,8 @@ packages:
       solidity-bytes-utils: 0.8.2
     dev: false
 
-  /@layerzerolabs/lz-evm-protocol-v2@2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-wVRM2/irYZo7h5jqI+pZegtVN0oEMUGMwKRIIOSXprc2LyQ4A5Qr5iLM8eto7XNhvoyn8oSChKVqLtxXcm6MEg==}
+  /@layerzerolabs/lz-evm-protocol-v2@2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-U5vdS3624nK2MSGE8iLJ8KTIxAubU4JzRTJdpCChII9nFcP2YiXVBgYhv0oDlb+OofKZHlDyP/1Q+qJiy+rQCw==}
     peerDependencies:
       '@openzeppelin/contracts': ^4.8.1 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': ^4.8.1 || ^5.0.0
@@ -2624,7 +2624,19 @@ packages:
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/evm-sdks-core': 2.3.10
+      '@layerzerolabs/evm-sdks-core': 2.3.20
+      ethers: 5.7.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: true
+
+  /@layerzerolabs/lz-evm-sdk-v1@2.3.20:
+    resolution: {integrity: sha512-f+FcwSSk5hOJbIqSMDLLcy7AY9At/dIyXLHrn5v1S9qdObRP3QKnU2KeI40ovjR+92R/tXyhGe9cMHEjM0oMBA==}
+    dependencies:
+      '@ethersproject/abi': 5.7.0
+      '@ethersproject/providers': 5.7.2
+      '@layerzerolabs/evm-sdks-core': 2.3.20
       ethers: 5.7.2
     transitivePeerDependencies:
       - bufferutil
@@ -2634,14 +2646,25 @@ packages:
   /@layerzerolabs/lz-evm-sdk-v2@2.3.10:
     resolution: {integrity: sha512-iQna86r+r9/NVTTFT+cM+hOz83ZMwKxekYje37aESXxq0a4DlaeApTjAkfZ+7LDdyp4jf23v6hFQVfO51amngQ==}
     dependencies:
-      '@layerzerolabs/evm-sdks-core': 2.3.10
+      '@layerzerolabs/evm-sdks-core': 2.3.20
       ethers: 5.7.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: true
 
-  /@layerzerolabs/lz-evm-v1-0.7@2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2):
-    resolution: {integrity: sha512-q8HaYspDkkZwZ9tgYyqFIn1vocsbLNABw8pEyXKUsH4uu0EbTTmhin8Fnx6RkVb1LABODoYznecpm5g5jR1O5Q==}
+  /@layerzerolabs/lz-evm-sdk-v2@2.3.20:
+    resolution: {integrity: sha512-CeuABtNDiTDsG/Cs6Y2SYyf68e4U7K1Q6WWXcQhAuPXrwLYXKJlpRz4/qO1z/0/BXipN5yvzwk19nJBAVmU3ng==}
+    dependencies:
+      '@layerzerolabs/evm-sdks-core': 2.3.20
+      ethers: 5.7.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@layerzerolabs/lz-evm-v1-0.7@2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2):
+    resolution: {integrity: sha512-LNdRhFXocv0EV5V2g1FR6tQfFkhLUe4NdAvzXx+3vXpDeZIj4NlnaRWZluPhpNQIFsQ8Y+oYtq7hPEUFW4RDSw==}
     peerDependencies:
       '@openzeppelin/contracts': 3.4.2-solc-0.7 || ^3.4.2 || ^4.0.0 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': 3.4.2-solc-0.7 || ^3.4.2 || ^4.0.0 || ^5.0.0
@@ -2652,8 +2675,8 @@ packages:
       hardhat-deploy: 0.12.2
     dev: false
 
-  /@layerzerolabs/lz-evm-v1-0.7@2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2):
-    resolution: {integrity: sha512-q8HaYspDkkZwZ9tgYyqFIn1vocsbLNABw8pEyXKUsH4uu0EbTTmhin8Fnx6RkVb1LABODoYznecpm5g5jR1O5Q==}
+  /@layerzerolabs/lz-evm-v1-0.7@2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2):
+    resolution: {integrity: sha512-LNdRhFXocv0EV5V2g1FR6tQfFkhLUe4NdAvzXx+3vXpDeZIj4NlnaRWZluPhpNQIFsQ8Y+oYtq7hPEUFW4RDSw==}
     peerDependencies:
       '@openzeppelin/contracts': 3.4.2-solc-0.7 || ^3.4.2 || ^4.0.0 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': 3.4.2-solc-0.7 || ^3.4.2 || ^4.0.0 || ^5.0.0
@@ -2664,12 +2687,12 @@ packages:
       hardhat-deploy: 0.12.2
     dev: true
 
-  /@layerzerolabs/lz-utilities@2.3.10:
-    resolution: {integrity: sha512-q2pvaqMBnZRHgKTyPpWUApOqjjZ6IFALnzifl4bDoSr4gC0y5QGWuSzVKECUjVjJWP2SJwAuKa3WPYAZr5o7ZA==}
+  /@layerzerolabs/lz-utilities@2.3.20:
+    resolution: {integrity: sha512-AQIbg0uJeq/J+XREW91EMS48aj4UPUGZrBcKBNs4oLPTmL4fzFXqvC9M05/Y6ftwhtdxETbwU1D/hdl9RjqLiQ==}
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@noble/hashes': 1.4.0
       '@noble/secp256k1': 1.7.1
       '@solana/web3.js': 1.91.8
@@ -2688,8 +2711,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@layerzerolabs/lz-v2-utilities@2.3.10:
-    resolution: {integrity: sha512-ylGgNUW6R8N0vh/42gYZEHeJCTp9vrvg2FPHXFnG81tsBSYrpFzvDIgUNgzQu8NQ7wLSt+HoRNvgkWc2XmuEJA==}
+  /@layerzerolabs/lz-v2-utilities@2.3.20:
+    resolution: {integrity: sha512-WKD6Bt6STDZNVHEfioF01CkbSPbphCXxoWcRjZsyBHLWX78XM0MDTM1YWE8t0PvT3zFMKtP2yHm/du7/jyLCUw==}
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/address': 5.7.0
@@ -2697,7 +2720,6 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/keccak256': 5.7.0
       '@ethersproject/solidity': 5.7.0
-      '@layerzerolabs/lz-evm-sdk-v2': 2.3.10
       '@solana/web3.js': 1.91.8
       tiny-invariant: 1.3.3
     transitivePeerDependencies:
@@ -2713,7 +2735,7 @@ packages:
       prettier-plugin-solidity: 1.3.1(prettier@3.2.5)
     dev: true
 
-  /@layerzerolabs/protocol-devtools-evm@0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5):
+  /@layerzerolabs/protocol-devtools-evm@0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5):
     resolution: {integrity: sha512-ZUgxuB5CxrakatZMUclKrySWB6BNlrSpzrTiAt0vYgNluVQ1ZnYQhyncDrG6yd5oGPd71itAeQ0fXp4Ut7IKNg==}
     peerDependencies:
       '@ethersproject/abstract-provider': ^5.7.0
@@ -2725,7 +2747,7 @@ packages:
       '@layerzerolabs/devtools': ~0.3.11
       '@layerzerolabs/devtools-evm': ~0.3.8
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@layerzerolabs/protocol-devtools': ~0.3.7
       zod: ^3.22.4
     dependencies:
@@ -2735,24 +2757,24 @@ packages:
       '@ethersproject/constants': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
-      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.20
+      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
       p-memoize: 4.0.4
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/protocol-devtools@0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5):
+  /@layerzerolabs/protocol-devtools@0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5):
     resolution: {integrity: sha512-HA2tvyvuDSl1x0wDV/gvRcoCd3t/y0rTLsZQlETyqkBRWHnR/q07rELZvgrQnUb0qPTB2DIEiSSGXoYkmYtXPg==}
     peerDependencies:
       '@layerzerolabs/devtools': ~0.3.11
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       zod: ^3.22.4
     dependencies:
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.20
       zod: 3.22.5
     dev: true
 
@@ -2796,7 +2818,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@layerzerolabs/test-devtools-evm-foundry@0.2.3(@layerzerolabs/lz-evm-messagelib-v2@2.3.10)(@layerzerolabs/lz-evm-oapp-v2@2.3.10)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2):
+  /@layerzerolabs/test-devtools-evm-foundry@0.2.3(@layerzerolabs/lz-evm-messagelib-v2@2.3.20)(@layerzerolabs/lz-evm-oapp-v2@2.3.20)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2):
     resolution: {integrity: sha512-KJg9LkxwazkqwCcgKTgx46pxnNwTlLgu/ATdbHn2cTCQM6trxu6kqQyF9PY/SG3Al2xikUD5+wLrflmYt6VUfw==}
     peerDependencies:
       '@layerzerolabs/lz-evm-messagelib-v2': ~2.3.3
@@ -2806,10 +2828,10 @@ packages:
       '@openzeppelin/contracts': ^4.9.5 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': ^4.9.5 || ^5.0.0
     dependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': 2.3.10(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-oapp-v2': 2.3.10(@layerzerolabs/lz-evm-messagelib-v2@2.3.10)(@layerzerolabs/lz-evm-protocol-v2@2.3.10)(@layerzerolabs/lz-evm-v1-0.7@2.3.10)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-protocol-v2': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.10(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-messagelib-v2': 2.3.20(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@eth-optimism/contracts@0.6.0)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-oapp-v2': 2.3.20(@layerzerolabs/lz-evm-messagelib-v2@2.3.20)(@layerzerolabs/lz-evm-protocol-v2@2.3.20)(@layerzerolabs/lz-evm-v1-0.7@2.3.20)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-protocol-v2': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.20(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@5.0.2)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 5.0.2
       '@openzeppelin/contracts-upgradeable': 4.9.6
     dev: true
@@ -2841,20 +2863,20 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/hash': 5.7.0
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@layerzerolabs/lz-evm-sdk-v1': 2.3.10
       '@layerzerolabs/lz-evm-sdk-v2': 2.3.10
-      '@layerzerolabs/lz-v2-utilities': 2.3.10
-      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/lz-v2-utilities': 2.3.20
+      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
       '@layerzerolabs/test-devtools-evm-hardhat': 0.2.3(hardhat@2.22.3)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm': 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm': 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@nomicfoundation/hardhat-ethers': 3.0.5(ethers@5.7.2)(hardhat@2.22.3)
       ethers: 5.7.2
       fp-ts: 2.16.5
@@ -2894,20 +2916,20 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/hash': 5.7.0
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@layerzerolabs/lz-evm-sdk-v1': 2.3.10
       '@layerzerolabs/lz-evm-sdk-v2': 2.3.10
-      '@layerzerolabs/lz-v2-utilities': 2.3.10
-      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/lz-v2-utilities': 2.3.20
+      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
       '@layerzerolabs/test-devtools-evm-hardhat': 0.2.3(hardhat@2.22.3)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm': 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm': 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@5.7.2)(hardhat@2.22.3)
       ethers: 5.7.2
       fp-ts: 2.16.5
@@ -2954,7 +2976,7 @@ packages:
     resolution: {integrity: sha512-Sx3poAajg7EPkWyl6Us3eMCNk/NQF5DTp1hEAtyjj9jcwhjgrW1mvRhFvtoNdkzFMkZ0BpSbTYG8BIMxu1KR0w==}
     dev: true
 
-  /@layerzerolabs/ua-devtools-evm-hardhat@0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
+  /@layerzerolabs/ua-devtools-evm-hardhat@0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.16)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools-evm@0.3.11)(@layerzerolabs/ua-devtools@0.3.12)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
     resolution: {integrity: sha512-EJrej495mX5dshB/BrN3l5HRTYY38uZgONTPMjvop5JJY4p70wicpGTBBAqq/K3/mT9dXpr8reZ/FczWytQqjw==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
@@ -2965,7 +2987,7 @@ packages:
       '@layerzerolabs/devtools-evm': ~0.3.8
       '@layerzerolabs/devtools-evm-hardhat': ~0.3.13
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@layerzerolabs/protocol-devtools': ~0.3.7
       '@layerzerolabs/protocol-devtools-evm': ~0.3.7
       '@layerzerolabs/ua-devtools': ~0.3.12
@@ -2978,15 +3000,15 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/hash': 5.7.0
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm-hardhat': 0.3.16(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
-      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm': 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.20
+      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm': 0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5)
       ethers: 5.7.2
       hardhat: 2.22.3(ts-node@10.9.2)(typescript@5.4.5)
       hardhat-deploy: 0.12.2
@@ -2994,7 +3016,7 @@ packages:
       typescript: 5.4.5
     dev: true
 
-  /@layerzerolabs/ua-devtools-evm@0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5):
+  /@layerzerolabs/ua-devtools-evm@0.3.11(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools-evm@0.3.7)(@layerzerolabs/protocol-devtools@0.3.7)(@layerzerolabs/ua-devtools@0.3.12)(zod@3.22.5):
     resolution: {integrity: sha512-U+6vHukf3KWYFY9VhWXjlz7GMtlU/cCsCEMZqvA4RM5VZGRTR3i7CWChlNovjAxmtAo/gOCSgveGoidUl9jgxw==}
     peerDependencies:
       '@ethersproject/constants': ^5.7.0
@@ -3002,7 +3024,7 @@ packages:
       '@layerzerolabs/devtools': ~0.3.11
       '@layerzerolabs/devtools-evm': ~0.3.8
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@layerzerolabs/lz-v2-utilities': ~2.1.15
       '@layerzerolabs/protocol-devtools': ~0.3.7
       '@layerzerolabs/protocol-devtools-evm': ~0.3.7
@@ -3011,33 +3033,33 @@ packages:
     dependencies:
       '@ethersproject/constants': 5.7.0
       '@ethersproject/contracts': 5.7.0
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.9(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(fp-ts@2.16.5)(zod@3.22.5)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
-      '@layerzerolabs/lz-v2-utilities': 2.3.10
-      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.20
+      '@layerzerolabs/lz-v2-utilities': 2.3.20
+      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.7(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.9)(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools': 0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5)
       p-memoize: 4.0.4
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/ua-devtools@0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(@layerzerolabs/lz-v2-utilities@2.3.10)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5):
+  /@layerzerolabs/ua-devtools@0.3.12(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(@layerzerolabs/lz-v2-utilities@2.3.20)(@layerzerolabs/protocol-devtools@0.3.7)(zod@3.22.5):
     resolution: {integrity: sha512-R8vwg1rd8XDu3K9wmi0AMGT+c5OCxlMOSDuvUQ1Zd9EzR4u7g0v8vmYM7yr7gvKYffiUIpHkvKHdoFMHOmqy/w==}
     peerDependencies:
       '@layerzerolabs/devtools': ~0.3.11
       '@layerzerolabs/io-devtools': ~0.1.9
-      '@layerzerolabs/lz-definitions': 2.3.10
+      '@layerzerolabs/lz-definitions': 2.3.20
       '@layerzerolabs/lz-v2-utilities': ~2.1.15
       '@layerzerolabs/protocol-devtools': ~0.3.7
       zod: ^3.22.4
     dependencies:
-      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.14(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.9)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
       '@layerzerolabs/io-devtools': 0.1.9(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.10
-      '@layerzerolabs/lz-v2-utilities': 2.3.10
-      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.10)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.20
+      '@layerzerolabs/lz-v2-utilities': 2.3.20
+      '@layerzerolabs/protocol-devtools': 0.3.7(@layerzerolabs/devtools@0.3.14)(@layerzerolabs/lz-definitions@2.3.20)(zod@3.22.5)
       zod: 3.22.5
     dev: true
 
@@ -11325,6 +11347,7 @@ packages:
 
   /rpc-websockets@7.11.0:
     resolution: {integrity: sha512-IkLYjayPv6Io8C/TdCL5gwgzd1hFz2vmBZrjMw/SPEXo51ETOhnzgS4Qy5GWi2JQN7HKHa66J3+2mv0fgNh/7w==}
+    deprecated: deprecate 7.11.0
     dependencies:
       eventemitter3: 4.0.7
       uuid: 8.3.2
