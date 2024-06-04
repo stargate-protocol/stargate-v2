@@ -41,7 +41,7 @@
     "populate": "$npm_execpath ts-node scripts/populate.ts"
   },
   "devDependencies": {
-    "@layerzerolabs/evm-sdks-build": "~2.3.10",
+    "@layerzerolabs/evm-sdks-build": "~2.3.20",
     "@layerzerolabs/tsup-config-next": "~2.3.10",
     "@layerzerolabs/typescript-config-next": "~2.3.10",
     "@stargatefinance/stg-evm-v2": "~0.3.32",
