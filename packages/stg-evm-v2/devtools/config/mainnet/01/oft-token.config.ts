@@ -23,11 +23,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
 
+    // ETH contract pointers
     const klaytnETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.KLAYTN_V2_MAINNET, TokenName.ETH)
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
+
+    const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
+    const seiETH = onKlaytn({ contractName: seiETHContractName })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
@@ -38,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDT] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
 
     return {
         contracts: [
@@ -83,6 +88,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
                     minters: {
                         [raribleAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: seiETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    minters: {
+                        [seiAssetAddresses.ETH]: true,
                     },
                 },
             },

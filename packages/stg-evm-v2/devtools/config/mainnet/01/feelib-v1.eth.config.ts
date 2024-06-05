@@ -4,7 +4,19 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import { type FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '../../../src/feeLib_v1'
-import { onArb, onBase, onEth, onIota, onKlaytn, onMantle, onMetis, onOpt, onScroll, onZkConsensys } from '../utils'
+import {
+    onArb,
+    onBase,
+    onEth,
+    onIota,
+    onKlaytn,
+    onMantle,
+    onMetis,
+    onOpt,
+    onScroll,
+    onSei,
+    onZkConsensys,
+} from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -25,6 +37,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const metisFeeLibV1 = onMetis(contract)
     const optFeeLibV1 = onOpt(contract)
     const scrollFeeLibV1 = onScroll(contract)
+    const seiFeeLibV1 = onSei(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
 
     return {
@@ -67,6 +80,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: scrollFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: seiFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],

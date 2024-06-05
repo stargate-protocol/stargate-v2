@@ -13,6 +13,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onIota,
     onKava,
     onKlaytn,
     onMantle,
@@ -21,6 +22,7 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
     onZkConsensys,
 } from '../utils'
 
@@ -49,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
+    const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
 
     // Now we collect the address of the deployed assets
@@ -115,6 +118,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -300,6 +304,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [scrollAssetAddresses.ETH]: true,
                         [scrollAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onSei(contract),
+                config: {
+                    owner: seiAdmin,
+                    admin: seiAdmin,
+                    assets: {
+                        [seiAssetAddresses.ETH]: true,
                     },
                 },
             },

@@ -11,6 +11,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onIota,
     onKava,
     onKlaytn,
     onMantle,
@@ -19,6 +20,7 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
     onZkConsensys,
 } from '../utils'
 
@@ -47,6 +49,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const polygonTokenMsging = onPolygon(contract)
     const raribleTokenMsging = onRarible(contract)
     const scrollTokenMsging = onScroll(contract)
+    const seiTokenMsging = onSei(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
 
     return {
@@ -193,6 +196,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.SCROLL_V2_MAINNET],
+                },
+            },
+            {
+                contract: seiTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
                 },
             },
             {

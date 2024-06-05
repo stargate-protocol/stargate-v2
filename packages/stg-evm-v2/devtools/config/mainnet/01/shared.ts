@@ -71,6 +71,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -145,6 +146,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.SCROLL_V2_MAINNET]: {
             [scrollAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [scrollAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.SEI_V2_MAINNET]: {
+            [seiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [zkConsensysAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
