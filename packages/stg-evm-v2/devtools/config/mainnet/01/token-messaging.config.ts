@@ -22,6 +22,7 @@ import {
     onScroll,
     onSei,
     onTaiko,
+    onXchain,
     onZkConsensys,
 } from '../utils'
 
@@ -53,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const seiTokenMsging = onSei(contract)
     const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
+    const xchainTokenMsging = onXchain(contract)
 
     return {
         contracts: [
@@ -227,6 +229,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 },
             },
+            {
+                contract: xchainTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.XCHAIN_V2_MAINNET],
+                },
+            },
         ],
         connections: generateTokenMessagingConfig([
             arbTokenMsging,
@@ -246,6 +257,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             raribleTokenMsging,
             scrollTokenMsging,
             zkConsensysTokenMsging,
+            xchainTokenMsging,
         ]),
     }
 }

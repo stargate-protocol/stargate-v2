@@ -79,6 +79,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
+    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
         [EndpointId.ARBITRUM_V2_MAINNET]: {
@@ -160,6 +161,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [zkConsensysAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
+        [EndpointId.XCHAIN_V2_MAINNET]: {
+            [xchainAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
     } satisfies Partial<Record<EndpointId, MessagingAssetConfig>>
 }

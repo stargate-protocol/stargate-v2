@@ -32,6 +32,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
+    const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
 
     // And all their nodes
     const arbContract = await getAssetNode(arbPoint)
@@ -47,6 +48,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const raribleContract = await getAssetNode(rariblePoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const taikoContract = await getAssetNode(taikoPoint)
+    const xchainContract = await getAssetNode(xchainPoint)
 
     return {
         contracts: [
@@ -63,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             raribleContract,
             scrollContract,
             taikoContract,
+            xchainContract,
         ],
         connections: generateAssetConfig(tokenName, [
             arbPoint,
@@ -78,6 +81,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rariblePoint,
             scrollPoint,
             taikoPoint,
+            xchainPoint,
         ]),
     }
 }

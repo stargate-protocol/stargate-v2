@@ -367,6 +367,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
             },
+            [EndpointId.XCHAIN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
+            },
 
             //
             // TESTNET
@@ -696,6 +701,39 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x65bb797c2B9830d891D87288F029ed8dACc19705',
             safeUrl: 'https://safe-transaction-mainnet.safe.global/',
+        },
+    },
+    [EndpointId.XCHAIN_V2_MAINNET]: {
+        queueCapacity: 512,
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0042').toBigInt(),
+        },
+        safeConfig: {
+            // FIXME
+            safeAddress: '0xwat',
+            // FIXME
+            safeUrl: '??????????https://xchain-tx.lzdevnet.org???????????',
+            // FIXME
+            contractNetworks: {
+                [167000]: {
+                    multiSendAddress: '0xwat',
+                    multiSendCallOnlyAddress: '0xwat',
+                    safeMasterCopyAddress: '0xwat',
+                    safeProxyFactoryAddress: '0xwat',
+                    fallbackHandlerAddress: '0xwat',
+                    createCallAddress: '0xwat',
+                    signMessageLibAddress: '0xwat',
+                    simulateTxAccessorAddress: '0xwat',
+                },
+            },
         },
     },
     [EndpointId.IOTA_V2_MAINNET]: {

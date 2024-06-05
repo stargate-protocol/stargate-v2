@@ -7,9 +7,10 @@ import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
-import { onIota, onKlaytn, onRarible, onTaiko } from '../utils'
+import { onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
+const fiatContract = { contractName: 'FiatTokenV2_2' }
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -20,26 +21,32 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
+    const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
-    const iotaUSDC = onIota({ contractName: 'FiatTokenV2_2', address: iotaUSDCProxy.contract.address })
+    const iotaUSDC = onIota({ ...fiatContract, address: iotaUSDCProxy.contract.address })
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
 
-    const klaytnUSDC = onKlaytn({ contractName: 'FiatTokenV2_2', address: klaytnUSDCProxy.contract.address })
+    const klaytnUSDC = onKlaytn({ ...fiatContract, address: klaytnUSDCProxy.contract.address })
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
 
-    const raribleUSDC = onRarible({ contractName: 'FiatTokenV2_2', address: raribleUSDCProxy.contract.address })
+    const raribleUSDC = onRarible({ ...fiatContract, address: raribleUSDCProxy.contract.address })
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
 
-    const taikoUSDC = onRarible({ contractName: 'FiatTokenV2_2', address: taikoUSDCProxy.contract.address })
+    const taikoUSDC = onTaiko({ ...fiatContract, address: taikoUSDCProxy.contract.address })
     const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
 
+    const xchainUSDC = onXchain({ ...fiatContract, address: xchainUSDCProxy.contract.address })
+    const xchainStargateMultisig = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
+
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
+    const usdcAssets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
-    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [TokenName.USDC] as const)
-    const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [TokenName.USDC] as const)
-    const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDC] as const)
-    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDC] as const)
+    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
+    const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
+    const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
+    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
+    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, usdcAssets)
 
     return {
         contracts: [
@@ -92,6 +99,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: taikoStargateMultisig,
                     minters: {
                         [taikoAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: xchainUSDC,
+                config: {
+                    owner: xchainStargateMultisig,
+                    masterMinter: xchainStargateMultisig,
+                    pauser: xchainStargateMultisig,
+                    rescuer: xchainStargateMultisig,
+                    blacklister: xchainStargateMultisig,
+                    minters: {
+                        [xchainAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

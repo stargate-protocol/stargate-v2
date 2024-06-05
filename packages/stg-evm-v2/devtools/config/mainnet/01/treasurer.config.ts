@@ -24,6 +24,7 @@ import {
     onScroll,
     onSei,
     onTaiko,
+    onXchain,
     onZkConsensys,
 } from '../utils'
 
@@ -55,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
+    const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
 
     // Now we collect the address of the deployed assets
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
@@ -128,6 +130,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
+    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
         contracts: [
@@ -341,6 +344,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     admin: zkConsensysAdmin,
                     assets: {
                         [zkConsensysAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: onXchain(contract),
+                config: {
+                    owner: xchainAdmin,
+                    admin: xchainAdmin,
+                    assets: {
+                        [xchainAssetAddresses.USDC]: true,
                     },
                 },
             },

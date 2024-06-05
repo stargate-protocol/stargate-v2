@@ -21,6 +21,7 @@ import {
     onScroll,
     onSei,
     onTaiko,
+    onXchain,
     onZkConsensys,
 } from '../utils'
 
@@ -55,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const seiCreditMsging = onSei(contract)
     const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
+    const xchainCreditMsging = onXchain(contract)
 
     return {
         contracts: [
@@ -227,6 +229,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                },
+            },
+            {
+                contract: xchainCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.XCHAIN_V2_MAINNET],
                 },
             },
         ],

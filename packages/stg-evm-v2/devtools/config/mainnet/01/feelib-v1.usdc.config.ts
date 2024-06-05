@@ -18,6 +18,7 @@ import {
     onRarible,
     onScroll,
     onTaiko,
+    onXchain,
 } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -43,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const raribleFeeLibV1 = onRarible(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const taikoFeeLibV1 = onTaiko(contract)
+    const xchainFeeLibV1 = onXchain(contract)
 
     return {
         contracts: [
@@ -96,6 +98,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: taikoFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: xchainFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],
