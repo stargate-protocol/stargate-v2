@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 0.3.24
+
+### Patch Changes
+
+- a771201: Updated @LayerZero-Labs dependencies
+
 ## 0.3.23
 
 ### Patch Changes

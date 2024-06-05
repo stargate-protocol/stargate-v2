@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 0.1.4
+
+### Patch Changes
+
+- a771201: Updated @LayerZero-Labs dependencies
+
 ## 0.1.3
 
 ### Patch Changes

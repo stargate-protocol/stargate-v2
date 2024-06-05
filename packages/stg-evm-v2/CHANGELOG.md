@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 0.3.33
+
+### Patch Changes
+
+- a771201: Updated @LayerZero-Labs dependencies
+- Updated dependencies [a771201]
+  - @stargatefinance/stg-definitions-v2@0.3.24
+
 ## 0.3.32
 
 ### Patch Changes
