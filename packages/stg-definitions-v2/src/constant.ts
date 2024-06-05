@@ -262,6 +262,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
+            [EndpointId.SEI_V2_MAINNET]: {
+                type: StargateType.Oft,
+            },
 
             //
             // TESTNET
@@ -355,6 +358,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'USDC.e',
             },
             [EndpointId.KLAYTN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
+            },
+            [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
@@ -904,6 +912,37 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
                     signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
                     simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
+                },
+            },
+        },
+    },
+    [EndpointId.TAIKO_V2_MAINNET]: {
+        queueCapacity: 512,
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0042').toBigInt(),
+        },
+        safeConfig: {
+            // FIXME
+            safeAddress: '0xwat',
+            safeUrl: 'https://taiko-tx.lzdevnet.org',
+            contractNetworks: {
+                [167000]: {
+                    multiSendAddress: '0xA4FB0BAD56ed9741c9BA22065074660477C956e3',
+                    multiSendCallOnlyAddress: '0x407ebA862aDdE622e6dFabC88e3E088adE8C4AeA',
+                    safeMasterCopyAddress: '0x2337b4a88363D4834E68A019037868E0FF8E39Be',
+                    safeProxyFactoryAddress: '0x8B0D2816befb572FD4569Dc33FEe4A4b71dCE70A',
+                    fallbackHandlerAddress: '0x01af5e216Ec50e380f10E7cE604AD14b1d618961',
+                    createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
+                    signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
+                    simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
                 },
             },
         },
