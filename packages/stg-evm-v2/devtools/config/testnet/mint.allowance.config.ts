@@ -1,5 +1,4 @@
-import { ASSETS, RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
-import { REWARDS } from '@stargatefinance/stg-definitions-v2/src'
+import { ASSETS, REWARDS, RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
