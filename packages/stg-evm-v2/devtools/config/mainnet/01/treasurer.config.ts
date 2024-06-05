@@ -23,6 +23,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onTaiko,
     onZkConsensys,
 } from '../utils'
 
@@ -52,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
 
     // Now we collect the address of the deployed assets
@@ -119,6 +121,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
     ] as const)
     const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -314,6 +320,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     admin: seiAdmin,
                     assets: {
                         [seiAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: onTaiko(contract),
+                config: {
+                    owner: taikoAdmin,
+                    admin: taikoAdmin,
+                    assets: {
+                        [taikoAssetAddresses.USDC]: true,
+                        [taikoAssetAddresses.USDT]: true,
                     },
                 },
             },

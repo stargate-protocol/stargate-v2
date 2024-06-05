@@ -19,6 +19,8 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
+    onTaiko,
     onZkConsensys,
 } from '../utils'
 
@@ -50,6 +52,8 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const polygonCreditMsging = onPolygon(contract)
     const raribleCreditMsging = onRarible(contract)
     const scrollCreditMsging = onScroll(contract)
+    const seiCreditMsging = onSei(contract)
+    const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
 
     return {
@@ -199,6 +203,24 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: seiCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
+                },
+            },
+            {
+                contract: taikoCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.TAIKO_V2_MAINNET],
+                },
+            },
+            {
                 contract: zkConsensysCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
@@ -225,6 +247,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             polygonCreditMsging,
             raribleCreditMsging,
             scrollCreditMsging,
+            seiCreditMsging,
             zkConsensysCreditMsging,
         ]),
     }

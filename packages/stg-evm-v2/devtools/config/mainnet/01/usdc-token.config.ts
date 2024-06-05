@@ -7,16 +7,19 @@ import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
-import { onIota, onKlaytn, onRarible } from '../utils'
+import { onIota, onKlaytn, onRarible, onTaiko } from '../utils'
+
+const proxyContract = { contractName: getUSDCProxyDeployName() }
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
-    const iotaUSDCProxy = await contractFactory(onIota({ contractName: getUSDCProxyDeployName() }))
-    const klaytnUSDCProxy = await contractFactory(onKlaytn({ contractName: getUSDCProxyDeployName() }))
-    const raribleUSDCProxy = await contractFactory(onRarible({ contractName: getUSDCProxyDeployName() }))
+    const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
+    const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
+    const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
+    const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
 
     // Get the corresponding underlying USDC contract
     const iotaUSDC = onIota({ contractName: 'FiatTokenV2_2', address: iotaUSDCProxy.contract.address })
@@ -28,11 +31,15 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const raribleUSDC = onRarible({ contractName: 'FiatTokenV2_2', address: raribleUSDCProxy.contract.address })
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
 
+    const taikoUSDC = onRarible({ contractName: 'FiatTokenV2_2', address: taikoUSDCProxy.contract.address })
+    const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
+
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [TokenName.USDC] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [TokenName.USDC] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDC] as const)
+    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
         contracts: [
@@ -72,6 +79,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: raribleStargateMultisig,
                     minters: {
                         [raribleAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: taikoUSDC,
+                config: {
+                    owner: taikoStargateMultisig,
+                    masterMinter: taikoStargateMultisig,
+                    pauser: taikoStargateMultisig,
+                    rescuer: taikoStargateMultisig,
+                    blacklister: taikoStargateMultisig,
+                    minters: {
+                        [taikoAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

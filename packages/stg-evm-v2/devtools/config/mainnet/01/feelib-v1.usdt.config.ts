@@ -18,6 +18,7 @@ import {
     onOpt,
     onPolygon,
     onRarible,
+    onTaiko,
 } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -43,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const optFeeLibV1 = onOpt(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
+    const taikoFeeLibV1 = onTaiko(contract)
 
     return {
         contracts: [
@@ -96,6 +98,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: raribleFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: taikoFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],

@@ -21,6 +21,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onTaiko,
     onZkConsensys,
 } from '../utils'
 
@@ -50,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const raribleTokenMsging = onRarible(contract)
     const scrollTokenMsging = onScroll(contract)
     const seiTokenMsging = onSei(contract)
+    const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
 
     return {
@@ -205,6 +207,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
+                },
+            },
+            {
+                contract: taikoTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.TAIKO_V2_MAINNET],
                 },
             },
             {

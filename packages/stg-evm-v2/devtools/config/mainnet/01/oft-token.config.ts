@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onIota, onKlaytn, onRarible } from '../utils'
+import { onEbi, onIota, onKlaytn, onRarible, onTaiko } from '../utils'
 
 import type { MintableNodeConfig } from '../../../src/mintable'
 
@@ -22,6 +22,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
+    const taikoUSDT = onTaiko(usdtContractTemplate)
 
     // ETH contract pointers
     const klaytnETHContractName = getTokenDeployName(
@@ -43,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDT] as const)
     const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDT] as const)
 
     return {
         contracts: [
@@ -97,6 +99,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
                     minters: {
                         [seiAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: taikoUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    minters: {
+                        [taikoAssetAddresses.USDT]: true,
                     },
                 },
             },

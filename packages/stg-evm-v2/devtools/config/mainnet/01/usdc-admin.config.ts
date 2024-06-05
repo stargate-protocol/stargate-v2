@@ -4,17 +4,21 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
-import { onIota, onKlaytn, onRarible } from '../utils'
+import { onIota, onKlaytn, onRarible, onTaiko } from '../utils'
+
+const proxyContract = { contractName: getUSDCProxyDeployName() }
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Get the corresponding underlying USDC contract
-    const iotaUSDC = onIota({ contractName: getUSDCProxyDeployName() })
-    const klaytnUSDC = onKlaytn({ contractName: getUSDCProxyDeployName() })
-    const raribleUSDC = onRarible({ contractName: getUSDCProxyDeployName() })
+    const iotaUSDC = onIota(proxyContract)
+    const klaytnUSDC = onKlaytn(proxyContract)
+    const raribleUSDC = onRarible(proxyContract)
+    const taikoUSDC = onTaiko(proxyContract)
 
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
+    const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
 
     return {
         contracts: [
@@ -34,6 +38,12 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                 contract: raribleUSDC,
                 config: {
                     admin: raribleStargateMultisig,
+                },
+            },
+            {
+                contract: taikoUSDC,
+                config: {
+                    admin: taikoStargateMultisig,
                 },
             },
         ],
