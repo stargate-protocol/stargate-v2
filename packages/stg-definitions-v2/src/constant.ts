@@ -414,6 +414,13 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
         },
     },
+    [TokenName.XYZ]: {
+        name: 'XYZ Token',
+        symbol: 'XYZ',
+        assetId: 99,
+        sharedDecimals: 6,
+        networks: {},
+    },
 }
 
 export const REWARDS: RewardsConfig = {
