@@ -18,6 +18,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const avaxAssetAddresses = await getAssetAddresses(EndpointId.AVALANCHE_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
+        TokenName.XYZ,
     ] as const)
     const baseAssetAddresses = await getAssetAddresses(EndpointId.BASE_V2_MAINNET, [
         TokenName.ETH,
@@ -31,6 +32,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.mETH,
         TokenName.USDC,
         TokenName.USDT,
+        TokenName.XYZ,
     ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
@@ -82,6 +84,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.AVALANCHE_V2_MAINNET]: {
             [avaxAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [avaxAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+            [avaxAssetAddresses.XYZ]: ASSETS[TokenName.XYZ].assetId,
         },
         [EndpointId.BASE_V2_MAINNET]: {
             [baseAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
@@ -99,6 +102,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [ethAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [ethAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [ethAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+            [ethAssetAddresses.XYZ]: ASSETS[TokenName.XYZ].assetId,
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [kavaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
