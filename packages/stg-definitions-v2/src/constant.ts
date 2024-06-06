@@ -419,7 +419,18 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
         symbol: 'XYZ',
         assetId: 99,
         sharedDecimals: 6,
-        networks: {},
+        networks: {
+            [EndpointId.ETHEREUM_V2_MAINNET]: {
+                // Address of the underlying ERC20 token
+                address: '0x0000000000000000000000000000000000000000',
+                type: StargateType.Pool,
+            },
+            [EndpointId.AVALANCHE_V2_MAINNET]: {
+                // Address of the underlying ERC20 token
+                address: '0x0000000000000000000000000000000000000000',
+                type: StargateType.Pool,
+            },
+        },
     },
 }
 
