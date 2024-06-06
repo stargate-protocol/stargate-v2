@@ -15,6 +15,11 @@ export enum TokenName {
     USDC = 'USDC',
     METIS = 'METIS',
     mETH = 'mETH',
+    // Add a unique token identifier
+    //
+    // This is used accross the deployment & configuration code to identify tokens & assets
+    // This is not a human readable value and is not used for any on-chain properties such as token names and/or symbols
+    XYZ = 'XYZ',
 }
 
 /**
