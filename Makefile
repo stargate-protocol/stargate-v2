@@ -257,6 +257,7 @@ configure-mainnet:
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.xyz.config.ts --signer deployer
 
 	# Configure credit messaging
 	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --signer deployer
