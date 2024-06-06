@@ -245,7 +245,7 @@ importers:
         specifier: ~2.3.10
         version: 2.3.10
       '@stargatefinance/stg-evm-v2':
-        specifier: ~0.3.33
+        specifier: ~1.0.0
         version: link:../stg-evm-v2
       '@types/node':
         specifier: ^18.15.11
@@ -293,7 +293,7 @@ importers:
         specifier: ~2.3.20
         version: 2.3.20
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~0.3.24
+        specifier: ~1.0.0
         version: link:../stg-definitions-v2
       '@stargatefinance/stg-evm-v1':
         specifier: ~1.0.31

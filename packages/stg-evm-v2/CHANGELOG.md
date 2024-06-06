@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.0
+
+### Major Changes
+
+- 2e28e41: Version 1.0.0. This version contains no breaking changes and has no implications for downstream projects.
+
+### Patch Changes
+
+- Updated dependencies [2e28e41]
+  - @stargatefinance/stg-definitions-v2@1.0.0
+
 ## 0.3.33
 
 ### Patch Changes
