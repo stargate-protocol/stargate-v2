@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.0
+
+### Major Changes
+
+- 2e28e41: Version 1.0.0. This version contains no breaking changes and has no implications for downstream projects.
+
 ## 0.1.6
 
 ### Patch Changes

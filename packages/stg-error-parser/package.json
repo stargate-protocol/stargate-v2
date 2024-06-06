@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-error-parser",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "license": "BUSL-1.1",
   "exports": {
     "types": "./dist/index.d.ts",
