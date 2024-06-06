@@ -600,7 +600,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.018').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x2B065946d41ADf43BBc3BaF8118ae94Ed19D7A40',
+            safeAddress: '0xSAFEsafeSAFEsafeSAFEsafeSAFEsafeSAFEsafe',
             safeUrl: 'https://safe-transaction-avalanche.safe.global/',
         },
     },
