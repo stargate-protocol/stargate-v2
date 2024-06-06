@@ -259,6 +259,12 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'sei-mainnet': {
+        eid: EndpointId.SEI_V2_MAINNET,
+        url: process.env.RPC_URL_SEI_MAINNET || 'https://evm-rpc.sei-apis.com',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SEI_V2_MAINNET),
+    },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
