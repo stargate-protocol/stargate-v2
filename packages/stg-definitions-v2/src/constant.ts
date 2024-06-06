@@ -419,7 +419,14 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
         symbol: 'XYZ',
         assetId: 99,
         sharedDecimals: 6,
-        networks: {},
+        networks: {
+            [EndpointId.ETHEREUM_V2_MAINNET]: {
+                type: StargateType.Oft,
+            },
+            [EndpointId.AVALANCHE_V2_MAINNET]: {
+                type: StargateType.Oft,
+            },
+        },
     },
 }
 
