@@ -265,6 +265,12 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SEI_V2_MAINNET),
     },
+    'taiko-mainnet': {
+        eid: EndpointId.TAIKO_V2_MAINNET,
+        url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.ankr.com/taiko',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
+    },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
