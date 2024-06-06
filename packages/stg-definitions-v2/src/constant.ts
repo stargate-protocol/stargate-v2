@@ -532,6 +532,15 @@ export const NETWORKS: NetworksConfig = {
     //
     // MAINNET
     //
+    [EndpointId.XYZ_V2_MAINNET]: {
+        queueCapacity: 256,
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+        safeConfig: {
+            safeAddress: '0xSAFEsafeSAFEsafeSAFEsafeSAFEsafeSAFEsafe',
+            safeUrl: 'https://safe-transaction-arbitrum.safe.global/',
+        },
+    },
     [EndpointId.ARBITRUM_V2_MAINNET]: {
         queueCapacity: 512,
         creditMessaging: {
