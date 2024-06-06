@@ -231,6 +231,12 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKCONSENSYS_V2_MAINNET),
     },
+    'xyz-mainnet': {
+        eid: EndpointId.XYZ_V2_MAINNET,
+        url: process.env.RPC_URL_XYZ_MAINNET || 'https://xyz.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.XYZ_V2_MAINNET),
+    },
 }
 
 // We'll connect V1 deployments so that we can access them when deploying e.g. zapper
