@@ -186,6 +186,12 @@ const getPeerEids = (eid: EndpointId): EndpointId[] => {
     return ENDPOINT_IDS.filter((eid) => endpointIdToStage(eid) === stage && endpointIdToVersion(eid) === version)
 }
 
+/**
+ * Helper utility that creates an array ranging from 1 to `maxAssetId`
+ *
+ * @param {number} maxAssetId
+ * @returns {number[]}
+ */
 const getPossibleAssetIds = (maxAssetId: number): number[] => Array.from({ length: maxAssetId }).map((_, i) => i + 1)
 
 task('snapshot', 'Save stargate snapshot as a JSON file', action)
