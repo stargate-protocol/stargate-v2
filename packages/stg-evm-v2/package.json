@@ -89,6 +89,7 @@
     "@layerzerolabs/lz-evm-sdk-v1": "~2.3.20",
     "@layerzerolabs/protocol-devtools": "~0.3.7",
     "@layerzerolabs/protocol-devtools-evm": "~0.3.7",
+    "@layerzerolabs/test-devtools": "~0.2.4",
     "@layerzerolabs/toolbox-foundry": "~0.1.5",
     "@layerzerolabs/toolbox-hardhat": "~0.2.27",
     "@layerzerolabs/tsup-config-next": "~2.3.10",

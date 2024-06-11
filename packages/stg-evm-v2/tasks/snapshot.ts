@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs'
 
 import { task } from 'hardhat/config'
 
-import { OmniAddress, formatEid, tapError } from '@layerzerolabs/devtools'
+import { OmniAddress, OmniPoint, formatEid, formatOmniPoint, tapError } from '@layerzerolabs/devtools'
 import {
     createConnectedContractFactory,
     createContractFactory,
@@ -11,8 +11,10 @@ import {
     getEidsByNetworkName,
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { LogLevel, createLogger, createModuleLogger, printJson, setDefaultLogLevel } from '@layerzerolabs/io-devtools'
-import { EndpointId, type Stage, endpointIdToStage } from '@layerzerolabs/lz-definitions'
+import { EndpointId, type Stage, endpointIdToStage, endpointIdToVersion } from '@layerzerolabs/lz-definitions'
+import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
 
+import { createAssetFactory } from '../devtools/src/asset'
 import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
 
 import type { ActionType } from 'hardhat/types'
@@ -87,7 +89,8 @@ const createCollectCreditMessaging =
     (
         getEnvironment = createGetHreByEid(),
         contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
-        createSdk = createCreditMessagingFactory(contractFactory)
+        createSdk = createCreditMessagingFactory(contractFactory),
+        collectAsset = createCollectAsset(getEnvironment, contractFactory)
     ) =>
     async (eid: EndpointId): Promise<CreditMessagingSnapshot | null> => {
         const logger = createModuleLogger(`CreditMessaging @ ${formatEid(eid)}`)
@@ -112,17 +115,84 @@ const createCollectCreditMessaging =
         logger.verbose(`Creating an SDK`)
         const sdk = await createSdk({ address: deployment.address, eid })
 
-        logger.verbose(`Collecting information`)
-        const [owner, delegate, planner] = await Promise.all([sdk.getOwner(), sdk.getDelegate(), sdk.getPlanner()])
+        logger.verbose(`Collecting basic information`)
+        const [owner, delegate, planner, maxAssetId] = await Promise.all([
+            sdk.getOwner(),
+            sdk.getDelegate(),
+            sdk.getPlanner(),
+            sdk.getMaxAssetId(),
+        ])
+
+        // Now we have to collect all the asset information
+        //
+        // The first step is to create an array of asset IDs from 1 to maxAssetId
+        const assetIds = getPossibleAssetIds(maxAssetId)
+        logger.verbose(`Collecting asset information for asset IDs ${assetIds.join(', ')}`)
+
+        // Now we'll collect the asset information
+        const assetEntries = await Promise.all(
+            assetIds.map(async (assetId) => {
+                logger.verbose(`Collecting asset information for asset ID ${assetId}`)
+
+                const address = await sdk.getAsset(assetId)
+                if (address == null) {
+                    return logger.verbose(`No address found for asset ID ${assetId}`), [assetId, undefined] as const
+                }
+
+                return [assetId, await collectAsset({ eid, address })] as const
+            })
+        )
+        const assets = Object.fromEntries(assetEntries)
 
         // Create the snapshot object just so that we can print it out
-        const data: CreditMessagingSnapshot = { owner, delegate, planner }
+        const snapshot: CreditMessagingSnapshot = { owner, delegate, planner, maxAssetId, assets }
 
         logger.info(`Done`)
-        logger.debug(`Collected:\n${printJson(data)}`)
+        logger.debug(`Collected:\n${printJson(snapshot)}`)
 
-        return data
+        return snapshot
     }
+
+export const createCollectAsset =
+    (
+        getEnvironment = createGetHreByEid(),
+        contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
+        createSdk = createAssetFactory(contractFactory)
+    ) =>
+    async (point: OmniPoint): Promise<AssetSnapshot> => {
+        const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
+
+        logger.info(`Starting`)
+
+        // For now we'll collect nothing at all
+        const snapshot: AssetSnapshot = { address: point.address }
+
+        logger.info(`Done`)
+        logger.debug(`Collected:\n${printJson(snapshot)}`)
+
+        return snapshot
+    }
+
+/**
+ * Helper utility to get all possible peer endpoint IDs for a particular endpoint ID
+ *
+ * @param {EndpointId} eid
+ * @returns {EndpointId[]}
+ */
+const getPeerEids = (eid: EndpointId): EndpointId[] => {
+    const stage = endpointIdToStage(eid)
+    const version = endpointIdToVersion(eid)
+
+    return ENDPOINT_IDS.filter((eid) => endpointIdToStage(eid) === stage && endpointIdToVersion(eid) === version)
+}
+
+/**
+ * Helper utility that creates an array ranging from 1 to `maxAssetId`
+ *
+ * @param {number} maxAssetId
+ * @returns {number[]}
+ */
+const getPossibleAssetIds = (maxAssetId: number): number[] => Array.from({ length: maxAssetId }).map((_, i) => i + 1)
 
 task('snapshot', 'Save stargate snapshot as a JSON file', action)
     .addParam('out', 'Path to the output JSON file', undefined, devtoolsTypes.string)
@@ -140,6 +210,8 @@ task('snapshot', 'Save stargate snapshot as a JSON file', action)
 interface MessagingSnapshot {
     owner?: OmniAddress
     delegate?: OmniAddress
+    maxAssetId: number
+    assets: Partial<Record<number, AssetSnapshot>>
 }
 
 /**
@@ -147,4 +219,8 @@ interface MessagingSnapshot {
  */
 interface CreditMessagingSnapshot extends MessagingSnapshot {
     planner?: OmniAddress
+}
+
+interface AssetSnapshot {
+    address: OmniAddress
 }
