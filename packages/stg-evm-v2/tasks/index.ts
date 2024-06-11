@@ -1,4 +1,5 @@
 import './addTreasuryFee'
+import './balances'
 import './deposit'
 import './mintMockToken'
 import './printMessaging'
