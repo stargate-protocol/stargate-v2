@@ -186,7 +186,9 @@ export const createCollectAsset =
         const oftPaths = await Promise.all(
             peerEids.map(
                 async (dstEid): Promise<OFTPath[]> =>
-                    (await sdk.isOFTPath(dstEid)) ? [{ eid: dstEid, networkName: getNetworkNameForEid(dstEid) }] : []
+                    (await sdk.isOFTPath(dstEid))
+                        ? [{ eid: dstEid, networkName: getNetworkNameForEidMaybe(dstEid) }]
+                        : []
             )
         )
 
@@ -225,6 +227,24 @@ const getPeerEids = (eid: EndpointId): EndpointId[] => {
  * @returns {number[]}
  */
 const getPossibleAssetIds = (maxAssetId: number): number[] => Array.from({ length: maxAssetId }).map((_, i) => i + 1)
+
+/**
+ * Helper utility that returnes `undefined` as a network name
+ * if a given `eid` is not configured in hardhat config.
+ *
+ * This is useful when checking e.g. peers that might possibly
+ * be set to networks that have been deleted or never set in hardhat config
+ *
+ * @param {EndpointId} eid
+ * @returns {string | undefined}
+ */
+const getNetworkNameForEidMaybe = (eid: EndpointId): string | undefined => {
+    try {
+        return getNetworkNameForEid(eid)
+    } catch {
+        return undefined
+    }
+}
 
 task('snapshot', 'Save stargate snapshot as a JSON file', action)
     .addParam('out', 'Path to the output JSON file', undefined, devtoolsTypes.string)
@@ -272,5 +292,5 @@ interface OFTPath {
     /**
      * Hardhat network name
      */
-    networkName: string
+    networkName?: string
 }
