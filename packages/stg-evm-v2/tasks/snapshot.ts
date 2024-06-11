@@ -9,12 +9,13 @@ import {
     createGetHreByEid,
     types as devtoolsTypes,
     getEidsByNetworkName,
+    getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { LogLevel, createLogger, createModuleLogger, printJson, setDefaultLogLevel } from '@layerzerolabs/io-devtools'
 import { EndpointId, type Stage, endpointIdToStage, endpointIdToVersion } from '@layerzerolabs/lz-definitions'
 import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
 
-import { createAssetFactory } from '../devtools/src/asset'
+import { AddressConfig, createAssetFactory } from '../devtools/src/asset'
 import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
 
 import type { ActionType } from 'hardhat/types'
@@ -164,8 +165,39 @@ export const createCollectAsset =
 
         logger.info(`Starting`)
 
+        // We'll collect the information through an SDK (to use retry, schemas and all that)
+        logger.verbose(`Creating an SDK`)
+        const sdk = await createSdk(point)
+
+        logger.verbose(`Collecting basic information`)
+        const [owner, paused, addressConfig] = await Promise.all([
+            sdk.getOwner(),
+            sdk.isPaused(),
+            sdk.getAddressConfig(),
+        ])
+
+        // Now we'll check the OFT paths
+        //
+        // Since we want to be independent from the config, we'll need to check all possible eids
+        const peerEids = getPeerEids(point.eid)
+        logger.verbose(`Collecting OFT path information for peer eids ${peerEids.map(formatEid).join(', ')}`)
+
+        // This array will contain either empty tuples or a single element tuples with an OFTPath objects
+        const oftPaths = await Promise.all(
+            peerEids.map(
+                async (dstEid): Promise<OFTPath[]> =>
+                    (await sdk.isOFTPath(dstEid)) ? [{ eid: dstEid, networkName: getNetworkNameForEid(dstEid) }] : []
+            )
+        )
+
         // For now we'll collect nothing at all
-        const snapshot: AssetSnapshot = { address: point.address }
+        const snapshot: AssetSnapshot = {
+            address: point.address,
+            addressConfig,
+            owner,
+            paused,
+            oftPaths: oftPaths.flat(),
+        }
 
         logger.info(`Done`)
         logger.debug(`Collected:\n${printJson(snapshot)}`)
@@ -222,5 +254,23 @@ interface CreditMessagingSnapshot extends MessagingSnapshot {
 }
 
 interface AssetSnapshot {
+    owner?: OmniAddress
+    paused: boolean
     address: OmniAddress
+    addressConfig: AddressConfig
+    oftPaths: OFTPath[]
+}
+
+/**
+ * Represents an OFT path for an Asset
+ */
+interface OFTPath {
+    /**
+     * Destination network eid
+     */
+    eid: EndpointId
+    /**
+     * Hardhat network name
+     */
+    networkName: string
 }
