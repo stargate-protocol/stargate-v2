@@ -9,12 +9,13 @@ import {
     createGetHreByEid,
     types as devtoolsTypes,
     getEidsByNetworkName,
+    getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { LogLevel, createLogger, createModuleLogger, printJson, setDefaultLogLevel } from '@layerzerolabs/io-devtools'
 import { EndpointId, type Stage, endpointIdToStage, endpointIdToVersion } from '@layerzerolabs/lz-definitions'
 import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
 
-import { createAssetFactory } from '../devtools/src/asset'
+import { AddressConfig, createAssetFactory } from '../devtools/src/asset'
 import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
 
 import type { ActionType } from 'hardhat/types'
@@ -164,8 +165,41 @@ export const createCollectAsset =
 
         logger.info(`Starting`)
 
+        // We'll collect the information through an SDK (to use retry, schemas and all that)
+        logger.verbose(`Creating an SDK`)
+        const sdk = await createSdk(point)
+
+        logger.verbose(`Collecting basic information`)
+        const [owner, paused, addressConfig] = await Promise.all([
+            sdk.getOwner(),
+            sdk.isPaused(),
+            sdk.getAddressConfig(),
+        ])
+
+        // Now we'll check the OFT paths
+        //
+        // Since we want to be independent from the config, we'll need to check all possible eids
+        const peerEids = getPeerEids(point.eid)
+        logger.verbose(`Collecting OFT path information for peer eids ${peerEids.map(formatEid).join(', ')}`)
+
+        // This array will contain either empty tuples or a single element tuples with an OFTPath objects
+        const oftPaths = await Promise.all(
+            peerEids.map(
+                async (dstEid): Promise<OFTPath[]> =>
+                    (await sdk.isOFTPath(dstEid))
+                        ? [{ eid: dstEid, networkName: getNetworkNameForEidMaybe(dstEid) }]
+                        : []
+            )
+        )
+
         // For now we'll collect nothing at all
-        const snapshot: AssetSnapshot = { address: point.address }
+        const snapshot: AssetSnapshot = {
+            address: point.address,
+            addressConfig,
+            owner,
+            paused,
+            oftPaths: oftPaths.flat(),
+        }
 
         logger.info(`Done`)
         logger.debug(`Collected:\n${printJson(snapshot)}`)
@@ -193,6 +227,24 @@ const getPeerEids = (eid: EndpointId): EndpointId[] => {
  * @returns {number[]}
  */
 const getPossibleAssetIds = (maxAssetId: number): number[] => Array.from({ length: maxAssetId }).map((_, i) => i + 1)
+
+/**
+ * Helper utility that returnes `undefined` as a network name
+ * if a given `eid` is not configured in hardhat config.
+ *
+ * This is useful when checking e.g. peers that might possibly
+ * be set to networks that have been deleted or never set in hardhat config
+ *
+ * @param {EndpointId} eid
+ * @returns {string | undefined}
+ */
+const getNetworkNameForEidMaybe = (eid: EndpointId): string | undefined => {
+    try {
+        return getNetworkNameForEid(eid)
+    } catch {
+        return undefined
+    }
+}
 
 task('snapshot', 'Save stargate snapshot as a JSON file', action)
     .addParam('out', 'Path to the output JSON file', undefined, devtoolsTypes.string)
@@ -222,5 +274,23 @@ interface CreditMessagingSnapshot extends MessagingSnapshot {
 }
 
 interface AssetSnapshot {
+    owner?: OmniAddress
+    paused: boolean
     address: OmniAddress
+    addressConfig: AddressConfig
+    oftPaths: OFTPath[]
+}
+
+/**
+ * Represents an OFT path for an Asset
+ */
+interface OFTPath {
+    /**
+     * Destination network eid
+     */
+    eid: EndpointId
+    /**
+     * Hardhat network name
+     */
+    networkName?: string
 }
