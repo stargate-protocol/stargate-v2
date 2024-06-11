@@ -729,8 +729,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
         safeConfig: {
-            // FIXME
-            safeAddress: '0xwat',
+            safeAddress: '0xdC20E4cDf9C1bF75dF848D4e8F4E3B9B767840C8',
             safeUrl: 'https://xchain-tx.lzdevnet.org/',
             contractNetworks: {
                 [167000]: {
@@ -760,8 +759,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
         safeConfig: {
-            // FIXME
-            safeAddress: '0xwat',
+            safeAddress: '0x61F36B8575ED9e363a131838dD02b69230253702',
             safeUrl: 'https://iota-tx.lzdevnet.org/',
             contractNetworks: {
                 [8822]: {
@@ -947,8 +945,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
         safeConfig: {
-            // FIXME
-            safeAddress: '0xwat',
+            safeAddress: '0x196009FbeD5825a4Fe7443b5a1908E359d051769',
             safeUrl: 'https://sei-tx.lzdevnet.org',
             contractNetworks: {
                 [1329]: {
@@ -978,8 +975,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
         safeConfig: {
-            // FIXME
-            safeAddress: '0xwat',
+            safeAddress: '0xB3e401A59571D4BF5996B0f5FfFE377FbfE71359',
             safeUrl: 'https://taiko-tx.lzdevnet.org',
             contractNetworks: {
                 [167000]: {
