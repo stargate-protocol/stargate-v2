@@ -34,6 +34,7 @@ export interface IAsset extends IOmniSDK, IOwnable {
     isPaused(): Promise<boolean>
     setPaused(pause: boolean): Promise<OmniTransaction>
 
+    getToken(): Promise<OmniAddress | undefined>
     getLPToken(): Promise<OmniAddress | undefined>
 }
 
