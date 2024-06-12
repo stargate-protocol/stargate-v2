@@ -34,6 +34,18 @@ import './devtools/tasks'
 
 const v1Deployments = join(dirname(require.resolve('@stargatefinance/stg-evm-v1/package.json')), 'deployments')
 
+/**
+ * The local simulation nodes' performance can vary based on the machine
+ * it's running on. For large transactions, this can exceed the default network timeout
+ * and result in a `HeadersTimeoutError`.
+ *
+ * We bump this to an extremely large value (600s) to avoid these issues
+ *
+ * See https://github.com/NomicFoundation/hardhat/issues/3136
+ * See https://github.com/NomicFoundation/hardhat/issues/2672#issuecomment-1167409582
+ */
+const DEFAULT_NETWORK_TIMEOUT = 600_000
+
 const sandboxAccounts: HDAccountsUserConfig = {
     mnemonic:
         process.env.MNEMONIC_SANDBOX ||
@@ -114,6 +126,7 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.BSC_V2_TESTNET,
         url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
         accounts: testnetAccounts,
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
@@ -140,96 +153,112 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ARBITRUM_V2_MAINNET),
         useFeeData: true,
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'aurora-mainnet': {
         eid: EndpointId.AURORA_V2_MAINNET,
         url: process.env.RPC_URL_AURORA_MAINNET || 'https://aurora.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.AURORA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'avalanche-mainnet': {
         eid: EndpointId.AVALANCHE_V2_MAINNET,
         url: process.env.RPC_URL_AVALANCHE_MAINNET || 'https://avalanche-c-chain-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.AVALANCHE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'base-mainnet': {
         eid: EndpointId.BASE_V2_MAINNET,
         url: process.env.RPC_URL_BASE_MAINNET || 'https://base.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BASE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'bsc-mainnet': {
         eid: EndpointId.BSC_V2_MAINNET,
         url: process.env.RPC_URL_BSC_MAINNET || 'https://bsc-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ebi-mainnet': {
         eid: EndpointId.EBI_V2_MAINNET,
         url: process.env.RPC_URL_EBI_MAINNET || 'https://rpc.ebi.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.EBI_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
         url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ETHEREUM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'kava-mainnet': {
         eid: EndpointId.KAVA_V2_MAINNET,
         url: process.env.RPC_URL_KAVA_MAINNET || 'https://evm.kava.chainstacklabs.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KAVA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-mainnet': {
         eid: EndpointId.KLAYTN_V2_MAINNET,
         url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://rpc.ankr.com/klaytn',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'mantle-mainnet': {
         eid: EndpointId.MANTLE_V2_MAINNET,
         url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MANTLE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'metis-mainnet': {
         eid: EndpointId.METIS_V2_MAINNET,
         url: process.env.RPC_URL_METIS_MAINNET || 'https://metis-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.METIS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'optimism-mainnet': {
         eid: EndpointId.OPTIMISM_V2_MAINNET,
         url: process.env.RPC_URL_OPTIMISM_MAINNET || 'https://optimism.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.OPTIMISM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
         url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.meowrpc.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.POLYGON_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'rarible-mainnet': {
         eid: EndpointId.RARIBLE_V2_MAINNET,
         url: process.env.RPC_URL_RARIBLE_MAINNET || 'https://mainnet.rpc.rarichain.org/http',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.RARIBLE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'scroll-mainnet': {
         eid: EndpointId.SCROLL_V2_MAINNET,
         url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKCONSENSYS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
 }
 
@@ -244,6 +273,15 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
     defaultNetwork: 'hardhat',
     mocha: {
         timeout: 50000,
+    },
+    layerZero: {
+        experimental: {
+            simulation: {
+                anvil: {
+                    timeout: DEFAULT_NETWORK_TIMEOUT,
+                },
+            },
+        },
     },
     solidity: {
         eraVersion: '1.0.0',
