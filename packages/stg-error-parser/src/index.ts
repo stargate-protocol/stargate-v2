@@ -1,6 +1,23 @@
+import { contracts } from '@stargatefinance/stg-evm-v2/deployed'
+
 import { LayerZeroErrorParser, LayerZeroParsedError } from '@layerzerolabs/evm-sdks-core'
 
-import errors from './errors/errors.json'
+// We'll create a list of all the errors found in all the stargate contracts
+const errorEntries = Object.values(contracts)
+    // First we get one ABI per network for every contract
+    .flatMap(({ abis: abisByNetworkName }) => Object.values(abisByNetworkName))
+    // Then we flatten all the ABIs into one massive ABI
+    .flat()
+    // Then we take the error fragments out
+    .filter(({ type }) => type === 'error')
+    // Then we'll need to deduplicate the errors so we create a hash key by stringifying the error
+    //
+    // Simple yet effective
+    .map((fragment) => [JSON.stringify(fragment), fragment] as const)
+
+// Now that we have the errors in array of [hash, fragment] tuples, we can just deduplicate them
+// by turning them into an object and getting all of its values
+export const errors = Object.values(Object.fromEntries(errorEntries))
 
 /**
  * This function is a wrapper for LayerZeroErrorParser.check.

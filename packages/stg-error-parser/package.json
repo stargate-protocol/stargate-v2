@@ -13,10 +13,8 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "$npm_execpath clean-prebuild && $npm_execpath populate && $npm_execpath tsup",
+    "build": "$npm_execpath tsup --clean",
     "clean": "rm -rf dist .turbo",
-    "clean-prebuild": "rm -rf dist 'src/errors/*.json'",
-    "populate": "ts-node scripts/populate.ts && $npm_execpath prettier --write 'src/errors/*.json'",
     "test": "jest"
   },
   "dependencies": {
@@ -25,7 +23,7 @@
   "devDependencies": {
     "@layerzerolabs/tsup-config-next": "~2.3.10",
     "@layerzerolabs/typescript-config-next": "~2.3.10",
-    "@stargatefinance/stg-evm-sdk-v2": "*",
+    "@stargatefinance/stg-evm-v2": "~1.0.0",
     "@types/jest": "^29.5.10",
     "@types/node": "^18.15.11",
     "jest": "^29.7.0",

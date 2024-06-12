@@ -20,7 +20,6 @@
     ]
   },
   "resolutions": {
-    "@layerzerolabs/lz-definitions": "2.3.20",
     "es5-ext": "https://github.com/LayerZero-Labs/es5-ext"
   },
   "devDependencies": {
