@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-oftwrapper
 
+## 0.0.25
+
+### Patch Changes
+
+- 05a4cf8: Update @LayerZero-Labs dependencies
+
 ## 0.0.24
 
 ### Patch Changes
