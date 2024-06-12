@@ -172,11 +172,12 @@ const createCollectAsset =
         const sdk = await createSdk(point)
 
         logger.verbose(`Collecting basic information`)
-        const [owner, paused, addressConfig, lpTokenAddress] = await Promise.all([
+        const [owner, paused, addressConfig, lpTokenAddress, tokenAddress] = await Promise.all([
             sdk.getOwner(),
             sdk.isPaused(),
             sdk.getAddressConfig(),
             sdk.getLPToken(),
+            sdk.getToken(),
         ])
 
         // Now we'll check the OFT paths
@@ -199,6 +200,9 @@ const createCollectAsset =
         const lpToken =
             lpTokenAddress == null ? undefined : await collectERC20({ address: lpTokenAddress, eid: point.eid })
 
+        // If the asset has an LP token attached, we'll collect its information
+        const token = tokenAddress == null ? undefined : await collectERC20({ address: tokenAddress, eid: point.eid })
+
         // For now we'll collect nothing at all
         const snapshot: AssetSnapshot = {
             address: point.address,
@@ -206,6 +210,7 @@ const createCollectAsset =
             owner,
             paused,
             lpToken,
+            token,
             oftPaths: oftPaths.flat(),
         }
 
@@ -313,6 +318,7 @@ interface AssetSnapshot {
     address: OmniAddress
     addressConfig: AddressConfig
     lpToken?: ERC20TokenSnapshot
+    token?: ERC20TokenSnapshot
     oftPaths: OFTPath[]
 }
 

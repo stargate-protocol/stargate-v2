@@ -80,6 +80,11 @@ export class Asset extends Ownable implements IAsset {
     }
 
     @AsyncRetriable()
+    async getToken(): Promise<OmniAddress | undefined> {
+        return ignoreZero(await this.contract.contract.token())
+    }
+
+    @AsyncRetriable()
     async getLPToken(): Promise<OmniAddress | undefined> {
         // We want to return undefined if there is no lpToken function defined on the asset as opposed to throwing
         // since throwing would trigger the async retriable
