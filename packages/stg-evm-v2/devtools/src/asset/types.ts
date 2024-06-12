@@ -8,7 +8,7 @@ import type {
 } from '@layerzerolabs/devtools'
 import type { EndpointId } from '@layerzerolabs/lz-definitions'
 import type { IOwnable, OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
-import type { AssetId } from '@stargatefinance/stg-definitions-v2'
+import type { AssetId, StargateType } from '@stargatefinance/stg-definitions-v2'
 
 export interface AssetEdgeConfig {
     isOFT?: boolean
@@ -36,6 +36,8 @@ export interface IAsset extends IOmniSDK, IOwnable {
 
     getToken(): Promise<OmniAddress | undefined>
     getLPToken(): Promise<OmniAddress | undefined>
+
+    getStargateType(): Promise<StargateType>
 }
 
 export interface AddressConfig {

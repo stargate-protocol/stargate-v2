@@ -1,3 +1,4 @@
+import { StargateType } from '@stargatefinance/stg-definitions-v2'
 import { BigNumber } from 'ethers'
 
 import {
@@ -82,6 +83,29 @@ export class Asset extends Ownable implements IAsset {
     @AsyncRetriable()
     async getToken(): Promise<OmniAddress | undefined> {
         return ignoreZero(await this.contract.contract.token())
+    }
+    @AsyncRetriable()
+    async getStargateType(): Promise<StargateType> {
+        this.logger.debug(`Getting Stargate type`)
+
+        const stargateType = await this.contract.contract.stargateType()
+        this.logger.debug(`Got Stargate type ${stargateType}`)
+
+        // For OFTs is clear
+        if (stargateType === 1) {
+            this.logger.debug(`Assuming Stargate type ${StargateType.Oft}`)
+            return StargateType.Oft
+        }
+
+        // For pools we need to check whether the token address is zero
+        const tokenAddress = await this.getToken()
+        if (tokenAddress == null) {
+            this.logger.debug(`Got zero token address, assuming Stargate type ${StargateType.Native}`)
+            return StargateType.Native
+        }
+
+        this.logger.debug(`Got non-zero token address, assuming Stargate type ${StargateType.Pool}`)
+        return StargateType.Pool
     }
 
     @AsyncRetriable()
