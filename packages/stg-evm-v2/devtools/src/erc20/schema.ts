@@ -11,6 +11,10 @@ import { OwnableNodeConfigSchema } from '@layerzerolabs/ua-devtools'
 
 import { Allowance, AllowanceConfig, ERC20NodeConfig, MintConfig } from './types'
 
+export const NameSchema = z.string()
+
+export const SymbolSchema = z.string()
+
 export const AllowancesSchema = z.record(AddressSchema, BigNumberishBigIntSchema) satisfies z.ZodSchema<
     Allowance,
     z.ZodTypeDef,

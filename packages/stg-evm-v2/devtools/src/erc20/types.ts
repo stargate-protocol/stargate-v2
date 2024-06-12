@@ -23,7 +23,10 @@ export type ERC20Factory<TERC20 extends IERC20 = IERC20, TOmniPoint = OmniPoint>
 
 export interface IERC20 extends IOmniSDK, IOwnable {
     approve(spender: OmniAddress, amount: bigint): Promise<OmniTransaction>
+    // TODO Rename to getDecimals() to follow the getter convention
     decimals(): Promise<number>
+    getName(): Promise<string>
+    getSymbol(): Promise<string>
     getAllowance(owner: OmniAddress, spender: OmniAddress): Promise<bigint>
     mint(spender: OmniAddress, amount: bigint): Promise<OmniTransaction>
 }

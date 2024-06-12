@@ -7,6 +7,8 @@ import {
 } from '@layerzerolabs/devtools'
 import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 
+import { NameSchema, SymbolSchema } from './schema'
+
 import type { IERC20 } from './types'
 
 export class ERC20 extends Ownable implements IERC20 {
@@ -29,6 +31,30 @@ export class ERC20 extends Ownable implements IERC20 {
         )
 
         return UIntNumberSchema.parse(decimals)
+    }
+
+    @AsyncRetriable()
+    async getName(): Promise<string> {
+        this.logger.verbose(`Getting token name`)
+
+        const name = await tapError(
+            () => this.contract.contract.name(),
+            (error) => (this.logger.error(`Failed to get token name: ${error}`), undefined)
+        )
+
+        return NameSchema.parse(name)
+    }
+
+    @AsyncRetriable()
+    async getSymbol(): Promise<string> {
+        this.logger.verbose(`Getting token symbol`)
+
+        const symbol = await tapError(
+            () => this.contract.contract.symbol(),
+            (error) => (this.logger.error(`Failed to get token symbol: ${error}`), undefined)
+        )
+
+        return SymbolSchema.parse(symbol)
     }
 
     @AsyncRetriable()

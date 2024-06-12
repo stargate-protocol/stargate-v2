@@ -17,6 +17,7 @@ import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
 
 import { AddressConfig, createAssetFactory } from '../devtools/src/asset'
 import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
+import { createERC20Factory } from '../devtools/src/erc20'
 
 import type { ActionType } from 'hardhat/types'
 
@@ -154,11 +155,12 @@ const createCollectCreditMessaging =
         return snapshot
     }
 
-export const createCollectAsset =
+const createCollectAsset =
     (
         getEnvironment = createGetHreByEid(),
         contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
-        createSdk = createAssetFactory(contractFactory)
+        createSdk = createAssetFactory(contractFactory),
+        collectERC20 = createCollectERC20(getEnvironment, contractFactory)
     ) =>
     async (point: OmniPoint): Promise<AssetSnapshot> => {
         const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
@@ -170,10 +172,11 @@ export const createCollectAsset =
         const sdk = await createSdk(point)
 
         logger.verbose(`Collecting basic information`)
-        const [owner, paused, addressConfig] = await Promise.all([
+        const [owner, paused, addressConfig, lpTokenAddress] = await Promise.all([
             sdk.getOwner(),
             sdk.isPaused(),
             sdk.getAddressConfig(),
+            sdk.getLPToken(),
         ])
 
         // Now we'll check the OFT paths
@@ -192,14 +195,45 @@ export const createCollectAsset =
             )
         )
 
+        // If the asset has an LP token attached, we'll collect its information
+        const lpToken =
+            lpTokenAddress == null ? undefined : await collectERC20({ address: lpTokenAddress, eid: point.eid })
+
         // For now we'll collect nothing at all
         const snapshot: AssetSnapshot = {
             address: point.address,
             addressConfig,
             owner,
             paused,
+            lpToken,
             oftPaths: oftPaths.flat(),
         }
+
+        logger.info(`Done`)
+        logger.debug(`Collected:\n${printJson(snapshot)}`)
+
+        return snapshot
+    }
+
+const createCollectERC20 =
+    (
+        getEnvironment = createGetHreByEid(),
+        contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
+        createSdk = createERC20Factory(contractFactory)
+    ) =>
+    async (point: OmniPoint): Promise<ERC20TokenSnapshot> => {
+        const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
+
+        logger.info(`Starting`)
+
+        // We'll collect the information through an SDK (to use retry, schemas and all that)
+        logger.verbose(`Creating an SDK`)
+        const sdk = await createSdk({ ...point, contractName: 'ERC20' })
+
+        logger.verbose(`Collecting basic information`)
+        const [name, symbol, decimals] = await Promise.all([sdk.getName(), sdk.getSymbol(), sdk.decimals()])
+
+        const snapshot: ERC20TokenSnapshot = { address: point.address, name, symbol, decimals }
 
         logger.info(`Done`)
         logger.debug(`Collected:\n${printJson(snapshot)}`)
@@ -278,7 +312,15 @@ interface AssetSnapshot {
     paused: boolean
     address: OmniAddress
     addressConfig: AddressConfig
+    lpToken?: ERC20TokenSnapshot
     oftPaths: OFTPath[]
+}
+
+interface ERC20TokenSnapshot {
+    address: OmniAddress
+    name: string
+    symbol: string
+    decimals: number
 }
 
 /**
