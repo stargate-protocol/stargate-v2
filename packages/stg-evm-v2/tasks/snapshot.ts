@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs'
 
+import { StargateType } from '@stargatefinance/stg-definitions-v2'
 import { task } from 'hardhat/config'
 
 import { OmniAddress, OmniPoint, formatEid, formatOmniPoint, tapError } from '@layerzerolabs/devtools'
@@ -172,7 +173,8 @@ const createCollectAsset =
         const sdk = await createSdk(point)
 
         logger.verbose(`Collecting basic information`)
-        const [owner, paused, addressConfig, lpTokenAddress, tokenAddress] = await Promise.all([
+        const [type, owner, paused, addressConfig, lpTokenAddress, tokenAddress] = await Promise.all([
+            sdk.getStargateType(),
             sdk.getOwner(),
             sdk.isPaused(),
             sdk.getAddressConfig(),
@@ -207,6 +209,7 @@ const createCollectAsset =
         const snapshot: AssetSnapshot = {
             address: point.address,
             addressConfig,
+            type,
             owner,
             paused,
             lpToken,
@@ -313,6 +316,7 @@ interface CreditMessagingSnapshot extends MessagingSnapshot {
 }
 
 interface AssetSnapshot {
+    type: StargateType
     owner?: OmniAddress
     paused: boolean
     address: OmniAddress
