@@ -1,4 +1,4 @@
 artifacts
 deployments
 dist
-src/errors
+src/errors.json

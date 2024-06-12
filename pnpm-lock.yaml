@@ -92,9 +92,9 @@ importers:
       '@layerzerolabs/typescript-config-next':
         specifier: ~2.3.10
         version: 2.3.10
-      '@stargatefinance/stg-evm-v2':
+      '@stargatefinance/stg-evm-sdk-v2':
         specifier: ~1.0.0
-        version: link:../stg-evm-v2
+        version: link:../stg-evm-sdk-v2
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.12
