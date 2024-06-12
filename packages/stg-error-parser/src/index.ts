@@ -1,6 +1,6 @@
-import { LayerZeroErrorParser, LayerZeroParsedError } from '@layerzerolabs/evm-sdks-core'
+import { errors } from '@stargatefinance/stg-evm-sdk-v2'
 
-import errors from './errors/errors.json'
+import { LayerZeroErrorParser, LayerZeroParsedError } from '@layerzerolabs/evm-sdks-core'
 
 /**
  * This function is a wrapper for LayerZeroErrorParser.check.

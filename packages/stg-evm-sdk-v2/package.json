@@ -36,12 +36,10 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "tsup --clean > /dev/null 2>&1 || true && rm -rf src/errors && $npm_execpath populate && tsup --clean",
-    "clean": "rm -rf .turbo dist artifacts deployments src/errors",
-    "populate": "$npm_execpath ts-node scripts/populate.ts"
+    "build": "$npm_execpath tsup --clean",
+    "clean": "rm -rf .turbo dist artifacts deployments"
   },
   "devDependencies": {
-    "@layerzerolabs/evm-sdks-build": "~2.3.20",
     "@layerzerolabs/tsup-config-next": "~2.3.10",
     "@layerzerolabs/typescript-config-next": "~2.3.10",
     "@stargatefinance/stg-evm-v2": "~1.0.0",
