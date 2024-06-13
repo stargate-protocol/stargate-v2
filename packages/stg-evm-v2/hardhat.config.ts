@@ -279,6 +279,7 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
             simulation: {
                 anvil: {
                     timeout: DEFAULT_NETWORK_TIMEOUT,
+                    pruneHistory: true,
                 },
             },
         },
