@@ -202,6 +202,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.IOTA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'kava-mainnet': {
         eid: EndpointId.KAVA_V2_MAINNET,
@@ -264,6 +265,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SEI_MAINNET || 'https://evm-rpc.sei-apis.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SEI_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
         // Sei is giving us ProviderError: Out of gas: gas required exceeds allowance errors
         useFeeData: true,
     },
@@ -272,12 +274,14 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.mainnet.taiko.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'xchain-mainnet': {
         eid: EndpointId.XCHAIN_V2_MAINNET,
         url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://xchain-rpc.idex.io/',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
