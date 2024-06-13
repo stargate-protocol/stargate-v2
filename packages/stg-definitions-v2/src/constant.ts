@@ -715,36 +715,6 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-mainnet.safe.global/',
         },
     },
-    [EndpointId.XCHAIN_V2_MAINNET]: {
-        queueCapacity: 512,
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0042').toBigInt(),
-        },
-        safeConfig: {
-            safeAddress: '0xdC20E4cDf9C1bF75dF848D4e8F4E3B9B767840C8',
-            safeUrl: 'https://xchain-tx.lzdevnet.org/',
-            contractNetworks: {
-                [167000]: {
-                    multiSendAddress: '0xA4FB0BAD56ed9741c9BA22065074660477C956e3',
-                    multiSendCallOnlyAddress: '0x407ebA862aDdE622e6dFabC88e3E088adE8C4AeA',
-                    safeMasterCopyAddress: '0x2337b4a88363D4834E68A019037868E0FF8E39Be',
-                    safeProxyFactoryAddress: '0x8B0D2816befb572FD4569Dc33FEe4A4b71dCE70A',
-                    fallbackHandlerAddress: '0x01af5e216Ec50e380f10E7cE604AD14b1d618961',
-                    createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
-                    signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
-                    simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
-                },
-            },
-        },
-    },
     [EndpointId.IOTA_V2_MAINNET]: {
         queueCapacity: 512,
         creditMessaging: {
@@ -756,7 +726,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET], DVNS.STG[EndpointId.IOTA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0042').toBigInt(),
+            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x61F36B8575ED9e363a131838dD02b69230253702',
@@ -894,7 +864,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET], DVNS.STG[EndpointId.RARIBLE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00015').toBigInt(),
+            nativeDropAmount: parseEther('0.00003').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x0bB70602d48E1A681B6aCBC788712751A3f0b59d',
@@ -942,7 +912,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0042').toBigInt(),
+            nativeDropAmount: parseEther('0.0006').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x196009FbeD5825a4Fe7443b5a1908E359d051769',
@@ -972,11 +942,41 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0042').toBigInt(),
+            nativeDropAmount: parseEther('0.0008').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0xB3e401A59571D4BF5996B0f5FfFE377FbfE71359',
             safeUrl: 'https://taiko-tx.lzdevnet.org',
+            contractNetworks: {
+                [167000]: {
+                    multiSendAddress: '0xA4FB0BAD56ed9741c9BA22065074660477C956e3',
+                    multiSendCallOnlyAddress: '0x407ebA862aDdE622e6dFabC88e3E088adE8C4AeA',
+                    safeMasterCopyAddress: '0x2337b4a88363D4834E68A019037868E0FF8E39Be',
+                    safeProxyFactoryAddress: '0x8B0D2816befb572FD4569Dc33FEe4A4b71dCE70A',
+                    fallbackHandlerAddress: '0x01af5e216Ec50e380f10E7cE604AD14b1d618961',
+                    createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
+                    signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
+                    simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
+                },
+            },
+        },
+    },
+    [EndpointId.XCHAIN_V2_MAINNET]: {
+        queueCapacity: 512,
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
+            nativeDropAmount: parseEther('0.00004').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xdC20E4cDf9C1bF75dF848D4e8F4E3B9B767840C8',
+            safeUrl: 'https://xchain-tx.lzdevnet.org/',
             contractNetworks: {
                 [167000]: {
                     multiSendAddress: '0xA4FB0BAD56ed9741c9BA22065074660477C956e3',
