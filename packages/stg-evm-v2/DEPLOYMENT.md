@@ -145,3 +145,15 @@ make deploy-mainnet
 make configure-mainnet
 make transfer-mainnet
 ```
+
+After the mainnet has been transferred to the multisig, any new changes need to be submitted using the safe signer:
+
+```bash
+make configure-mainnet CONFIGURE_ARGS_COMMON="--safe"
+```
+
+Safe signer also supports batched mode that's currently feature-flagged in devtools:
+
+```bash
+LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND=1 make configure-mainnet CONFIGURE_ARGS_COMMON="--safe"
+```

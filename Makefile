@@ -265,7 +265,9 @@ configure-mainnet:
 	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
 
 	# Initialize bus storage for token messaging
-	$(CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
+	#
+	# We want this particular configuration to never be batched as the individual transactions are quite gas-intensive
+	LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND="" $(CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
 
 	# Configure feelib V1
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
