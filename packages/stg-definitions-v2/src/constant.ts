@@ -274,7 +274,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
-            [EndpointId.SEI_V2_MAINNET]: {
+            [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
 
