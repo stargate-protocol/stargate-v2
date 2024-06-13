@@ -269,7 +269,7 @@ const networks: NetworksUserConfig = {
     },
     'taiko-mainnet': {
         eid: EndpointId.TAIKO_V2_MAINNET,
-        url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.ankr.com/taiko',
+        url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.mainnet.taiko.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
     },
