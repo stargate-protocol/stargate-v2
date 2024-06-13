@@ -273,6 +273,12 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
     },
+    'xchain-mainnet': {
+        eid: EndpointId.XCHAIN_V2_MAINNET,
+        url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://rpc.xchainscan.com',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
+    },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
