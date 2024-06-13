@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": patch
 ---
 
-Add SEI
+Add TAIKO
