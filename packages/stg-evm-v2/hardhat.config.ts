@@ -275,7 +275,7 @@ const networks: NetworksUserConfig = {
     },
     'xchain-mainnet': {
         eid: EndpointId.XCHAIN_V2_MAINNET,
-        url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://rpc.xchainscan.com',
+        url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://xchain-rpc.idex.io/',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
     },
