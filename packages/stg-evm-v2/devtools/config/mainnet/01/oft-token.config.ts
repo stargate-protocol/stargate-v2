@@ -25,6 +25,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
     // ETH contract pointers
+    const iotaETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.IOTA_V2_MAINNET, TokenName.ETH)
+    )
+    const iotaETH = onIota({ contractName: iotaETHContractName })
+
     const klaytnETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.KLAYTN_V2_MAINNET, TokenName.ETH)
@@ -37,7 +43,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
-    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [TokenName.USDT] as const)
+    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -54,6 +63,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
                     minters: {
                         [ebiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: iotaETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    minters: {
+                        [iotaAssetAddresses.ETH]: true,
                     },
                 },
             },
