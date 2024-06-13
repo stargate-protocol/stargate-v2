@@ -264,6 +264,8 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SEI_MAINNET || 'https://evm-rpc.sei-apis.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SEI_V2_MAINNET),
+        // Sei is giving us ProviderError: Out of gas: gas required exceeds allowance errors
+        useFeeData: true,
     },
     'taiko-mainnet': {
         eid: EndpointId.TAIKO_V2_MAINNET,
