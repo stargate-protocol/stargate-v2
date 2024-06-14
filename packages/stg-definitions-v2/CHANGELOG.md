@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.0.3
+
+### Patch Changes
+
+- 7ca5b2b: Fix Safe addresses for XChain
+
 ## 1.0.2
 
 ### Patch Changes

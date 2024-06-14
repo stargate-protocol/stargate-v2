@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.2
+
+### Patch Changes
+
+- 2dc681d: Added 4 chains: Iota, Sei, Taiko, Xchain
+
 ## 1.0.1
 
 ### Patch Changes
