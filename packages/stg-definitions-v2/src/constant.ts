@@ -978,7 +978,7 @@ export const NETWORKS: NetworksConfig = {
             safeAddress: '0xdC20E4cDf9C1bF75dF848D4e8F4E3B9B767840C8',
             safeUrl: 'https://xchain-tx.lzdevnet.org/',
             contractNetworks: {
-                [167000]: {
+                [94524]: {
                     multiSendAddress: '0xA4FB0BAD56ed9741c9BA22065074660477C956e3',
                     multiSendCallOnlyAddress: '0x407ebA862aDdE622e6dFabC88e3E088adE8C4AeA',
                     safeMasterCopyAddress: '0x2337b4a88363D4834E68A019037868E0FF8E39Be',
