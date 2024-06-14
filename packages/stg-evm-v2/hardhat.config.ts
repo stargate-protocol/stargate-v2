@@ -275,6 +275,7 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+        gasPrice: 20000000,
     },
     'xchain-mainnet': {
         eid: EndpointId.XCHAIN_V2_MAINNET,
