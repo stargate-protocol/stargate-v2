@@ -10,12 +10,15 @@ import {
     onAvax,
     onBase,
     onEth,
+    onIota,
     onKlaytn,
     onMantle,
     onOpt,
     onPolygon,
     onRarible,
-    onScroll
+    onScroll,
+    onTaiko,
+    onXchain,
 } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -33,12 +36,15 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const avaxFeeLibV1 = onAvax(contract)
     const baseFeeLibV1 = onBase(contract)
     const ethFeeLibV1 = onEth(contract)
+    const iotaFeeLibV1 = onIota(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const mantleFeeLibV1 = onMantle(contract)
     const optFeeLibV1 = onOpt(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
     const scrollFeeLibV1 = onScroll(contract)
+    const taikoFeeLibV1 = onTaiko(contract)
+    const xchainFeeLibV1 = onXchain(contract)
 
     return {
         contracts: [
@@ -63,6 +69,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: iotaFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: klaytnFeeLibV1,
                 config: defaultNodeConfig,
             },
@@ -84,6 +94,14 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: scrollFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: taikoFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: xchainFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],

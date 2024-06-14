@@ -13,6 +13,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onIota,
     onKava,
     onKlaytn,
     onMantle,
@@ -21,6 +22,9 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
+    onTaiko,
+    onXchain,
     onZkConsensys,
 } from '../utils'
 
@@ -40,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
+    const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const mantleAdmin = getSafeAddress(EndpointId.MANTLE_V2_MAINNET)
@@ -48,7 +53,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
+    const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
+    const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
 
     // Now we collect the address of the deployed assets
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
@@ -72,6 +80,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.METIS,
         TokenName.mETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -109,9 +122,15 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
+    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
         contracts: [
@@ -190,6 +209,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [ethAssetAddresses.mETH]: true,
                         [ethAssetAddresses.USDC]: true,
                         [ethAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onIota(contract),
+                config: {
+                    owner: iotaAdmin,
+                    admin: iotaAdmin,
+                    assets: {
+                        [iotaAssetAddresses.ETH]: true,
+                        [iotaAssetAddresses.USDC]: true,
+                        [iotaAssetAddresses.USDT]: true,
                     },
                 },
             },
@@ -286,12 +317,43 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
+                contract: onSei(contract),
+                config: {
+                    owner: seiAdmin,
+                    admin: seiAdmin,
+                    assets: {
+                        [seiAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: onTaiko(contract),
+                config: {
+                    owner: taikoAdmin,
+                    admin: taikoAdmin,
+                    assets: {
+                        [taikoAssetAddresses.USDC]: true,
+                        [taikoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
                 contract: onZkConsensys(contract),
                 config: {
                     owner: zkConsensysAdmin,
                     admin: zkConsensysAdmin,
                     assets: {
                         [zkConsensysAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: onXchain(contract),
+                config: {
+                    owner: xchainAdmin,
+                    admin: xchainAdmin,
+                    assets: {
+                        [xchainAssetAddresses.USDC]: true,
                     },
                 },
             },

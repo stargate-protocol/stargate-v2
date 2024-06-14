@@ -10,6 +10,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onIota,
     onKava,
     onKlaytn,
     onMantle,
@@ -18,6 +19,9 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
+    onTaiko,
+    onXchain,
     onZkConsensys,
 } from '../utils'
 
@@ -40,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const bscCreditMsging = onBsc(contract)
     const ebiCreditMsging = onEbi(contract)
     const ethCreditMsging = onEth(contract)
+    const iotaCreditMsging = onIota(contract)
     const kavaCreditMsging = onKava(contract)
     const klaytnCreditMsging = onKlaytn(contract)
     const mantleCreditMsging = onMantle(contract)
@@ -48,7 +53,10 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const polygonCreditMsging = onPolygon(contract)
     const raribleCreditMsging = onRarible(contract)
     const scrollCreditMsging = onScroll(contract)
+    const seiCreditMsging = onSei(contract)
+    const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
+    const xchainCreditMsging = onXchain(contract)
 
     return {
         contracts: [
@@ -113,6 +121,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: iotaCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
                 },
             },
             {
@@ -188,12 +205,39 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: seiCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
+                },
+            },
+            {
+                contract: taikoCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.TAIKO_V2_MAINNET],
+                },
+            },
+            {
                 contract: zkConsensysCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                },
+            },
+            {
+                contract: xchainCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.XCHAIN_V2_MAINNET],
                 },
             },
         ],
@@ -205,6 +249,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             bscCreditMsging,
             ebiCreditMsging,
             ethCreditMsging,
+            iotaCreditMsging,
             kavaCreditMsging,
             klaytnCreditMsging,
             mantleCreditMsging,
@@ -213,6 +258,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             polygonCreditMsging,
             raribleCreditMsging,
             scrollCreditMsging,
+            seiCreditMsging,
             zkConsensysCreditMsging,
         ]),
     }

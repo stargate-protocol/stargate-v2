@@ -24,12 +24,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
+    const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
+    const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
+    const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
 
     // And all their nodes
     const arbContract = await getAssetNode(arbPoint)
@@ -37,12 +40,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxContract = await getAssetNode(avaxPoint)
     const baseContract = await getAssetNode(basePoint)
     const ethContract = await getAssetNode(ethPoint)
+    const iotaContract = await getAssetNode(iotaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
     const mantleContract = await getAssetNode(mantlePoint)
     const optContract = await getAssetNode(optPoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
     const scrollContract = await getAssetNode(scrollPoint)
+    const taikoContract = await getAssetNode(taikoPoint)
+    const xchainContract = await getAssetNode(xchainPoint)
 
     return {
         contracts: [
@@ -51,12 +57,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxContract,
             baseContract,
             ethContract,
+            iotaContract,
             klaytnContract,
             mantleContract,
             optContract,
             polygonContract,
             raribleContract,
             scrollContract,
+            taikoContract,
+            xchainContract,
         ],
         connections: generateAssetConfig(tokenName, [
             arbPoint,
@@ -64,12 +73,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxPoint,
             basePoint,
             ethPoint,
+            iotaPoint,
             klaytnPoint,
             mantlePoint,
             optPoint,
             polygonPoint,
             rariblePoint,
             scrollPoint,
+            taikoPoint,
+            xchainPoint,
         ]),
     }
 }

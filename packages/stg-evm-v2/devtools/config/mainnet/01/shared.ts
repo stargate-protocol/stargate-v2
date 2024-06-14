@@ -32,6 +32,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
@@ -66,9 +71,15 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
+    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
         [EndpointId.ARBITRUM_V2_MAINNET]: {
@@ -99,6 +110,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [ethAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [ethAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [ethAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.IOTA_V2_MAINNET]: {
+            [iotaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [iotaAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [iotaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [kavaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
@@ -136,8 +152,18 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [scrollAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [scrollAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
+        [EndpointId.SEI_V2_MAINNET]: {
+            [seiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
+        [EndpointId.TAIKO_V2_MAINNET]: {
+            [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [taikoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [zkConsensysAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
+        [EndpointId.XCHAIN_V2_MAINNET]: {
+            [xchainAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
     } satisfies Partial<Record<EndpointId, MessagingAssetConfig>>
 }

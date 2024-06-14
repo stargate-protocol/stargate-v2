@@ -11,6 +11,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onIota,
     onKava,
     onKlaytn,
     onMantle,
@@ -19,6 +20,9 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
+    onTaiko,
+    onXchain,
     onZkConsensys,
 } from '../utils'
 
@@ -38,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const bscTokenMsging = onBsc(contract)
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
+    const iotaTokenMsging = onIota(contract)
     const kavaTokenMsging = onKava(contract)
     const klaytnTokenMsging = onKlaytn(contract)
     const mantleTokenMsging = onMantle(contract)
@@ -46,7 +51,10 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const polygonTokenMsging = onPolygon(contract)
     const raribleTokenMsging = onRarible(contract)
     const scrollTokenMsging = onScroll(contract)
+    const seiTokenMsging = onSei(contract)
+    const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
+    const xchainTokenMsging = onXchain(contract)
 
     return {
         contracts: [
@@ -111,6 +119,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ETHEREUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: iotaTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
                 },
             },
             {
@@ -186,12 +203,39 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: seiTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
+                },
+            },
+            {
+                contract: taikoTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.TAIKO_V2_MAINNET],
+                },
+            },
+            {
                 contract: zkConsensysTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                },
+            },
+            {
+                contract: xchainTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.XCHAIN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.XCHAIN_V2_MAINNET],
                 },
             },
         ],
@@ -203,6 +247,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             bscTokenMsging,
             ebiTokenMsging,
             ethTokenMsging,
+            iotaTokenMsging,
             kavaTokenMsging,
             klaytnTokenMsging,
             mantleTokenMsging,
@@ -212,6 +257,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             raribleTokenMsging,
             scrollTokenMsging,
             zkConsensysTokenMsging,
+            xchainTokenMsging,
         ]),
     }
 }
