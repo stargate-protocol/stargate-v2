@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onIota, onKlaytn, onRarible, onTaiko } from '../utils'
+import { onEbi, onIota, onKlaytn, onRarible, onSei, onTaiko } from '../utils'
 
 import type { MintableNodeConfig } from '../../../src/mintable'
 
@@ -38,7 +38,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
-    const seiETH = onKlaytn({ contractName: seiETHContractName })
+    const seiETH = onSei({ contractName: seiETHContractName })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
