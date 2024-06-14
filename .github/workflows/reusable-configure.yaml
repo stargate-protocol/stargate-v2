@@ -125,7 +125,13 @@ jobs:
         run: make configure-mainnet CONFIGURE_ARGS_COMMON=--ci
         env:
           LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
-          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+          # Mainnet RPC nodes are now quite numerous and the github runner can't keep up with the load,
+          # resulting in intermittent network issues and timeouts
+          #
+          # Until we get a larger runner, the idea is to soften the load on the machine by
+          # submitting transactions one by one
+          #
+          # LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
           # Run under simulation
           LZ_EXPERIMENTAL_WITH_SIMULATION: 1
 
