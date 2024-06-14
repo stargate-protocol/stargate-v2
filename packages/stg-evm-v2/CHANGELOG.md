@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.2
+
+### Patch Changes
+
+- 75816d2: Add SEI
+- 75816d2: Add XCHAIN
+- 75816d2: Add IOTA
+- 75816d2: Add TAIKO
+- Updated dependencies [75816d2]
+- Updated dependencies [75816d2]
+- Updated dependencies [75816d2]
+- Updated dependencies [75816d2]
+  - @stargatefinance/stg-definitions-v2@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes
