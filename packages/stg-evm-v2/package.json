@@ -25,7 +25,8 @@
   "files": [
     "dist",
     "artifacts",
-    "deployments"
+    "deployments",
+    "src/**/*"
   ],
   "scripts": {
     "build": "$npm_execpath build:exports && $npm_execpath build:ts",
