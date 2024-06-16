@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.4
+
+### Patch Changes
+
+- 0c715d0: Include contract files in npm package
+
+## 1.0.3
+
+### Patch Changes
+
+- 2dc681d: Added 4 chains: Iota, Sei, Taiko, Xchain
+- Updated dependencies [7ca5b2b]
+  - @stargatefinance/stg-definitions-v2@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes

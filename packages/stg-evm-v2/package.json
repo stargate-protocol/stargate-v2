@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-evm-v2",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -25,7 +25,8 @@
   "files": [
     "dist",
     "artifacts",
-    "deployments"
+    "deployments",
+    "src/**/*"
   ],
   "scripts": {
     "build": "$npm_execpath build:exports && $npm_execpath build:ts",
@@ -64,7 +65,7 @@
     "@layerzerolabs/lz-evm-v1-0.7": "~2.3.22",
     "@layerzerolabs/lz-utilities": "~2.3.22",
     "@layerzerolabs/lz-v2-utilities": "~2.3.22",
-    "@stargatefinance/stg-definitions-v2": "~1.0.2",
+    "@stargatefinance/stg-definitions-v2": "~1.0.3",
     "@stargatefinance/stg-evm-v1": "~1.0.31",
     "@types/sinon": "~17.0.3",
     "ethers": "^5.7.2"
