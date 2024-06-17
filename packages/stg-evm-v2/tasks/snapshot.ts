@@ -2,8 +2,9 @@ import { writeFileSync } from 'fs'
 
 import { StargateType } from '@stargatefinance/stg-definitions-v2'
 import { task } from 'hardhat/config'
+import pMemoize from 'p-memoize'
 
-import { OmniAddress, OmniPoint, formatEid, formatOmniPoint, tapError } from '@layerzerolabs/devtools'
+import { OmniAddress, OmniPoint, formatEid, formatOmniPoint, serializePoint, tapError } from '@layerzerolabs/devtools'
 import {
     createConnectedContractFactory,
     createContractFactory,
@@ -251,98 +252,107 @@ const createCollectTokenMessaging =
         return snapshot
     }
 
-const createCollectAsset =
-    (
-        getEnvironment = createGetHreByEid(),
-        contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
-        createSdk = createAssetFactory(contractFactory),
-        collectERC20 = createCollectERC20(getEnvironment, contractFactory)
-    ) =>
-    async (point: OmniPoint): Promise<AssetSnapshot> => {
-        const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
+const createCollectAsset = (
+    getEnvironment = createGetHreByEid(),
+    contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
+    createSdk = createAssetFactory(contractFactory),
+    collectERC20 = createCollectERC20(getEnvironment, contractFactory)
+) =>
+    pMemoize(
+        async (point: OmniPoint): Promise<AssetSnapshot> => {
+            const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
 
-        logger.info(`Starting`)
+            logger.info(`Starting`)
 
-        // We'll collect the information through an SDK (to use retry, schemas and all that)
-        logger.verbose(`Creating an SDK`)
-        const sdk = await createSdk(point)
+            // We'll collect the information through an SDK (to use retry, schemas and all that)
+            logger.verbose(`Creating an SDK`)
+            const sdk = await createSdk(point)
 
-        logger.verbose(`Collecting basic information`)
-        const [type, owner, paused, addressConfig, lpTokenAddress, tokenAddress] = await Promise.all([
-            sdk.getStargateType(),
-            sdk.getOwner(),
-            sdk.isPaused(),
-            sdk.getAddressConfig(),
-            sdk.getLPToken(),
-            sdk.getToken(),
-        ])
+            logger.verbose(`Collecting basic information`)
+            const [type, owner, paused, addressConfig, lpTokenAddress, tokenAddress] = await Promise.all([
+                sdk.getStargateType(),
+                sdk.getOwner(),
+                sdk.isPaused(),
+                sdk.getAddressConfig(),
+                sdk.getLPToken(),
+                sdk.getToken(),
+            ])
 
-        // Now we'll check the OFT paths
-        //
-        // Since we want to be independent from the config, we'll need to check all possible eids
-        const peerEids = getPeerEids(point.eid)
-        logger.verbose(`Collecting OFT path information for peer eids ${peerEids.map(formatEid).join(', ')}`)
+            // Now we'll check the OFT paths
+            //
+            // Since we want to be independent from the config, we'll need to check all possible eids
+            const peerEids = getPeerEids(point.eid)
+            logger.verbose(`Collecting OFT path information for peer eids ${peerEids.map(formatEid).join(', ')}`)
 
-        // This array will contain either empty tuples or a single element tuples with an OFTPath objects
-        const oftPaths = await Promise.all(
-            peerEids.map(
-                async (dstEid): Promise<OFTPath[]> =>
-                    (await sdk.isOFTPath(dstEid))
-                        ? [{ eid: dstEid, networkName: getNetworkNameForEidMaybe(dstEid) }]
-                        : []
+            // This array will contain either empty tuples or a single element tuples with an OFTPath objects
+            const oftPaths = await Promise.all(
+                peerEids.map(
+                    async (dstEid): Promise<OFTPath[]> =>
+                        (await sdk.isOFTPath(dstEid))
+                            ? [{ eid: dstEid, networkName: getNetworkNameForEidMaybe(dstEid) }]
+                            : []
+                )
             )
-        )
 
-        // If the asset has an LP token attached, we'll collect its information
-        const lpToken =
-            lpTokenAddress == null ? undefined : await collectERC20({ address: lpTokenAddress, eid: point.eid })
+            // If the asset has an LP token attached, we'll collect its information
+            const lpToken =
+                lpTokenAddress == null ? undefined : await collectERC20({ address: lpTokenAddress, eid: point.eid })
 
-        // If the asset has an LP token attached, we'll collect its information
-        const token = tokenAddress == null ? undefined : await collectERC20({ address: tokenAddress, eid: point.eid })
+            // If the asset has an LP token attached, we'll collect its information
+            const token =
+                tokenAddress == null ? undefined : await collectERC20({ address: tokenAddress, eid: point.eid })
 
-        // For now we'll collect nothing at all
-        const snapshot: AssetSnapshot = {
-            address: point.address,
-            addressConfig,
-            type,
-            owner,
-            paused,
-            lpToken,
-            token,
-            oftPaths: oftPaths.flat(),
+            // For now we'll collect nothing at all
+            const snapshot: AssetSnapshot = {
+                address: point.address,
+                addressConfig,
+                type,
+                owner,
+                paused,
+                lpToken,
+                token,
+                oftPaths: oftPaths.flat(),
+            }
+
+            logger.info(`Done`)
+            logger.debug(`Collected:\n${printJson(snapshot)}`)
+
+            return snapshot
+        },
+        {
+            cacheKey: omniPointCacheKey,
         }
+    )
 
-        logger.info(`Done`)
-        logger.debug(`Collected:\n${printJson(snapshot)}`)
+const createCollectERC20 = (
+    getEnvironment = createGetHreByEid(),
+    contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
+    createSdk = createERC20Factory(contractFactory)
+) =>
+    pMemoize(
+        async (point: OmniPoint): Promise<ERC20TokenSnapshot> => {
+            const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
 
-        return snapshot
-    }
+            logger.info(`Starting`)
 
-const createCollectERC20 =
-    (
-        getEnvironment = createGetHreByEid(),
-        contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
-        createSdk = createERC20Factory(contractFactory)
-    ) =>
-    async (point: OmniPoint): Promise<ERC20TokenSnapshot> => {
-        const logger = createModuleLogger(`Asset @ ${formatOmniPoint(point)}`)
+            // We'll collect the information through an SDK (to use retry, schemas and all that)
+            logger.verbose(`Creating an SDK`)
+            const sdk = await createSdk({ ...point, contractName: 'ERC20' })
 
-        logger.info(`Starting`)
+            logger.verbose(`Collecting basic information`)
+            const [name, symbol, decimals] = await Promise.all([sdk.getName(), sdk.getSymbol(), sdk.decimals()])
 
-        // We'll collect the information through an SDK (to use retry, schemas and all that)
-        logger.verbose(`Creating an SDK`)
-        const sdk = await createSdk({ ...point, contractName: 'ERC20' })
+            const snapshot: ERC20TokenSnapshot = { address: point.address, name, symbol, decimals }
 
-        logger.verbose(`Collecting basic information`)
-        const [name, symbol, decimals] = await Promise.all([sdk.getName(), sdk.getSymbol(), sdk.decimals()])
+            logger.info(`Done`)
+            logger.debug(`Collected:\n${printJson(snapshot)}`)
 
-        const snapshot: ERC20TokenSnapshot = { address: point.address, name, symbol, decimals }
-
-        logger.info(`Done`)
-        logger.debug(`Collected:\n${printJson(snapshot)}`)
-
-        return snapshot
-    }
+            return snapshot
+        },
+        {
+            cacheKey: omniPointCacheKey,
+        }
+    )
 
 /**
  * Helper utility to get all possible peer endpoint IDs for a particular endpoint ID
@@ -382,6 +392,8 @@ const getNetworkNameForEidMaybe = (eid: EndpointId): string | undefined => {
         return undefined
     }
 }
+
+const omniPointCacheKey = ([omniPoint]: [OmniPoint]): string => serializePoint(omniPoint)
 
 task('snapshot', 'Save stargate snapshot as a JSON file', action)
     .addParam('out', 'Path to the output JSON file', undefined, devtoolsTypes.string)
