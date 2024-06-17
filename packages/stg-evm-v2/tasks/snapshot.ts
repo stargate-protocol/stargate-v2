@@ -19,6 +19,7 @@ import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
 import { AddressConfig, createAssetFactory } from '../devtools/src/asset'
 import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
 import { createERC20Factory } from '../devtools/src/erc20'
+import { TokenMessagingGasLimits, createTokenMessagingFactory } from '../devtools/src/token-messaging'
 
 import type { ActionType } from 'hardhat/types'
 
@@ -59,12 +60,16 @@ const action: ActionType<TaskArgs> = async ({ stage, out, logLevel = 'info' }, h
     // Create necessary utilities
     const getEnvironment = createGetHreByEid(hre)
     const collectCreditMessaging = createCollectCreditMessaging(getEnvironment)
+    const collectTokenMessaging = createCollectTokenMessaging(getEnvironment)
 
     const entries = await Promise.all(
         eidsByNetworkName.map(async ([networkName, eid]) => {
-            const creditMessaging = await collectCreditMessaging(eid)
+            const [creditMessaging, tokenMessaging] = await Promise.all([
+                collectCreditMessaging(eid),
+                collectTokenMessaging(eid),
+            ])
 
-            return [networkName, { eid, creditMessaging }] as const
+            return [networkName, { eid, creditMessaging, tokenMessaging }] as const
         })
     )
 
@@ -149,6 +154,96 @@ const createCollectCreditMessaging =
 
         // Create the snapshot object just so that we can print it out
         const snapshot: CreditMessagingSnapshot = { owner, delegate, planner, maxAssetId, assets }
+
+        logger.info(`Done`)
+        logger.debug(`Collected:\n${printJson(snapshot)}`)
+
+        return snapshot
+    }
+
+const createCollectTokenMessaging =
+    (
+        getEnvironment = createGetHreByEid(),
+        contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment)),
+        createSdk = createTokenMessagingFactory(contractFactory),
+        collectAsset = createCollectAsset(getEnvironment, contractFactory)
+    ) =>
+    async (eid: EndpointId): Promise<TokenMessagingSnapshot | null> => {
+        const logger = createModuleLogger(`TokenMessaging @ ${formatEid(eid)}`)
+
+        logger.info(`Starting`)
+
+        const env = await getEnvironment(eid)
+
+        // We'll start with checking that we have a deployment on this network
+        logger.verbose(`Getting a deployment`)
+        const deployment = await env.deployments.getOrNull('TokenMessaging')
+        if (deployment == null) {
+            // If there is no deployment, we'll return null instead of throwing
+            //
+            // This covers the case of adding a network and running this script before deploying it
+            return logger.info(`No deployment found, skipping`), null
+        }
+
+        logger.verbose(`Found the deployment: ${deployment.address}`)
+
+        // We'll collect the information through an SDK (to use retry, schemas and all that)
+        logger.verbose(`Creating an SDK`)
+        const sdk = await createSdk({ address: deployment.address, eid })
+
+        logger.verbose(`Collecting basic information`)
+        const [owner, delegate, maxAssetId] = await Promise.all([
+            sdk.getOwner(),
+            sdk.getDelegate(),
+            sdk.getMaxAssetId(),
+        ])
+
+        const peerEids = getPeerEids(eid)
+        const connectionEntries = await Promise.all(
+            peerEids.map(async (peerEid) => {
+                logger.verbose(`Collecting connection information for eid ${formatEid(peerEid)}`)
+
+                const peerAddress = await sdk.getPeer(peerEid)
+                if (peerAddress == null) {
+                    return logger.verbose(`No peer found for eid ${formatEid(peerEid)}`), [peerEid, undefined] as const
+                }
+
+                const [gasLimits] = await Promise.all([sdk.getGasLimit(peerEid)])
+                const snapshot: TokenMessagingConnectionSnapshot = {
+                    address: peerAddress,
+                    gasLimits,
+                    networkName: getNetworkNameForEidMaybe(peerEid),
+                }
+
+                return [peerEid, snapshot] as const
+            })
+        )
+
+        const connections = Object.fromEntries(connectionEntries)
+
+        // Now we have to collect all the asset information
+        //
+        // The first step is to create an array of asset IDs from 1 to maxAssetId
+        const assetIds = getPossibleAssetIds(maxAssetId)
+        logger.verbose(`Collecting asset information for asset IDs ${assetIds.join(', ')}`)
+
+        // Now we'll collect the asset information
+        const assetEntries = await Promise.all(
+            assetIds.map(async (assetId) => {
+                logger.verbose(`Collecting asset information for asset ID ${assetId}`)
+
+                const address = await sdk.getAsset(assetId)
+                if (address == null) {
+                    return logger.verbose(`No address found for asset ID ${assetId}`), [assetId, undefined] as const
+                }
+
+                return [assetId, await collectAsset({ eid, address })] as const
+            })
+        )
+        const assets = Object.fromEntries(assetEntries)
+
+        // Create the snapshot object just so that we can print it out
+        const snapshot: TokenMessagingSnapshot = { owner, delegate, maxAssetId, assets, connections }
 
         logger.info(`Done`)
         logger.debug(`Collected:\n${printJson(snapshot)}`)
@@ -313,6 +408,15 @@ interface MessagingSnapshot {
  */
 interface CreditMessagingSnapshot extends MessagingSnapshot {
     planner?: OmniAddress
+}
+
+interface TokenMessagingConnectionSnapshot {
+    address: OmniAddress
+    networkName?: string
+    gasLimits?: TokenMessagingGasLimits
+}
+interface TokenMessagingSnapshot extends MessagingSnapshot {
+    connections: Partial<Record<EndpointId, TokenMessagingConnectionSnapshot>>
 }
 
 interface AssetSnapshot {
