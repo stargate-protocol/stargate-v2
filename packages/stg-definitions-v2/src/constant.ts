@@ -940,7 +940,7 @@ export const NETWORKS: NetworksConfig = {
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
             nativeDropAmount: parseEther('0.0008').toBigInt(),
         },
