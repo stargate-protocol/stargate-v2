@@ -259,7 +259,9 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             raribleCreditMsging,
             scrollCreditMsging,
             seiCreditMsging,
+            taikoCreditMsging,
             zkConsensysCreditMsging,
+            xchainCreditMsging,
         ]),
     }
 }
