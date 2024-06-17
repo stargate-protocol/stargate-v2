@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.5
+
+### Patch Changes
+
+- 38ab8a8: Add ./dist exports to support older consumers
+
 ## 1.0.4
 
 ### Patch Changes
