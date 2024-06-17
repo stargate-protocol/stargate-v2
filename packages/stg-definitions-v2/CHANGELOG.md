@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.0.4
+
+### Patch Changes
+
+- 771cca1: Update the taiko dvn
+
 ## 1.0.3
 
 ### Patch Changes
