@@ -18,9 +18,15 @@ import { EndpointId, type Stage, endpointIdToStage, endpointIdToVersion } from '
 import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
 
 import { AddressConfig, createAssetFactory } from '../devtools/src/asset'
-import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
+import { MSG_TYPE_CREDIT_MESSAGING, createCreditMessagingFactory } from '../devtools/src/credit-messaging'
 import { createERC20Factory } from '../devtools/src/erc20'
-import { TokenMessagingGasLimits, createTokenMessagingFactory } from '../devtools/src/token-messaging'
+import {
+    Fares,
+    MSG_TYPE_BUS,
+    MSG_TYPE_TAXI,
+    TokenMessagingGasLimits,
+    createTokenMessagingFactory,
+} from '../devtools/src/token-messaging'
 
 import type { ActionType } from 'hardhat/types'
 
@@ -153,8 +159,42 @@ const createCollectCreditMessaging =
         )
         const assets = Object.fromEntries(assetEntries)
 
+        // Now we collect connection information
+        //
+        // We'll iterate over all possible peer endpoint IDs to also capture values
+        // not present in the config
+        const peerEids = getPeerEids(eid)
+        const connectionEntries = await Promise.all(
+            peerEids.map(async (peerEid) => {
+                logger.verbose(`Collecting connection information for eid ${formatEid(peerEid)}`)
+
+                const peerAddress = await sdk.getPeer(peerEid)
+                if (peerAddress == null) {
+                    return logger.verbose(`No peer found for eid ${formatEid(peerEid)}`), [peerEid, undefined] as const
+                }
+
+                const [gasLimits, enforcedOptionsCreditMessaging] = await Promise.all([
+                    sdk.getGasLimit(peerEid),
+                    sdk.getEnforcedOptions(peerEid, MSG_TYPE_CREDIT_MESSAGING),
+                ])
+                const snapshot: CreditMessagingConnectionSnapshot = {
+                    address: peerAddress,
+                    gasLimits,
+                    eid: peerEid,
+                    networkName: getNetworkNameForEidMaybe(peerEid),
+                    enforcedOptions: {
+                        [MSG_TYPE_CREDIT_MESSAGING]: enforcedOptionsCreditMessaging,
+                    },
+                }
+
+                return [peerEid, snapshot] as const
+            })
+        )
+
+        const connections = Object.fromEntries(connectionEntries)
+
         // Create the snapshot object just so that we can print it out
-        const snapshot: CreditMessagingSnapshot = { owner, delegate, planner, maxAssetId, assets }
+        const snapshot: CreditMessagingSnapshot = { owner, delegate, planner, maxAssetId, assets, connections }
 
         logger.info(`Done`)
         logger.debug(`Collected:\n${printJson(snapshot)}`)
@@ -199,6 +239,10 @@ const createCollectTokenMessaging =
             sdk.getMaxAssetId(),
         ])
 
+        // Now we collect connection information
+        //
+        // We'll iterate over all possible peer endpoint IDs to also capture values
+        // not present in the config
         const peerEids = getPeerEids(eid)
         const connectionEntries = await Promise.all(
             peerEids.map(async (peerEid) => {
@@ -209,12 +253,27 @@ const createCollectTokenMessaging =
                     return logger.verbose(`No peer found for eid ${formatEid(peerEid)}`), [peerEid, undefined] as const
                 }
 
-                const [gasLimits] = await Promise.all([sdk.getGasLimit(peerEid)])
+                const [gasLimits, fares, maxPassengers, nativeDropAmount, enforcedOptionsBus, enforcedOptionsTaxi] =
+                    await Promise.all([
+                        sdk.getGasLimit(peerEid),
+                        sdk.getFares(peerEid),
+                        sdk.getMaxPassengers(peerEid),
+                        sdk.getNativeDropAmount(peerEid),
+                        sdk.getEnforcedOptions(peerEid, MSG_TYPE_BUS),
+                        sdk.getEnforcedOptions(peerEid, MSG_TYPE_TAXI),
+                    ])
                 const snapshot: TokenMessagingConnectionSnapshot = {
                     address: peerAddress,
+                    fares,
                     gasLimits,
+                    maxPassengers,
+                    nativeDropAmount,
                     eid: peerEid,
                     networkName: getNetworkNameForEidMaybe(peerEid),
+                    enforcedOptions: {
+                        [MSG_TYPE_BUS]: enforcedOptionsBus,
+                        [MSG_TYPE_TAXI]: enforcedOptionsTaxi,
+                    },
                 }
 
                 return [peerEid, snapshot] as const
@@ -420,6 +479,11 @@ interface MessagingConnectionSnapshot {
     eid: EndpointId
     address: OmniAddress
     networkName?: string
+    enforcedOptions: Record<number, string>
+}
+
+interface CreditMessagingConnectionSnapshot extends MessagingConnectionSnapshot {
+    gasLimits: bigint
 }
 
 /**
@@ -427,10 +491,14 @@ interface MessagingConnectionSnapshot {
  */
 interface CreditMessagingSnapshot extends MessagingSnapshot {
     planner?: OmniAddress
+    connections: Partial<Record<EndpointId, CreditMessagingConnectionSnapshot>>
 }
 
 interface TokenMessagingConnectionSnapshot extends MessagingConnectionSnapshot {
     gasLimits?: TokenMessagingGasLimits
+    maxPassengers: number
+    nativeDropAmount: bigint
+    fares: Fares
 }
 
 interface TokenMessagingSnapshot extends MessagingSnapshot {
