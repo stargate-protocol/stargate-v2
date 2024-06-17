@@ -213,6 +213,7 @@ const createCollectTokenMessaging =
                 const snapshot: TokenMessagingConnectionSnapshot = {
                     address: peerAddress,
                     gasLimits,
+                    eid: peerEid,
                     networkName: getNetworkNameForEidMaybe(peerEid),
                 }
 
@@ -415,6 +416,12 @@ interface MessagingSnapshot {
     assets: Partial<Record<number, AssetSnapshot>>
 }
 
+interface MessagingConnectionSnapshot {
+    eid: EndpointId
+    address: OmniAddress
+    networkName?: string
+}
+
 /**
  * Describes `CreditMessaging` contract state
  */
@@ -422,11 +429,10 @@ interface CreditMessagingSnapshot extends MessagingSnapshot {
     planner?: OmniAddress
 }
 
-interface TokenMessagingConnectionSnapshot {
-    address: OmniAddress
-    networkName?: string
+interface TokenMessagingConnectionSnapshot extends MessagingConnectionSnapshot {
     gasLimits?: TokenMessagingGasLimits
 }
+
 interface TokenMessagingSnapshot extends MessagingSnapshot {
     connections: Partial<Record<EndpointId, TokenMessagingConnectionSnapshot>>
 }
