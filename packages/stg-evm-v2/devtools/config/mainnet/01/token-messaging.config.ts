@@ -256,6 +256,8 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             polygonTokenMsging,
             raribleTokenMsging,
             scrollTokenMsging,
+            seiTokenMsging,
+            taikoTokenMsging,
             zkConsensysTokenMsging,
             xchainTokenMsging,
         ]),
