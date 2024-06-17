@@ -18,6 +18,16 @@
       "import": "./dist/deployed/*.mjs",
       "require": "./dist/deployed/*.cjs"
     },
+    "./dist": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./dist/*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -26,7 +36,7 @@
     "dist",
     "artifacts",
     "deployments",
-    "src/**/*"
+    "src"
   ],
   "scripts": {
     "build": "$npm_execpath build:exports && $npm_execpath build:ts",
