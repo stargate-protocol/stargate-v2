@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://stargate.finance">
-    <img src="https://stargate.finance/media/images/og-image.jpg"/>
+    <img src="https://stargate.finance/static/og-image.jpg"/>
   </a>
 </p>
 
