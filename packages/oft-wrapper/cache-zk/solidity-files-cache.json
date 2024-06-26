@@ -1,0 +1,2016 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/OFTWrapper.sol": {
+      "lastModificationDate": 1719430185329,
+      "contentHash": "34b752807f1829cfde8a9e729ede2a0c",
+      "sourceName": "contracts/OFTWrapper.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTV2.sol",
+        "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol",
+        "@layerzerolabs/solidity-examples/contracts/token/oft/IOFT.sol",
+        "./interfaces/IOFTWrapper.sol",
+        "./interfaces/INativeOFT.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["OFTWrapper"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/interfaces/IOFTWrapper.sol": {
+      "lastModificationDate": 1719430185327,
+      "contentHash": "449d04cdf122091f0b0d316284f4eab0",
+      "sourceName": "contracts/interfaces/IOFTWrapper.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTV2.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["IOFTWrapper"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/interfaces/INativeOFT.sol": {
+      "lastModificationDate": 1719430185325,
+      "contentHash": "b8ab3ab7ec7f6f8a66bed691dbf8ccb5",
+      "sourceName": "contracts/interfaces/INativeOFT.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["INativeOFT"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1716499826476,
+      "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["../utils/Context.sol"],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["Ownable"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1716499826489,
+      "contentHash": "1535f8c0c68463f8c1b5239f7584e71f",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["ReentrancyGuard"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/IOFT.sol": {
+      "lastModificationDate": 1719430289070,
+      "contentHash": "9ce3aaf6a0fc5f741d73e507fd1b0e5e",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/IOFT.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "./IOFTCore.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["IOFT"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTV2.sol": {
+      "lastModificationDate": 1719430289071,
+      "contentHash": "950954268085a26a794336c95c6c7908",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["./ICommonOFT.sol"],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["IOFTV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
+      "lastModificationDate": 1716499826496,
+      "contentHash": "1b5d667d3740d866eca0352758e59827",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol",
+        "../extensions/IERC20Permit.sol",
+        "../../../utils/Address.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["SafeERC20"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol": {
+      "lastModificationDate": 1719430289071,
+      "contentHash": "bd23bfa5864443aaefc205bc173df2de",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["../ICommonOFT.sol"],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["IOFTWithFee"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/ICommonOFT.sol": {
+      "lastModificationDate": 1719430289068,
+      "contentHash": "ca17b38030749e147d3ff1942abd3ad9",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/ICommonOFT.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["@openzeppelin/contracts/utils/introspection/IERC165.sol"],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["ICommonOFT"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1716499826437,
+      "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["IERC165"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1716499826362,
+      "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["Context"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+      "lastModificationDate": 1716499826445,
+      "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["IERC20"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/IOFTCore.sol": {
+      "lastModificationDate": 1719430289070,
+      "contentHash": "88ac9f03ed739eef4a39e7195d667dae",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/IOFTCore.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["@openzeppelin/contracts/utils/introspection/IERC165.sol"],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["IOFTCore"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1716499826357,
+      "contentHash": "211ffd288c1588ba8c10eae668ca3c66",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.1"],
+      "artifacts": ["Address"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol": {
+      "lastModificationDate": 1716499826447,
+      "contentHash": "525fcdad8d171312933f47baf01d1ed8",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["IERC20Permit"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/BaseOFTWithFee.sol": {
+      "lastModificationDate": 1719430289064,
+      "contentHash": "1a67cabee94189427b175cf7eea55754",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/BaseOFTWithFee.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "../OFTCoreV2.sol",
+        "./IOFTWithFee.sol",
+        "./Fee.sol",
+        "@openzeppelin/contracts/utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["BaseOFTWithFee"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+      "lastModificationDate": 1716499826392,
+      "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["./IERC165.sol"],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["ERC165"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTCoreV2.sol": {
+      "lastModificationDate": 1719430289077,
+      "contentHash": "8034503229891ecd95bbe5b5971ea052",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTCoreV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "../../../lzApp/NonblockingLzApp.sol",
+        "../../../util/ExcessivelySafeCall.sol",
+        "./ICommonOFT.sol",
+        "./IOFTReceiverV2.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["OFTCoreV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/Fee.sol": {
+      "lastModificationDate": 1719430289068,
+      "contentHash": "3d95674475b20d83ab2bf7ae820b89d5",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/Fee.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["@openzeppelin/contracts/access/Ownable.sol"],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["Fee"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/lzApp/NonblockingLzApp.sol": {
+      "lastModificationDate": 1719430289075,
+      "contentHash": "f35024ad9dd30ddf6f0fbc72daedcce9",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/lzApp/NonblockingLzApp.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["./LzApp.sol", "../util/ExcessivelySafeCall.sol"],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["NonblockingLzApp"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/util/ExcessivelySafeCall.sol": {
+      "lastModificationDate": 1719430289068,
+      "contentHash": "ef974de452c80735e5cc7f0783f32668",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/util/ExcessivelySafeCall.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [">=0.7.6"],
+      "artifacts": ["ExcessivelySafeCall"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTReceiverV2.sol": {
+      "lastModificationDate": 1719430289071,
+      "contentHash": "38bf2a13f9cb0c01bc6ebecb3722489f",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTReceiverV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["IOFTReceiverV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/lzApp/LzApp.sol": {
+      "lastModificationDate": 1719430289074,
+      "contentHash": "f9913cb1a328aa1b9dab5744a8ad9b41",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/lzApp/LzApp.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/ILayerZeroReceiver.sol",
+        "../interfaces/ILayerZeroUserApplicationConfig.sol",
+        "../interfaces/ILayerZeroEndpoint.sol",
+        "../util/BytesLib.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["LzApp"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/interfaces/ILayerZeroReceiver.sol": {
+      "lastModificationDate": 1719430289069,
+      "contentHash": "62703c3b19a452bfdaca90f5bc59cfef",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/interfaces/ILayerZeroReceiver.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["ILayerZeroReceiver"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/interfaces/ILayerZeroEndpoint.sol": {
+      "lastModificationDate": 1719430289069,
+      "contentHash": "008cb6eedb0a3be0c12cdd2307d1d9b1",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/interfaces/ILayerZeroEndpoint.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["./ILayerZeroUserApplicationConfig.sol"],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["ILayerZeroEndpoint"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/interfaces/ILayerZeroUserApplicationConfig.sol": {
+      "lastModificationDate": 1719430289069,
+      "contentHash": "ea8e436e41bc96a3d434edb386b63cda",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/interfaces/ILayerZeroUserApplicationConfig.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [">=0.5.0"],
+      "artifacts": ["ILayerZeroUserApplicationConfig"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/util/BytesLib.sol": {
+      "lastModificationDate": 1719430289064,
+      "contentHash": "cd6bbaeb9593134143efee6226602785",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/util/BytesLib.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [">=0.8.0 <0.9.0"],
+      "artifacts": ["BytesLib"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/mocks/LZEndpointMock.sol": {
+      "lastModificationDate": 1719430289074,
+      "contentHash": "3e51773829d51172602ed8f85de73872",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/mocks/LZEndpointMock.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "../interfaces/ILayerZeroReceiver.sol",
+        "../interfaces/ILayerZeroEndpoint.sol",
+        "../libraries/LzLib.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["LZEndpointMock"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/libraries/LzLib.sol": {
+      "lastModificationDate": 1719430289074,
+      "contentHash": "952c2c4dd8679e05a8fafd7a18bbdacf",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/libraries/LzLib.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [">=0.6.0"],
+      "artifacts": ["LzLib"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockEndpoint.sol": {
+      "lastModificationDate": 1719430185316,
+      "contentHash": "5d51d27ea983b2c0e844bd53c318d4d5",
+      "sourceName": "contracts/mocks/MockEndpoint.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/mocks/LZEndpointMock.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["MockEndpoint"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/BaseOFTV2.sol": {
+      "lastModificationDate": 1719430289064,
+      "contentHash": "3a56498e68c4d7a6d5a5bb1e38917ed4",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/BaseOFTV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "./OFTCoreV2.sol",
+        "./IOFTV2.sol",
+        "@openzeppelin/contracts/utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["BaseOFTV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/ProxyOFTV2.sol": {
+      "lastModificationDate": 1719430289080,
+      "contentHash": "eb6e0ab82ba548150a95b3458327ac34",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/ProxyOFTV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "./BaseOFTV2.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["ProxyOFTV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/ProxyOFTWithFee.sol": {
+      "lastModificationDate": 1719430289080,
+      "contentHash": "9c7d46a89440c9461a28e9b784be8415",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/ProxyOFTWithFee.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "./BaseOFTWithFee.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["ProxyOFTWithFee"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockOFTProxyWithFeeV2.sol": {
+      "lastModificationDate": 1719430185322,
+      "contentHash": "fc28e01259941f71343d2f814639b5d3",
+      "sourceName": "contracts/mocks/MockOFTProxyWithFeeV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/ProxyOFTWithFee.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["MockOFTProxyWithFeeV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/extension/ProxyOFT.sol": {
+      "lastModificationDate": 1719430289080,
+      "contentHash": "8ebfea5ff674d8dff15325556c479dc5",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/extension/ProxyOFT.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "../OFTCore.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["ProxyOFT"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/OFTCore.sol": {
+      "lastModificationDate": 1719430289075,
+      "contentHash": "d2b36b8bfc0293e78632273ad18a2811",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/OFTCore.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "../../lzApp/NonblockingLzApp.sol",
+        "./IOFTCore.sol",
+        "@openzeppelin/contracts/utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["OFTCore"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/OFT.sol": {
+      "lastModificationDate": 1719430289075,
+      "contentHash": "a42742d715c7ec27a89a0d114626828a",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/OFT.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "./IOFT.sol",
+        "./OFTCore.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["OFT"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+      "lastModificationDate": 1716499826398,
+      "contentHash": "3ae5166c6827a9cf1a7a462d1632b464",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["ERC20"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@openzeppelin+contracts@4.9.6/node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+      "lastModificationDate": 1716499826446,
+      "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["../IERC20.sol"],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["IERC20Metadata"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/node_modules/.pnpm/@layerzerolabs+solidity-examples@0.0.6_@ethersproject+hardware-wallets@5.7.0_@nomiclabs+hardh_j72efq4k7mnynnroytrwrb4q5m/node_modules/@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTV2.sol": {
+      "lastModificationDate": 1719430289078,
+      "contentHash": "97d58d7deb3858c9f5982e8833bf2080",
+      "sourceName": "@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "./BaseOFTV2.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["OFTV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockOFTV2.sol": {
+      "lastModificationDate": 1719430185312,
+      "contentHash": "78b3866c335632be63274d6aa2bb8c27",
+      "sourceName": "contracts/mocks/MockOFTV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTV2.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["MockOFTV2"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockToken.sol": {
+      "lastModificationDate": 1719430185314,
+      "contentHash": "448a565184e4ed99039b2650e4aba727",
+      "sourceName": "contracts/mocks/MockToken.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": ["@openzeppelin/contracts/token/ERC20/ERC20.sol"],
+      "versionPragmas": ["^0.8.4"],
+      "artifacts": ["MockToken"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockOFT.sol": {
+      "lastModificationDate": 1719430185308,
+      "contentHash": "6f66bdc61c7baff4243dd6e412ac3fdc",
+      "sourceName": "contracts/mocks/MockOFT.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/token/oft/OFT.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["MockOFT"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockOFTProxy.sol": {
+      "lastModificationDate": 1719430185318,
+      "contentHash": "5a7c2f47176c8479615deb507deb2f11",
+      "sourceName": "contracts/mocks/MockOFTProxy.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/token/oft/extension/ProxyOFT.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["MockOFTProxy"]
+    },
+    "/Users/ryandgoulding/WebstormProjects/stargate-v2/packages/oft-wrapper/contracts/mocks/MockOFTProxyV2.sol": {
+      "lastModificationDate": 1719430185320,
+      "contentHash": "72125e027e179015332fa4f0681b7485",
+      "sourceName": "contracts/mocks/MockOFTProxyV2.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "mode": "3"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout"
+              ],
+              "": ["ast"]
+            }
+          }
+        },
+        "zksolc": {
+          "version": "1.3.10",
+          "compilerSource": "binary",
+          "settings": {
+            "optimizer": {
+              "enabled": true,
+              "mode": "3"
+            },
+            "compilerPath": "",
+            "experimental": {}
+          }
+        }
+      },
+      "imports": [
+        "@layerzerolabs/solidity-examples/contracts/token/oft/v2/ProxyOFTV2.sol"
+      ],
+      "versionPragmas": ["^0.8.0"],
+      "artifacts": ["MockOFTProxyV2"]
+    }
+  }
+}

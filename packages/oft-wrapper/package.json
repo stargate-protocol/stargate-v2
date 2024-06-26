@@ -1,0 +1,38 @@
+{
+  "name": "@layerzerolabs/oft-wrapper",
+  "version": "0.0.1",
+  "license": "MIT",
+  "files": [
+    "artifacts/",
+    "contracts/"
+  ],
+  "description": "oft-wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test",
+    "prettier": "prettier --write test/**/*.js && prettier --write deploy/*.js && prettier --write tasks/*.js && prettier --write contracts/**/*.sol && prettier --write contracts/**/**/*.sol && prettier --write contracts/**/**/**/*.sol",
+    "lint": "pnpm prettier && solhint 'contracts/*.sol' && solhint 'contracts/**/*.sol' && solhint 'contracts/**/**/*.sol' && solhint 'contracts/**/**/**/*.sol'"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-verify": "^1.0.3",
+    "@openzeppelin/contracts": "^4.4.1",
+    "dotenv": "^10.0.0",
+    "hardhat": "^2.8.0",
+    "hardhat-contract-sizer": "^2.1.1",
+    "hardhat-deploy": "^0.10.5",
+    "hardhat-deploy-ethers": "^0.3.0-beta.13"
+  },
+  "devDependencies": {
+    "@layerzerolabs/prettier-plugin-solidity": "^1.0.0-beta.19",
+    "@layerzerolabs/solidity-examples": "0.0.6",
+    "@layerzerolabs/verify-contract": "1.0.423",
+    "@matterlabs/hardhat-zksync-deploy": "^0.6.3",
+    "@matterlabs/hardhat-zksync-solc": "^0.3.14",
+    "@matterlabs/hardhat-zksync-verify": "^0.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "prettier": "^2.4.1",
+    "solhint": "^3.3.6",
+    "zksync-web3": "^0.14.3"
+  }
+}
