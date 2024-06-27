@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 import { Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test.sol";
 
-import { OFTWrapper } from "../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
+import { OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
 
 contract OFTWrapperTest is Test {
     bytes internal constant INCORRECT_BPS_ERROR = "OFTWrapper: defaultBps >= 100%";
