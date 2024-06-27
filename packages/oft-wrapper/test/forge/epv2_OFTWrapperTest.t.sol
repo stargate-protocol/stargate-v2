@@ -33,8 +33,12 @@ contract epv2_OFTWrapperTest is Test, LzTestHelper {
     }
 
     function test_send() public {
-        oftA.mint(address(this), 1e14);
+        address user = makeAddr("user");
+        console.log("user");
+        console.log(user);
+        vm.deal(user, 10 ether);
 
+        oftA.mint(user, 1e16);
         epv2_SendParam memory sendParam = epv2_SendParam(
             2,
             _addressToBytes32(address(this)),
@@ -45,20 +49,21 @@ contract epv2_OFTWrapperTest is Test, LzTestHelper {
             ""
         );
 
-        epv2_MessagingFee memory fee = oftWrapper.epv2_estimateSendFee(address(oftA), sendParam, false);
-
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
             callerBps: 1000,
-            caller: address(this),
+            caller: makeAddr("caller"),
             partnerId: bytes2(0x0001)
         });
+        epv2_MessagingFee memory fee = oftWrapper.epv2_estimateSendFee(address(oftA), sendParam, false, feeObj);
 
-        IERC20(oftA).approve(address(oftWrapper), 1e14);
+        vm.startPrank(user);
+        IERC20(oftA).approve(address(oftWrapper), 1e16);
         oftWrapper.epv2_sendOFT{ value: fee.nativeFee }(address(oftA), sendParam, fee, address(this), feeObj);
+        vm.stopPrank();
 
         verifyAndExecutePackets();
 
-        assertEq(1_000_000, IERC20(oftB).balanceOf(address(this)));
+        assertEq(80_000_000_000_000, IERC20(oftB).balanceOf(address(this)));
     }
 
     function _addressToBytes32(address _addr) internal pure returns (bytes32) {

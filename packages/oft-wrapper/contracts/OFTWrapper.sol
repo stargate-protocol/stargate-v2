@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.0;
 
+import { console } from "forge-std/Console.sol";
+
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -241,7 +243,13 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external payable {
         uint256 amountToSwap = _epv2_getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
-
+        console.log("amountToSwap", amountToSwap);
+        console.log(IERC20(_oft).balanceOf(msg.sender));
+        console.log("msg.sender");
+        console.log(msg.sender);
+        console.log("address(this)");
+        console.log(address(this));
+        IERC20(_oft).safeTransferFrom(msg.sender, address(this), amountToSwap);
         epv2_IOFT(_oft).send{ value: msg.value }(
             epv2_SendParam(
                 _sendParam.dstEid,
@@ -284,15 +292,21 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _minAmount,
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
+        console.log("balanceOf", IERC20(_token).balanceOf(msg.sender));
         (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
             _token,
             _amount,
             _feeObj.callerBps
         );
+        console.log(amountToSwap);
+        console.log(wrapperFee);
+        console.log(callerFee);
         require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
 
         if (wrapperFee > 0) IERC20(_token).safeTransferFrom(msg.sender, address(this), wrapperFee); // pay wrapper
+        console.log("balanceOf", IERC20(_token).balanceOf(msg.sender));
         if (callerFee > 0) IERC20(_token).safeTransferFrom(msg.sender, _feeObj.caller, callerFee); // pay caller
+        console.log("balanceOf", IERC20(_token).balanceOf(msg.sender));
 
         emit WrapperFees(_feeObj.partnerId, _token, wrapperFee, callerFee);
 
@@ -357,6 +371,9 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             wrapperBps = defaultBps;
         }
 
+        console.log("wrapperBps", wrapperBps);
+        console.log("callerBps", _callerBps);
+
         require(wrapperBps + _callerBps < BPS_DENOMINATOR, "OFTWrapper: Fee bps >= 100%");
 
         wrapperFee = wrapperBps > 0 ? (_amount * wrapperBps) / BPS_DENOMINATOR : 0;
@@ -395,9 +412,10 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     function epv2_estimateSendFee(
         address _oft,
         epv2_SendParam calldata _sendParam,
-        bool _payInLzToken
+        bool _payInLzToken,
+        FeeObj calldata _feeObj
     ) external view returns (epv2_MessagingFee memory) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, 0);
+        (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, _feeObj.callerBps);
 
         return
             epv2_IOFT(_oft).quoteSend(
