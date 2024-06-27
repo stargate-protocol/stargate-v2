@@ -14,7 +14,7 @@
     "**/*.sol": [
       "prettier --ignore-unknown --write"
     ],
-    "**/*.{js,ts,tsx,json}": [
+    "**/*.{ts,tsx,json}": [
       "pnpm prettier --write --ignore-unknown",
       "pnpm eslint --fix"
     ]

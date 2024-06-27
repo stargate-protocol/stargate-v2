@@ -66,7 +66,6 @@ describe("OFTWrapperProxy:", function () {
 
         await MockTokenSrc.approve(oftWrapper.address, amountToSwap)
 
-
         const lzFee = (await oftWrapper.estimateSendFee(OFTProxySrc.address, chainIdDst, owner.address, amountToSwap, false, "0x", feeObj))
             .nativeFee
 

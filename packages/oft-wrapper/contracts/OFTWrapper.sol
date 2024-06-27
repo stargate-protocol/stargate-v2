@@ -2,36 +2,36 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@layerzerolabs/solidity-examples/contracts/token/oft/v2/IOFTV2.sol";
 import "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol";
 import "@layerzerolabs/solidity-examples/contracts/token/oft/IOFT.sol";
-import "./interfaces/IOFTWrapper.sol";
-import "./interfaces/INativeOFT.sol";
+import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
+import { INativeOFT} from "./interfaces/INativeOFT.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     using SafeERC20 for IOFT;
 
-    uint256 public constant BPS_DENOMINATOR = 10000;
-    uint256 public constant MAX_UINT = 2**256 - 1; // indicates a bp fee of 0 that overrides the default bps
+    uint256 public constant BPS_DENOMINATOR = 10_000;
+    uint256 public constant NO_FEE = type(uint256).max;
 
     uint256 public defaultBps;
     mapping(address => uint256) public oftBps;
 
     constructor(uint256 _defaultBps) {
-        require(_defaultBps < BPS_DENOMINATOR, "OFTWrapper: defaultBps >= 100%");
+        if (_defaultBps >= BPS_DENOMINATOR) revert IOFTWrapper__InvalidDefaultBps();
         defaultBps = _defaultBps;
     }
 
     function setDefaultBps(uint256 _defaultBps) external onlyOwner {
-        require(_defaultBps < BPS_DENOMINATOR, "OFTWrapper: defaultBps >= 100%");
+        if (_defaultBps >= BPS_DENOMINATOR) revert IOFTWrapper__InvalidDefaultBps();
         defaultBps = _defaultBps;
     }
 
     function setOFTBps(address _token, uint256 _bps) external onlyOwner {
-        require(_bps < BPS_DENOMINATOR || _bps == MAX_UINT, "OFTWrapper: oftBps[_oft] >= 100%");
+        if (_bps >= BPS_DENOMINATOR && _bps != NO_FEE) revert IOFTWrapper__InvalidBps();
         oftBps[_token] = _bps;
     }
 
@@ -94,7 +94,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
-        require(msg.value >= _amount, "OFTWrapper: not enough value sent");
+        if (msg.value < _amount) revert IOFTWrapper__NotEnoughValue();
 
         INativeOFT(_nativeOft).deposit{value: _amount}();
         uint256 amountToSwap = _getAmountAndPayFeeNative(_nativeOft, _amount, _minAmount, _feeObj);
@@ -176,7 +176,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
-        require(msg.value >= _amount, "OFTWrapper: not enough value sent");
+        if (msg.value < _amount) revert IOFTWrapper__NotEnoughValue();
 
         INativeOFT(_nativeOft).deposit{value: _amount}();
         uint256 amountToSwap = _getAmountAndPayFeeNative(_nativeOft, _amount, _minAmount, _feeObj);
@@ -190,7 +190,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
         (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(_token, _amount, _feeObj.callerBps);
-        require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
+        if (amountToSwap < _minAmount || amountToSwap == 0) revert IOFTWrapper__InsufficientAmount();
 
         IOFT(_token).safeTransferFrom(msg.sender, address(this), amountToSwap + wrapperFee); // pay wrapper and move proxy tokens to contract
         if (callerFee > 0) IOFT(_token).safeTransferFrom(msg.sender, _feeObj.caller, callerFee); // pay caller
@@ -202,7 +202,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     function _getAmountAndPayFee(address _token, uint256 _amount, uint256 _minAmount, FeeObj calldata _feeObj) internal returns (uint256) {
         (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(_token, _amount, _feeObj.callerBps);
-        require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
+        if (amountToSwap < _minAmount || amountToSwap == 0) revert IOFTWrapper__InsufficientAmount();
 
         if (wrapperFee > 0) IOFT(_token).safeTransferFrom(msg.sender, address(this), wrapperFee); // pay wrapper
         if (callerFee > 0) IOFT(_token).safeTransferFrom(msg.sender, _feeObj.caller, callerFee); // pay caller
@@ -219,7 +219,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
         (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(_nativeOft, _amount, _feeObj.callerBps);
-        require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
+        if (amountToSwap < _minAmount || amountToSwap == 0) revert IOFTWrapper__InsufficientAmount();
 
         // pay fee in NativeOFT token as the caller might not be able to receive ETH
         // wrapper fee is already in the contract after calling NativeOFT.deposit()
@@ -246,7 +246,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     {
         uint256 wrapperBps;
 
-        if (oftBps[_token] == MAX_UINT) {
+        if (oftBps[_token] == NO_FEE) {
             wrapperBps = 0;
         } else if (oftBps[_token] > 0) {
             wrapperBps = oftBps[_token];

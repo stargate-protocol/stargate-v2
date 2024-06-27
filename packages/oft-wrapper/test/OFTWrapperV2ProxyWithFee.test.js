@@ -79,7 +79,7 @@ describe("OFTWrapperProxyWithFeeV2:", function () {
         let { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(MockTokenSrc.address, amountToSwap, callerBps)
         let proxyTokenFee = await OFTProxySrc.quoteOFTFee(chainIdDst, amount)
 
-        let l2ToSdRate = Math.pow(10, (await MockTokenSrc.decimals()) - sharedDecimals);
+        let l2ToSdRate = Math.pow(10, (await MockTokenSrc.decimals()) - sharedDecimals)
 
         let dustAmountAfterOFTFee = amount.sub(proxyTokenFee) % l2ToSdRate
 
@@ -103,7 +103,6 @@ describe("OFTWrapperProxyWithFeeV2:", function () {
 
         expect(await MockTokenSrc.balanceOf(OFTProxySrc.address)).to.be.equal(expectedAmountToSwapCrossChain)
         expect(await OFTDst.balanceOf(owner.address)).to.be.equal(expectedAmountToSwapCrossChain)
-
 
         // withdrawing the fees
         await oftWrapper.withdrawFees(MockTokenSrc.address, owner.address, wrapperFee)
@@ -136,7 +135,7 @@ describe("OFTWrapperProxyWithFeeV2:", function () {
         let { amount } = await oftWrapper.getAmountAndFees(MockTokenSrc.address, amountToSwap, callerBps)
         let proxyTokenFee = await OFTProxySrc.quoteOFTFee(chainIdDst, amount)
 
-        let l2ToSdRate = Math.pow(10, (await MockTokenSrc.decimals()) - sharedDecimals);
+        let l2ToSdRate = Math.pow(10, (await MockTokenSrc.decimals()) - sharedDecimals)
 
         let dustAmountAfterOFTFee = amount.sub(proxyTokenFee) % l2ToSdRate
 
@@ -178,7 +177,6 @@ describe("OFTWrapperProxyWithFeeV2:", function () {
         await oftWrapper.setDefaultBps(defaultBps)
         await MockTokenSrc.mint(owner.address, amountToMint)
         await MockTokenSrc.approve(oftWrapper.address, amountToSwap)
-
 
         const lzFee = (await oftWrapper.estimateSendFeeV2(OFTProxySrc.address, chainIdDst, bytes32ToAddress, amountToSwap, false, "0x", feeObj))
             .nativeFee

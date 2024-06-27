@@ -1,21 +1,34 @@
-const { expect } = require("chai")
-const { ethers } = require("hardhat")
+import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers"
+import { expect } from "chai"
+import { Contract, ContractFactory } from "ethers"
+import { ethers } from "hardhat"
 
-describe("OFTWrapper:", function () {
+describe("OFTWrapper", () => {
     const chainIdSrc = 1
     const chainIdDst = 2
     const name = "OmnichainFungibleToken"
     const symbol = "OFT"
     const partnerId = "0x0003"
 
-    let owner, caller, badUser, OftWrapper, oftWrapper, LZEndpointMock, lzEndpointSrcMock, lzEndpointDstMock
-    let OFT, OFTSrc, OFTDst, dstPath, srcPath, BP_DENOMINATOR, MAX_UINT
+    let owner: HardhatEthersSigner
+    let caller: HardhatEthersSigner
+    let badUser: HardhatEthersSigner
+    let oftWrapper: Contract
+    let LZEndpointMock: ContractFactory
+    let lzEndpointSrcMock: Contract
+    let lzEndpointDstMock: Contract
 
-    before(async function () {
+    let OFT: ContractFactory
+    let OFTSrc: Contract
+    let OFTDst: Contract
+    let dstPath, srcPath
+    let BP_DENOMINATOR: number
+    let MAX_UINT: number
+
+    before(async () => {
         ;[owner, caller, badUser] = await ethers.getSigners()
 
         LZEndpointMock = await ethers.getContractFactory("LZEndpointMock")
-        OftWrapper = await ethers.getContractFactory("OFTWrapper")
         OFT = await ethers.getContractFactory("MockOFT")
     })
 
@@ -30,8 +43,8 @@ describe("OFTWrapper:", function () {
         OFTDst = await OFT.deploy(name, symbol, lzEndpointDstMock.address)
 
         // internal bookkeeping for endpoints (not part of a real deploy, just for this test)
-        lzEndpointSrcMock.setDestLzEndpoint(OFTDst.address, lzEndpointDstMock.address)
-        lzEndpointDstMock.setDestLzEndpoint(OFTSrc.address, lzEndpointSrcMock.address)
+        await (await lzEndpointSrcMock.setDestLzEndpoint(OFTDst.address, lzEndpointDstMock.address)).wait()
+        await (await lzEndpointDstMock.setDestLzEndpoint(OFTSrc.address, lzEndpointSrcMock.address)).wait()
 
         BP_DENOMINATOR = await oftWrapper.BPS_DENOMINATOR()
         MAX_UINT = await oftWrapper.MAX_UINT()
@@ -39,8 +52,8 @@ describe("OFTWrapper:", function () {
         // set each contracts source address so it can send to each other
         dstPath = ethers.utils.solidityPack(["address", "address"], [OFTDst.address, OFTSrc.address])
         srcPath = ethers.utils.solidityPack(["address", "address"], [OFTSrc.address, OFTDst.address])
-        await OFTSrc.setTrustedRemote(chainIdDst, dstPath) // for A, set B
-        await OFTDst.setTrustedRemote(chainIdSrc, srcPath) // for B, set A
+        await (await OFTSrc.setTrustedRemote(chainIdDst, dstPath)).wait() // for A, set B
+        await (await OFTDst.setTrustedRemote(chainIdSrc, srcPath)).wait() // for B, set A
     })
 
     it("constructor() - sets default bps properly", async function () {
@@ -87,15 +100,15 @@ describe("OFTWrapper:", function () {
     })
 
     it("getAmountAndFees() - oftBps override default", async function () {
-        let amountToSwap = 10000000
-        let oftBps = 10
-        let defaultBps = BP_DENOMINATOR - 1
-        let callerBps = 100
+        const amountToSwap = 10000000
+        const oftBps = 10
+        const defaultBps = BP_DENOMINATOR - 1
+        const callerBps = 100
 
         await oftWrapper.setOFTBps(OFTSrc.address, oftBps)
         await oftWrapper.setDefaultBps(defaultBps)
 
-        let { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
+        const { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
 
         expect(wrapperFee).to.be.equal((amountToSwap * oftBps) / BP_DENOMINATOR)
         expect(callerFee).to.be.equal((amountToSwap * callerBps) / BP_DENOMINATOR)
@@ -103,13 +116,13 @@ describe("OFTWrapper:", function () {
     })
 
     it("getAmountAndFees() - default is used if oftBps is set to 0", async function () {
-        let amountToSwap = 10000000
-        let defaultBps = 1000
-        let callerBps = 100
+        const amountToSwap = 10000000
+        const defaultBps = 1000
+        const callerBps = 100
 
         await oftWrapper.setDefaultBps(defaultBps)
 
-        let { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
+        const { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
 
         expect(wrapperFee).to.be.equal((amountToSwap * defaultBps) / BP_DENOMINATOR)
         expect(callerFee).to.be.equal((amountToSwap * callerBps) / BP_DENOMINATOR)
@@ -117,24 +130,24 @@ describe("OFTWrapper:", function () {
     })
 
     it("getAmountAndFees() - MAX_UINT override default bps", async function () {
-        let amountToSwap = 10000000
-        let defaultBps = 1000
-        let callerBps = 100
+        const amountToSwap = 10000000
+        const defaultBps = 1000
+        const callerBps = 100
 
         await oftWrapper.setDefaultBps(defaultBps)
         await oftWrapper.setOFTBps(OFTSrc.address, MAX_UINT)
 
-        let { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
+        const { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
 
-        expect(wrapperFee).to.be.equal((amountToSwap * 0) / BP_DENOMINATOR)
+        expect(wrapperFee).to.be.equal(0)
         expect(callerFee).to.be.equal((amountToSwap * callerBps) / BP_DENOMINATOR)
         expect(amountToSwap - wrapperFee - callerFee).to.be.equal(amount)
     })
 
     it("getAmountAndFees() - reverts if collective bps is over BPS denominator", async function () {
-        let amountToSwap = 10000000
-        let defaultBps = BP_DENOMINATOR - 1
-        let callerBps = 1
+        const amountToSwap = 10000000
+        const defaultBps = BP_DENOMINATOR - 1
+        const callerBps = 1
 
         await oftWrapper.setDefaultBps(defaultBps)
 
@@ -142,10 +155,10 @@ describe("OFTWrapper:", function () {
     })
 
     it("sendOFT()", async function () {
-        let amountToSwap = 10000000
-        let defaultBps = 1000
-        let callerBps = 100
-        let feeObj = { callerBps, caller: caller.address, partnerId }
+        const amountToSwap = 10000000
+        const defaultBps = 1000
+        const callerBps = 100
+        const feeObj = { callerBps, caller: caller.address, partnerId }
 
         await oftWrapper.setDefaultBps(defaultBps)
 
@@ -160,7 +173,7 @@ describe("OFTWrapper:", function () {
 
         const lzFee = (await oftWrapper.estimateSendFee(OFTSrc.address, chainIdDst, owner.address, amountToSwap, false, "0x", feeObj)).nativeFee
 
-        let { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
+        const { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
 
         await oftWrapper.sendOFT(
             OFTSrc.address,
@@ -182,17 +195,17 @@ describe("OFTWrapper:", function () {
     })
 
     it("sendOFT() - OFTWrapper: amountToSwap < minAmount", async function () {
-        let amountToSwap = 10000000
-        let defaultBps = 1
-        let callerBps = 0
-        let feeObj = { callerBps, caller: caller.address, partnerId }
+        const amountToSwap = 10000000
+        const defaultBps = 1
+        const callerBps = 0
+        const feeObj = { callerBps, caller: caller.address, partnerId }
 
         await oftWrapper.setDefaultBps(defaultBps)
         await OFTSrc.mint(owner.address, amountToSwap)
         await OFTSrc.approve(oftWrapper.address, amountToSwap)
         const lzFee = (await oftWrapper.estimateSendFee(OFTSrc.address, chainIdDst, owner.address, amountToSwap, false, "0x", feeObj)).nativeFee
 
-        let { amount } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
+        const { amount } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
 
         expect(amount).to.be.lt(amountToSwap)
 
@@ -213,17 +226,17 @@ describe("OFTWrapper:", function () {
     })
 
     it("withdrawFees()", async function () {
-        let amountToSwap = 10000000
-        let defaultBps = 1000
-        let callerBps = 100
-        let feeObj = { callerBps, caller: caller.address, partnerId }
+        const amountToSwap = 10000000
+        const defaultBps = 1000
+        const callerBps = 100
+        const feeObj = { callerBps, caller: caller.address, partnerId }
 
         await oftWrapper.setDefaultBps(defaultBps)
         await OFTSrc.mint(owner.address, amountToSwap)
         await OFTSrc.approve(oftWrapper.address, amountToSwap)
         const lzFee = (await oftWrapper.estimateSendFee(OFTSrc.address, chainIdDst, owner.address, amountToSwap, false, "0x", feeObj)).nativeFee
 
-        let { amount, wrapperFee, callerFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
+        const { wrapperFee } = await oftWrapper.getAmountAndFees(OFTSrc.address, amountToSwap, callerBps)
 
         await oftWrapper.sendOFT(
             OFTSrc.address,
