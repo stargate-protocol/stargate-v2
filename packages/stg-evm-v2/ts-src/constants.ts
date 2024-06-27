@@ -11,6 +11,7 @@ export const CONTRACT_STAKING_TAGS = ['staking']
 export const CONTRACT_STARGATE_TAGS = ['stargate']
 export const CONTRACT_USDC_TAGS = ['usdc']
 export const CONTRACT_USDT_TAGS = ['usdt']
+export const CONTRACT_OFT_WRAPPER_TAGS = ['oft-wrapper']
 
 export const ASSET_TYPE_TOKEN = 0
 export const ASSET_TYPE_LP = 1
