@@ -37,4 +37,4 @@ jobs:
       - name: Snapshot gas
         run: pnpm --filter @stargatefinance/stg-evm-v2 run forge snapshot --snap snapshot.gas
         env:
-          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth' }}

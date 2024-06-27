@@ -34,7 +34,7 @@ jobs:
       - name: Test
         run: pnpm test
         env:
-          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth' }}
 
   profile-gas:
     name: Profile gas
@@ -55,7 +55,7 @@ jobs:
           cat profile.log | grep -e '\(^|\)\|\(^[[:blank:]]*$\)' >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
         env:
-          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET }}
+          RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth' }}
 
       - name: Create summary
         run: |
