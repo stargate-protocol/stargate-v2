@@ -297,12 +297,6 @@ importers:
       '@typechain/hardhat':
         specifier: ~9.1.0
         version: 9.1.0(@typechain/ethers-v6@0.5.1)(ethers@5.7.2)(hardhat@2.22.3)(typechain@8.3.2)
-      '@types/chai':
-        specifier: ^4.3.14
-        version: 4.3.14
-      '@types/mocha':
-        specifier: ^10.0.6
-        version: 10.0.7
       '@types/node':
         specifier: ^18.15.11
         version: 18.19.31
@@ -3800,10 +3794,6 @@ packages:
 
   /@types/minimist@1.2.5:
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
-    dev: true
-
-  /@types/mocha@10.0.7:
-    resolution: {integrity: sha512-GN8yJ1mNTcFcah/wKEFIJckJx9iJLoMSzWcfRRuxz/Jk+U6KQNnml+etbtxFK8lPjzOw3zp4Ha/kjSst9fsHYw==}
     dev: true
 
   /@types/node@10.17.60:
