@@ -11,11 +11,14 @@ import "@layerzerolabs/solidity-examples/contracts/token/oft/IOFT.sol";
 import "./interfaces/IOFTWrapper.sol";
 import "./interfaces/INativeOFT.sol";
 
+import { IOFT as epv2_IOFT, MessagingFee as epv2_MessagingFee, SendParam as epv2_SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     using SafeERC20 for IOFT;
+    using SafeERC20 for IERC20;
 
     uint256 public constant BPS_DENOMINATOR = 10000;
-    uint256 public constant MAX_UINT = 2**256 - 1; // indicates a bp fee of 0 that overrides the default bps
+    uint256 public constant MAX_UINT = 2 ** 256 - 1; // indicates a bp fee of 0 that overrides the default bps
 
     uint256 public defaultBps;
     mapping(address => uint256) public oftBps;
@@ -35,11 +38,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         oftBps[_token] = _bps;
     }
 
-    function withdrawFees(
-        address _oft,
-        address _to,
-        uint256 _amount
-    ) external onlyOwner {
+    function withdrawFees(address _oft, address _to, uint256 _amount) external onlyOwner {
         IOFT(_oft).safeTransfer(_to, _amount);
         emit WrapperFeeWithdrawn(_oft, _to, _amount);
     }
@@ -56,7 +55,15 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
         uint256 amountToSwap = _getAmountAndPayFee(_oft, _amount, _minAmount, _feeObj);
-        IOFT(_oft).sendFrom{value: msg.value}(msg.sender, _dstChainId, _toAddress, amountToSwap, _refundAddress, _zroPaymentAddress, _adapterParams);
+        IOFT(_oft).sendFrom{ value: msg.value }(
+            msg.sender,
+            _dstChainId,
+            _toAddress,
+            amountToSwap,
+            _refundAddress,
+            _zroPaymentAddress,
+            _adapterParams
+        );
     }
 
     function sendProxyOFT(
@@ -76,7 +83,15 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
             // approve proxy to spend tokens
             IOFT(token).safeApprove(_proxyOft, amountToSwap);
-            IOFT(_proxyOft).sendFrom{value: msg.value}(address(this), _dstChainId, _toAddress, amountToSwap, _refundAddress, _zroPaymentAddress, _adapterParams);
+            IOFT(_proxyOft).sendFrom{ value: msg.value }(
+                address(this),
+                _dstChainId,
+                _toAddress,
+                amountToSwap,
+                _refundAddress,
+                _zroPaymentAddress,
+                _adapterParams
+            );
         }
 
         // reset allowance if sendFrom() does not consume full amount
@@ -96,9 +111,17 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     ) external payable nonReentrant {
         require(msg.value >= _amount, "OFTWrapper: not enough value sent");
 
-        INativeOFT(_nativeOft).deposit{value: _amount}();
+        INativeOFT(_nativeOft).deposit{ value: _amount }();
         uint256 amountToSwap = _getAmountAndPayFeeNative(_nativeOft, _amount, _minAmount, _feeObj);
-        IOFT(_nativeOft).sendFrom{value: msg.value - _amount}(address(this), _dstChainId, _toAddress, amountToSwap, _refundAddress, _zroPaymentAddress, _adapterParams);
+        IOFT(_nativeOft).sendFrom{ value: msg.value - _amount }(
+            address(this),
+            _dstChainId,
+            _toAddress,
+            amountToSwap,
+            _refundAddress,
+            _zroPaymentAddress,
+            _adapterParams
+        );
     }
 
     function sendOFTV2(
@@ -111,7 +134,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
         uint256 amountToSwap = _getAmountAndPayFee(_oft, _amount, _minAmount, _feeObj);
-        IOFTV2(_oft).sendFrom{value: msg.value}(msg.sender, _dstChainId, _toAddress, amountToSwap, _callParams);
+        IOFTV2(_oft).sendFrom{ value: msg.value }(msg.sender, _dstChainId, _toAddress, amountToSwap, _callParams);
     }
 
     function sendOFTFeeV2(
@@ -124,7 +147,14 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
         uint256 amountToSwap = _getAmountAndPayFee(_oft, _amount, _minAmount, _feeObj);
-        IOFTWithFee(_oft).sendFrom{value: msg.value}(msg.sender, _dstChainId, _toAddress, amountToSwap, _minAmount, _callParams);
+        IOFTWithFee(_oft).sendFrom{ value: msg.value }(
+            msg.sender,
+            _dstChainId,
+            _toAddress,
+            amountToSwap,
+            _minAmount,
+            _callParams
+        );
     }
 
     function sendProxyOFTV2(
@@ -141,7 +171,13 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
         // approve proxy to spend tokens
         IOFT(token).safeApprove(_proxyOft, amountToSwap);
-        IOFTV2(_proxyOft).sendFrom{value: msg.value}(address(this), _dstChainId, _toAddress, amountToSwap, _callParams);
+        IOFTV2(_proxyOft).sendFrom{ value: msg.value }(
+            address(this),
+            _dstChainId,
+            _toAddress,
+            amountToSwap,
+            _callParams
+        );
 
         // reset allowance if sendFrom() does not consume full amount
         if (IOFT(token).allowance(address(this), _proxyOft) > 0) IOFT(token).safeApprove(_proxyOft, 0);
@@ -161,7 +197,14 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
         // approve proxy to spend tokens
         IOFT(token).safeApprove(_proxyOft, amountToSwap);
-        IOFTWithFee(_proxyOft).sendFrom{value: msg.value}(address(this), _dstChainId, _toAddress, amountToSwap, _minAmount, _callParams);
+        IOFTWithFee(_proxyOft).sendFrom{ value: msg.value }(
+            address(this),
+            _dstChainId,
+            _toAddress,
+            amountToSwap,
+            _minAmount,
+            _callParams
+        );
 
         // reset allowance if sendFrom() does not consume full amount
         if (IOFT(token).allowance(address(this), _proxyOft) > 0) IOFT(token).safeApprove(_proxyOft, 0);
@@ -178,9 +221,40 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     ) external payable nonReentrant {
         require(msg.value >= _amount, "OFTWrapper: not enough value sent");
 
-        INativeOFT(_nativeOft).deposit{value: _amount}();
+        INativeOFT(_nativeOft).deposit{ value: _amount }();
         uint256 amountToSwap = _getAmountAndPayFeeNative(_nativeOft, _amount, _minAmount, _feeObj);
-        IOFTWithFee(_nativeOft).sendFrom{value: msg.value - _amount}(address(this), _dstChainId, _toAddress, amountToSwap, _minAmount, _callParams);
+        IOFTWithFee(_nativeOft).sendFrom{ value: msg.value - _amount }(
+            address(this),
+            _dstChainId,
+            _toAddress,
+            amountToSwap,
+            _minAmount,
+            _callParams
+        );
+    }
+
+    function epv2_sendOFT(
+        address _oft,
+        epv2_SendParam calldata _sendParam,
+        epv2_MessagingFee calldata _fee,
+        address _refundAddress,
+        FeeObj calldata _feeObj
+    ) external payable {
+        uint256 amountToSwap = _epv2_getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
+
+        epv2_IOFT(_oft).send{ value: msg.value }(
+            epv2_SendParam(
+                _sendParam.dstEid,
+                _sendParam.to,
+                amountToSwap,
+                _sendParam.minAmountLD,
+                _sendParam.extraOptions,
+                _sendParam.composeMsg,
+                _sendParam.oftCmd
+            ),
+            _fee,
+            _refundAddress
+        );
     }
 
     function _getAmountAndPayFeeProxy(
@@ -189,7 +263,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _minAmount,
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
-        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(_token, _amount, _feeObj.callerBps);
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+            _token,
+            _amount,
+            _feeObj.callerBps
+        );
         require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
 
         IOFT(_token).safeTransferFrom(msg.sender, address(this), amountToSwap + wrapperFee); // pay wrapper and move proxy tokens to contract
@@ -200,8 +278,38 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         return amountToSwap;
     }
 
-    function _getAmountAndPayFee(address _token, uint256 _amount, uint256 _minAmount, FeeObj calldata _feeObj) internal returns (uint256) {
-        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(_token, _amount, _feeObj.callerBps);
+    function _epv2_getAmountAndPayFee(
+        address _token,
+        uint256 _amount,
+        uint256 _minAmount,
+        FeeObj calldata _feeObj
+    ) internal returns (uint256) {
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+            _token,
+            _amount,
+            _feeObj.callerBps
+        );
+        require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
+
+        if (wrapperFee > 0) IERC20(_token).safeTransferFrom(msg.sender, address(this), wrapperFee); // pay wrapper
+        if (callerFee > 0) IERC20(_token).safeTransferFrom(msg.sender, _feeObj.caller, callerFee); // pay caller
+
+        emit WrapperFees(_feeObj.partnerId, _token, wrapperFee, callerFee);
+
+        return amountToSwap;
+    }
+
+    function _getAmountAndPayFee(
+        address _token,
+        uint256 _amount,
+        uint256 _minAmount,
+        FeeObj calldata _feeObj
+    ) internal returns (uint256) {
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+            _token,
+            _amount,
+            _feeObj.callerBps
+        );
         require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
 
         if (wrapperFee > 0) IOFT(_token).safeTransferFrom(msg.sender, address(this), wrapperFee); // pay wrapper
@@ -218,7 +326,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _minAmount,
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
-        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(_nativeOft, _amount, _feeObj.callerBps);
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+            _nativeOft,
+            _amount,
+            _feeObj.callerBps
+        );
         require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
 
         // pay fee in NativeOFT token as the caller might not be able to receive ETH
@@ -234,16 +346,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _token, // will be the token on proxies, and the oft on non-proxy
         uint256 _amount,
         uint256 _callerBps
-    )
-    public
-    view
-    override
-    returns (
-        uint256 amount,
-        uint256 wrapperFee,
-        uint256 callerFee
-    )
-    {
+    ) public view override returns (uint256 amount, uint256 wrapperFee, uint256 callerFee) {
         uint256 wrapperBps;
 
         if (oftBps[_token] == MAX_UINT) {
@@ -287,5 +390,27 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         (uint256 amount, , ) = getAmountAndFees(_oft, _amount, _feeObj.callerBps);
 
         return IOFTV2(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
+    }
+
+    function epv2_estimateSendFee(
+        address _oft,
+        epv2_SendParam calldata _sendParam,
+        bool _payInLzToken
+    ) external view returns (epv2_MessagingFee memory) {
+        (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, 0);
+
+        return
+            epv2_IOFT(_oft).quoteSend(
+                epv2_SendParam(
+                    _sendParam.dstEid,
+                    _sendParam.to,
+                    amount,
+                    _sendParam.minAmountLD,
+                    _sendParam.extraOptions,
+                    _sendParam.composeMsg,
+                    _sendParam.oftCmd
+                ),
+                _payInLzToken
+            );
     }
 }

@@ -6,8 +6,5 @@ import "@layerzerolabs/solidity-examples/contracts/token/oft/extension/ProxyOFT.
 
 // this is a MOCK
 contract MockOFTProxy is ProxyOFT {
-    constructor(
-        address _token,
-        address _lzEndpoint
-    ) ProxyOFT(_token, _lzEndpoint) {}
+    constructor(address _token, address _lzEndpoint) ProxyOFT(_token, _lzEndpoint) {}
 }

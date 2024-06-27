@@ -36,7 +36,8 @@
     "dist",
     "artifacts",
     "deployments",
-    "src"
+    "src",
+    "test/layerzero"
   ],
   "scripts": {
     "build": "$npm_execpath build:exports && $npm_execpath build:ts",

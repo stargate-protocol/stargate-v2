@@ -6,4 +6,3 @@ deployments
 dist
 node_modules
 out
-**/*.js

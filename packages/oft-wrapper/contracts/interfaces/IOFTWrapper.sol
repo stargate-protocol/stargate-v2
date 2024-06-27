@@ -104,14 +104,7 @@ interface IOFTWrapper {
         address _oft,
         uint256 _amount,
         uint256 _callerBps
-    )
-    external
-    view
-    returns (
-        uint256 amount,
-        uint256 wrapperFee,
-        uint256 callerFee
-    );
+    ) external view returns (uint256 amount, uint256 wrapperFee, uint256 callerFee);
 
     function estimateSendFee(
         address _oft,
