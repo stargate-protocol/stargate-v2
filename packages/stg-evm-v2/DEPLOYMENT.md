@@ -157,3 +157,12 @@ Safe signer also supports batched mode that's currently feature-flagged in devto
 ```bash
 LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND=1 make configure-mainnet CONFIGURE_ARGS_COMMON="--safe"
 ```
+
+## State snapshot
+
+Current state of the on-chain configuration can be retrieved into a JSON file using the `snapshot` hardhat task from the `stg-evm-v2` package:
+
+```bash
+cd packages/stg-evm-v2
+npx hardhat snapshot --stage mainnet --out snapshot-mainnet.json --log-level verbose
+```
