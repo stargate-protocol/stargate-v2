@@ -103,3 +103,12 @@ export interface TokenMessagingNetworkConfig {
     requiredDVNs?: string[]
     executor?: string
 }
+
+export interface OftWrapperConfig {
+    bps: bigint
+    networks: Partial<Record<EndpointId, OftWrapperNetworkConfig>>
+}
+
+export interface OftWrapperNetworkConfig {
+    bps?: bigint
+}
