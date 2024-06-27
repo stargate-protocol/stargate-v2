@@ -2,12 +2,78 @@
 
 pragma solidity ^0.8.0;
 
-import { Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test.sol";
+import { console, Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test.sol";
 
-import { OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract OFTWrapperTest is Test {
+import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
+import { IOFT as epv2_IOFT, MessagingFee as epv2_MessagingFee, SendParam as epv2_SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+
+import { IOFTWrapper, OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
+
+import { LzTestHelper } from "../../../layerzero/LzTestHelper.sol";
+
+import { ERC20Mock } from "./mocks/ERC20Mock.sol";
+import { MockOFT, MockOFTAdapter } from "./mocks/epv2/MockOFT.sol";
+
+contract OFTWrapperTest is Test, LzTestHelper {
+    using OptionsBuilder for bytes;
+
     bytes internal constant INCORRECT_BPS_ERROR = "OFTWrapper: defaultBps >= 100%";
+
+    uint8 internal constant NUM_ENDPOINTS = 2;
+    uint32 internal constant A_EID = 1;
+    uint32 internal constant B_EID = 2;
+
+    uint256 internal constant SD_TO_LD_FACTOR = 1e12;
+
+    uint16 internal constant DEFAULT_BPS = 97;
+
+    OFTWrapper internal oftWrapper;
+
+    ERC20Mock internal token;
+    MockOFTAdapter internal adapter;
+
+    MockOFT internal oft;
+
+    address internal sender;
+    address internal receiver;
+    address internal caller;
+    address internal refundAddress;
+
+    function setUp() public {
+        // 1. Set up 2 endpoints.
+        setUpEndpoints(NUM_ENDPOINTS);
+
+        // 2. Create an OFTWrapper with defaultBps
+        oftWrapper = new OFTWrapper(DEFAULT_BPS);
+
+        // 3. Create an Adapter on A_EID
+        token = new ERC20Mock("ERC20A", "ERC20A");
+        adapter = new MockOFTAdapter(address(token), endpoints[A_EID], address(this));
+
+        // 4. Create an OFT on B_EID
+        oft = new MockOFT("OFTA", "OFTA", endpoints[B_EID], address(this));
+
+        // 5. Wire the two together.
+        adapter.setPeer(B_EID, _addressToBytes32(address(oft)));
+        oft.setPeer(A_EID, _addressToBytes32(address(adapter)));
+
+        sender = makeAddr("sender");
+        vm.deal(sender, 1 ether);
+
+        receiver = makeAddr("receiver");
+        assertEq(0, IERC20(adapter.token()).balanceOf(receiver));
+        assertEq(0, IERC20(oft).balanceOf(receiver));
+
+        caller = makeAddr("caller");
+        assertEq(0, IERC20(adapter.token()).balanceOf(caller));
+        assertEq(0, IERC20(oft).balanceOf(caller));
+
+        refundAddress = makeAddr("refundAddress");
+        assertEq(0, IERC20(adapter.token()).balanceOf(refundAddress));
+        assertEq(0, IERC20(oft).balanceOf(refundAddress));
+    }
 
     function test_constructor(uint16 _defaultBps) public {
         if (_defaultBps >= 10000) {
@@ -17,5 +83,111 @@ contract OFTWrapperTest is Test {
             OFTWrapper wrapper = new OFTWrapper(_defaultBps);
             assertEq(_defaultBps, wrapper.defaultBps());
         }
+    }
+
+    /// @dev Test the entire flow of sending tokens from A_EID to B_EID and back.
+    function test_epv2_sendOFT(
+        uint256 _amountLD,
+        uint16 _callerBps,
+        uint16 _defaultBps,
+        bool _useTokenSpecificBps
+    ) public {
+        // 1. Assume:
+        // * _amountLD won't be so small it will slip (even on the return), or too large that it will overflow.
+        // * fees are somewhat realistic and at least don't near 100%
+        // * token specific bps are enabled randomly in some cases.
+        vm.assume(_amountLD >= 1e16 && _amountLD <= type(uint64).max);
+        vm.assume(_callerBps + uint256(_defaultBps) < oftWrapper.BPS_DENOMINATOR() - 1000);
+        oftWrapper.setDefaultBps(_defaultBps);
+        // Optionally set/use token-specific bps for A_EID -> B_EID transfer.
+        uint16 _bps = _useTokenSpecificBps ? _defaultBps + 100 : _defaultBps; // won't overflow due to above assumptions
+        if (_useTokenSpecificBps) {
+            oftWrapper.setOFTBps(address(adapter.token()), _bps);
+        }
+        assertEq(0, IERC20(adapter.token()).balanceOf(address(this)));
+
+        // 2. Mint some tokens to sender.
+        token.mint(sender, _amountLD);
+
+        // 3. Estimate the fee.
+        epv2_SendParam memory sendParam = epv2_SendParam(
+            B_EID, // dstEid
+            _addressToBytes32(receiver),
+            token.balanceOf(sender),
+            0, // zero to avoid SlippageExceeded
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0),
+            "",
+            ""
+        );
+        IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
+            callerBps: _callerBps,
+            caller: caller,
+            partnerId: bytes2(0x0034)
+        });
+        epv2_MessagingFee memory fee = oftWrapper.epv2_estimateSendFee(address(adapter), sendParam, false, feeObj);
+
+        // 4. Send the tokens from sender on A_EID to receiver on B_EID.
+        vm.startPrank(sender);
+        IERC20(token).approve(address(oftWrapper), _amountLD);
+        oftWrapper.epv2_sendOFTAdapter{ value: fee.nativeFee }(address(adapter), sendParam, fee, refundAddress, feeObj);
+        vm.stopPrank();
+        verifyAndExecutePackets();
+
+        // 5. Assert expected balance changes.
+        uint256 _expectedReceivedAmountLD = (_amountLD -
+            (_amountLD * (_callerBps + _bps)) /
+            oftWrapper.BPS_DENOMINATOR());
+        // receiver receives de-dusted amount
+        assertEq(_removeDust(_expectedReceivedAmountLD), IERC20(oft).balanceOf(receiver));
+        // caller receives the appropriate fee
+        assertEq((_amountLD * _callerBps) / oftWrapper.BPS_DENOMINATOR(), IERC20(adapter.token()).balanceOf(caller));
+        // oft receives the appropriate fee
+        uint256 _expectedOftWrapperFee = (_amountLD * _bps) /
+            oftWrapper.BPS_DENOMINATOR() +
+            _expectedReceivedAmountLD -
+            _removeDust(_expectedReceivedAmountLD);
+        uint256 _actualOftWrapperBalance = IERC20(adapter.token()).balanceOf(address(oftWrapper));
+        /// @dev depending on how dust is truncated, it will be within 1 wei of expectations.
+        assertLe(
+            _expectedOftWrapperFee > _actualOftWrapperBalance
+                ? _expectedOftWrapperFee - _actualOftWrapperBalance
+                : _actualOftWrapperBalance - _expectedOftWrapperFee,
+            1
+        );
+
+        // 6. Assert allowance is reset after the call.
+        assertEq(0, IERC20(token).allowance(sender, address(oftWrapper)));
+
+        // 7. Complete the return trip from B_EID to A_EID.  This time, use default bps.
+        address newReceiver = makeAddr("new_A_EID_receiver");
+        sendParam = epv2_SendParam(
+            A_EID, // dstEid
+            _addressToBytes32(newReceiver),
+            IERC20(oft).balanceOf(receiver),
+            0, // zero to avoid SlippageExceeded
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0),
+            "",
+            ""
+        );
+        fee = oftWrapper.epv2_estimateSendFee(address(oft), sendParam, false, feeObj);
+        vm.deal(receiver, 1 ether);
+
+        vm.startPrank(receiver);
+        IERC20(oft).approve(address(oftWrapper), IERC20(oft).balanceOf(receiver));
+        oftWrapper.epv2_sendOFT{ value: fee.nativeFee }(address(oft), sendParam, fee, refundAddress, feeObj);
+        vm.stopPrank();
+        verifyAndExecutePackets();
+
+        // 8. Assert expected balance changes.
+        assertEq(0, IERC20(oft).balanceOf(receiver));
+        assertGt(token.balanceOf(newReceiver), 0); // ensure newReceiver got something back.
+    }
+
+    function _removeDust(uint256 _amount) internal pure returns (uint256) {
+        return (_amount / SD_TO_LD_FACTOR) * SD_TO_LD_FACTOR;
+    }
+
+    function _addressToBytes32(address _addr) internal pure returns (bytes32) {
+        return bytes32(uint256(uint160(_addr)));
     }
 }

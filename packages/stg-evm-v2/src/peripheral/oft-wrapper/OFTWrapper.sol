@@ -4,14 +4,16 @@ pragma solidity ^0.8.0;
 
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
-import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
 import { IOFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol";
 import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
 import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
 import { INativeOFT } from "./interfaces/INativeOFT.sol";
+import { IOFT as epv2_IOFT, MessagingFee as epv2_MessagingFee, SendParam as epv2_SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
+    using SafeERC20 for IERC20;
     using SafeERC20 for IOFT;
 
     uint256 public constant BPS_DENOMINATOR = 10000;
@@ -232,6 +234,60 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         );
     }
 
+    function epv2_sendOFT(
+        address _oft,
+        epv2_SendParam calldata _sendParam,
+        epv2_MessagingFee calldata _fee,
+        address _refundAddress,
+        FeeObj calldata _feeObj
+    ) external payable nonReentrant {
+        uint256 amountToSwap = _getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
+        /// @dev Transfer to the wrapper as an intermediate step.
+        IERC20(_oft).safeTransferFrom(msg.sender, address(this), amountToSwap);
+        epv2_IOFT(_oft).send{ value: msg.value }(
+            epv2_SendParam(
+                _sendParam.dstEid,
+                _sendParam.to,
+                amountToSwap,
+                _sendParam.minAmountLD,
+                _sendParam.extraOptions,
+                _sendParam.composeMsg,
+                _sendParam.oftCmd
+            ),
+            _fee,
+            _refundAddress
+        );
+    }
+
+    function epv2_sendOFTAdapter(
+        address _adapterOFT,
+        epv2_SendParam calldata _sendParam,
+        epv2_MessagingFee calldata _fee,
+        address _refundAddress,
+        FeeObj calldata _feeObj
+    ) external payable nonReentrant {
+        address token = IOFT(_adapterOFT).token();
+        uint256 amountToSwap = _getAmountAndPayFee(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
+        /// @dev Transfer to the wrapper as an intermediate step.
+        IERC20(token).safeTransferFrom(msg.sender, address(this), amountToSwap);
+        IOFT(token).safeApprove(_adapterOFT, amountToSwap);
+        epv2_IOFT(_adapterOFT).send{ value: msg.value }(
+            epv2_SendParam(
+                _sendParam.dstEid,
+                _sendParam.to,
+                amountToSwap,
+                _sendParam.minAmountLD,
+                _sendParam.extraOptions,
+                _sendParam.composeMsg,
+                _sendParam.oftCmd
+            ),
+            _fee,
+            _refundAddress
+        );
+
+        if (IERC20(token).allowance(address(this), _adapterOFT) > 0) IERC20(token).safeApprove(_adapterOFT, 0);
+    }
+
     function _getAmountAndPayFeeProxy(
         address _token,
         uint256 _amount,
@@ -344,5 +400,28 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         (uint256 amount, , ) = getAmountAndFees(_oft, _amount, _feeObj.callerBps);
 
         return IOFTV2(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
+    }
+
+    function epv2_estimateSendFee(
+        address _oft,
+        epv2_SendParam calldata _sendParam,
+        bool _payInLzToken,
+        FeeObj calldata _feeObj
+    ) external view returns (epv2_MessagingFee memory) {
+        (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, _feeObj.callerBps);
+
+        return
+            epv2_IOFT(_oft).quoteSend(
+                epv2_SendParam(
+                    _sendParam.dstEid,
+                    _sendParam.to,
+                    amount,
+                    _sendParam.minAmountLD,
+                    _sendParam.extraOptions,
+                    _sendParam.composeMsg,
+                    _sendParam.oftCmd
+                ),
+                _payInLzToken
+            );
     }
 }
