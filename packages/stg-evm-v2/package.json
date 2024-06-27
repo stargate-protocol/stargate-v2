@@ -100,6 +100,7 @@
     "@layerzerolabs/lz-evm-sdk-v1": "~2.3.22",
     "@layerzerolabs/protocol-devtools": "~0.3.8",
     "@layerzerolabs/protocol-devtools-evm": "~0.3.8",
+    "@layerzerolabs/solidity-examples": "^1.1.0",
     "@layerzerolabs/test-devtools": "~0.2.5",
     "@layerzerolabs/toolbox-foundry": "~0.1.6",
     "@layerzerolabs/toolbox-hardhat": "~0.2.31",
