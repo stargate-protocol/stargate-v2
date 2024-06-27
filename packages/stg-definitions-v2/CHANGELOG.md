@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.0.5
+
+### Patch Changes
+
+- 01dc45c: Add OFTWrapper configuration constants & deploy script
+
 ## 1.0.4
 
 ### Patch Changes
