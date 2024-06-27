@@ -2,23 +2,23 @@
 
 pragma solidity ^0.8.0;
 
-import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
-
-event WrapperFees(bytes2 indexed partnerId, address token, uint256 wrapperFee, uint256 callerFee);
-event WrapperFeeWithdrawn(address indexed oft, address to, uint256 amount);
-
-struct FeeObj {
-    uint256 callerBps;
-    address caller;
-    bytes2 partnerId;
-}
+import "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
 
 interface IOFTWrapper {
+    event WrapperFees(bytes2 indexed partnerId, address token, uint256 wrapperFee, uint256 callerFee);
+    event WrapperFeeWithdrawn(address indexed oft, address to, uint256 amount);
+
+    struct FeeObj {
+        uint256 callerBps;
+        address caller;
+        bytes2 partnerId;
+    }
+
     function sendOFT(
         address _oft,
         uint16 _dstChainId,
         bytes calldata _toAddress,
-        uint256 _amount,
+        uint _amount,
         uint256 _minAmount,
         address payable _refundAddress,
         address _zroPaymentAddress,
@@ -42,7 +42,7 @@ interface IOFTWrapper {
         address _nativeOft,
         uint16 _dstChainId,
         bytes calldata _toAddress,
-        uint256 _amount,
+        uint _amount,
         uint256 _minAmount,
         address payable _refundAddress,
         address _zroPaymentAddress,
@@ -54,7 +54,7 @@ interface IOFTWrapper {
         address _oft,
         uint16 _dstChainId,
         bytes32 _toAddress,
-        uint256 _amount,
+        uint _amount,
         uint256 _minAmount,
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
@@ -74,7 +74,7 @@ interface IOFTWrapper {
         address _proxyOft,
         uint16 _dstChainId,
         bytes32 _toAddress,
-        uint256 _amount,
+        uint _amount,
         uint256 _minAmount,
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
@@ -84,7 +84,7 @@ interface IOFTWrapper {
         address _proxyOft,
         uint16 _dstChainId,
         bytes32 _toAddress,
-        uint256 _amount,
+        uint _amount,
         uint256 _minAmount,
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
@@ -94,7 +94,7 @@ interface IOFTWrapper {
         address _nativeOft,
         uint16 _dstChainId,
         bytes32 _toAddress,
-        uint256 _amount,
+        uint _amount,
         uint256 _minAmount,
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
@@ -110,19 +110,19 @@ interface IOFTWrapper {
         address _oft,
         uint16 _dstChainId,
         bytes calldata _toAddress,
-        uint256 _amount,
+        uint _amount,
         bool _useZro,
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
-    ) external view returns (uint256 nativeFee, uint256 zroFee);
+    ) external view returns (uint nativeFee, uint zroFee);
 
     function estimateSendFeeV2(
         address _oft,
         uint16 _dstChainId,
         bytes32 _toAddress,
-        uint256 _amount,
+        uint _amount,
         bool _useZro,
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
-    ) external view returns (uint256 nativeFee, uint256 zroFee);
+    ) external view returns (uint nativeFee, uint zroFee);
 }
