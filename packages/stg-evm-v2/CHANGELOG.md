@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.6
+
+### Patch Changes
+
+- 01dc45c: Add OFTWrapper configuration constants & deploy script
+- Updated dependencies [01dc45c]
+  - @stargatefinance/stg-definitions-v2@1.0.5
+
 ## 1.0.5
 
 ### Patch Changes
