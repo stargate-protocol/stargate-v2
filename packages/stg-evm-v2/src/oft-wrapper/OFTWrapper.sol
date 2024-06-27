@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
-import "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol";
-import "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
-import "./interfaces/IOFTWrapper.sol";
-import "./interfaces/INativeOFT.sol";
+import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
+import { IOFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol";
+import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
+import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
+import { INativeOFT } from "./interfaces/INativeOFT.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     using SafeERC20 for IOFT;
