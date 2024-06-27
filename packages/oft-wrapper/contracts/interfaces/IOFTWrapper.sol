@@ -8,11 +8,6 @@ interface IOFTWrapper {
     event WrapperFees(bytes2 indexed partnerId, address token, uint256 wrapperFee, uint256 callerFee);
     event WrapperFeeWithdrawn(address indexed oft, address to, uint256 amount);
 
-    error IOFTWrapper__InsufficientAmount();
-    error IOFTWrapper__InvalidDefaultBps();
-    error IOFTWrapper__InvalidBps();
-    error IOFTWrapper__NotEnoughValue();
-
     struct FeeObj {
         uint256 callerBps;
         address caller;
@@ -110,13 +105,13 @@ interface IOFTWrapper {
         uint256 _amount,
         uint256 _callerBps
     )
-        external
-        view
-        returns (
-            uint256 amount,
-            uint256 wrapperFee,
-            uint256 callerFee
-        );
+    external
+    view
+    returns (
+        uint256 amount,
+        uint256 wrapperFee,
+        uint256 callerFee
+    );
 
     function estimateSendFee(
         address _oft,

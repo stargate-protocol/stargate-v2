@@ -28,6 +28,8 @@
     "solidity-coverage": "^0.8.12"
   },
   "devDependencies": {
+    "@layerzerolabs/lz-evm-oapp-v2": "~2.3.22",
+    "@layerzerolabs/lz-evm-protocol-v2": "^2.3.25",
     "@layerzerolabs/prettier-plugin-solidity": "^1.0.0-beta.19",
     "@layerzerolabs/solidity-examples": "0.0.6",
     "@layerzerolabs/typescript-config-next": "~2.3.10",
