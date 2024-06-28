@@ -20,6 +20,7 @@ CONFIGURE_FEELIB_V1=$(HARDHAT) stg:wire::feelib-v1
 CONFIGURE_REWARDER=$(HARDHAT) stg:wire::rewarder
 CONFIGURE_REWARDER_REWARDS=$(HARDHAT) stg:set::rewards
 CONFIGURE_STAKING=$(HARDHAT) stg:wire::staking
+CONFIGURE_OFT_WRAPPER=$(HARDHAT) stg:wire::oft-wrapper
 CONFIGURE_TREASURER=$(HARDHAT) stg:wire::treasurer
 CONFIGURE_MINT_ALLOWANCE=$(HARDHAT) stg:set::mint-allowance
 CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
@@ -285,6 +286,9 @@ configure-mainnet:
 	# Configure rewarder
 	$(CONFIGURE_REWARDER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --signer deployer
 
+	# Configure OFT Wrapper
+	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
+
 transfer-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 transfer-mainnet:
 	# The OFTs
@@ -321,6 +325,9 @@ transfer-mainnet:
 
 	# Configure rewarder
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --signer deployer
+
+	# Configure rewarder
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
 # Please be careful with this target, I'd much rather you run
 # 

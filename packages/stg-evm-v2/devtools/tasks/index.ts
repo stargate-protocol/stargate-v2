@@ -32,6 +32,8 @@ import {
     configureMintable,
     createMintableFactory,
 } from '../src/mintable'
+import { IOFTWrapper, OFTWrapperOmniGraph, configureOFTWrapper, createOFTWrapperFactory } from '../src/oft-wrapper'
+import { OFTWrapperOmniGraphHardhatSchema } from '../src/oft-wrapper/schema'
 import { IPool, PoolOmniGraph, PoolOmniGraphHardhatSchema, configureDeposit, createPoolFactory } from '../src/pool'
 import {
     IRewarder,
@@ -82,6 +84,7 @@ import {
     TASK_STG_WIRE_CREDIT_MESSAGING,
     TASK_STG_WIRE_FEELIB_V1,
     TASK_STG_WIRE_OFT,
+    TASK_STG_WIRE_OFT_WRAPPER,
     TASK_STG_WIRE_REWARDER,
     TASK_STG_WIRE_STAKING,
     TASK_STG_WIRE_TOKEN_MESSAGING,
@@ -495,6 +498,37 @@ wireTask(TASK_STG_WIRE_STAKING).setAction(async (args, hre) => {
                 ...args,
                 configurator: configureStaking,
                 sdkFactory: createStakingFactory(createConnectedContractFactory()),
+            })
+    )
+
+    return hre.run(TASK_LZ_OAPP_WIRE, args)
+})
+
+/**
+ * Wiring task for OFT Wrapper contracts
+ */
+wireTask(TASK_STG_WIRE_OFT_WRAPPER).setAction(async (args, hre) => {
+    // Here we'll overwrite the config loading & configuration tasks just-in-time
+    //
+    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+    // the task that runs first will overwrite the original subtask definition
+    // whereas the task that runs later will overwrite the overwritten task definition
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load OFT Wrapper config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        runSuper({
+            ...args,
+            schema: OFTWrapperOmniGraphHardhatSchema,
+        })
+    )
+
+    subtask(
+        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+        'Configure OFT Wrapper',
+        (args: SubtaskConfigureTaskArgs<OFTWrapperOmniGraph, IOFTWrapper>, hre, runSuper) =>
+            runSuper({
+                ...args,
+                configurator: configureOFTWrapper,
+                sdkFactory: createOFTWrapperFactory(createConnectedContractFactory()),
             })
     )
 

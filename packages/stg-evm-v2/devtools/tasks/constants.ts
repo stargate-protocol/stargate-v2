@@ -22,3 +22,5 @@ export const TASK_STG_SET_MINT_ALLOWANCE = `stg:set::mint-allowance`
 export const TASK_STG_ADD_LIQUIDITY = `stg:add::liquidity`
 
 export const TASK_STG_WIRE_STAKING = `stg:wire::staking`
+
+export const TASK_STG_WIRE_OFT_WRAPPER = `stg:wire::oft-wrapper`
