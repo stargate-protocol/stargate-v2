@@ -494,7 +494,7 @@ contract TokenMessagingTest is Test {
     function test_DriveBusLzReceive() public {
         _mockStargateReceiveToken();
         bytes32 receiver = AddressCast.toBytes32(ALICE);
-        uint8 numPassengers = QUEUE_CAPACITY - 1;
+        uint8 numPassengers = uint8(QUEUE_CAPACITY - 1);
         uint8 numPassengerWithNativeDrop = 100;
         uint128 nativeDropAmount = 100;
         messaging.setNativeDropAmount(DST_EID, nativeDropAmount);
