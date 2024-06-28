@@ -404,8 +404,9 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ZKPOLYGON_V2_MAINNET,
         url: process.env.RPC_URL_ZKPOLYGON_MAINNET || 'https://polygon-zkevm.drpc.org',
         accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
+        // TODO
+        // safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
+        // timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zksync-mainnet': {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
