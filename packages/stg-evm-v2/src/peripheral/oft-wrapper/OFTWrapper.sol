@@ -242,10 +242,10 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _refundAddress,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        /// @dev de-dust and transfer to the wrapper as an intermediate step.
         uint256 decimalConversionRate = epv2_OFT(_oft).decimalConversionRate();
         uint256 amountToSwap = (_getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj) /
             decimalConversionRate) * decimalConversionRate;
-        /// @dev Transfer to the wrapper as an intermediate step.
         IERC20(_oft).safeTransferFrom(msg.sender, address(this), amountToSwap);
         epv2_IOFT(_oft).send{ value: msg.value }(
             epv2_SendParam(
@@ -269,11 +269,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _refundAddress,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        /// @dev de-dust and transfer to the wrapper as an intermediate step.
         uint256 decimalConversionRate = epv2_OFT(_adapterOFT).decimalConversionRate();
         address token = IOFT(_adapterOFT).token();
         uint256 amountToSwap = (_getAmountAndPayFee(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj) /
             decimalConversionRate) * decimalConversionRate;
-        /// @dev Transfer to the wrapper as an intermediate step.
         IERC20(token).safeTransferFrom(msg.sender, address(this), amountToSwap);
         IOFT(token).safeApprove(_adapterOFT, amountToSwap);
         epv2_IOFT(_adapterOFT).send{ value: msg.value }(

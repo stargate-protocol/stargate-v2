@@ -21,6 +21,11 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     bytes internal constant INCORRECT_BPS_ERROR = "OFTWrapper: defaultBps >= 100%";
 
+    string internal ERC20_MOCK_NAME = "ERC20Mock";
+    string internal ERC20_MOCK_SYMBOL = "ERC";
+    string internal OFT_NAME = "OFTA";
+    string internal OFT_SYMBOL = "OFTA";
+
     uint8 internal constant NUM_ENDPOINTS = 2;
     uint32 internal constant A_EID = 1;
     uint32 internal constant B_EID = 2;
@@ -39,24 +44,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     address internal caller;
     address internal refundAddress;
 
-    function setUp() public {
-        // 1. Set up 2 endpoints.
-        setUpEndpoints(NUM_ENDPOINTS);
-
-        // 2. Create an OFTWrapper with defaultBps
-        oftWrapper = new OFTWrapper(DEFAULT_BPS);
-
-        // 3. Create an Adapter on A_EID
-        token = new ERC20Mock("ERC20A", "ERC20A");
-        adapter = new MockOFTAdapter(address(token), endpoints[A_EID], address(this));
-
-        // 4. Create an OFT on B_EID
-        oft = new MockOFT("OFTA", "OFTA", endpoints[B_EID], address(this));
-
-        // 5. Wire the two together.
-        adapter.setPeer(B_EID, _addressToBytes32(address(oft)));
-        oft.setPeer(A_EID, _addressToBytes32(address(adapter)));
-
+    function _setUpUsers() internal {
         sender = makeAddr("sender");
         vm.deal(sender, 1 ether);
 
@@ -71,6 +59,27 @@ contract OFTWrapperTest is Test, LzTestHelper {
         refundAddress = makeAddr("refundAddress");
         assertEq(0, IERC20(adapter.token()).balanceOf(refundAddress));
         assertEq(0, IERC20(oft).balanceOf(refundAddress));
+    }
+
+    function setUp() public {
+        // 1. Set up 2 endpoints.
+        setUpEndpoints(NUM_ENDPOINTS);
+
+        // 2. Create an OFTWrapper with defaultBps
+        oftWrapper = new OFTWrapper(DEFAULT_BPS);
+
+        // 3. Create an Adapter on A_EID
+        token = new ERC20Mock(ERC20_MOCK_NAME, ERC20_MOCK_SYMBOL);
+        adapter = new MockOFTAdapter(address(token), endpoints[A_EID], address(this));
+
+        // 4. Create an OFT on B_EID
+        oft = new MockOFT(OFT_NAME, OFT_SYMBOL, endpoints[B_EID], address(this));
+
+        // 5. Wire the two together.
+        adapter.setPeer(B_EID, _addressToBytes32(address(oft)));
+        oft.setPeer(A_EID, _addressToBytes32(address(adapter)));
+
+        _setUpUsers();
     }
 
     function test_constructor(uint16 _defaultBps) public {
@@ -94,8 +103,8 @@ contract OFTWrapperTest is Test, LzTestHelper {
         // * _amountLD won't be so small it will slip (even on the return trip), or too large that it will overflow.
         // * fees are somewhat realistic and at least don't near 100%
         // * token specific bps are enabled randomly in some cases.
-        vm.assume(_amountLD >= 1e16 && _amountLD <= type(uint64).max);
-        vm.assume(_callerBps + uint256(_defaultBps) < oftWrapper.BPS_DENOMINATOR() - 1000);
+        _assumeAmountLD(_amountLD);
+        _assumeBps(_callerBps, _defaultBps);
         oftWrapper.setDefaultBps(_defaultBps);
         // Optionally set/use token-specific bps for A_EID -> B_EID transfer.
         uint16 _bps = _useTokenSpecificBps ? _defaultBps + 100 : _defaultBps; // won't overflow due to above assumptions
@@ -178,6 +187,14 @@ contract OFTWrapperTest is Test, LzTestHelper {
         // 8. Assert expected balance changes.
         assertLt(IERC20(oft).balanceOf(receiver), receiverBalance); // ensure receiver sent something
         assertGt(token.balanceOf(newReceiver), 0); // ensure newReceiver got something back.
+    }
+
+    function _assumeAmountLD(uint256 _amountLD) internal {
+        vm.assume(_amountLD >= 1e16 && _amountLD <= type(uint64).max);
+    }
+
+    function _assumeBps(uint16 _callerBps, uint16 _defaultBps) internal {
+        vm.assume(_callerBps + uint256(_defaultBps) < oftWrapper.BPS_DENOMINATOR() - 1000);
     }
 
     function _removeDust(uint256 _amount, MockOFTAdapter _adapter) internal view returns (uint256) {
