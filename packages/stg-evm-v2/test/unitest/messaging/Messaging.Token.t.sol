@@ -36,7 +36,7 @@ contract TokenMessagingTest is Test {
     uint80 public constant BUS_FARE = 0.001 ether;
     uint80 public constant NATIVE_DROP_FARE = 0.0002 ether;
 
-    uint16 public constant QUEUE_CAPACITY = 255;
+    uint16 public constant QUEUE_CAPACITY = 128;
 
     uint8 internal constant MSG_TYPE_TAXI = 1; // must match TaxiCodec.MSG_TYPE_TAXI
     uint8 internal constant MIN_TAXI_SIZE = 43; // must match TaxiCodec.RECEIVER_OFFSET
@@ -121,7 +121,7 @@ contract TokenMessagingTest is Test {
 
     function test_constructor(uint8 capacity) public {
         vm.assume(capacity < 200);
-        if (capacity < 2) {
+        if (capacity < 2 || 2e16 % capacity != 0) {
             // cannot use expectRevert when the revert happens in the parent constructor
             try new MockTokenMessaging(LzUtil.deployEndpointV2(MESSAGING_EID, address(this)), address(this), capacity) {
                 fail();
@@ -494,7 +494,7 @@ contract TokenMessagingTest is Test {
     function test_DriveBusLzReceive() public {
         _mockStargateReceiveToken();
         bytes32 receiver = AddressCast.toBytes32(ALICE);
-        uint8 numPassengers = 200;
+        uint8 numPassengers = QUEUE_CAPACITY - 1;
         uint8 numPassengerWithNativeDrop = 100;
         uint128 nativeDropAmount = 100;
         messaging.setNativeDropAmount(DST_EID, nativeDropAmount);

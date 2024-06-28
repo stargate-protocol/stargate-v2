@@ -36,7 +36,7 @@ contract TokenMessaging is Transfer, MessagingBase, TokenMessagingOptions, IToke
 
     /// @param _queueCapacity The maximum number of passengers that can be accommodated in the bus queue.  Must be a divisor of 2e16.
     constructor(address _endpoint, address _owner, uint16 _queueCapacity) MessagingBase(_endpoint, _owner) {
-        if (_queueCapacity < 2) revert Messaging_InvalidQueueCapacity(); // queue capacity must be at least 2
+        if (_queueCapacity < 2 || 2e16 % _queueCapacity != 0) revert Messaging_InvalidQueueCapacity(); // queue capacity must be at least 2
         queueCapacity = _queueCapacity;
         localEid = endpoint.eid();
     }
