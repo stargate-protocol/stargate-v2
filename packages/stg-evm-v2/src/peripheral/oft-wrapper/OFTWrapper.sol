@@ -11,6 +11,7 @@ import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/in
 import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
 import { INativeOFT } from "./interfaces/INativeOFT.sol";
 import { IOFT as epv2_IOFT, MessagingFee as epv2_MessagingFee, SendParam as epv2_SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { OFT as epv2_OFT } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/OFT.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
@@ -241,7 +242,9 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _refundAddress,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
-        uint256 amountToSwap = _getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
+        uint256 decimalConversionRate = epv2_OFT(_oft).decimalConversionRate();
+        uint256 amountToSwap = (_getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj) /
+            decimalConversionRate) * decimalConversionRate;
         /// @dev Transfer to the wrapper as an intermediate step.
         IERC20(_oft).safeTransferFrom(msg.sender, address(this), amountToSwap);
         epv2_IOFT(_oft).send{ value: msg.value }(
@@ -266,8 +269,10 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _refundAddress,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        uint256 decimalConversionRate = epv2_OFT(_adapterOFT).decimalConversionRate();
         address token = IOFT(_adapterOFT).token();
-        uint256 amountToSwap = _getAmountAndPayFee(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
+        uint256 amountToSwap = (_getAmountAndPayFee(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj) /
+            decimalConversionRate) * decimalConversionRate;
         /// @dev Transfer to the wrapper as an intermediate step.
         IERC20(token).safeTransferFrom(msg.sender, address(this), amountToSwap);
         IOFT(token).safeApprove(_adapterOFT, amountToSwap);

@@ -25,8 +25,6 @@ contract OFTWrapperTest is Test, LzTestHelper {
     uint32 internal constant A_EID = 1;
     uint32 internal constant B_EID = 2;
 
-    uint256 internal constant SD_TO_LD_FACTOR = 1e12;
-
     uint16 internal constant DEFAULT_BPS = 97;
 
     OFTWrapper internal oftWrapper;
@@ -93,7 +91,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         bool _useTokenSpecificBps
     ) public {
         // 1. Assume:
-        // * _amountLD won't be so small it will slip (even on the return), or too large that it will overflow.
+        // * _amountLD won't be so small it will slip (even on the return trip), or too large that it will overflow.
         // * fees are somewhat realistic and at least don't near 100%
         // * token specific bps are enabled randomly in some cases.
         vm.assume(_amountLD >= 1e16 && _amountLD <= type(uint64).max);
@@ -134,29 +132,27 @@ contract OFTWrapperTest is Test, LzTestHelper {
         verifyAndExecutePackets();
 
         // 5. Assert expected balance changes.
-        uint256 _expectedReceivedAmountLD = (_amountLD -
+        uint256 _expectedReceiverBalanceLD = (_amountLD -
             (_amountLD * (_callerBps + _bps)) /
             oftWrapper.BPS_DENOMINATOR());
-        // receiver receives de-dusted amount
-        assertEq(_removeDust(_expectedReceivedAmountLD), IERC20(oft).balanceOf(receiver));
-        // caller receives the appropriate fee
-        assertEq((_amountLD * _callerBps) / oftWrapper.BPS_DENOMINATOR(), IERC20(adapter.token()).balanceOf(caller));
-        // oft receives the appropriate fee
-        uint256 _expectedOftWrapperFee = (_amountLD * _bps) /
-            oftWrapper.BPS_DENOMINATOR() +
-            _expectedReceivedAmountLD -
-            _removeDust(_expectedReceivedAmountLD);
-        uint256 _actualOftWrapperBalance = IERC20(adapter.token()).balanceOf(address(oftWrapper));
-        /// @dev depending on how dust is truncated, it will be within 1 wei of expectations.
-        assertLe(
-            _expectedOftWrapperFee > _actualOftWrapperBalance
-                ? _expectedOftWrapperFee - _actualOftWrapperBalance
-                : _actualOftWrapperBalance - _expectedOftWrapperFee,
-            1
+        assertEq(_removeDust(_expectedReceiverBalanceLD, adapter), IERC20(oft).balanceOf(receiver)); // ensure receiver receives de-dusted amount
+
+        uint256 _expectedCallerBalanceLD = (_amountLD * _callerBps) / oftWrapper.BPS_DENOMINATOR();
+        assertEq(_expectedCallerBalanceLD, IERC20(adapter.token()).balanceOf(caller)); // ensure caller receives the appropriate fee
+
+        uint256 _expectedOftWrapperBalanceLD = (_amountLD * _bps) / oftWrapper.BPS_DENOMINATOR();
+        assertEq(_expectedOftWrapperBalanceLD, IERC20(adapter.token()).balanceOf(address(oftWrapper)));
+
+        assertEq(
+            _amountLD -
+                _removeDust(_expectedReceiverBalanceLD, adapter) -
+                _expectedCallerBalanceLD -
+                _expectedOftWrapperBalanceLD,
+            IERC20(adapter.token()).balanceOf(sender)
         );
 
-        // 6. Assert allowance is reset after the call.
-        assertEq(0, IERC20(token).allowance(sender, address(oftWrapper)));
+        // 6. Assert that the OFTAdapter allowance is reset after the call.
+        assertEq(0, IERC20(token).allowance(address(oftWrapper), address(oftWrapper)));
 
         // 7. Complete the return trip from B_EID to A_EID.  This time, use default bps.
         address newReceiver = makeAddr("new_A_EID_receiver");
@@ -172,6 +168,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         fee = oftWrapper.epv2_estimateSendFee(address(oft), sendParam, false, feeObj);
         vm.deal(receiver, 1 ether);
 
+        uint256 receiverBalance = IERC20(oft).balanceOf(receiver);
         vm.startPrank(receiver);
         IERC20(oft).approve(address(oftWrapper), IERC20(oft).balanceOf(receiver));
         oftWrapper.epv2_sendOFT{ value: fee.nativeFee }(address(oft), sendParam, fee, refundAddress, feeObj);
@@ -179,12 +176,13 @@ contract OFTWrapperTest is Test, LzTestHelper {
         verifyAndExecutePackets();
 
         // 8. Assert expected balance changes.
-        assertEq(0, IERC20(oft).balanceOf(receiver));
+        assertLt(IERC20(oft).balanceOf(receiver), receiverBalance); // ensure receiver sent something
         assertGt(token.balanceOf(newReceiver), 0); // ensure newReceiver got something back.
     }
 
-    function _removeDust(uint256 _amount) internal pure returns (uint256) {
-        return (_amount / SD_TO_LD_FACTOR) * SD_TO_LD_FACTOR;
+    function _removeDust(uint256 _amount, MockOFTAdapter _adapter) internal view returns (uint256) {
+        uint256 decimalConversionRate = _adapter.decimalConversionRate();
+        return (_amount / decimalConversionRate) * decimalConversionRate;
     }
 
     function _addressToBytes32(address _addr) internal pure returns (bytes32) {
