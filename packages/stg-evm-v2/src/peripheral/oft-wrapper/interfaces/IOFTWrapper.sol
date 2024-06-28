@@ -5,6 +5,8 @@ pragma solidity ^0.8.0;
 import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
 
 interface IOFTWrapper {
+    event DefaultBpsSet(uint256 bps);
+    event OFTBpsSet(address indexed token, uint256 bps);
     event WrapperFees(bytes2 indexed partnerId, address token, uint256 wrapperFee, uint256 callerFee);
     event WrapperFeeWithdrawn(address indexed oft, address to, uint256 amount);
 

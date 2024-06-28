@@ -28,11 +28,13 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     function setDefaultBps(uint256 _defaultBps) external onlyOwner {
         require(_defaultBps < BPS_DENOMINATOR, "OFTWrapper: defaultBps >= 100%");
         defaultBps = _defaultBps;
+        emit DefaultBpsSet(_defaultBps);
     }
 
     function setOFTBps(address _token, uint256 _bps) external onlyOwner {
         require(_bps < BPS_DENOMINATOR || _bps == MAX_UINT, "OFTWrapper: oftBps[_oft] >= 100%");
         oftBps[_token] = _bps;
+        emit OFTBpsSet(_token, _bps);
     }
 
     function withdrawFees(address _oft, address _to, uint256 _amount) external onlyOwner {
