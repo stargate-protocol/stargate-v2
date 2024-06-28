@@ -244,8 +244,10 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     ) external payable nonReentrant {
         /// @dev de-dust and transfer to the wrapper as an intermediate step.
         uint256 decimalConversionRate = epv2_OFT(_oft).decimalConversionRate();
-        uint256 amountToSwap = (_getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj) /
-            decimalConversionRate) * decimalConversionRate;
+        uint256 amountToSwap = _epv2_removeDust(
+            _getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj),
+            _oft
+        );
         IERC20(_oft).safeTransferFrom(msg.sender, address(this), amountToSwap);
         epv2_IOFT(_oft).send{ value: msg.value }(
             epv2_SendParam(
@@ -270,10 +272,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
         /// @dev de-dust and transfer to the wrapper as an intermediate step.
-        uint256 decimalConversionRate = epv2_OFT(_adapterOFT).decimalConversionRate();
         address token = IOFT(_adapterOFT).token();
-        uint256 amountToSwap = (_getAmountAndPayFee(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj) /
-            decimalConversionRate) * decimalConversionRate;
+        uint256 amountToSwap = _epv2_removeDust(
+            _getAmountAndPayFee(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj),
+            _adapterOFT
+        );
         IERC20(token).safeTransferFrom(msg.sender, address(this), amountToSwap);
         IOFT(token).safeApprove(_adapterOFT, amountToSwap);
         epv2_IOFT(_adapterOFT).send{ value: msg.value }(
@@ -291,6 +294,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         );
 
         if (IERC20(token).allowance(address(this), _adapterOFT) > 0) IERC20(token).safeApprove(_adapterOFT, 0);
+    }
+
+    function _epv2_removeDust(uint256 _amount, address _oft) internal view returns (uint256) {
+        uint256 decimalConversionRate = epv2_OFT(_oft).decimalConversionRate();
+        return (_amount / decimalConversionRate) * decimalConversionRate;
     }
 
     function _getAmountAndPayFeeProxy(
@@ -414,7 +422,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external view returns (epv2_MessagingFee memory) {
         (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, _feeObj.callerBps);
-
+        amount = _epv2_removeDust(amount, _oft);
         return
             epv2_IOFT(_oft).quoteSend(
                 epv2_SendParam(
