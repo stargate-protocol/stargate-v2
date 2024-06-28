@@ -243,7 +243,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
         /// @dev de-dust and transfer to the wrapper as an intermediate step.
-        uint256 decimalConversionRate = epv2_OFT(_oft).decimalConversionRate();
         uint256 amountToSwap = _epv2_removeDust(
             _getAmountAndPayFee(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj),
             _oft
