@@ -532,7 +532,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         // [EndpointId.SHIMMER_V2_MAINNET]: {},
         // [EndpointId.TAIKO_V2_MAINNET]: {},
         // [EndpointId.XCHAIN_V2_MAINNET]: {},
-        // [EndpointId.ZKASTAR_V2_MAINNET]: {},
+        // [EndpointId.ZKATANA_V2_MAINNET]: {},
         // [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         // [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
         // [EndpointId.ZKSYNC_V2_MAINNET]: {},
