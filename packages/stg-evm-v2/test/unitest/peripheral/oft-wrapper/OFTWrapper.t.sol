@@ -7,7 +7,7 @@ import { console, Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
-import { IOFT as epv2_IOFT, MessagingFee as epv2_MessagingFee, SendParam as epv2_SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEPv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 import { IOFTWrapper, OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
 
@@ -117,7 +117,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         token.mint(sender, _amountLD);
 
         // 3. Estimate the fee.
-        epv2_SendParam memory sendParam = epv2_SendParam(
+        SendParamEpv2 memory sendParam = SendParamEpv2(
             B_EID, // dstEid
             _addressToBytes32(receiver),
             token.balanceOf(sender),
@@ -131,41 +131,38 @@ contract OFTWrapperTest is Test, LzTestHelper {
             caller: caller,
             partnerId: bytes2(0x0034)
         });
-        epv2_MessagingFee memory fee = oftWrapper.epv2_estimateSendFee(address(adapter), sendParam, false, feeObj);
+        MessagingFeeEPv2 memory fee = oftWrapper.estimateSendFeeEpv2(address(adapter), sendParam, false, feeObj);
 
         // 4. Send the tokens from sender on A_EID to receiver on B_EID.
         vm.startPrank(sender);
         IERC20(token).approve(address(oftWrapper), _amountLD);
-        oftWrapper.epv2_sendOFTAdapter{ value: fee.nativeFee }(address(adapter), sendParam, fee, refundAddress, feeObj);
+        oftWrapper.sendOFTAdapterEpv2{ value: fee.nativeFee }(address(adapter), sendParam, fee, refundAddress, feeObj);
         vm.stopPrank();
         verifyAndExecutePackets();
 
         // 5. Assert expected balance changes.
-        uint256 _expectedReceiverBalanceLD = (_amountLD -
-            (_amountLD * (_callerBps + _bps)) /
-            oftWrapper.BPS_DENOMINATOR());
-        assertEq(_removeDust(_expectedReceiverBalanceLD, adapter), IERC20(oft).balanceOf(receiver)); // ensure receiver receives de-dusted amount
+        uint256 _expectedReceiverBalanceLD = _removeDust(
+            (_amountLD - (_amountLD * (_callerBps + _bps)) / oftWrapper.BPS_DENOMINATOR()),
+            adapter
+        );
+        assertEq(_expectedReceiverBalanceLD, IERC20(oft).balanceOf(receiver)); // ensure receiver receives de-dusted amount
 
         uint256 _expectedCallerBalanceLD = (_amountLD * _callerBps) / oftWrapper.BPS_DENOMINATOR();
         assertEq(_expectedCallerBalanceLD, IERC20(adapter.token()).balanceOf(caller)); // ensure caller receives the appropriate fee
 
-        uint256 _expectedOftWrapperBalanceLD = (_amountLD * _bps) / oftWrapper.BPS_DENOMINATOR();
-        assertEq(_expectedOftWrapperBalanceLD, IERC20(adapter.token()).balanceOf(address(oftWrapper)));
-
         assertEq(
-            _amountLD -
-                _removeDust(_expectedReceiverBalanceLD, adapter) -
-                _expectedCallerBalanceLD -
-                _expectedOftWrapperBalanceLD,
-            IERC20(adapter.token()).balanceOf(sender)
+            _amountLD - _expectedReceiverBalanceLD - _expectedCallerBalanceLD,
+            IERC20(adapter.token()).balanceOf(address(oftWrapper))
         );
+
+        assertEq(0, IERC20(adapter.token()).balanceOf(sender));
 
         // 6. Assert that the OFTAdapter allowance is reset after the call.
         assertEq(0, IERC20(token).allowance(address(oftWrapper), address(oftWrapper)));
 
         // 7. Complete the return trip from B_EID to A_EID.  This time, use default bps.
         address newReceiver = makeAddr("new_A_EID_receiver");
-        sendParam = epv2_SendParam(
+        sendParam = SendParamEpv2(
             A_EID, // dstEid
             _addressToBytes32(newReceiver),
             IERC20(oft).balanceOf(receiver),
@@ -174,13 +171,13 @@ contract OFTWrapperTest is Test, LzTestHelper {
             "",
             ""
         );
-        fee = oftWrapper.epv2_estimateSendFee(address(oft), sendParam, false, feeObj);
+        fee = oftWrapper.estimateSendFeeEpv2(address(oft), sendParam, false, feeObj);
         vm.deal(receiver, 1 ether);
 
         uint256 receiverBalance = IERC20(oft).balanceOf(receiver);
         vm.startPrank(receiver);
         IERC20(oft).approve(address(oftWrapper), IERC20(oft).balanceOf(receiver));
-        oftWrapper.epv2_sendOFT{ value: fee.nativeFee }(address(oft), sendParam, fee, refundAddress, feeObj);
+        oftWrapper.sendOFTEpv2{ value: fee.nativeFee }(address(oft), sendParam, fee, refundAddress, feeObj);
         vm.stopPrank();
         verifyAndExecutePackets();
 
@@ -189,11 +186,11 @@ contract OFTWrapperTest is Test, LzTestHelper {
         assertGt(token.balanceOf(newReceiver), 0); // ensure newReceiver got something back.
     }
 
-    function _assumeAmountLD(uint256 _amountLD) internal {
+    function _assumeAmountLD(uint256 _amountLD) internal pure {
         vm.assume(_amountLD >= 1e16 && _amountLD <= type(uint64).max);
     }
 
-    function _assumeBps(uint16 _callerBps, uint16 _defaultBps) internal {
+    function _assumeBps(uint16 _callerBps, uint16 _defaultBps) internal view {
         vm.assume(_callerBps + uint256(_defaultBps) < oftWrapper.BPS_DENOMINATOR() - 1000);
     }
 
