@@ -463,7 +463,47 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
 export const OFT_WRAPPER: OftWrapperConfig = {
     bps: 2n,
     // Any networks defined here will be picked up by the deploy script
-    networks: {},
+    networks: {
+        //
+        // MAINNET
+        //
+        [EndpointId.ARBITRUM_V2_MAINNET]: {},
+        [EndpointId.AURORA_V2_MAINNET]: {},
+        [EndpointId.AVALANCHE_V2_MAINNET]: {},
+        [EndpointId.BASE_V2_MAINNET]: {},
+        [EndpointId.BSC_V2_MAINNET]: {},
+        [EndpointId.EBI_V2_MAINNET]: {},
+        [EndpointId.ETHEREUM_V2_MAINNET]: {},
+        [EndpointId.IOTA_V2_MAINNET]: {},
+        [EndpointId.KAVA_V2_MAINNET]: {},
+        [EndpointId.KLAYTN_V2_MAINNET]: {},
+        [EndpointId.MANTLE_V2_MAINNET]: {},
+        [EndpointId.METIS_V2_MAINNET]: {},
+        [EndpointId.OPTIMISM_V2_MAINNET]: {},
+        [EndpointId.POLYGON_V2_MAINNET]: {},
+        [EndpointId.RARIBLE_V2_MAINNET]: {},
+        [EndpointId.SCROLL_V2_MAINNET]: {},
+        [EndpointId.SEI_V2_MAINNET]: {},
+        [EndpointId.TAIKO_V2_MAINNET]: {},
+        [EndpointId.XCHAIN_V2_MAINNET]: {},
+        [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
+
+        //
+        // TESTNET
+        //
+        [EndpointId.ARBSEP_V2_TESTNET]: {},
+        [EndpointId.BSC_V2_TESTNET]: {},
+        [EndpointId.KLAYTN_V2_TESTNET]: {},
+        [EndpointId.OPTSEP_V2_TESTNET]: {},
+        [EndpointId.SEPOLIA_V2_TESTNET]: {},
+
+        //
+        // SANDBOX
+        //
+        [EndpointId.BSC_V2_SANDBOX]: {},
+        [EndpointId.ETHEREUM_V2_SANDBOX]: {},
+        [EndpointId.POLYGON_V2_SANDBOX]: {},
+    },
 }
 
 export const REWARDS: RewardsConfig = {
