@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
+import { MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 interface IOFTWrapper {
     event DefaultBpsSet(uint256 bps);
@@ -102,6 +103,22 @@ interface IOFTWrapper {
         FeeObj calldata _feeObj
     ) external payable;
 
+    function sendOFTEpv2(
+        address _oft,
+        SendParamEpv2 calldata _sendParam,
+        MessagingFeeEpv2 calldata _fee,
+        address _refundAddress,
+        FeeObj calldata _feeObj
+    ) external payable;
+
+    function sendOFTAdapterEpv2(
+        address _adapterOFT,
+        SendParamEpv2 calldata _sendParam,
+        MessagingFeeEpv2 calldata _fee,
+        address _refundAddress,
+        FeeObj calldata _feeObj
+    ) external payable;
+
     function getAmountAndFees(
         address _oft,
         uint256 _amount,
@@ -127,4 +144,11 @@ interface IOFTWrapper {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view returns (uint nativeFee, uint zroFee);
+
+    function estimateSendFeeEpv2(
+        address _oft,
+        SendParamEpv2 calldata _sendParam,
+        bool _payInLzToken,
+        FeeObj calldata _feeObj
+    ) external view returns (MessagingFeeEpv2 memory);
 }
