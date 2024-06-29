@@ -11,7 +11,6 @@ import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/in
 import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
 import { INativeOFT } from "./interfaces/INativeOFT.sol";
 import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
-import { OFT as OFTEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/OFT.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     using SafeERC20 for IERC20;
@@ -267,7 +266,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     ) external payable nonReentrant {
         address token = IOFT(_adapterOFT).token();
         uint256 amountToSwap = _getAmountAndPayFeeProxy(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
-        IOFT(token).safeApprove(_adapterOFT, amountToSwap);
+        IERC20(token).safeApprove(_adapterOFT, amountToSwap);
         IOFTEpv2(_adapterOFT).send{ value: msg.value }(
             SendParamEpv2(
                 _sendParam.dstEid,
