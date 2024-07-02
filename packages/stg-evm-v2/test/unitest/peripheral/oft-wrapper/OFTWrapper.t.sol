@@ -16,6 +16,12 @@ import { LzTestHelper } from "../../../layerzero/LzTestHelper.sol";
 import { ERC20Mock } from "./mocks/ERC20Mock.sol";
 import { CustomQuoteSendMockOFT, CustomQuoteSendMockOFTAdapter, MockOFT, MockOFTAdapter } from "./mocks/epv2/MockOFT.sol";
 
+import { OFTProxyMock as OFTv2ProxyMock } from "./mocks/oftv2/OFTProxyMock.sol";
+import { OFTMock as OFTv2Mock } from "./mocks/oftv2/OFTMock.sol";
+
+import { OFTProxyMock as OFTv1ProxyMock } from "./mocks/oft/OFTProxyMock.sol";
+import { OFTMock as OFTv1Mock } from "./mocks/oft/OFTMock.sol";
+
 contract OFTWrapperTest is Test, LzTestHelper {
     using OptionsBuilder for bytes;
 
@@ -208,6 +214,164 @@ contract OFTWrapperTest is Test, LzTestHelper {
         return bytes32(uint256(uint160(_addr)));
     }
 
+    function _assumeBpsSetup(
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        uint256 _bpsDenom
+    ) internal pure {
+        vm.assume(_defaultBps < _bpsDenom);
+        vm.assume(_callerBps < _bpsDenom);
+        vm.assume(_customBps < _bpsDenom);
+        if (_customBps == 0) {
+            vm.assume(_defaultBps + uint256(_callerBps) < _bpsDenom);
+        } else {
+            vm.assume(_customBps + uint256(_callerBps) < _bpsDenom);
+        }
+    }
+
+    /// @dev EndpointV1 ProxyOFTv1
+    function test_estimateSendFee_proxy(
+        uint64 _amountLD,
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        address _caller,
+        bytes2 _partnerId
+    ) public {
+        // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
+        _assumeBpsSetup(_defaultBps, _callerBps, _customBps, oftWrapper.BPS_DENOMINATOR());
+
+        address endpoint = makeAddr("EndpointV1Mock");
+        OFTv1ProxyMock proxy = new OFTv1ProxyMock(endpoint, address(token));
+
+        oftWrapper.setDefaultBps(_defaultBps);
+        oftWrapper.setOFTBps(proxy.token(), _customBps);
+
+        // 2. Set up a contrived adapter where the nativeFee is dynamic and set to amount.
+        (uint256 nativeFee, uint256 zroFee) = oftWrapper.estimateSendFee(
+            address(proxy),
+            uint16(B_EID), // @dev trick into thinking it is EndpointV1...
+            "",
+            _amountLD,
+            false,
+            "",
+            _createFeeObj(_callerBps, _caller, _partnerId)
+        );
+
+        // 3. Assert that the fee is as expected.
+        (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(token), _amountLD, _callerBps);
+        assertEq(expectedAmount, nativeFee);
+        assertEq(0, zroFee);
+    }
+
+    /// @dev EndpointV1 OFTv1
+    function test_estimateSendFee_oft(
+        uint64 _amountLD,
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        address _caller,
+        bytes2 _partnerId
+    ) public {
+        // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
+        _assumeBpsSetup(_defaultBps, _callerBps, _customBps, oftWrapper.BPS_DENOMINATOR());
+
+        address endpoint = makeAddr("EndpointV1Mock");
+        OFTv1Mock mock = new OFTv1Mock(OFT_NAME, OFT_SYMBOL, endpoint);
+
+        oftWrapper.setDefaultBps(_defaultBps);
+        oftWrapper.setOFTBps(mock.token(), _customBps);
+
+        // 2. Set up a contrived adapter where the nativeFee is dynamic and set to amount.
+        (uint256 nativeFee, uint256 zroFee) = oftWrapper.estimateSendFee(
+            address(mock),
+            uint16(B_EID), // @dev trick into thinking it is EndpointV1...
+            "",
+            _amountLD,
+            false,
+            "",
+            _createFeeObj(_callerBps, _caller, _partnerId)
+        );
+
+        // 3. Assert that the fee is as expected.
+        (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(mock), _amountLD, _callerBps);
+        assertEq(expectedAmount, nativeFee);
+        assertEq(0, zroFee);
+    }
+
+    /// @dev EndpointV1 ProxyOFTv2
+    function test_estimateSendFeeV2_proxy(
+        uint64 _amountLD,
+        bytes32 _to,
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        address _caller,
+        bytes2 _partnerId
+    ) public {
+        // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
+        _assumeBpsSetup(_defaultBps, _callerBps, _customBps, oftWrapper.BPS_DENOMINATOR());
+
+        address endpoint = makeAddr("EndpointV1Mock");
+        OFTv2ProxyMock proxy = new OFTv2ProxyMock(address(token), 6, endpoint);
+
+        oftWrapper.setDefaultBps(_defaultBps);
+        oftWrapper.setOFTBps(proxy.token(), _customBps);
+
+        // 2. Set up a contrived adapter where the nativeFee is dynamic and set to amount.
+        (uint256 nativeFee, uint256 zroFee) = oftWrapper.estimateSendFeeV2(
+            address(proxy),
+            uint16(B_EID), // @dev trick into thinking it is EndpointV1...
+            _to,
+            _amountLD,
+            false,
+            "",
+            _createFeeObj(_callerBps, _caller, _partnerId)
+        );
+
+        // 3. Assert that the fee is as expected.
+        (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(token), _amountLD, _callerBps);
+        assertEq(expectedAmount, nativeFee);
+        assertEq(0, zroFee);
+    }
+
+    /// @dev EndpointV1 OFTv2
+    function test_estimateSendFeeV2_oft(
+        uint64 _amountLD,
+        bytes32 _to,
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        address _caller,
+        bytes2 _partnerId
+    ) public {
+        // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
+        _assumeBpsSetup(_defaultBps, _callerBps, _customBps, oftWrapper.BPS_DENOMINATOR());
+
+        address endpoint = makeAddr("EndpointV1Mock");
+        OFTv2Mock mock = new OFTv2Mock(OFT_NAME, OFT_SYMBOL, 6, endpoint);
+
+        oftWrapper.setDefaultBps(_defaultBps);
+        oftWrapper.setOFTBps(mock.token(), _customBps);
+
+        // 2. Set up a contrived adapter where the nativeFee is dynamic and set to amount.
+        (uint256 nativeFee, uint256 zroFee) = oftWrapper.estimateSendFeeV2(
+            address(mock),
+            uint16(B_EID), // @dev trick into thinking it is EndpointV1...
+            _to,
+            _amountLD,
+            false,
+            "",
+            _createFeeObj(_callerBps, _caller, _partnerId)
+        );
+
+        // 3. Assert that the fee is as expected.
+        (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(mock), _amountLD, _callerBps);
+        assertEq(expectedAmount, nativeFee);
+        assertEq(0, zroFee);
+    }
+
     function test_estimateSendFeeEpv2_adapter(
         uint64 _amountLD,
         uint16 _defaultBps,
@@ -217,15 +381,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         bytes2 _partnerId
     ) public {
         // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
-        uint256 bpsDenom = oftWrapper.BPS_DENOMINATOR();
-        vm.assume(_defaultBps < bpsDenom);
-        vm.assume(_callerBps < bpsDenom);
-        vm.assume(_customBps < bpsDenom);
-        if (_customBps == 0) {
-            vm.assume(_defaultBps + uint256(_callerBps) < 10_000);
-        } else {
-            vm.assume(_customBps + uint256(_callerBps) < 10_000);
-        }
+        _assumeBpsSetup(_defaultBps, _callerBps, _customBps, oftWrapper.BPS_DENOMINATOR());
 
         // 2. Set up a contrived adapter where the nativeFee is dynamic and set to amount.
         CustomQuoteSendMockOFTAdapter customAdapter = new CustomQuoteSendMockOFTAdapter(
@@ -267,15 +423,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         bytes2 _partnerId
     ) public {
         // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
-        uint256 bpsDenom = oftWrapper.BPS_DENOMINATOR();
-        vm.assume(_defaultBps < bpsDenom);
-        vm.assume(_callerBps < bpsDenom);
-        vm.assume(_customBps < bpsDenom);
-        if (_customBps == 0) {
-            vm.assume(_defaultBps + uint256(_callerBps) < 10_000);
-        } else {
-            vm.assume(_customBps + uint256(_callerBps) < 10_000);
-        }
+        _assumeBpsSetup(_defaultBps, _callerBps, _customBps, oftWrapper.BPS_DENOMINATOR());
 
         // 2. Set up a contrived oft where the nativeFee is dynamic and set to amount.
         CustomQuoteSendMockOFT customOFT = new CustomQuoteSendMockOFT(

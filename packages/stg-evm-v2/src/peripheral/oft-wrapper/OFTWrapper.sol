@@ -379,7 +379,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _amount, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(IOFT(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFT(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
     }
@@ -393,7 +393,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _amount, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(IOFTV2(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFTV2(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
     }
