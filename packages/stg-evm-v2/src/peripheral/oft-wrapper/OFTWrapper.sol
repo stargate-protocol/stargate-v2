@@ -380,7 +380,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _amount, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(IOFT(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFT(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
     }
@@ -394,7 +394,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _amount, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(IOFTV2(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFTV2(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
     }
@@ -405,7 +405,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bool _payInLzToken,
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(IOFTEpv2(_oft).token(), _sendParam.amountLD, _feeObj.callerBps);
         return
             IOFTEpv2(_oft).quoteSend(
                 SendParamEpv2(
