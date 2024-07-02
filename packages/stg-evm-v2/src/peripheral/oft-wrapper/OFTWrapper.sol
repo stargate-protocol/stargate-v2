@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.0;
 
+import { console } from "forge-std/Console.sol";
+
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -355,6 +357,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     ) public view override returns (uint256 amount, uint256 wrapperFee, uint256 callerFee) {
         uint256 wrapperBps;
 
+        console.log("token", _token);
+        console.log("oftBps[_token]", oftBps[_token]);
         if (oftBps[_token] == MAX_UINT) {
             wrapperBps = 0;
         } else if (oftBps[_token] > 0) {
@@ -362,6 +366,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         } else {
             wrapperBps = defaultBps;
         }
+
+        console.log("wrapperBps", wrapperBps);
 
         require(wrapperBps + _callerBps < BPS_DENOMINATOR, "OFTWrapper: Fee bps >= 100%");
 
@@ -400,11 +406,12 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     function estimateSendFeeEpv2(
         address _oft,
+        address _token,
         SendParamEpv2 calldata _sendParam,
         bool _payInLzToken,
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory) {
-        (uint256 amount, , ) = getAmountAndFees(_oft, _sendParam.amountLD, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(_token, _sendParam.amountLD, _feeObj.callerBps);
         return
             IOFTEpv2(_oft).quoteSend(
                 SendParamEpv2(

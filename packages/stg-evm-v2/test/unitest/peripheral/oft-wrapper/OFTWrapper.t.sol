@@ -7,14 +7,14 @@ import { console, Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
-import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEPv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 import { IOFTWrapper, OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
 
 import { LzTestHelper } from "../../../layerzero/LzTestHelper.sol";
 
 import { ERC20Mock } from "./mocks/ERC20Mock.sol";
-import { MockOFT, MockOFTAdapter } from "./mocks/epv2/MockOFT.sol";
+import { CustomQuoteSendMockOFT, CustomQuoteSendMockOFTAdapter, MockOFT, MockOFTAdapter } from "./mocks/epv2/MockOFT.sol";
 
 contract OFTWrapperTest is Test, LzTestHelper {
     using OptionsBuilder for bytes;
@@ -126,12 +126,15 @@ contract OFTWrapperTest is Test, LzTestHelper {
             "",
             ""
         );
-        IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: _callerBps,
-            caller: caller,
-            partnerId: bytes2(0x0034)
-        });
-        MessagingFeeEPv2 memory fee = oftWrapper.estimateSendFeeEpv2(address(adapter), sendParam, false, feeObj);
+        IOFTWrapper.FeeObj memory feeObj = _createFeeObj(_callerBps, caller, bytes2(0x0034));
+
+        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(
+            address(adapter),
+            address(token),
+            sendParam,
+            false,
+            feeObj
+        );
 
         // 4. Send the tokens from sender on A_EID to receiver on B_EID.
         vm.startPrank(sender);
@@ -171,7 +174,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
             "",
             ""
         );
-        fee = oftWrapper.estimateSendFeeEpv2(address(oft), sendParam, false, feeObj);
+        fee = oftWrapper.estimateSendFeeEpv2(address(oft), address(oft), sendParam, false, feeObj);
         vm.deal(receiver, 1 ether);
 
         uint256 receiverBalance = IERC20(oft).balanceOf(receiver);
@@ -184,6 +187,14 @@ contract OFTWrapperTest is Test, LzTestHelper {
         // 8. Assert expected balance changes.
         assertLt(IERC20(oft).balanceOf(receiver), receiverBalance); // ensure receiver sent something
         assertGt(token.balanceOf(newReceiver), 0); // ensure newReceiver got something back.
+    }
+
+    function _createFeeObj(
+        uint16 _callerBps,
+        address _caller,
+        bytes2 _partnerId
+    ) internal pure returns (IOFTWrapper.FeeObj memory feeObj) {
+        feeObj = IOFTWrapper.FeeObj({ callerBps: _callerBps, caller: _caller, partnerId: _partnerId });
     }
 
     function _assumeAmountLD(uint256 _amountLD) internal pure {
@@ -201,5 +212,118 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function _addressToBytes32(address _addr) internal pure returns (bytes32) {
         return bytes32(uint256(uint160(_addr)));
+    }
+
+    function test_estimateSendFeeEpv2_adapter(
+        uint64 _amountLD,
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        address _caller,
+        bytes2 _partnerId
+    ) public {
+        // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
+        uint256 bpsDenom = oftWrapper.BPS_DENOMINATOR();
+        vm.assume(_defaultBps < bpsDenom);
+        vm.assume(_callerBps < bpsDenom);
+        vm.assume(_customBps < bpsDenom);
+        if (_customBps == 0) {
+            vm.assume(_defaultBps + uint256(_callerBps) < 10_000);
+        } else {
+            vm.assume(_customBps + uint256(_callerBps) < 10_000);
+        }
+
+        // 2. Set up a contrived adapter where the nativeFee is dynamic and set to amount.
+        CustomQuoteSendMockOFTAdapter customAdapter = new CustomQuoteSendMockOFTAdapter(
+            address(token),
+            endpoints[A_EID],
+            address(this)
+        );
+        token.mint(sender, _amountLD);
+
+        // 3. Set up the OFTWrapper with the default bps and the adapter token-specific bps.
+        oftWrapper.setDefaultBps(_defaultBps);
+        oftWrapper.setOFTBps(address(token), _customBps);
+        IOFTWrapper.FeeObj memory feeObj = _createFeeObj(_callerBps, _caller, _partnerId);
+        SendParamEpv2 memory sendParam = SendParamEpv2(
+            B_EID,
+            _addressToBytes32(receiver),
+            token.balanceOf(sender),
+            0,
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0),
+            "",
+            ""
+        );
+
+        // 4. Estimate the fee.  This should be the same as amount from getAmountAndFees(...)
+        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(
+            address(customAdapter),
+            address(token),
+            sendParam,
+            false,
+            feeObj
+        );
+
+        // 5. Assert that the fee is as expected.
+        (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(token), _amountLD, _callerBps);
+        assertEq(expectedAmount, fee.nativeFee); /// @dev in this example, nativeFee is manipulated to be amount
+        assertEq(0, fee.lzTokenFee);
+    }
+
+    function test_estimateSendFeeEpv2_oft(
+        uint64 _amountLD,
+        uint16 _defaultBps,
+        uint16 _callerBps,
+        uint16 _customBps,
+        address _caller,
+        bytes2 _partnerId
+    ) public {
+        // 1. Assume that all bps values are within bounds, and resulting sums will be in bounds (i.e., < 10_000).
+        uint256 bpsDenom = oftWrapper.BPS_DENOMINATOR();
+        vm.assume(_defaultBps < bpsDenom);
+        vm.assume(_callerBps < bpsDenom);
+        vm.assume(_customBps < bpsDenom);
+        if (_customBps == 0) {
+            vm.assume(_defaultBps + uint256(_callerBps) < 10_000);
+        } else {
+            vm.assume(_customBps + uint256(_callerBps) < 10_000);
+        }
+
+        // 2. Set up a contrived oft where the nativeFee is dynamic and set to amount.
+        CustomQuoteSendMockOFT customOFT = new CustomQuoteSendMockOFT(
+            OFT_NAME,
+            OFT_SYMBOL,
+            endpoints[A_EID],
+            address(this)
+        );
+        customOFT.mint(sender, _amountLD);
+
+        // 3. Set up the OFTWrapper with the default bps and the OFT-specific bps.
+        oftWrapper.setDefaultBps(_defaultBps);
+        oftWrapper.setOFTBps(address(customOFT), _customBps);
+        IOFTWrapper.FeeObj memory feeObj = _createFeeObj(_callerBps, _caller, _partnerId);
+        SendParamEpv2 memory sendParam = SendParamEpv2(
+            B_EID,
+            _addressToBytes32(receiver),
+            customOFT.balanceOf(sender),
+            0,
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0),
+            "",
+            ""
+        );
+
+        // 4. Estimate the fee.  This should be the same as amount from getAmountAndFees(...)
+        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(
+            address(customOFT),
+            address(customOFT),
+            sendParam,
+            false,
+            feeObj
+        );
+
+        // 5. Assert that the fee is as expected.
+        (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(customOFT), _amountLD, _callerBps);
+        assertEq(expectedAmount, fee.nativeFee); /// @dev in this example, nativeFee is manipulated to be amount
+        assertEq(0, fee.lzTokenFee);
     }
 }
