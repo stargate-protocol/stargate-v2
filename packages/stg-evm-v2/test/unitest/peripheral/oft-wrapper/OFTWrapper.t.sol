@@ -128,13 +128,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         );
         IOFTWrapper.FeeObj memory feeObj = _createFeeObj(_callerBps, caller, bytes2(0x0034));
 
-        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(
-            address(adapter),
-            address(token),
-            sendParam,
-            false,
-            feeObj
-        );
+        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(address(adapter), sendParam, false, feeObj);
 
         // 4. Send the tokens from sender on A_EID to receiver on B_EID.
         vm.startPrank(sender);
@@ -174,7 +168,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
             "",
             ""
         );
-        fee = oftWrapper.estimateSendFeeEpv2(address(oft), address(oft), sendParam, false, feeObj);
+        fee = oftWrapper.estimateSendFeeEpv2(address(oft), sendParam, false, feeObj);
         vm.deal(receiver, 1 ether);
 
         uint256 receiverBalance = IERC20(oft).balanceOf(receiver);
@@ -256,13 +250,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         );
 
         // 4. Estimate the fee.  This should be the same as amount from getAmountAndFees(...)
-        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(
-            address(customAdapter),
-            address(token),
-            sendParam,
-            false,
-            feeObj
-        );
+        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(address(customAdapter), sendParam, false, feeObj);
 
         // 5. Assert that the fee is as expected.
         (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(token), _amountLD, _callerBps);
@@ -313,13 +301,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         );
 
         // 4. Estimate the fee.  This should be the same as amount from getAmountAndFees(...)
-        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(
-            address(customOFT),
-            address(customOFT),
-            sendParam,
-            false,
-            feeObj
-        );
+        MessagingFeeEpv2 memory fee = oftWrapper.estimateSendFeeEpv2(address(customOFT), sendParam, false, feeObj);
 
         // 5. Assert that the fee is as expected.
         (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(customOFT), _amountLD, _callerBps);

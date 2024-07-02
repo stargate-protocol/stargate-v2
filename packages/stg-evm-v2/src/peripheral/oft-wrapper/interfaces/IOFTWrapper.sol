@@ -147,7 +147,6 @@ interface IOFTWrapper {
 
     function estimateSendFeeEpv2(
         address _oft,
-        address _token,
         SendParamEpv2 calldata _sendParam,
         bool _payInLzToken,
         FeeObj calldata _feeObj

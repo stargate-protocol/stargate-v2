@@ -400,12 +400,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     function estimateSendFeeEpv2(
         address _oft,
-        address _token,
         SendParamEpv2 calldata _sendParam,
         bool _payInLzToken,
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory) {
-        (uint256 amount, , ) = getAmountAndFees(_token, _sendParam.amountLD, _feeObj.callerBps);
+        (uint256 amount, , ) = getAmountAndFees(IOFTEpv2(_oft).token(), _sendParam.amountLD, _feeObj.callerBps);
         return
             IOFTEpv2(_oft).quoteSend(
                 SendParamEpv2(
