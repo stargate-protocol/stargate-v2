@@ -355,10 +355,11 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     ) public view override returns (uint256 amount, uint256 wrapperFee, uint256 callerFee) {
         uint256 wrapperBps;
 
-        if (oftBps[_token] == MAX_UINT) {
+        uint256 tokenBps = oftBps[_token];
+        if (tokenBps == MAX_UINT) {
             wrapperBps = 0;
-        } else if (oftBps[_token] > 0) {
-            wrapperBps = oftBps[_token];
+        } else if (tokenBps > 0) {
+            wrapperBps = tokenBps;
         } else {
             wrapperBps = defaultBps;
         }
