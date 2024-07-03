@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.3
+
+### Patch Changes
+
+- 3e85be5: Updated to latest lz labs dependencies
+
 ## 1.0.2
 
 ### Patch Changes
