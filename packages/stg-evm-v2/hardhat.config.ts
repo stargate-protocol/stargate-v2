@@ -225,9 +225,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.FANTOM_V2_MAINNET,
         url: process.env.RPC_URL_FANTOM_MAINNET || 'https://fantom-rpc.publicnode.com',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.FANTOM_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.FANTOM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'flare-mainnet': {
         eid: EndpointId.FLARE_V2_MAINNET,
@@ -275,9 +274,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.MANTA_V2_MAINNET,
         url: process.env.RPC_URL_MANTA_MAINNET || 'https://pacific-rpc.manta.network/http',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.MANTA_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.MANTA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'mantle-mainnet': {
         eid: EndpointId.MANTLE_V2_MAINNET,
@@ -412,9 +410,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
         url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://zksync.drpc.org',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
     },
