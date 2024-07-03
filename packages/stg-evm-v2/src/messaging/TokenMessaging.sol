@@ -14,7 +14,7 @@ import { AddressCast } from "../libs/AddressCast.sol";
 
 contract TokenMessaging is Transfer, MessagingBase, TokenMessagingOptions, ITokenMessaging {
     /// @dev The maximum number of passengers is queueCapacity - 1 to avoid overwriting the hash root.
-    /// @dev queueCapacity *must* be a divisor of 2e16.
+    /// @dev queueCapacity *must* be a divisor of 2**16.
     uint16 public immutable queueCapacity;
     uint32 internal immutable localEid;
 
@@ -34,9 +34,9 @@ contract TokenMessaging is Transfer, MessagingBase, TokenMessagingOptions, IToke
     error Messaging_MaxNumPassengersExceedsQueueCapacity();
     error Messaging_NotEnoughPassengers();
 
-    /// @param _queueCapacity The maximum number of passengers that can be accommodated in the bus queue.  Must be a divisor of 2e16.
+    /// @param _queueCapacity The maximum number of passengers that can be accommodated in the bus queue.  Must be a divisor of 2**16.
     constructor(address _endpoint, address _owner, uint16 _queueCapacity) MessagingBase(_endpoint, _owner) {
-        if (_queueCapacity < 2) revert Messaging_InvalidQueueCapacity(); // queue capacity must be at least 2
+        if (_queueCapacity < 2 || (2 ** 16) % _queueCapacity != 0) revert Messaging_InvalidQueueCapacity(); // queue capacity must be at least 2
         queueCapacity = _queueCapacity;
         localEid = endpoint.eid();
     }

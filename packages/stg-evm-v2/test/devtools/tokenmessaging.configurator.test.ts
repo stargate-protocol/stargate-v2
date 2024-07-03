@@ -17,7 +17,7 @@ import {
     initializeBusQueueStorage,
 } from '../../devtools/src/token-messaging'
 
-const busSize = 10
+const busSize = 128
 const busFare = 100n
 const busAndNativeDropFare = 200n
 const maxAssetId = 10

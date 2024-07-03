@@ -14,7 +14,7 @@ import { CONTRACT_MESSAGING_TAGS } from '../ts-src'
 import { createDeploy, getFeeData } from '../ts-src/utils/deployments'
 
 const isDivisorOf = (value: number, divisor: number) => value % divisor === 0
-const isDivisorOf2e16 = (divisor: number) => isDivisorOf(2e16, divisor)
+const isDivisorOf2ToThe16 = (divisor: number) => isDivisorOf(2 ** 16, divisor)
 
 export default async function (hre: HardhatRuntimeEnvironment) {
     const deploy = createDeploy(hre)
@@ -27,7 +27,10 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
     const endpointDeployment = await hre.deployments.get('EndpointV2')
     const queueCapacity = networkConfig.queueCapacity
-    assert(isDivisorOf2e16(queueCapacity), `Queue capacity must be a divisor of 2e16 (65536), got: ${queueCapacity}`)
+    assert(
+        isDivisorOf2ToThe16(queueCapacity),
+        `Queue capacity must be a divisor of 2**16 (65536), got: ${queueCapacity}`
+    )
 
     logger.info(`Deploying TokenMessaging as: ${deployer}`)
     logger.info(`Deploying TokenMessaging with endpoint: ${endpointDeployment.address}`)

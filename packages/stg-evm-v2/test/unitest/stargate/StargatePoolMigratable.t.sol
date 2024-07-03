@@ -118,7 +118,7 @@ contract MockStargatePoolMigratable is StargatePoolMigratable, IMockStargatePool
         address _endpoint,
         address _owner
     ) StargatePoolMigratable(_lpTokenName, _lpTokenSymbol, _token, _tokenDecimals, _sharedDecimals, _endpoint, _owner) {
-        tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 100));
+        tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 128));
         planner = _owner;
         treasurer = _owner;
     }
