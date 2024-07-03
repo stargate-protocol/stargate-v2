@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.8
+
+### Patch Changes
+
+- cbed64a: Update sandbox base image version
+
 ## 1.0.7
 
 ### Patch Changes
