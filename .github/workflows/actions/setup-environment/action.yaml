@@ -6,8 +6,7 @@ runs:
     - name: Install Foundry
       uses: foundry-rs/foundry-toolchain@v1
 
-    - uses: pnpm/action-setup@v2
+    - uses: pnpm/action-setup@v4
       name: Install pnpm
       with:
-        version: 8
         run_install: false
