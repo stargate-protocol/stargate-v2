@@ -112,4 +112,5 @@ export interface OftWrapperConfig {
 
 export interface OftWrapperNetworkConfig {
     bps?: bigint
+    callerBpsCap?: bigint
 }
