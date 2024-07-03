@@ -825,13 +825,12 @@ export const NETWORKS: NetworksConfig = {
     //         safeUrl: '',
     //   },
     // },
-    // TODO
-    // [EndpointId.FANTOM_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.FANTOM_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x2351BBCb7cF7Ee9D18AF2Be0d106BFc5D47A9E85',
+            safeUrl: 'https://gn.lzdevnet.org/app/ftm:0x2351BBCb7cF7Ee9D18AF2Be0d106BFc5D47A9E85/transactions/queue',
+        },
+    },
     [EndpointId.FLARE_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -960,13 +959,12 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://klaytn-tx.lzdevnet.org/',
         },
     },
-    // TODO
-    // [EndpointId.MANTA_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.MANTA_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
+            safeUrl: 'https://gn.lzdevnet.org/app/manta:0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6/transactions/queue',
+        },
+    },
     [EndpointId.MANTLE_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1110,13 +1108,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     // TODO
-    // [EndpointId.SEI_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
-    // TODO
     // [EndpointId.SHIMMER_V2_MAINNET]: {
     //   safeConfig: {
     //         safeAddress: '',
@@ -1247,13 +1238,13 @@ export const NETWORKS: NetworksConfig = {
     //         safeUrl: '',
     //   },
     // },
-    // TODO
-    // [EndpointId.ZKSYNC_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.ZKSYNC_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',
+            safeUrl:
+                'https://app.safe.global/transactions/queue?safe=zksync:0x026756AB43866eCd92289663E91CCa8afb20414B',
+        },
+    },
 
     //
     // TESTNET
