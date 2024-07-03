@@ -1,4 +1,4 @@
-ARG LOCALNET_VERSION=2.3.10
+ARG LOCALNET_VERSION=2.3.27
 ARG NETWORK_NAME
 
 #   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-
