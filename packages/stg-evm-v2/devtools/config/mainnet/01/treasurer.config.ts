@@ -13,6 +13,7 @@ import {
     onBsc,
     onEbi,
     onEth,
+    onGravity,
     onIota,
     onKava,
     onKlaytn,
@@ -44,6 +45,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
+    const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
@@ -80,6 +82,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.METIS,
         TokenName.mETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -209,6 +216,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [ethAssetAddresses.mETH]: true,
                         [ethAssetAddresses.USDC]: true,
                         [ethAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onGravity(contract),
+                config: {
+                    owner: gravityAdmin,
+                    admin: gravityAdmin,
+                    assets: {
+                        [gravityAssetAddresses.ETH]: true,
+                        [gravityAssetAddresses.USDC]: true,
+                        [gravityAssetAddresses.USDT]: true,
                     },
                 },
             },

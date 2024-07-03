@@ -24,6 +24,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
     const ebiPoint = getAssetPoint(EndpointId.EBI_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
+    const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
     const kavaPoint = getAssetPoint(EndpointId.KAVA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
@@ -37,9 +38,10 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     // And all their nodes
     const arbContract = await getAssetNode(arbPoint)
     const avaxContract = await getAssetNode(avaxPoint)
+    const bscContract = await getAssetNode(bscPoint)
     const ebiContract = await getAssetNode(ebiPoint)
     const ethContract = await getAssetNode(ethPoint)
-    const bscContract = await getAssetNode(bscPoint)
+    const gravityContract = await getAssetNode(gravityPoint)
     const iotaContract = await getAssetNode(iotaPoint)
     const kavaContract = await getAssetNode(kavaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
@@ -54,9 +56,10 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
         contracts: [
             arbContract,
             avaxContract,
+            bscContract,
             ebiContract,
             ethContract,
-            bscContract,
+            gravityContract,
             iotaContract,
             kavaContract,
             klaytnContract,
@@ -70,9 +73,10 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
         connections: generateAssetConfig(tokenName, [
             arbPoint,
             avaxPoint,
+            bscPoint,
             ebiPoint,
             ethPoint,
-            bscPoint,
+            gravityPoint,
             iotaPoint,
             kavaPoint,
             klaytnPoint,

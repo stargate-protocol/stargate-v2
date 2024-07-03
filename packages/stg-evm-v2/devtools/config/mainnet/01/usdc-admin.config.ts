@@ -4,18 +4,20 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
-import { onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
+import { onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Get the corresponding underlying USDC contract
+    const gravityUSDC = onGravity(proxyContract)
     const iotaUSDC = onIota(proxyContract)
     const klaytnUSDC = onKlaytn(proxyContract)
     const raribleUSDC = onRarible(proxyContract)
     const taikoUSDC = onTaiko(proxyContract)
     const xchainUSDC = onXchain(proxyContract)
 
+    const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
@@ -24,6 +26,12 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     return {
         contracts: [
+            {
+                contract: gravityUSDC,
+                config: {
+                    admin: gravityStargateMultisig,
+                },
+            },
             {
                 contract: iotaUSDC,
                 config: {

@@ -1,0 +1,19 @@
+{
+  "_format": "hh-zksolc-artifact-1",
+  "contractName": "INativeOFT",
+  "sourceName": "src/peripheral/oft-wrapper/interfaces/INativeOFT.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "factoryDeps": {}
+}

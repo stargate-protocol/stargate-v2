@@ -32,6 +32,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -110,6 +115,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [ethAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [ethAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [ethAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.GRAVITY_V2_MAINNET]: {
+            [gravityAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [gravityAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [gravityAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.IOTA_V2_MAINNET]: {
             [iotaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
