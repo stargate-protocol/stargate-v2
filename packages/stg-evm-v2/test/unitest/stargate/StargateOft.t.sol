@@ -218,7 +218,7 @@ contract MockStargateOFT is IMockStargate, StargateOFT {
         address _endpoint,
         address _owner
     ) StargateOFT(_token, _sharedDecimals, _endpoint, _owner) {
-        tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 100));
+        tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 128));
         planner = _owner;
     }
 

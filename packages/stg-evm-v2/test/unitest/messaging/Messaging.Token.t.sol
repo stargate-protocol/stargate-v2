@@ -121,7 +121,7 @@ contract TokenMessagingTest is Test {
 
     function test_constructor(uint8 capacity) public {
         vm.assume(capacity < 200);
-        if (capacity < 2 || 2e16 % capacity != 0) {
+        if (capacity < 2 || 2 ** 16 % capacity != 0) {
             // cannot use expectRevert when the revert happens in the parent constructor
             try new MockTokenMessaging(LzUtil.deployEndpointV2(MESSAGING_EID, address(this)), address(this), capacity) {
                 fail();
