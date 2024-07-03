@@ -23,10 +23,10 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     mapping(address => uint256) public oftBps;
     uint256 public callerBpsCap;
 
-    constructor(uint256 _defaultBps) {
+    constructor(uint256 _defaultBps, uint256 _callerBpsCap) {
         require(_defaultBps < BPS_DENOMINATOR, "OFTWrapper: defaultBps >= 100%");
         defaultBps = _defaultBps;
-        callerBpsCap = MAX_UINT; /// @dev unset by default
+        callerBpsCap = _callerBpsCap;
     }
 
     function setDefaultBps(uint256 _defaultBps) external onlyOwner {

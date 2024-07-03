@@ -41,6 +41,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     uint32 internal constant B_EID = 2;
 
     uint16 internal constant DEFAULT_BPS = 97;
+    uint256 internal constant DEFAULT_CALLER_BPS_CAP = type(uint256).max; // unset by default
 
     OFTWrapper internal oftWrapper;
 
@@ -76,7 +77,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         setUpEndpoints(NUM_ENDPOINTS);
 
         // 2. Create an OFTWrapper with defaultBps
-        oftWrapper = new OFTWrapper(DEFAULT_BPS);
+        oftWrapper = new OFTWrapper(DEFAULT_BPS, DEFAULT_CALLER_BPS_CAP);
 
         // 3. Create an Adapter on A_EID
         token = new ERC20Mock(ERC20_MOCK_NAME, ERC20_MOCK_SYMBOL);
@@ -92,13 +93,14 @@ contract OFTWrapperTest is Test, LzTestHelper {
         _setUpUsers();
     }
 
-    function test_constructor(uint16 _defaultBps) public {
+    function test_constructor(uint16 _defaultBps, uint16 _callerBpsCap) public {
         if (_defaultBps >= 10000) {
             vm.expectRevert(EXCESSIVE_DEFAULT_BPS_CONFIG_ERROR);
-            new OFTWrapper(_defaultBps);
+            new OFTWrapper(_defaultBps, _callerBpsCap);
         } else {
-            OFTWrapper wrapper = new OFTWrapper(_defaultBps);
+            OFTWrapper wrapper = new OFTWrapper(_defaultBps, _callerBpsCap);
             assertEq(_defaultBps, wrapper.defaultBps());
+            assertEq(_callerBpsCap, wrapper.callerBpsCap());
         }
     }
 
@@ -207,6 +209,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function _assumeBps(uint16 _callerBps, uint16 _defaultBps) internal view {
         vm.assume(_callerBps + uint256(_defaultBps) < oftWrapper.BPS_DENOMINATOR() - 1000);
+        vm.assume(_callerBps <= oftWrapper.callerBpsCap());
     }
 
     function _removeDust(uint256 _amount, MockOFTAdapter _adapter) internal view returns (uint256) {
@@ -223,9 +226,9 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint16 _callerBps,
         uint16 _customBps,
         uint256 _bpsDenom
-    ) internal pure {
+    ) internal view {
         vm.assume(_defaultBps < _bpsDenom);
-        vm.assume(_callerBps < _bpsDenom);
+        vm.assume(_callerBps < _bpsDenom && _callerBps <= oftWrapper.callerBpsCap());
         vm.assume(_customBps < _bpsDenom);
         if (_customBps == 0) {
             vm.assume(_defaultBps + uint256(_callerBps) < _bpsDenom);

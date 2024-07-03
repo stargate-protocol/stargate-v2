@@ -106,6 +106,7 @@ export interface TokenMessagingNetworkConfig {
 
 export interface OftWrapperConfig {
     bps: bigint
+    callerBpsCap: bigint
     networks: Partial<Record<EndpointId, OftWrapperNetworkConfig>>
 }
 
