@@ -688,6 +688,13 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-arbitrum.safe.global/',
         },
     },
+    // TODO
+    // [EndpointId.ASTAR_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.AURORA_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -741,6 +748,13 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-base.safe.global/',
         },
     },
+    // TODO
+    // [EndpointId.BLAST_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.BSC_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -804,6 +818,20 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-mainnet.safe.global/',
         },
     },
+    // TODO
+    // [EndpointId.ETHERLINK_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
+    // TODO
+    // [EndpointId.FANTOM_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.FLARE_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -833,6 +861,13 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    // TODO
+    // [EndpointId.FRAXTAL_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.GRAVITY_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -925,6 +960,13 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://klaytn-tx.lzdevnet.org/',
         },
     },
+    // TODO
+    // [EndpointId.MANTA_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.MANTLE_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -959,6 +1001,34 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://metis-tx.lzdevnet.org/',
         },
     },
+    // TODO
+    // [EndpointId.MODE_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
+    // TODO
+    // [EndpointId.MOONBEAM_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
+    // TODO
+    // [EndpointId.MOONRIVER_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
+    // TODO
+    // [EndpointId.OPBNB_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1039,6 +1109,20 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://scroll-tx.lzdevnet.org/',
         },
     },
+    // TODO
+    // [EndpointId.SEI_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
+    // TODO
+    // [EndpointId.SHIMMER_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.SEI_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1126,6 +1210,13 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    // TODO
+    // [EndpointId.ZKATANA_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1149,6 +1240,20 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://linea-tx.lzdevnet.org/',
         },
     },
+    // TODO
+    // [EndpointId.ZKPOLYGON_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
+    // TODO
+    // [EndpointId.ZKSYNC_V2_MAINNET]: {
+    //   safeConfig: {
+    //         safeAddress: '',
+    //         safeUrl: '',
+    //   },
+    // },
 
     //
     // TESTNET
