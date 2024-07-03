@@ -1,5 +1,14 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.7
+
+### Patch Changes
+
+- 3e85be5: Updated to latest lz labs dependencies
+- Updated dependencies [3e85be5]
+- Updated dependencies [b8e04cb]
+  - @stargatefinance/stg-definitions-v2@1.0.6
+
 ## 1.0.6
 
 ### Patch Changes

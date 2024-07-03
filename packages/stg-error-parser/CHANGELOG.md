@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.2
+
+### Patch Changes
+
+- 3e85be5: Updated to latest lz labs dependencies
+
 ## 1.0.1
 
 ### Patch Changes
