@@ -6,6 +6,8 @@
 
 # stargate-v2
 
+do not merge!
+
 ## Introduction
 
 Stargate v2 introduces new features to Stargate that both dramatically reduce cost, and significantly increase capital efficiency while still maintaining IGF (Instant Guarantee of Finality), Unified Pools of Liquidity, and Native to Native asset swaps. The following subsections are a brief overview of the new features within Stargate v2.
