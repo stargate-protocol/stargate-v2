@@ -24,19 +24,19 @@ importers:
         version: 2.27.1
       '@layerzerolabs/eslint-config-next':
         specifier: ~2.3.10
-        version: 2.3.10(typescript@5.4.5)
+        version: 2.3.10(typescript@5.5.3)
       '@layerzerolabs/prettier-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/solhint-config':
-        specifier: ~2.3.10
-        version: 2.3.10(typescript@5.4.5)
+        specifier: ~2.3.25
+        version: 2.3.25(typescript@5.5.3)
       '@rushstack/eslint-patch':
         specifier: ^1.5.1
         version: 1.10.2
       eslint-plugin-jest-extended:
         specifier: 2.0.0
-        version: 2.0.0(eslint@8.57.0)(typescript@5.4.5)
+        version: 2.0.0(eslint@8.57.0)(typescript@5.5.3)
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -59,14 +59,14 @@ importers:
         specifier: ~5.7.0
         version: 5.7.0
       '@layerzerolabs/lz-definitions':
-        specifier: ~2.3.22
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/tsup-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10(ts-node@10.9.2)(typescript@5.4.5)
+        specifier: ~2.3.25
+        version: 2.3.25(ts-node@10.9.2)(typescript@5.4.5)
       '@layerzerolabs/typescript-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.25
+        version: 2.3.25
       '@safe-global/protocol-kit':
         specifier: ^1.3.0
         version: 1.3.0(ethers@5.7.2)
@@ -83,15 +83,15 @@ importers:
   packages/stg-error-parser:
     dependencies:
       '@layerzerolabs/evm-sdks-core':
-        specifier: ~2.3.20
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
     devDependencies:
       '@layerzerolabs/tsup-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10(ts-node@10.9.2)(typescript@5.4.5)
+        specifier: ~2.3.25
+        version: 2.3.25(ts-node@10.9.2)(typescript@5.4.5)
       '@layerzerolabs/typescript-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.25
+        version: 2.3.25
       '@stargatefinance/stg-evm-sdk-v2':
         specifier: ~1.0.1
         version: link:../stg-evm-sdk-v2
@@ -123,11 +123,11 @@ importers:
   packages/stg-evm-sdk-v2:
     devDependencies:
       '@layerzerolabs/tsup-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10(ts-node@10.9.2)(typescript@5.4.5)
+        specifier: ~2.3.25
+        version: 2.3.25(ts-node@10.9.2)(typescript@5.4.5)
       '@layerzerolabs/typescript-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.25
+        version: 2.3.25
       '@stargatefinance/stg-evm-v2':
         specifier: ~1.0.3
         version: link:../stg-evm-v2
@@ -136,10 +136,10 @@ importers:
         version: 18.19.31
       esbuild-plugin-clean:
         specifier: ~1.0.1
-        version: 1.0.1(esbuild@0.21.3)
+        version: 1.0.1(esbuild@0.23.0)
       esbuild-plugin-copy:
         specifier: ~2.1.1
-        version: 2.1.1(esbuild@0.21.3)
+        version: 2.1.1(esbuild@0.23.0)
       ts-node:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@18.19.31)(typescript@5.4.5)
@@ -153,29 +153,29 @@ importers:
   packages/stg-evm-v2:
     dependencies:
       '@layerzerolabs/lz-definitions':
-        specifier: ~2.3.22
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/lz-evm-messagelib-v2':
         specifier: 2.0.11
-        version: 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.22)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        version: 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.25)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-oapp-v2':
-        specifier: ~2.3.22
-        version: 2.3.22(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.22)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+        specifier: ~2.3.25
+        version: 2.3.25(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.25)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-protocol-v2':
         specifier: 2.0.11
         version: 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-sdk-v2':
-        specifier: ~2.3.22
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/lz-evm-v1-0.7':
-        specifier: ~2.3.22
-        version: 2.3.22(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
+        specifier: ~2.3.25
+        version: 2.3.25(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
       '@layerzerolabs/lz-utilities':
-        specifier: ~2.3.22
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/lz-v2-utilities':
-        specifier: ~2.3.22
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
       '@stargatefinance/stg-definitions-v2':
         specifier: ~1.0.5
         version: link:../stg-definitions-v2
@@ -223,59 +223,59 @@ importers:
         specifier: ~5.7.2
         version: 5.7.2
       '@layerzerolabs/devtools':
-        specifier: ~0.3.16
-        version: 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
+        specifier: ~0.3.17
+        version: 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
       '@layerzerolabs/devtools-evm':
-        specifier: ~0.3.11
-        version: 0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5)
+        specifier: ~0.3.13
+        version: 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5)
       '@layerzerolabs/devtools-evm-hardhat':
-        specifier: ~0.3.19
-        version: 0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+        specifier: ~0.3.21
+        version: 0.3.21(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@layerzerolabs/export-deployments':
-        specifier: ~0.0.9
-        version: 0.0.9
+        specifier: ~0.0.10
+        version: 0.0.10
       '@layerzerolabs/io-devtools':
-        specifier: ~0.1.10
-        version: 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+        specifier: ~0.1.11
+        version: 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
       '@layerzerolabs/lz-evm-sdk-v1':
-        specifier: ~2.3.22
-        version: 2.3.22
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/protocol-devtools':
-        specifier: ~0.3.8
-        version: 0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
+        specifier: ~0.3.9
+        version: 0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
       '@layerzerolabs/protocol-devtools-evm':
-        specifier: ~0.3.8
-        version: 0.3.8(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
+        specifier: ~0.3.10
+        version: 0.3.10(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
       '@layerzerolabs/solidity-examples':
         specifier: ^1.1.0
         version: 1.1.0(@ethersproject/hardware-wallets@5.7.0)(@nomiclabs/hardhat-ethers@2.2.3)(@nomiclabs/hardhat-etherscan@3.1.8)(ethers@5.7.2)(ts-node@10.9.2)(typescript@5.4.5)
       '@layerzerolabs/test-devtools':
-        specifier: ~0.2.5
-        version: 0.2.5(@layerzerolabs/lz-definitions@2.3.22)(fast-check@3.19.0)
+        specifier: ~0.2.6
+        version: 0.2.6(@layerzerolabs/lz-definitions@2.3.25)(fast-check@3.19.0)
       '@layerzerolabs/toolbox-foundry':
-        specifier: ~0.1.6
-        version: 0.1.6
+        specifier: ~0.1.7
+        version: 0.1.7
       '@layerzerolabs/toolbox-hardhat':
-        specifier: ~0.2.31
-        version: 0.2.31(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/providers@5.7.2)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)(solidity-bytes-utils@0.8.2)
+        specifier: ~0.2.35
+        version: 0.2.35(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/providers@5.7.2)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/tsup-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10(ts-node@10.9.2)(typescript@5.4.5)
+        specifier: ~2.3.25
+        version: 2.3.25(ts-node@10.9.2)(typescript@5.4.5)
       '@layerzerolabs/typescript-config-next':
-        specifier: ~2.3.10
-        version: 2.3.10
+        specifier: ~2.3.25
+        version: 2.3.25
       '@layerzerolabs/ua-devtools':
-        specifier: ~0.3.15
-        version: 0.3.15(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm':
-        specifier: ~0.3.12
-        version: 0.3.12(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools@0.3.15)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm-hardhat':
         specifier: ~0.3.18
-        version: 0.3.18(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.19)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools-evm@0.3.12)(@layerzerolabs/ua-devtools@0.3.15)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+        version: 0.3.18(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm':
+        specifier: ~0.3.14
+        version: 0.3.14(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools@0.3.18)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm-hardhat':
+        specifier: ~0.3.19
+        version: 0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.21)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools-evm@0.3.14)(@layerzerolabs/ua-devtools@0.3.18)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@matterlabs/hardhat-zksync-deploy':
         specifier: ~0.9.0
-        version: 0.9.0(patch_hash=26ge35256ho5xcku4o5n47dtoq)(ethers@5.7.2)(hardhat@2.22.3)(zksync-ethers@5.7.2)
+        version: 0.9.0(patch_hash=26ge35256ho5xcku4o5n47dtoq)(ethers@5.7.2)(hardhat@2.22.3)(zksync-ethers@5.9.0)
       '@matterlabs/hardhat-zksync-solc':
         specifier: ~1.1.4
         version: 1.1.4(hardhat@2.22.3)
@@ -425,13 +425,13 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       '@smithy/types': 2.12.0
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /@aws-sdk/util-utf8-browser@3.259.0:
     resolution: {integrity: sha512-UvFa/vR+e19XookZF8RzFZBrw2EUkQWxiBW0yYQAhvk3C+QVGl0H3ouca8LDBlBfQKXwmW3huo/59H8rwb1wJw==}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /@axelar-network/axelar-gmp-sdk-solidity@5.9.0:
@@ -749,6 +749,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+    dev: false
 
   /@babel/template@7.24.0:
     resolution: {integrity: sha512-Bkf2q8lMB0AFpX0NFEqSbx1OkTHf0f+0j82mkw+ZpzBnkk7e9Ql0891vlfgi+kHwOk8tQjiQHpqh4LaSa0fKEA==}
@@ -1091,9 +1092,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/aix-ppc64@0.21.3:
-    resolution: {integrity: sha512-yTgnwQpFVYfvvo4SvRFB0SwrW8YjOxEoT7wfMT7Ol5v7v5LDNvSGo67aExmxOb87nQNeWPVvaGBNfQ7BXcrZ9w==}
-    engines: {node: '>=12'}
+  /@esbuild/aix-ppc64@0.23.0:
+    resolution: {integrity: sha512-3sG8Zwa5fMcA9bgqB8AfWPQ+HFke6uD3h1s3RIwUNK8EG7a4buxvuFTs3j1IMs2NXAk9F30C/FF4vxRgQCcmoQ==}
+    engines: {node: '>=18'}
     cpu: [ppc64]
     os: [aix]
     requiresBuild: true
@@ -1109,9 +1110,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-arm64@0.21.3:
-    resolution: {integrity: sha512-c+ty9necz3zB1Y+d/N+mC6KVVkGUUOcm4ZmT5i/Fk5arOaY3i6CA3P5wo/7+XzV8cb4GrI/Zjp8NuOQ9Lfsosw==}
-    engines: {node: '>=12'}
+  /@esbuild/android-arm64@0.23.0:
+    resolution: {integrity: sha512-EuHFUYkAVfU4qBdyivULuu03FhJO4IJN9PGuABGrFy4vUuzk91P2d+npxHcFdpUnfYKy0PuV+n6bKIpHOB3prQ==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [android]
     requiresBuild: true
@@ -1127,9 +1128,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-arm@0.21.3:
-    resolution: {integrity: sha512-bviJOLMgurLJtF1/mAoJLxDZDL6oU5/ztMHnJQRejbJrSc9FFu0QoUoFhvi6qSKJEw9y5oGyvr9fuDtzJ30rNQ==}
-    engines: {node: '>=12'}
+  /@esbuild/android-arm@0.23.0:
+    resolution: {integrity: sha512-+KuOHTKKyIKgEEqKbGTK8W7mPp+hKinbMBeEnNzjJGyFcWsfrXjSTNluJHCY1RqhxFurdD8uNXQDei7qDlR6+g==}
+    engines: {node: '>=18'}
     cpu: [arm]
     os: [android]
     requiresBuild: true
@@ -1145,9 +1146,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/android-x64@0.21.3:
-    resolution: {integrity: sha512-JReHfYCRK3FVX4Ra+y5EBH1b9e16TV2OxrPAvzMsGeES0X2Ndm9ImQRI4Ket757vhc5XBOuGperw63upesclRw==}
-    engines: {node: '>=12'}
+  /@esbuild/android-x64@0.23.0:
+    resolution: {integrity: sha512-WRrmKidLoKDl56LsbBMhzTTBxrsVwTKdNbKDalbEZr0tcsBgCLbEtoNthOW6PX942YiYq8HzEnb4yWQMLQuipQ==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [android]
     requiresBuild: true
@@ -1163,9 +1164,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/darwin-arm64@0.21.3:
-    resolution: {integrity: sha512-U3fuQ0xNiAkXOmQ6w5dKpEvXQRSpHOnbw7gEfHCRXPeTKW9sBzVck6C5Yneb8LfJm0l6le4NQfkNPnWMSlTFUQ==}
-    engines: {node: '>=12'}
+  /@esbuild/darwin-arm64@0.23.0:
+    resolution: {integrity: sha512-YLntie/IdS31H54Ogdn+v50NuoWF5BDkEUFpiOChVa9UnKpftgwzZRrI4J132ETIi+D8n6xh9IviFV3eXdxfow==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
@@ -1181,9 +1182,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/darwin-x64@0.21.3:
-    resolution: {integrity: sha512-3m1CEB7F07s19wmaMNI2KANLcnaqryJxO1fXHUV5j1rWn+wMxdUYoPyO2TnAbfRZdi7ADRwJClmOwgT13qlP3Q==}
-    engines: {node: '>=12'}
+  /@esbuild/darwin-x64@0.23.0:
+    resolution: {integrity: sha512-IMQ6eme4AfznElesHUPDZ+teuGwoRmVuuixu7sv92ZkdQcPbsNHzutd+rAfaBKo8YK3IrBEi9SLLKWJdEvJniQ==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
@@ -1199,9 +1200,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/freebsd-arm64@0.21.3:
-    resolution: {integrity: sha512-fsNAAl5pU6wmKHq91cHWQT0Fz0vtyE1JauMzKotrwqIKAswwP5cpHUCxZNSTuA/JlqtScq20/5KZ+TxQdovU/g==}
-    engines: {node: '>=12'}
+  /@esbuild/freebsd-arm64@0.23.0:
+    resolution: {integrity: sha512-0muYWCng5vqaxobq6LB3YNtevDFSAZGlgtLoAc81PjUfiFz36n4KMpwhtAd4he8ToSI3TGyuhyx5xmiWNYZFyw==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
@@ -1217,9 +1218,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/freebsd-x64@0.21.3:
-    resolution: {integrity: sha512-tci+UJ4zP5EGF4rp8XlZIdq1q1a/1h9XuronfxTMCNBslpCtmk97Q/5qqy1Mu4zIc0yswN/yP/BLX+NTUC1bXA==}
-    engines: {node: '>=12'}
+  /@esbuild/freebsd-x64@0.23.0:
+    resolution: {integrity: sha512-XKDVu8IsD0/q3foBzsXGt/KjD/yTKBCIwOHE1XwiXmrRwrX6Hbnd5Eqn/WvDekddK21tfszBSrE/WMaZh+1buQ==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
@@ -1235,9 +1236,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-arm64@0.21.3:
-    resolution: {integrity: sha512-vvG6R5g5ieB4eCJBQevyDMb31LMHthLpXTc2IGkFnPWS/GzIFDnaYFp558O+XybTmYrVjxnryru7QRleJvmZ6Q==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-arm64@0.23.0:
+    resolution: {integrity: sha512-j1t5iG8jE7BhonbsEg5d9qOYcVZv/Rv6tghaXM/Ug9xahM0nX/H2gfu6X6z11QRTMT6+aywOMA8TDkhPo8aCGw==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
@@ -1253,9 +1254,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-arm@0.21.3:
-    resolution: {integrity: sha512-f6kz2QpSuyHHg01cDawj0vkyMwuIvN62UAguQfnNVzbge2uWLhA7TCXOn83DT0ZvyJmBI943MItgTovUob36SQ==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-arm@0.23.0:
+    resolution: {integrity: sha512-SEELSTEtOFu5LPykzA395Mc+54RMg1EUgXP+iw2SJ72+ooMwVsgfuwXo5Fn0wXNgWZsTVHwY2cg4Vi/bOD88qw==}
+    engines: {node: '>=18'}
     cpu: [arm]
     os: [linux]
     requiresBuild: true
@@ -1271,9 +1272,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-ia32@0.21.3:
-    resolution: {integrity: sha512-HjCWhH7K96Na+66TacDLJmOI9R8iDWDDiqe17C7znGvvE4sW1ECt9ly0AJ3dJH62jHyVqW9xpxZEU1jKdt+29A==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-ia32@0.23.0:
+    resolution: {integrity: sha512-P7O5Tkh2NbgIm2R6x1zGJJsnacDzTFcRWZyTTMgFdVit6E98LTxO+v8LCCLWRvPrjdzXHx9FEOA8oAZPyApWUA==}
+    engines: {node: '>=18'}
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
@@ -1289,9 +1290,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-loong64@0.21.3:
-    resolution: {integrity: sha512-BGpimEccmHBZRcAhdlRIxMp7x9PyJxUtj7apL2IuoG9VxvU/l/v1z015nFs7Si7tXUwEsvjc1rOJdZCn4QTU+Q==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-loong64@0.23.0:
+    resolution: {integrity: sha512-InQwepswq6urikQiIC/kkx412fqUZudBO4SYKu0N+tGhXRWUqAx+Q+341tFV6QdBifpjYgUndV1hhMq3WeJi7A==}
+    engines: {node: '>=18'}
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
@@ -1307,9 +1308,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-mips64el@0.21.3:
-    resolution: {integrity: sha512-5rMOWkp7FQGtAH3QJddP4w3s47iT20hwftqdm7b+loe95o8JU8ro3qZbhgMRy0VuFU0DizymF1pBKkn3YHWtsw==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-mips64el@0.23.0:
+    resolution: {integrity: sha512-J9rflLtqdYrxHv2FqXE2i1ELgNjT+JFURt/uDMoPQLcjWQA5wDKgQA4t/dTqGa88ZVECKaD0TctwsUfHbVoi4w==}
+    engines: {node: '>=18'}
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
@@ -1325,9 +1326,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-ppc64@0.21.3:
-    resolution: {integrity: sha512-h0zj1ldel89V5sjPLo5H1SyMzp4VrgN1tPkN29TmjvO1/r0MuMRwJxL8QY05SmfsZRs6TF0c/IDH3u7XYYmbAg==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-ppc64@0.23.0:
+    resolution: {integrity: sha512-cShCXtEOVc5GxU0fM+dsFD10qZ5UpcQ8AM22bYj0u/yaAykWnqXJDpd77ublcX6vdDsWLuweeuSNZk4yUxZwtw==}
+    engines: {node: '>=18'}
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
@@ -1343,9 +1344,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-riscv64@0.21.3:
-    resolution: {integrity: sha512-dkAKcTsTJ+CRX6bnO17qDJbLoW37npd5gSNtSzjYQr0svghLJYGYB0NF1SNcU1vDcjXLYS5pO4qOW4YbFama4A==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-riscv64@0.23.0:
+    resolution: {integrity: sha512-HEtaN7Y5UB4tZPeQmgz/UhzoEyYftbMXrBCUjINGjh3uil+rB/QzzpMshz3cNUxqXN7Vr93zzVtpIDL99t9aRw==}
+    engines: {node: '>=18'}
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
@@ -1361,9 +1362,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-s390x@0.21.3:
-    resolution: {integrity: sha512-vnD1YUkovEdnZWEuMmy2X2JmzsHQqPpZElXx6dxENcIwTu+Cu5ERax6+Ke1QsE814Zf3c6rxCfwQdCTQ7tPuXA==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-s390x@0.23.0:
+    resolution: {integrity: sha512-WDi3+NVAuyjg/Wxi+o5KPqRbZY0QhI9TjrEEm+8dmpY9Xir8+HE/HNx2JoLckhKbFopW0RdO2D72w8trZOV+Wg==}
+    engines: {node: '>=18'}
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
@@ -1379,9 +1380,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/linux-x64@0.21.3:
-    resolution: {integrity: sha512-IOXOIm9WaK7plL2gMhsWJd+l2bfrhfilv0uPTptoRoSb2p09RghhQQp9YY6ZJhk/kqmeRt6siRdMSLLwzuT0KQ==}
-    engines: {node: '>=12'}
+  /@esbuild/linux-x64@0.23.0:
+    resolution: {integrity: sha512-a3pMQhUEJkITgAw6e0bWA+F+vFtCciMjW/LPtoj99MhVt+Mfb6bbL9hu2wmTZgNd994qTAEw+U/r6k3qHWWaOQ==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
@@ -1397,11 +1398,20 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/netbsd-x64@0.21.3:
-    resolution: {integrity: sha512-uTgCwsvQ5+vCQnqM//EfDSuomo2LhdWhFPS8VL8xKf+PKTCrcT/2kPPoWMTs22aB63MLdGMJiE3f1PHvCDmUOw==}
-    engines: {node: '>=12'}
+  /@esbuild/netbsd-x64@0.23.0:
+    resolution: {integrity: sha512-cRK+YDem7lFTs2Q5nEv/HHc4LnrfBCbH5+JHu6wm2eP+d8OZNoSMYgPZJq78vqQ9g+9+nMuIsAO7skzphRXHyw==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [netbsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@esbuild/openbsd-arm64@0.23.0:
+    resolution: {integrity: sha512-suXjq53gERueVWu0OKxzWqk7NxiUWSUlrxoZK7usiF50C6ipColGR5qie2496iKGYNLhDZkPxBI3erbnYkU0rQ==}
+    engines: {node: '>=18'}
+    cpu: [arm64]
+    os: [openbsd]
     requiresBuild: true
     dev: true
     optional: true
@@ -1415,9 +1425,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/openbsd-x64@0.21.3:
-    resolution: {integrity: sha512-vNAkR17Ub2MgEud2Wag/OE4HTSI6zlb291UYzHez/psiKarp0J8PKGDnAhMBcHFoOHMXHfExzmjMojJNbAStrQ==}
-    engines: {node: '>=12'}
+  /@esbuild/openbsd-x64@0.23.0:
+    resolution: {integrity: sha512-6p3nHpby0DM/v15IFKMjAaayFhqnXV52aEmv1whZHX56pdkK+MEaLoQWj+H42ssFarP1PcomVhbsR4pkz09qBg==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
@@ -1433,9 +1443,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/sunos-x64@0.21.3:
-    resolution: {integrity: sha512-W8H9jlGiSBomkgmouaRoTXo49j4w4Kfbl6I1bIdO/vT0+0u4f20ko3ELzV3hPI6XV6JNBVX+8BC+ajHkvffIJA==}
-    engines: {node: '>=12'}
+  /@esbuild/sunos-x64@0.23.0:
+    resolution: {integrity: sha512-BFelBGfrBwk6LVrmFzCq1u1dZbG4zy/Kp93w2+y83Q5UGYF1d8sCzeLI9NXjKyujjBBniQa8R8PzLFAUrSM9OA==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
@@ -1451,9 +1461,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-arm64@0.21.3:
-    resolution: {integrity: sha512-EjEomwyLSCg8Ag3LDILIqYCZAq/y3diJ04PnqGRgq8/4O3VNlXyMd54j/saShaN4h5o5mivOjAzmU6C3X4v0xw==}
-    engines: {node: '>=12'}
+  /@esbuild/win32-arm64@0.23.0:
+    resolution: {integrity: sha512-lY6AC8p4Cnb7xYHuIxQ6iYPe6MfO2CC43XXKo9nBXDb35krYt7KGhQnOkRGar5psxYkircpCqfbNDB4uJbS2jQ==}
+    engines: {node: '>=18'}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
@@ -1469,9 +1479,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-ia32@0.21.3:
-    resolution: {integrity: sha512-WGiE/GgbsEwR33++5rzjiYsKyHywE8QSZPF7Rfx9EBfK3Qn3xyR6IjyCr5Uk38Kg8fG4/2phN7sXp4NPWd3fcw==}
-    engines: {node: '>=12'}
+  /@esbuild/win32-ia32@0.23.0:
+    resolution: {integrity: sha512-7L1bHlOTcO4ByvI7OXVI5pNN6HSu6pUQq9yodga8izeuB1KcT2UkHaH6118QJwopExPn0rMHIseCTx1CRo/uNA==}
+    engines: {node: '>=18'}
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
@@ -1487,9 +1497,9 @@ packages:
     dev: true
     optional: true
 
-  /@esbuild/win32-x64@0.21.3:
-    resolution: {integrity: sha512-xRxC0jaJWDLYvcUvjQmHCJSfMrgmUuvsoXgDeU/wTorQ1ngDdUBuFtgY3W1Pc5sprGAvZBtWdJX7RPg/iZZUqA==}
-    engines: {node: '>=12'}
+  /@esbuild/win32-x64@0.23.0:
+    resolution: {integrity: sha512-Arm+WgUFLUATuoxCJcahGuk6Yj9Pzxd6l11Zb/2aAuv5kWWvvfhLFo2fni4uSK5vzlUdCGZ/BdV5tH8klj8p8g==}
+    engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -2202,31 +2212,31 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@layerzerolabs/devtools-evm-hardhat@0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
-    resolution: {integrity: sha512-Ezi4WhV5xXqrP4wBTNLfQz7/4IbtXdH3zUMfP8VzmM20oGCl5mWKxwgjVFDmPw+oJQIawBBzFE9Dtd84JrJaig==}
+  /@layerzerolabs/devtools-evm-hardhat@0.3.21(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
+    resolution: {integrity: sha512-iZe8u4bufRvjwBANxH7rGHsEWpxyqWZSK4G7OiyPQNGiDm4kUkuCLLopyguhUHX+p6q3nrMn63pkuDq/6n0NcQ==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
       '@ethersproject/abstract-signer': ^5.7.0
       '@ethersproject/contracts': ^5.7.0
       '@ethersproject/providers': ^5.7.0
-      '@layerzerolabs/devtools': ~0.3.16
-      '@layerzerolabs/devtools-evm': ~0.3.10
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/devtools': ~0.3.17
+      '@layerzerolabs/devtools-evm': ~0.3.13
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
       '@nomiclabs/hardhat-ethers': ^2.2.3
       fp-ts: ^2.16.2
       hardhat: ^2.22.3
-      hardhat-deploy: ^0.11.45
+      hardhat-deploy: ^0.12.1
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/abstract-signer': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/export-deployments': 0.0.9
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/export-deployments': 0.0.10
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
       '@nomiclabs/hardhat-ethers': 2.2.3(ethers@5.7.2)(hardhat@2.22.3)
       '@safe-global/protocol-kit': 1.3.0(ethers@5.7.2)
       fp-ts: 2.16.5
@@ -2243,8 +2253,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/devtools-evm@0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5):
-    resolution: {integrity: sha512-7KyxwsMpBPBEcaGcrBILPq2ZecwMkjSP7jyvkmXan3hWUp7StH6MU0sYxQMq+c9NfDhvpDmTI+fabv0QwiGk0Q==}
+  /@layerzerolabs/devtools-evm@0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5):
+    resolution: {integrity: sha512-GQ+68/ngLrEfsZnwA0nddZPcEMmPxc8ME687OVdCWtyeH3WudOp/w6mk5Pi6uZoQYvWQGrto97bAtgQ9QfV2vw==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
       '@ethersproject/abstract-provider': ^5.7.0
@@ -2254,8 +2264,8 @@ packages:
       '@ethersproject/constants': ^5.7.0
       '@ethersproject/contracts': ^5.7.0
       '@ethersproject/providers': ^5.7.0
-      '@layerzerolabs/devtools': ~0.3.15
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/devtools': ~0.3.17
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
       fp-ts: ^2.16.2
       zod: ^3.22.4
@@ -2268,9 +2278,9 @@ packages:
       '@ethersproject/constants': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
       '@safe-global/api-kit': 1.3.1
       '@safe-global/protocol-kit': 1.3.0(ethers@5.7.2)
       ethers: 5.7.2
@@ -2284,27 +2294,27 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/devtools@0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5):
-    resolution: {integrity: sha512-SSj2PMXYL59PlAmH2CTInoR5sV6WLrE+BREA9n0U5PAfufcBT78mckyodyU1kAcBkdGkI9yhemdq8ATlFYIzdA==}
+  /@layerzerolabs/devtools@0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5):
+    resolution: {integrity: sha512-G/NUnmInAJna5/gsqjVNdumH68eJGe3FGFHxMDQKKOUlffznZcOqwdObkYdjXDx7XdUiDdCSWTXmmpV9xVW6mQ==}
     peerDependencies:
       '@ethersproject/bytes': ~5.7.0
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
       zod: ^3.22.4
     dependencies:
       '@ethersproject/bytes': 5.7.0
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
       exponential-backoff: 3.1.1
       js-yaml: 4.1.0
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/eslint-config-next@2.3.10(typescript@5.4.5):
+  /@layerzerolabs/eslint-config-next@2.3.10(typescript@5.5.3):
     resolution: {integrity: sha512-2RGnsECo8zMNnojgwvZrVixOnocgT1HYD3PJohtYQsu8sY8yVX6gWjYDm468zPy0BlC9j7HVzYnXqIljWn/pGg==}
     dependencies:
-      '@typescript-eslint/eslint-plugin': 7.7.1(@typescript-eslint/parser@7.7.1)(eslint@8.57.0)(typescript@5.4.5)
-      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/eslint-plugin': 7.7.1(@typescript-eslint/parser@7.7.1)(eslint@8.57.0)(typescript@5.5.3)
+      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
       eslint: 8.57.0
       eslint-config-prettier: 9.1.0(eslint@8.57.0)
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.7.1)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
@@ -2320,23 +2330,23 @@ packages:
       - typescript
     dev: true
 
-  /@layerzerolabs/evm-sdks-core@2.3.22:
-    resolution: {integrity: sha512-nzV7TsJUat3ywpdcMAIhuS0ETXdOJWhaJpUigBMgogZzj3jpbxnpIYaMMfwb3WGNofTes8Vba3R0SbJgkKhhBQ==}
+  /@layerzerolabs/evm-sdks-core@2.3.25:
+    resolution: {integrity: sha512-2qUeEVMnYFnj3MrEWGmrXKn249ohfvjSyDsjivJJbwu9rlxsk/zclb+May1SCO0UcbPfgILVkldZoL4LyqrwnA==}
     dependencies:
       ethers: 5.7.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  /@layerzerolabs/export-deployments@0.0.9:
-    resolution: {integrity: sha512-VxKocuqEtsvT1mEU74Ui9l36j4e5IfE3Dgef60faaoHkPw5p9UEyR50g57BpTI/ZfQuW0IvfTcivf6ySaNvBsw==}
+  /@layerzerolabs/export-deployments@0.0.10:
+    resolution: {integrity: sha512-k8b/BuMBXd3BboT/LAYXVWxzS/l7Oax+31ARziVmGyWPd5Cav+7SYODu8p5WHjLfHG0/6mK6rbh0iL7Bigr/ww==}
     hasBin: true
     dependencies:
       typescript: 5.4.5
     dev: true
 
-  /@layerzerolabs/io-devtools@0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5):
-    resolution: {integrity: sha512-95gCy6dI0DVTIxWfk1LNNC/YIp6TXZSXUNreXkiM2igJ/zahUtWi9kStvH03tMxV8h3huGgLQS0eKQKPczRfPA==}
+  /@layerzerolabs/io-devtools@0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5):
+    resolution: {integrity: sha512-+S0tzxZ9XXrM5jOFvTxpyjqigZ4U0OC96woNZ1KMFT9gQ6Fd6y97C8RzPUmtXFZKlPfltqzg/fyf4ER7hCdSqA==}
     peerDependencies:
       ink: ^3.2.0
       ink-gradient: ^2.0.0
@@ -2369,12 +2379,12 @@ packages:
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/lz-definitions@2.3.22:
-    resolution: {integrity: sha512-Df/DmH66Qp3dxTeNLsyPuuGLLhvLh2fE3CgwG6tkaszrm32GC6culhIVHqCldoIagd9XDRMiB1U0b91fkUFOTw==}
+  /@layerzerolabs/lz-definitions@2.3.25:
+    resolution: {integrity: sha512-7/F1MvcLpbxFmXu9GN+Aox2X+CH+95GCgg88bbEf34ZxrtDFY00Ye9sJ652QHuSYfdECQ5o5jSVq8pFmVfwtXw==}
     dependencies:
       tiny-invariant: 1.3.3
 
-  /@layerzerolabs/lz-evm-messagelib-v2@2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.22)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+  /@layerzerolabs/lz-evm-messagelib-v2@2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.25)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
     resolution: {integrity: sha512-i6nZvzxzH+3bMzGRxIzf6fFXTzxQIZ1vyduAoFTy3U2zK9xZUHunKFfpC+vqCY1goNzjBquX4VnClWMWlc5ZIA==}
     peerDependencies:
       '@axelar-network/axelar-gmp-sdk-solidity': ^5.6.3
@@ -2389,27 +2399,27 @@ packages:
       '@axelar-network/axelar-gmp-sdk-solidity': 5.9.0
       '@chainlink/contracts-ccip': 0.7.6(ethers@5.7.2)
       '@layerzerolabs/lz-evm-protocol-v2': 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.22(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.25(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 4.9.6
       '@openzeppelin/contracts-upgradeable': 4.9.6
       hardhat-deploy: 0.12.2
       solidity-bytes-utils: 0.8.2
     dev: false
 
-  /@layerzerolabs/lz-evm-oapp-v2@2.3.22(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.22)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-bsXJ733JclFrqiKP3sUwax9jv0GFlroUT/yWmO7/WlmwTiQYIZPE+ODNbHsDlj7pAZ/gVHGmGqJcHg25ue6iwg==}
+  /@layerzerolabs/lz-evm-oapp-v2@2.3.25(@layerzerolabs/lz-evm-messagelib-v2@2.0.11)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.25)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-TYfRph0YJkl4m6hCGNZiVFvbb8mIWDrg/Zd+nw7OSu/VZxHQgEuaBFiRECxFxWNjyeZklOyBxL8UOZRxrhMKjg==}
     peerDependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': ^2.3.22
-      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.22
-      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.22
+      '@layerzerolabs/lz-evm-messagelib-v2': ^2.3.25
+      '@layerzerolabs/lz-evm-protocol-v2': ^2.3.25
+      '@layerzerolabs/lz-evm-v1-0.7': ^2.3.25
       '@openzeppelin/contracts': ^4.8.1 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': ^4.8.1 || ^5.0.0
       hardhat-deploy: ^0.11.44
       solidity-bytes-utils: ^0.8.0
     dependencies:
-      '@layerzerolabs/lz-evm-messagelib-v2': 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.22)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/lz-evm-messagelib-v2': 2.0.11(@axelar-network/axelar-gmp-sdk-solidity@5.9.0)(@chainlink/contracts-ccip@0.7.6)(@layerzerolabs/lz-evm-protocol-v2@2.0.11)(@layerzerolabs/lz-evm-v1-0.7@2.3.25)(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-protocol-v2': 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/lz-evm-v1-0.7': 2.3.22(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
+      '@layerzerolabs/lz-evm-v1-0.7': 2.3.25(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
       '@openzeppelin/contracts': 4.9.6
       '@openzeppelin/contracts-upgradeable': 4.9.6
       hardhat-deploy: 0.12.2
@@ -2435,29 +2445,29 @@ packages:
       '@openzeppelin/contracts-upgradeable': 3.4.2-solc-0.7
     dev: true
 
-  /@layerzerolabs/lz-evm-sdk-v1@2.3.22:
-    resolution: {integrity: sha512-8Zl29Xbt4rPn8/a8wTfyaV5o6yM/oKOBBI+woe6CkKJajtgyapwVJcwGjcNGCTDPhfcLScTT2SQ6G5Ld/NzLlw==}
+  /@layerzerolabs/lz-evm-sdk-v1@2.3.25:
+    resolution: {integrity: sha512-UJRKkoVh64aWcgLrojkYaZnhb/UETsF8Ea1fqr8GcE+XgGtlwErVLyB0DsXj3mbsq41+/k1/V4wCHDsZMZpQBw==}
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/evm-sdks-core': 2.3.22
+      '@layerzerolabs/evm-sdks-core': 2.3.25
       ethers: 5.7.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/lz-evm-sdk-v2@2.3.22:
-    resolution: {integrity: sha512-8kt7RUZ15ks1aqVdixk0WtZtOGkWGZdZDReBS7TTIzGAr4xt20BfuGfxzcp3kw5LWTFE/YYL6hWpxYtpL2TJSg==}
+  /@layerzerolabs/lz-evm-sdk-v2@2.3.25:
+    resolution: {integrity: sha512-0mHF6/uZe4AxxEbVDOSNVPDjuGX/eO7v6EHJclgmjC6nC89guLuDEP9MxxJB9z0OlNCrv0LdCC+6hUyFWiSHHQ==}
     dependencies:
-      '@layerzerolabs/evm-sdks-core': 2.3.22
+      '@layerzerolabs/evm-sdks-core': 2.3.25
       ethers: 5.7.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  /@layerzerolabs/lz-evm-v1-0.7@2.3.22(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2):
-    resolution: {integrity: sha512-btcc1sedOhCARoV1oaM592JYUI+LwlUV5MOmy41n2dauYxVKzMa/w8VeVVJDm0p0g12H//F6EVNj26TXTxosWw==}
+  /@layerzerolabs/lz-evm-v1-0.7@2.3.25(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2):
+    resolution: {integrity: sha512-sHxnNR+GVnqapWf0YJDfWR6L6BLK7hGxUlhUo3YpnJejxRM3Hmr2pv6DoaSNQ+PjI7tuP3NdhEKJwGfbaj8wGA==}
     peerDependencies:
       '@openzeppelin/contracts': 3.4.2-solc-0.7 || ^3.4.2 || ^4.0.0 || ^5.0.0
       '@openzeppelin/contracts-upgradeable': 3.4.2-solc-0.7 || ^3.4.2 || ^4.0.0 || ^5.0.0
@@ -2468,23 +2478,24 @@ packages:
       hardhat-deploy: 0.12.2
     dev: false
 
-  /@layerzerolabs/lz-utilities@2.3.22:
-    resolution: {integrity: sha512-ZDlCcliuoiVwAFBS2a6OiJ5GBn61f1TdqfZwPiQwiOhUq2QEy44qSVshzni4JFsRuBOd9PGMzvbWaGBla1P/rw==}
+  /@layerzerolabs/lz-utilities@2.3.25:
+    resolution: {integrity: sha512-+XuFrvfjqMBEWr6r8bUO0DKtS75majrSZTKqHxNx6VIR5l6TsKhW3bITMpHkM4nIWXtp8eBte3qOtOhjI/uKIw==}
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/lz-definitions': 2.3.22
+      '@layerzerolabs/lz-definitions': 2.3.25
       '@noble/hashes': 1.4.0
       '@noble/secp256k1': 1.7.1
-      '@solana/web3.js': 1.92.3
+      '@solana/web3.js': 1.94.0
       aptos: 1.21.0
       bip39: 3.1.0
       ed25519-hd-key: 1.3.0
       ethers: 5.7.2
       find-up: 5.0.0
-      glob: 10.3.16
+      glob: 10.4.2
       tree-kill: 1.2.2
       winston: 3.13.0
+      zx: 8.1.3
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2492,8 +2503,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@layerzerolabs/lz-v2-utilities@2.3.22:
-    resolution: {integrity: sha512-DDTopGgkAqD9OahlfpvSzbmq81AXVvi++43jobDjX3QU0rj+2tgYEOkZqBzMEuOqg0Dk/tkHWtoqG6APKA1UQg==}
+  /@layerzerolabs/lz-v2-utilities@2.3.25:
+    resolution: {integrity: sha512-IzqcK49NPBOEs/Q7d6+fJEpIfjicR4huaeayyK7oAVCQ5X/dfM9zT8qTbpbQ9ju52OmJKCyifOJglK2xXg4zZg==}
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/address': 5.7.0
@@ -2501,23 +2512,19 @@ packages:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/keccak256': 5.7.0
       '@ethersproject/solidity': 5.7.0
-      '@solana/web3.js': 1.92.3
+      bs58: 5.0.0
       tiny-invariant: 1.3.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
 
-  /@layerzerolabs/prettier-config-next@2.3.10:
-    resolution: {integrity: sha512-fBji3qYaCUJpIcI9ynT6i21cPFAX4zQ5vIfMkZFnyOHubc+1WXMMMbmu++WzJRv/eFGuSHo0uNQer9aFuZFHSg==}
+  /@layerzerolabs/prettier-config-next@2.3.25:
+    resolution: {integrity: sha512-QS2pqm469wr7TrHY+ydsBWzJZuN/X4Au3RzDvBZgOvhLK3gCHeNE7gxXrxbve3crHeIbA3YMTHEGNMkNYpVHMw==}
     dependencies:
       prettier: 3.2.5
       prettier-plugin-packagejson: 2.5.0(prettier@3.2.5)
       prettier-plugin-solidity: 1.3.1(prettier@3.2.5)
     dev: true
 
-  /@layerzerolabs/protocol-devtools-evm@0.3.8(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5):
-    resolution: {integrity: sha512-KDTiL0SqJRO2Xdi031ucmYi32UBn4Lz0dtGJ87OxooM3vp1IIJodwTvtHrO7bez2dwTAZZscIhD5z1Xl5xNb6A==}
+  /@layerzerolabs/protocol-devtools-evm@0.3.10(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5):
+    resolution: {integrity: sha512-QRV0D2LTyAK52i7KxFwowcqx0jJgOeSX58UE8BH7TSqm9qM+eIzxCi3lxuPaGE/aMmUL2xxdFSfd67tBomWuww==}
     peerDependencies:
       '@ethersproject/abstract-provider': ^5.7.0
       '@ethersproject/abstract-signer': ^5.7.0
@@ -2525,11 +2532,11 @@ packages:
       '@ethersproject/constants': ^5.7.0
       '@ethersproject/contracts': ^5.7.0
       '@ethersproject/providers': ^5.7.0
-      '@layerzerolabs/devtools': ~0.3.15
-      '@layerzerolabs/devtools-evm': ~0.3.10
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/devtools': ~0.3.17
+      '@layerzerolabs/devtools-evm': ~0.3.13
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
-      '@layerzerolabs/protocol-devtools': ~0.3.8
+      '@layerzerolabs/protocol-devtools': ~0.3.9
       zod: ^3.22.4
     dependencies:
       '@ethersproject/abstract-provider': 5.7.0
@@ -2538,31 +2545,31 @@ packages:
       '@ethersproject/constants': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
-      '@layerzerolabs/protocol-devtools': 0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
+      '@layerzerolabs/protocol-devtools': 0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
       p-memoize: 4.0.4
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/protocol-devtools@0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5):
-    resolution: {integrity: sha512-bQ7Djz5u8rdh6BuhsAyM2oMNkQGs2muO+nVg26iN55M2CWDldrCGmAlBepNjwX4n8AclN0YPGfAQgAGEr8t/zA==}
+  /@layerzerolabs/protocol-devtools@0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5):
+    resolution: {integrity: sha512-Sb/yS2ReOeQfCNLu1/CH0ND0X8Inr5bBQ5f+KyHkqWPDbGHBJBb1nVcX0OH9xHZGvU06ofEn+zGfXqqayoReeA==}
     peerDependencies:
-      '@layerzerolabs/devtools': ~0.3.15
+      '@layerzerolabs/devtools': ~0.3.17
       '@layerzerolabs/lz-definitions': ^2.3.3
       zod: ^3.22.4
     dependencies:
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/solhint-config@2.3.10(typescript@5.4.5):
-    resolution: {integrity: sha512-uZ2j8jUYNlgctjqnhrH716oZm3epWtaEFCrtEzcxbzvhPVKxFKbrBRDpwIKZTTLqA2j5XS8jdDq7pmgMbOyi/Q==}
+  /@layerzerolabs/solhint-config@2.3.25(typescript@5.5.3):
+    resolution: {integrity: sha512-1IlzczkD2Kj2addNcULnmAe0uh+YKHc/ulrPwz+EFAXdHltGwacgCD0fxn10o2QBhLWbGv8JclSZeO6LZ2bVQA==}
     dependencies:
-      solhint: 4.5.4(typescript@5.4.5)
+      solhint: 4.5.4(typescript@5.5.3)
     transitivePeerDependencies:
       - typescript
     dev: true
@@ -2599,8 +2606,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/test-devtools-evm-hardhat@0.2.4(hardhat@2.22.3)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-4d8tx2HCIwI22oM4H74Dhy6sqaPcCmBIDc5CX8i73nGn1M8Bn3ryzIO+Hf/5OQNXb+Y7yt7nr7Gi+9qVl8eTqQ==}
+  /@layerzerolabs/test-devtools-evm-hardhat@0.2.5(hardhat@2.22.3)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-tzUxs/GaeuZgQPxBbqlkbZ1ab7wJuE1qDIAVeq8HXaJCxXl/41uBOw1uoInFkRFG63TzbzkUYOlZJei6Dupz+A==}
     peerDependencies:
       hardhat: ^2.22.3
       solidity-bytes-utils: ^0.8.2
@@ -2609,48 +2616,48 @@ packages:
       solidity-bytes-utils: 0.8.2
     dev: true
 
-  /@layerzerolabs/test-devtools@0.2.5(@layerzerolabs/lz-definitions@2.3.22)(fast-check@3.19.0):
-    resolution: {integrity: sha512-thm4cO0kzVW9UZKIACtqJUuQdDfRX17E5OUaX3NkumLDS5QvjFBXjYJ7Ypb8Ym0r71SHm0YgjIP7Edg4hiKQpQ==}
+  /@layerzerolabs/test-devtools@0.2.6(@layerzerolabs/lz-definitions@2.3.25)(fast-check@3.19.0):
+    resolution: {integrity: sha512-fmHqyHFScGgiDZ5JaZcVsrpgvwiO7x8Bg6boZ3B9On4IVQdcXnjaVe3pAG5zkBA3CEYUagGKLAbxtZeODB+6AQ==}
     peerDependencies:
       '@layerzerolabs/lz-definitions': ^2.3.3
       fast-check: ^3.14.0
     dependencies:
-      '@layerzerolabs/lz-definitions': 2.3.22
+      '@layerzerolabs/lz-definitions': 2.3.25
       '@scure/bip39': 1.2.2
       fast-check: 3.19.0
     dev: true
 
-  /@layerzerolabs/toolbox-foundry@0.1.6:
-    resolution: {integrity: sha512-NepJe0ddecrX5ATwIP2wMD0XINO5yjnZyPyol24yul6NzDxbhgwK26BS0Q+nmexnehXcWrntP2kyfKldTikwyg==}
+  /@layerzerolabs/toolbox-foundry@0.1.7:
+    resolution: {integrity: sha512-vVFaOADxcXwHYSuHqQ+n7jpUzJAqUO9mH+S82EmDReiN13RKTt1rCj6JEu1JcHj3TlujbuyGtrX7fxZAmOC6Hg==}
     dev: true
 
-  /@layerzerolabs/toolbox-hardhat@0.2.31(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/providers@5.7.2)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)(solidity-bytes-utils@0.8.2):
-    resolution: {integrity: sha512-waai96K7jc/hTnZQ5qDIBDEexk+Pp4pTTAk1LzQ6CdUoxBxBjXVSYRvqW87F0lm03dzjnTwL9zYVyxriNAkMDg==}
+  /@layerzerolabs/toolbox-hardhat@0.2.35(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/providers@5.7.2)(@nomicfoundation/hardhat-ethers@3.0.6)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)(solidity-bytes-utils@0.8.2):
+    resolution: {integrity: sha512-uMJs2ShTs4SRa5DMm/7BwfZf5nG8R2XtR/PQxEX969IL/t/8RkbFffCjj6tTvfKmiudXOnOJg1QdBunU+TX7JQ==}
     peerDependencies:
       '@nomicfoundation/hardhat-ethers': ^3.0.2
-      ethers: ^5.7.0
+      ethers: ^5.7.2
       hardhat: ^2.22.3
-      hardhat-deploy: ^0.11.45
+      hardhat-deploy: ^0.12.1
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/address': 5.7.0
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/hash': 5.7.0
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm-hardhat': 0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
-      '@layerzerolabs/lz-evm-sdk-v1': 2.3.22
-      '@layerzerolabs/lz-evm-sdk-v2': 2.3.22
-      '@layerzerolabs/lz-v2-utilities': 2.3.22
-      '@layerzerolabs/protocol-devtools': 0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.8(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
-      '@layerzerolabs/test-devtools-evm-hardhat': 0.2.4(hardhat@2.22.3)(solidity-bytes-utils@0.8.2)
-      '@layerzerolabs/ua-devtools': 0.3.15(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm': 0.3.12(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools@0.3.15)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm-hardhat': 0.3.18(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.19)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools-evm@0.3.12)(@layerzerolabs/ua-devtools@0.3.15)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm-hardhat': 0.3.21(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
+      '@layerzerolabs/lz-evm-sdk-v1': 2.3.25
+      '@layerzerolabs/lz-evm-sdk-v2': 2.3.25
+      '@layerzerolabs/lz-v2-utilities': 2.3.25
+      '@layerzerolabs/protocol-devtools': 0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.10(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
+      '@layerzerolabs/test-devtools-evm-hardhat': 0.2.5(hardhat@2.22.3)(solidity-bytes-utils@0.8.2)
+      '@layerzerolabs/ua-devtools': 0.3.18(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm': 0.3.14(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools@0.3.18)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm-hardhat': 0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.21)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools-evm@0.3.14)(@layerzerolabs/ua-devtools@0.3.18)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@nomicfoundation/hardhat-ethers': 3.0.6(ethers@5.7.2)(hardhat@2.22.3)
       ethers: 5.7.2
       fp-ts: 2.16.5
@@ -2677,8 +2684,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/tsup-config-next@2.3.10(ts-node@10.9.2)(typescript@5.4.5):
-    resolution: {integrity: sha512-8jPtVgR/MG1lSoh1PW48I/1JZsEtLo/vdhyb3AIZsr8tvJdDUa3eOE6z+2Ls+ZN/DCP8dr0PnUhc2oLmkA+mhA==}
+  /@layerzerolabs/tsup-config-next@2.3.25(ts-node@10.9.2)(typescript@5.4.5):
+    resolution: {integrity: sha512-KsinLjwqOOn3qOSO2PDcRazSHPd2Nxqx6gVlvJ3kad9Tf0rkwPy6eQh88V4Pr3pLl0QuM8w4FtzmJC+z7+ktmw==}
     dependencies:
       '@chialab/esbuild-plugin-commonjs': 0.17.2
       esbuild: 0.19.12
@@ -2693,43 +2700,43 @@ packages:
       - typescript
     dev: true
 
-  /@layerzerolabs/typescript-config-next@2.3.10:
-    resolution: {integrity: sha512-Sx3poAajg7EPkWyl6Us3eMCNk/NQF5DTp1hEAtyjj9jcwhjgrW1mvRhFvtoNdkzFMkZ0BpSbTYG8BIMxu1KR0w==}
+  /@layerzerolabs/typescript-config-next@2.3.25:
+    resolution: {integrity: sha512-k/G0p3boKjyXkIYFX21CAYrRicVUQ2L5srukdzzmVkFNaIg2+jpA/tHmP0mKwjCS61GTN9AjtCtXmQi0P0A/bA==}
     dev: true
 
-  /@layerzerolabs/ua-devtools-evm-hardhat@0.3.18(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.19)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools-evm@0.3.12)(@layerzerolabs/ua-devtools@0.3.15)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
-    resolution: {integrity: sha512-rsNMzT5X0LoFZ3OAGrvA018A8pyovUc505doWF1uTSie1AMWLsn2GwzV176eoM4WDJ9rl1LNl3AjCNseo/IgwA==}
+  /@layerzerolabs/ua-devtools-evm-hardhat@0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@0.3.21)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools-evm@0.3.14)(@layerzerolabs/ua-devtools@0.3.18)(ethers@5.7.2)(hardhat-deploy@0.12.2)(hardhat@2.22.3):
+    resolution: {integrity: sha512-UedoIljhj7ZPTCBaspHDTxC9PjXDYhxKXOvDWfupnrC6//lCEM9qrRG+geVwrhJQcop7z2yLg05p4QqHK3tJFQ==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
       '@ethersproject/bytes': ^5.7.0
       '@ethersproject/contracts': ^5.7.0
       '@ethersproject/hash': ^5.7.0
-      '@layerzerolabs/devtools': ~0.3.16
-      '@layerzerolabs/devtools-evm': ~0.3.10
-      '@layerzerolabs/devtools-evm-hardhat': ~0.3.18
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/devtools': ~0.3.17
+      '@layerzerolabs/devtools-evm': ~0.3.13
+      '@layerzerolabs/devtools-evm-hardhat': ~0.3.21
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
-      '@layerzerolabs/protocol-devtools': ~0.3.8
-      '@layerzerolabs/protocol-devtools-evm': ~0.3.8
-      '@layerzerolabs/ua-devtools': ~0.3.13
-      '@layerzerolabs/ua-devtools-evm': ~0.3.12
-      ethers: ^5.5.2
+      '@layerzerolabs/protocol-devtools': ~0.3.9
+      '@layerzerolabs/protocol-devtools-evm': ~0.3.10
+      '@layerzerolabs/ua-devtools': ~0.3.18
+      '@layerzerolabs/ua-devtools-evm': ~0.3.14
+      ethers: ^5.7.2
       hardhat: ^2.22.3
-      hardhat-deploy: ^0.11.45
+      hardhat-deploy: ^0.12.1
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/contracts': 5.7.0
       '@ethersproject/hash': 5.7.0
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm-hardhat': 0.3.19(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
-      '@layerzerolabs/protocol-devtools': 0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.8(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools': 0.3.15(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools-evm': 0.3.12(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools@0.3.15)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm-hardhat': 0.3.21(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
+      '@layerzerolabs/protocol-devtools': 0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.10(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools': 0.3.18(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools-evm': 0.3.14(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools@0.3.18)(zod@3.22.5)
       ethers: 5.7.2
       hardhat: 2.22.3(ts-node@10.9.2)(typescript@5.4.5)
       hardhat-deploy: 0.12.2
@@ -2737,50 +2744,50 @@ packages:
       typescript: 5.4.5
     dev: true
 
-  /@layerzerolabs/ua-devtools-evm@0.3.12(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools-evm@0.3.8)(@layerzerolabs/protocol-devtools@0.3.8)(@layerzerolabs/ua-devtools@0.3.15)(zod@3.22.5):
-    resolution: {integrity: sha512-0YhtVie73pOm6H6t2AKIw38/eB4dyQLx+gekliomBfxZspBiy3yriDmWGmoYfFEBorIOcNjxjTkRjmzzh1uZJA==}
+  /@layerzerolabs/ua-devtools-evm@0.3.14(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools@0.3.18)(zod@3.22.5):
+    resolution: {integrity: sha512-1n1zBrhxgl8VuAwmlxRMznbURiEz+SNK4UEAl0bbsGCkmfD9KkWVmIYnPFzwsoVtwtnJEwAMU+WpPcMNU8Z/kQ==}
     peerDependencies:
       '@ethersproject/constants': ^5.7.0
       '@ethersproject/contracts': ^5.7.0
-      '@layerzerolabs/devtools': ~0.3.15
-      '@layerzerolabs/devtools-evm': ~0.3.10
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/devtools': ~0.3.17
+      '@layerzerolabs/devtools-evm': ~0.3.13
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
       '@layerzerolabs/lz-v2-utilities': ^2.3.3
-      '@layerzerolabs/protocol-devtools': ~0.3.8
-      '@layerzerolabs/protocol-devtools-evm': ~0.3.8
-      '@layerzerolabs/ua-devtools': ~0.3.13
+      '@layerzerolabs/protocol-devtools': ~0.3.9
+      '@layerzerolabs/protocol-devtools-evm': ~0.3.10
+      '@layerzerolabs/ua-devtools': ~0.3.18
       zod: ^3.22.4
     dependencies:
       '@ethersproject/constants': 5.7.0
       '@ethersproject/contracts': 5.7.0
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/devtools-evm': 0.3.11(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(fp-ts@2.16.5)(zod@3.22.5)
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
-      '@layerzerolabs/lz-v2-utilities': 2.3.22
-      '@layerzerolabs/protocol-devtools': 0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/protocol-devtools-evm': 0.3.8(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.11)(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
-      '@layerzerolabs/ua-devtools': 0.3.15(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/devtools-evm': 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(fp-ts@2.16.5)(zod@3.22.5)
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
+      '@layerzerolabs/lz-v2-utilities': 2.3.25
+      '@layerzerolabs/protocol-devtools': 0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/protocol-devtools-evm': 0.3.10(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
+      '@layerzerolabs/ua-devtools': 0.3.18(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
       p-memoize: 4.0.4
       zod: 3.22.5
     dev: true
 
-  /@layerzerolabs/ua-devtools@0.3.15(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(@layerzerolabs/lz-v2-utilities@2.3.22)(@layerzerolabs/protocol-devtools@0.3.8)(zod@3.22.5):
-    resolution: {integrity: sha512-40DSNTFt93tLXWPEM6aKXGmK6WLAMQd57fHlTty2CUV9GOqrizhnLOAe8Xhn6IRA1GQcpgl6JRVlFt028LcDsw==}
+  /@layerzerolabs/ua-devtools@0.3.18(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(@layerzerolabs/lz-v2-utilities@2.3.25)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5):
+    resolution: {integrity: sha512-ytJadl+WvfhIPD+Rnzy+cnkyH+BO+v5tDqOjLvr6ZnP7Xi8y1/7jn27kiN1uUgIg09h3bOI7LmslzzLchlxQJA==}
     peerDependencies:
-      '@layerzerolabs/devtools': ~0.3.15
-      '@layerzerolabs/io-devtools': ~0.1.10
+      '@layerzerolabs/devtools': ~0.3.17
+      '@layerzerolabs/io-devtools': ~0.1.11
       '@layerzerolabs/lz-definitions': ^2.3.3
       '@layerzerolabs/lz-v2-utilities': ^2.3.3
-      '@layerzerolabs/protocol-devtools': ~0.3.8
+      '@layerzerolabs/protocol-devtools': ~0.3.9
       zod: ^3.22.4
     dependencies:
-      '@layerzerolabs/devtools': 0.3.16(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.10)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
-      '@layerzerolabs/io-devtools': 0.1.10(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
-      '@layerzerolabs/lz-definitions': 2.3.22
-      '@layerzerolabs/lz-v2-utilities': 2.3.22
-      '@layerzerolabs/protocol-devtools': 0.3.8(@layerzerolabs/devtools@0.3.16)(@layerzerolabs/lz-definitions@2.3.22)(zod@3.22.5)
+      '@layerzerolabs/devtools': 0.3.17(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
+      '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
+      '@layerzerolabs/lz-definitions': 2.3.25
+      '@layerzerolabs/lz-v2-utilities': 2.3.25
+      '@layerzerolabs/protocol-devtools': 0.3.9(@layerzerolabs/devtools@0.3.17)(@layerzerolabs/lz-definitions@2.3.25)(zod@3.22.5)
       zod: 3.22.5
     dev: true
 
@@ -2808,7 +2815,7 @@ packages:
     dependencies:
       '@ledgerhq/cryptoassets': 5.53.0
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.51.1
+      '@ledgerhq/hw-transport': 5.26.0
       bignumber.js: 9.1.2
       rlp: 2.2.7
     dev: true
@@ -2831,7 +2838,7 @@ packages:
     dependencies:
       '@ledgerhq/devices': 5.51.1
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.51.1
+      '@ledgerhq/hw-transport': 5.26.0
       '@ledgerhq/hw-transport-node-hid-noevents': 5.51.1
       '@ledgerhq/logs': 5.50.0
       lodash: 4.17.21
@@ -2845,7 +2852,7 @@ packages:
     deprecated: '@ledgerhq/hw-transport-u2f is deprecated. Please use @ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid. https://github.com/LedgerHQ/ledgerjs/blob/master/docs/migrate_webusb.md'
     dependencies:
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.51.1
+      '@ledgerhq/hw-transport': 5.26.0
       '@ledgerhq/logs': 5.50.0
       u2f-api: 0.2.7
     dev: true
@@ -2866,6 +2873,7 @@ packages:
       '@ledgerhq/errors': 5.50.0
       events: 3.3.0
     dev: true
+    optional: true
 
   /@ledgerhq/logs@5.50.0:
     resolution: {integrity: sha512-swKHYCOZUGyVt4ge0u8a7AwNcA//h4nx5wIi0sruGye1IJ5Cva0GyK9L2/WdX+kWVTKp92ZiEo1df31lrWGPgA==}
@@ -2891,7 +2899,7 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
-  /@matterlabs/hardhat-zksync-deploy@0.9.0(patch_hash=26ge35256ho5xcku4o5n47dtoq)(ethers@5.7.2)(hardhat@2.22.3)(zksync-ethers@5.7.2):
+  /@matterlabs/hardhat-zksync-deploy@0.9.0(patch_hash=26ge35256ho5xcku4o5n47dtoq)(ethers@5.7.2)(hardhat@2.22.3)(zksync-ethers@5.9.0):
     resolution: {integrity: sha512-F9qPa7+Etq9/zAWEhsJ+oHCJy+B+yXxt8Tv1wgJsw5yc/race7VIdrdWW6xUS5YNpwhsiuM2cxYBcrE+FSU/TA==}
     peerDependencies:
       ethers: ~5.7.2
@@ -2909,7 +2917,7 @@ packages:
       sinon: 17.0.1
       sinon-chai: 3.7.0(chai@4.4.1)(sinon@17.0.1)
       ts-morph: 21.0.1
-      zksync-ethers: 5.7.2(ethers@5.7.2)
+      zksync-ethers: 5.9.0(ethers@5.7.2)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -2955,10 +2963,11 @@ packages:
       '@noble/hashes': 1.3.3
     dev: true
 
-  /@noble/curves@1.4.0:
-    resolution: {integrity: sha512-p+4cb332SFCrReJkCYe8Xzm0OWi4Jji5jVdIZRL/PmacmDkFNw6MrrV+gGpiPxLHbV+zKFRywUWbaseT+tZRXg==}
+  /@noble/curves@1.4.2:
+    resolution: {integrity: sha512-TavHr8qycMChk8UwMld0ZDRvatedkzWfH8IiaeGCfymOP5i0hSCozz9vHOL0nkwk7HRMlFnAiKpS2jrUmSybcw==}
     dependencies:
       '@noble/hashes': 1.4.0
+    dev: false
 
   /@noble/hashes@1.2.0:
     resolution: {integrity: sha512-FZfhjEDbT5GRswV3C6uvLPHMiVD6lQBmpoX5+eSiPaMTXte/IKqI5dykDxzZB/WBeK/CDuQRBWarPdi3FNY2zQ==}
@@ -3139,7 +3148,7 @@ packages:
       ethers: ^6.1.0
       hardhat: ^2.0.0
     dependencies:
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.5
       ethers: 5.7.2
       hardhat: 2.22.3(ts-node@10.9.2)(typescript@5.4.5)
       lodash.isequal: 4.5.0
@@ -3599,7 +3608,7 @@ packages:
     dependencies:
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/contracts': 5.7.0
-      '@safe-global/safe-deployments': 1.36.0
+      '@safe-global/safe-deployments': 1.37.0
       web3-core: 1.10.4
       web3-utils: 1.10.4
     transitivePeerDependencies:
@@ -3613,8 +3622,19 @@ packages:
       semver: 7.6.2
     dev: true
 
+  /@safe-global/safe-deployments@1.37.0:
+    resolution: {integrity: sha512-OInLNWC9EPem/eOsvPdlq4Gt/08Nfhslm9z6T92Jvjmcu6hs85vjfnDP1NrzwcOmsCarATU5NH2bTITd9VNCPw==}
+    dependencies:
+      semver: 7.6.2
+    dev: true
+
   /@scure/base@1.1.6:
     resolution: {integrity: sha512-ok9AWwhcgYuGG3Zfhyqg+zwl+Wn5uE+dwC0NV/2qQkx4dABbb/bx96vWu8NSj+BNjjSjno+JRYRjle1jV08k3g==}
+    dev: true
+
+  /@scure/base@1.1.7:
+    resolution: {integrity: sha512-PPNYBslrLNNUQ/Yad37MHYsNQtK67EhWb6WtSvNLLPo7SdVZgkUjD6Dg+5On7zNwmskf8OX7I7Nx5oN+MIWE0g==}
+    dev: false
 
   /@scure/bip32@1.1.5:
     resolution: {integrity: sha512-XyNh1rB0SkEqd3tXcXMi+Xe1fvg+kUIcoRIEujP1Jgv7DqW2r9lg3Ah0NkFaCs9sTkQAQA8kw7xiRXzENi9Rtw==}
@@ -3643,7 +3663,7 @@ packages:
     resolution: {integrity: sha512-Z3/Fsz1yr904dduJD0NpiyRHhRYHdcnyh73FZWiV+/qhWi83wNJ3NWolYqCEN+ZWsUz2TWwajJggcRE9r1zUYg==}
     dependencies:
       '@noble/hashes': 1.3.3
-      '@scure/base': 1.1.6
+      '@scure/base': 1.1.7
     dev: false
 
   /@scure/bip39@1.2.2:
@@ -3776,7 +3796,7 @@ packages:
     resolution: {integrity: sha512-QwYgloJ0sVNBeBuBs65cIkTbfzV/Q6ZNPCJ99EICFEdJYG50nGIY/uYXp+TbsdJReIuPr0a0kXmCvren3MbRRw==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /@solana/buffer-layout@4.0.1:
@@ -3784,12 +3804,13 @@ packages:
     engines: {node: '>=5.10'}
     dependencies:
       buffer: 6.0.3
+    dev: false
 
-  /@solana/web3.js@1.92.3:
-    resolution: {integrity: sha512-NVBWvb9zdJIAx6X+caXaIICCEQfQaQ8ygykCjJW4u2z/sIKcvPj3ZIIllnx0MWMc3IxGq15ozGYDOQIMbwUcHw==}
+  /@solana/web3.js@1.94.0:
+    resolution: {integrity: sha512-wMiBebzu5I2fTSz623uj6VXpWFhl0d7qJKqPFK2I4IBLTNUdv+bOeA4H7OBM7Gworv7sOvB3xibRql6l61MeqA==}
     dependencies:
       '@babel/runtime': 7.24.7
-      '@noble/curves': 1.4.0
+      '@noble/curves': 1.4.2
       '@noble/hashes': 1.4.0
       '@solana/buffer-layout': 4.0.1
       agentkeepalive: 4.5.0
@@ -3801,12 +3822,13 @@ packages:
       fast-stable-stringify: 1.0.0
       jayson: 4.1.0
       node-fetch: 2.7.0
-      rpc-websockets: 8.0.1
+      rpc-websockets: 9.0.2
       superstruct: 1.0.4
     transitivePeerDependencies:
       - bufferutil
       - encoding
       - utf-8-validate
+    dev: false
 
   /@solidity-parser/parser@0.14.5:
     resolution: {integrity: sha512-6dKnHZn7fg/iQATVEzqyUOyEidbn05q7YA2mQ9hC0MMXhhV3/JrsxmFSYZAcr7j1yUP700LLhTruvJ3MiQmjJg==}
@@ -3826,6 +3848,12 @@ packages:
     resolution: {integrity: sha512-RJ6iEyGIEYov+tPT1ZycF+uMZLjcb99gGOPN66dLEmo/8SMUAnMqXYN3UH7075CQ5mi5/bhuknLvcefyEqUSkQ==}
     dependencies:
       exponential-backoff: 3.1.1
+    dev: false
+
+  /@swc/helpers@0.5.11:
+    resolution: {integrity: sha512-YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==}
+    dependencies:
+      tslib: 2.6.3
     dev: false
 
   /@szmarczak/http-timer@4.0.6:
@@ -3982,6 +4010,7 @@ packages:
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
     dependencies:
       '@types/node': 18.19.31
+    dev: false
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -3992,6 +4021,15 @@ packages:
     dependencies:
       '@types/node': 18.19.31
     dev: true
+
+  /@types/fs-extra@11.0.4:
+    resolution: {integrity: sha512-yTbItCNreRooED33qjunPthRcSjERP1r4MqCZc7wv0u2sUkzTFp45tgUfS5+r7FrZPdmCCNflLhVSP/o+SemsQ==}
+    requiresBuild: true
+    dependencies:
+      '@types/jsonfile': 6.1.4
+      '@types/node': 18.19.31
+    dev: false
+    optional: true
 
   /@types/glob@7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
@@ -4040,6 +4078,14 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
+  /@types/jsonfile@6.1.4:
+    resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
+    requiresBuild: true
+    dependencies:
+      '@types/node': 18.19.31
+    dev: false
+    optional: true
+
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
@@ -4072,6 +4118,14 @@ packages:
     resolution: {integrity: sha512-ArgCD39YpyyrtFKIqMDvjz79jto5fcI/SVUs2HwB+f0dAzq68yqOdyaSivLiLugSziTpNXLQrVb7RZFmdZzbhA==}
     dependencies:
       undici-types: 5.26.5
+
+  /@types/node@20.14.9:
+    resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
+    requiresBuild: true
+    dependencies:
+      undici-types: 5.26.5
+    dev: false
+    optional: true
 
   /@types/node@8.10.66:
     resolution: {integrity: sha512-tktOkFUA4kXx2hhhrB8bIFb5TbwzS4uOhKEmwiD+NoiL0qtP2OQ9mFldbgD4dV1djrlBYP6eBuQZiWjuHUpqFw==}
@@ -4130,10 +4184,21 @@ packages:
   /@types/triple-beam@1.3.5:
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
 
+  /@types/uuid@8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+    dev: false
+
   /@types/ws@7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
       '@types/node': 18.19.31
+    dev: false
+
+  /@types/ws@8.5.10:
+    resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
+    dependencies:
+      '@types/node': 18.19.31
+    dev: false
 
   /@types/yargs-parser@21.0.3:
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -4149,7 +4214,7 @@ packages:
     resolution: {integrity: sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==}
     dev: true
 
-  /@typescript-eslint/eslint-plugin@7.7.1(@typescript-eslint/parser@7.7.1)(eslint@8.57.0)(typescript@5.4.5):
+  /@typescript-eslint/eslint-plugin@7.7.1(@typescript-eslint/parser@7.7.1)(eslint@8.57.0)(typescript@5.5.3):
     resolution: {integrity: sha512-KwfdWXJBOviaBVhxO3p5TJiLpNuh2iyXyjmWN0f1nU87pwyvfS0EmjC6ukQVYVFJd/K1+0NWGPDXiyEyQorn0Q==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
@@ -4161,10 +4226,10 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.10.0
-      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
       '@typescript-eslint/scope-manager': 7.7.1
-      '@typescript-eslint/type-utils': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
-      '@typescript-eslint/utils': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/type-utils': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
+      '@typescript-eslint/utils': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
       '@typescript-eslint/visitor-keys': 7.7.1
       debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
@@ -4172,13 +4237,13 @@ packages:
       ignore: 5.3.1
       natural-compare: 1.4.0
       semver: 7.6.2
-      ts-api-utils: 1.3.0(typescript@5.4.5)
-      typescript: 5.4.5
+      ts-api-utils: 1.3.0(typescript@5.5.3)
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser@7.7.1(eslint@8.57.0)(typescript@5.4.5):
+  /@typescript-eslint/parser@7.7.1(eslint@8.57.0)(typescript@5.5.3):
     resolution: {integrity: sha512-vmPzBOOtz48F6JAGVS/kZYk4EkXao6iGrD838sp1w3NQQC0W8ry/q641KU4PrG7AKNAf56NOcR8GOpH8l9FPCw==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
@@ -4190,11 +4255,11 @@ packages:
     dependencies:
       '@typescript-eslint/scope-manager': 7.7.1
       '@typescript-eslint/types': 7.7.1
-      '@typescript-eslint/typescript-estree': 7.7.1(typescript@5.4.5)
+      '@typescript-eslint/typescript-estree': 7.7.1(typescript@5.5.3)
       '@typescript-eslint/visitor-keys': 7.7.1
       debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
-      typescript: 5.4.5
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4215,7 +4280,7 @@ packages:
       '@typescript-eslint/visitor-keys': 7.7.1
     dev: true
 
-  /@typescript-eslint/type-utils@7.7.1(eslint@8.57.0)(typescript@5.4.5):
+  /@typescript-eslint/type-utils@7.7.1(eslint@8.57.0)(typescript@5.5.3):
     resolution: {integrity: sha512-ZksJLW3WF7o75zaBPScdW1Gbkwhd/lyeXGf1kQCxJaOeITscoSl0MjynVvCzuV5boUz/3fOI06Lz8La55mu29Q==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
@@ -4225,12 +4290,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/typescript-estree': 7.7.1(typescript@5.4.5)
-      '@typescript-eslint/utils': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/typescript-estree': 7.7.1(typescript@5.5.3)
+      '@typescript-eslint/utils': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
       debug: 4.3.4(supports-color@8.1.1)
       eslint: 8.57.0
-      ts-api-utils: 1.3.0(typescript@5.4.5)
-      typescript: 5.4.5
+      ts-api-utils: 1.3.0(typescript@5.5.3)
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4245,7 +4310,7 @@ packages:
     engines: {node: ^18.18.0 || >=20.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree@5.62.0(typescript@5.4.5):
+  /@typescript-eslint/typescript-estree@5.62.0(typescript@5.5.3):
     resolution: {integrity: sha512-CmcQ6uY7b9y694lKdRB8FEel7JbU/40iSAPomu++SjLMntB+2Leay2LO6i8VnJk58MtE9/nQSFIH6jpyRWyYzA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4260,13 +4325,13 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.0
-      tsutils: 3.21.0(typescript@5.4.5)
-      typescript: 5.4.5
+      tsutils: 3.21.0(typescript@5.5.3)
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/typescript-estree@7.7.1(typescript@5.4.5):
+  /@typescript-eslint/typescript-estree@7.7.1(typescript@5.5.3):
     resolution: {integrity: sha512-CXe0JHCXru8Fa36dteXqmH2YxngKJjkQLjxzoj6LYwzZ7qZvgsLSc+eqItCrqIop8Vl2UKoAi0StVWu97FQZIQ==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
@@ -4282,13 +4347,13 @@ packages:
       is-glob: 4.0.3
       minimatch: 9.0.4
       semver: 7.6.2
-      ts-api-utils: 1.3.0(typescript@5.4.5)
-      typescript: 5.4.5
+      ts-api-utils: 1.3.0(typescript@5.5.3)
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@5.62.0(eslint@8.57.0)(typescript@5.4.5):
+  /@typescript-eslint/utils@5.62.0(eslint@8.57.0)(typescript@5.5.3):
     resolution: {integrity: sha512-n8oxjeb5aIbPFEtmQxQYOLI0i9n5ySBEY/ZEHHZqKQSFnxio1rv6dthascc9dLuwrL0RC5mPCxB7vnAVGAYWAQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4299,7 +4364,7 @@ packages:
       '@types/semver': 7.5.8
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
-      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.4.5)
+      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.5.3)
       eslint: 8.57.0
       eslint-scope: 5.1.1
       semver: 7.6.0
@@ -4308,7 +4373,7 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/utils@7.7.1(eslint@8.57.0)(typescript@5.4.5):
+  /@typescript-eslint/utils@7.7.1(eslint@8.57.0)(typescript@5.5.3):
     resolution: {integrity: sha512-QUvBxPEaBXf41ZBbaidKICgVL8Hin0p6prQDu6bbetWo39BKbWJxRsErOzMNT1rXvTll+J7ChrbmMCXM9rsvOQ==}
     engines: {node: ^18.18.0 || >=20.0.0}
     peerDependencies:
@@ -4319,7 +4384,7 @@ packages:
       '@types/semver': 7.5.8
       '@typescript-eslint/scope-manager': 7.7.1
       '@typescript-eslint/types': 7.7.1
-      '@typescript-eslint/typescript-estree': 7.7.1(typescript@5.4.5)
+      '@typescript-eslint/typescript-estree': 7.7.1(typescript@5.5.3)
       eslint: 8.57.0
       semver: 7.6.2
     transitivePeerDependencies:
@@ -4371,6 +4436,7 @@ packages:
     dependencies:
       jsonparse: 1.3.1
       through: 2.3.8
+    dev: false
 
   /abbrev@1.0.9:
     resolution: {integrity: sha512-LEyx4aLEC3x6T0UguF6YILf+ntvmOaWsVfENmIW0E9H09vKlLDGelMjjSm0jkDHALj8A8quZ/HapKNigzwge+Q==}
@@ -4429,6 +4495,7 @@ packages:
     engines: {node: '>= 8.0.0'}
     dependencies:
       humanize-ms: 1.2.1
+    dev: false
 
   /aggregate-error@3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
@@ -4894,6 +4961,9 @@ packages:
     dependencies:
       safe-buffer: 5.2.1
 
+  /base-x@4.0.0:
+    resolution: {integrity: sha512-FuwxlW4H5kh37X/oW59pwTzzTKRzfrrQwhmyspRM7swOEZcHtDZSCt45U6oKgtuFE+WYPblePMVIPR4RZrh/hw==}
+
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
@@ -4919,6 +4989,7 @@ packages:
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
+    dev: false
 
   /bignumber.js@9.1.2:
     resolution: {integrity: sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==}
@@ -4999,6 +5070,7 @@ packages:
       bn.js: 5.2.1
       bs58: 4.0.1
       text-encoding-utf-8: 1.0.2
+    dev: false
 
   /boxen@5.1.2:
     resolution: {integrity: sha512-9gYgQKXx+1nP8mP7CzFyaUARhg7D3n1dF/FnErWmu9l6JvGpNUN278h0aSb+QjoiKSWG+iZ3uHrcqk0qrY9RQQ==}
@@ -5079,6 +5151,11 @@ packages:
     dependencies:
       base-x: 3.0.9
 
+  /bs58@5.0.0:
+    resolution: {integrity: sha512-r+ihvQJvahgYT50JD05dyJNKlmmSlMoOGwn1lCcEzanPglg7TxYjioQUYehQ9mAR/+hOSd2jRc/Z2y5UxBymvQ==}
+    dependencies:
+      base-x: 4.0.0
+
   /bs58check@2.1.2:
     resolution: {integrity: sha512-0TS1jicxdU09dwJMNZtVAfzPi6Q6QeN0pM1Fkzrjn+XYHvzMKPU3pHVpva+769iNVSfIYWf7LJ6WR+BuuMf8cA==}
     dependencies:
@@ -5140,6 +5217,7 @@ packages:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
+    dev: false
 
   /bufferutil@4.0.8:
     resolution: {integrity: sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==}
@@ -5621,6 +5699,7 @@ packages:
 
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    dev: false
 
   /commander@3.0.2:
     resolution: {integrity: sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==}
@@ -5763,13 +5842,29 @@ packages:
       typescript: 5.4.5
     dev: true
 
+  /cosmiconfig@8.3.6(typescript@5.5.3):
+    resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      typescript: '>=4.9.5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      import-fresh: 3.3.0
+      js-yaml: 4.1.0
+      parse-json: 5.2.0
+      path-type: 4.0.0
+      typescript: 5.5.3
+    dev: true
+
   /cpu-features@0.0.10:
     resolution: {integrity: sha512-9IkYqtX3YHPCzoVg1Py+o9057a3i0fp7S530UWokCSaFVTc7CwXPRiOjRjBQQ18ZCNafx78YfnG+HALxtVmOGA==}
     engines: {node: '>=10.0.0'}
     requiresBuild: true
     dependencies:
       buildcheck: 0.0.6
-      nan: 2.19.0
+      nan: 2.20.0
     dev: true
     optional: true
 
@@ -5876,7 +5971,7 @@ packages:
     engines: {node: '>=0.12'}
     dependencies:
       es5-ext: github.com/LayerZero-Labs/es5-ext/7e360296a7e27176e240bc063b32f5ada55f9aa6
-      type: 2.7.2
+      type: 2.7.3
     dev: true
 
   /dashdash@1.14.1:
@@ -5957,6 +6052,18 @@ packages:
     dependencies:
       ms: 2.1.2
       supports-color: 8.1.1
+
+  /debug@4.3.5:
+    resolution: {integrity: sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
+    dev: true
 
   /decamelize-keys@1.1.1:
     resolution: {integrity: sha512-WiPxgEirIV0/eIOMcnFBA3/IJZAZqKnwAwWyvvdi4lsr1WCN22nhdf/3db3DoZcUjTV2SqfzIwNyp6y2xs3nmg==}
@@ -6076,6 +6183,7 @@ packages:
   /delay@5.0.0:
     resolution: {integrity: sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==}
     engines: {node: '>=10'}
+    dev: false
 
   /delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -6447,6 +6555,7 @@ packages:
     resolution: {integrity: sha512-C+d6UdsYDk0lMebHNR4S2NybQMMngAOnOwYBQjTOiv0MkoJMP0Myw2mgpDLBcpfCmRLxyFqYhS/CfOENq4SJhQ==}
     dependencies:
       es6-promise: 4.2.8
+    dev: false
 
   /es6-symbol@3.1.4:
     resolution: {integrity: sha512-U9bFFjX8tFiATgtkJ1zg25+KviIXpgRvRHS8sau3GfhVzThRQrOeksPeT0BWW2MNZs1OEWJ1DPXOQMn0KKRkvg==}
@@ -6464,27 +6573,27 @@ packages:
     dependencies:
       esbuild: 0.19.12
       find-up: 5.0.0
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
-  /esbuild-plugin-clean@1.0.1(esbuild@0.21.3):
+  /esbuild-plugin-clean@1.0.1(esbuild@0.23.0):
     resolution: {integrity: sha512-ul606g0wX6oeobBgi3EqpZtCBCwNwCDivvnshsNS5pUsRylKoxUnDqK0ZIyPinlMbP6s8Opc9y2zOeY1Plhe8Q==}
     peerDependencies:
       esbuild: '>= 0.14.0'
     dependencies:
       chalk: 4.1.2
       del: 6.1.1
-      esbuild: 0.21.3
+      esbuild: 0.23.0
     dev: true
 
-  /esbuild-plugin-copy@2.1.1(esbuild@0.21.3):
+  /esbuild-plugin-copy@2.1.1(esbuild@0.23.0):
     resolution: {integrity: sha512-Bk66jpevTcV8KMFzZI1P7MZKZ+uDcrZm2G2egZ2jNIvVnivDpodZI+/KnpL3Jnap0PBdIHU7HwFGB8r+vV5CVw==}
     peerDependencies:
       esbuild: '>= 0.14.0'
     dependencies:
       chalk: 4.1.2
       chokidar: 3.6.0
-      esbuild: 0.21.3
+      esbuild: 0.23.0
       fs-extra: 10.1.0
       globby: 11.1.0
     dev: true
@@ -6520,35 +6629,36 @@ packages:
       '@esbuild/win32-x64': 0.19.12
     dev: true
 
-  /esbuild@0.21.3:
-    resolution: {integrity: sha512-Kgq0/ZsAPzKrbOjCQcjoSmPoWhlcVnGAUo7jvaLHoxW1Drto0KGkR1xBNg2Cp43b9ImvxmPEJZ9xkfcnqPsfBw==}
-    engines: {node: '>=12'}
+  /esbuild@0.23.0:
+    resolution: {integrity: sha512-1lvV17H2bMYda/WaFb2jLPeHU3zml2k4/yagNMG8Q/YtfMjCwEUZa2eXXMgZTVSL5q1n4H7sQ0X6CdJDqqeCFA==}
+    engines: {node: '>=18'}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      '@esbuild/aix-ppc64': 0.21.3
-      '@esbuild/android-arm': 0.21.3
-      '@esbuild/android-arm64': 0.21.3
-      '@esbuild/android-x64': 0.21.3
-      '@esbuild/darwin-arm64': 0.21.3
-      '@esbuild/darwin-x64': 0.21.3
-      '@esbuild/freebsd-arm64': 0.21.3
-      '@esbuild/freebsd-x64': 0.21.3
-      '@esbuild/linux-arm': 0.21.3
-      '@esbuild/linux-arm64': 0.21.3
-      '@esbuild/linux-ia32': 0.21.3
-      '@esbuild/linux-loong64': 0.21.3
-      '@esbuild/linux-mips64el': 0.21.3
-      '@esbuild/linux-ppc64': 0.21.3
-      '@esbuild/linux-riscv64': 0.21.3
-      '@esbuild/linux-s390x': 0.21.3
-      '@esbuild/linux-x64': 0.21.3
-      '@esbuild/netbsd-x64': 0.21.3
-      '@esbuild/openbsd-x64': 0.21.3
-      '@esbuild/sunos-x64': 0.21.3
-      '@esbuild/win32-arm64': 0.21.3
-      '@esbuild/win32-ia32': 0.21.3
-      '@esbuild/win32-x64': 0.21.3
+      '@esbuild/aix-ppc64': 0.23.0
+      '@esbuild/android-arm': 0.23.0
+      '@esbuild/android-arm64': 0.23.0
+      '@esbuild/android-x64': 0.23.0
+      '@esbuild/darwin-arm64': 0.23.0
+      '@esbuild/darwin-x64': 0.23.0
+      '@esbuild/freebsd-arm64': 0.23.0
+      '@esbuild/freebsd-x64': 0.23.0
+      '@esbuild/linux-arm': 0.23.0
+      '@esbuild/linux-arm64': 0.23.0
+      '@esbuild/linux-ia32': 0.23.0
+      '@esbuild/linux-loong64': 0.23.0
+      '@esbuild/linux-mips64el': 0.23.0
+      '@esbuild/linux-ppc64': 0.23.0
+      '@esbuild/linux-riscv64': 0.23.0
+      '@esbuild/linux-s390x': 0.23.0
+      '@esbuild/linux-x64': 0.23.0
+      '@esbuild/netbsd-x64': 0.23.0
+      '@esbuild/openbsd-arm64': 0.23.0
+      '@esbuild/openbsd-x64': 0.23.0
+      '@esbuild/sunos-x64': 0.23.0
+      '@esbuild/win32-arm64': 0.23.0
+      '@esbuild/win32-ia32': 0.23.0
+      '@esbuild/win32-x64': 0.23.0
     dev: true
 
   /escalade@3.1.2:
@@ -6651,7 +6761,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
       debug: 3.2.7
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
@@ -6670,7 +6780,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser': 7.7.1(eslint@8.57.0)(typescript@5.5.3)
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
       array.prototype.flat: 1.3.2
@@ -6695,13 +6805,13 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-jest-extended@2.0.0(eslint@8.57.0)(typescript@5.4.5):
+  /eslint-plugin-jest-extended@2.0.0(eslint@8.57.0)(typescript@5.5.3):
     resolution: {integrity: sha512-nMhVVsVcG/+Q6FMshql35WBxwx8xlBhxKgAG08WP3BYWfXrp28oxLpJVu9JSbMpfmfKGVrHwMYJGfPLRKlGB8w==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0
     dependencies:
-      '@typescript-eslint/utils': 5.62.0(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/utils': 5.62.0(eslint@8.57.0)(typescript@5.5.3)
       eslint: 8.57.0
     transitivePeerDependencies:
       - supports-color
@@ -6739,7 +6849,7 @@ packages:
       '@typescript-eslint/eslint-plugin':
         optional: true
     dependencies:
-      '@typescript-eslint/eslint-plugin': 7.7.1(@typescript-eslint/parser@7.7.1)(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/eslint-plugin': 7.7.1(@typescript-eslint/parser@7.7.1)(eslint@8.57.0)(typescript@5.5.3)
       eslint: 8.57.0
       eslint-rule-composer: 0.3.0
     dev: true
@@ -7060,13 +7170,11 @@ packages:
       is-hex-prefixed: 1.0.0
       strip-hex-prefix: 1.0.0
     dev: true
+    bundledDependencies: false
 
   /eventemitter3@4.0.4:
     resolution: {integrity: sha512-rlaVLnVxtxvoyLsQQFBx53YmXHDxRIzzTLbdfxqi4yocpSjAxXwkU0cScM5JgSKMqEhrZpnvQ2D9gjylR0AimQ==}
     dev: true
-
-  /eventemitter3@4.0.7:
-    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
 
   /eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
@@ -7181,7 +7289,7 @@ packages:
   /ext@1.7.0:
     resolution: {integrity: sha512-6hxeJYaL110a9b5TEJSj0gojyHQAmA2ch5Os+ySCiA1QGdS697XWY1pzsrSjqA9LDEEgdB/KypIlR59RcLuHYw==}
     dependencies:
-      type: 2.7.2
+      type: 2.7.3
     dev: true
 
   /extend@3.0.2:
@@ -7209,6 +7317,7 @@ packages:
   /eyes@0.1.8:
     resolution: {integrity: sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==}
     engines: {node: '> 0.1.90'}
+    dev: false
 
   /fast-base64-decode@1.0.0:
     resolution: {integrity: sha512-qwaScUgUGBYeDNRnbc/KyllVU88Jk1pRHPStuF/lO7B0/RTRLj7U0lkdTAutlBblY08rwZDff6tNU9cjv6j//Q==}
@@ -7250,6 +7359,7 @@ packages:
 
   /fast-stable-stringify@1.0.0:
     resolution: {integrity: sha512-wpYMUmFu5f00Sm0cj2pfivpmawLZ0NKdviQ4w9zJeR8JVtOpOxHmLaJuj0vxvGqMJQWyP/COUkF75/57OKyRag==}
+    dev: false
 
   /fastq@1.17.1:
     resolution: {integrity: sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==}
@@ -7382,6 +7492,15 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
       signal-exit: 4.1.0
+    dev: true
+
+  /foreground-child@3.2.1:
+    resolution: {integrity: sha512-PXUUyLqrR2XCWICfv6ukppP96sdFwWbNEnfEMt7jNsISjMsvaLNinAHNDYyvkyU+SZG2BTSbT5NjG+vZslfGTA==}
+    engines: {node: '>=14'}
+    dependencies:
+      cross-spawn: 7.0.3
+      signal-exit: 4.1.0
+    dev: false
 
   /forever-agent@0.6.1:
     resolution: {integrity: sha512-j0KLYPhm6zeac4lz3oJ3o65qvgQCcPubiyotZrXqEaG4hNagNYO8qdlUrX5vwqv9ohqeT/Z3j6+yW067yWWdUw==}
@@ -7688,15 +7807,16 @@ packages:
       path-scurry: 1.10.2
     dev: true
 
-  /glob@10.3.16:
-    resolution: {integrity: sha512-JDKXl1DiuuHJ6fVS2FXjownaavciiHNUU4mOvV/B793RLh05vZL1rcPnCSaOgv1hDT6RDlY7AB7ZUvFYAtPgAw==}
+  /glob@10.4.2:
+    resolution: {integrity: sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==}
     engines: {node: '>=16 || 14 >=14.18'}
     hasBin: true
     dependencies:
-      foreground-child: 3.1.1
-      jackspeak: 3.1.2
-      minimatch: 9.0.4
-      minipass: 7.1.1
+      foreground-child: 3.2.1
+      jackspeak: 3.4.0
+      minimatch: 9.0.5
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.0
       path-scurry: 1.11.1
     dev: false
 
@@ -7924,7 +8044,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.17.4
+      uglify-js: 3.18.0
     dev: true
 
   /har-schema@2.0.0:
@@ -8298,6 +8418,7 @@ packages:
     resolution: {integrity: sha512-Fl70vYtsAFb/C06PTS9dZBo7ihau+Tu/DNCk/OyHhea07S+aeMWpFFkUaXRa8fI+ScZbEI8dfSxwY7gxZ9SAVQ==}
     dependencies:
       ms: 2.1.3
+    dev: false
 
   /husky@8.0.3:
     resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
@@ -8433,7 +8554,7 @@ packages:
       type-fest: 0.12.0
       widest-line: 3.1.0
       wrap-ansi: 6.2.0
-      ws: 7.5.9
+      ws: 7.5.10
       yoga-layout-prebuilt: 1.10.0
     transitivePeerDependencies:
       - bufferutil
@@ -8744,12 +8865,13 @@ packages:
       - encoding
     dev: true
 
-  /isomorphic-ws@4.0.1(ws@7.5.9):
+  /isomorphic-ws@4.0.1(ws@7.5.10):
     resolution: {integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==}
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 7.5.9
+      ws: 7.5.10
+    dev: false
 
   /isstream@0.1.2:
     resolution: {integrity: sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==}
@@ -8823,8 +8945,8 @@ packages:
       '@pkgjs/parseargs': 0.11.0
     dev: true
 
-  /jackspeak@3.1.2:
-    resolution: {integrity: sha512-kWmLKn2tRtfYMF/BakihVVRzBKOxz4gJMiL2Rj91WnAB5TPZumSH99R/Yf1qE1u4uRimvCSJfm6hnxohXeEXjQ==}
+  /jackspeak@3.4.0:
+    resolution: {integrity: sha512-JVYhQnN59LVPFCEcVa2C3CrEKYacvjRfqIQl+h8oi91aLYQVWRYbxjPcv1bUiUy/kLmQaANrYfNMCO3kuEDHfw==}
     engines: {node: '>=14'}
     dependencies:
       '@isaacs/cliui': 8.0.2
@@ -8845,13 +8967,14 @@ packages:
       delay: 5.0.0
       es6-promisify: 5.0.0
       eyes: 0.1.8
-      isomorphic-ws: 4.0.1(ws@7.5.9)
+      isomorphic-ws: 4.0.1(ws@7.5.10)
       json-stringify-safe: 5.0.1
       uuid: 8.3.2
-      ws: 7.5.9
+      ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: false
 
   /jest-changed-files@29.7.0:
     resolution: {integrity: sha512-fEArFiwf1BpQ+4bXSprcDc3/x4HSzL4al2tozwVpDFpsxALjLYdyiIK4e5Vz66GQJIbXJ82+35PtysofptNX2w==}
@@ -9635,8 +9758,8 @@ packages:
     engines: {node: 14 || >=16.14}
     dev: true
 
-  /lru-cache@10.2.2:
-    resolution: {integrity: sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==}
+  /lru-cache@10.3.0:
+    resolution: {integrity: sha512-CQl19J/g+Hbjbv4Y3mFNNXFEL/5t/KCg8POCuUqd4rMKjGG+j1ybER83hxV58zL+dFI1PTkt3GNFSHRt+d8qEQ==}
     engines: {node: 14 || >=16.14}
     dev: false
 
@@ -9866,6 +9989,14 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1
+    dev: true
+
+  /minimatch@9.0.5:
+    resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
+    engines: {node: '>=16 || 14 >=14.17'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: false
 
   /minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
@@ -9892,8 +10023,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dev: true
 
-  /minipass@7.1.1:
-    resolution: {integrity: sha512-UZ7eQ+h8ywIRAW1hIEl2AqdwzJucU/Kp59+8kkZeSvafXhZjul247BvIJjEVFVeON6d7lM46XX1HXCduKAS8VA==}
+  /minipass@7.1.2:
+    resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
     dev: false
 
@@ -10041,8 +10172,8 @@ packages:
       thenify-all: 1.6.0
     dev: true
 
-  /nan@2.19.0:
-    resolution: {integrity: sha512-nO1xXxfh/RWNxfd/XPfbIfFk5vgLsAxUR9y5O0cHMJu/AW9U95JLXqthYHjEp+8gQ5p96K9jUp8nbVOxCdRbtw==}
+  /nan@2.20.0:
+    resolution: {integrity: sha512-bk3gXBZDGILuuo/6sKtr0DQmSThYHLtNCdSdXk9YkxD/jK6X2vmCyyXBBxyqZ4XcnzTyYEAThfX3DCEnLf6igw==}
     requiresBuild: true
     dev: true
     optional: true
@@ -10142,7 +10273,7 @@ packages:
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
-      nan: 2.19.0
+      nan: 2.20.0
       node-abi: 2.30.1
       prebuild-install: 5.3.6
     dev: true
@@ -10492,6 +10623,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /package-json-from-dist@1.0.0:
+    resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
+    dev: false
+
   /package-json@8.1.1:
     resolution: {integrity: sha512-cbH9IAIJHNj9uXi196JVsRlt7cHKak6u/e6AkL/bkRelZ7rlL3X1YKxsZwa36xipOEKAsdtmaG6aAJoM1fx2zA==}
     engines: {node: '>=14.16'}
@@ -10580,8 +10715,8 @@ packages:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
     engines: {node: '>=16 || 14 >=14.18'}
     dependencies:
-      lru-cache: 10.2.2
-      minipass: 7.1.1
+      lru-cache: 10.3.0
+      minipass: 7.1.2
     dev: false
 
   /path-to-regexp@0.1.7:
@@ -10956,7 +11091,7 @@ packages:
     resolution: {integrity: sha512-cq/o30z9W2Wb4rzBefjv5fBalHU0rJGZCHAkf/RHSBWSSYwh8PlQTqqOJmgIIbBtpj27T6FIPXeomIjZtCNVqA==}
     dependencies:
       shell-quote: 1.8.1
-      ws: 7.5.9
+      ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -11316,15 +11451,20 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /rpc-websockets@8.0.1:
-    resolution: {integrity: sha512-PptrPRK40uQvifq5sCcObmqInVcZXhy+RRrirzdE5KUPvDI47y1wPvfckD2QzqngOU9xaPW/dT+G+b+wj6M1MQ==}
+  /rpc-websockets@9.0.2:
+    resolution: {integrity: sha512-YzggvfItxMY3Lwuax5rC18inhbjJv9Py7JXRHxTIi94JOLrqBsSsUUc5bbl5W6c11tXhdfpDPK0KzBhoGe8jjw==}
     dependencies:
-      eventemitter3: 4.0.7
+      '@swc/helpers': 0.5.11
+      '@types/uuid': 8.3.4
+      '@types/ws': 8.5.10
+      buffer: 6.0.3
+      eventemitter3: 5.0.1
       uuid: 8.3.2
-      ws: 8.17.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      ws: 8.17.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
+    dev: false
 
   /run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -11768,6 +11908,34 @@ packages:
       - typescript
     dev: true
 
+  /solhint@4.5.4(typescript@5.5.3):
+    resolution: {integrity: sha512-Cu1XiJXub2q1eCr9kkJ9VPv1sGcmj3V7Zb76B0CoezDOB9bu3DxKIFFH7ggCl9fWpEPD6xBmRLfZrYijkVmujQ==}
+    hasBin: true
+    dependencies:
+      '@solidity-parser/parser': 0.18.0
+      ajv: 6.12.6
+      antlr4: 4.13.1-patch-1
+      ast-parents: 0.0.1
+      chalk: 4.1.2
+      commander: 10.0.1
+      cosmiconfig: 8.3.6(typescript@5.5.3)
+      fast-diff: 1.3.0
+      glob: 8.1.0
+      ignore: 5.3.1
+      js-yaml: 4.1.0
+      latest-version: 7.0.0
+      lodash: 4.17.21
+      pluralize: 8.0.0
+      semver: 7.6.2
+      strip-ansi: 6.0.1
+      table: 6.8.2
+      text-table: 0.2.0
+    optionalDependencies:
+      prettier: 2.8.8
+    transitivePeerDependencies:
+      - typescript
+    dev: true
+
   /solidity-ast@0.4.56:
     resolution: {integrity: sha512-HgmsA/Gfklm/M8GFbCX/J1qkVH0spXHgALCNZ8fA8x5X+MFdn/8CP2gr5OVyXjXw6RZTPC/Sxl2RUDQOXyNMeA==}
     dependencies:
@@ -11915,7 +12083,7 @@ packages:
       bcrypt-pbkdf: 1.0.2
     optionalDependencies:
       cpu-features: 0.0.10
-      nan: 2.19.0
+      nan: 2.20.0
     dev: true
 
   /sshpk@1.18.0:
@@ -12159,6 +12327,7 @@ packages:
   /superstruct@1.0.4:
     resolution: {integrity: sha512-7JpaAoX2NGyoFlI9NBh66BQXGONc+uE+MRS5i2iOBKuS4e+ccgMDjATgZldkah+33DakBxDHiss9kvUcGAO8UQ==}
     engines: {node: '>=14.0.0'}
+    dev: false
 
   /supports-color@3.2.3:
     resolution: {integrity: sha512-Jds2VIYDrlp5ui7t8abHN2bjAu4LV/q4N2KivFPpGH0lrka0BMq/33AmECUXlKPcHigkNaqfXRENFju+rlcy+A==}
@@ -12239,7 +12408,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.2
+      tslib: 2.6.3
     dev: true
 
   /table-layout@1.0.2:
@@ -12351,6 +12520,7 @@ packages:
 
   /text-encoding-utf-8@1.0.2:
     resolution: {integrity: sha512-8bw4MY9WjdsD2aMtO0OzOCY3pXGYNx2d2FfHRVUKkiCPDWjKuOlhLVASS+pD7VkLTVjW268LYJHwsnPFlBpbAg==}
+    dev: false
 
   /text-hex@1.0.0:
     resolution: {integrity: sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg==}
@@ -12472,13 +12642,13 @@ packages:
     resolution: {integrity: sha512-aZbgViZrg1QNcG+LULa7nhZpJTZSLm/mXnHXnbAbjmN5aSa0y7V+wvv6+4WaBtpISJzThKy+PIPxc1Nq1EJ9mg==}
     engines: {node: '>= 14.0.0'}
 
-  /ts-api-utils@1.3.0(typescript@5.4.5):
+  /ts-api-utils@1.3.0(typescript@5.5.3):
     resolution: {integrity: sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==}
     engines: {node: '>=16'}
     peerDependencies:
       typescript: '>=4.2.0'
     dependencies:
-      typescript: 5.4.5
+      typescript: 5.5.3
     dev: true
 
   /ts-command-line-args@2.5.1:
@@ -12596,6 +12766,9 @@ packages:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: true
 
+  /tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+
   /tsort@0.0.1:
     resolution: {integrity: sha512-Tyrf5mxF8Ofs1tNoxA13lFeZ2Zrbd6cKbuH3V+MQ5sb6DtBj5FjrXVsRWT8YvNAQTqNoz66dz1WsbigI22aEnw==}
     dev: true
@@ -12639,14 +12812,14 @@ packages:
       - ts-node
     dev: true
 
-  /tsutils@3.21.0(typescript@5.4.5):
+  /tsutils@3.21.0(typescript@5.5.3):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 5.4.5
+      typescript: 5.5.3
     dev: true
 
   /tty-table@4.2.3:
@@ -12801,8 +12974,8 @@ packages:
       mime-types: 2.1.35
     dev: true
 
-  /type@2.7.2:
-    resolution: {integrity: sha512-dzlvlNlt6AXU7EBSfpAscydQ7gXB+pPGsPnfJnZpiNJBDj7IaJzQlBZYGdEi4R9HmPdBv2XmWJ6YUtoTa7lmCw==}
+  /type@2.7.3:
+    resolution: {integrity: sha512-8j+1QmAbPvLZow5Qpi6NCaN8FB60p/6x8/vfNqOk/hC+HuvFZhL4+WfekuhQLiqFZXOgQdrs3B+XxEmCc6b3FQ==}
     dev: true
 
   /typechain@8.3.2(typescript@5.4.5):
@@ -12886,6 +13059,12 @@ packages:
     hasBin: true
     dev: true
 
+  /typescript@5.5.3:
+    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
+
   /typical@4.0.0:
     resolution: {integrity: sha512-VAH4IvQ7BDFYglMd7BPRDfLgxZZX4O4TFcRDA6EN5X7erNJJq+McIEp8np9aVtxrCJ6qx4GTYVfOWNjcqwZgRw==}
     engines: {node: '>=8'}
@@ -12900,8 +13079,8 @@ packages:
     resolution: {integrity: sha512-fqLNg8vpvLOD5J/z4B6wpPg4Lvowz1nJ9xdHcCzdUPKcFE/qNCceV2gNZxSJd5vhAZemHr/K/hbzVA0zxB5mkg==}
     dev: true
 
-  /uglify-js@3.17.4:
-    resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
+  /uglify-js@3.18.0:
+    resolution: {integrity: sha512-SyVVbcNBCk0dzr9XL/R/ySrmYf0s372K6/hFklzgcp2lBFyXtw4I7BOdDjlLhE1aVqaI/SHWXWmYdlZxuyF38A==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
@@ -13440,7 +13619,7 @@ packages:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     requiresBuild: true
     dependencies:
-      string-width: 4.2.3
+      string-width: 1.0.2
     dev: true
     optional: true
 
@@ -13569,6 +13748,18 @@ packages:
       utf-8-validate:
         optional: true
 
+  /ws@7.5.10:
+    resolution: {integrity: sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==}
+    engines: {node: '>=8.3.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   /ws@7.5.9:
     resolution: {integrity: sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==}
     engines: {node: '>=8.3.0'}
@@ -13580,9 +13771,10 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dev: true
 
-  /ws@8.17.0(bufferutil@4.0.8)(utf-8-validate@5.0.10):
-    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
+  /ws@8.17.1(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+    resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -13595,6 +13787,7 @@ packages:
     dependencies:
       bufferutil: 4.0.8
       utf-8-validate: 5.0.10
+    dev: false
 
   /xhr-request-promise@0.1.3:
     resolution: {integrity: sha512-YUBytBsuwgitWtdRzXDDkWAXzhdGB8bYm0sSzMPZT7Z2MBjMSTHFsyCT1yCRATY+XC69DUrQraRAEgcoCRaIPg==}
@@ -13760,6 +13953,15 @@ packages:
     dependencies:
       ethers: 5.7.2
 
+  /zksync-ethers@5.9.0(ethers@5.7.2):
+    resolution: {integrity: sha512-VnRUesrBcPBmiTYTAp+WreIazK2qCIJEHE7j8BiK+cDApHzjAfIXX+x8SXXJpG1npGJANxiJKnPwA5wjGZtCRg==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      ethers: ~5.7.0
+    dependencies:
+      ethers: 5.7.2
+    dev: true
+
   /zksync-web3@0.14.4(ethers@5.7.2):
     resolution: {integrity: sha512-kYehMD/S6Uhe1g434UnaMN+sBr9nQm23Ywn0EUP5BfQCsbjcr3ORuS68PosZw8xUTu3pac7G6YMSnNHk+fwzvg==}
     deprecated: This package has been deprecated in favor of zksync-ethers@5.0.0
@@ -13772,6 +13974,15 @@ packages:
   /zod@3.22.5:
     resolution: {integrity: sha512-HqnGsCdVZ2xc0qWPLdO25WnseXThh0kEYKIdV5F/hTHO75hNZFp8thxSeHhiPrHZKrFTo1SOgkAj9po5bexZlw==}
     dev: true
+
+  /zx@8.1.3:
+    resolution: {integrity: sha512-fA44CRlggDOKeqt66aMwzLj1tb0zEQJmIjsSDXpmNjRRKaLFYkpeGE/zXnO05sJvSuzAlbVM50zexJJGMrIvuQ==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+    optionalDependencies:
+      '@types/fs-extra': 11.0.4
+      '@types/node': 20.14.9
+    dev: false
 
   github.com/LayerZero-Labs/es5-ext/7e360296a7e27176e240bc063b32f5ada55f9aa6:
     resolution: {tarball: https://codeload.github.com/LayerZero-Labs/es5-ext/tar.gz/7e360296a7e27176e240bc063b32f5ada55f9aa6}
