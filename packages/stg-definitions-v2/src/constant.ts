@@ -462,6 +462,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
 
 export const OFT_WRAPPER: OftWrapperConfig = {
     bps: 2n,
+    callerBpsCap: 300n,
     // Any networks defined here will be picked up by the deploy script
     networks: {
         //

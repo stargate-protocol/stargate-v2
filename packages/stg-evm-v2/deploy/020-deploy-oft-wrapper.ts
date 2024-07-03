@@ -23,7 +23,8 @@ const deploy: DeployFunction = async (hre) => {
     }
 
     const bps = networkConfig.bps ?? OFT_WRAPPER.bps
-    logger.info(`Setting BPS to ${bps}`)
+    const callerBpsCap = networkConfig.callerBpsCap ?? OFT_WRAPPER.callerBpsCap
+    logger.info(`Setting BPS to ${bps} and callerBpsCap to ${callerBpsCap}`)
 
     const deploy = createDeploy(hre)
     const feeData = await getFeeData(hre)
@@ -32,7 +33,7 @@ const deploy: DeployFunction = async (hre) => {
     await deploy('OFTWrapper', {
         from: deployer,
         log: true,
-        args: [bps],
+        args: [bps, callerBpsCap],
         waitConfirmations: 1,
         skipIfAlreadyDeployed: true,
         ...feeData,

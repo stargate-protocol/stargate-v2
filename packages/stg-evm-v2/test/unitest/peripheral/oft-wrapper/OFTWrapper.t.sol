@@ -6,6 +6,8 @@ import { console, Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test
 
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+import { ICommonOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/ICommonOFT.sol";
+
 import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
 import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
@@ -25,7 +27,9 @@ import { OFTMock as OFTv1Mock } from "./mocks/oft/OFTMock.sol";
 contract OFTWrapperTest is Test, LzTestHelper {
     using OptionsBuilder for bytes;
 
-    bytes internal constant INCORRECT_BPS_ERROR = "OFTWrapper: defaultBps >= 100%";
+    bytes internal constant EXCESSIVE_DEFAULT_BPS_CONFIG_ERROR = "OFTWrapper: defaultBps >= 100%";
+    bytes internal constant EXCESSIVE_CALLER_BPS_CONFIG_ERROR = "OFTWrapper: callerBpsCap >= 100%";
+    bytes internal constant EXCESSIVE_CALLER_BPS_ERROR = "OFTWrapper: callerBps > callerBpsCap";
 
     string internal ERC20_MOCK_NAME = "ERC20Mock";
     string internal ERC20_MOCK_SYMBOL = "ERC";
@@ -37,6 +41,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     uint32 internal constant B_EID = 2;
 
     uint16 internal constant DEFAULT_BPS = 97;
+    uint256 internal constant DEFAULT_CALLER_BPS_CAP = type(uint256).max; // unset by default
 
     OFTWrapper internal oftWrapper;
 
@@ -72,7 +77,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         setUpEndpoints(NUM_ENDPOINTS);
 
         // 2. Create an OFTWrapper with defaultBps
-        oftWrapper = new OFTWrapper(DEFAULT_BPS);
+        oftWrapper = new OFTWrapper(DEFAULT_BPS, DEFAULT_CALLER_BPS_CAP);
 
         // 3. Create an Adapter on A_EID
         token = new ERC20Mock(ERC20_MOCK_NAME, ERC20_MOCK_SYMBOL);
@@ -88,13 +93,14 @@ contract OFTWrapperTest is Test, LzTestHelper {
         _setUpUsers();
     }
 
-    function test_constructor(uint16 _defaultBps) public {
+    function test_constructor(uint16 _defaultBps, uint16 _callerBpsCap) public {
         if (_defaultBps >= 10000) {
-            vm.expectRevert(INCORRECT_BPS_ERROR);
-            new OFTWrapper(_defaultBps);
+            vm.expectRevert(EXCESSIVE_DEFAULT_BPS_CONFIG_ERROR);
+            new OFTWrapper(_defaultBps, _callerBpsCap);
         } else {
-            OFTWrapper wrapper = new OFTWrapper(_defaultBps);
+            OFTWrapper wrapper = new OFTWrapper(_defaultBps, _callerBpsCap);
             assertEq(_defaultBps, wrapper.defaultBps());
+            assertEq(_callerBpsCap, wrapper.callerBpsCap());
         }
     }
 
@@ -203,6 +209,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function _assumeBps(uint16 _callerBps, uint16 _defaultBps) internal view {
         vm.assume(_callerBps + uint256(_defaultBps) < oftWrapper.BPS_DENOMINATOR() - 1000);
+        vm.assume(_callerBps <= oftWrapper.callerBpsCap());
     }
 
     function _removeDust(uint256 _amount, MockOFTAdapter _adapter) internal view returns (uint256) {
@@ -219,9 +226,9 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint16 _callerBps,
         uint16 _customBps,
         uint256 _bpsDenom
-    ) internal pure {
+    ) internal view {
         vm.assume(_defaultBps < _bpsDenom);
-        vm.assume(_callerBps < _bpsDenom);
+        vm.assume(_callerBps < _bpsDenom && _callerBps <= oftWrapper.callerBpsCap());
         vm.assume(_customBps < _bpsDenom);
         if (_customBps == 0) {
             vm.assume(_defaultBps + uint256(_callerBps) < _bpsDenom);
@@ -455,5 +462,317 @@ contract OFTWrapperTest is Test, LzTestHelper {
         (uint256 expectedAmount, , ) = oftWrapper.getAmountAndFees(address(customOFT), _amountLD, _callerBps);
         assertEq(expectedAmount, fee.nativeFee); /// @dev in this example, nativeFee is manipulated to be amount
         assertEq(0, fee.lzTokenFee);
+    }
+
+    function test_setCallerBpsCap(uint256 _callerBpsCap) public {
+        if (_callerBpsCap >= 10_000 && _callerBpsCap != type(uint256).max) {
+            vm.expectRevert(EXCESSIVE_CALLER_BPS_CONFIG_ERROR);
+            oftWrapper.setCallerBpsCap(_callerBpsCap);
+        } else {
+            oftWrapper.setCallerBpsCap(_callerBpsCap);
+            assertEq(_callerBpsCap, oftWrapper.callerBpsCap());
+        }
+    }
+
+    function _assumeThenSetCallerBpsCap(uint256 _callerBps, uint256 _callerBpsCap) public {
+        vm.assume(_callerBps > _callerBpsCap && _callerBps < oftWrapper.BPS_DENOMINATOR());
+        oftWrapper.setCallerBpsCap(_callerBpsCap);
+    }
+
+    function test_sendOFT_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes calldata _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        address payable _refundAddress,
+        address _zroPaymentAddress,
+        bytes calldata _adapterParams,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendOFT(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            _refundAddress,
+            _zroPaymentAddress,
+            _adapterParams,
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendProxyOFT_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes calldata _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        address payable _refundAddress,
+        address _zroPaymentAddress,
+        bytes calldata _adapterParams,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendProxyOFT(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            _refundAddress,
+            _zroPaymentAddress,
+            _adapterParams,
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendNativeOFT_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes calldata _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        address payable _refundAddress,
+        address _zroPaymentAddress,
+        bytes calldata _adapterParams,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendNativeOFT(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            _refundAddress,
+            _zroPaymentAddress,
+            _adapterParams,
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendOFTV2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes32 _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendOFTV2(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            ICommonOFT.LzCallParams(payable(address(this)), address(this), ""),
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendOFTFeeV2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes32 _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendOFTFeeV2(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            ICommonOFT.LzCallParams(payable(address(this)), address(this), ""),
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendProxyOFTV2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes32 _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendProxyOFTV2(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            ICommonOFT.LzCallParams(payable(address(this)), address(this), ""),
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendProxyOFTFeeV2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes32 _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendProxyOFTFeeV2(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            ICommonOFT.LzCallParams(payable(address(this)), address(this), ""),
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendNativeOFTFeeV2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        uint16 _dstChainId,
+        bytes32 _toAddress,
+        uint256 _amount,
+        uint256 _minAmount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendNativeOFTFeeV2(
+            _oft,
+            _dstChainId,
+            _toAddress,
+            _amount,
+            _minAmount,
+            ICommonOFT.LzCallParams(payable(address(this)), address(this), ""),
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendOFTEpv2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        address _refundAddress,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+
+        SendParamEpv2 memory _sendParam = SendParamEpv2(
+            B_EID,
+            _addressToBytes32(receiver),
+            IERC20(oft).balanceOf(receiver),
+            0,
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0),
+            "",
+            ""
+        );
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendOFTEpv2(
+            _oft,
+            _sendParam,
+            MessagingFeeEpv2(100_000, 0),
+            _refundAddress,
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_sendOFTAdapterEpv2_ExcessiveCallerBps(
+        uint16 _callerBpsCap,
+        address _oft,
+        address _refundAddress,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        SendParamEpv2 memory _sendParam = SendParamEpv2(
+            B_EID,
+            _addressToBytes32(receiver),
+            IERC20(oft).balanceOf(receiver),
+            0,
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0),
+            "",
+            ""
+        );
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.sendOFTEpv2(
+            _oft,
+            _sendParam,
+            MessagingFeeEpv2(100_000, 0),
+            _refundAddress,
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_getAmountAndFees_ExcessiveCallerBps(uint16 _callerBpsCap, uint256 _amount, uint16 _callerBps) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.getAmountAndFees(address(this), _amount, _callerBps);
+    }
+
+    function test_estimateSendFee_ExcessiveCallerBps(uint256 _callerBpsCap, uint256 _amount, uint16 _callerBps) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.estimateSendFee(
+            address(this),
+            1,
+            "",
+            _amount,
+            false,
+            "",
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_estimateSendFeeV2_ExcessiveCallerBps(
+        uint256 _callerBpsCap,
+        uint256 _amount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.estimateSendFeeV2(
+            address(this),
+            1,
+            "",
+            _amount,
+            false,
+            "",
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_estimateSendFeeEpv2_ExcessiveCallerBps(
+        uint256 _callerBpsCap,
+        uint256 _amount,
+        uint16 _callerBps
+    ) public {
+        _assumeThenSetCallerBpsCap(_callerBps, _callerBpsCap);
+        vm.expectRevert(EXCESSIVE_CALLER_BPS_ERROR);
+        oftWrapper.estimateSendFeeEpv2(
+            address(this),
+            SendParamEpv2(1, "", _amount, 0, OptionsBuilder.newOptions(), "", ""),
+            false,
+            _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
     }
 }

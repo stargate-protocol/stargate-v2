@@ -6,6 +6,7 @@ import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/
 import { MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 interface IOFTWrapper {
+    event CallerBpsCapSet(uint256 bps);
     event DefaultBpsSet(uint256 bps);
     event OFTBpsSet(address indexed token, uint256 bps);
     event WrapperFees(bytes2 indexed partnerId, address token, uint256 wrapperFee, uint256 callerFee);
