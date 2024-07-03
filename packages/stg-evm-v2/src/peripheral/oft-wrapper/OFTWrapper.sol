@@ -21,10 +21,12 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     uint256 public defaultBps;
     mapping(address => uint256) public oftBps;
+    uint256 public callerBpsCap;
 
     constructor(uint256 _defaultBps) {
         require(_defaultBps < BPS_DENOMINATOR, "OFTWrapper: defaultBps >= 100%");
         defaultBps = _defaultBps;
+        callerBpsCap = MAX_UINT; /// @dev unset by default
     }
 
     function setDefaultBps(uint256 _defaultBps) external onlyOwner {
@@ -37,6 +39,12 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         require(_bps < BPS_DENOMINATOR || _bps == MAX_UINT, "OFTWrapper: oftBps[_oft] >= 100%");
         oftBps[_token] = _bps;
         emit OFTBpsSet(_token, _bps);
+    }
+
+    function setCallerBpsCap(uint256 _callerBpsCap) external onlyOwner {
+        require(_callerBpsCap < BPS_DENOMINATOR || _callerBpsCap == MAX_UINT, "OFTWrapper: callerBpsCap >= 100%");
+        callerBpsCap = _callerBpsCap;
+        emit CallerBpsCapSet(_callerBpsCap);
     }
 
     function withdrawFees(address _oft, address _to, uint256 _amount) external onlyOwner {
@@ -55,6 +63,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         uint256 amountToSwap = _getAmountAndPayFee(_oft, _amount, _minAmount, _feeObj);
         IOFT(_oft).sendFrom{ value: msg.value }(
             msg.sender,
@@ -78,6 +87,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         address token = IOFTV2(_proxyOft).token();
         {
             uint256 amountToSwap = _getAmountAndPayFeeProxy(token, _amount, _minAmount, _feeObj);
@@ -110,6 +120,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         require(msg.value >= _amount, "OFTWrapper: not enough value sent");
 
         INativeOFT(_nativeOft).deposit{ value: _amount }();
@@ -134,6 +145,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         uint256 amountToSwap = _getAmountAndPayFee(_oft, _amount, _minAmount, _feeObj);
         IOFTV2(_oft).sendFrom{ value: msg.value }(msg.sender, _dstChainId, _toAddress, amountToSwap, _callParams);
     }
@@ -147,6 +159,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         uint256 amountToSwap = _getAmountAndPayFee(_oft, _amount, _minAmount, _feeObj);
         IOFTWithFee(_oft).sendFrom{ value: msg.value }(
             msg.sender,
@@ -167,6 +180,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         address token = IOFTV2(_proxyOft).token();
         uint256 amountToSwap = _getAmountAndPayFeeProxy(token, _amount, _minAmount, _feeObj);
 
@@ -193,6 +207,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         address token = IOFTV2(_proxyOft).token();
         uint256 amountToSwap = _getAmountAndPayFeeProxy(token, _amount, _minAmount, _feeObj);
 
@@ -220,6 +235,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         IOFTV2.LzCallParams calldata _callParams,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         require(msg.value >= _amount, "OFTWrapper: not enough value sent");
 
         INativeOFT(_nativeOft).deposit{ value: _amount }();
@@ -241,6 +257,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _refundAddress,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         uint256 amountToSwap = _getAmountAndPayFeeProxy(_oft, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
         IOFTEpv2(_oft).send{ value: msg.value }(
             SendParamEpv2(
@@ -264,6 +281,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         address _refundAddress,
         FeeObj calldata _feeObj
     ) external payable nonReentrant {
+        _assertCallerBps(_feeObj.callerBps);
         address token = IOFT(_adapterOFT).token();
         uint256 amountToSwap = _getAmountAndPayFeeProxy(token, _sendParam.amountLD, _sendParam.minAmountLD, _feeObj);
         IERC20(token).safeApprove(_adapterOFT, amountToSwap);
@@ -353,6 +371,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _amount,
         uint256 _callerBps
     ) public view override returns (uint256 amount, uint256 wrapperFee, uint256 callerFee) {
+        _assertCallerBps(_callerBps);
         uint256 wrapperBps;
 
         uint256 tokenBps = oftBps[_token];
@@ -380,6 +399,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
+        _assertCallerBps(_feeObj.callerBps);
         (uint256 amount, , ) = getAmountAndFees(IOFT(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFT(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
@@ -394,6 +414,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bytes calldata _adapterParams,
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
+        _assertCallerBps(_feeObj.callerBps);
         (uint256 amount, , ) = getAmountAndFees(IOFTV2(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFTV2(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
@@ -405,6 +426,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         bool _payInLzToken,
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory) {
+        _assertCallerBps(_feeObj.callerBps);
         (uint256 amount, , ) = getAmountAndFees(IOFTEpv2(_oft).token(), _sendParam.amountLD, _feeObj.callerBps);
         return
             IOFTEpv2(_oft).quoteSend(
@@ -419,5 +441,9 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
                 ),
                 _payInLzToken
             );
+    }
+
+    function _assertCallerBps(uint256 _callerBps) internal view {
+        require(_callerBps <= callerBpsCap, "OFTWrapper: callerBps > callerBpsCap");
     }
 }
