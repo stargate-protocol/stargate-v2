@@ -308,7 +308,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _minAmount,
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
-        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = _getAmountAndFees(
             _token,
             _amount,
             _feeObj.callerBps
@@ -329,7 +329,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _minAmount,
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
-        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = _getAmountAndFees(
             _token,
             _amount,
             _feeObj.callerBps
@@ -350,7 +350,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _minAmount,
         FeeObj calldata _feeObj
     ) internal returns (uint256) {
-        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = getAmountAndFees(
+        (uint256 amountToSwap, uint256 wrapperFee, uint256 callerFee) = _getAmountAndFees(
             _nativeOft,
             _amount,
             _feeObj.callerBps
@@ -372,6 +372,14 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 _callerBps
     ) public view override returns (uint256 amount, uint256 wrapperFee, uint256 callerFee) {
         _assertCallerBps(_callerBps);
+        return _getAmountAndFees(_token, _amount, _callerBps);
+    }
+
+    function _getAmountAndFees(
+        address _token, // will be the token on proxies, and the oft on non-proxy
+        uint256 _amount,
+        uint256 _callerBps
+    ) internal view returns (uint256 amount, uint256 wrapperFee, uint256 callerFee) {
         uint256 wrapperBps;
 
         uint256 tokenBps = oftBps[_token];
@@ -400,7 +408,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
         _assertCallerBps(_feeObj.callerBps);
-        (uint256 amount, , ) = getAmountAndFees(IOFT(_oft).token(), _amount, _feeObj.callerBps);
+        (uint256 amount, , ) = _getAmountAndFees(IOFT(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFT(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
     }
@@ -415,7 +423,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external view override returns (uint nativeFee, uint zroFee) {
         _assertCallerBps(_feeObj.callerBps);
-        (uint256 amount, , ) = getAmountAndFees(IOFTV2(_oft).token(), _amount, _feeObj.callerBps);
+        (uint256 amount, , ) = _getAmountAndFees(IOFTV2(_oft).token(), _amount, _feeObj.callerBps);
 
         return IOFTV2(_oft).estimateSendFee(_dstChainId, _toAddress, amount, _useZro, _adapterParams);
     }
@@ -427,7 +435,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory) {
         _assertCallerBps(_feeObj.callerBps);
-        (uint256 amount, , ) = getAmountAndFees(IOFTEpv2(_oft).token(), _sendParam.amountLD, _feeObj.callerBps);
+        (uint256 amount, , ) = _getAmountAndFees(IOFTEpv2(_oft).token(), _sendParam.amountLD, _feeObj.callerBps);
         return
             IOFTEpv2(_oft).quoteSend(
                 SendParamEpv2(
