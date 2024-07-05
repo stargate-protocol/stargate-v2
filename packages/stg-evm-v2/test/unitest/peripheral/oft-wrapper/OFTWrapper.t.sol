@@ -28,7 +28,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     using OptionsBuilder for bytes;
 
     bytes internal constant EXCESSIVE_DEFAULT_BPS_CONFIG_ERROR = "OFTWrapper: defaultBps >= 100%";
-    bytes internal constant EXCESSIVE_CALLER_BPS_CONFIG_ERROR = "OFTWrapper: callerBpsCap >= 100%";
+    bytes internal constant EXCESSIVE_CALLER_BPS_CONFIG_ERROR = "OFTWrapper: callerBpsCap > 100%";
     bytes internal constant EXCESSIVE_CALLER_BPS_ERROR = "OFTWrapper: callerBps > callerBpsCap";
 
     string internal ERC20_MOCK_NAME = "ERC20Mock";
@@ -465,7 +465,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     }
 
     function test_setCallerBpsCap(uint256 _callerBpsCap) public {
-        if (_callerBpsCap >= 10_000 && _callerBpsCap != type(uint256).max) {
+        if (_callerBpsCap > 10_000) {
             vm.expectRevert(EXCESSIVE_CALLER_BPS_CONFIG_ERROR);
             oftWrapper.setCallerBpsCap(_callerBpsCap);
         } else {

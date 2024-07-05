@@ -42,7 +42,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     }
 
     function setCallerBpsCap(uint256 _callerBpsCap) external onlyOwner {
-        require(_callerBpsCap < BPS_DENOMINATOR || _callerBpsCap == MAX_UINT, "OFTWrapper: callerBpsCap >= 100%");
+        require(_callerBpsCap <= BPS_DENOMINATOR, "OFTWrapper: callerBpsCap > 100%");
         callerBpsCap = _callerBpsCap;
         emit CallerBpsCapSet(_callerBpsCap);
     }
