@@ -26,6 +26,7 @@ export const DVNS = {
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
+        [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.KAVA_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
@@ -68,6 +69,7 @@ export const DVNS = {
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
+        [EndpointId.GRAVITY_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.IOTA_V2_MAINNET]: '0xf18a7d86917653725afb7c215e47a24f9d784718',
         [EndpointId.KAVA_V2_MAINNET]: '0x9cbaf815ed62ef45c59e9f2cb05106babb4d31d3',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x17720e3f361dcc2f70871a2ce3ac51b0eaa5c2e4',
@@ -97,6 +99,7 @@ export const EXECUTORS = {
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
+        [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.KAVA_V2_MAINNET]: '0x41ED8065dd9bC6c0caF21c39766eDCBA0F21851c',
         [EndpointId.KLAYTN_V2_MAINNET]: '0xe149187a987F129FD3d397ED04a60b0b89D1669f',
@@ -171,6 +174,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SCROLL_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.GRAVITY_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -261,6 +269,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.MANTLE_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x201EBa5CC46D216Ce6DC03F6a759e8E766e956aE',
+            },
+            [EndpointId.GRAVITY_V2_MAINNET]: {
+                type: StargateType.Oft,
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -364,6 +375,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.AURORA_V2_MAINNET]: {
                 address: '0x368ebb46aca6b8d0787c96b2b20bd3cc3f2c45f7',
                 type: StargateType.Pool,
+            },
+            [EndpointId.GRAVITY_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -776,6 +792,36 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x65bb797c2B9830d891D87288F029ed8dACc19705',
             safeUrl: 'https://safe-transaction-mainnet.safe.global/',
+        },
+    },
+    [EndpointId.GRAVITY_V2_MAINNET]: {
+        queueCapacity: 512,
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
+            nativeDropAmount: parseEther('0.00003').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xB3e401A59571D4BF5996B0f5FfFE377FbfE71359',
+            safeUrl: 'https://gravity-tx.lzdevnet.org/',
+            contractNetworks: {
+                ['1625']: {
+                    multiSendAddress: '0xA4FB0BAD56ed9741c9BA22065074660477C956e3',
+                    multiSendCallOnlyAddress: '0x407ebA862aDdE622e6dFabC88e3E088adE8C4AeA',
+                    safeMasterCopyAddress: '0x2337b4a88363D4834E68A019037868E0FF8E39Be',
+                    safeProxyFactoryAddress: '0x8B0D2816befb572FD4569Dc33FEe4A4b71dCE70A',
+                    fallbackHandlerAddress: '0x01af5e216Ec50e380f10E7cE604AD14b1d618961',
+                    createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
+                    signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
+                    simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
+                },
+            },
         },
     },
     [EndpointId.IOTA_V2_MAINNET]: {

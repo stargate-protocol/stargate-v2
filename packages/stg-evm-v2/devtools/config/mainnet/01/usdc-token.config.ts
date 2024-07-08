@@ -7,7 +7,7 @@ import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
-import { onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
+import { onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
@@ -17,6 +17,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
+    const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
@@ -24,6 +25,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
+    const gravityUSDC = onGravity({ ...fiatContract, address: gravityUSDCProxy.contract.address })
+    const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
+
     const iotaUSDC = onIota({ ...fiatContract, address: iotaUSDCProxy.contract.address })
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
 
@@ -42,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdcAssets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
@@ -50,6 +55,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     return {
         contracts: [
+            {
+                contract: gravityUSDC,
+                config: {
+                    owner: gravityStargateMultisig,
+                    masterMinter: gravityStargateMultisig,
+                    pauser: gravityStargateMultisig,
+                    rescuer: gravityStargateMultisig,
+                    blacklister: gravityStargateMultisig,
+                    minters: {
+                        [gravityAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
             {
                 contract: iotaUSDC,
                 config: {

@@ -8,6 +8,7 @@ import {
     onArb,
     onBase,
     onEth,
+    onGravity,
     onIota,
     onKlaytn,
     onMantle,
@@ -31,6 +32,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
     const ethFeeLibV1 = onEth(contract)
+    const gravityFeeLibV1 = onGravity(contract)
     const iotaFeeLibV1 = onIota(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const mantleFeeLibV1 = onMantle(contract)
@@ -40,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const seiFeeLibV1 = onSei(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
 
+    // TODO alphebatize
     return {
         contracts: [
             {
@@ -52,6 +55,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: optFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: gravityFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

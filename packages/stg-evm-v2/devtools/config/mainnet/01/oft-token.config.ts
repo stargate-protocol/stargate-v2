@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onIota, onKlaytn, onRarible, onSei, onTaiko } from '../utils'
+import { onEbi, onGravity, onIota, onKlaytn, onRarible, onSei, onTaiko } from '../utils'
 
 import type { MintableNodeConfig } from '../../../src/mintable'
 
@@ -19,12 +19,18 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     // USDT contract pointers
     const ebiUSDT = onEbi(usdtContractTemplate)
+    const gravityUSDT = onGravity(usdtContractTemplate)
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
     // ETH contract pointers
+    const gravityETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.GRAVITY_V2_MAINNET, TokenName.ETH)
+    )
+    const gravityETH = onGravity({ contractName: gravityETHContractName })
     const iotaETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.IOTA_V2_MAINNET, TokenName.ETH)
@@ -43,6 +49,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
+    const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -63,6 +73,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
                     minters: {
                         [ebiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: gravityETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
+                    minters: {
+                        [gravityAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: gravityUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
+                    minters: {
+                        [gravityAssetAddresses.USDT]: true,
                     },
                 },
             },

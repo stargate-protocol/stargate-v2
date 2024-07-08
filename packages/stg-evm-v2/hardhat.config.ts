@@ -222,13 +222,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FRAXTAL_MAINNET || 'https://rpc.frax.com',
         accounts: mainnetAccounts,
     },
-    // FIXME Uncomment when endpoint deployed
-    //
-    // 'gravity-mainnet': {
-    //     eid: EndpointId.GRAVITY_V2_MAINNET, // FIXME
-    //     url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
-    //     accounts: mainnetAccounts,
-    // },
+    'gravity-mainnet': {
+        eid: EndpointId.GRAVITY_V2_MAINNET,
+        url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'iota-mainnet': {
         eid: EndpointId.IOTA_V2_MAINNET,
         url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',
