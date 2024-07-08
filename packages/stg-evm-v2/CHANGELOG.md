@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.9
+
+### Patch Changes
+
+- 800dd33: Added support for Gravity
+- Updated dependencies [800dd33]
+  - @stargatefinance/stg-definitions-v2@1.0.7
+
 ## 1.0.8
 
 ### Patch Changes

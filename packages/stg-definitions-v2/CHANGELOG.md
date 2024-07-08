@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.0.7
+
+### Patch Changes
+
+- 800dd33: Added support for Gravity
+
 ## 1.0.6
 
 ### Patch Changes
