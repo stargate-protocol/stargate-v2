@@ -1,0 +1,227 @@
+{
+  "_format": "hh-zksolc-artifact-1",
+  "contractName": "Errors",
+  "sourceName": "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/Errors.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "AlreadyRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ComposeExists",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "expected",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "actual",
+          "type": "bytes32"
+        }
+      ],
+      "name": "ComposeNotFound",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "DefaultReceiveLibUnavailable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "DefaultSendLibUnavailable",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "requiredNative",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "suppliedNative",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "requiredLzToken",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "suppliedLzToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "InsufficientFee",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "required",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "supplied",
+          "type": "uint256"
+        }
+      ],
+      "name": "InvalidAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidArgument",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidExpiry",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint64",
+          "name": "nonce",
+          "type": "uint64"
+        }
+      ],
+      "name": "InvalidNonce",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidPayloadHash",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidReceiveLibrary",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidSizeForAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "LzTokenUnavailable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotImplemented",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyAltToken",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyNonDefaultLib",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyReceiveLib",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyRegisteredLib",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyRegisteredOrDefaultLib",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlySendLib",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "PathNotInitializable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "PathNotVerifiable",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "expected",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "actual",
+          "type": "bytes32"
+        }
+      ],
+      "name": "PayloadHashNotFound",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SameValue",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "SendReentrancy",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Unauthorized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "UnsupportedEid",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "UnsupportedInterface",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroLzTokenFee",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x00000001012001900000000c0000613d0000008001000039000000400010043f0000000001000416000000000101004b0000000c0000c13d00000020010000390000010000100443000001200000044300000005010000410000000f0001042e000000000100001900000010000104300000000e000004320000000f0001042e000000100001043000000000000000000000000000000000000000000000000000000002000000000000000000000000000000400000010000000000000000001d5d8675fd581d6d37aa0611572b1fe73ffedf7f29e1593c6645908bcb05ada4",
+  "deployedBytecode": "0x00000001012001900000000c0000613d0000008001000039000000400010043f0000000001000416000000000101004b0000000c0000c13d00000020010000390000010000100443000001200000044300000005010000410000000f0001042e000000000100001900000010000104300000000e000004320000000f0001042e000000100001043000000000000000000000000000000000000000000000000000000002000000000000000000000000000000400000010000000000000000001d5d8675fd581d6d37aa0611572b1fe73ffedf7f29e1593c6645908bcb05ada4",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "factoryDeps": {}
+}
