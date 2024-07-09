@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-evm-v2",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "BUSL-1.1",
   "exports": {
     ".": {

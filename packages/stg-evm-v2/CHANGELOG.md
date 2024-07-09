@@ -1,5 +1,12 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.10
+
+### Patch Changes
+
+- 4e39743: Add support for gravity
+- 95650d1: Sandbox deployments for 2.3.27-1 image tag
+
 ## 1.0.9
 
 ### Patch Changes
