@@ -65,6 +65,7 @@
     "start": "$npm_execpath start:localnet",
     "start:localnet": "STG_EVM_NODE_TARGET=layerzero-node docker compose up",
     "start:snapshot": "STG_EVM_NODE_TARGET=stargate-node docker compose up",
+    "state:snapshot:mainnet": "$npm_execpath hardhat snapshot --stage mainnet --log-level verbose --out snapshot-mainnet.json",
     "stop": "docker compose down",
     "test": "concurrently --group 'pnpm:test:*'",
     "test:forge": "forge test",
