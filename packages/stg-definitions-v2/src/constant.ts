@@ -152,6 +152,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
+            [EndpointId.FLARE_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
@@ -248,6 +253,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',
             },
+            [EndpointId.FLARE_V2_MAINNET]: {
+                type: StargateType.Oft,
+            },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
@@ -342,6 +350,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.AVALANCHE_V2_MAINNET]: {
                 address: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
                 type: StargateType.Pool,
+            },
+            [EndpointId.FLARE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
