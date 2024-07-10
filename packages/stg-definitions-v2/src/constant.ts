@@ -132,6 +132,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     busRideGasLimit: 30000n,
     nativeDropGasLimit: 13000n,
     maxPassengerCount: 20,
+    queueCapacity: 512,
 }
 
 export const ASSETS: Record<TokenName, AssetConfig> = {
@@ -655,7 +656,6 @@ export const NETWORKS: NetworksConfig = {
     // MAINNET
     //
     [EndpointId.ARBITRUM_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET], DVNS.STG[EndpointId.ARBITRUM_V2_MAINNET]],
@@ -673,7 +673,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.AURORA_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET], DVNS.STG[EndpointId.AURORA_V2_MAINNET]],
@@ -691,7 +690,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.AVALANCHE_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET], DVNS.STG[EndpointId.AVALANCHE_V2_MAINNET]],
@@ -709,7 +707,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.BASE_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET], DVNS.STG[EndpointId.BASE_V2_MAINNET]],
@@ -729,7 +726,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.BSC_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET], DVNS.STG[EndpointId.BSC_V2_MAINNET]],
@@ -747,7 +743,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.EBI_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
@@ -777,7 +772,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.ETHEREUM_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET], DVNS.STG[EndpointId.ETHEREUM_V2_MAINNET]],
@@ -795,7 +789,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
@@ -825,7 +818,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.IOTA_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET], DVNS.STG[EndpointId.IOTA_V2_MAINNET]],
@@ -855,7 +847,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.KAVA_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET], DVNS.STG[EndpointId.KAVA_V2_MAINNET]],
@@ -873,7 +864,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.KLAYTN_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET], DVNS.STG[EndpointId.KLAYTN_V2_MAINNET]],
@@ -891,7 +881,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.MANTLE_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET], DVNS.STG[EndpointId.MANTLE_V2_MAINNET]],
@@ -909,7 +898,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.METIS_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET], DVNS.STG[EndpointId.METIS_V2_MAINNET]],
@@ -927,7 +915,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET], DVNS.STG[EndpointId.OPTIMISM_V2_MAINNET]],
@@ -945,7 +932,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.POLYGON_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET], DVNS.STG[EndpointId.POLYGON_V2_MAINNET]],
@@ -963,7 +949,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.RARIBLE_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET], DVNS.STG[EndpointId.RARIBLE_V2_MAINNET]],
@@ -993,7 +978,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.SCROLL_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET], DVNS.STG[EndpointId.SCROLL_V2_MAINNET]],
@@ -1011,7 +995,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.SEI_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
@@ -1041,7 +1024,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.TAIKO_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
@@ -1071,7 +1053,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.XCHAIN_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
@@ -1101,7 +1082,6 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
-        queueCapacity: 512,
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [
@@ -1129,27 +1109,22 @@ export const NETWORKS: NetworksConfig = {
     // TESTNET
     //
     [EndpointId.ARBSEP_V2_TESTNET]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.BSC_V2_TESTNET]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.KLAYTN_V2_TESTNET]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.OPTSEP_V2_TESTNET]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.SEPOLIA_V2_TESTNET]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
@@ -1158,17 +1133,14 @@ export const NETWORKS: NetworksConfig = {
     // SANDBOX
     //
     [EndpointId.BSC_V2_SANDBOX]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.ETHEREUM_V2_SANDBOX]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.POLYGON_V2_SANDBOX]: {
-        queueCapacity: 512,
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },

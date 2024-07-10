@@ -80,9 +80,8 @@ export interface SafeConfig {
 
 export interface NetworkConfig {
     permitAddress?: string
-    queueCapacity: number
-    creditMessaging: CreditMessagingNetworkConfig
-    tokenMessaging: TokenMessagingNetworkConfig
+    creditMessaging?: CreditMessagingNetworkConfig
+    tokenMessaging?: TokenMessagingNetworkConfig
     safeConfig?: SafeConfig
 }
 
@@ -102,6 +101,7 @@ export interface TokenMessagingNetworkConfig {
     maxPassengerCount: number
     requiredDVNs?: string[]
     executor?: string
+    queueCapacity: number
 }
 
 export interface OftWrapperConfig {
