@@ -217,6 +217,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FANTOM_MAINNET || 'https://fantom-rpc.publicnode.com',
         accounts: mainnetAccounts,
     },
+    'flare-mainnet': {
+        eid: EndpointId.FLARE_V2_MAINNET,
+        url: process.env.RPC_URL_FLARE_MAINNET || 'https://rpc.ankr.com/flare',
+        accounts: mainnetAccounts,
+    },
     'fraxtal-mainnet': {
         eid: EndpointId.FRAXTAL_V2_MAINNET,
         url: process.env.RPC_URL_FRAXTAL_MAINNET || 'https://rpc.frax.com',
