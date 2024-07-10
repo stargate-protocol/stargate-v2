@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.0
+
+### Minor Changes
+
+- c5c942c: Make Token & Credit Messaging configs optional in network configs
+
 ## 1.0.7
 
 ### Patch Changes
