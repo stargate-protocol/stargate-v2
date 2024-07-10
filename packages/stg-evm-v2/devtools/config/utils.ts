@@ -54,12 +54,18 @@ export const generateCreditMessagingConfig = (
 ): OmniEdgeHardhat<CreditMessagingEdgeConfig>[] =>
     generateDefaultConnections(points, (from, to) =>
         toCreditMessagingEdgeConfig(
-            getNetworkConfig(to.eid).creditMessaging,
-            getNetworkConfig(from.eid).creditMessaging
+            assertAndReturn(
+                getNetworkConfig(to.eid).creditMessaging,
+                `CreditMessaging config not defined for ${formatEid(to.eid)}`
+            ),
+            assertAndReturn(
+                getNetworkConfig(from.eid).creditMessaging,
+                `CreditMessaging config not defined for ${formatEid(from.eid)}`
+            )
         )
     )
 
-export const toCreditMessagingEdgeConfig = (
+const toCreditMessagingEdgeConfig = (
     toConfig: CreditMessagingNetworkConfig,
     fromConfig: CreditMessagingNetworkConfig
 ): CreditMessagingEdgeConfig => ({
@@ -92,10 +98,19 @@ export const toCreditMessagingEdgeConfig = (
 // token messaging config
 export const generateTokenMessagingConfig = (points: OmniPointHardhat[]): OmniEdgeHardhat<TokenMessagingEdgeConfig>[] =>
     generateDefaultConnections(points, (from, to) =>
-        toTokenMessagingEdgeConfig(getNetworkConfig(to.eid).tokenMessaging, getNetworkConfig(from.eid).tokenMessaging)
+        toTokenMessagingEdgeConfig(
+            assertAndReturn(
+                getNetworkConfig(to.eid).tokenMessaging,
+                `TokenMessaging config not defined for ${formatEid(to.eid)}`
+            ),
+            assertAndReturn(
+                getNetworkConfig(from.eid).tokenMessaging,
+                `TokenMessaging config not defined for ${formatEid(to.eid)}`
+            )
+        )
     )
 
-export const toTokenMessagingEdgeConfig = (
+const toTokenMessagingEdgeConfig = (
     toConfig: TokenMessagingNetworkConfig,
     fromConfig: TokenMessagingNetworkConfig
 ): TokenMessagingEdgeConfig => ({
@@ -180,3 +195,8 @@ export const getSafeAddressMaybe = (eid: EndpointId): string | undefined => getS
  * @returns {string}
  */
 export const getSafeAddress = (eid: EndpointId): string => getSafeConfig(eid).safeAddress
+
+/**
+ * Tiny helper around non-null assert
+ */
+const assertAndReturn = <T>(value: T | null | undefined, message: string): T => (assert(value != null, message), value)

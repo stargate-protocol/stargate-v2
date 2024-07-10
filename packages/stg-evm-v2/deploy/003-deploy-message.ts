@@ -23,39 +23,43 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     const network = hre.network.name
     const eid = getEidForNetworkName(network)
     const logger = createModuleLogger(`Messaging Deployer @ ${network}`)
-    const networkConfig = getNetworkConfig(eid)
+    const { creditMessaging, tokenMessaging } = getNetworkConfig(eid)
 
     const endpointDeployment = await hre.deployments.get('EndpointV2')
-    const queueCapacity = networkConfig.queueCapacity
-    assert(
-        isDivisorOf2ToThe16(queueCapacity),
-        `Queue capacity must be a divisor of 2**16 (65536), got: ${queueCapacity}`
-    )
+    if (tokenMessaging != null) {
+        const queueCapacity = tokenMessaging.queueCapacity
+        assert(
+            isDivisorOf2ToThe16(queueCapacity),
+            `Queue capacity must be a divisor of 2**16 (65536), got: ${queueCapacity}`
+        )
 
-    logger.info(`Deploying TokenMessaging as: ${deployer}`)
-    logger.info(`Deploying TokenMessaging with endpoint: ${endpointDeployment.address}`)
-    logger.info(`Deploying TokenMessaging with queue capacity: ${queueCapacity}`)
+        logger.info(`Deploying TokenMessaging as: ${deployer}`)
+        logger.info(`Deploying TokenMessaging with endpoint: ${endpointDeployment.address}`)
+        logger.info(`Deploying TokenMessaging with queue capacity: ${queueCapacity}`)
 
-    await deploy('TokenMessaging', {
-        contract: 'TokenMessaging',
-        from: deployer,
-        args: [endpointDeployment.address, deployer, queueCapacity],
-        log: true,
-        waitConfirmations: 1,
-        skipIfAlreadyDeployed: true,
-        ...feeData,
-    })
+        await deploy('TokenMessaging', {
+            contract: 'TokenMessaging',
+            from: deployer,
+            args: [endpointDeployment.address, deployer, queueCapacity],
+            log: true,
+            waitConfirmations: 1,
+            skipIfAlreadyDeployed: true,
+            ...feeData,
+        })
+    }
 
-    logger.info(`Deploying CreditMessaging as: ${deployer}`)
-    await deploy('CreditMessaging', {
-        contract: 'CreditMessaging',
-        from: deployer,
-        args: [endpointDeployment.address, deployer],
-        log: true,
-        waitConfirmations: 1,
-        skipIfAlreadyDeployed: true,
-        ...feeData,
-    })
+    if (creditMessaging != null) {
+        logger.info(`Deploying CreditMessaging as: ${deployer}`)
+        await deploy('CreditMessaging', {
+            contract: 'CreditMessaging',
+            from: deployer,
+            args: [endpointDeployment.address, deployer],
+            log: true,
+            waitConfirmations: 1,
+            skipIfAlreadyDeployed: true,
+            ...feeData,
+        })
+    }
 }
 
 exports.default.tags = CONTRACT_MESSAGING_TAGS
