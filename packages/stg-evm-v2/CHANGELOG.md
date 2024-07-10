@@ -1,5 +1,12 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.11
+
+### Patch Changes
+
+- Updated dependencies [c5c942c]
+  - @stargatefinance/stg-definitions-v2@1.1.0
+
 ## 1.0.10
 
 ### Patch Changes
