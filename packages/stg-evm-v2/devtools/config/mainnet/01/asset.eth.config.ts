@@ -21,6 +21,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
+    const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
@@ -35,6 +36,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const arbContract = await getAssetNode(arbPoint)
     const baseContract = await getAssetNode(basePoint)
     const ethContract = await getAssetNode(ethPoint)
+    const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
     const iotaContract = await getAssetNode(iotaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
@@ -50,6 +52,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             arbContract,
             ethContract,
             baseContract,
+            flareContract,
             gravityContract,
             iotaContract,
             klaytnContract,
@@ -65,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ethPoint,
             basePoint,
             iotaPoint,
+            flarePoint,
             gravityPoint,
             klaytnPoint,
             mantlePoint,

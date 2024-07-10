@@ -7,7 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onGravity, onIota, onKlaytn, onRarible, onSei, onTaiko } from '../utils'
+import { onEbi, onFlare, onGravity, onIota, onKlaytn, onRarible, onSei, onTaiko } from '../utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -18,6 +18,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     // USDT contract pointers
     const ebiUSDT = onEbi(usdtContractTemplate)
+    const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
@@ -25,6 +26,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
     // ETH contract pointers
+    const flareETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.FLARE_V2_MAINNET, TokenName.ETH)
+    )
+    const flareETH = onFlare({ contractName: flareETHContractName })
+
     const gravityETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.GRAVITY_V2_MAINNET, TokenName.ETH)
@@ -48,6 +55,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
+    const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -72,6 +83,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
                     minters: {
                         [ebiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: flareETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
+                    minters: {
+                        [flareAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: flareUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
+                    minters: {
+                        [flareAssetAddresses.USDT]: true,
                     },
                 },
             },
