@@ -1,10 +1,10 @@
 import { ASSETS, TokenName } from '@stargatefinance/stg-definitions-v2'
+import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses } from '../../../ts-src/utils/util'
-import { type TokenMessagingEdgeConfig, type TokenMessagingNodeConfig } from '../../src/token-messaging'
 import { generateTokenMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'

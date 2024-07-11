@@ -8,6 +8,8 @@ import {
     TokenName,
     getNetworkConfig,
 } from '@stargatefinance/stg-definitions-v2'
+import { MSG_TYPE_BUS, MSG_TYPE_CREDIT_MESSAGING, MSG_TYPE_TAXI } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { AssetEdgeConfig, CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { formatEid } from '@layerzerolabs/devtools'
 import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
@@ -15,9 +17,6 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
-import { AssetEdgeConfig } from '../src/asset'
-import { CreditMessagingEdgeConfig, MSG_TYPE_CREDIT_MESSAGING } from '../src/credit-messaging'
-import { MSG_TYPE_BUS, MSG_TYPE_TAXI, TokenMessagingEdgeConfig } from '../src/token-messaging'
 
 /**
  * Generates a mesh of connections based on points without any loopbacks

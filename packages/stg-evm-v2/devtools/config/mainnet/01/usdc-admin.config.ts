@@ -1,8 +1,9 @@
+import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
+
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
-import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
 import { onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
 

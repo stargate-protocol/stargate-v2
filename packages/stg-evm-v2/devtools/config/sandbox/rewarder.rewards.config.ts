@@ -1,10 +1,10 @@
 import { RewardTokenName } from '@stargatefinance/stg-definitions-v2'
+import { RewarderRewardsNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
-import { RewarderRewardsNodeConfig } from '../../src/rewarder'
 
 import { onBsc, onEth, onPolygon } from './utils'
 

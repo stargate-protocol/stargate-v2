@@ -1,3 +1,5 @@
+import { StakingNodeConfig } from '@stargatefinance/stg-devtools-v2'
+
 import {
     OmniGraphHardhat,
     createConnectedContractFactory,
@@ -6,7 +8,6 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { StakingNodeConfig } from '../../../src/staking'
 import { getSafeAddress } from '../../utils'
 import {
     onArb,

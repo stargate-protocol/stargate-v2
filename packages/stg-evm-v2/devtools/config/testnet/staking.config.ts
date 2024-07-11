@@ -1,4 +1,5 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { StakingNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import {
     OmniGraphHardhat,
@@ -9,7 +10,6 @@ import {
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetLPTokenAddresses } from '../../../ts-src/utils/util'
-import { StakingNodeConfig } from '../../src/staking'
 
 import { onArb, onBsc, onEth, onOpt } from './utils'
 

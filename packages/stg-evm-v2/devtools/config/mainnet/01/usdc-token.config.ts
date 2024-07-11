@@ -1,11 +1,11 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
-import { USDCNodeConfig } from '../../../src/usdc'
 import { getSafeAddress } from '../../utils'
 import { onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
 

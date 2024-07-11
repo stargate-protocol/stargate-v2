@@ -1,14 +1,13 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../src/asset/utils'
+import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { generateAssetConfig } from '../../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-
-import type { AssetEdgeConfig, AssetNodeConfig } from '../../../src/asset'
 
 const tokenName = TokenName.mETH
 

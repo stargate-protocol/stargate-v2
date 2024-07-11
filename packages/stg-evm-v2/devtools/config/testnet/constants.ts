@@ -1,4 +1,4 @@
-import type { FeeConfig } from '../../src/feeLib_v1'
+import { FeeConfig } from '@stargatefinance/stg-devtools-v2'
 
 export const DEFAULT_PLANNER = '0x3E709fE32234514F1bFd851c9d7118AC253A2b55'
 
