@@ -8,14 +8,14 @@ import type {
 } from '@layerzerolabs/devtools'
 import type { EndpointId } from '@layerzerolabs/lz-definitions'
 import type { IOwnable, OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
-import type { AssetId, StargateType } from '@stargatefinance/stg-definitions-v2'
+import type { StargateType } from '@stargatefinance/stg-definitions-v2'
 
 export interface AssetEdgeConfig {
     isOFT?: boolean
 }
 
 export interface AssetNodeConfig extends OwnableNodeConfig {
-    assetId?: AssetId
+    assetId?: number
     addressConfig?: AddressConfig
 }
 

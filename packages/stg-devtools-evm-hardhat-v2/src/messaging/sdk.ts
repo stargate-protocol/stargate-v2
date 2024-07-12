@@ -9,11 +9,9 @@ import {
 } from '@layerzerolabs/devtools'
 import { OApp } from '@layerzerolabs/ua-devtools-evm'
 
-import type { AssetId } from '@stargatefinance/stg-definitions-v2'
-
 export abstract class Messaging extends OApp implements IMessaging {
     @AsyncRetriable()
-    async getAsset(assetId: AssetId): Promise<OmniAddress | undefined> {
+    async getAsset(assetId: number): Promise<OmniAddress | undefined> {
         // The contract refers to these as stargateImpls, but we reference them as 'assets'
         const asset = await this.contract.contract.stargateImpls(assetId)
 
@@ -21,11 +19,11 @@ export abstract class Messaging extends OApp implements IMessaging {
     }
 
     @AsyncRetriable()
-    async getAssetId(asset: OmniAddress): Promise<AssetId> {
+    async getAssetId(asset: OmniAddress): Promise<number> {
         return UIntNumberSchema.parse(await this.contract.contract.assetIds(asset))
     }
 
-    async setAssetId(asset: OmniAddress, assetId: AssetId): Promise<OmniTransaction> {
+    async setAssetId(asset: OmniAddress, assetId: number): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setAssetId', [asset, assetId])
 
         return {
@@ -35,11 +33,11 @@ export abstract class Messaging extends OApp implements IMessaging {
     }
 
     @AsyncRetriable()
-    async getMaxAssetId(): Promise<AssetId> {
+    async getMaxAssetId(): Promise<number> {
         return UIntNumberSchema.parse(await this.contract.contract.maxAssetId())
     }
 
-    async setMaxAssetId(maxAssetId: AssetId): Promise<OmniTransaction> {
+    async setMaxAssetId(maxAssetId: number): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setMaxAssetId', [maxAssetId])
 
         return {

@@ -10,7 +10,6 @@ import type {
 } from '@layerzerolabs/devtools'
 import type { EndpointId } from '@layerzerolabs/lz-definitions'
 import type { OAppEdgeConfig } from '@layerzerolabs/ua-devtools'
-import type { AssetId } from '@stargatefinance/stg-definitions-v2'
 
 export type Fares = {
     busFare: bigint
@@ -29,7 +28,7 @@ export interface TokenMessagingEdgeConfig extends OAppEdgeConfig {
     nativeDropAmount?: bigint
 }
 
-export type TokenMessagingAssetConfig = Record<OmniAddress, AssetId>
+export type TokenMessagingAssetConfig = Record<OmniAddress, number>
 
 export interface TokenMessagingNodeConfig extends MessagingNodeConfig {
     planner?: OmniAddress
