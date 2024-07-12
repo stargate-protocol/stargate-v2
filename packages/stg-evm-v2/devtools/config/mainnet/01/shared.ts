@@ -32,6 +32,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -115,6 +120,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [ethAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [ethAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [ethAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.FLARE_V2_MAINNET]: {
+            [flareAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [flareAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [flareAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.GRAVITY_V2_MAINNET]: {
             [gravityAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
