@@ -1,6 +1,6 @@
 import { type Configurator, createConfigureEdges, createConfigureMultiple } from '@layerzerolabs/devtools'
 
-import { configureAssets, configureMaxAssetId, configureMessaging } from '../messaging/config'
+import { configureMessaging } from '../messaging/config'
 
 import type { CreditMessagingOmniGraph, ICreditMessaging } from './types'
 
@@ -18,7 +18,5 @@ export const configureCreditMessagingGasLimit: CreditMessagingConfigurator = cre
 
 export const configureCreditMessaging: CreditMessagingConfigurator = createConfigureMultiple(
     configureMessaging,
-    configureCreditMessagingGasLimit,
-    configureMaxAssetId,
-    configureAssets
+    configureCreditMessagingGasLimit
 )
