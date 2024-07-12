@@ -286,8 +286,8 @@ configure-mainnet:
 	# Configure rewarder
 	$(CONFIGURE_REWARDER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --signer deployer
 
-# 	# Configure OFT Wrapper
-# 	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
+	# Configure OFT Wrapper
+	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
 transfer-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 transfer-mainnet:
@@ -326,8 +326,8 @@ transfer-mainnet:
 	# Configure rewarder
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --signer deployer
 
-# 	# Configure rewarder
-# 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
+	# Configure rewarder
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
 # Please be careful with this target, I'd much rather you run
 # 
