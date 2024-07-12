@@ -1,22 +1,19 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
-import { expect } from 'chai'
-import { Contract, ContractFactory } from 'ethers'
-import { deployments, ethers } from 'hardhat'
-
-import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
-import { OmniContractFactory } from '@layerzerolabs/devtools-evm'
-import { createContractFactory } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
-
+import { createCreditMessagingFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import {
     CreditMessagingEdgeConfig,
     CreditMessagingNodeConfig,
     CreditMessagingOmniGraph,
     configureCreditMessaging,
-    createCreditMessagingFactory,
-} from '../../devtools/src/credit-messaging'
+} from '@stargatefinance/stg-devtools-v2'
+import { expect } from 'chai'
+import { Contract, ContractFactory } from 'ethers'
+import { deployments, ethers } from 'hardhat'
+
+import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
+import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 const gasLimit = 2n
 const maxAssetId = 10
@@ -27,7 +24,6 @@ describe('CreditMessaging/configurator', () => {
     let endpointV2Mock: ContractFactory
     let myCreditMessaging: Contract
     let otherCreditMessaging: Contract
-    let contractFactory: OmniContractFactory
     let owner: SignerWithAddress
     let endpointOwner: SignerWithAddress
     let mockEndpoint: Contract
@@ -45,8 +41,6 @@ describe('CreditMessaging/configurator', () => {
         // See https://github.com/NomicFoundation/hardhat/issues/1040
         const EndpointV2MockArtifact = await deployments.getArtifact('EndpointV2Mock')
         endpointV2Mock = new ContractFactory(EndpointV2MockArtifact.abi, EndpointV2MockArtifact.bytecode, endpointOwner)
-
-        contractFactory = createContractFactory()
     })
 
     // beforeEach hook for setup that runs before each test in the block

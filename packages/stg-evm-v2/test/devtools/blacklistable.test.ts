@@ -1,13 +1,12 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { Blacklistable } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { Blacklistable } from '../../devtools/src/blacklistable'
 
 describe('Blacklistable/sdk', () => {
     // Declaration of variables to be used in the test suite

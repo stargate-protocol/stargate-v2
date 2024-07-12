@@ -1,11 +1,11 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { Asset } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
 import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { Asset } from '../../devtools/src/asset'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {

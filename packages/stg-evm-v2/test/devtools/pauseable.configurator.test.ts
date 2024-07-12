@@ -1,13 +1,13 @@
 import '@nomiclabs/hardhat-ethers'
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { Pausable, createPausableFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { PausableOmniGraph, configurePausable } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { Pausable, PausableOmniGraph, configurePausable, createPausableFactory } from '../../devtools/src/pausable'
 
 describe('Pauseable/configurator', () => {
     // Declaration of variables to be used in the test suite

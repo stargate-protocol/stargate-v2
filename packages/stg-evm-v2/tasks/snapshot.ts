@@ -1,6 +1,13 @@
 import { writeFileSync } from 'fs'
 
 import { StargateType } from '@stargatefinance/stg-definitions-v2'
+import {
+    createAssetFactory,
+    createCreditMessagingFactory,
+    createERC20Factory,
+    createTokenMessagingFactory,
+} from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { AddressConfig, TokenMessagingGasLimits } from '@stargatefinance/stg-devtools-v2'
 import { task } from 'hardhat/config'
 import pMemoize from 'p-memoize'
 
@@ -16,11 +23,6 @@ import {
 import { LogLevel, createLogger, createModuleLogger, printJson, setDefaultLogLevel } from '@layerzerolabs/io-devtools'
 import { EndpointId, type Stage, endpointIdToStage, endpointIdToVersion } from '@layerzerolabs/lz-definitions'
 import { ENDPOINT_IDS } from '@layerzerolabs/test-devtools'
-
-import { AddressConfig, createAssetFactory } from '../devtools/src/asset'
-import { createCreditMessagingFactory } from '../devtools/src/credit-messaging'
-import { createERC20Factory } from '../devtools/src/erc20'
-import { TokenMessagingGasLimits, createTokenMessagingFactory } from '../devtools/src/token-messaging'
 
 import type { ActionType } from 'hardhat/types'
 

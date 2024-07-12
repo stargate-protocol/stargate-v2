@@ -1,14 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createAssetFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { AssetOmniGraph, configureAsset } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { AssetOmniGraph, configureAsset, createAssetFactory } from '../../devtools/src/asset'
 
 import { makeBytes20 } from './utils'
 

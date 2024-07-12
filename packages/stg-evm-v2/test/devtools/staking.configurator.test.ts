@@ -1,14 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createStakingFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { StakingNodeConfig, StakingOmniGraph, configureStaking } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { StakingNodeConfig, StakingOmniGraph, configureStaking, createStakingFactory } from '../../devtools/src/staking'
 
 describe('Staking/configurator', () => {
     // Declaration of variables to be used in the test suite

@@ -1,6 +1,8 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { TokenMessaging } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { TokenMessagingGasLimits } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
@@ -10,8 +12,6 @@ import { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 import { createContractFactory } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createEndpointV2Factory } from '@layerzerolabs/protocol-devtools-evm'
-
-import { TokenMessaging, TokenMessagingGasLimits } from '../../devtools/src/token-messaging'
 
 const busSize = 128
 const busFare = 100n

@@ -1,14 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createTreasurerFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { TreasurerOmniGraph, configureTreasurer } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { TreasurerOmniGraph, configureTreasurer, createTreasurerFactory } from '../../devtools/src/treasurer'
 
 describe('Treasurer/configurator', () => {
     // Declaration of variables to be used in the test suite
