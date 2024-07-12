@@ -65,7 +65,8 @@ export class Asset extends Ownable implements IAsset {
 
     @AsyncRetriable()
     async isOFTPath(dstEid: EndpointId): Promise<boolean> {
-        const credit = await this.contract.contract.paths(dstEid).toBigInt()
+        const path = await this.contract.contract.paths(dstEid)
+        const credit = path.credit.toBigInt()
 
         return credit === UNLIMITED_CREDIT
     }
