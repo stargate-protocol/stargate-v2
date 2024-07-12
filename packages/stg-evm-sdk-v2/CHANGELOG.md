@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.5
+
+### Patch Changes
+
+- 8707395: Add support for flare
+
 ## 1.0.4
 
 ### Patch Changes
