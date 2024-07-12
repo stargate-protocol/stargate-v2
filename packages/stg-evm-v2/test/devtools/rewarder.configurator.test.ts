@@ -1,21 +1,22 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createRewarderFactory, createStakingFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import {
+    RewarderOmniGraph,
+    RewarderRewardsOmniGraph,
+    StakingNodeConfig,
+    StakingOmniGraph,
+    configureRewarder,
+    configureRewards,
+    configureStaking,
+} from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniAddress, OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import {
-    RewarderOmniGraph,
-    RewarderRewardsOmniGraph,
-    configureRewarder,
-    configureRewards,
-    createRewarderFactory,
-} from '../../devtools/src/rewarder'
-import { StakingNodeConfig, StakingOmniGraph, configureStaking, createStakingFactory } from '../../devtools/src/staking'
 
 describe('Rewarder/configurator', () => {
     const stakingA: OmniAddress = '0x0000000000000000000000000000000000000001'

@@ -1,7 +1,8 @@
+import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefinance/stg-devtools-v2'
+
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { type TokenMessagingEdgeConfig, type TokenMessagingNodeConfig } from '../../../src/token-messaging'
 import { generateTokenMessagingConfig, getSafeAddress } from '../../utils'
 import {
     onArb,

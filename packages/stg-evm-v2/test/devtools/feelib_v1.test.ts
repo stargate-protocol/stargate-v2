@@ -1,13 +1,13 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { FeeLibV1 } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { FeeConfig } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { FeeConfig, FeeLibV1 } from '../../devtools/src/feeLib_v1'
 
 const dstEid = EndpointId.APTOS_SANDBOX
 

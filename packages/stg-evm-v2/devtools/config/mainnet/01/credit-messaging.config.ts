@@ -1,3 +1,5 @@
+import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatefinance/stg-devtools-v2'
+
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
@@ -28,8 +30,6 @@ import {
 
 import { DEFAULT_PLANNER } from './constants'
 import { getMessagingAssetConfig } from './shared'
-
-import type { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '../../../src/credit-messaging'
 
 const contract = { contractName: 'CreditMessaging' }
 

@@ -1,11 +1,11 @@
 import { ASSETS, REWARDS, RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
+import { ERC20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDTDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
-import { ERC20NodeConfig } from '../../src/erc20'
 
 import { onArb, onBsc, onEth, onOpt } from './utils'
 

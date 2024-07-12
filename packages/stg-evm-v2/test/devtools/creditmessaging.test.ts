@@ -1,6 +1,7 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { CreditMessaging } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
@@ -10,8 +11,6 @@ import { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 import { createContractFactory } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createEndpointV2Factory } from '@layerzerolabs/protocol-devtools-evm'
-
-import { CreditMessaging } from '../../devtools/src/credit-messaging'
 
 const assetId = 1
 const gasLimit = 2n

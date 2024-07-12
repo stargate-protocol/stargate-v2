@@ -8,6 +8,7 @@ import {
     StargateType,
     TokenName,
 } from '@stargatefinance/stg-definitions-v2'
+import { createAssetFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 
 import { formatEid, tapError } from '@layerzerolabs/devtools'
 import {
@@ -18,7 +19,6 @@ import {
 import { createModuleLogger, printRecord } from '@layerzerolabs/io-devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createAssetFactory } from '../../devtools/src/asset'
 import { getStargateDeployName } from '../../ops/util'
 
 /**

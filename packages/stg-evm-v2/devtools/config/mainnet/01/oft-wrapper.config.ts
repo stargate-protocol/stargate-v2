@@ -1,6 +1,6 @@
-import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
+import { OFTWrapperNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
-import { OFTWrapperNodeConfig } from '../../../src/oft-wrapper'
+import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 const contract = { contractName: 'OFTWrapper' }
 

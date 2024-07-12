@@ -1,21 +1,20 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createTokenMessagingFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import {
+    TokenMessagingEdgeConfig,
+    TokenMessagingNodeConfig,
+    TokenMessagingOmniGraph,
+    configureTokenMessaging,
+    initializeBusQueueStorage,
+} from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import {
-    TokenMessagingEdgeConfig,
-    TokenMessagingNodeConfig,
-    TokenMessagingOmniGraph,
-    configureTokenMessaging,
-    createTokenMessagingFactory,
-    initializeBusQueueStorage,
-} from '../../devtools/src/token-messaging'
 
 const busSize = 128
 const busFare = 100n

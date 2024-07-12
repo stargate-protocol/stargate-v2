@@ -1,13 +1,12 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { Treasurer } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { Treasurer } from '../../devtools/src/treasurer'
 
 describe('Treasurer/sdk', () => {
     // Declaration of variables to be used in the test suite

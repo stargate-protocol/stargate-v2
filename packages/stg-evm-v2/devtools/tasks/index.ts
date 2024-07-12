@@ -1,3 +1,73 @@
+import {
+    AssetOmniGraphHardhatSchema,
+    CreditMessagingOmniGraphHardhatSchema,
+    ERC20OmniGraphHardhatSchema,
+    FeeLibV1OmniGraphHardhatSchema,
+    MintableOmniGraphHardhatSchema,
+    OFTWrapperOmniGraphHardhatSchema,
+    PoolOmniGraphHardhatSchema,
+    RewarderOmniGraphHardhatSchema,
+    RewarderRewardsOmniGraphHardhatSchema,
+    StakingOmniGraphHardhatSchema,
+    TokenMessagingOmniGraphHardhatSchema,
+    TreasurerOmniGraphHardhatSchema,
+    USDCOmniGraphHardhatSchema,
+    createAssetFactory,
+    createCreditMessagingFactory,
+    createERC20Factory,
+    createFeeLibV1Factory,
+    createMintableFactory,
+    createOFTWrapperFactory,
+    createPoolFactory,
+    createRewarderFactory,
+    createStakingFactory,
+    createTokenMessagingFactory,
+    createTreasurerFactory,
+    createUSDCFactory,
+} from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import {
+    AssetOmniGraph,
+    CreditMessagingOmniGraph,
+    ERC20OmniGraph,
+    FeeLibV1OmniGraph,
+    IAsset,
+    ICreditMessaging,
+    IERC20,
+    IFeeLibV1,
+    IMintable,
+    IOFTWrapper,
+    IPool,
+    IRewarder,
+    IStaking,
+    ITokenMessaging,
+    ITreasurer,
+    IUSDC,
+    MintableOmniGraph,
+    OFTWrapperOmniGraph,
+    PoolOmniGraph,
+    RewarderOmniGraph,
+    RewarderRewardsOmniGraph,
+    StakingOmniGraph,
+    TokenMessagingOmniGraph,
+    TreasurerOmniGraph,
+    USDCOmniGraph,
+    configureAsset,
+    configureCreditMessaging,
+    configureDeposit,
+    configureERC20,
+    configureFeeLibV1,
+    configureMintable,
+    configureOFTWrapper,
+    configureProxyAdmin,
+    configureRewarder,
+    configureRewards,
+    configureStaking,
+    configureTokenMessaging,
+    configureTreasurer,
+    configureUSDC,
+    initializeBusQueueStorage,
+    initializeMinters,
+} from '@stargatefinance/stg-devtools-v2'
 import { subtask } from 'hardhat/config'
 
 import { createConnectedContractFactory, inheritTask } from '@layerzerolabs/devtools-evm-hardhat'
@@ -8,73 +78,6 @@ import {
     SubtaskLoadConfigTaskArgs,
     TASK_LZ_OAPP_WIRE,
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
-
-import { AssetOmniGraph, AssetOmniGraphHardhatSchema, IAsset, configureAsset, createAssetFactory } from '../src/asset'
-import {
-    CreditMessagingOmniGraph,
-    CreditMessagingOmniGraphHardhatSchema,
-    ICreditMessaging,
-    configureCreditMessaging,
-    createCreditMessagingFactory,
-} from '../src/credit-messaging'
-import { ERC20OmniGraph, ERC20OmniGraphHardhatSchema, IERC20, configureERC20, createERC20Factory } from '../src/erc20'
-import {
-    FeeLibV1OmniGraph,
-    FeeLibV1OmniGraphHardhatSchema,
-    IFeeLibV1,
-    configureFeeLibV1,
-    createFeeLibV1Factory,
-} from '../src/feeLib_v1'
-import {
-    IMintable,
-    MintableOmniGraph,
-    MintableOmniGraphHardhatSchema,
-    configureMintable,
-    createMintableFactory,
-} from '../src/mintable'
-import { IOFTWrapper, OFTWrapperOmniGraph, configureOFTWrapper, createOFTWrapperFactory } from '../src/oft-wrapper'
-import { OFTWrapperOmniGraphHardhatSchema } from '../src/oft-wrapper/schema'
-import { IPool, PoolOmniGraph, PoolOmniGraphHardhatSchema, configureDeposit, createPoolFactory } from '../src/pool'
-import {
-    IRewarder,
-    RewarderOmniGraph,
-    RewarderRewardsOmniGraph,
-    configureRewarder,
-    configureRewards,
-    createRewarderFactory,
-} from '../src/rewarder'
-import { RewarderOmniGraphHardhatSchema, RewarderRewardsOmniGraphHardhatSchema } from '../src/rewarder/schema'
-import {
-    IStaking,
-    StakingOmniGraph,
-    StakingOmniGraphHardhatSchema,
-    configureStaking,
-    createStakingFactory,
-} from '../src/staking'
-import {
-    ITokenMessaging,
-    TokenMessagingOmniGraph,
-    TokenMessagingOmniGraphHardhatSchema,
-    configureTokenMessaging,
-    createTokenMessagingFactory,
-    initializeBusQueueStorage,
-} from '../src/token-messaging'
-import {
-    ITreasurer,
-    TreasurerOmniGraph,
-    TreasurerOmniGraphHardhatSchema,
-    configureTreasurer,
-    createTreasurerFactory,
-} from '../src/treasurer'
-import {
-    IUSDC,
-    USDCOmniGraph,
-    USDCOmniGraphHardhatSchema,
-    configureProxyAdmin,
-    configureUSDC,
-    createUSDCFactory,
-    initializeMinters,
-} from '../src/usdc'
 
 import {
     TASK_STG_ADD_LIQUIDITY,

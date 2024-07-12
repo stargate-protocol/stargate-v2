@@ -1,14 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createFeeLibV1Factory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { FeeConfig, FeeLibV1OmniGraph, configureFeeLibV1 } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { FeeConfig, FeeLibV1OmniGraph, configureFeeLibV1, createFeeLibV1Factory } from '../../devtools/src/feeLib_v1'
 
 const dstEid = EndpointId.APTOS_SANDBOX
 

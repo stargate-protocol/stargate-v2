@@ -1,21 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { USDC, createUSDCFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { USDCOmniGraph, configureProxyAdmin, configureUSDC, initializeMinters } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import {
-    USDC,
-    USDCOmniGraph,
-    configureProxyAdmin,
-    configureUSDC,
-    createUSDCFactory,
-    initializeMinters,
-} from '../../devtools/src/usdc'
 
 describe('USDC/configurator', () => {
     // Declaration of variables to be used in the test suite

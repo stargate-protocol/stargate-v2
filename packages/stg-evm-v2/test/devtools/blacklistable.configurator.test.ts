@@ -1,18 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { createBlacklistableFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { BlacklistableOmniGraph, configureBlacklistable } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import {
-    BlacklistableOmniGraph,
-    configureBlacklistable,
-    createBlacklistableFactory,
-} from '../../devtools/src/blacklistable'
 
 describe('Blacklistable/configurator', () => {
     // Declaration of variables to be used in the test suite

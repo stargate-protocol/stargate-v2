@@ -1,6 +1,7 @@
 import assert from 'assert'
 
 import { ASSETS, StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
+import { createERC20Factory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
@@ -8,7 +9,6 @@ import { createConnectedContractFactory, getEidForNetworkName } from '@layerzero
 import { Logger, createModuleLogger, printRecord } from '@layerzerolabs/io-devtools'
 
 import { CONTRACT_MOCKERC20_TAGS, CONTRACT_STARGATE_TAGS } from '..'
-import { createERC20Factory } from '../../devtools/src/erc20'
 import {
     getNativePoolAssetDeploymentName,
     getOFTAssetDeploymentName,

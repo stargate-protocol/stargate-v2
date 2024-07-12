@@ -1,11 +1,10 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetEdge, createGetAssetNode, createGetAssetOmniPoint } from '../../src/asset/utils'
-
-import type { AssetEdgeConfig, AssetNodeConfig } from '../../src/asset/types'
+import { createGetAssetEdge, createGetAssetNode, createGetAssetOmniPoint } from '../../utils'
 
 const tokenName = TokenName.USDT
 

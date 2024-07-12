@@ -1,15 +1,14 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { Rewarder, createStakingFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { Allocations, StakingNodeConfig, StakingOmniGraph, configureStaking } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
 
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { Allocations, Rewarder } from '../../devtools/src/rewarder'
-import { StakingNodeConfig, StakingOmniGraph, configureStaking, createStakingFactory } from '../../devtools/src/staking'
 
 class StakingEdgeConfig {}
 

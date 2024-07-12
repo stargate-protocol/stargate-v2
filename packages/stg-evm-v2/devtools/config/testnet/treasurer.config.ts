@@ -1,4 +1,5 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { TreasurerNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
@@ -6,8 +7,6 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createGetAssetAddresses, getNamedAccount } from '../../../ts-src/utils/util'
 
 import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
-
-import type { TreasurerNodeConfig } from '../../src/treasurer'
 
 const contract = { contractName: 'Treasurer' }
 const getDeployer = getNamedAccount('deployer')

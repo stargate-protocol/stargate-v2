@@ -1,10 +1,10 @@
+import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefinance/stg-devtools-v2'
+
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { generateDefaultConnections } from '../utils'
 
 import { onBsc, onEth, onPolygon } from './utils'
-
-import type { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '../../src/token-messaging'
 
 const contract = { contractName: 'TokenMessaging' }
 
