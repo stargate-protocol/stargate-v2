@@ -26,6 +26,7 @@ lerna-debug.log*
 
 #Hardhat files
 artifacts/
+artifacts-zk/
 hh-cache/
 
 #foundry test compilation files
