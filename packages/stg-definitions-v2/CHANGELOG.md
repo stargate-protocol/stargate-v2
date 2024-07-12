@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.1
+
+### Patch Changes
+
+- 8707395: Add support for flare
+- b5bcc4c: Add Flare mainnet config
+
 ## 1.1.0
 
 ### Minor Changes
