@@ -26,7 +26,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
-    const flareUSDC = onGravity({ ...fiatContract, address: flareUSDCProxy.contract.address })
+    const flareUSDC = onFlare({ ...fiatContract, address: flareUSDCProxy.contract.address })
     const flareStargateMultisig = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
 
     const gravityUSDC = onGravity({ ...fiatContract, address: gravityUSDCProxy.contract.address })
