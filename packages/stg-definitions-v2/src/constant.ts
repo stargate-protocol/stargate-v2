@@ -688,13 +688,13 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-arbitrum.safe.global/',
         },
     },
-    // TODO
-    // [EndpointId.ASTAR_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.ASTAR_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=astar:0x5d3917b47e963ec703ed66da6637c701365ff500',
+        },
+    },
     [EndpointId.AURORA_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -748,13 +748,12 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-base.safe.global/',
         },
     },
-    // TODO
-    // [EndpointId.BLAST_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.BLAST_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0xc53329FD24f3a446b7c3a804Ebc53515c0244012\n',
+            safeUrl: 'https://gn.lzdevnet.org/app/blast:0xc53329FD24f3a446b7c3a804Ebc53515c0244012/transactions/queue',
+        },
+    },
     [EndpointId.BSC_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -818,13 +817,13 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-mainnet.safe.global/',
         },
     },
-    // TODO
-    // [EndpointId.ETHERLINK_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.ETHERLINK_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=etlk:0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
+        },
+    },
     [EndpointId.FANTOM_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x2351BBCb7cF7Ee9D18AF2Be0d106BFc5D47A9E85',
@@ -860,13 +859,13 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
-    // TODO
-    // [EndpointId.FRAXTAL_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.FRAXTAL_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90',
+            safeUrl:
+                'https://gn.lzdevnet.org/app/fraxtal:0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90/transactions/queue',
+        },
+    },
     [EndpointId.GRAVITY_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -999,34 +998,33 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://metis-tx.lzdevnet.org/',
         },
     },
-    // TODO
-    // [EndpointId.MODE_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
-    // TODO
-    // [EndpointId.MOONBEAM_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
-    // TODO
-    // [EndpointId.MOONRIVER_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
-    // TODO
-    // [EndpointId.OPBNB_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.MODE_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x9BD292C0f5D95686481A8af9b8694654B25aE1AC',
+            safeUrl: 'https://gn.lzdevnet.org/app/mode:0x9BD292C0f5D95686481A8af9b8694654B25aE1AC/transactions/queue',
+        },
+    },
+    [EndpointId.MOONBEAM_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=mbeam:0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
+        },
+    },
+    [EndpointId.MOONRIVER_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=mriver:0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
+        },
+    },
+    [EndpointId.OPBNB_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/history?safe=obnb:0xD6578c1C35ee901d01D99e17593E25B13994090b',
+        },
+    },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1107,13 +1105,13 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://scroll-tx.lzdevnet.org/',
         },
     },
-    // TODO
-    // [EndpointId.SHIMMER_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.SHIMMER_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=shimmer:0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
+        },
+    },
     [EndpointId.SEI_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1201,13 +1199,13 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
-    // TODO
-    // [EndpointId.ZKATANA_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.ZKATANA_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9\n',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=astrzk:0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
+        },
+    },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1231,13 +1229,12 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://linea-tx.lzdevnet.org/',
         },
     },
-    // TODO
-    // [EndpointId.ZKPOLYGON_V2_MAINNET]: {
-    //   safeConfig: {
-    //         safeAddress: '',
-    //         safeUrl: '',
-    //   },
-    // },
+    [EndpointId.ZKPOLYGON_V2_MAINNET]: {
+        safeConfig: {
+            safeAddress: '0x5D3917b47E963eC703eD66Da6637C701365fF500',
+            safeUrl: 'https://app.safe.global/transactions/queue?safe=zkevm:0x5D3917b47E963eC703eD66Da6637C701365fF500',
+        },
+    },
     [EndpointId.ZKSYNC_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',

@@ -159,9 +159,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ASTAR_V2_MAINNET,
         url: process.env.RPC_URL_ASTAR_MAINNET || 'https://evm.astar.network',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.ASTAR_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.ASTAR_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'aurora-mainnet': {
         eid: EndpointId.AURORA_V2_MAINNET,
@@ -188,9 +187,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.BLAST_V2_MAINNET,
         url: process.env.RPC_URL_BLAST_MAINNET || 'https://rpc.blastblockchain.com',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.BLAST_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.BLAST_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'bsc-mainnet': {
         eid: EndpointId.BSC_V2_MAINNET,
@@ -217,9 +215,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ETHERLINK_V2_MAINNET,
         url: process.env.RPC_URL_ETHERLINK_MAINNET || 'https://node.mainnet.etherlink.com',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.ETHERLINK_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.ETHERLINK_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'fantom-mainnet': {
         eid: EndpointId.FANTOM_V2_MAINNET,
@@ -238,9 +235,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.FRAXTAL_V2_MAINNET,
         url: process.env.RPC_URL_FRAXTAL_MAINNET || 'https://rpc.frax.com',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.FRAXTAL_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.FRAXTAL_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
@@ -295,33 +291,29 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.MODE_V2_MAINNET,
         url: process.env.RPC_URL_MODE_MAINNET || 'https://mainnet.mode.network',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.MODE_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.MODE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'moonbeam-mainnet': {
         eid: EndpointId.MOONBEAM_V2_MAINNET,
         url: process.env.RPC_URL_MOONBEAM_MAINNET || 'https://rpc.api.moonbeam.network',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.MOONBEAM_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.MOONBEAM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'moonriver-mainnet': {
         eid: EndpointId.MOONRIVER_V2_MAINNET,
         url: process.env.RPC_URL_MOONRIVER_MAINNET || 'https://moonriver-rpc.publicnode.com',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.MOONRIVER_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.MOONRIVER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'opbnb-mainnet': {
         eid: EndpointId.OPBNB_V2_MAINNET,
         url: process.env.RPC_URL_OPBNB_MAINNET || 'https://opbnb-mainnet-rpc.bnbchain.org',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.OPBNB_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.OPBNB_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'optimism-mainnet': {
         eid: EndpointId.OPTIMISM_V2_MAINNET,
@@ -364,9 +356,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.SHIMMER_V2_MAINNET,
         url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'taiko-mainnet': {
         eid: EndpointId.TAIKO_V2_MAINNET,
@@ -387,9 +378,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ZKATANA_V2_MAINNET,
         url: process.env.ZKATANA_V2_MAINNET || 'https://rpc.startale.com/astar-zkevm',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.ZKATANA_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.ZKATANA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
@@ -402,9 +392,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ZKPOLYGON_V2_MAINNET,
         url: process.env.RPC_URL_ZKPOLYGON_MAINNET || 'https://polygon-zkevm.drpc.org',
         accounts: mainnetAccounts,
-        // TODO
-        // safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
-        // timeout: DEFAULT_NETWORK_TIMEOUT,
+        safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zksync-mainnet': {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
