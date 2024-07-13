@@ -326,7 +326,7 @@ transfer-mainnet:
 	# Configure rewarder
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts --signer deployer
 
-	# Configure rewarder
+	# Configure OFT wrapper
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
 # Please be careful with this target, I'd much rather you run
