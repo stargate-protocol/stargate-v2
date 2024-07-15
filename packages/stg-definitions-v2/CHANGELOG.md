@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.2
+
+### Patch Changes
+
+- 7c036ea: Update oft wrapper networks
+
 ## 1.1.1
 
 ### Patch Changes

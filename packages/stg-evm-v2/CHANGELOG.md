@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.13
+
+### Patch Changes
+
+- 7c036ea: Update oft wrapper networks
+- Updated dependencies [7c036ea]
+  - @stargatefinance/stg-definitions-v2@1.1.2
+
 ## 1.0.12
 
 ### Patch Changes
