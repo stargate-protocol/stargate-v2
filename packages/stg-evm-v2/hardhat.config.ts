@@ -185,7 +185,7 @@ const networks: NetworksUserConfig = {
     },
     'blast-mainnet': {
         eid: EndpointId.BLAST_V2_MAINNET,
-        url: process.env.RPC_URL_BLAST_MAINNET || 'https://rpc.blastblockchain.com',
+        url: process.env.RPC_URL_BLAST_MAINNET || 'https://blast-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BLAST_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
