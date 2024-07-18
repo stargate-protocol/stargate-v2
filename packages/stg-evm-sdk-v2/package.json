@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-evm-sdk-v2",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -42,7 +42,7 @@
   "devDependencies": {
     "@layerzerolabs/tsup-config-next": "~2.3.25",
     "@layerzerolabs/typescript-config-next": "~2.3.25",
-    "@stargatefinance/stg-evm-v2": "~1.0.12",
+    "@stargatefinance/stg-evm-v2": "~1.0.14",
     "@types/node": "^18.15.11",
     "esbuild-plugin-clean": "~1.0.1",
     "esbuild-plugin-copy": "~2.1.1",

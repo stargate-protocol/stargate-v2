@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.14
+
+### Patch Changes
+
+- 66fd273: Deploy all oft wrappers
+- Updated dependencies [628ad50]
+  - @stargatefinance/stg-definitions-v2@1.1.3
+
 ## 1.0.13
 
 ### Patch Changes
