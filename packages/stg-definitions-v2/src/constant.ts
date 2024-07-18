@@ -512,6 +512,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
         [EndpointId.FANTOM_V2_MAINNET]: {},
+        [EndpointId.FLARE_V2_MAINNET]: {},
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
         [EndpointId.IOTA_V2_MAINNET]: {},

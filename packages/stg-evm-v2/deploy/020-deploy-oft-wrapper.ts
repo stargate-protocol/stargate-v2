@@ -33,7 +33,7 @@ const deploy: DeployFunction = async (hre) => {
     await deploy('OFTWrapper', {
         from: deployer,
         log: true,
-        args: [bps, callerBpsCap],
+        args: [bps.toString(), callerBpsCap.toString()],
         waitConfirmations: 1,
         skipIfAlreadyDeployed: true,
         ...feeData,

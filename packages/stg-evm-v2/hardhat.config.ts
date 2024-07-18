@@ -185,7 +185,7 @@ const networks: NetworksUserConfig = {
     },
     'blast-mainnet': {
         eid: EndpointId.BLAST_V2_MAINNET,
-        url: process.env.RPC_URL_BLAST_MAINNET || 'https://rpc.blastblockchain.com',
+        url: process.env.RPC_URL_BLAST_MAINNET || 'https://blast-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BLAST_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -227,7 +227,7 @@ const networks: NetworksUserConfig = {
     },
     'flare-mainnet': {
         eid: EndpointId.FLARE_V2_MAINNET,
-        url: process.env.RPC_URL_FLARE_MAINNET || 'https://flare.rpc.thirdweb.com',
+        url: process.env.RPC_URL_FLARE_MAINNET || 'https://flare-api.flare.network/ext/C/rpc',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FLARE_V2_MAINNET),
     },
