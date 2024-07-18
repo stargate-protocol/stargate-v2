@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.6
+
+### Patch Changes
+
+- 66fd273: Deploy all oft wrappers
+
 ## 1.0.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.3
+
+### Patch Changes
+
+- 628ad50: Typoe in multisig configs
+
 ## 1.1.2
 
 ### Patch Changes
