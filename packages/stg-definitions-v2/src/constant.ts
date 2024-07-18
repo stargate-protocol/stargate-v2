@@ -751,7 +751,7 @@ export const NETWORKS: NetworksConfig = {
     },
     [EndpointId.BLAST_V2_MAINNET]: {
         safeConfig: {
-            safeAddress: '0xc53329FD24f3a446b7c3a804Ebc53515c0244012\n',
+            safeAddress: '0xc53329FD24f3a446b7c3a804Ebc53515c0244012',
             safeUrl: 'https://gn.lzdevnet.org/app/blast:0xc53329FD24f3a446b7c3a804Ebc53515c0244012/transactions/queue',
         },
     },
@@ -1202,7 +1202,7 @@ export const NETWORKS: NetworksConfig = {
     },
     [EndpointId.ZKATANA_V2_MAINNET]: {
         safeConfig: {
-            safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9\n',
+            safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
             safeUrl:
                 'https://gnosis.lzdevnet.org/transactions/queue?safe=astrzk:0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
         },
