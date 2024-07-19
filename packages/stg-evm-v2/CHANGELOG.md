@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.15
+
+### Patch Changes
+
+- 88cba1e: Update testnet with a redeploy
+
 ## 1.0.14
 
 ### Patch Changes
