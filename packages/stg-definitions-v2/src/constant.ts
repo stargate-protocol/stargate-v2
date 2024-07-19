@@ -120,7 +120,6 @@ export const EXECUTORS = {
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
-// TODO better names for these?
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
     creditGasLimit: 40000n, // fixed gas limit for creditMsging
