@@ -148,40 +148,19 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
-            [EndpointId.ETHEREUM_V2_MAINNET]: {
+            [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
-            [EndpointId.ARBITRUM_V2_MAINNET]: {
+            [EndpointId.BASE_V2_MAINNET]: {
+                type: StargateType.Native,
+            },
+            [EndpointId.ETHEREUM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
             [EndpointId.FLARE_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
-            },
-            [EndpointId.OPTIMISM_V2_MAINNET]: {
-                type: StargateType.Native,
-            },
-            [EndpointId.METIS_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Pool,
-                address: '0x420000000000000000000000000000000000000a',
-            },
-            [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
-                type: StargateType.Native,
-            },
-            [EndpointId.MANTLE_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Pool,
-                address: '0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111',
-            },
-            [EndpointId.BASE_V2_MAINNET]: {
-                type: StargateType.Native,
-            },
-            [EndpointId.SCROLL_V2_MAINNET]: {
-                type: StargateType.Native,
             },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -198,10 +177,31 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.MANTLE_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Pool,
+                address: '0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111',
+            },
+            [EndpointId.METIS_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Pool,
+                address: '0x420000000000000000000000000000000000000a',
+            },
+            [EndpointId.OPTIMISM_V2_MAINNET]: {
+                type: StargateType.Native,
+            },
+            [EndpointId.SCROLL_V2_MAINNET]: {
+                type: StargateType.Native,
+            },
             [EndpointId.SEI_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
+            },
+            [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
+                type: StargateType.Native,
             },
 
             //
