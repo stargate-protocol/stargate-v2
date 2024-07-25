@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.4
+
+### Patch Changes
+
+- bbb57e3: Clean up order of constants
+
 ## 1.1.3
 
 ### Patch Changes
