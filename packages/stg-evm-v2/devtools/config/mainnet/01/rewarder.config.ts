@@ -142,6 +142,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     allocations: {
                         [bscRewardTokenAddresses.STG]: {
+                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDC]: 10000,
                             [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT]: 10000,
                         },
                     },
