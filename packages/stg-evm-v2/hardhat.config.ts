@@ -219,7 +219,7 @@ const networks: NetworksUserConfig = {
     },
     'flare-mainnet': {
         eid: EndpointId.FLARE_V2_MAINNET,
-        url: process.env.RPC_URL_FLARE_MAINNET || 'https://flare.rpc.thirdweb.com',
+        url: process.env.RPC_URL_FLARE_MAINNET || 'https://rpc.ankr.com/flare',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FLARE_V2_MAINNET),
     },
