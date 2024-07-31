@@ -677,6 +677,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.SEI]: {
+        name: 'SEI',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.SEI_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {

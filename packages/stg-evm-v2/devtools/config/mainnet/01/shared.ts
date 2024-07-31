@@ -237,6 +237,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const seiLPTokenAddresses = await getLPTokenAddresses(EndpointId.SEI_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -290,6 +294,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SCROLL_V2_MAINNET]: {
             [TokenName.ETH]: scrollLPTokenAddresses.ETH,
             [TokenName.USDC]: scrollLPTokenAddresses.USDC,
+        },
+        [EndpointId.SEI_V2_MAINNET]: {
+            [TokenName.USDC]: seiLPTokenAddresses.USDC,
+            [TokenName.USDT]: seiLPTokenAddresses.USDT,
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [TokenName.ETH]: zkConsensysLPTokenAddresses.ETH,
