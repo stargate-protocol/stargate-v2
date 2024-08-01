@@ -77,7 +77,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [TokenName.USDT] as const)
+    const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
@@ -135,7 +138,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -197,6 +204,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     owner: bscAdmin,
                     admin: bscAdmin,
                     assets: {
+                        [bscAssetAddresses.USDC]: true,
                         [bscAssetAddresses.USDT]: true,
                     },
                 },
@@ -360,6 +368,8 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     admin: seiAdmin,
                     assets: {
                         [seiAssetAddresses.ETH]: true,
+                        [seiAssetAddresses.USDC]: true,
+                        [seiAssetAddresses.USDT]: true,
                     },
                 },
             },

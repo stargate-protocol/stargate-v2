@@ -22,6 +22,7 @@ import {
     onOpt,
     onPolygon,
     onScroll,
+    onSei,
     onZkConsensys,
 } from '../utils'
 
@@ -47,6 +48,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const optRewarder = await contractFactory(onOpt(rewarder))
     const polygonRewarder = await contractFactory(onPolygon(rewarder))
     const scrollRewarder = await contractFactory(onScroll(rewarder))
+    const seiRewarder = await contractFactory(onSei(rewarder))
     const zkConsensysRewarder = await contractFactory(onZkConsensys(rewarder))
 
     // Get the staking contract
@@ -62,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const optStaking = onOpt(staking)
     const polygonStaking = onPolygon(staking)
     const scrollStaking = onScroll(staking)
+    const seiStaking = onSei(staking)
     const zkConsensysStaking = onZkConsensys(staking)
 
     // Template objects for pool configuration
@@ -79,6 +82,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const optPool = { rewarder: optRewarder.contract.address }
     const polygonPool = { rewarder: polygonRewarder.contract.address }
     const scrollPool = { rewarder: scrollRewarder.contract.address }
+    const seiPool = { rewarder: seiRewarder.contract.address }
     const zkConsensysPool = { rewarder: zkConsensysRewarder.contract.address }
 
     // get the LPToken addresses
@@ -155,6 +159,10 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                 config: {
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     pools: [
+                        {
+                            ...bscPool,
+                            token: lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDC,
+                        },
                         {
                             ...bscPool,
                             token: lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT,
@@ -278,6 +286,22 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...scrollPool,
                             token: lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].USDC,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: seiStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    pools: [
+                        {
+                            ...seiPool,
+                            token: lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC,
+                        },
+                        {
+                            ...seiPool,
+                            token: lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT,
                         },
                     ],
                 },

@@ -297,6 +297,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.RARIBLE_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
+            [EndpointId.SEI_V2_MAINNET]: {
+                type: StargateType.Pool,
+                address: '0xB75D0B03c06A926e488e2659DF1A861F860bD3d1',
+            },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
@@ -361,6 +365,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
                 type: StargateType.Pool,
             },
+            [EndpointId.BSC_V2_MAINNET]: {
+                address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+                type: StargateType.Pool,
+            },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
                 type: StargateType.Pool,
@@ -406,6 +414,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x06efdbff2a14a7c8e15944d1f4a48f9f95f663a4',
                 type: StargateType.Pool,
                 symbol: 'USDC.e',
+            },
+            [EndpointId.SEI_V2_MAINNET]: {
+                address: '0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1',
+                type: StargateType.Pool,
             },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -662,6 +674,16 @@ export const REWARDS: RewardsConfig = {
             // Mainnet
             [EndpointId.AURORA_V2_MAINNET]: {
                 address: '0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79',
+            },
+        },
+    },
+    [RewardTokenName.SEI]: {
+        name: 'SEI',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.SEI_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
             },
         },
     },

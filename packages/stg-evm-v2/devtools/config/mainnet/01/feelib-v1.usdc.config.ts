@@ -9,6 +9,7 @@ import {
     onAurora,
     onAvax,
     onBase,
+    onBsc,
     onEth,
     onFlare,
     onGravity,
@@ -19,6 +20,7 @@ import {
     onPolygon,
     onRarible,
     onScroll,
+    onSei,
     onTaiko,
     onXchain,
 } from '../utils'
@@ -37,6 +39,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const auroraFeeLibV1 = onAurora(contract)
     const avaxFeeLibV1 = onAvax(contract)
     const baseFeeLibV1 = onBase(contract)
+    const bscFeeLibV1 = onBsc(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const gravityFeeLibV1 = onGravity(contract)
@@ -47,6 +50,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
     const scrollFeeLibV1 = onScroll(contract)
+    const seiFeeLibV1 = onSei(contract)
     const taikoFeeLibV1 = onTaiko(contract)
     const xchainFeeLibV1 = onXchain(contract)
 
@@ -66,6 +70,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: baseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: bscFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -106,6 +114,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: scrollFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: seiFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
