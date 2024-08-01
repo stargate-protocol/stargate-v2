@@ -20,6 +20,7 @@ import {
     onOpt,
     onPolygon,
     onRarible,
+    onSei,
     onTaiko,
 } from '../utils'
 
@@ -48,6 +49,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const optFeeLibV1 = onOpt(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
+    const seiFeeLibV1 = onSei(contract)
     const taikoFeeLibV1 = onTaiko(contract)
 
     return {
@@ -110,6 +112,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: raribleFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: seiFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

@@ -19,6 +19,7 @@ import {
     onOpt,
     onPolygon,
     onScroll,
+    onSei,
     onZkConsensys,
 } from '../utils'
 
@@ -69,6 +70,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const scrollRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SCROLL_V2_MAINNET, [
         RewardTokenName.STG,
+    ] as const)
+    const seiRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SEI_V2_MAINNET, [
+        RewardTokenName.SEI,
     ] as const)
     const zkConsensysRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         RewardTokenName.STG,
@@ -138,7 +142,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     allocations: {
                         [bscRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT]: 10000,
+                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDC]: 3333,
+                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT]: 6667,
                         },
                     },
                 },
@@ -230,6 +235,18 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                         [scrollRewardTokenAddresses.STG]: {
                             [lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].ETH]: 5000,
                             [lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].USDC]: 5000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onSei(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
+                    allocations: {
+                        [seiRewardTokenAddresses.SEI]: {
+                            [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC]: 5000,
+                            [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT]: 5000,
                         },
                     },
                 },
