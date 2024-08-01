@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.5
+
+### Patch Changes
+
+- 677404e: Add USDC & USDT pools (Sei & BNB)
+
 ## 1.1.4
 
 ### Patch Changes
