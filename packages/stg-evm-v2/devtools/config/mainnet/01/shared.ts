@@ -204,7 +204,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_MAINNET, [TokenName.USDT] as const)
+    const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ethLPTokenAddresses = await getLPTokenAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,
@@ -263,6 +266,7 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
             [TokenName.USDC]: baseLPTokenAddresses.USDC,
         },
         [EndpointId.BSC_V2_MAINNET]: {
+            [TokenName.USDC]: bscLPTokenAddresses.USDC,
             [TokenName.USDT]: bscLPTokenAddresses.USDT,
         },
         [EndpointId.ETHEREUM_V2_MAINNET]: {

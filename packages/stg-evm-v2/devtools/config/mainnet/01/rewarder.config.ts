@@ -142,7 +142,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     allocations: {
                         [bscRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT]: 10000,
+                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDC]: 3333,
+                            [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT]: 6667,
                         },
                     },
                 },
@@ -244,8 +245,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
                     allocations: {
                         [seiRewardTokenAddresses.SEI]: {
-                            [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC]: 5000, // FIXME
-                            [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT]: 5000, // FIXME
+                            [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC]: 5000,
+                            [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT]: 5000,
                         },
                     },
                 },
