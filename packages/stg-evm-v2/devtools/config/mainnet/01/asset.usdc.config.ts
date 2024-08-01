@@ -22,6 +22,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const auroraPoint = getAssetPoint(EndpointId.AURORA_V2_MAINNET)
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
+    const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
@@ -32,6 +33,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
+    const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
     const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
 
@@ -40,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const auroraContract = await getAssetNode(auroraPoint)
     const avaxContract = await getAssetNode(avaxPoint)
     const baseContract = await getAssetNode(basePoint)
+    const bscContract = await getAssetNode(bscPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
@@ -50,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
     const scrollContract = await getAssetNode(scrollPoint)
+    const seiContract = await getAssetNode(seiPoint)
     const taikoContract = await getAssetNode(taikoPoint)
     const xchainContract = await getAssetNode(xchainPoint)
 
@@ -59,6 +63,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             auroraContract,
             avaxContract,
             baseContract,
+            bscContract,
             ethContract,
             flareContract,
             gravityContract,
@@ -69,6 +74,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             polygonContract,
             raribleContract,
             scrollContract,
+            seiContract,
             taikoContract,
             xchainContract,
         ],
@@ -77,6 +83,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             auroraPoint,
             avaxPoint,
             basePoint,
+            bscPoint,
             ethPoint,
             flarePoint,
             gravityPoint,
@@ -87,6 +94,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             polygonPoint,
             rariblePoint,
             scrollPoint,
+            seiPoint,
             taikoPoint,
             xchainPoint,
         ]),

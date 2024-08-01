@@ -1,5 +1,37 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.15
+
+### Patch Changes
+
+- 88cba1e: Update testnet with a redeploy
+
+## 1.0.14
+
+### Patch Changes
+
+- 66fd273: Deploy all oft wrappers
+- Updated dependencies [628ad50]
+  - @stargatefinance/stg-definitions-v2@1.1.3
+
+## 1.0.13
+
+### Patch Changes
+
+- 7c036ea: Update oft wrapper networks
+- Updated dependencies [7c036ea]
+  - @stargatefinance/stg-definitions-v2@1.1.2
+
+## 1.0.12
+
+### Patch Changes
+
+- 8707395: Add support for flare
+- b5bcc4c: Add Flare mainnet config
+- Updated dependencies [8707395]
+- Updated dependencies [b5bcc4c]
+  - @stargatefinance/stg-definitions-v2@1.1.1
+
 ## 1.0.11
 
 ### Patch Changes

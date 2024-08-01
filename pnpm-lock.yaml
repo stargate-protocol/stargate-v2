@@ -238,7 +238,7 @@ importers:
         specifier: ~2.3.25
         version: 2.3.25
       '@stargatefinance/stg-evm-v2':
-        specifier: ~1.0.10
+        specifier: ~1.0.15
         version: link:../stg-evm-v2
       '@types/node':
         specifier: ^18.15.11
@@ -286,7 +286,7 @@ importers:
         specifier: ~2.3.25
         version: 2.3.25
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~1.1.0
+        specifier: ~1.1.3
         version: link:../stg-definitions-v2
       '@stargatefinance/stg-evm-v1':
         specifier: ~1.0.31
@@ -3052,7 +3052,7 @@ packages:
     dependencies:
       '@ledgerhq/cryptoassets': 5.53.0
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.26.0
+      '@ledgerhq/hw-transport': 5.51.1
       bignumber.js: 9.1.2
       rlp: 2.2.7
     dev: true
@@ -3075,7 +3075,7 @@ packages:
     dependencies:
       '@ledgerhq/devices': 5.51.1
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.26.0
+      '@ledgerhq/hw-transport': 5.51.1
       '@ledgerhq/hw-transport-node-hid-noevents': 5.51.1
       '@ledgerhq/logs': 5.50.0
       lodash: 4.17.21
@@ -3089,7 +3089,7 @@ packages:
     deprecated: '@ledgerhq/hw-transport-u2f is deprecated. Please use @ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid. https://github.com/LedgerHQ/ledgerjs/blob/master/docs/migrate_webusb.md'
     dependencies:
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.26.0
+      '@ledgerhq/hw-transport': 5.51.1
       '@ledgerhq/logs': 5.50.0
       u2f-api: 0.2.7
     dev: true
@@ -3110,7 +3110,6 @@ packages:
       '@ledgerhq/errors': 5.50.0
       events: 3.3.0
     dev: true
-    optional: true
 
   /@ledgerhq/logs@5.50.0:
     resolution: {integrity: sha512-swKHYCOZUGyVt4ge0u8a7AwNcA//h4nx5wIi0sruGye1IJ5Cva0GyK9L2/WdX+kWVTKp92ZiEo1df31lrWGPgA==}
@@ -14094,7 +14093,7 @@ packages:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     requiresBuild: true
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: true
     optional: true
 

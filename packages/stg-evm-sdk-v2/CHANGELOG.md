@@ -1,5 +1,23 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.7
+
+### Patch Changes
+
+- 88cba1e: Update testnet with a redeploy
+
+## 1.0.6
+
+### Patch Changes
+
+- 66fd273: Deploy all oft wrappers
+
+## 1.0.5
+
+### Patch Changes
+
+- 8707395: Add support for flare
+
 ## 1.0.4
 
 ### Patch Changes

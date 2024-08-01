@@ -1,5 +1,30 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.4
+
+### Patch Changes
+
+- bbb57e3: Clean up order of constants
+
+## 1.1.3
+
+### Patch Changes
+
+- 628ad50: Typoe in multisig configs
+
+## 1.1.2
+
+### Patch Changes
+
+- 7c036ea: Update oft wrapper networks
+
+## 1.1.1
+
+### Patch Changes
+
+- 8707395: Add support for flare
+- b5bcc4c: Add Flare mainnet config
+
 ## 1.1.0
 
 ### Minor Changes
