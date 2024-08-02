@@ -762,8 +762,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET], DVNS.STG[EndpointId.BASE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
             nativeDropAmount: parseEther('0.00005').toBigInt(),
-            busGasLimit: 50000n,
-            busRideGasLimit: 43000n,
+            busGasLimit: 60000n,
+            busRideGasLimit: 55000n,
         },
         safeConfig: {
             safeAddress: '0x81EAb64E630C4a2E3E849268A6B64cb76D1C8109',
@@ -1014,6 +1014,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET], DVNS.STG[EndpointId.METIS_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
             nativeDropAmount: parseEther('0.00813').toBigInt(),
+            busGasLimit: 50000n,
+            busRideGasLimit: 43000n,
         },
         safeConfig: {
             safeAddress: '0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E',
@@ -1058,6 +1060,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET], DVNS.STG[EndpointId.OPTIMISM_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
+            busGasLimit: 50000n,
+            busRideGasLimit: 43000n,
         },
         safeConfig: {
             safeAddress: '0x392AC17A9028515a3bFA6CCe51F8b70306C6bd43',
