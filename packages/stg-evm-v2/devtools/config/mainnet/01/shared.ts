@@ -81,7 +81,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -174,6 +178,8 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         },
         [EndpointId.SEI_V2_MAINNET]: {
             [seiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [seiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [seiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
