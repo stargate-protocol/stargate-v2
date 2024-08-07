@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.6
+
+### Patch Changes
+
+- a0c734f: update gas limits with optimism
+- 338d0dc: Update gas limits for bus: Base, Metis, Optimism
+
 ## 1.1.5
 
 ### Patch Changes

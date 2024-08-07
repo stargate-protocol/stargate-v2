@@ -1061,7 +1061,7 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
             busGasLimit: 50000n,
-            busRideGasLimit: 43000n,
+            busRideGasLimit: 55000n,
         },
         safeConfig: {
             safeAddress: '0x392AC17A9028515a3bFA6CCe51F8b70306C6bd43',
