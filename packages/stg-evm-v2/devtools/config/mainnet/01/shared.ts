@@ -23,7 +23,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [TokenName.USDT] as const)
+    const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
@@ -113,6 +116,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [baseAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.BSC_V2_MAINNET]: {
+            [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [bscAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.EBI_V2_MAINNET]: {
