@@ -23,7 +23,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [TokenName.USDT] as const)
+    const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
@@ -81,7 +84,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
-    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -109,6 +116,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [baseAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.BSC_V2_MAINNET]: {
+            [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [bscAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.EBI_V2_MAINNET]: {
@@ -174,6 +182,8 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         },
         [EndpointId.SEI_V2_MAINNET]: {
             [seiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [seiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [seiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
