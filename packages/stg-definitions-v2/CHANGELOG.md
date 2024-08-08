@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.7
+
+### Patch Changes
+
+- 19574c0: Update gas limits
+
 ## 1.1.6
 
 ### Patch Changes
