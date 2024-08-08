@@ -131,7 +131,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     nativeDropAmount: BigInt(1e13),
     taxiGasLimit: 150000n,
     busGasLimit: 38000n,
-    busRideGasLimit: 43000n,
+    busRideGasLimit: 60000n,
     nativeDropGasLimit: 13000n,
     maxPassengerCount: 20,
     queueCapacity: 512,
