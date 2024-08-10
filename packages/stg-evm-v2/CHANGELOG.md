@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.16
+
+### Patch Changes
+
+- f47f698: Add Sei & BSC deployments
+
 ## 1.0.15
 
 ### Patch Changes
