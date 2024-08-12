@@ -131,7 +131,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     nativeDropAmount: BigInt(1e13),
     taxiGasLimit: 150000n,
     busGasLimit: 38000n,
-    busRideGasLimit: 43000n,
+    busRideGasLimit: 60000n,
     nativeDropGasLimit: 13000n,
     maxPassengerCount: 20,
     queueCapacity: 512,
@@ -1015,7 +1015,6 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
             nativeDropAmount: parseEther('0.00813').toBigInt(),
             busGasLimit: 50000n,
-            busRideGasLimit: 43000n,
         },
         safeConfig: {
             safeAddress: '0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E',
