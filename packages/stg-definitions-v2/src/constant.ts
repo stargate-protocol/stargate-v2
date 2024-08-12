@@ -1015,7 +1015,6 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
             nativeDropAmount: parseEther('0.00813').toBigInt(),
             busGasLimit: 50000n,
-            busRideGasLimit: 43000n,
         },
         safeConfig: {
             safeAddress: '0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E',
