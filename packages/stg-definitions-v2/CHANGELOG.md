@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.1.9
+
+### Patch Changes
+
+- ed568bc: Update native drop gas limit to 20k
+- 54f5da9: adjust metis bus ride limit
+
 ## 1.1.8
 
 ### Patch Changes
