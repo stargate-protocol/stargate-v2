@@ -898,7 +898,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00003').toBigInt(),
+            nativeDropAmount: parseEther('2').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0xB3e401A59571D4BF5996B0f5FfFE377FbfE71359',
