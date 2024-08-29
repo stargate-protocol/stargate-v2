@@ -20,7 +20,7 @@ npm install @stargatefinance/stg-evm-sdk-v2
 Start off by Installing the `node_modules`:
 
 ```bash
-pnpm i
+pnpm install
 ```
 
 ## Building the SDK
