@@ -173,5 +173,8 @@ interface IOFTWrapper {
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory);
 
-    function quote(QuoteInput calldata _input, FeeObj calldata _feeObj) external returns (QuoteResult memory result);
+    function quote(
+        QuoteInput calldata _input,
+        FeeObj calldata _feeObj
+    ) external view returns (QuoteResult memory result);
 }

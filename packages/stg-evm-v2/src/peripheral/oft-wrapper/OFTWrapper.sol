@@ -7,6 +7,7 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
 import { IOFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol";
+import { Fee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/Fee.sol";
 import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
 import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
 import { INativeOFT } from "./interfaces/INativeOFT.sol";
@@ -469,7 +470,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     function quote(
         QuoteInput calldata _input,
         FeeObj calldata _feeObj
-    ) external returns (QuoteResult memory quoteResult) {
+    ) external view returns (QuoteResult memory quoteResult) {
         _assertCallerBps(_feeObj.callerBps);
 
         uint256 fees = 0;
@@ -487,15 +488,12 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         }
 
         if (_input.version == 1) {
+            uint256 oftFee = Fee(_input._token).quoteOFTFee(_input._dstChainId, amountAfterWrapperFees);
             bytes memory data = abi.encodeWithSignature(
                 "quoteOFTFee(uint16,uint256)",
                 _input._dstChainId,
                 amountAfterWrapperFees
             );
-            (bool success, bytes memory result) = _input._token.call(data);
-            require(success, "quoteOFTFee call failed");
-            // Decode the returned fee (assuming it's a single uint256)
-            uint256 oftFee = abi.decode(result, (uint256));
 
             (uint256 dstAmount, ) = _removeDust(amountAfterWrapperFees - oftFee);
 
