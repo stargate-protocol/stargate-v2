@@ -10,9 +10,14 @@ import { IOFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/of
 import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
 import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
 import { INativeOFT } from "./interfaces/INativeOFT.sol";
-import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2, OFTLimit, OFTFeeDetail, OFTReceipt, MessagingFee } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
+import { IOAppCore } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppCore.sol";
+import { IMessageLib } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
+import { UlnConfig } from "@layerzerolabs/lz-evm-messagelib-v2/contracts/uln/UlnBase.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
+    using OptionsBuilder for bytes;
     using SafeERC20 for IERC20;
     using SafeERC20 for IOFT;
 
@@ -453,5 +458,110 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     function _assertCallerBps(uint256 _callerBps) internal view {
         require(_callerBps <= callerBpsCap, "OFTWrapper: callerBps > callerBpsCap");
+    }
+
+    // @TODO parametrize per token shared decimals and ld2sd2 rate for e v1
+    function _removeDust(uint _amount) internal view virtual returns (uint amountAfter, uint dust) {
+        dust = 0;
+        amountAfter = _amount - dust;
+    }
+
+    function quote(
+        QuoteInput calldata _input,
+        FeeObj calldata _feeObj
+    ) external returns (QuoteResult memory quoteResult) {
+        _assertCallerBps(_feeObj.callerBps);
+
+        uint256 fees = 0;
+        uint256 amountAfterWrapperFees = 0;
+
+        {
+            // @TODO return other fees too
+            (uint256 _amountAfterWrapperFees, uint256 wrapperFee, uint256 callerFee) = _getAmountAndFees(
+                _input._token,
+                _input._amount,
+                _feeObj.callerBps
+            );
+            amountAfterWrapperFees = _amountAfterWrapperFees;
+            fees = wrapperFee + callerFee;
+        }
+
+        if (_input.version == 1) {
+            bytes memory data = abi.encodeWithSignature(
+                "quoteOFTFee(uint16,uint256)",
+                _input._dstChainId,
+                amountAfterWrapperFees
+            );
+            (bool success, bytes memory result) = _input._token.call(data);
+            require(success, "quoteOFTFee call failed");
+            // Decode the returned fee (assuming it's a single uint256)
+            uint256 oftFee = abi.decode(result, (uint256));
+
+            (uint256 dstAmount, ) = _removeDust(amountAfterWrapperFees - oftFee);
+
+            quoteResult.dstAmount = dstAmount;
+        } else {
+            address oftAddress = _input._adapter == address(0) ? _input._token : _input._adapter;
+
+            {
+                (
+                    OFTLimit memory oftLimit,
+                    OFTFeeDetail[] memory oftFeeDetails,
+                    OFTReceipt memory oftReceipt
+                ) = IOFTEpv2(oftAddress).quoteOFT(
+                        SendParamEpv2(
+                            _input._dstChainId,
+                            _input._toAddress,
+                            amountAfterWrapperFees,
+                            _input._minAmount,
+                            bytes(""),
+                            bytes(""),
+                            bytes("")
+                        )
+                    );
+
+                // @TODO if oftLimit.minAmountLD < _amount, do _getAmountAndFees again
+
+                quoteResult.srcAmountMax = oftLimit.maxAmountLD;
+                quoteResult.srcAmountMin = oftLimit.minAmountLD;
+                quoteResult.dstAmount = oftReceipt.amountReceivedLD;
+
+                quoteResult.srcAmount = oftReceipt.amountSentLD + fees;
+            }
+
+            {
+                bytes memory options = bytes("");
+                if (_input._nativeDrop != 0) {
+                    // @TODO assert nativeDrop can be converted to uint128 without loss
+                    options = OptionsBuilder.newOptions().addExecutorNativeDropOption(
+                        uint128(_input._nativeDrop),
+                        _input._toAddress
+                    );
+                }
+
+                MessagingFee memory fee = IOFTEpv2(oftAddress).quoteSend(
+                    SendParamEpv2(
+                        _input._dstChainId,
+                        _input._toAddress,
+                        quoteResult.srcAmount - fees,
+                        _input._minAmount,
+                        options,
+                        bytes(""),
+                        bytes("")
+                    ),
+                    false
+                );
+
+                quoteResult.nativeFee = fee.nativeFee;
+            }
+
+            {
+                bytes memory rawConfig = IMessageLib(
+                    IOAppCore(oftAddress).endpoint().getSendLibrary(oftAddress, _input._dstChainId)
+                ).getConfig(_input._dstChainId, oftAddress, 2);
+                UlnConfig memory ulnConfig = abi.decode(rawConfig, (UlnConfig));
+                quoteResult.confirmations = ulnConfig.confirmations;
+            }
+        }
     }
 }
