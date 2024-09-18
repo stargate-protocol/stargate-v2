@@ -10,14 +10,14 @@ import { ICommonOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft
 
 import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
 import { EnforcedOptionParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppOptionsType3.sol";
-import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2, OFTLimit, OFTReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 import { IOFTWrapper, OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
 
 import { LzTestHelper } from "../../../layerzero/LzTestHelper.sol";
 
 import { ERC20Mock } from "./mocks/ERC20Mock.sol";
-import { CustomQuoteSendMockOFT, CustomQuoteSendMockOFTAdapter, MockOFT, MockOFTAdapter } from "./mocks/epv2/MockOFT.sol";
+import { CustomQuoteSendMockOFT, CustomQuoteSendMockOFTAdapter, MockOFT, MockOFTAdapter, CustomQuoteOFTMockOFT } from "./mocks/epv2/MockOFT.sol";
 
 import { OFTProxyMock as OFTv2ProxyMock } from "./mocks/oftv2/OFTProxyMock.sol";
 import { OFTMock as OFTv2Mock } from "./mocks/oftv2/OFTMock.sol";
@@ -777,32 +777,124 @@ contract OFTWrapperTest is Test, LzTestHelper {
         );
     }
 
-    function test_quote() public {
-        uint256 amount = 1 ether;
-        uint256 minAmount = 0.5 ether;
-        uint16 callerBps = 0;
-        uint256 nativeDrop = 0.1 ether;
+    function test_removeDust_NoDust() public {
+        uint256 amount = 1 ether; // 1e18
+        uint256 localDecimals = 18;
+        uint256 sharedDecimals = 6;
 
-        EnforcedOptionParam[] memory _enforcedOptions = new EnforcedOptionParam[](1);
-        _enforcedOptions[0] = EnforcedOptionParam(
-            1,
-            1,
-            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0)
-        );
-        oft.setEnforcedOptions(_enforcedOptions);
+        (uint256 amountAfter, uint256 dust) = oftWrapper.exposed_removeDust(amount, localDecimals, sharedDecimals);
 
-        IOFTWrapper.QuoteResult memory result = oftWrapper.quote(
-            IOFTWrapper.QuoteInput(
-                2,
-                address(oft),
-                address(0),
-                1,
-                amount,
-                minAmount,
-                _addressToBytes32(address(this)),
-                nativeDrop
-            ),
-            _createFeeObj(callerBps, address(this), bytes2(0x0034))
+        assertEq(amountAfter, 1 ether, "Amount should remain unchanged when no dust");
+        assertEq(dust, 0, "Dust should be zero when no dust");
+    }
+
+    function test_removeDust_WithDust() public {
+        uint256 amount = 1000000000000000001; // 1 ether + 1 wei
+        uint256 localDecimals = 18;
+        uint256 sharedDecimals = 6;
+
+        (uint256 amountAfter, uint256 dust) = oftWrapper.exposed_removeDust(amount, localDecimals, sharedDecimals);
+
+        assertEq(amountAfter, 1 ether, "Amount should be rounded down to nearest whole unit");
+        assertEq(dust, 1, "Dust should be 1 wei");
+    }
+
+    function test_removeDust_DifferentDecimals() public {
+        uint256 amount = 123456789123456789; // 0.123456789123456789 ether
+        uint256 localDecimals = 18;
+        uint256 sharedDecimals = 9;
+
+        (uint256 amountAfter, uint256 dust) = oftWrapper.exposed_removeDust(amount, localDecimals, sharedDecimals);
+
+        assertEq(amountAfter, 123456789000000000, "Amount should be rounded down to 9 decimal places");
+        assertEq(dust, 123456789, "Dust should be the remainder");
+    }
+
+    function testQuoteV2() public {
+        // Set up the input structs
+        IOFTWrapper.QuoteInput memory input;
+        IOFTWrapper.FeeObj memory feeObj;
+
+        CustomQuoteOFTMockOFT oft = new CustomQuoteOFTMockOFT(OFT_NAME, OFT_SYMBOL, endpoints[B_EID], address(this));
+
+        // Initialize input
+        input.version = 2;
+        input._token = address(oft);
+        input._adapter = address(adapter); // using the adapter
+        input._dstEid = uint16(B_EID);
+        input._amount = 1000 * 1e18; // amount in wei
+        input._minAmount = 900 * 1e18;
+        input._toAddress = _addressToBytes32(receiver);
+        input._nativeDrop = 0;
+
+        uint256 decimalConversionRate = 1e18;
+
+        uint256 BPS_DENOMINATOR = 10000;
+
+        // Initialize feeObj
+        feeObj.callerBps = 0;
+
+        // Expected wrapperFee and callerFee calculations
+        uint256 expectedWrapperFee = (input._amount * DEFAULT_BPS) / BPS_DENOMINATOR;
+        uint256 expectedCallerFee = (input._amount * feeObj.callerBps) / BPS_DENOMINATOR;
+
+        // The amount after wrapper fees
+        uint256 amountAfterWrapperFees = input._amount - expectedWrapperFee - expectedCallerFee;
+
+        // Set up mock return values
+        uint256 mockMinAmountLD = 500 * 1e18;
+        uint256 mockMaxAmountLD = 1500 * 1e18;
+        uint256 mockAmountSentLD = amountAfterWrapperFees - 100 * 1e18;
+        uint256 mockAmountReceivedLD = (input._amount / decimalConversionRate) * decimalConversionRate;
+        uint256 mockNativeFee = 0.01 ether;
+
+        // Set the return values in the mock OFT
+        oft.setQuoteOFTReturnValues(
+            OFTReceipt({ amountSentLD: mockAmountSentLD, amountReceivedLD: mockAmountReceivedLD }),
+            OFTLimit({ minAmountLD: mockMinAmountLD, maxAmountLD: mockMaxAmountLD })
         );
+
+        oft.setQuoteSendReturnValue(MessagingFeeEpv2({ nativeFee: mockNativeFee, lzTokenFee: 0 }));
+
+        // Call the quote function
+        IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
+
+        // Assertions
+        assertEq(quoteResult.fees.length, 3); // Should have three fee entries
+
+        // Check wrapperFee
+        assertEq(quoteResult.fees[0].fee, "wrapperFee", "First fee should be wrapperFee");
+        assertEq(quoteResult.fees[0].amount, expectedWrapperFee);
+        assertEq(quoteResult.fees[0].token, input._token);
+
+        // Check callerFee
+        assertEq(quoteResult.fees[1].fee, "callerFee", "Second fee should be callerFee");
+        assertEq(quoteResult.fees[1].amount, expectedCallerFee);
+        assertEq(quoteResult.fees[1].token, input._token);
+
+        // Check nativeFee
+        assertEq(quoteResult.fees[2].fee, "nativeFee", "Third fee should be nativeFee");
+        assertEq(quoteResult.fees[2].amount, mockNativeFee);
+        assertEq(quoteResult.fees[2].token, input._token);
+
+        // // Check srcAmountMax and srcAmountMin type(uint64).max
+        assertEq(quoteResult.srcAmountMax, mockMaxAmountLD);
+        assertEq(quoteResult.srcAmountMin, mockMinAmountLD);
+
+        // // Check dstAmount
+        assertEq(quoteResult.amountReceivedLD, mockAmountReceivedLD);
+
+        // // Check srcAmount
+        uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
+        assertEq(quoteResult.srcAmount, expectedSrcAmount);
+
+        // Optionally, print out the fees
+        console.log("Wrapper Fee: ", quoteResult.fees[0].amount);
+        console.log("Caller Fee: ", quoteResult.fees[1].amount);
+        console.log("Native Fee: ", quoteResult.fees[2].amount);
+        console.log("Source Amount Max: ", quoteResult.srcAmountMax);
+        console.log("Source Amount Min: ", quoteResult.srcAmountMin);
+        console.log("Destination Amount: ", quoteResult.amountReceivedLD);
+        console.log("Source Amount: ", quoteResult.srcAmount);
     }
 }

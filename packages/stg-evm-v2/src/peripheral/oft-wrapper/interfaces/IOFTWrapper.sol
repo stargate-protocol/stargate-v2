@@ -22,20 +22,27 @@ interface IOFTWrapper {
         uint8 version;
         address _token;
         address _adapter;
-        uint16 _dstChainId;
+        uint16 _dstEid;
         uint256 _amount;
         uint256 _minAmount;
         bytes32 _toAddress;
         uint256 _nativeDrop;
     }
 
+    struct QuoteFee {
+        string fee;
+        uint256 amount;
+        address token;
+    }
+
     struct QuoteResult {
         uint256 srcAmount;
-        uint256 dstAmount; // quoteOFT
+        uint256 amountReceivedLD;
         uint256 srcAmountMin;
         uint256 srcAmountMax;
         uint256 nativeFee;
         uint256 confirmations;
+        QuoteFee[] fees;
     }
 
     function sendOFT(
