@@ -72,6 +72,8 @@ contract CustomQuoteOFTMockOFT is MockOFT {
     OFTLimit private oftLimit;
     MessagingFeeEpv2 private quoteSendFee;
 
+    uint256 public constant NATIVE_FEE_PRESENT = 1 ether; // Indicates native drop present
+
     function setQuoteOFTReturnValues(OFTReceipt memory _receipt, OFTLimit memory _limit) public {
         oftReceipt = _receipt;
         oftLimit = _limit;
@@ -88,9 +90,12 @@ contract CustomQuoteOFTMockOFT is MockOFT {
     }
 
     function quoteSend(
-        SendParamEpv2 calldata /*_sendParam*/,
+        SendParamEpv2 calldata _sendParam,
         bool /*_payInLzToken*/
-    ) external view virtual override returns (MessagingFeeEpv2 memory) {
+    ) external view override returns (MessagingFeeEpv2 memory) {
+        if (_sendParam.extraOptions.length != 0) {
+            return MessagingFeeEpv2(NATIVE_FEE_PRESENT, 0);
+        }
         return quoteSendFee;
     }
 }

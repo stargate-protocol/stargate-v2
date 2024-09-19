@@ -35,12 +35,17 @@ interface IOFTWrapper {
         address token;
     }
 
+    struct OFTQuoteResult {
+        QuoteResult quoteResult;
+        uint256 amountAfterWrapperFees;
+        uint256 fees;
+    }
+
     struct QuoteResult {
         uint256 srcAmount;
         uint256 amountReceivedLD;
         uint256 srcAmountMin;
         uint256 srcAmountMax;
-        uint256 nativeFee;
         uint256 confirmations;
         QuoteFee[] fees;
     }
