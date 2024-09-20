@@ -71,12 +71,27 @@ contract CustomQuoteOFTMockOFT is MockOFT {
     OFTReceipt private oftReceipt;
     OFTLimit private oftLimit;
     MessagingFeeEpv2 private quoteSendFee;
+    OFTFeeDetail[] private oftFeeDetails;
 
     uint256 public constant NATIVE_FEE_PRESENT = 1 ether; // Indicates native drop present
 
-    function setQuoteOFTReturnValues(OFTReceipt memory _receipt, OFTLimit memory _limit) public {
+    // TODO: adding mocking capability for those special fees!
+
+    function setQuoteOFTReturnValues(
+        OFTReceipt memory _receipt,
+        OFTFeeDetail[] memory _oftFeeDetails,
+        OFTLimit memory _limit
+    ) public {
         oftReceipt = _receipt;
         oftLimit = _limit;
+
+        // Clear the existing array
+        delete oftFeeDetails;
+
+        // Manually copy each element of the array
+        for (uint i = 0; i < _oftFeeDetails.length; i++) {
+            oftFeeDetails.push(_oftFeeDetails[i]);
+        }
     }
 
     function setQuoteSendReturnValue(MessagingFeeEpv2 memory _fee) public {
@@ -86,7 +101,7 @@ contract CustomQuoteOFTMockOFT is MockOFT {
     function quoteOFT(
         SendParamEpv2 calldata _sendParam
     ) public view override returns (OFTLimit memory, OFTFeeDetail[] memory, OFTReceipt memory) {
-        return (oftLimit, new OFTFeeDetail[](0), oftReceipt);
+        return (oftLimit, oftFeeDetails, oftReceipt);
     }
 
     function quoteSend(

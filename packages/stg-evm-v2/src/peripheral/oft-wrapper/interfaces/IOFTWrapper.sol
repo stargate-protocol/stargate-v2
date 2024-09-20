@@ -20,18 +20,24 @@ interface IOFTWrapper {
 
     struct QuoteInput {
         uint8 version;
-        address _token;
-        address _adapter;
-        uint16 _dstEid;
-        uint256 _amount;
-        uint256 _minAmount;
-        bytes32 _toAddress;
-        uint256 _nativeDrop;
+        address token;
+        address adapter;
+        uint16 dstEid;
+        uint256 amountLD;
+        uint256 minAmountLD;
+        bytes32 toAddress;
+        uint256 nativeDrop;
     }
 
     struct QuoteFee {
         string fee;
         uint256 amount;
+        address token;
+    }
+
+    struct QuoteFeeDetail {
+        string fee;
+        int256 amount;
         address token;
     }
 
@@ -48,6 +54,7 @@ interface IOFTWrapper {
         uint256 srcAmountMax;
         uint256 confirmations;
         QuoteFee[] fees;
+        QuoteFeeDetail[] oftFeeDetails;
     }
 
     function sendOFT(
