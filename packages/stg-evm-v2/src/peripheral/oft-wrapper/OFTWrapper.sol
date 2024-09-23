@@ -505,7 +505,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             callerFee: callerFee
         });
 
-        // make version an enum
         if (_input.version == OFTVersion.Epv1OFTv1) {
             // quoteResult = _quoteEpv1OFTv1(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv1OFTv2) {
@@ -538,7 +537,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         (uint256 dstAmount, ) = _removeDust(_input.amountAfterWrapperFees, decimals, sharedDecimals);
 
         quoteResult.srcAmountMin = 0;
-        // do remove dust on uint256 max
+
         (quoteResult.srcAmountMax, ) = _removeDust(uint256(type(uint256).max), decimals, sharedDecimals);
 
         quoteResult.srcAmount = dstAmount + _input.wrapperAndCallersFees + oftFee;
@@ -547,7 +546,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         (uint256 nativeFee, ) = oft.estimateSendFee(
             _input.dstEid,
             _input.toAddress,
-            // todo find out the order of subtracting fees
             quoteResult.srcAmount - _input.wrapperAndCallersFees,
             false,
             bytes("")
@@ -608,11 +606,9 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     function _getOftLimitsAndReceiptsForEpv2(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
         QuoteResult memory quoteResult = _input.quoteResult;
-        (
-            OFTLimit memory oftLimit, // {minAmountLD, maxAmountLD}
-            OFTFeeDetail[] memory oftFeeDetails, // {feeAmountLD, description}
-            OFTReceipt memory oftReceipt // {amountSentLD, amountReceivedLD}
-        ) = IOFTEpv2(_input.token).quoteOFT(
+        (OFTLimit memory oftLimit, OFTFeeDetail[] memory oftFeeDetails, OFTReceipt memory oftReceipt) = IOFTEpv2(
+            _input.token
+        ).quoteOFT(
                 SendParamEpv2({
                     dstEid: _input.dstEid,
                     to: _input.toAddress,
@@ -635,7 +631,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             });
         }
 
-        // todo: unit test this
         if (_input.amountLD > oftLimit.maxAmountLD) {
             (_input.wrapperFee, _input.callerFee, _input.amountAfterWrapperFees) = _reCalculateInitialFeesAndAmount(
                 _input
