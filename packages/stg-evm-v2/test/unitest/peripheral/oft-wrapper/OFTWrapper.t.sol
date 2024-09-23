@@ -1091,8 +1091,6 @@ contract OFTWrapperTest is Test, LzTestHelper {
         logQuoteResults(quoteResult);
     }
 
-    // Todo: make this test first call quote then call
-    // sendOFTEpv2 and ensure that the send shit works
     function testQuote_integration_With_SendEpv2() public {
         token.mint(sender, INITIAL_AMOUNT);
 
