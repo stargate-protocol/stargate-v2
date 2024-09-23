@@ -476,115 +476,138 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         amountAfter = (_amount / ld2sdRate) * ld2sdRate;
     }
 
-    // todo use dynamic array from Dan and compare gas usage
     function quote(
         QuoteInput calldata _input,
         FeeObj calldata _feeObj
     ) external view returns (QuoteResult memory quoteResult) {
         _assertCallerBps(_feeObj.callerBps);
 
-        uint256 fees = 0;
-        uint256 amountAfterWrapperFees = 0;
-        // todo re-create this array or figure out some new array allocation for
-        quoteResult.fees = new QuoteFee[](3);
+        (
+            QuoteFee memory wrapperFee,
+            QuoteFee memory callerFee,
+            uint256 amountAfterWrapperFees
+        ) = _calculateInitialFeesAndAmount(_input, _feeObj);
+        uint256 wrapperAndCallersFees = uint256(wrapperFee.amount) + uint256(callerFee.amount);
 
-        (quoteResult.fees, amountAfterWrapperFees) = _calculateInitialFeesAndAmount(_input, _feeObj, quoteResult.fees);
-        fees = quoteResult.fees[0].amount + quoteResult.fees[1].amount;
+        QuoteOFTInput memory quoteOFTInput = QuoteOFTInput({
+            version: _input.version,
+            token: _input.token,
+            dstEid: _input.dstEid,
+            amountLD: _input.amountLD,
+            minAmountLD: _input.minAmountLD,
+            toAddress: _input.toAddress,
+            nativeDrop: _input.nativeDrop,
+            feeObj: _feeObj,
+            quoteResult: quoteResult,
+            amountAfterWrapperFees: amountAfterWrapperFees,
+            wrapperAndCallersFees: wrapperAndCallersFees,
+            wrapperFee: wrapperFee,
+            callerFee: callerFee
+        });
 
-        if (_input.version == 1) {
-            // This is the fee that OFT owners charge for bridging
-            // todo figure out the name for this and then add it to the regular fees array
-            uint256 oftFee = Fee(_input.token).quoteOFTFee(_input.dstEid, amountAfterWrapperFees);
-            quoteResult.fees[2] = QuoteFee({ fee: "oftFee", amount: oftFee, token: _input.token });
-
-            BaseOFTV2 oft = BaseOFTV2(_input.token);
-
-            // this is the native fee
-            (uint256 nativeFee, uint256 zroFee) = oft.estimateSendFee(
-                _input.dstEid,
-                _input.toAddress,
-                _input.amountLD,
-                false,
-                bytes("")
-            );
-
-            quoteResult.fees[0] = QuoteFee({ fee: "nativeFee", amount: nativeFee, token: _input.token });
-
-            address tokenAddress = IOFT(_input.token).token();
-            uint8 decimals = IERC20Metadata(tokenAddress).decimals();
-            uint256 sharedDecimals = OFTCoreV2(_input.token).sharedDecimals();
-
-            amountAfterWrapperFees -= oftFee;
-            (uint256 dstAmount, ) = _removeDust(amountAfterWrapperFees, decimals, sharedDecimals);
-
-            quoteResult.srcAmountMin = 0;
-            // do remove dust on uint256 max
-            (quoteResult.srcAmountMax, ) = _removeDust(uint256(type(uint256).max), decimals, sharedDecimals);
-
-            // quoteResult.srcAmount = dstAmount + fees;
-            quoteResult.srcAmount = _input.amountLD;
-            quoteResult.amountReceivedLD = dstAmount;
-        } else if (_input.version == 2) {
-            address oftAddress = _input.adapter == address(0) ? _input.token : _input.adapter;
-
-            OFTQuoteResult memory oftQuoteResult = _getOftLimitsAndReceiptsForEpv2(
-                _input,
-                _feeObj,
-                quoteResult,
-                amountAfterWrapperFees,
-                fees
-            );
-            quoteResult = oftQuoteResult.quoteResult;
-            fees = oftQuoteResult.fees;
-            amountAfterWrapperFees = oftQuoteResult.amountAfterWrapperFees;
-
-            {
-                bytes memory options = bytes("");
-                if (_input.nativeDrop != 0) {
-                    require(_input.nativeDrop <= type(uint128).max, "OFTWrapper: nativeDrop exceeds uint128 max");
-                    options = OptionsBuilder.newOptions().addExecutorNativeDropOption(
-                        uint128(_input.nativeDrop),
-                        _input.toAddress
-                    );
-                }
-
-                MessagingFee memory messagingFee = IOFTEpv2(_input.token).quoteSend(
-                    SendParamEpv2({
-                        dstEid: _input.dstEid,
-                        to: _input.toAddress,
-                        amountLD: quoteResult.srcAmount - fees,
-                        minAmountLD: _input.minAmountLD,
-                        extraOptions: options,
-                        composeMsg: bytes(""),
-                        oftCmd: bytes("")
-                    }),
-                    false
-                );
-
-                quoteResult.fees[2] = QuoteFee({
-                    fee: "nativeFee",
-                    amount: messagingFee.nativeFee,
-                    token: _input.token
-                });
-            }
-
-            {
-                bytes memory rawConfig = IMessageLib(
-                    IOAppCore(oftAddress).endpoint().getSendLibrary(oftAddress, _input.dstEid)
-                ).getConfig(_input.dstEid, oftAddress, 2);
-                UlnConfig memory ulnConfig = abi.decode(rawConfig, (UlnConfig));
-                quoteResult.confirmations = ulnConfig.confirmations;
-            }
+        // make version an enum
+        if (_input.version == OFTVersion.Epv1OFTv1) {
+            // quoteResult = _quoteEpv1OFTv1(quoteOFTInput);
+        } else if (_input.version == OFTVersion.Epv1OFTv2) {
+            // quoteResult = _quoteEpv1OFTv2(quoteOFTInput);
+        } else if (_input.version == OFTVersion.Epv1FeeOFTv2) {
+            quoteResult = _quoteEpv1FeeOFTv2(quoteOFTInput);
+        } else if (_input.version == OFTVersion.Epv2OFT) {
+            quoteResult = _quoteEpv2OFT(quoteOFTInput);
         }
+
+        return quoteResult;
     }
 
-    function _getOftLimitsAndReceiptsForEpv2(
-        QuoteInput calldata _input,
-        FeeObj calldata _feeObj,
-        QuoteResult memory quoteResult,
-        uint256 amountAfterWrapperFees,
-        uint256 fees
-    ) internal view returns (OFTQuoteResult memory) {
+    function _quoteEpv1FeeOFTv2(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
+        QuoteResult memory quoteResult = _input.quoteResult;
+        quoteResult.fees = new QuoteFee[](4);
+        quoteResult.fees[0] = _input.wrapperFee;
+        quoteResult.fees[1] = _input.callerFee;
+
+        uint256 oftFee = Fee(_input.token).quoteOFTFee(_input.dstEid, _input.amountAfterWrapperFees);
+        quoteResult.fees[2] = QuoteFee({ fee: "oftFee", amount: int256(oftFee), token: _input.token });
+
+        BaseOFTV2 oft = BaseOFTV2(_input.token);
+
+        address tokenAddress = IOFT(_input.token).token();
+        uint8 decimals = IERC20Metadata(tokenAddress).decimals();
+        uint256 sharedDecimals = OFTCoreV2(_input.token).sharedDecimals();
+
+        _input.amountAfterWrapperFees -= oftFee;
+        (uint256 dstAmount, ) = _removeDust(_input.amountAfterWrapperFees, decimals, sharedDecimals);
+
+        quoteResult.srcAmountMin = 0;
+        // do remove dust on uint256 max
+        (quoteResult.srcAmountMax, ) = _removeDust(uint256(type(uint256).max), decimals, sharedDecimals);
+
+        quoteResult.srcAmount = dstAmount + _input.wrapperAndCallersFees + oftFee;
+        quoteResult.amountReceivedLD = dstAmount;
+
+        (uint256 nativeFee, ) = oft.estimateSendFee(
+            _input.dstEid,
+            _input.toAddress,
+            // todo find out the order of subtracting fees
+            quoteResult.srcAmount - _input.wrapperAndCallersFees,
+            false,
+            bytes("")
+        );
+        quoteResult.fees[3] = QuoteFee({ fee: "nativeFee", amount: int256(nativeFee), token: _input.token });
+
+        return quoteResult;
+    }
+
+    function _quoteEpv2OFT(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
+        QuoteResult memory quoteResult = _input.quoteResult;
+
+        quoteResult = _getOftLimitsAndReceiptsForEpv2(_input);
+        int256 wrapperAndCallersFees = quoteResult.fees[0].amount + quoteResult.fees[1].amount;
+
+        {
+            bytes memory options = bytes("");
+            if (_input.nativeDrop != 0) {
+                require(_input.nativeDrop <= type(uint128).max, "OFTWrapper: nativeDrop exceeds uint128 max");
+                options = OptionsBuilder.newOptions().addExecutorNativeDropOption(
+                    uint128(_input.nativeDrop),
+                    _input.toAddress
+                );
+            } else {
+                options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
+            }
+
+            MessagingFee memory messagingFee = IOFTEpv2(_input.token).quoteSend(
+                SendParamEpv2({
+                    dstEid: _input.dstEid,
+                    to: _input.toAddress,
+                    amountLD: quoteResult.srcAmount - uint256(wrapperAndCallersFees),
+                    minAmountLD: _input.minAmountLD,
+                    extraOptions: options,
+                    composeMsg: bytes(""),
+                    oftCmd: bytes("")
+                }),
+                false
+            );
+
+            quoteResult.fees[2] = QuoteFee({
+                fee: "nativeFee",
+                amount: int256(messagingFee.nativeFee),
+                token: _input.token
+            });
+        }
+
+        {
+            bytes memory rawConfig = IMessageLib(
+                IOAppCore(_input.token).endpoint().getSendLibrary(_input.token, _input.dstEid)
+            ).getConfig(_input.dstEid, _input.token, 2);
+            UlnConfig memory ulnConfig = abi.decode(rawConfig, (UlnConfig));
+            quoteResult.confirmations = ulnConfig.confirmations;
+        }
+
+        return quoteResult;
+    }
+
+    function _getOftLimitsAndReceiptsForEpv2(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
+        QuoteResult memory quoteResult = _input.quoteResult;
         (
             OFTLimit memory oftLimit, // {minAmountLD, maxAmountLD}
             OFTFeeDetail[] memory oftFeeDetails, // {feeAmountLD, description}
@@ -593,7 +616,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
                 SendParamEpv2({
                     dstEid: _input.dstEid,
                     to: _input.toAddress,
-                    amountLD: amountAfterWrapperFees,
+                    amountLD: _input.amountAfterWrapperFees,
                     minAmountLD: _input.minAmountLD,
                     extraOptions: bytes(""),
                     composeMsg: bytes(""),
@@ -601,48 +624,68 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
                 })
             );
 
-        quoteResult.oftFeeDetails = new QuoteFeeDetail[](oftFeeDetails.length);
+        quoteResult.fees = new QuoteFee[](3 + oftFeeDetails.length);
+        quoteResult.fees[0] = _input.wrapperFee;
+        quoteResult.fees[1] = _input.callerFee;
         for (uint256 i = 0; i < oftFeeDetails.length; i++) {
-            quoteResult.oftFeeDetails[i] = QuoteFeeDetail({
+            quoteResult.fees[i + 3] = QuoteFee({
                 fee: oftFeeDetails[i].description,
                 amount: oftFeeDetails[i].feeAmountLD,
                 token: _input.token
             });
         }
 
-        if (oftLimit.minAmountLD < _input.amountLD) {
-            (quoteResult.fees, amountAfterWrapperFees) = _calculateInitialFeesAndAmount(
-                _input,
-                _feeObj,
-                quoteResult.fees
+        // todo: unit test this
+        if (_input.amountLD > oftLimit.maxAmountLD) {
+            (_input.wrapperFee, _input.callerFee, _input.amountAfterWrapperFees) = _reCalculateInitialFeesAndAmount(
+                _input
             );
-            fees = quoteResult.fees[0].amount + quoteResult.fees[1].amount;
+            quoteResult.fees[0] = _input.wrapperFee;
+            quoteResult.fees[1] = _input.callerFee;
         }
 
         quoteResult.srcAmountMax = oftLimit.maxAmountLD;
         quoteResult.srcAmountMin = oftLimit.minAmountLD;
         quoteResult.amountReceivedLD = oftReceipt.amountReceivedLD;
 
-        quoteResult.srcAmount = oftReceipt.amountSentLD + fees;
+        quoteResult.srcAmount =
+            oftReceipt.amountSentLD +
+            uint256(quoteResult.fees[0].amount) +
+            uint256(quoteResult.fees[1].amount);
 
-        return OFTQuoteResult({ quoteResult: quoteResult, amountAfterWrapperFees: amountAfterWrapperFees, fees: fees });
+        return quoteResult;
+    }
+
+    function _reCalculateInitialFeesAndAmount(
+        QuoteOFTInput memory _input
+    ) internal view virtual returns (QuoteFee memory wrapperFee, QuoteFee memory callerFee, uint256 amountAfterFees) {
+        QuoteInput memory input = QuoteInput({
+            version: _input.version,
+            token: _input.token,
+            dstEid: _input.dstEid,
+            amountLD: _input.amountLD,
+            minAmountLD: _input.minAmountLD,
+            toAddress: _input.toAddress,
+            nativeDrop: _input.nativeDrop
+        });
+
+        return _calculateInitialFeesAndAmount(input, _input.feeObj);
     }
 
     function _calculateInitialFeesAndAmount(
-        QuoteInput calldata _input,
-        FeeObj calldata _feeObj,
-        QuoteFee[] memory fees
-    ) internal view returns (QuoteFee[] memory, uint256 amountAfterFees) {
-        (uint256 _amountAfterWrapperFees, uint256 wrapperFee, uint256 callerFee) = _getAmountAndFees(
+        QuoteInput memory _input,
+        FeeObj memory _feeObj
+    ) internal view returns (QuoteFee memory wrapperFee, QuoteFee memory callerFee, uint256 amountAfterFees) {
+        (uint256 _amountAfterWrapperFees, uint256 wrapperFeeAmount, uint256 callerFeeAmount) = _getAmountAndFees(
             _input.token,
             _input.amountLD,
             _feeObj.callerBps
         );
         amountAfterFees = _amountAfterWrapperFees;
 
-        fees[0] = QuoteFee({ fee: "wrapperFee", amount: wrapperFee, token: _input.token });
-        fees[1] = QuoteFee({ fee: "callerFee", amount: callerFee, token: _input.token });
+        wrapperFee = QuoteFee({ fee: "wrapperFee", amount: int256(wrapperFeeAmount), token: _input.token });
+        callerFee = QuoteFee({ fee: "callerFee", amount: int256(callerFeeAmount), token: _input.token });
 
-        return (fees, amountAfterFees);
+        return (wrapperFee, callerFee, amountAfterFees);
     }
 }

@@ -6,6 +6,13 @@ import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/
 import { MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 interface IOFTWrapper {
+    enum OFTVersion {
+        Epv1OFTv1,
+        Epv1OFTv2,
+        Epv1FeeOFTv2,
+        Epv2OFT
+    }
+
     event CallerBpsCapSet(uint256 bps);
     event DefaultBpsSet(uint256 bps);
     event OFTBpsSet(address indexed token, uint256 bps);
@@ -19,9 +26,8 @@ interface IOFTWrapper {
     }
 
     struct QuoteInput {
-        uint8 version;
+        OFTVersion version;
         address token;
-        address adapter;
         uint16 dstEid;
         uint256 amountLD;
         uint256 minAmountLD;
@@ -29,22 +35,27 @@ interface IOFTWrapper {
         uint256 nativeDrop;
     }
 
-    struct QuoteFee {
-        string fee;
-        uint256 amount;
+    struct QuoteOFTInput {
+        // Fields from QuoteInput
+        OFTVersion version;
         address token;
+        uint16 dstEid;
+        uint256 amountLD;
+        uint256 minAmountLD;
+        bytes32 toAddress;
+        uint256 nativeDrop;
+        FeeObj feeObj;
+        QuoteResult quoteResult;
+        uint256 amountAfterWrapperFees;
+        uint256 wrapperAndCallersFees;
+        QuoteFee wrapperFee;
+        QuoteFee callerFee;
     }
 
-    struct QuoteFeeDetail {
+    struct QuoteFee {
         string fee;
         int256 amount;
         address token;
-    }
-
-    struct OFTQuoteResult {
-        QuoteResult quoteResult;
-        uint256 amountAfterWrapperFees;
-        uint256 fees;
     }
 
     struct QuoteResult {
@@ -54,7 +65,6 @@ interface IOFTWrapper {
         uint256 srcAmountMax;
         uint256 confirmations;
         QuoteFee[] fees;
-        QuoteFeeDetail[] oftFeeDetails;
     }
 
     function sendOFT(

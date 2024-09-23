@@ -75,8 +75,6 @@ contract CustomQuoteOFTMockOFT is MockOFT {
 
     uint256 public constant NATIVE_FEE_PRESENT = 1 ether; // Indicates native drop present
 
-    // TODO: adding mocking capability for those special fees!
-
     function setQuoteOFTReturnValues(
         OFTReceipt memory _receipt,
         OFTFeeDetail[] memory _oftFeeDetails,
@@ -108,9 +106,6 @@ contract CustomQuoteOFTMockOFT is MockOFT {
         SendParamEpv2 calldata _sendParam,
         bool /*_payInLzToken*/
     ) external view override returns (MessagingFeeEpv2 memory) {
-        if (_sendParam.extraOptions.length != 0) {
-            return MessagingFeeEpv2(NATIVE_FEE_PRESENT, 0);
-        }
         return quoteSendFee;
     }
 }
