@@ -18,6 +18,7 @@ import { LzTestHelper } from "../../../layerzero/LzTestHelper.sol";
 
 import { ERC20Mock } from "./mocks/ERC20Mock.sol";
 import { Fee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/Fee.sol";
+import { OFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/OFTWithFee.sol";
 import { CustomQuoteSendMockOFT, CustomQuoteSendMockOFTAdapter, MockOFT, MockOFTAdapter, CustomQuoteOFTMockOFT } from "./mocks/epv2/MockOFT.sol";
 import { MockOFTWrapper } from "./mocks/wrapper/MockOFtWrapper.sol";
 
@@ -1155,6 +1156,83 @@ contract OFTWrapperTest is Test, LzTestHelper {
             receiverInitialBalance + quoteResult.amountReceivedLD,
             "Receiver balance should increase by amountReceivedLD"
         );
+    }
+
+    function testQuote_EpV1FeeOFTv2_BasicScenario() public {
+        OFTWithFee oftWithFeeChainB = new OFTWithFee(OFT_NAME, OFT_SYMBOL, 6, endpoints[B_EID]);
+        OFTWithFee oftWithFeeChainA = new OFTWithFee(OFT_NAME, OFT_SYMBOL, 6, endpoints[A_EID]);
+
+        oftWithFeeChainA.setTrustedRemote(
+            uint16(B_EID),
+            abi.encodePacked(address(oftWithFeeChainB), address(oftWithFeeChainA))
+        );
+        oftWithFeeChainB.setTrustedRemote(
+            uint16(A_EID),
+            abi.encodePacked(address(oftWithFeeChainA), address(oftWithFeeChainB))
+        );
+
+        uint16 defaultFeeBp = 100;
+        uint16 specificFeeBp = 50;
+
+        oftWithFeeChainA.setDefaultFeeBp(defaultFeeBp);
+        oftWithFeeChainB.setDefaultFeeBp(defaultFeeBp);
+
+        // Set specific fee for B_EID on Chain A's OFT
+        oftWithFeeChainA.setFeeBp(uint16(B_EID), true, specificFeeBp);
+
+        // Set specific fee for A_EID on Chain B's OFT
+        oftWithFeeChainB.setFeeBp(uint16(A_EID), true, specificFeeBp);
+
+        IOFTWrapper.QuoteInput memory input = IOFTWrapper.QuoteInput({
+            version: IOFTWrapper.OFTVersion.Epv1FeeOFTv2,
+            token: address(oftWithFeeChainA),
+            dstEid: uint16(B_EID),
+            amountLD: INITIAL_AMOUNT,
+            minAmountLD: MIN_AMOUNT,
+            toAddress: _addressToBytes32(receiver),
+            nativeDrop: 0
+        });
+        IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
+            callerBps: 0,
+            caller: address(0),
+            partnerId: bytes2(0)
+        });
+
+        uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
+        uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
+        uint256 expectedOFTFee = (input.amountLD * specificFeeBp) / BPS_DENOMINATOR;
+        uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
+
+        uint256 mockDust = 100;
+        uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
+        uint256 mockAmountReceivedLD = (amountAfterWrapperFees / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
+        uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
+
+        IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
+
+        assertEq(quoteResult.fees[0].fee, "wrapperFee");
+        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee));
+        assertEq(quoteResult.fees[0].token, input.token);
+
+        assertEq(quoteResult.fees[1].fee, "callerFee");
+        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee));
+        assertEq(quoteResult.fees[1].token, input.token);
+
+        assertEq(quoteResult.fees[2].fee, "oftFee");
+        assertEq(quoteResult.fees[2].amount, int256(expectedOFTFee));
+        assertEq(quoteResult.fees[2].token, input.token);
+
+        assertEq(quoteResult.fees[3].fee, "nativeFee");
+        assertEq(quoteResult.fees[3].amount, int256(MOCK_NATIVE_FEE));
+        assertEq(quoteResult.fees[3].token, input.token);
+
+        assertEq(quoteResult.srcAmountMax, MOCK_MAX_AMOUNT_LD);
+        assertEq(quoteResult.srcAmountMin, MOCK_MIN_AMOUNT_LD);
+        assertEq(quoteResult.amountReceivedLD, mockAmountReceivedLD);
+
+        assertEq(quoteResult.srcAmount, expectedSrcAmount);
+
+        logQuoteResults(quoteResult);
     }
 
     function logQuoteResults(IOFTWrapper.QuoteResult memory quoteResult) internal view {

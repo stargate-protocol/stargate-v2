@@ -570,6 +570,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
                     _input.toAddress
                 );
             } else {
+                // TODO: make this a constant or a parameter
                 options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
             }
 
