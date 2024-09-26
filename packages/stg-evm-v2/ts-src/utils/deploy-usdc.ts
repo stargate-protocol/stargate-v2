@@ -1,16 +1,16 @@
-import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
 import { getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
 import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
 
-import { getUSDCImplDeployName } from '../../ops/util'
+import { getUSDCImplDeployName, getUSDCProxyDeployName } from '../../ops/util'
 import { CONTRACT_USDC_TAGS } from '../constants'
 
 import { createDeploy, getFeeData } from './deployments'
 import { appendTags } from './helpers'
-import { getTokenConfig } from './util'
+import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 
@@ -18,12 +18,29 @@ const tokenName = TokenName.USDC
 
 export const createDeployUSDC = (): DeployFunction =>
     appendTokenTags(async (hre) => {
-        const logger = createModuleLogger(`USDC Deployer @ ${hre.network.name}`)
-
+        // First let's get some basic info
         const network = hre.network.name
         const eid = getEidForNetworkName(network)
+        const logger = createModuleLogger(`USDC Deployer @ ${hre.network.name}`)
+
+        const tokenConfig = getAssetNetworkConfigMaybe(eid, tokenName)
+        if (tokenConfig == null) {
+            return logger.warn(`Skipping deployment for Token for ${tokenName}: no config`), undefined
+        }
+
+        const stargateType = tokenConfig.type
+
+        // We don't want to be deploying native currency, might be overambitious
+        if (stargateType === StargateType.Native) {
+            return logger.warn(`Skipping token deployment for native token ${tokenName}`), undefined
+        }
 
         const tokenProperties = getTokenConfig(eid, tokenName)
+
+        // We also don't want to be deploying external tokens
+        if (tokenProperties.address != null) {
+            return logger.warn(`Skipping token deployment for external token ${tokenName}`), undefined
+        }
 
         return await deployUSDC(hre, { ...tokenProperties, logger })
     })
@@ -35,7 +52,6 @@ interface DeployUSDCOptions {
 }
 
 const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol }: DeployUSDCOptions) => {
-    // const deploy = hre.deployments.deploy // Assuming createDeploy is basically hre.deployments.deploy
     const deploy = createDeploy(hre)
     const feeData = await getFeeData(hre)
     const { deployer, usdcAdmin } = await hre.getNamedAccounts()
@@ -706,11 +722,14 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     ]
     const addressOne = '0x0000000000000000000000000000000000000001'
 
+    const implDeploymentName = getUSDCImplDeployName()
+    const proxyDeploymentName = getUSDCProxyDeployName()
+
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
     // Deploy implementation contract with bytecode
-    logger.info(`Deploying USDC implementation contract as FiatTokenV2_2`)
-    const implTokenDeployment = await deploy(getUSDCImplDeployName(), {
+    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`)
+    const implTokenDeployment = await deploy(implDeploymentName, {
         contract: {
             // TODO normally expects contract name, but I want to provide bytecode
             abi: implAbi,
@@ -725,7 +744,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     // Brick its initialization
     if (implTokenDeployment.newlyDeployed) {
-        logger.info(`Bricking USDC implementation contract initialization on FiatTokenV2_2`)
+        logger.info(`Bricking USDC implementation contract initialization on ${implDeploymentName}`)
 
         const implTokenContract = new hre.ethers.Contract(
             implTokenDeployment.address,
@@ -756,8 +775,8 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     }
 
     // Deploy upgradable proxy contract with bytecode
-    logger.info(`Deploying USDC proxy contract as FiatTokenProxy`)
-    const proxyDeployment = await deploy('FiatTokenProxy', {
+    logger.info(`Deploying USDC proxy contract as ${proxyDeploymentName}`)
+    const proxyDeployment = await deploy(proxyDeploymentName, {
         contract: {
             // TODO normally expects contract name, but I want to provide bytecode
             abi: proxyAbi,
@@ -772,7 +791,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     // Initialize the proxy
     if (proxyDeployment.newlyDeployed) {
-        logger.info(`Initializing USDC proxy contract based on FiatTokenProxy`)
+        logger.info(`Initializing USDC proxy contract based on ${proxyDeploymentName}`)
 
         const proxyContract = new hre.ethers.Contract(
             proxyDeployment.address,
@@ -786,19 +805,22 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
             symbol,
             symbol,
             6,
-            deployer,
+            deployer, // set temporarily to us so we can setup the minter, then it will be set to stg multisig when we configure before we transfer ownership
             addressOne,
             addressOne,
             deployer
         )
         await init0Tx.wait()
 
+        // string newName
         const init1Tx = await proxyContract.initializeV2(name)
         await init1Tx.wait()
 
+        // address lostAndFound
         const init2Tx = await proxyContract.initializeV2_1(addressOne)
         await init2Tx.wait()
 
+        // address[] accountsToBlacklist, string newSymbol
         const init3Tx = await proxyContract.initializeV2_2([], symbol)
         await init3Tx.wait()
     }
