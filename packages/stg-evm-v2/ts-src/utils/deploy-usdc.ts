@@ -62,7 +62,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     const deployerSigner = await hre.ethers.getSigner(deployer)
 
     const usdcAdminSigner = await hre.ethers.getSigner(usdcAdmin)
-    // TODO see arb source of truth for these values
 
     // Get the path to the file relative to the current script's directory
     const proxyBytecodePath = path.join(__dirname, 'USDCProxyBytecode.txt')
@@ -127,8 +126,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     await implTokenDeployment.deployed()
 
-    // await implTokenDeployment.deployTransaction.wait(20)
-
     console.log('RAVINA impl contract is deployed: ', implTokenDeployment.address)
 
     // Brick its initialization
@@ -180,7 +177,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     //     gasLimit: 5000000,
     // }) // TODO commented out for now bc insufficient funds
     const proxyDeployment = await proxyContractFactory.deploy(implTokenDeployment.address, {
-        // TODO current issue: https://baobab.klaytnscope.com/tx/0xc8fab9e1421b00e5360888e0190b86577c2052163eb38af54f5f8a2bfe0b85ef?tabId=inputData
         ...proxyOverrides,
         gasLimit: 500000,
     })
