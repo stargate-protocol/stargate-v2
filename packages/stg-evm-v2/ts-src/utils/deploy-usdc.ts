@@ -21,7 +21,7 @@ export const createDeployUSDC = (): DeployFunction =>
         // First let's get some basic info
         const network = hre.network.name
         const eid = getEidForNetworkName(network)
-        const logger = createModuleLogger(`USDC Deployer @ ${hre.network.name}`)
+        const logger = createModuleLogger(`USDC Deployer @ ${network}`)
 
         const tokenConfig = getAssetNetworkConfigMaybe(eid, tokenName)
         if (tokenConfig == null) {
@@ -800,6 +800,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         )
 
         logger.info(`Initializing USDC proxy contract with ${deployer} as the new owner`)
+        // string tokenName, string tokenSymbol, string tokenCurrency, uint8 tokenDecimals, address newMasterMinter, address newPauser, address newBlacklister, address newOwner
         const init0Tx = await proxyContract.initialize(
             name,
             symbol,
