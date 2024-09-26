@@ -9,7 +9,7 @@ import { DeployFunction } from 'hardhat-deploy/dist/types'
 import { getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
 import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
 
-import { getUSDCImplDeployName, getUSDCProxyDeployName } from '../../ops/util'
+import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeployName } from '../../ops/util'
 import { CONTRACT_USDC_TAGS } from '../constants'
 
 import { createDeploy, getFeeData } from './deployments'
@@ -66,67 +66,65 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     // Get the path to the file relative to the current script's directory
     const proxyBytecodePath = path.join(__dirname, 'USDCProxyBytecode.txt')
     const implBytecodePath = path.join(__dirname, 'USDCImplBytecode.txt')
+    const sigBytecodePath = path.join(__dirname, 'USDCSignatureLibBytecode.txt')
+
     const proxyAbiPath = path.join(__dirname, 'USDCProxyAbi.json')
     const implAbiPath = path.join(__dirname, 'USDCImplAbi.json')
+    const sigAbiPath = path.join(__dirname, 'USDCSignatureLibAbi.json')
 
     // Now read the files
     const proxyBytecode = fs.readFileSync(proxyBytecodePath, 'utf8')
     const implBytecode = fs.readFileSync(implBytecodePath, 'utf8')
+    const sigBytecode = fs.readFileSync(sigBytecodePath, 'utf8')
+
     const proxyAbi = JSON.parse(fs.readFileSync(proxyAbiPath, 'utf8'))
     const implAbi = JSON.parse(fs.readFileSync(implAbiPath, 'utf8'))
+    const sigAbi = JSON.parse(fs.readFileSync(sigAbiPath, 'utf8'))
 
     const addressOne = '0x0000000000000000000000000000000000000001'
 
+    const signLibDeploymentName = getUSDCSignatureLibDeployName()
     const implDeploymentName = getUSDCImplDeployName()
     const proxyDeploymentName = getUSDCProxyDeployName()
 
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
-    // Deploy implementation contract with bytecode
-    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO use this name for the deployment...
-    /**
-     *         const deployment: Deployment = {
-            address: contract.address,
-            abi: artifact.abi,
-            args: options.args,
-            bytecode: artifact.bytecode,
-            deployedBytecode: artifact.deployedBytecode,
-            // FIXME This is here just so that the contract verification using @layerzerolabs/verify-contract
-            // can parse this fake deployment file. This needs to be filled in with correct information
-            // if we are to use the verification CLI
-            metadata: JSON.stringify({
-                language: 'solidity',
-                compiler: {
-                    version: '',
-                },
-                settings: {
-                    compilationTarget: {},
-                    evmVersion: '',
-                    optimizer: {},
-                },
-                sources: {},
-            }),
-        }
+    logger.info(`Deploying USDC SignatureChecker library contract as ${signLibDeploymentName}`)
 
-        await hre.deployments.save(deploymentName, deployment)
-     */
-
-    const implOverrides = {
-        ...feeData,
+    const sigOverrides = {
+        gasPrice: await hre.ethers.provider.getGasPrice(),
         // from: usdcAdmin,
         // log: true,
         // waitConfirmations: 1,
     }
 
-    // const implContractFactory = new ContractFactory(implAbi, implBytecode, usdcAdminSigner) // TODO change this to me for now due to insufficient funds
-    const implContractFactory = new ContractFactory(implAbi, implBytecode, deployerSigner) // TODO change this to me for now due to insufficient funds
+    const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigBytecode, deployerSigner)
+    // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides) // TODO commented out for now bc insufficient funds
+    const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides)
+
+    logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLibDeployment.address}`)
+
+    // Deploy implementation contract with bytecode
+    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO use this name for the deployment...
+
+    const implOverrides = {
+        ...feeData,
+        // libraries: {
+        //     SignatureChecker: signatureCheckerLibDeployment.address,
+        // }, // TODO commented out for now bc libraries key is not recognized in overrides
+        // from: usdcAdmin, // TODO can use .connect
+        // log: true,
+        // waitConfirmations: 1,
+    }
+
+    const implContractFactory = new ContractFactory(implAbi, implBytecode, deployerSigner)
 
     // const implTokenDeployment = await implContractFactory.connect(usdcAdminSigner).deploy(implOverrides) // TODO commented out for now bc insufficient funds
     const implTokenDeployment = await implContractFactory.deploy(implOverrides)
 
     await implTokenDeployment.deployed()
 
-    console.log('RAVINA impl contract is deployed: ', implTokenDeployment.address)
+    logger.info(`${implDeploymentName} is deployed: ${implTokenDeployment.address}`)
 
     // Brick its initialization
     if (implTokenDeployment.newlyDeployed) {
@@ -170,8 +168,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         // waitConfirmations: 1,
     }
 
-    // const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, usdcAdminSigner) // TODO changed to me for now bc insufficient funds
-    const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner) // TODO changed to me for now bc insufficient funds
+    const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner)
     // const proxyDeployment = await proxyContractFactory.connect(usdcAdminSigner).deploy(implTokenDeployment.address, {
     //     ...proxyOverrides,
     //     gasLimit: 5000000,
@@ -183,7 +180,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     await proxyDeployment.deployed()
 
-    console.log('RAVINA proxy contract is deployed: ', proxyDeployment.address)
+    logger.info(`${proxyDeploymentName} is deployed: ${proxyDeployment.address}`)
 
     // Initialize the proxy
     if (proxyDeployment.newlyDeployed) {
