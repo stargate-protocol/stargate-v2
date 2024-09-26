@@ -78,7 +78,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const addressOne = '0x0000000000000000000000000000000000000001'
 
-    // TODO maybe store bytecode and abis in separate files
     const implDeploymentName = getUSDCImplDeployName()
     const proxyDeploymentName = getUSDCProxyDeployName()
 
@@ -183,7 +182,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     const proxyDeployment = await proxyContractFactory.deploy(implTokenDeployment.address, {
         // TODO current issue: https://baobab.klaytnscope.com/tx/0xc8fab9e1421b00e5360888e0190b86577c2052163eb38af54f5f8a2bfe0b85ef?tabId=inputData
         ...proxyOverrides,
-        gasLimit: 50000000,
+        gasLimit: 500000,
     })
 
     await proxyDeployment.deployed()
