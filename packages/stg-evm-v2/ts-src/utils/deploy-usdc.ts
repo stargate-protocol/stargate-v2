@@ -1,8 +1,8 @@
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import axios from 'axios'
-import { ContractFactory } from 'ethers'
+import { Contract, ContractFactory } from 'ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
-import { DeployFunction } from 'hardhat-deploy/dist/types'
+import { DeployFunction, Deployment } from 'hardhat-deploy/dist/types'
 
 import { createGetHreByEid, getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
 import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
@@ -48,7 +48,7 @@ function linkLibrary(bytecode: string, libraryName: string, libraryAddress: stri
     return bytecode
 }
 
-async function getBytecodes(hre: HardhatRuntimeEnvironment) {
+async function getCreationBytecodes(hre: HardhatRuntimeEnvironment) {
     const getEnvironment = createGetHreByEid(hre)
     const remoteEid = getEidForNetworkName(ARB_MAINNET)
     const remoteEnv = await getEnvironment(remoteEid)
@@ -57,11 +57,23 @@ async function getBytecodes(hre: HardhatRuntimeEnvironment) {
     const proxyCreationTx = await remoteEnv.ethers.provider.getTransaction(ARB_PROXY_CREATION_TX_HASH)
     const implCreationTx = await remoteEnv.ethers.provider.getTransaction(ARB_IMPL_CREATION_TX_HASH)
 
-    const sigBytecode = sigCreationTx.data
-    const proxyBytecode = proxyCreationTx.data
-    const implBytecode = implCreationTx.data
+    const sigCreationBytecode = sigCreationTx.data
+    const proxyCreationBytecode = proxyCreationTx.data
+    const implCreationBytecode = implCreationTx.data
 
-    return { sigBytecode, proxyBytecode, implBytecode }
+    return { sigCreationBytecode, proxyCreationBytecode, implCreationBytecode }
+}
+
+async function getDeployedBytecodes(hre: HardhatRuntimeEnvironment) {
+    const getEnvironment = createGetHreByEid(hre)
+    const remoteEid = getEidForNetworkName(ARB_MAINNET)
+    const remoteEnv = await getEnvironment(remoteEid)
+
+    const sigDeployedBytecode = await remoteEnv.ethers.provider.getCode(ARB_SIG_ADDRESS)
+    const proxyDeployedBytecode = await remoteEnv.ethers.provider.getCode(ARB_PROXY_ADDRESS)
+    const implDeployedBytecode = await remoteEnv.ethers.provider.getCode(ARB_IMPL_ADDRESS)
+
+    return { sigDeployedBytecode, proxyDeployedBytecode, implDeployedBytecode }
 }
 
 async function getAbis(logger: Logger) {
@@ -75,18 +87,54 @@ async function getAbis(logger: Logger) {
 
     try {
         let response = await axios.get(sigUrl)
-        sigAbi = response.data.result[0].ABI
+        sigAbi = JSON.parse(response.data.result[0].ABI)
 
         response = await axios.get(proxyUrl)
-        proxyAbi = response.data.result[0].ABI
+        proxyAbi = JSON.parse(response.data.result[0].ABI)
 
         response = await axios.get(implUrl)
-        implAbi = response.data.result[0].ABI
+        implAbi = JSON.parse(response.data.result[0].ABI)
     } catch (error) {
         logger.error('Error fetching creation code:', error)
     }
 
     return { sigAbi, proxyAbi, implAbi }
+}
+
+async function saveDeployment(
+    hre: HardhatRuntimeEnvironment,
+    deploymentName: string,
+    deploymentContract: Contract,
+    abi: any,
+    creationBytecode: string,
+    deployedBytecpde: string
+) {
+    const sigDeployment: Deployment = {
+        address: deploymentContract.address,
+        abi: abi as any,
+        transactionHash: deploymentContract.deployTransaction.hash,
+        receipt: await deploymentContract.deployTransaction.wait(),
+        args: [],
+        bytecode: creationBytecode,
+        deployedBytecode: deployedBytecpde,
+        metadata: JSON.stringify({
+            language: 'solidity',
+            compiler: {
+                version: '0.6.12+commit.27d51765',
+            },
+            settings: {
+                compilationTarget: {},
+                evmVersion: 'istanbul',
+                optimizer: {
+                    enabled: true,
+                    runs: 10000000,
+                },
+            },
+            sources: {},
+        }),
+    }
+
+    await hre.deployments.save(deploymentName, sigDeployment)
 }
 
 export const createDeployUSDC = (): DeployFunction =>
@@ -130,7 +178,8 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     const deployerSigner = await hre.ethers.getSigner(deployer)
     const usdcAdminSigner = await hre.ethers.getSigner(usdcAdmin)
 
-    const { sigBytecode, proxyBytecode, implBytecode } = await getBytecodes(hre)
+    const { sigCreationBytecode, proxyCreationBytecode, implCreationBytecode } = await getCreationBytecodes(hre)
+    const { sigDeployedBytecode, proxyDeployedBytecode, implDeployedBytecode } = await getDeployedBytecodes(hre)
     const { sigAbi, proxyAbi, implAbi } = await getAbis(logger)
 
     const addressOne = '0x0000000000000000000000000000000000000001'
@@ -141,29 +190,36 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
+    // Deploy the SignatureChecker library contract with bytecode
     logger.info(`Deploying USDC SignatureChecker library contract as ${signLibDeploymentName}`)
 
     const sigOverrides = {
         gasPrice: await hre.ethers.provider.getGasPrice(),
-        // from: usdcAdmin,
-        // log: true,
-        // waitConfirmations: 1,
     }
 
-    // Deploy the SignatureChecker library contract with bytecode
-    const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigBytecode, deployerSigner)
+    const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigCreationBytecode, deployerSigner)
 
-    // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides) // TODO commented out for now bc insufficient funds
+    // TODO commented out for now bc insufficient funds
+    // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides)
     const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides)
 
     await signatureCheckerLibDeployment.deployed()
+    await saveDeployment(
+        hre,
+        signLibDeploymentName,
+        signatureCheckerLibDeployment,
+        sigAbi,
+        sigCreationBytecode,
+        sigDeployedBytecode
+    )
+
     logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLibDeployment.address}`)
 
     // Deploy implementation contract with bytecode
-    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO ensure deployment files are being saved
+    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`)
 
     // Link the SignatureChecker library into the implementation bytecode
-    const linkedBytecode = linkLibrary(implBytecode, 'SignatureChecker', signatureCheckerLibDeployment.address)
+    const linkedBytecode = linkLibrary(implCreationBytecode, 'SignatureChecker', signatureCheckerLibDeployment.address)
 
     const implOverrides = {
         ...feeData,
@@ -171,10 +227,20 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const implContractFactory = new ContractFactory(implAbi, linkedBytecode, deployerSigner)
 
-    // const implTokenDeployment = await implContractFactory.connect(usdcAdminSigner).deploy(implOverrides) // TODO commented out for now bc insufficient funds
+    // TODO commented out for now bc insufficient funds
+    // const implTokenDeployment = await implContractFactory.connect(usdcAdminSigner).deploy(implOverrides)
     const implTokenDeployment = await implContractFactory.deploy(implOverrides)
 
     await implTokenDeployment.deployed()
+    await saveDeployment(
+        hre,
+        implDeploymentName,
+        implTokenDeployment,
+        implAbi,
+        implCreationBytecode,
+        implDeployedBytecode
+    )
+
     logger.info(`${implDeploymentName} is deployed: ${implTokenDeployment.address}`)
 
     // Brick its initialization
@@ -214,18 +280,16 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const proxyOverrides = {
         ...feeData,
-        // from: usdcAdmin,
-        // log: true,
-        // waitConfirmations: 1,
     }
 
     // const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner)
-    const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner)
+    const proxyContractFactory = new ContractFactory(proxyAbi, proxyCreationBytecode, deployerSigner)
 
+    // TODO commented out for now bc insufficient funds
     // const proxyDeployment = await proxyContractFactory.connect(usdcAdminSigner).deploy(implTokenDeployment.address, {
     //     ...proxyOverrides,
     //     gasLimit: 5000000,
-    // }) // TODO commented out for now bc insufficient funds
+    // })
     const proxyDeployment = await proxyContractFactory.deploy(implTokenDeployment.address, {
         ...proxyOverrides,
         gasLimit: 90000000,
@@ -234,6 +298,14 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     // console.log(`RAVINA Proxy deployment: ${JSON.stringify(proxyDeployment, null, 2)}`)
 
     const tx = await proxyDeployment.deployed()
+    await saveDeployment(
+        hre,
+        proxyDeploymentName,
+        proxyDeployment,
+        proxyAbi,
+        proxyCreationBytecode,
+        proxyDeployedBytecode
+    )
 
     // console.log(`RAVINA Proxy deployment tx: ${tx}`)
 
