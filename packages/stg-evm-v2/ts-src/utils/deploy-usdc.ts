@@ -1,24 +1,32 @@
-import fs from 'fs' // Import the fs module
-import path from 'path'
-
+// Import the fs module
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
+import axios from 'axios'
 import { ContractFactory } from 'ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
-import { getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
+import { createGetHreByEid, getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
 import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
 
 import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeployName } from '../../ops/util'
 import { CONTRACT_USDC_TAGS } from '../constants'
 
-import { createDeploy, getFeeData } from './deployments'
+import { getFeeData } from './deployments'
 import { appendTags } from './helpers'
 import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 
 const tokenName = TokenName.USDC
+const ARB_MAINNET = 'arbitrum-mainnet'
+
+const ARB_SIG_ADDRESS = '0x4e7D093EE4d74a01905Cf5CA92eB0bf154a53247'
+const ARB_PROXY_ADDRESS = '0xaf88d065e77c8cC2239327C5EDb3A432268e5831'
+const ARB_IMPL_ADDRESS = '0x86E721b43d4ECFa71119Dd38c0f938A75Fdb57B3'
+
+const ARB_SIG_CREATION_TX_HASH = '0xcb1039e59342b82e8d9a02f7137e985c80a37c46185800916c7860b8d2408d3d'
+const ARB_PROXY_CREATION_TX_HASH = '0xec773df8d80c83b23c74d0368f63d095f040c5fc6f9e749d0b429a7410c62662'
+const ARB_IMPL_CREATION_TX_HASH = '0x69da94fb8281f6ed002071172c8b919c61d428afd3f2a0a06fd4f6ca125bb6ec'
 
 // Replace placeholders in the bytecode with the actual library address
 function linkLibrary(bytecode: string, libraryName: string, libraryAddress: string) {
@@ -37,6 +45,49 @@ function linkLibrary(bytecode: string, libraryName: string, libraryAddress: stri
     }
 
     return bytecode
+}
+
+async function getBytecodes(hre: HardhatRuntimeEnvironment) {
+    const getEnvironment = createGetHreByEid(hre)
+    const remoteEid = getEidForNetworkName(ARB_MAINNET)
+    const remoteEnv = await getEnvironment(remoteEid)
+
+    const sigCreationTx = await remoteEnv.ethers.provider.getTransaction(ARB_SIG_CREATION_TX_HASH)
+    const proxyCreationTx = await remoteEnv.ethers.provider.getTransaction(ARB_PROXY_CREATION_TX_HASH)
+    const implCreationTx = await remoteEnv.ethers.provider.getTransaction(ARB_IMPL_CREATION_TX_HASH)
+
+    const sigBytecode = sigCreationTx.data
+    const proxyBytecode = proxyCreationTx.data
+    const implBytecode = implCreationTx.data
+
+    return { sigBytecode, proxyBytecode, implBytecode }
+}
+
+async function getAbis(logger: Logger) {
+    const apiKey = process.env.ARB_API_KEY
+
+    let sigAbi = ''
+    let proxyAbi = ''
+    let implAbi = ''
+
+    const sigUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_SIG_ADDRESS}&apikey=${apiKey}`
+    const proxyUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_PROXY_ADDRESS}&apikey=${apiKey}`
+    const implUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_IMPL_ADDRESS}&apikey=${apiKey}`
+
+    try {
+        let response = await axios.get(sigUrl)
+        sigAbi = response.data.result[0].ABI
+
+        response = await axios.get(proxyUrl)
+        proxyAbi = response.data.result[0].ABI
+
+        response = await axios.get(implUrl)
+        implAbi = response.data.result[0].ABI
+    } catch (error) {
+        logger.error('Error fetching creation code:', error)
+    }
+
+    return { sigAbi, proxyAbi, implAbi }
 }
 
 export const createDeployUSDC = (): DeployFunction =>
@@ -75,30 +126,13 @@ interface DeployUSDCOptions {
 }
 
 const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol }: DeployUSDCOptions) => {
-    const deploy = createDeploy(hre)
     const feeData = await getFeeData(hre)
     const { deployer, usdcAdmin } = await hre.getNamedAccounts()
     const deployerSigner = await hre.ethers.getSigner(deployer)
-
     const usdcAdminSigner = await hre.ethers.getSigner(usdcAdmin)
 
-    // Get the path to the file relative to the current script's directory
-    const proxyBytecodePath = path.join(__dirname, 'USDCProxyBytecode.txt')
-    const implBytecodePath = path.join(__dirname, 'USDCImplBytecode.txt')
-    const sigBytecodePath = path.join(__dirname, 'USDCSignatureLibBytecode.txt')
-
-    const proxyAbiPath = path.join(__dirname, 'USDCProxyAbi.json')
-    const implAbiPath = path.join(__dirname, 'USDCImplAbi.json')
-    const sigAbiPath = path.join(__dirname, 'USDCSignatureLibAbi.json')
-
-    // Now read the files
-    const proxyBytecode = fs.readFileSync(proxyBytecodePath, 'utf8')
-    const implBytecode = fs.readFileSync(implBytecodePath, 'utf8')
-    const sigBytecode = fs.readFileSync(sigBytecodePath, 'utf8')
-
-    const proxyAbi = JSON.parse(fs.readFileSync(proxyAbiPath, 'utf8'))
-    const implAbi = JSON.parse(fs.readFileSync(implAbiPath, 'utf8'))
-    const sigAbi = JSON.parse(fs.readFileSync(sigAbiPath, 'utf8'))
+    const { sigBytecode, proxyBytecode, implBytecode } = await getBytecodes(hre)
+    const { sigAbi, proxyAbi, implAbi } = await getAbis(logger)
 
     const addressOne = '0x0000000000000000000000000000000000000001'
 
@@ -119,12 +153,13 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigBytecode, deployerSigner)
     // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides) // TODO commented out for now bc insufficient funds
-    const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides)
+    const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides) // TODO bytecode doesn't match arb signature checker...but to be fair, neither does taiko's 0.6.12 signature checker
+    // it might be fine, after verification
 
     logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLibDeployment.address}`)
 
     // Deploy implementation contract with bytecode
-    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO use this name when saving the deployment file
+    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO ensure deployment files are being saved
 
     // Link the SignatureChecker library into the implementation bytecode
     const linkedBytecode = linkLibrary(implBytecode, 'SignatureChecker', signatureCheckerLibDeployment.address)
@@ -184,17 +219,23 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         // waitConfirmations: 1,
     }
 
+    // const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner)
     const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner)
+
     // const proxyDeployment = await proxyContractFactory.connect(usdcAdminSigner).deploy(implTokenDeployment.address, {
     //     ...proxyOverrides,
     //     gasLimit: 5000000,
     // }) // TODO commented out for now bc insufficient funds
     const proxyDeployment = await proxyContractFactory.deploy(implTokenDeployment.address, {
         ...proxyOverrides,
-        gasLimit: 500000,
+        gasLimit: 90000000,
     })
 
-    await proxyDeployment.deployed()
+    // console.log(`RAVINA Proxy deployment: ${JSON.stringify(proxyDeployment, null, 2)}`)
+
+    const tx = await proxyDeployment.deployed()
+
+    console.log(`RAVINA Proxy deployment tx: ${tx}`)
 
     logger.info(`${proxyDeploymentName} is deployed: ${proxyDeployment.address}`)
 
