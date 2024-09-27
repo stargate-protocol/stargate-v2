@@ -29,7 +29,7 @@ const ARB_SIG_CREATION_TX_HASH = '0xcb1039e59342b82e8d9a02f7137e985c80a37c461858
 const ARB_PROXY_CREATION_TX_HASH = '0xec773df8d80c83b23c74d0368f63d095f040c5fc6f9e749d0b429a7410c62662'
 const ARB_IMPL_CREATION_TX_HASH = '0x69da94fb8281f6ed002071172c8b919c61d428afd3f2a0a06fd4f6ca125bb6ec'
 
-// Replace placeholders in the bytecode with the actual library address
+// Utility to replace library placeholders in bytecode
 function linkLibrary(bytecode: string, libraryName: string, libraryAddress: string) {
     // Ensure the address is 40 characters long (without the 0x prefix)
     if (libraryAddress.slice(0, 2) === '0x') {
@@ -48,6 +48,7 @@ function linkLibrary(bytecode: string, libraryName: string, libraryAddress: stri
     return bytecode
 }
 
+// Fetches creation bytecode for contracts
 async function getCreationBytecodes(hre: HardhatRuntimeEnvironment) {
     const getEnvironment = createGetHreByEid(hre)
     const remoteEid = getEidForNetworkName(ARB_MAINNET)
@@ -64,6 +65,7 @@ async function getCreationBytecodes(hre: HardhatRuntimeEnvironment) {
     return { sigCreationBytecode, proxyCreationBytecode, implCreationBytecode }
 }
 
+// Fetches deployed bytecode for contracts
 async function getDeployedBytecodes(hre: HardhatRuntimeEnvironment) {
     const getEnvironment = createGetHreByEid(hre)
     const remoteEid = getEidForNetworkName(ARB_MAINNET)
@@ -76,6 +78,7 @@ async function getDeployedBytecodes(hre: HardhatRuntimeEnvironment) {
     return { sigDeployedBytecode, proxyDeployedBytecode, implDeployedBytecode }
 }
 
+// Fetches ABI for contracts from Arbiscan
 async function getAbis(logger: Logger) {
     let sigAbi = ''
     let proxyAbi = ''
@@ -101,6 +104,7 @@ async function getAbis(logger: Logger) {
     return { sigAbi, proxyAbi, implAbi }
 }
 
+// Saves deployment information to the deployments folder
 async function saveDeployment(
     hre: HardhatRuntimeEnvironment,
     deploymentName: string,
@@ -137,6 +141,7 @@ async function saveDeployment(
     await hre.deployments.save(deploymentName, sigDeployment)
 }
 
+// Deploy function for USDC
 export const createDeployUSDC = (): DeployFunction =>
     appendTokenTags(async (hre) => {
         // First let's get some basic info
@@ -184,25 +189,18 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const addressOne = '0x0000000000000000000000000000000000000001'
 
-    const signLibDeploymentName = getUSDCSignatureLibDeployName()
-    const implDeploymentName = getUSDCImplDeployName()
-    const proxyDeploymentName = getUSDCProxyDeployName()
-
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
     // Deploy the SignatureChecker library contract with bytecode
+    const signLibDeploymentName = getUSDCSignatureLibDeployName()
     logger.info(`Deploying USDC SignatureChecker library contract as ${signLibDeploymentName}`)
-
     const sigOverrides = {
         gasPrice: await hre.ethers.provider.getGasPrice(),
     }
-
     const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigCreationBytecode, deployerSigner)
-
     // TODO commented out for now bc insufficient funds
     // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides)
     const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides)
-
     await signatureCheckerLibDeployment.deployed()
     await saveDeployment(
         hre,
@@ -212,25 +210,20 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         sigCreationBytecode,
         sigDeployedBytecode
     )
-
     logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLibDeployment.address}`)
 
     // Deploy implementation contract with bytecode
+    const implDeploymentName = getUSDCImplDeployName()
     logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`)
-
     // Link the SignatureChecker library into the implementation bytecode
     const linkedBytecode = linkLibrary(implCreationBytecode, 'SignatureChecker', signatureCheckerLibDeployment.address)
-
     const implOverrides = {
         ...feeData,
     }
-
     const implContractFactory = new ContractFactory(implAbi, linkedBytecode, deployerSigner)
-
     // TODO commented out for now bc insufficient funds
     // const implTokenDeployment = await implContractFactory.connect(usdcAdminSigner).deploy(implOverrides)
     const implTokenDeployment = await implContractFactory.deploy(implOverrides)
-
     await implTokenDeployment.deployed()
     await saveDeployment(
         hre,
@@ -240,7 +233,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         implCreationBytecode,
         implDeployedBytecode
     )
-
     logger.info(`${implDeploymentName} is deployed: ${implTokenDeployment.address}`)
 
     // Brick its initialization
@@ -276,15 +268,13 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     }
 
     // Deploy upgradable proxy contract with bytecode
+    const proxyDeploymentName = getUSDCProxyDeployName()
     logger.info(`Deploying USDC proxy contract as ${proxyDeploymentName}`)
-
     const proxyOverrides = {
         ...feeData,
     }
-
     // const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecode, deployerSigner)
     const proxyContractFactory = new ContractFactory(proxyAbi, proxyCreationBytecode, deployerSigner)
-
     // TODO commented out for now bc insufficient funds
     // const proxyDeployment = await proxyContractFactory.connect(usdcAdminSigner).deploy(implTokenDeployment.address, {
     //     ...proxyOverrides,
@@ -294,9 +284,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         ...proxyOverrides,
         gasLimit: 90000000,
     })
-
     // console.log(`RAVINA Proxy deployment: ${JSON.stringify(proxyDeployment, null, 2)}`)
-
     const tx = await proxyDeployment.deployed()
     await saveDeployment(
         hre,
@@ -306,9 +294,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         proxyCreationBytecode,
         proxyDeployedBytecode
     )
-
     // console.log(`RAVINA Proxy deployment tx: ${tx}`)
-
     logger.info(`${proxyDeploymentName} is deployed: ${proxyDeployment.address}`)
 
     // Initialize the proxy
