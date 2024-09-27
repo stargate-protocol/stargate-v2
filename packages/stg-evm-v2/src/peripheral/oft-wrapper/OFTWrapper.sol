@@ -28,6 +28,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
     uint256 public constant BPS_DENOMINATOR = 10000;
     uint256 public constant MAX_UINT = 2 ** 256 - 1; // indicates a bp fee of 0 that overrides the default bps
+    uint256 public constant QUOTE_SRC_AMOUNT_MIN = 0;
 
     uint256 public defaultBps;
     mapping(address => uint256) public oftBps;
@@ -508,12 +509,40 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         if (_input.version == OFTVersion.Epv1OFTv1) {
             // quoteResult = _quoteEpv1OFTv1(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv1OFTv2) {
-            // quoteResult = _quoteEpv1OFTv2(quoteOFTInput);
+            quoteResult = _quoteEpv1OFTv2(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv1FeeOFTv2) {
             quoteResult = _quoteEpv1FeeOFTv2(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv2OFT) {
             quoteResult = _quoteEpv2OFT(quoteOFTInput);
         }
+
+        return quoteResult;
+    }
+
+    function _quoteEpv1OFTv2(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
+        QuoteResult memory quoteResult = _input.quoteResult;
+        quoteResult.fees = new QuoteFee[](3);
+        quoteResult.fees[0] = _input.wrapperFee;
+        quoteResult.fees[1] = _input.callerFee;
+
+        uint8 decimals = IERC20Metadata(_input.token).decimals();
+        uint256 sharedDecimals = OFTCoreV2(_input.token).sharedDecimals();
+
+        (quoteResult.amountReceivedLD, ) = _removeDust(_input.amountAfterWrapperFees, decimals, sharedDecimals);
+
+        quoteResult.srcAmountMin = QUOTE_SRC_AMOUNT_MIN;
+        (quoteResult.srcAmountMax, ) = _removeDust(type(uint256).max, decimals, sharedDecimals);
+
+        quoteResult.srcAmount = quoteResult.amountReceivedLD + _input.wrapperAndCallersFees;
+
+        (uint256 nativeFee, ) = IOFTWithFee(_input.token).estimateSendFee(
+            _input.dstEid,
+            _input.toAddress,
+            quoteResult.srcAmount - _input.wrapperAndCallersFees,
+            false,
+            bytes("")
+        );
+        quoteResult.fees[2] = QuoteFee({ fee: "nativeFee", amount: int256(nativeFee), token: _input.token });
 
         return quoteResult;
     }
@@ -527,25 +556,21 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         uint256 oftFee = Fee(_input.token).quoteOFTFee(_input.dstEid, _input.amountAfterWrapperFees);
         quoteResult.fees[2] = QuoteFee({ fee: "oftFee", amount: int256(oftFee), token: _input.token });
 
-        BaseOFTV2 oft = BaseOFTV2(_input.token);
-
-        address tokenAddress = IOFT(_input.token).token();
-        uint8 decimals = IERC20Metadata(tokenAddress).decimals();
+        uint8 decimals = IERC20Metadata(_input.token).decimals();
         uint256 sharedDecimals = OFTCoreV2(_input.token).sharedDecimals();
 
-        _input.amountAfterWrapperFees -= oftFee;
-        (uint256 dstAmount, ) = _removeDust(_input.amountAfterWrapperFees, decimals, sharedDecimals);
+        uint256 amountAfterWrapperAndOftFee = _input.amountAfterWrapperFees - oftFee;
+        (quoteResult.amountReceivedLD, ) = _removeDust(amountAfterWrapperAndOftFee, decimals, sharedDecimals);
 
-        quoteResult.srcAmountMin = 0;
+        quoteResult.srcAmountMin = QUOTE_SRC_AMOUNT_MIN;
+        (quoteResult.srcAmountMax, ) = _removeDust(type(uint256).max, decimals, sharedDecimals);
 
-        (quoteResult.srcAmountMax, ) = _removeDust(uint256(type(uint256).max), decimals, sharedDecimals);
+        quoteResult.srcAmount = quoteResult.amountReceivedLD + _input.wrapperAndCallersFees + oftFee;
 
-        quoteResult.srcAmount = dstAmount + _input.wrapperAndCallersFees + oftFee;
-        quoteResult.amountReceivedLD = dstAmount;
-
-        (uint256 nativeFee, ) = oft.estimateSendFee(
+        (uint256 nativeFee, ) = IOFTWithFee(_input.token).estimateSendFee(
             _input.dstEid,
             _input.toAddress,
+            // this could also be quoteResult.amountReceivedLD + oftFee
             quoteResult.srcAmount - _input.wrapperAndCallersFees,
             false,
             bytes("")
@@ -643,7 +668,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         quoteResult.srcAmountMax = oftLimit.maxAmountLD;
         quoteResult.srcAmountMin = oftLimit.minAmountLD;
         quoteResult.amountReceivedLD = oftReceipt.amountReceivedLD;
-
         quoteResult.srcAmount =
             oftReceipt.amountSentLD +
             uint256(quoteResult.fees[0].amount) +
