@@ -570,8 +570,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         (uint256 nativeFee, ) = IOFTWithFee(_input.token).estimateSendFee(
             _input.dstEid,
             _input.toAddress,
-            // this could also be quoteResult.amountReceivedLD + oftFee
-            quoteResult.srcAmount - _input.wrapperAndCallersFees,
+            quoteResult.amountReceivedLD,
             false,
             bytes("")
         );

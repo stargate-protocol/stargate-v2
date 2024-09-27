@@ -1207,7 +1207,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         );
 
         uint256 expectedSrcAmount = expectedAmountReceivedLD + expectedWrapperFee + expectedCallerFee + expectedOFTFee;
-        uint256 expectedNativeFee = expectedSrcAmount - expectedCallerFee - expectedWrapperFee;
+        uint256 expectedNativeFee = expectedSrcAmount - expectedCallerFee - expectedWrapperFee - expectedOFTFee;
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
@@ -1257,30 +1257,6 @@ contract OFTWrapperTest is Test, LzTestHelper {
         oftWithFeeChainB.setTrustedRemote(
             uint16(A_EID),
             abi.encodePacked(address(oftWithFeeChainA), address(oftWithFeeChainB))
-        );
-
-        oftWithFeeChainA.isTrustedRemote(
-            uint16(B_EID),
-            abi.encodePacked(address(oftWithFeeChainB), address(oftWithFeeChainA))
-        );
-        oftWithFeeChainB.isTrustedRemote(
-            uint16(A_EID),
-            abi.encodePacked(address(oftWithFeeChainA), address(oftWithFeeChainB))
-        );
-
-        console.log(
-            "trustedRemoteA",
-            oftWithFeeChainA.isTrustedRemote(
-                uint16(B_EID),
-                abi.encodePacked(address(oftWithFeeChainB), address(oftWithFeeChainA))
-            )
-        );
-        console.log(
-            "trustedRemoteB",
-            oftWithFeeChainB.isTrustedRemote(
-                uint16(A_EID),
-                abi.encodePacked(address(oftWithFeeChainA), address(oftWithFeeChainB))
-            )
         );
 
         uint16 specificFeeBp = 50;
