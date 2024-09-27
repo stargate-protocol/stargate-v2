@@ -1,4 +1,3 @@
-// Import the fs module
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import axios from 'axios'
 import { ContractFactory } from 'ethers'
@@ -18,6 +17,8 @@ import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 
 const tokenName = TokenName.USDC
+const API_KEY = process.env.ARB_API_KEY
+
 const ARB_MAINNET = 'arbitrum-mainnet'
 
 const ARB_SIG_ADDRESS = '0x4e7D093EE4d74a01905Cf5CA92eB0bf154a53247'
@@ -64,15 +65,13 @@ async function getBytecodes(hre: HardhatRuntimeEnvironment) {
 }
 
 async function getAbis(logger: Logger) {
-    const apiKey = process.env.ARB_API_KEY
-
     let sigAbi = ''
     let proxyAbi = ''
     let implAbi = ''
 
-    const sigUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_SIG_ADDRESS}&apikey=${apiKey}`
-    const proxyUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_PROXY_ADDRESS}&apikey=${apiKey}`
-    const implUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_IMPL_ADDRESS}&apikey=${apiKey}`
+    const sigUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_SIG_ADDRESS}&apikey=${API_KEY}`
+    const proxyUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_PROXY_ADDRESS}&apikey=${API_KEY}`
+    const implUrl = `https://api.arbiscan.io/api?module=contract&action=getsourcecode&address=${ARB_IMPL_ADDRESS}&apikey=${API_KEY}`
 
     try {
         let response = await axios.get(sigUrl)
@@ -151,11 +150,13 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         // waitConfirmations: 1,
     }
 
+    // Deploy the SignatureChecker library contract with bytecode
     const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigBytecode, deployerSigner)
-    // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides) // TODO commented out for now bc insufficient funds
-    const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides) // TODO bytecode doesn't match arb signature checker...but to be fair, neither does taiko's 0.6.12 signature checker
-    // it might be fine, after verification
 
+    // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides) // TODO commented out for now bc insufficient funds
+    const signatureCheckerLibDeployment = await signatureCheckerContractFactory.deploy(sigOverrides)
+
+    await signatureCheckerLibDeployment.deployed()
     logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLibDeployment.address}`)
 
     // Deploy implementation contract with bytecode
@@ -174,7 +175,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     const implTokenDeployment = await implContractFactory.deploy(implOverrides)
 
     await implTokenDeployment.deployed()
-
     logger.info(`${implDeploymentName} is deployed: ${implTokenDeployment.address}`)
 
     // Brick its initialization
@@ -235,7 +235,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const tx = await proxyDeployment.deployed()
 
-    console.log(`RAVINA Proxy deployment tx: ${tx}`)
+    // console.log(`RAVINA Proxy deployment tx: ${tx}`)
 
     logger.info(`${proxyDeploymentName} is deployed: ${proxyDeployment.address}`)
 
