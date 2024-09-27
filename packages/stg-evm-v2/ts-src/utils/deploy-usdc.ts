@@ -20,6 +20,25 @@ const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 
 const tokenName = TokenName.USDC
 
+// Replace placeholders in the bytecode with the actual library address
+function linkLibrary(bytecode: string, libraryName: string, libraryAddress: string) {
+    // Ensure the address is 40 characters long (without the 0x prefix)
+    if (libraryAddress.slice(0, 2) === '0x') {
+        libraryAddress = libraryAddress.slice(2)
+    }
+    if (libraryAddress.length !== 40) {
+        throw new Error(`Invalid library address length for ${libraryName}`)
+    }
+
+    // Find the placeholder in the bytecode
+    const placeholder = `__${libraryName}__`.padEnd(40, '_')
+    while (bytecode.includes(placeholder)) {
+        bytecode = bytecode.replace(placeholder, libraryAddress)
+    }
+
+    return bytecode
+}
+
 export const createDeployUSDC = (): DeployFunction =>
     appendTokenTags(async (hre) => {
         // First let's get some basic info
@@ -105,19 +124,16 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLibDeployment.address}`)
 
     // Deploy implementation contract with bytecode
-    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO use this name for the deployment...
+    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`) // TODO use this name when saving the deployment file
+
+    // Link the SignatureChecker library into the implementation bytecode
+    const linkedBytecode = linkLibrary(implBytecode, 'SignatureChecker', signatureCheckerLibDeployment.address)
 
     const implOverrides = {
         ...feeData,
-        // libraries: {
-        //     SignatureChecker: signatureCheckerLibDeployment.address,
-        // }, // TODO commented out for now bc libraries key is not recognized in overrides
-        // from: usdcAdmin, // TODO can use .connect
-        // log: true,
-        // waitConfirmations: 1,
     }
 
-    const implContractFactory = new ContractFactory(implAbi, implBytecode, deployerSigner)
+    const implContractFactory = new ContractFactory(implAbi, linkedBytecode, deployerSigner)
 
     // const implTokenDeployment = await implContractFactory.connect(usdcAdminSigner).deploy(implOverrides) // TODO commented out for now bc insufficient funds
     const implTokenDeployment = await implContractFactory.deploy(implOverrides)
