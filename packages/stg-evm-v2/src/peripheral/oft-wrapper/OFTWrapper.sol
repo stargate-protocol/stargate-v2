@@ -489,7 +489,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             uint256 amountAfterWrapperFees
         ) = _calculateInitialFeesAndAmount(_input, _feeObj);
         uint256 wrapperAndCallersFees = uint256(wrapperFee.amount) + uint256(callerFee.amount);
-
         QuoteOFTInput memory quoteOFTInput = QuoteOFTInput({
             version: _input.version,
             token: _input.token,
@@ -507,7 +506,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         });
 
         if (_input.version == OFTVersion.Epv1OFTv1) {
-            // quoteResult = _quoteEpv1OFTv1(quoteOFTInput);
+            quoteResult = _quoteEpv1OFTv1(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv1OFTv2) {
             quoteResult = _quoteEpv1OFTv2(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv1FeeOFTv2) {
@@ -515,6 +514,30 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         } else if (_input.version == OFTVersion.Epv2OFT) {
             quoteResult = _quoteEpv2OFT(quoteOFTInput);
         }
+
+        return quoteResult;
+    }
+
+    function _quoteEpv1OFTv1(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
+        QuoteResult memory quoteResult = _input.quoteResult;
+        quoteResult.fees = new QuoteFee[](3);
+        quoteResult.fees[0] = _input.wrapperFee;
+        quoteResult.fees[1] = _input.callerFee;
+
+        quoteResult.amountReceivedLD = _input.amountAfterWrapperFees;
+        quoteResult.srcAmountMin = QUOTE_SRC_AMOUNT_MIN;
+        quoteResult.srcAmountMax = type(uint256).max;
+
+        quoteResult.srcAmount = quoteResult.amountReceivedLD + _input.wrapperAndCallersFees;
+
+        (uint256 nativeFee, ) = IOFT(_input.token).estimateSendFee(
+            _input.dstEid,
+            abi.encodePacked(_input.toAddress),
+            quoteResult.amountReceivedLD,
+            false,
+            bytes("")
+        );
+        quoteResult.fees[2] = QuoteFee({ fee: "nativeFee", amount: int256(nativeFee), token: _input.token });
 
         return quoteResult;
     }
@@ -535,10 +558,10 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
 
         quoteResult.srcAmount = quoteResult.amountReceivedLD + _input.wrapperAndCallersFees;
 
-        (uint256 nativeFee, ) = IOFTWithFee(_input.token).estimateSendFee(
+        (uint256 nativeFee, ) = IOFTV2(_input.token).estimateSendFee(
             _input.dstEid,
             _input.toAddress,
-            quoteResult.srcAmount - _input.wrapperAndCallersFees,
+            quoteResult.amountReceivedLD,
             false,
             bytes("")
         );
@@ -610,7 +633,6 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
                 }),
                 false
             );
-
             quoteResult.fees[2] = QuoteFee({
                 fee: "nativeFee",
                 amount: int256(messagingFee.nativeFee),
@@ -648,6 +670,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         quoteResult.fees = new QuoteFee[](3 + oftFeeDetails.length);
         quoteResult.fees[0] = _input.wrapperFee;
         quoteResult.fees[1] = _input.callerFee;
+        uint256 oftFeeDetailsFees = 0;
         for (uint256 i = 0; i < oftFeeDetails.length; i++) {
             quoteResult.fees[i + 3] = QuoteFee({
                 fee: oftFeeDetails[i].description,
@@ -667,6 +690,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         quoteResult.srcAmountMax = oftLimit.maxAmountLD;
         quoteResult.srcAmountMin = oftLimit.minAmountLD;
         quoteResult.amountReceivedLD = oftReceipt.amountReceivedLD;
+        // using oftReceipt.amountSentLD because it has dust removed
         quoteResult.srcAmount =
             oftReceipt.amountSentLD +
             uint256(quoteResult.fees[0].amount) +
