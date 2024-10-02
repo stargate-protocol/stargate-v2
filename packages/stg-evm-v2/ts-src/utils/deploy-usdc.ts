@@ -175,11 +175,9 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     // TODO commented out for now bc insufficient funds
     // const proxyDeployment = await proxyContractFactory.connect(usdcAdminSigner).deploy(implTokenDeployment.address, {
     //     ...proxyOverrides,
-    //     gasLimit: 5000000,
     // })
     const proxy = await proxyContractFactory.deploy(implToken.address, {
         ...proxyOverrides,
-        gasLimit: 50000000,
     })
 
     await proxy.deployed()
