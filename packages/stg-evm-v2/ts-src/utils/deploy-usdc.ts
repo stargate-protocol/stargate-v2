@@ -2,9 +2,9 @@ import fs from 'fs'
 import path from 'path'
 
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
-import { Contract, ContractFactory } from 'ethers'
+import { ContractFactory } from 'ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
-import { DeployFunction, Deployment } from 'hardhat-deploy/dist/types'
+import { DeployFunction } from 'hardhat-deploy/dist/types'
 
 import { getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
 import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
@@ -13,7 +13,7 @@ import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeplo
 import { CONTRACT_USDC_TAGS } from '../constants'
 
 import { getFeeData } from './deployments'
-import { appendTags, fillAddress } from './helpers'
+import { appendTags, fillAddress, saveDeployment } from './helpers'
 import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
@@ -21,48 +21,7 @@ const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 const tokenName = TokenName.USDC
 // TODO let jan know that circle mentioned all 3 contracts must be re-deployed
 
-// TODO then write tests so that you can deploy to local hardhat node, call a function from the contract to ensure it works
-
-// Saves deployment information to the deployments folder
-// TODO write tests for this function
-async function saveDeployment(
-    hre: HardhatRuntimeEnvironment,
-    deploymentName: string,
-    deploymentContract: Contract,
-    abi: any,
-    creationBytecode: string,
-    deployedBytecode: string
-) {
-    const sigDeployment: Deployment = {
-        address: deploymentContract.address,
-        abi: abi as any,
-        transactionHash: deploymentContract.deployTransaction.hash,
-        receipt: await deploymentContract.deployTransaction.wait(),
-        args: [],
-        bytecode: creationBytecode,
-        deployedBytecode: deployedBytecode,
-        metadata: JSON.stringify({
-            language: 'solidity',
-            compiler: {
-                version: '0.6.12+commit.27d51765',
-            },
-            settings: {
-                compilationTarget: {},
-                evmVersion: 'istanbul',
-                optimizer: {
-                    enabled: true,
-                    runs: 10000000,
-                },
-            },
-            sources: {},
-        }),
-    }
-
-    await hre.deployments.save(deploymentName, sigDeployment)
-}
-
 // Deploy function for USDC
-// TODO write tests for this function? it is unchanged from the original...
 export const createDeployUSDC = (): DeployFunction =>
     appendTokenTags(async (hre) => {
         // First let's get some basic info
@@ -98,7 +57,7 @@ interface DeployUSDCOptions {
     logger: Logger
 }
 
-// TODO write tests for this function, specifically call an impl function on the proxy to ensure it works
+// TODO write tests for this function, specifically write deploy to local hardhat node call an impl function on the proxy to ensure it works
 const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol }: DeployUSDCOptions) => {
     const feeData = await getFeeData(hre)
     const { deployer, usdcAdmin } = await hre.getNamedAccounts()
@@ -234,7 +193,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         await hre.ethers.provider.getCode(proxy.address)
     )
 
-    logger.info(`${proxyDeploymentName} is deployed: ${proxy.address}`) // TODO Why is this not printing?
+    logger.info(`${proxyDeploymentName} is deployed: ${proxy.address}`)
     logger.info(`${implDeploymentName} is deployed: ${implToken.address}`)
 
     // console.log('is proxy newly deployed? ', proxy.newlyDeployed)
