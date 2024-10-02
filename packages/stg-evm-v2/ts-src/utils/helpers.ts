@@ -82,19 +82,11 @@ export const saveDeployment = async (
 
 /**
  * export interface DeploymentSubmission {
-  abi: ABI;
-  address: Address; // used to override receipt.contractAddress (useful for proxies)
-  receipt?: Receipt;
-  transactionHash?: string;
   history?: Deployment[];
   implementation?: string;
-  args?: any[];
   linkedData?: any;
   solcInput?: string;
   solcInputHash?: string;
-  metadata?: string;
-  bytecode?: string;
-  deployedBytecode?: string;
   userdoc?: any;
   devdoc?: any;
   methodIdentifiers?: any;
