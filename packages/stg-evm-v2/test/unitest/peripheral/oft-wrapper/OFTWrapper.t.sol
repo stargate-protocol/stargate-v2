@@ -23,6 +23,7 @@ import { Fee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee
 import { OFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/OFTWithFee.sol";
 import { CustomQuoteSendMockOFT, CustomQuoteSendMockOFTAdapter, MockOFT, MockOFTAdapter, CustomQuoteOFTMockOFT } from "./mocks/epv2/MockOFT.sol";
 import { MockOFTWrapper } from "./mocks/wrapper/MockOFtWrapper.sol";
+import { OFT as OFTEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/OFT.sol";
 
 import { OFTProxyMock as OFTv2ProxyMock } from "./mocks/oftv2/OFTProxyMock.sol";
 import { OFTMock as OFTv2Mock } from "./mocks/oftv2/OFTMock.sol";
@@ -63,6 +64,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     uint256 internal constant MOCK_MAX_AMOUNT_LD = 1500 * 1e18;
     uint256 internal constant MOCK_NATIVE_FEE = 0.001 ether;
     uint8 internal constant SHARED_DECIMALS = 6;
+    uint8 internal constant LOCAL_DECIMALS = 18;
 
     uint16 internal constant DEFAULT_BPS = 97;
     uint256 internal constant DEFAULT_CALLER_BPS_CAP = type(uint256).max; // unset by default
@@ -805,8 +807,8 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function test_removeDust_NoDust() public {
         uint256 amount = 1 ether;
-        uint256 localDecimals = 18;
-        uint256 sharedDecimals = 6;
+        uint256 localDecimals = LOCAL_DECIMALS;
+        uint256 sharedDecimals = SHARED_DECIMALS;
 
         (uint256 amountAfter, uint256 dust) = mockOftWrapper.exposed_removeDust(amount, localDecimals, sharedDecimals);
 
@@ -816,8 +818,8 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function test_removeDust_WithDust() public {
         uint256 amount = 1000000000000000001;
-        uint256 localDecimals = 18;
-        uint256 sharedDecimals = 6;
+        uint256 localDecimals = LOCAL_DECIMALS;
+        uint256 sharedDecimals = SHARED_DECIMALS;
 
         (uint256 amountAfter, uint256 dust) = mockOftWrapper.exposed_removeDust(amount, localDecimals, sharedDecimals);
 
@@ -827,12 +829,16 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function test_removeDust_DifferentDecimals() public {
         uint256 amount = 123456789123456789;
-        uint256 localDecimals = 18;
-        uint256 sharedDecimals = 9;
+        uint256 localDecimals = LOCAL_DECIMALS;
+        uint256 sharedDecimals = SHARED_DECIMALS + 3;
 
         (uint256 amountAfter, uint256 dust) = mockOftWrapper.exposed_removeDust(amount, localDecimals, sharedDecimals);
 
-        assertEq(amountAfter, 123456789000000000, "Amount should be rounded down to 9 decimal places");
+        assertEq(
+            amountAfter,
+            123456789000000000,
+            "Amount should be rounded down to SHARED_DECIMALS + 3 decimal places"
+        );
         assertEq(dust, 123456789, "Dust should be the remainder");
     }
 
@@ -857,8 +863,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-        uint256 mockDust = 100;
-        uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
+        uint256 mockAmountSentLD = amountAfterWrapperFees;
         uint256 mockAmountReceivedLD = (amountAfterWrapperFees / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
         uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
 
@@ -918,8 +923,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-        uint256 mockDust = 30;
-        uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
+        uint256 mockAmountSentLD = amountAfterWrapperFees;
         uint256 mockAmountReceivedLD = (input.amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
         uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
 
@@ -995,8 +999,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-        uint256 mockDust = 30;
-        uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
+        uint256 mockAmountSentLD = amountAfterWrapperFees;
         uint256 mockAmountReceivedLD = (input.amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
         uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
 
@@ -1069,8 +1072,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-        uint256 mockDust = 100;
-        uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
+        uint256 mockAmountSentLD = amountAfterWrapperFees;
         uint256 mockAmountReceivedLD = (amountAfterWrapperFees / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
         uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
         uint256 srcAmountMaxToTriggerReCalculation = input.amountLD - 1;
@@ -1150,8 +1152,6 @@ contract OFTWrapperTest is Test, LzTestHelper {
             composeMsg: hex"",
             oftCmd: hex""
         });
-        console.log("Quote Input toAddress:", Strings.toHexString(uint160(uint256(input.toAddress)), 20));
-        console.log("SendParam to:", Strings.toHexString(uint160(uint256(sendParam.to)), 20));
 
         vm.startPrank(sender);
         oftMockA.approve(address(oftWrapper), quoteResult.srcAmount);
@@ -1163,6 +1163,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
             address(sender),
             feeObj
         );
+
         vm.stopPrank();
         verifyAndExecutePackets();
 
@@ -1174,9 +1175,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
             senderInitialBalance - quoteResult.srcAmount,
             "Sender balance should decrease by srcAmount"
         );
+        uint256 expectedReceiverFinalBalance = receiverInitialBalance + quoteResult.amountReceivedLD;
         assertEq(
             receiverFinalBalance,
-            receiverInitialBalance + quoteResult.amountReceivedLD,
+            expectedReceiverFinalBalance,
             "Receiver balance should increase by amountReceivedLD"
         );
     }
@@ -1198,24 +1200,25 @@ contract OFTWrapperTest is Test, LzTestHelper {
         setupMockReturnValues(amountAfterWrapperFees, input.amountLD, oftMockA);
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
-        uint256 nativeFee = uint256(quoteResult.fees[2].amount);
+
+        IOFTWrapper.QuoteFee memory nativeFee = getQuoteResultFeeWithName(NATIVE_FEE_NAME, quoteResult);
 
         SendParamEpv2 memory sendParam = prepareSendParam(quoteResult);
 
         vm.startPrank(sender);
         oftMockA.approve(address(oftWrapper), quoteResult.srcAmount);
 
-        oftWrapper.sendOFTEpv2{ value: nativeFee }(
+        oftWrapper.sendOFTEpv2{ value: uint256(nativeFee.amount) }(
             address(oftMockA),
             sendParam,
-            MessagingFeeEpv2({ nativeFee: nativeFee, lzTokenFee: 0 }),
-            address(0),
+            MessagingFeeEpv2({ nativeFee: uint256(nativeFee.amount), lzTokenFee: 0 }),
+            address(sender),
             feeObj
         );
         vm.stopPrank();
         verifyAndExecutePackets();
 
-        verifyBalances(senderInitialBalance, receiverInitialBalance, quoteResult);
+        verifyBalances(senderInitialBalance, receiverInitialBalance, quoteResult, oftMockA, oftMockB);
     }
 
     function setupMocks() internal returns (CustomQuoteOFTMockOFT, CustomQuoteOFTMockOFT) {
@@ -1250,14 +1253,23 @@ contract OFTWrapperTest is Test, LzTestHelper {
         return (input, feeObj);
     }
 
-    function setupMockReturnValues(uint256 amountAfterFees, uint256 amountLD, CustomQuoteOFTMockOFT oftMockA) internal {
-        uint256 mockDust = 30;
-        uint256 mockAmountSentLD = amountAfterFees - mockDust;
-        uint256 mockAmountReceivedLD = (amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
-
+    function setupMockReturnValues(
+        uint256 amountAfterWrapperFees,
+        uint256 amountLD,
+        CustomQuoteOFTMockOFT oftMockA
+    ) internal {
         OFTFeeDetail[] memory oftFeeDetails = new OFTFeeDetail[](2);
         oftFeeDetails[0] = OFTFeeDetail({ feeAmountLD: 100, description: "oftFee" });
         oftFeeDetails[1] = OFTFeeDetail({ feeAmountLD: 200, description: "oftFee2" });
+
+        (uint256 mockAmountReceivedLD, ) = mockOftWrapper.exposed_removeDust(
+            amountAfterWrapperFees - uint256(oftFeeDetails[0].feeAmountLD) - uint256(oftFeeDetails[1].feeAmountLD),
+            LOCAL_DECIMALS,
+            SHARED_DECIMALS
+        );
+        uint256 mockAmountSentLD = amountAfterWrapperFees -
+            uint256(oftFeeDetails[0].feeAmountLD) -
+            uint256(oftFeeDetails[1].feeAmountLD);
 
         oftMockA.setQuoteOFTReturnValues(
             OFTReceipt({ amountSentLD: mockAmountSentLD, amountReceivedLD: mockAmountReceivedLD }),
@@ -1284,10 +1296,12 @@ contract OFTWrapperTest is Test, LzTestHelper {
     function verifyBalances(
         uint256 senderInitialBalance,
         uint256 receiverInitialBalance,
-        IOFTWrapper.QuoteResult memory quoteResult
+        IOFTWrapper.QuoteResult memory quoteResult,
+        CustomQuoteOFTMockOFT oftMockA,
+        CustomQuoteOFTMockOFT oftMockB
     ) internal {
-        uint256 receiverFinalBalance = oft.balanceOf(receiver);
-        uint256 senderFinalBalance = oft.balanceOf(sender);
+        uint256 receiverFinalBalance = oftMockB.balanceOf(receiver);
+        uint256 senderFinalBalance = oftMockA.balanceOf(sender);
 
         assertEq(
             senderFinalBalance,

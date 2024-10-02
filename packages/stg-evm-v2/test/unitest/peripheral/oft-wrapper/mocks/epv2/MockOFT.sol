@@ -83,10 +83,8 @@ contract CustomQuoteOFTMockOFT is MockOFT {
         oftReceipt = _receipt;
         oftLimit = _limit;
 
-        // Clear the existing array
         delete oftFeeDetails;
 
-        // Manually copy each element of the array
         for (uint i = 0; i < _oftFeeDetails.length; i++) {
             oftFeeDetails.push(_oftFeeDetails[i]);
         }
