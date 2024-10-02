@@ -13,7 +13,7 @@ import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeplo
 import { CONTRACT_USDC_TAGS } from '../constants'
 
 import { getFeeData } from './deployments'
-import { appendTags } from './helpers'
+import { appendTags, fillAddress } from './helpers'
 import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
@@ -22,26 +22,6 @@ const tokenName = TokenName.USDC
 // TODO let jan know that circle mentioned all 3 contracts must be re-deployed
 
 // TODO then write tests so that you can deploy to local hardhat node, call a function from the contract to ensure it works
-
-// Utility to replace any $ in bytecode with the library address
-export function fillAddress(bytecode: string, libraryAddress: string) {
-    // TODO write tests for this function
-    // Ensure the address is 40 characters long (without the 0x prefix)
-    if (libraryAddress.slice(0, 2) === '0x') {
-        libraryAddress = libraryAddress.slice(2)
-    }
-    if (libraryAddress.length !== 40) {
-        throw new Error(`Invalid library address length ${libraryAddress}`)
-    }
-
-    // Find the placeholder in the bytecode
-    const placeholder = `$`
-    while (bytecode.includes(placeholder)) {
-        bytecode = bytecode.replace(placeholder, libraryAddress)
-    }
-
-    return bytecode
-}
 
 // Saves deployment information to the deployments folder
 // TODO write tests for this function
@@ -191,7 +171,9 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     )
     logger.info(`${implDeploymentName} is deployed: ${implToken.address}`)
 
-    console.log('is implToken newly deployed? ', implToken.newlyDeployed)
+    // TODO In main this is false if deployment files exist and errors out with gas estimation error if files don't exist
+    // In ravina/usdc-updates this is always undefined....why?
+    // console.log('is implToken newly deployed? ', implToken.newlyDeployed)
 
     // Brick its initialization
     if (implToken.newlyDeployed) {
@@ -255,9 +237,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     logger.info(`${proxyDeploymentName} is deployed: ${proxy.address}`) // TODO Why is this not printing?
     logger.info(`${implDeploymentName} is deployed: ${implToken.address}`)
 
-    console.log('logging proxy address then initializing: ', proxy.address)
-
-    console.log('is proxy newly deployed? ', proxy.newlyDeployed)
+    // console.log('is proxy newly deployed? ', proxy.newlyDeployed)
     // Initialize the proxy
     if (proxy.newlyDeployed) {
         logger.info(`Initializing USDC proxy contract based on ${proxyDeploymentName}`)
