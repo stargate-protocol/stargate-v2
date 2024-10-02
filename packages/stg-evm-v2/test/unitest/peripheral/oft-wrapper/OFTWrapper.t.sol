@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/utils/Strings.sol";
+
 import { console, Test } from "@layerzerolabs/toolbox-foundry/lib/forge-std/Test.sol";
 
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -31,7 +33,6 @@ import { OFTMock as OFTv1Mock } from "./mocks/oft/OFTMock.sol";
 import { QuoteOFTMock as OFTv1QuoteMock } from "./mocks/oft/OFTMock.sol";
 import { OFTWithFeeMock } from "./mocks/oft/OFTWithFeeMock.sol";
 
-// todo arrange these better or remove if not needed
 import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
 import { IERC20Metadata } from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import { OFTCoreV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTCoreV2.sol";
@@ -47,6 +48,9 @@ contract OFTWrapperTest is Test, LzTestHelper {
     string internal ERC20_MOCK_SYMBOL = "ERC";
     string internal OFT_NAME = "OFTA";
     string internal OFT_SYMBOL = "OFTA";
+    string internal WRAPPER_FEE_NAME = "wrapperFee";
+    string internal CALLER_FEE_NAME = "callerFee";
+    string internal NATIVE_FEE_NAME = "nativeFee";
 
     uint8 internal constant NUM_ENDPOINTS = 2;
     uint32 internal constant A_EID = 1;
@@ -853,7 +857,6 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-
         uint256 mockDust = 100;
         uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
         uint256 mockAmountReceivedLD = (amountAfterWrapperFees / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
@@ -868,25 +871,28 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees[0].fee, "wrapperFee");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee));
-        assertEq(quoteResult.fees[0].token, input.token);
-
-        assertEq(quoteResult.fees[1].fee, "callerFee");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee));
-        assertEq(quoteResult.fees[1].token, input.token);
-
-        assertEq(quoteResult.fees[2].fee, "nativeFee");
-        assertEq(quoteResult.fees[2].amount, int256(MOCK_NATIVE_FEE));
-        assertEq(quoteResult.fees[2].token, input.token);
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](3);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(MOCK_NATIVE_FEE),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.srcAmountMax, MOCK_MAX_AMOUNT_LD);
         assertEq(quoteResult.srcAmountMin, MOCK_MIN_AMOUNT_LD);
         assertEq(quoteResult.amountReceivedLD, mockAmountReceivedLD);
-
         assertEq(quoteResult.srcAmount, expectedSrcAmount);
-
-        logQuoteResults(quoteResult);
     }
 
     function testQuote_OFTEpV2_WithNativeDrop() public {
@@ -912,10 +918,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-
         uint256 mockDust = 30;
         uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
         uint256 mockAmountReceivedLD = (input.amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
+        uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
 
         oft.setQuoteOFTReturnValues(
             OFTReceipt({ amountSentLD: mockAmountSentLD, amountReceivedLD: mockAmountReceivedLD }),
@@ -943,28 +949,28 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees.length, 3);
-
-        assertEq(quoteResult.fees[0].fee, "wrapperFee");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee));
-        assertEq(quoteResult.fees[0].token, input.token);
-
-        assertEq(quoteResult.fees[1].fee, "callerFee");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee));
-        assertEq(quoteResult.fees[1].token, input.token);
-
-        assertEq(quoteResult.fees[2].fee, "nativeFee");
-        assertEq(quoteResult.fees[2].amount, int256(MOCK_NATIVE_FEE));
-        assertEq(quoteResult.fees[2].token, input.token);
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](3);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(MOCK_NATIVE_FEE),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.srcAmountMax, MOCK_MAX_AMOUNT_LD);
         assertEq(quoteResult.srcAmountMin, MOCK_MIN_AMOUNT_LD);
         assertEq(quoteResult.amountReceivedLD, mockAmountReceivedLD);
-
-        uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
         assertEq(quoteResult.srcAmount, expectedSrcAmount);
-
-        logQuoteResults(quoteResult);
     }
 
     function testQuote_OFTEpV2_WithFeeDetails() public {
@@ -989,55 +995,57 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-
         uint256 mockDust = 30;
         uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
         uint256 mockAmountReceivedLD = (input.amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
+        uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
 
         // Setup fee details
-        OFTFeeDetail[] memory oftFeeDetails = new OFTFeeDetail[](2);
-        oftFeeDetails[0] = OFTFeeDetail({ feeAmountLD: 100, description: "oftFee" });
-        oftFeeDetails[1] = OFTFeeDetail({ feeAmountLD: 200, description: "oftFee2" });
+        OFTFeeDetail[] memory mockOFTFeeDetails = new OFTFeeDetail[](2);
+        mockOFTFeeDetails[0] = OFTFeeDetail({ feeAmountLD: 100, description: "oftFee" });
+        mockOFTFeeDetails[1] = OFTFeeDetail({ feeAmountLD: 200, description: "oftFee2" });
 
         oft.setQuoteOFTReturnValues(
             OFTReceipt({ amountSentLD: mockAmountSentLD, amountReceivedLD: mockAmountReceivedLD }),
-            oftFeeDetails,
+            mockOFTFeeDetails,
             OFTLimit({ minAmountLD: MOCK_MIN_AMOUNT_LD, maxAmountLD: MOCK_MAX_AMOUNT_LD })
         );
         oft.setQuoteSendReturnValue(MessagingFeeEpv2({ nativeFee: MOCK_NATIVE_FEE, lzTokenFee: 0 }));
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees.length, 5);
-
-        assertEq(quoteResult.fees[0].fee, "wrapperFee");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee));
-        assertEq(quoteResult.fees[0].token, input.token);
-
-        assertEq(quoteResult.fees[1].fee, "callerFee");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee));
-        assertEq(quoteResult.fees[1].token, input.token);
-
-        assertEq(quoteResult.fees[2].fee, "nativeFee");
-        assertEq(quoteResult.fees[2].amount, int256(MOCK_NATIVE_FEE));
-        assertEq(quoteResult.fees[2].token, input.token);
-
-        // Check that the fee details are set correctly
-        assertEq(quoteResult.fees[3].fee, "oftFee");
-        assertEq(quoteResult.fees[3].amount, oftFeeDetails[0].feeAmountLD);
-        assertEq(quoteResult.fees[3].token, input.token);
-        assertEq(quoteResult.fees[4].fee, "oftFee2");
-        assertEq(quoteResult.fees[4].amount, oftFeeDetails[1].feeAmountLD);
-        assertEq(quoteResult.fees[4].token, input.token);
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](5);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(MOCK_NATIVE_FEE),
+            token: input.token
+        });
+        expectedFees[3] = IOFTWrapper.QuoteFee({
+            fee: "oftFee",
+            amount: int256(mockOFTFeeDetails[0].feeAmountLD),
+            token: input.token
+        });
+        expectedFees[4] = IOFTWrapper.QuoteFee({
+            fee: "oftFee2",
+            amount: int256(mockOFTFeeDetails[1].feeAmountLD),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.srcAmountMax, MOCK_MAX_AMOUNT_LD);
         assertEq(quoteResult.srcAmountMin, MOCK_MIN_AMOUNT_LD);
         assertEq(quoteResult.amountReceivedLD, mockAmountReceivedLD);
-
-        uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
         assertEq(quoteResult.srcAmount, expectedSrcAmount);
-
-        logQuoteResults(quoteResult);
     }
 
     function testQuote_OFTEpV2_ReCalculationCase() public {
@@ -1061,11 +1069,9 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-
         uint256 mockDust = 100;
         uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
         uint256 mockAmountReceivedLD = (amountAfterWrapperFees / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
-
         uint256 expectedSrcAmount = mockAmountSentLD + expectedWrapperFee + expectedCallerFee;
         uint256 srcAmountMaxToTriggerReCalculation = input.amountLD - 1;
 
@@ -1079,30 +1085,34 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees[0].fee, "wrapperFee", "Wrapper fee name mismatch");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee), "Wrapper fee amount mismatch");
-        assertEq(quoteResult.fees[0].token, input.token, "Wrapper fee token mismatch");
-
-        assertEq(quoteResult.fees[1].fee, "callerFee", "Caller fee name mismatch");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee), "Caller fee amount mismatch");
-        assertEq(quoteResult.fees[1].token, input.token, "Caller fee token mismatch");
-
-        assertEq(quoteResult.fees[2].fee, "nativeFee", "Native fee name mismatch");
-        assertEq(quoteResult.fees[2].amount, int256(MOCK_NATIVE_FEE), "Native fee amount mismatch");
-        assertEq(quoteResult.fees[2].token, input.token, "Native fee token mismatch");
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](3);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(MOCK_NATIVE_FEE),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.srcAmountMax, srcAmountMaxToTriggerReCalculation, "Source amount max mismatch");
         assertEq(quoteResult.srcAmountMin, MOCK_MIN_AMOUNT_LD, "Source amount min mismatch");
         assertEq(quoteResult.amountReceivedLD, mockAmountReceivedLD, "Amount received mismatch");
-
         assertEq(quoteResult.srcAmount, expectedSrcAmount, "Source amount mismatch");
-
-        logQuoteResults(quoteResult);
     }
 
     function testQuote_OFTEpV2_Integration_With_SendEpv2() public {
         MockOFT oftMockA = new MockOFT("OFTMockA", "OMA", endpoints[A_EID], address(this));
         MockOFT oftMockB = new MockOFT("OFTMockB", "OMB", endpoints[B_EID], address(this));
+        receiver = makeAddr("new_B_chain_receiver");
 
         oftMockA.setPeer(uint16(B_EID), _addressToBytes32(address(oftMockB)));
         oftMockB.setPeer(uint16(A_EID), _addressToBytes32(address(oftMockA)));
@@ -1128,7 +1138,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         });
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
-        uint256 nativeFee = uint256(quoteResult.fees[2].amount);
+        IOFTWrapper.QuoteFee memory nativeFee = getQuoteResultFeeWithName(NATIVE_FEE_NAME, quoteResult);
 
         bytes memory options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
         SendParamEpv2 memory sendParam = SendParamEpv2({
@@ -1140,15 +1150,17 @@ contract OFTWrapperTest is Test, LzTestHelper {
             composeMsg: hex"",
             oftCmd: hex""
         });
+        console.log("Quote Input toAddress:", Strings.toHexString(uint160(uint256(input.toAddress)), 20));
+        console.log("SendParam to:", Strings.toHexString(uint160(uint256(sendParam.to)), 20));
 
         vm.startPrank(sender);
         oftMockA.approve(address(oftWrapper), quoteResult.srcAmount);
 
-        oftWrapper.sendOFTAdapterEpv2{ value: nativeFee }(
+        oftWrapper.sendOFTEpv2{ value: uint256(nativeFee.amount) }(
             address(oftMockA),
             sendParam,
-            MessagingFeeEpv2({ nativeFee: nativeFee, lzTokenFee: 0 }),
-            address(0),
+            MessagingFeeEpv2({ nativeFee: uint256(nativeFee.amount), lzTokenFee: 0 }),
+            address(sender),
             feeObj
         );
         vm.stopPrank();
@@ -1169,159 +1181,125 @@ contract OFTWrapperTest is Test, LzTestHelper {
         );
     }
 
-    // function testQuote_OFTEpV2_Integration_With_SendEpv2() public {
-    //     token.mint(sender, INITIAL_AMOUNT);
+    function testQuote_OFTEpV2_Integration_With_SendEpv2_OFTFeeDetailsCase() public {
+        (CustomQuoteOFTMockOFT oftMockA, CustomQuoteOFTMockOFT oftMockB) = setupMocks();
 
-    //     uint256 senderInitialBalance = token.balanceOf(sender);
-    //     uint256 receiverInitialBalance = IERC20(oft).balanceOf(receiver);
+        oftMockA.mint(sender, INITIAL_AMOUNT);
 
-    //     IOFTWrapper.QuoteInput memory input = IOFTWrapper.QuoteInput({
-    //         version: IOFTWrapper.OFTVersion.Epv2OFT,
-    //         token: address(adapter),
-    //         dstEid: uint16(B_EID),
-    //         amountLD: INITIAL_AMOUNT,
-    //         minAmountLD: MIN_AMOUNT,
-    //         toAddress: _addressToBytes32(receiver),
-    //         nativeDrop: 0
-    //     });
-    //     IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-    //         callerBps: 0,
-    //         caller: address(0),
-    //         partnerId: bytes2(0)
-    //     });
+        uint256 senderInitialBalance = oftMockA.balanceOf(sender);
+        uint256 receiverInitialBalance = oftMockB.balanceOf(receiver);
 
-    //     IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
-    //     uint256 nativeFee = uint256(quoteResult.fees[2].amount);
+        (IOFTWrapper.QuoteInput memory input, IOFTWrapper.FeeObj memory feeObj) = prepareQuoteAndFee(oftMockA);
 
-    //     bytes memory options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
-    //     SendParamEpv2 memory sendParam = SendParamEpv2({
-    //         dstEid: B_EID,
-    //         to: _addressToBytes32(receiver),
-    //         amountLD: quoteResult.srcAmount,
-    //         minAmountLD: quoteResult.srcAmountMin,
-    //         extraOptions: options,
-    //         composeMsg: hex"",
-    //         oftCmd: hex""
-    //     });
+        uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
+        uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
+        uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
 
-    //     vm.startPrank(sender);
-    //     IERC20(token).approve(address(oftWrapper), quoteResult.srcAmount);
+        setupMockReturnValues(amountAfterWrapperFees, input.amountLD, oftMockA);
 
-    //     oftWrapper.sendOFTAdapterEpv2{ value: nativeFee }(
-    //         address(adapter),
-    //         sendParam,
-    //         MessagingFeeEpv2({ nativeFee: nativeFee, lzTokenFee: 0 }),
-    //         address(0),
-    //         feeObj
-    //     );
-    //     vm.stopPrank();
-    //     verifyAndExecutePackets();
+        IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
+        uint256 nativeFee = uint256(quoteResult.fees[2].amount);
 
-    //     uint256 receiverFinalBalance = IERC20(oft).balanceOf(receiver);
-    //     uint256 senderFinalBalance = token.balanceOf(sender);
+        SendParamEpv2 memory sendParam = prepareSendParam(quoteResult);
 
-    //     assertEq(
-    //         senderFinalBalance,
-    //         senderInitialBalance - quoteResult.srcAmount,
-    //         "Sender balance should decrease by srcAmount"
-    //     );
-    //     assertEq(
-    //         receiverFinalBalance,
-    //         receiverInitialBalance + quoteResult.amountReceivedLD,
-    //         "Receiver balance should increase by amountReceivedLD"
-    //     );
-    // }
+        vm.startPrank(sender);
+        oftMockA.approve(address(oftWrapper), quoteResult.srcAmount);
 
-    // todo: in this case, the native fee will be different so it would be good to have a test for this
-    // todo: create a mock oft that has fee details and test the quote and send function
-    // function testQuote_OFTEpV2_Integration_With_SendEpv2_OFTFeeDetailsCase() public {
-    //     MockOFT oftMockA = new MockOFT("OFTMockA", "OMA", endpoints[A_EID], address(this));
-    //     MockOFT oftMockB = new MockOFT("OFTMockB", "OMB", endpoints[B_EID], address(this));
+        oftWrapper.sendOFTEpv2{ value: nativeFee }(
+            address(oftMockA),
+            sendParam,
+            MessagingFeeEpv2({ nativeFee: nativeFee, lzTokenFee: 0 }),
+            address(0),
+            feeObj
+        );
+        vm.stopPrank();
+        verifyAndExecutePackets();
 
-    //     oftMockA.setPeer(uint16(B_EID), _addressToBytes32(address(oftMockB)));
-    //     oftMockB.setPeer(uint16(A_EID), _addressToBytes32(address(oftMockA)));
+        verifyBalances(senderInitialBalance, receiverInitialBalance, quoteResult);
+    }
 
-    //     oftMockA.mint(sender, INITIAL_AMOUNT);
+    function setupMocks() internal returns (CustomQuoteOFTMockOFT, CustomQuoteOFTMockOFT) {
+        CustomQuoteOFTMockOFT oftMockA = new CustomQuoteOFTMockOFT("OFTMockA", "OMA", endpoints[A_EID], address(this));
+        CustomQuoteOFTMockOFT oftMockB = new CustomQuoteOFTMockOFT("OFTMockB", "OMB", endpoints[B_EID], address(this));
 
-    //     uint256 senderInitialBalance = oftMock.balanceOf(sender);
-    //     uint256 receiverInitialBalance = oft.balanceOf(receiver);
+        oftMockA.setPeer(uint16(B_EID), _addressToBytes32(address(oftMockB)));
+        oftMockB.setPeer(uint16(A_EID), _addressToBytes32(address(oftMockA)));
 
-    //     IOFTWrapper.QuoteInput memory input = IOFTWrapper.QuoteInput({
-    //         version: IOFTWrapper.OFTVersion.Epv2OFT,
-    //         token: address(oftMockA),
-    //         dstEid: uint16(B_EID),
-    //         amountLD: INITIAL_AMOUNT,
-    //         minAmountLD: MIN_AMOUNT,
-    //         toAddress: _addressToBytes32(receiver),
-    //         nativeDrop: 0
-    //     });
+        return (oftMockA, oftMockB);
+    }
 
-    //     IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-    //         callerBps: 50,
-    //         caller: address(this),
-    //         partnerId: bytes2(0)
-    //     });
+    function prepareQuoteAndFee(
+        CustomQuoteOFTMockOFT oftMockA
+    ) internal view returns (IOFTWrapper.QuoteInput memory, IOFTWrapper.FeeObj memory) {
+        IOFTWrapper.QuoteInput memory input = IOFTWrapper.QuoteInput({
+            version: IOFTWrapper.OFTVersion.Epv2OFT,
+            token: address(oftMockA),
+            dstEid: uint16(B_EID),
+            amountLD: INITIAL_AMOUNT,
+            minAmountLD: MIN_AMOUNT,
+            toAddress: _addressToBytes32(receiver),
+            nativeDrop: 0
+        });
 
-    //     uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
-    //     uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
-    //     uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
+        IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
+            callerBps: 0,
+            caller: address(0),
+            partnerId: bytes2(0)
+        });
 
-    //     uint256 mockDust = 30;
-    //     uint256 mockAmountSentLD = amountAfterWrapperFees - mockDust;
-    //     uint256 mockAmountReceivedLD = (input.amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
+        return (input, feeObj);
+    }
 
-    //     OFTFeeDetail[] memory oftFeeDetails = new OFTFeeDetail[](2);
-    //     oftFeeDetails[0] = OFTFeeDetail({ feeAmountLD: 100, description: "oftFee" });
-    //     oftFeeDetails[1] = OFTFeeDetail({ feeAmountLD: 200, description: "oftFee2" });
+    function setupMockReturnValues(uint256 amountAfterFees, uint256 amountLD, CustomQuoteOFTMockOFT oftMockA) internal {
+        uint256 mockDust = 30;
+        uint256 mockAmountSentLD = amountAfterFees - mockDust;
+        uint256 mockAmountReceivedLD = (amountLD / DECIMAL_CONVERSION_RATE) * DECIMAL_CONVERSION_RATE;
 
-    //     oftMock.setQuoteOFTReturnValues(
-    //         OFTReceipt({ amountSentLD: mockAmountSentLD, amountReceivedLD: mockAmountReceivedLD }),
-    //         oftFeeDetails,
-    //         OFTLimit({ minAmountLD: MOCK_MIN_AMOUNT_LD, maxAmountLD: MOCK_MAX_AMOUNT_LD })
-    //     );
-    //     oftMock.setQuoteSendReturnValue(MessagingFeeEpv2({ nativeFee: MOCK_NATIVE_FEE, lzTokenFee: 0 }));
+        OFTFeeDetail[] memory oftFeeDetails = new OFTFeeDetail[](2);
+        oftFeeDetails[0] = OFTFeeDetail({ feeAmountLD: 100, description: "oftFee" });
+        oftFeeDetails[1] = OFTFeeDetail({ feeAmountLD: 200, description: "oftFee2" });
 
-    //     IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
-    //     uint256 nativeFee = uint256(quoteResult.fees[2].amount);
+        oftMockA.setQuoteOFTReturnValues(
+            OFTReceipt({ amountSentLD: mockAmountSentLD, amountReceivedLD: mockAmountReceivedLD }),
+            oftFeeDetails,
+            OFTLimit({ minAmountLD: MOCK_MIN_AMOUNT_LD, maxAmountLD: MOCK_MAX_AMOUNT_LD })
+        );
+        oftMockA.setQuoteSendReturnValue(MessagingFeeEpv2({ nativeFee: MOCK_NATIVE_FEE, lzTokenFee: 0 }));
+    }
 
-    //     bytes memory options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
-    //     SendParamEpv2 memory sendParam = SendParamEpv2({
-    //         dstEid: B_EID,
-    //         to: _addressToBytes32(receiver),
-    //         amountLD: quoteResult.srcAmount,
-    //         minAmountLD: quoteResult.srcAmountMin,
-    //         extraOptions: options,
-    //         composeMsg: hex"",
-    //         oftCmd: hex""
-    //     });
+    function prepareSendParam(IOFTWrapper.QuoteResult memory quoteResult) internal view returns (SendParamEpv2 memory) {
+        bytes memory options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
+        return
+            SendParamEpv2({
+                dstEid: B_EID,
+                to: _addressToBytes32(receiver),
+                amountLD: quoteResult.srcAmount,
+                minAmountLD: quoteResult.srcAmountMin,
+                extraOptions: options,
+                composeMsg: hex"",
+                oftCmd: hex""
+            });
+    }
 
-    //     vm.startPrank(sender);
-    //     oftMock.approve(address(oftWrapper), quoteResult.srcAmount);
+    function verifyBalances(
+        uint256 senderInitialBalance,
+        uint256 receiverInitialBalance,
+        IOFTWrapper.QuoteResult memory quoteResult
+    ) internal {
+        uint256 receiverFinalBalance = oft.balanceOf(receiver);
+        uint256 senderFinalBalance = oft.balanceOf(sender);
 
-    //     oftWrapper.sendOFTEpv2{ value: nativeFee }(
-    //         address(oftMock),
-    //         sendParam,
-    //         MessagingFeeEpv2({ nativeFee: nativeFee, lzTokenFee: 0 }),
-    //         address(0),
-    //         feeObj
-    //     );
-    //     vm.stopPrank();
-    //     verifyAndExecutePackets();
-
-    //     uint256 receiverFinalBalance = oft.balanceOf(receiver);
-    //     uint256 senderFinalBalance = oftMock.balanceOf(sender);
-
-    //     assertEq(
-    //         senderFinalBalance,
-    //         senderInitialBalance - quoteResult.srcAmount,
-    //         "Sender balance should decrease by srcAmount"
-    //     );
-    //     assertEq(
-    //         receiverFinalBalance,
-    //         receiverInitialBalance + quoteResult.amountReceivedLD,
-    //         "Receiver balance should increase by amountReceivedLD"
-    //     );
-    // }
+        assertEq(
+            senderFinalBalance,
+            senderInitialBalance - quoteResult.srcAmount,
+            "Sender balance should decrease by srcAmount"
+        );
+        assertEq(
+            receiverFinalBalance,
+            receiverInitialBalance + quoteResult.amountReceivedLD,
+            "Receiver balance should increase by amountReceivedLD"
+        );
+    }
 
     function testQuote_Epv1FeeOFTv2_BasicScenario() public {
         OFTWithFee oftWithFeeChainA = new OFTWithFeeMock(OFT_NAME, OFT_SYMBOL, SHARED_DECIMALS, endpoints[A_EID]);
@@ -1348,45 +1326,43 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
         uint256 expectedOFTFee = (uint(amountAfterWrapperFees) * uint16(specificFeeBp)) / uint(BPS_DENOMINATOR);
         uint256 amountAfterWrapperAndOftFee = amountAfterWrapperFees - expectedOFTFee;
-
         (uint256 expectedAmountReceivedLD, ) = mockOftWrapper.exposed_removeDust(
             amountAfterWrapperAndOftFee,
             IERC20Metadata(address(oftWithFeeChainA)).decimals(),
             OFTCoreV2(address(oftWithFeeChainA)).sharedDecimals()
         );
-
         (uint256 expectedSrcAmountMax, ) = mockOftWrapper.exposed_removeDust(
             uint256(type(uint256).max),
             IERC20Metadata(address(oftWithFeeChainA)).decimals(),
             OFTCoreV2(address(oftWithFeeChainA)).sharedDecimals()
         );
-
         uint256 expectedSrcAmount = expectedAmountReceivedLD + expectedWrapperFee + expectedCallerFee + expectedOFTFee;
         uint256 expectedNativeFee = expectedSrcAmount - expectedCallerFee - expectedWrapperFee - expectedOFTFee;
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees[0].fee, "wrapperFee", "Wrapper fee name mismatch");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee), "Wrapper fee amount mismatch");
-        assertEq(quoteResult.fees[0].token, input.token, "Wrapper fee token mismatch");
-
-        assertEq(quoteResult.fees[1].fee, "callerFee", "Caller fee name mismatch");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee), "Caller fee amount mismatch");
-        assertEq(quoteResult.fees[1].token, input.token, "Caller fee token mismatch");
-
-        assertEq(quoteResult.fees[2].fee, "oftFee", "OFT fee name mismatch");
-        assertEq(quoteResult.fees[2].amount, int256(expectedOFTFee), "OFT fee amount mismatch");
-        assertEq(quoteResult.fees[2].token, input.token, "OFT fee token mismatch");
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](3);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(expectedNativeFee),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.amountReceivedLD, expectedAmountReceivedLD, "Amount received mismatch");
         assertEq(quoteResult.srcAmountMax, expectedSrcAmountMax, "Source amount max mismatch");
         assertEq(quoteResult.srcAmountMin, 0, "Source amount min mismatch");
-
         assertEq(quoteResult.srcAmount, expectedSrcAmount, "Source amount mismatch");
-
-        assertEq(quoteResult.fees[3].fee, "nativeFee", "Native fee name mismatch");
-        assertEq(quoteResult.fees[3].amount, int256(expectedNativeFee), "Native fee amount mismatch");
-        assertEq(quoteResult.fees[3].token, input.token, "Native fee token mismatch");
     }
 
     function testQuote_Epv1OFTv2_BasicScenario() public {
@@ -1410,41 +1386,43 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 expectedWrapperFee = (input.amountLD * DEFAULT_BPS) / BPS_DENOMINATOR;
         uint256 expectedCallerFee = (input.amountLD * feeObj.callerBps) / BPS_DENOMINATOR;
         uint256 amountAfterWrapperFees = input.amountLD - expectedWrapperFee - expectedCallerFee;
-
         (uint256 expectedAmountReceivedLD, ) = mockOftWrapper.exposed_removeDust(
             amountAfterWrapperFees,
             IERC20Metadata(address(oftWithFeeChainA)).decimals(),
             OFTCoreV2(address(oftWithFeeChainA)).sharedDecimals()
         );
-
         (uint256 expectedSrcAmountMax, ) = mockOftWrapper.exposed_removeDust(
             uint256(type(uint256).max),
             IERC20Metadata(address(oftWithFeeChainA)).decimals(),
             OFTCoreV2(address(oftWithFeeChainA)).sharedDecimals()
         );
-
         uint256 expectedSrcAmount = expectedAmountReceivedLD + expectedWrapperFee + expectedCallerFee;
         uint256 expectedNativeFee = expectedSrcAmount - expectedCallerFee - expectedWrapperFee;
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees[0].fee, "wrapperFee", "Wrapper fee name mismatch");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee), "Wrapper fee amount mismatch");
-        assertEq(quoteResult.fees[0].token, input.token, "Wrapper fee token mismatch");
-
-        assertEq(quoteResult.fees[1].fee, "callerFee", "Caller fee name mismatch");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee), "Caller fee amount mismatch");
-        assertEq(quoteResult.fees[1].token, input.token, "Caller fee token mismatch");
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](3);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(expectedNativeFee),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.amountReceivedLD, expectedAmountReceivedLD, "Amount received mismatch");
         assertEq(quoteResult.srcAmountMax, expectedSrcAmountMax, "Source amount max mismatch");
         assertEq(quoteResult.srcAmountMin, 0, "Source amount min mismatch");
-
         assertEq(quoteResult.srcAmount, expectedSrcAmount, "Source amount mismatch");
-
-        assertEq(quoteResult.fees[2].fee, "nativeFee", "Native fee name mismatch");
-        assertEq(quoteResult.fees[2].amount, int256(expectedNativeFee), "Native fee amount mismatch");
-        assertEq(quoteResult.fees[2].token, input.token, "Native fee token mismatch");
     }
 
     function testQuote_Epv1OFTv1_BasicScenario() public {
@@ -1475,38 +1453,64 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
 
-        assertEq(quoteResult.fees[0].fee, "wrapperFee", "Wrapper fee name mismatch");
-        assertEq(quoteResult.fees[0].amount, int256(expectedWrapperFee), "Wrapper fee amount mismatch");
-        assertEq(quoteResult.fees[0].token, input.token, "Wrapper fee token mismatch");
-
-        assertEq(quoteResult.fees[1].fee, "callerFee", "Caller fee name mismatch");
-        assertEq(quoteResult.fees[1].amount, int256(expectedCallerFee), "Caller fee amount mismatch");
-        assertEq(quoteResult.fees[1].token, input.token, "Caller fee token mismatch");
+        IOFTWrapper.QuoteFee[] memory expectedFees = new IOFTWrapper.QuoteFee[](3);
+        expectedFees[0] = IOFTWrapper.QuoteFee({
+            fee: WRAPPER_FEE_NAME,
+            amount: int256(expectedWrapperFee),
+            token: input.token
+        });
+        expectedFees[1] = IOFTWrapper.QuoteFee({
+            fee: CALLER_FEE_NAME,
+            amount: int256(expectedCallerFee),
+            token: input.token
+        });
+        expectedFees[2] = IOFTWrapper.QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(expectedNativeFee),
+            token: input.token
+        });
+        assertFees(quoteResult, expectedFees);
 
         assertEq(quoteResult.amountReceivedLD, expectedAmountReceivedLD, "Amount received mismatch");
         assertEq(quoteResult.srcAmountMax, expectedSrcAmountMax, "Source amount max mismatch");
         assertEq(quoteResult.srcAmountMin, 0, "Source amount min mismatch");
-
         assertEq(quoteResult.srcAmount, expectedSrcAmount, "Source amount mismatch");
-
-        assertEq(quoteResult.fees[2].fee, "nativeFee", "Native fee name mismatch");
-        assertEq(quoteResult.fees[2].amount, int256(expectedNativeFee), "Native fee amount mismatch");
-        assertEq(quoteResult.fees[2].token, input.token, "Native fee token mismatch");
     }
 
-    function logQuoteResults(IOFTWrapper.QuoteResult memory quoteResult) internal view {
-        // loop over the fees and log them
-        console.log("----------------------------------------");
-        console.log("Fees: ");
-        for (uint256 i = 0; i < quoteResult.fees.length; i++) {
-            console.log(string.concat("Fee: ", quoteResult.fees[i].fee));
-            console.log(string.concat("Amount: ", vm.toString(quoteResult.fees[i].amount)));
-            console.log(string.concat("Token: ", vm.toString(quoteResult.fees[i].token)));
+    function getQuoteResultFeeWithName(
+        string memory _name,
+        IOFTWrapper.QuoteResult memory _quoteResult
+    ) internal pure returns (IOFTWrapper.QuoteFee memory) {
+        for (uint256 i = 0; i < _quoteResult.fees.length; i++) {
+            if (keccak256(abi.encodePacked(_quoteResult.fees[i].fee)) == keccak256(abi.encodePacked(_name))) {
+                return _quoteResult.fees[i];
+            }
         }
-        console.log(string.concat("Source Amount Max: ", vm.toString(quoteResult.srcAmountMax)));
-        console.log(string.concat("Source Amount Min: ", vm.toString(quoteResult.srcAmountMin)));
-        console.log(string.concat("Destination Amount: ", vm.toString(quoteResult.amountReceivedLD)));
-        console.log(string.concat("Source Amount: ", vm.toString(quoteResult.srcAmount)));
-        console.log("----------------------------------------");
+        revert("Fee not found");
+    }
+
+    function assertFees(
+        IOFTWrapper.QuoteResult memory _quoteResult,
+        IOFTWrapper.QuoteFee[] memory _expectedFees
+    ) private {
+        for (uint256 i = 0; i < _expectedFees.length; i++) {
+            IOFTWrapper.QuoteFee memory actualFee = getQuoteResultFeeWithName(_expectedFees[i].fee, _quoteResult);
+
+            assertEq(
+                actualFee.fee,
+                _expectedFees[i].fee,
+                string.concat("Fee name mismatch for fee: ", _expectedFees[i].fee)
+            );
+            assertEq(
+                actualFee.amount,
+                int256(_expectedFees[i].amount),
+                string.concat("Fee amount mismatch for fee: ", _expectedFees[i].fee)
+            );
+            assertEq(
+                actualFee.token,
+                _expectedFees[i].token,
+                string.concat("Fee token mismatch for fee: ", _expectedFees[i].fee)
+            );
+        }
     }
 }
