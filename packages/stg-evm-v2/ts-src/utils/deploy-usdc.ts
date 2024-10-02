@@ -1,6 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
@@ -11,6 +8,9 @@ import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
 import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeployName } from '../../ops/util'
 import { CONTRACT_USDC_TAGS } from '../constants'
 
+import USDCImpl from './USDCImpl.json'
+import USDCProxy from './USDCProxy.json'
+import USDCSignatureLib from './USDCSignatureLib.json'
 import { getFeeData } from './deployments'
 import { appendTags, deploy, fillAddress } from './helpers'
 import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
@@ -61,24 +61,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     const deployerSigner = await hre.ethers.getSigner(deployer)
     const usdcAdminSigner = await hre.ethers.getSigner(usdcAdmin)
 
-    // Get the path to the file relative to the current script's directory
-    const proxyCreationBytecodePath = path.join(__dirname, 'USDCProxyBytecode.txt')
-    const implCreationBytecodePath = path.join(__dirname, 'USDCImplBytecode.txt')
-    const sigCreationBytecodePath = path.join(__dirname, 'USDCSignatureLibBytecode.txt')
-
-    const proxyAbiPath = path.join(__dirname, 'USDCProxyAbi.json')
-    const implAbiPath = path.join(__dirname, 'USDCImplAbi.json')
-    const sigAbiPath = path.join(__dirname, 'USDCSignatureLibAbi.json')
-
-    // Now read the files
-    const proxyCreationBytecode = fs.readFileSync(proxyCreationBytecodePath, 'utf8')
-    const implCreationBytecode = fs.readFileSync(implCreationBytecodePath, 'utf8')
-    const sigCreationBytecode = fs.readFileSync(sigCreationBytecodePath, 'utf8')
-
-    const proxyAbi = JSON.parse(fs.readFileSync(proxyAbiPath, 'utf8'))
-    const implAbi = JSON.parse(fs.readFileSync(implAbiPath, 'utf8'))
-    const sigAbi = JSON.parse(fs.readFileSync(sigAbiPath, 'utf8'))
-
     const addressOne = '0x0000000000000000000000000000000000000001'
 
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
@@ -93,16 +75,17 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         hre,
         getUSDCSignatureLibDeployName(),
         sigOverrides,
-        sigAbi,
-        sigCreationBytecode,
+        USDCSignatureLib.abi,
+        USDCSignatureLib.bytecode,
         deployerSigner /** todo should be usdcAdminSigner */,
-        logger
+        logger,
+        []
     )
 
     // Deploy implementation contract with bytecode
 
     // Link the SignatureChecker library into the implementation bytecode
-    const implBytecodeWithLib = fillAddress(implCreationBytecode, signatureCheckerLib.address)
+    const implBytecodeWithLib = fillAddress(USDCImpl.bytecode, signatureCheckerLib.address)
     const implOverrides = {
         ...feeData,
     }
@@ -112,10 +95,11 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         hre,
         implDeploymentName,
         implOverrides,
-        implAbi,
+        USDCImpl.abi,
         implBytecodeWithLib,
         deployerSigner /** todo should be usdcAdminSigner */,
-        logger
+        logger,
+        []
     )
 
     // TODO In main this is false if deployment files exist and errors out with gas estimation error if files don't exist
@@ -156,16 +140,18 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     const proxyOverrides = {
         ...feeData,
     }
-    const proxyBytecodeWithImplAddress = fillAddress(proxyCreationBytecode, implToken.address)
+
+    const proxyBytecodeWithImplAddress = fillAddress(USDCProxy.bytecode, implToken.address)
 
     const proxy = await deploy(
         hre,
         proxyDeploymentName,
         proxyOverrides,
-        proxyAbi,
+        USDCProxy.abi,
         proxyBytecodeWithImplAddress,
         deployerSigner /** todo should be usdcAdminSigner */,
-        logger
+        logger,
+        [implToken.address]
     )
 
     // console.log('is proxy newly deployed? ', proxy.newlyDeployed)

@@ -53,7 +53,7 @@ export const saveDeployment = async (
     deploymentContract: Contract,
     abi: any,
     creationBytecode: string,
-    deployedBytecode: string // TODO add optional libraries
+    deployedBytecode: string // TODO add libraries for impl and args for proxy
 ) => {
     const deployment: Deployment = {
         address: deploymentContract.address,
@@ -90,7 +90,8 @@ export const deploy = async (
     abi: any,
     creationBytecode: string,
     signer: SignerWithAddress,
-    logger: Logger
+    logger: Logger,
+    args?: any[]
 ) => {
     logger.info(`Deploying ${deploymentName}`)
 
@@ -98,7 +99,13 @@ export const deploy = async (
 
     // TODO commented out for now bc insufficient funds
     // const contractFactory = await contractFactory.connect(signer).deploy(overrides)
-    const contract = await contractFactory.deploy(overrides)
+
+    let contract: Contract
+    if (args) {
+        contract = await contractFactory.deploy(...args, overrides)
+    } else {
+        contract = await contractFactory.deploy(overrides)
+    }
 
     await contract.deployed()
 
@@ -116,5 +123,5 @@ export const deploy = async (
     return contract
 }
 
-// TODO move hardcoded data to 3 json files at end with bytecode and solc input and abi (get solc input from api most likley)
+// TODO move hardcoded data to 3 json files at end with bytecode and solc input and abi (get solc input from api most likley so it can be verified later)
 // TODO see verifier alliance for database of solc input
