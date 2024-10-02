@@ -123,5 +123,4 @@ export const deploy = async (
     return contract
 }
 
-// TODO move hardcoded data to 3 json files at end with bytecode and solc input and abi (get solc input from api most likley so it can be verified later)
-// TODO see verifier alliance for database of solc input
+// TODO fetch solc input from api most likley so it can be verified later or see verifier alliance for database of solc input
