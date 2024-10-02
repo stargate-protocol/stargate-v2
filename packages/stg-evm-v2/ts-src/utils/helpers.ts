@@ -1,6 +1,9 @@
-import { Contract } from 'ethers'
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { Contract, ContractFactory } from 'ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction, Deployment } from 'hardhat-deploy/dist/types'
+
+import { Logger } from '@layerzerolabs/io-devtools'
 
 /**
  * Helper function that appends tags to a `DeployFunction`
@@ -52,7 +55,7 @@ export const saveDeployment = async (
     creationBytecode: string,
     deployedBytecode: string // TODO add optional libraries
 ) => {
-    const sigDeployment: Deployment = {
+    const deployment: Deployment = {
         address: deploymentContract.address,
         abi: abi as any,
         transactionHash: deploymentContract.deployTransaction.hash,
@@ -73,31 +76,45 @@ export const saveDeployment = async (
                     runs: 10000000,
                 },
             },
-            sources: {},
+            sources: {}, // TODO pull from solc input in hardcoded files
         }),
     }
 
-    await hre.deployments.save(deploymentName, sigDeployment)
+    await hre.deployments.save(deploymentName, deployment)
 }
 
-/**
- * export interface DeploymentSubmission {
-  history?: Deployment[];
-  implementation?: string;
-  linkedData?: any;
-  solcInput?: string;
-  solcInputHash?: string;
-  userdoc?: any;
-  devdoc?: any;
-  methodIdentifiers?: any;
-  facets?: Facet[];
-  execute?: {
-    methodName: string;
-    args: any[];
-  };
-  storageLayout?: any;
-  libraries?: Libraries;
-  gasEstimates?: any;
-  factoryDeps?: string[];
+export const deploy = async (
+    hre: HardhatRuntimeEnvironment,
+    deploymentName: string,
+    overrides: object,
+    abi: any,
+    creationBytecode: string,
+    signer: SignerWithAddress,
+    logger: Logger
+) => {
+    logger.info(`Deploying ${deploymentName}`)
+
+    const contractFactory = new ContractFactory(abi, creationBytecode, signer)
+
+    // TODO commented out for now bc insufficient funds
+    // const contractFactory = await contractFactory.connect(signer).deploy(overrides)
+    const contract = await contractFactory.deploy(overrides)
+
+    await contract.deployed()
+
+    await saveDeployment(
+        hre,
+        deploymentName,
+        contract,
+        abi,
+        creationBytecode,
+        await hre.ethers.provider.getCode(contract.address)
+    )
+
+    logger.info(`${deploymentName} is deployed: ${contract.address}`)
+
+    return contract
 }
- */
+
+// TODO move hardcoded data to 3 json files at end with bytecode and solc input and abi (get solc input from api most likley)
+// TODO see verifier alliance for database of solc input

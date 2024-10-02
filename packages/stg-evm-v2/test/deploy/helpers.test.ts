@@ -10,9 +10,59 @@ import sinon from 'sinon'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { appendDependencies, appendTags, fillAddress, saveDeployment } from '../../ts-src/utils/helpers'
+import { appendDependencies, appendTags, deploy, fillAddress, saveDeployment } from '../../ts-src/utils/helpers'
 
 describe('deploy/helpers', () => {
+    let saveSpy: sinon.SinonSpy
+    let contractFactorySpy: sinon.SinonSpy
+
+    const mockAbi = [
+        { constant: true, inputs: [], name: 'mock', outputs: [{ name: '', type: 'uint256' }], type: 'function' },
+    ]
+    const mockBytecode = '0x600a600c600e600f'
+
+    let hre: HardhatRuntimeEnvironment
+    let owner: SignerWithAddress
+    let mockContract: Contract
+    let endpointV2Mock: ContractFactory
+    let endpointOwner: SignerWithAddress
+    let mockEndpoint: Contract
+    let loggerMock: any
+
+    before(async () => {
+        ;[owner, endpointOwner] = await ethers.getSigners()
+
+        const EndpointV2MockArtifact = await deployments.getArtifact('EndpointV2Mock')
+        endpointV2Mock = new ContractFactory(EndpointV2MockArtifact.abi, EndpointV2MockArtifact.bytecode, endpointOwner)
+
+        // Deploying a mock LZEndpoint with the given Endpoint ID
+        mockEndpoint = await endpointV2Mock.deploy(EndpointId.ETHEREUM_V2_SANDBOX)
+
+        // Deploying an instance of the Stargate contract and linking it to the mock LZEndpoint
+        mockContract = await (
+            await ethers.getContractFactory('StargatePool')
+        ).deploy('USDC LP Token', 'USDCLP', mockEndpoint.address, 18, 6, mockEndpoint.address, owner.address)
+
+        hre = {
+            deployments: {
+                save: async (name: string, deployment: any) => {
+                    return Promise.resolve(deployment)
+                },
+            },
+            ethers,
+        } as unknown as HardhatRuntimeEnvironment
+
+        loggerMock = {
+            info: sinon.stub(),
+            warn: sinon.stub(),
+            error: sinon.stub(),
+        }
+    })
+
+    afterEach(() => {
+        sinon.restore() // Restore sinon after each test to avoid re-wrapping
+    })
+
     describe('appendTags', () => {
         it('should set tags if not defined', () => {
             const tags = ['tag', 'yet-another-tag']
@@ -110,56 +160,6 @@ describe('deploy/helpers', () => {
     })
 
     describe('saveDeployment', () => {
-        let saveSpy: sinon.SinonSpy
-
-        const mockAbi = [
-            { constant: true, inputs: [], name: 'mock', outputs: [{ name: '', type: 'uint256' }], type: 'function' },
-        ]
-        const mockBytecode = '0x600a600c600e600f'
-
-        let hre: HardhatRuntimeEnvironment
-        let endpointV2Mock: ContractFactory
-        let owner: SignerWithAddress
-        let endpointOwner: SignerWithAddress
-        let mockEndpoint: Contract
-        let mockContract: Contract
-
-        before(async () => {
-            // Setting up a mock deployment environment
-            // const MockContractFactory = await ethers.getContractFactory('ComposerMock')
-            // mockContract = await MockContractFactory.deploy()
-            // await mockContract.deployed()
-            ;[owner, endpointOwner] = await ethers.getSigners()
-
-            const EndpointV2MockArtifact = await deployments.getArtifact('EndpointV2Mock')
-            endpointV2Mock = new ContractFactory(
-                EndpointV2MockArtifact.abi,
-                EndpointV2MockArtifact.bytecode,
-                endpointOwner
-            )
-
-            // Deploying a mock LZEndpoint with the given Endpoint ID
-            mockEndpoint = await endpointV2Mock.deploy(EndpointId.ETHEREUM_V2_SANDBOX)
-
-            // Deploying an instance of the Stargate contract and linking it to the mock LZEndpoint
-            mockContract = await (
-                await ethers.getContractFactory('StargatePool')
-            ).deploy('USDC LP Token', 'USDCLP', mockEndpoint.address, 18, 6, mockEndpoint.address, owner.address)
-
-            hre = {
-                deployments: {
-                    save: async (name: string, deployment: any) => {
-                        // Mocking the save function of hardhat deployments
-                        return Promise.resolve(deployment)
-                    },
-                },
-            } as unknown as HardhatRuntimeEnvironment
-        })
-
-        afterEach(() => {
-            sinon.restore() // Restore sinon after each test to avoid re-wrapping
-        })
-
         it('should save deployment with correct metadata and fields', async () => {
             const deploymentName = 'MockContractDeployment'
             const deployedBytecode = await ethers.provider.getCode(mockContract.address)
@@ -204,6 +204,39 @@ describe('deploy/helpers', () => {
                 expect(metadata).to.have.property('settings').that.is.an('object')
                 expect(metadata.settings).to.have.property('evmVersion', 'istanbul')
             }
+        })
+    })
+
+    describe('deploy', () => {
+        beforeEach(async () => {
+            sinon.restore()
+            // Spy on the deployment process
+            saveSpy = sinon.spy(hre.deployments, 'save')
+            contractFactorySpy = sinon.spy(ContractFactory.prototype, 'deploy')
+        })
+
+        afterEach(() => {
+            sinon.restore() // Restore sinon after each test to avoid re-wrapping
+        })
+
+        it('should deploy the contract with the correct bytecode and ABI', async () => {
+            const deploymentName = 'MockContractDeployment'
+            const overrides = {
+                gasPrice: await ethers.provider.getGasPrice(),
+            }
+
+            // Call the deploy helper function
+            await deploy(hre, deploymentName, overrides, mockAbi, mockBytecode, owner, loggerMock)
+
+            // Check if the contract was deployed with correct ABI and bytecode
+            expect(contractFactorySpy.calledOnce).to.be.true
+            expect(contractFactorySpy.args[0][0]).to.eql(overrides)
+
+            // Check if the deployment was saved correctly
+            expect(saveSpy.calledOnce).to.be.true
+            const savedDeployment = saveSpy.getCall(0).args[1]
+            expect(savedDeployment).to.have.property('abi').that.eql(mockAbi)
+            expect(savedDeployment).to.have.property('bytecode', mockBytecode)
         })
     })
 })

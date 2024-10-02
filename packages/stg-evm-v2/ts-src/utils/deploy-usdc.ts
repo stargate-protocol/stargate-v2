@@ -2,7 +2,6 @@ import fs from 'fs'
 import path from 'path'
 
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
-import { ContractFactory } from 'ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
@@ -13,13 +12,12 @@ import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeplo
 import { CONTRACT_USDC_TAGS } from '../constants'
 
 import { getFeeData } from './deployments'
-import { appendTags, fillAddress, saveDeployment } from './helpers'
+import { appendTags, deploy, fillAddress } from './helpers'
 import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 
 const tokenName = TokenName.USDC
-// TODO let jan know that circle mentioned all 3 contracts must be re-deployed
 
 // Deploy function for USDC
 export const createDeployUSDC = (): DeployFunction =>
@@ -57,7 +55,6 @@ interface DeployUSDCOptions {
     logger: Logger
 }
 
-// TODO write tests for this function, specifically write deploy to local hardhat node call an impl function on the proxy to ensure it works
 const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol }: DeployUSDCOptions) => {
     const feeData = await getFeeData(hre)
     const { deployer, usdcAdmin } = await hre.getNamedAccounts()
@@ -87,48 +84,39 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
     // Deploy the SignatureChecker library contract with bytecode
-    const signLibDeploymentName = getUSDCSignatureLibDeployName()
-    logger.info(`Deploying USDC SignatureChecker library contract as ${signLibDeploymentName}`)
+
     const sigOverrides = {
         gasPrice: await hre.ethers.provider.getGasPrice(),
     }
-    const signatureCheckerContractFactory = new ContractFactory(sigAbi, sigCreationBytecode, deployerSigner)
-    // TODO commented out for now bc insufficient funds
-    // const signatureCheckerLibDeployment = await signatureCheckerContractFactory.connect(usdcAdminSigner).deploy(sigOverrides)
-    const signatureCheckerLib = await signatureCheckerContractFactory.deploy(sigOverrides)
-    await signatureCheckerLib.deployed()
-    await saveDeployment(
+
+    const signatureCheckerLib = await deploy(
         hre,
-        signLibDeploymentName,
-        signatureCheckerLib,
+        getUSDCSignatureLibDeployName(),
+        sigOverrides,
         sigAbi,
         sigCreationBytecode,
-        await hre.ethers.provider.getCode(signatureCheckerLib.address)
+        deployerSigner /** todo should be usdcAdminSigner */,
+        logger
     )
-    logger.info(`${signLibDeploymentName} is deployed: ${signatureCheckerLib.address}`)
 
     // Deploy implementation contract with bytecode
-    const implDeploymentName = getUSDCImplDeployName()
-    logger.info(`Deploying USDC implementation contract as ${implDeploymentName}`)
+
     // Link the SignatureChecker library into the implementation bytecode
     const implBytecodeWithLib = fillAddress(implCreationBytecode, signatureCheckerLib.address)
     const implOverrides = {
         ...feeData,
     }
-    const implContractFactory = new ContractFactory(implAbi, implBytecodeWithLib, deployerSigner)
-    // TODO commented out for now bc insufficient funds
-    // const implTokenDeployment = await implContractFactory.connect(usdcAdminSigner).deploy(implOverrides)
-    const implToken = await implContractFactory.deploy(implOverrides)
-    await implToken.deployed()
-    await saveDeployment(
+    const implDeploymentName = getUSDCImplDeployName()
+
+    const implToken = await deploy(
         hre,
         implDeploymentName,
-        implToken,
+        implOverrides,
         implAbi,
         implBytecodeWithLib,
-        await hre.ethers.provider.getCode(implToken.address)
+        deployerSigner /** todo should be usdcAdminSigner */,
+        logger
     )
-    logger.info(`${implDeploymentName} is deployed: ${implToken.address}`)
 
     // TODO In main this is false if deployment files exist and errors out with gas estimation error if files don't exist
     // In ravina/usdc-updates this is always undefined....why?
@@ -163,36 +151,22 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     }
 
     // Deploy upgradable proxy contract with bytecode
+
     const proxyDeploymentName = getUSDCProxyDeployName()
-    logger.info(`Deploying USDC proxy contract as ${proxyDeploymentName}`)
     const proxyOverrides = {
         ...feeData,
     }
-
     const proxyBytecodeWithImplAddress = fillAddress(proxyCreationBytecode, implToken.address)
 
-    const proxyContractFactory = new ContractFactory(proxyAbi, proxyBytecodeWithImplAddress, deployerSigner)
-    // TODO commented out for now bc insufficient funds
-    // const proxyDeployment = await proxyContractFactory.connect(usdcAdminSigner).deploy(implTokenDeployment.address, {
-    //     ...proxyOverrides,
-    // })
-    const proxy = await proxyContractFactory.deploy(implToken.address, {
-        ...proxyOverrides,
-    })
-
-    await proxy.deployed()
-
-    await saveDeployment(
+    const proxy = await deploy(
         hre,
         proxyDeploymentName,
-        proxy,
+        proxyOverrides,
         proxyAbi,
         proxyBytecodeWithImplAddress,
-        await hre.ethers.provider.getCode(proxy.address)
+        deployerSigner /** todo should be usdcAdminSigner */,
+        logger
     )
-
-    logger.info(`${proxyDeploymentName} is deployed: ${proxy.address}`)
-    logger.info(`${implDeploymentName} is deployed: ${implToken.address}`)
 
     // console.log('is proxy newly deployed? ', proxy.newlyDeployed)
     // Initialize the proxy
