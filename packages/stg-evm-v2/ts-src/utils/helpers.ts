@@ -24,7 +24,6 @@ export const appendDependencies =
 
 // Utility to replace any $ in bytecode with the address
 export const fillAddress = (bytecode: string, address: string) => {
-    // TODO write tests for this function
     // Ensure the address is 40 characters long (without the 0x prefix)
     if (address.slice(0, 2) === '0x') {
         address = address.slice(2)
