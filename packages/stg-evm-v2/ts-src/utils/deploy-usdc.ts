@@ -1,5 +1,5 @@
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
-import { HardhatRuntimeEnvironment } from 'hardhat/types'
+import { HardhatRuntimeEnvironment, Libraries } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
 import { getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
@@ -71,16 +71,17 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         gasPrice: await hre.ethers.provider.getGasPrice(),
     }
 
-    const signatureCheckerLib = await deploy(
+    const signatureCheckerLib = await deploy({
         hre,
-        getUSDCSignatureLibDeployName(),
-        sigOverrides,
-        USDCSignatureLib.abi,
-        USDCSignatureLib.bytecode,
-        deployerSigner /** todo should be usdcAdminSigner */,
+        deploymentName: getUSDCSignatureLibDeployName(),
+        overrides: sigOverrides,
+        abi: USDCSignatureLib.abi,
+        creationBytecode: USDCSignatureLib.bytecode,
+        signer: deployerSigner /** todo should be usdcAdminSigner */,
         logger,
-        []
-    )
+        libraries: {},
+        args: [],
+    })
 
     // Deploy implementation contract with bytecode
 
@@ -91,16 +92,21 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     }
     const implDeploymentName = getUSDCImplDeployName()
 
-    const implToken = await deploy(
+    const libraries: Libraries = {
+        SignatureChecker: signatureCheckerLib.address,
+    }
+
+    const implToken = await deploy({
         hre,
-        implDeploymentName,
-        implOverrides,
-        USDCImpl.abi,
-        implBytecodeWithLib,
-        deployerSigner /** todo should be usdcAdminSigner */,
+        deploymentName: implDeploymentName,
+        overrides: implOverrides,
+        abi: USDCImpl.abi,
+        creationBytecode: implBytecodeWithLib,
+        signer: deployerSigner /** todo should be usdcAdminSigner */,
         logger,
-        []
-    )
+        libraries,
+        args: [],
+    })
 
     // TODO In main this is false if deployment files exist and errors out with gas estimation error if files don't exist
     // In ravina/usdc-updates this is always undefined....why?
@@ -143,16 +149,17 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     const proxyBytecodeWithImplAddress = fillAddress(USDCProxy.bytecode, implToken.address)
 
-    const proxy = await deploy(
+    const proxy = await deploy({
         hre,
-        proxyDeploymentName,
-        proxyOverrides,
-        USDCProxy.abi,
-        proxyBytecodeWithImplAddress,
-        deployerSigner /** todo should be usdcAdminSigner */,
+        deploymentName: proxyDeploymentName,
+        overrides: proxyOverrides,
+        abi: USDCProxy.abi,
+        creationBytecode: proxyBytecodeWithImplAddress,
+        signer: deployerSigner /** todo should be usdcAdminSigner */,
         logger,
-        [implToken.address]
-    )
+        libraries: {},
+        args: [implToken.address],
+    })
 
     // console.log('is proxy newly deployed? ', proxy.newlyDeployed)
     // Initialize the proxy

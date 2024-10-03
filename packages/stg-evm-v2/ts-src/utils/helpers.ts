@@ -1,6 +1,6 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { Contract, ContractFactory } from 'ethers'
-import { HardhatRuntimeEnvironment } from 'hardhat/types'
+import { HardhatRuntimeEnvironment, Libraries } from 'hardhat/types'
 import { DeployFunction, Deployment } from 'hardhat-deploy/dist/types'
 
 import { Logger } from '@layerzerolabs/io-devtools'
@@ -47,22 +47,34 @@ export const fillAddress = (bytecode: string, address: string) => {
 }
 
 // Saves deployment information to the deployments folder
-export const saveDeployment = async (
-    hre: HardhatRuntimeEnvironment,
-    deploymentName: string,
-    deploymentContract: Contract,
-    abi: any,
-    creationBytecode: string,
-    deployedBytecode: string // TODO add libraries for impl and args for proxy
-) => {
+export const saveDeployment = async ({
+    hre,
+    deploymentName,
+    deploymentContract,
+    abi,
+    creationBytecode,
+    deployedBytecode,
+    libraries,
+    args = [],
+}: {
+    hre: HardhatRuntimeEnvironment
+    deploymentName: string
+    deploymentContract: Contract
+    abi: any
+    creationBytecode: string
+    deployedBytecode: string
+    libraries?: Libraries
+    args?: any[]
+}) => {
     const deployment: Deployment = {
         address: deploymentContract.address,
         abi: abi as any,
         transactionHash: deploymentContract.deployTransaction.hash,
         receipt: await deploymentContract.deployTransaction.wait(),
-        args: [],
+        args,
         bytecode: creationBytecode,
         deployedBytecode: deployedBytecode,
+        libraries: libraries ?? {},
         metadata: JSON.stringify({
             language: 'solidity',
             compiler: {
@@ -83,16 +95,27 @@ export const saveDeployment = async (
     await hre.deployments.save(deploymentName, deployment)
 }
 
-export const deploy = async (
-    hre: HardhatRuntimeEnvironment,
-    deploymentName: string,
-    overrides: object,
-    abi: any,
-    creationBytecode: string,
-    signer: SignerWithAddress,
-    logger: Logger,
+export const deploy = async ({
+    hre,
+    deploymentName,
+    overrides,
+    abi,
+    creationBytecode,
+    signer,
+    logger,
+    libraries,
+    args = [],
+}: {
+    hre: HardhatRuntimeEnvironment
+    deploymentName: string
+    overrides: object
+    abi: any
+    creationBytecode: string
+    signer: SignerWithAddress
+    logger: Logger
+    libraries?: Libraries
     args?: any[]
-) => {
+}) => {
     logger.info(`Deploying ${deploymentName}`)
 
     const contractFactory = new ContractFactory(abi, creationBytecode, signer)
@@ -109,14 +132,16 @@ export const deploy = async (
 
     await contract.deployed()
 
-    await saveDeployment(
+    await saveDeployment({
         hre,
         deploymentName,
-        contract,
+        deploymentContract: contract,
         abi,
         creationBytecode,
-        await hre.ethers.provider.getCode(contract.address)
-    )
+        deployedBytecode: await hre.ethers.provider.getCode(contract.address),
+        libraries,
+        args,
+    })
 
     logger.info(`${deploymentName} is deployed: ${contract.address}`)
 

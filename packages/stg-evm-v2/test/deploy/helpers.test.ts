@@ -160,16 +160,30 @@ describe('deploy/helpers', () => {
     })
 
     describe('saveDeployment', () => {
-        it('should save deployment with correct metadata and fields', async () => {
+        it('should save deployment with correct metadata, fields, libraries, and args', async () => {
             const deploymentName = 'MockContractDeployment'
             const deployedBytecode = await ethers.provider.getCode(mockContract.address)
 
             const mockDeployTx = mockContract.deployTransaction
 
+            const mockLibraries = {
+                MockLibrary: '0x1234567890abcdef1234567890abcdef12345678',
+            }
+            const mockArgs = ['0x1234567890abcdef1234567890abcdef12345678', 100]
+
             // Mocking the save function of the hre deployments to spy on it
             saveSpy = sinon.spy(hre.deployments, 'save')
 
-            await saveDeployment(hre, deploymentName, mockContract, mockAbi, mockBytecode, deployedBytecode)
+            await saveDeployment({
+                hre,
+                deploymentName,
+                deploymentContract: mockContract,
+                abi: mockAbi,
+                creationBytecode: mockBytecode,
+                deployedBytecode,
+                libraries: mockLibraries,
+                args: mockArgs,
+            })
 
             expect(saveSpy.calledOnce).to.be.true
 
@@ -181,6 +195,8 @@ describe('deploy/helpers', () => {
             expect(savedDeployment).to.have.property('bytecode', mockBytecode)
             expect(savedDeployment).to.have.property('deployedBytecode', deployedBytecode)
             expect(savedDeployment).to.have.property('receipt').that.is.an('object')
+            expect(savedDeployment).to.have.property('libraries').that.eql(mockLibraries)
+            expect(savedDeployment).to.have.property('args').that.eql(mockArgs)
             expect(savedDeployment.metadata).to.be.a('string')
         })
 
@@ -188,9 +204,23 @@ describe('deploy/helpers', () => {
             const deploymentName = 'MockContractDeploymentWithMetadata'
             const deployedBytecode = await ethers.provider.getCode(mockContract.address)
 
+            const mockLibraries = {
+                MockLibrary: '0x1234567890abcdef1234567890abcdef12345678',
+            }
+            const mockArgs = ['0x1234567890abcdef1234567890abcdef12345678', 100]
+
             saveSpy = sinon.spy(hre.deployments, 'save')
 
-            await saveDeployment(hre, deploymentName, mockContract, mockAbi, mockBytecode, deployedBytecode)
+            await saveDeployment({
+                hre,
+                deploymentName,
+                deploymentContract: mockContract,
+                abi: mockAbi,
+                creationBytecode: mockBytecode,
+                deployedBytecode,
+                libraries: mockLibraries,
+                args: mockArgs,
+            })
 
             const savedDeployment = saveSpy.getCall(0).args[1]
             expect(savedDeployment.metadata).to.be.a('string')
@@ -226,7 +256,15 @@ describe('deploy/helpers', () => {
             }
 
             // Call the deploy helper function
-            await deploy(hre, deploymentName, overrides, mockAbi, mockBytecode, owner, loggerMock)
+            await deploy({
+                hre,
+                deploymentName,
+                overrides,
+                abi: mockAbi,
+                creationBytecode: mockBytecode,
+                signer: owner,
+                logger: loggerMock,
+            })
 
             // Check if the contract was deployed with correct ABI and bytecode
             expect(contractFactorySpy.calledOnce).to.be.true
