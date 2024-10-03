@@ -110,10 +110,6 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         metadata: JSON.stringify(USDCImpl.metadata),
     })
 
-    // TODO In main this is false if deployment files exist and errors out with gas estimation error if files don't exist
-    // In ravina/usdc-updates this is always undefined....why?
-    // console.log('is implToken newly deployed? ', implToken.newlyDeployed)
-
     // Brick its initialization
     if (implToken.newlyDeployed) {
         logger.info(`Bricking USDC implementation contract initialization on ${implDeploymentName}`)
@@ -165,11 +161,10 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         metadata: proxyMetadataWithImplAddress,
     })
 
-    // console.log('is proxy newly deployed? ', proxy.newlyDeployed)
     // Initialize the proxy
     if (proxy.newlyDeployed) {
         logger.info(`Initializing USDC proxy contract based on ${proxyDeploymentName}`)
-
+        // TODO this fails if it is newly deployed (impl init is fine...) because msg.sender must be _admin so at least it is getting called
         const proxyContract = new hre.ethers.Contract(
             proxy.address,
             implToken.abi, // impose the impl ABI on the proxy

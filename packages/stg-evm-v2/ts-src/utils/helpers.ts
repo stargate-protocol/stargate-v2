@@ -81,6 +81,8 @@ export const saveDeployment = async ({
     }
 
     await hre.deployments.save(deploymentName, deployment)
+
+    return deployment
 }
 
 export const deploy = async ({
@@ -106,35 +108,43 @@ export const deploy = async ({
     args?: any[]
     metadata: string
 }) => {
-    logger.info(`Deploying ${deploymentName}`)
+    const existingDeployment = await hre.deployments.getOrNull(deploymentName)
 
-    const contractFactory = new ContractFactory(abi, creationBytecode, signer)
+    if (existingDeployment?.bytecode !== creationBytecode) {
+        // TODO test if this works when bytecode is different and also when there is no existing deployment, and when existing bytecode is the same
+        logger.info(`Deploying ${deploymentName}`)
 
-    // TODO commented out for now bc insufficient funds
-    // const contractFactory = await contractFactory.connect(signer).deploy(overrides)
+        const contractFactory = new ContractFactory(abi, creationBytecode, signer)
 
-    let contract: Contract
-    if (args) {
-        contract = await contractFactory.deploy(...args, overrides)
+        // TODO commented out for now bc insufficient funds
+        // const contractFactory = await contractFactory.connect(signer).deploy(overrides)
+
+        let contract: Contract
+        if (args) {
+            contract = await contractFactory.deploy(...args, overrides)
+        } else {
+            contract = await contractFactory.deploy(overrides)
+        }
+
+        await contract.deployed()
+
+        const contractDeployment = await saveDeployment({
+            hre,
+            deploymentName,
+            deploymentContract: contract,
+            abi,
+            creationBytecode,
+            deployedBytecode: await hre.ethers.provider.getCode(contract.address),
+            libraries,
+            args,
+            metadata,
+        })
+
+        logger.info(`${deploymentName} is deployed: ${contract.address}`)
+
+        return { ...contractDeployment, newlyDeployed: true }
     } else {
-        contract = await contractFactory.deploy(overrides)
+        logger.info(`${deploymentName} is already deployed: ${existingDeployment.address}`)
+        return { ...existingDeployment, newlyDeployed: false }
     }
-
-    await contract.deployed()
-
-    await saveDeployment({
-        hre,
-        deploymentName,
-        deploymentContract: contract,
-        abi,
-        creationBytecode,
-        deployedBytecode: await hre.ethers.provider.getCode(contract.address),
-        libraries,
-        args,
-        metadata,
-    })
-
-    logger.info(`${deploymentName} is deployed: ${contract.address}`)
-
-    return contract
 }
