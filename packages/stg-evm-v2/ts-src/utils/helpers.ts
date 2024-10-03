@@ -56,6 +56,7 @@ export const saveDeployment = async ({
     deployedBytecode,
     libraries,
     args = [],
+    metadata,
 }: {
     hre: HardhatRuntimeEnvironment
     deploymentName: string
@@ -65,6 +66,7 @@ export const saveDeployment = async ({
     deployedBytecode: string
     libraries?: Libraries
     args?: any[]
+    metadata: string
 }) => {
     const deployment: Deployment = {
         address: deploymentContract.address,
@@ -75,21 +77,7 @@ export const saveDeployment = async ({
         bytecode: creationBytecode,
         deployedBytecode: deployedBytecode,
         libraries: libraries ?? {},
-        metadata: JSON.stringify({
-            language: 'solidity',
-            compiler: {
-                version: '0.6.12+commit.27d51765',
-            },
-            settings: {
-                compilationTarget: {},
-                evmVersion: 'istanbul',
-                optimizer: {
-                    enabled: true,
-                    runs: 10000000,
-                },
-            },
-            sources: {}, // TODO pull from solc input in hardcoded files
-        }),
+        metadata,
     }
 
     await hre.deployments.save(deploymentName, deployment)
@@ -105,6 +93,7 @@ export const deploy = async ({
     logger,
     libraries,
     args = [],
+    metadata,
 }: {
     hre: HardhatRuntimeEnvironment
     deploymentName: string
@@ -115,6 +104,7 @@ export const deploy = async ({
     logger: Logger
     libraries?: Libraries
     args?: any[]
+    metadata: string
 }) => {
     logger.info(`Deploying ${deploymentName}`)
 
@@ -141,11 +131,10 @@ export const deploy = async ({
         deployedBytecode: await hre.ethers.provider.getCode(contract.address),
         libraries,
         args,
+        metadata,
     })
 
     logger.info(`${deploymentName} is deployed: ${contract.address}`)
 
     return contract
 }
-
-// TODO fetch solc input from api most likley so it can be verified later or see verifier alliance for database of solc input

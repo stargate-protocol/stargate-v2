@@ -81,6 +81,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         logger,
         libraries: {},
         args: [],
+        metadata: JSON.stringify(USDCSignatureLib.metadata),
     })
 
     // Deploy implementation contract with bytecode
@@ -106,6 +107,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         logger,
         libraries,
         args: [],
+        metadata: JSON.stringify(USDCImpl.metadata),
     })
 
     // TODO In main this is false if deployment files exist and errors out with gas estimation error if files don't exist
@@ -148,6 +150,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
     }
 
     const proxyBytecodeWithImplAddress = fillAddress(USDCProxy.bytecode, implToken.address)
+    const proxyMetadataWithImplAddress = fillAddress(JSON.stringify(USDCProxy.metadata), implToken.address)
 
     const proxy = await deploy({
         hre,
@@ -159,6 +162,7 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         logger,
         libraries: {},
         args: [implToken.address],
+        metadata: proxyMetadataWithImplAddress,
     })
 
     // console.log('is proxy newly deployed? ', proxy.newlyDeployed)
