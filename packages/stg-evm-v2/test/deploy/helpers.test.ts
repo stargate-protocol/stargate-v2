@@ -21,6 +21,16 @@ describe('deploy/helpers', () => {
     ]
     const mockBytecode = '0x600a600c600e600f'
 
+    const mockMetadata = JSON.stringify({
+        language: 'Solidity',
+        compiler: {
+            version: '0.6.12+commit.27d51765',
+        },
+        settings: {
+            evmVersion: 'istanbul',
+        },
+    })
+
     let hre: HardhatRuntimeEnvironment
     let owner: SignerWithAddress
     let mockContract: Contract
@@ -183,6 +193,7 @@ describe('deploy/helpers', () => {
                 deployedBytecode,
                 libraries: mockLibraries,
                 args: mockArgs,
+                metadata: mockMetadata,
             })
 
             expect(saveSpy.calledOnce).to.be.true
@@ -197,6 +208,8 @@ describe('deploy/helpers', () => {
             expect(savedDeployment).to.have.property('receipt').that.is.an('object')
             expect(savedDeployment).to.have.property('libraries').that.eql(mockLibraries)
             expect(savedDeployment).to.have.property('args').that.eql(mockArgs)
+            expect(savedDeployment).to.have.property('metadata', mockMetadata).that.eql(mockMetadata)
+
             expect(savedDeployment.metadata).to.be.a('string')
         })
 
@@ -220,20 +233,15 @@ describe('deploy/helpers', () => {
                 deployedBytecode,
                 libraries: mockLibraries,
                 args: mockArgs,
+                metadata: mockMetadata,
             })
 
             const savedDeployment = saveSpy.getCall(0).args[1]
-            expect(savedDeployment.metadata).to.be.a('string')
 
-            if (savedDeployment.metadata) {
-                const metadata = JSON.parse(savedDeployment.metadata)
+            const metadata = savedDeployment.metadata
 
-                expect(metadata).to.have.property('language', 'solidity')
-                expect(metadata).to.have.property('compiler').that.is.an('object')
-                expect(metadata.compiler).to.have.property('version', '0.6.12+commit.27d51765')
-                expect(metadata).to.have.property('settings').that.is.an('object')
-                expect(metadata.settings).to.have.property('evmVersion', 'istanbul')
-            }
+            expect(metadata).to.be.a('string')
+            expect(metadata).to.eql(mockMetadata)
         })
     })
 
@@ -264,6 +272,9 @@ describe('deploy/helpers', () => {
                 creationBytecode: mockBytecode,
                 signer: owner,
                 logger: loggerMock,
+                libraries: {},
+                args: [],
+                metadata: mockMetadata,
             })
 
             // Check if the contract was deployed with correct ABI and bytecode
