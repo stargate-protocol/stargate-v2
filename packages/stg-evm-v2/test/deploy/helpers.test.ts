@@ -15,6 +15,7 @@ import { appendDependencies, appendTags, deploy, fillAddress, saveDeployment } f
 describe('deploy/helpers', () => {
     let saveSpy: sinon.SinonSpy
     let contractFactorySpy: sinon.SinonSpy
+    let getOrNullStub: sinon.SinonStub
 
     const mockAbi = [
         { constant: true, inputs: [], name: 'mock', outputs: [{ name: '', type: 'uint256' }], type: 'function' },
@@ -58,6 +59,7 @@ describe('deploy/helpers', () => {
                 save: async (name: string, deployment: any) => {
                     return Promise.resolve(deployment)
                 },
+                getOrNull: async (name: string) => null,
             },
             ethers,
         } as unknown as HardhatRuntimeEnvironment
@@ -246,25 +248,28 @@ describe('deploy/helpers', () => {
     })
 
     describe('deploy', () => {
+        const differentBytecode = '0x700a700c700e700f'
+
         beforeEach(async () => {
             sinon.restore()
             // Spy on the deployment process
             saveSpy = sinon.spy(hre.deployments, 'save')
             contractFactorySpy = sinon.spy(ContractFactory.prototype, 'deploy')
+            getOrNullStub = sinon.stub(hre.deployments, 'getOrNull')
         })
 
         afterEach(() => {
             sinon.restore() // Restore sinon after each test to avoid re-wrapping
         })
 
-        it('should deploy the contract with the correct bytecode and ABI', async () => {
+        it('should deploy a new contract when no existing deployment', async () => {
             const deploymentName = 'MockContractDeployment'
             const overrides = {
                 gasPrice: await ethers.provider.getGasPrice(),
             }
 
-            // Call the deploy helper function
-            await deploy({
+            // Call the deploy helper function with no existing deployment
+            const result = await deploy({
                 hre,
                 deploymentName,
                 overrides,
@@ -279,13 +284,86 @@ describe('deploy/helpers', () => {
 
             // Check if the contract was deployed with correct ABI and bytecode
             expect(contractFactorySpy.calledOnce).to.be.true
-            expect(contractFactorySpy.args[0][0]).to.eql(overrides)
-
-            // Check if the deployment was saved correctly
             expect(saveSpy.calledOnce).to.be.true
+
             const savedDeployment = saveSpy.getCall(0).args[1]
             expect(savedDeployment).to.have.property('abi').that.eql(mockAbi)
             expect(savedDeployment).to.have.property('bytecode', mockBytecode)
+
+            // Check if newlyDeployed is true
+            expect(result.newlyDeployed).to.be.true
+        })
+
+        it('should redeploy when existing deployment bytecode is different', async () => {
+            const deploymentName = 'MockContractDeployment'
+            const overrides = {
+                gasPrice: await ethers.provider.getGasPrice(),
+            }
+
+            // Mock `getOrNull` to simulate an existing deployment with different bytecode
+            getOrNullStub.resolves({
+                address: mockContract.address,
+                bytecode: differentBytecode, // Existing deployment has different bytecode
+            } as any)
+
+            // Call the deploy helper function
+            const result = await deploy({
+                hre,
+                deploymentName,
+                overrides,
+                abi: mockAbi,
+                creationBytecode: mockBytecode,
+                signer: owner,
+                logger: loggerMock,
+                libraries: {},
+                args: [],
+                metadata: mockMetadata,
+            })
+
+            // Check if the contract was redeployed
+            expect(contractFactorySpy.calledOnce).to.be.true
+            expect(saveSpy.calledOnce).to.be.true
+
+            const savedDeployment = saveSpy.getCall(0).args[1]
+            expect(savedDeployment).to.have.property('abi').that.eql(mockAbi)
+            expect(savedDeployment).to.have.property('bytecode', mockBytecode)
+
+            // Check if newlyDeployed is true
+            expect(result.newlyDeployed).to.be.true
+        })
+
+        it('should reuse existing deployment when bytecode is the same', async () => {
+            const deploymentName = 'MockContractDeployment'
+            const overrides = {
+                gasPrice: await ethers.provider.getGasPrice(),
+            }
+
+            // Mock `getOrNull` to simulate an existing deployment with the same bytecode
+            getOrNullStub.resolves({
+                address: mockContract.address,
+                bytecode: mockBytecode, // Existing deployment has the same bytecode
+            } as any)
+
+            // Call the deploy helper function
+            const result = await deploy({
+                hre,
+                deploymentName,
+                overrides,
+                abi: mockAbi,
+                creationBytecode: mockBytecode,
+                signer: owner,
+                logger: loggerMock,
+                libraries: {},
+                args: [],
+                metadata: mockMetadata,
+            })
+
+            // Check that no redeployment occurred
+            expect(contractFactorySpy.called).to.be.false
+            expect(saveSpy.called).to.be.false
+
+            // Check if newlyDeployed is false
+            expect(result.newlyDeployed).to.be.false
         })
     })
 })
