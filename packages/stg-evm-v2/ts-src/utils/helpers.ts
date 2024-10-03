@@ -27,8 +27,8 @@ export const appendDependencies =
         (deploy.dependencies = [...(deploy.dependencies ?? []), ...dependencies]), deploy
     )
 
-// Utility to replace any $ in bytecode with the address
-export const fillAddress = (bytecode: string, address: string) => {
+// Utility to replace any $ in str with the address
+export const fillAddress = (str: string, address: string) => {
     // Ensure the address is 40 characters long (without the 0x prefix)
     if (address.slice(0, 2) === '0x') {
         address = address.slice(2)
@@ -39,11 +39,11 @@ export const fillAddress = (bytecode: string, address: string) => {
 
     // Find the placeholder in the bytecode
     const placeholder = `$`
-    while (bytecode.includes(placeholder)) {
-        bytecode = bytecode.replace(placeholder, address)
+    while (str.includes(placeholder)) {
+        str = str.replace(placeholder, address)
     }
 
-    return bytecode
+    return str
 }
 
 // Saves deployment information to the deployments folder
@@ -87,6 +87,7 @@ export const saveDeployment = async ({
 
 export const deploy = async ({
     hre,
+    contractName,
     deploymentName,
     overrides,
     abi,
@@ -97,7 +98,8 @@ export const deploy = async ({
     args = [],
     metadata,
 }: {
-    hre: HardhatRuntimeEnvironment
+    hre: HardhatRuntimeEnvironment // TODO review this file
+    contractName: string
     deploymentName: string
     overrides: object
     abi: any
@@ -111,13 +113,9 @@ export const deploy = async ({
     const existingDeployment = await hre.deployments.getOrNull(deploymentName)
 
     if (existingDeployment?.bytecode !== creationBytecode) {
-        // TODO test if this works when bytecode is different and also when there is no existing deployment, and when existing bytecode is the same
-        logger.info(`Deploying ${deploymentName}`)
+        logger.info(`Deploying contract ${contractName} as ${deploymentName}`)
 
         const contractFactory = new ContractFactory(abi, creationBytecode, signer)
-
-        // TODO commented out for now bc insufficient funds
-        // const contractFactory = await contractFactory.connect(signer).deploy(overrides)
 
         let contract: Contract
         if (args) {
@@ -140,7 +138,7 @@ export const deploy = async ({
             metadata,
         })
 
-        logger.info(`${deploymentName} is deployed: ${contract.address}`)
+        logger.info(`${deploymentName} is deployed: ${contract.address}`) // TODO weird issue where this does not print for last contract deployed (proxy in this case)
 
         return { ...contractDeployment, newlyDeployed: true }
     } else {

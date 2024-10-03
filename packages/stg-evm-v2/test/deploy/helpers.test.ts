@@ -271,6 +271,7 @@ describe('deploy/helpers', () => {
             // Call the deploy helper function with no existing deployment
             const result = await deploy({
                 hre,
+                contractName: 'MockContract',
                 deploymentName,
                 overrides,
                 abi: mockAbi,
@@ -309,6 +310,7 @@ describe('deploy/helpers', () => {
             // Call the deploy helper function
             const result = await deploy({
                 hre,
+                contractName: 'MockContract',
                 deploymentName,
                 overrides,
                 abi: mockAbi,
@@ -347,6 +349,7 @@ describe('deploy/helpers', () => {
             // Call the deploy helper function
             const result = await deploy({
                 hre,
+                contractName: 'MockContract',
                 deploymentName,
                 overrides,
                 abi: mockAbi,
