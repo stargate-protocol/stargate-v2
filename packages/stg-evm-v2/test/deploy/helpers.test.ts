@@ -3,7 +3,7 @@ import '@nomiclabs/hardhat-ethers'
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
-import { deployments, ethers } from 'hardhat' // Import ethers from Hardhat, not directly from ethers.js
+import { deployments, ethers } from 'hardhat'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 import sinon from 'sinon'
