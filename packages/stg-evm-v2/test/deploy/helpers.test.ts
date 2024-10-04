@@ -151,7 +151,7 @@ describe('deploy/helpers', () => {
             const shortAddress = '0x1234567890abcdef1234567890abcdef1234' // Only 36 characters
 
             expect(() => fillAddress(bytecode, shortAddress)).to.throw(
-                `Invalid library address length ${shortAddress.slice(2)}`
+                `Invalid library address length for ${shortAddress}`
             )
         })
 
@@ -160,7 +160,7 @@ describe('deploy/helpers', () => {
             const longAddress = '0x1234567890abcdef1234567890abcdef1234567890abcdef' // Too many characters
 
             expect(() => fillAddress(bytecode, longAddress)).to.throw(
-                `Invalid library address length ${longAddress.slice(2)}`
+                `Invalid library address length for ${longAddress}`
             )
         })
 
@@ -219,7 +219,6 @@ describe('deploy/helpers', () => {
             expect(savedDeployment).to.have.property('transactionHash', mockDeployTx.hash)
             expect(savedDeployment).to.have.property('bytecode', mockBytecode)
             expect(savedDeployment).to.have.property('deployedBytecode', deployedBytecode)
-            expect(savedDeployment).to.have.property('receipt').that.is.an('object')
             expect(savedDeployment).to.have.property('libraries').that.eql(mockLibraries)
             expect(savedDeployment).to.have.property('args').that.eql(mockArgs)
             expect(savedDeployment).to.have.property('metadata', mockMetadata).that.eql(mockMetadata)

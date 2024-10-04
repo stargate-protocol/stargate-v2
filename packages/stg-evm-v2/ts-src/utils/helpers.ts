@@ -1,7 +1,9 @@
+import assert from 'assert'
+
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { Contract, ContractFactory } from 'ethers'
 import { HardhatRuntimeEnvironment, Libraries } from 'hardhat/types'
-import { DeployFunction, Deployment } from 'hardhat-deploy/dist/types'
+import { ABI, DeployFunction, Deployment } from 'hardhat-deploy/dist/types'
 
 import { Logger } from '@layerzerolabs/io-devtools'
 
@@ -34,21 +36,10 @@ export const appendDependencies =
  * @returns str with placeholders replaced with address
  */
 export const fillAddress = (str: string, address: string) => {
-    // Ensure the address is 40 characters long (without the 0x prefix)
-    if (address.slice(0, 2) === '0x') {
-        address = address.slice(2)
-    }
-    if (address.length !== 40) {
-        throw new Error(`Invalid library address length ${address}`)
-    }
+    const normalizedAddress = address.replace(/^0x/, '')
+    assert(normalizedAddress.length === 40, `Invalid library address length for ${address}`)
 
-    // Find the placeholder in the bytecode
-    const placeholder = `$`
-    while (str.includes(placeholder)) {
-        str = str.replace(placeholder, address)
-    }
-
-    return str
+    return str.replace(/\$/g, normalizedAddress)
 }
 
 /**
@@ -69,19 +60,17 @@ export const saveDeployment = async ({
     hre: HardhatRuntimeEnvironment
     deploymentName: string
     deploymentContract: Contract
-    abi: any
+    abi: ABI
     creationBytecode: string
     deployedBytecode: string
     libraries?: Libraries
-    args?: any[]
+    args?: unknown[]
     metadata: string
 }) => {
     const deployment: Deployment = {
         address: deploymentContract.address,
-        abi: abi as any,
-        // TODO transationHash and receipt are nice to have but not necessary (for verification)
+        abi,
         transactionHash: deploymentContract.deployTransaction.hash,
-        receipt: await deploymentContract.deployTransaction.wait(),
         args,
         bytecode: creationBytecode,
         deployedBytecode: deployedBytecode,
@@ -115,12 +104,12 @@ export const deploy = async ({
     contractName: string
     deploymentName: string
     overrides: object
-    abi: any
+    abi: ABI
     creationBytecode: string
     signer: SignerWithAddress
     logger: Logger
     libraries?: Libraries
-    args?: any[]
+    args?: unknown[]
     metadata: string
 }) => {
     const existingDeployment = await hre.deployments.getOrNull(deploymentName)
@@ -130,12 +119,7 @@ export const deploy = async ({
 
         const contractFactory = new ContractFactory(abi, creationBytecode, signer)
 
-        let contract: Contract
-        if (args) {
-            contract = await contractFactory.deploy(...args, overrides)
-        } else {
-            contract = await contractFactory.deploy(overrides)
-        }
+        const contract = await contractFactory.deploy(...args, overrides)
 
         await contract.deployed()
 
