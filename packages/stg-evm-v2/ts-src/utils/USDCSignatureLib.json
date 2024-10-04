@@ -35,6 +35,9 @@
         "enabled": true,
         "runs": 10000000
       },
+      "compilationTarget": {
+        "/Users/default-admin/Documents/circle/stablecoin-evm-private-usdc-mainnet-arb/contracts/util/SignatureChecker.sol": "SignatureChecker"
+      },
       "evmVersion": "istanbul",
       "libraries": {},
       "outputSelection": {

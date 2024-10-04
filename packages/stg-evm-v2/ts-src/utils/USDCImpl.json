@@ -896,6 +896,9 @@
         "enabled": true,
         "runs": 10000000
       },
+      "compilationTarget": {
+        "/Users/default-admin/Documents/circle/stablecoin-evm-private-usdc-mainnet-arb/contracts/v2/FiatTokenV2_2.sol": "FiatTokenV2_2"
+      },
       "evmVersion": "istanbul",
       "libraries": {
         "/Users/default-admin/Documents/circle/stablecoin-evm-private-usdc-mainnet-arb/contracts/util/SignatureChecker.sol": {

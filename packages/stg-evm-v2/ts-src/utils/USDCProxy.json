@@ -124,6 +124,9 @@
         "enabled": true,
         "runs": 10000000
       },
+      "compilationTarget": {
+        "/Users/mgrant/Developer/centre-tokens/contracts/v1/FiatTokenProxy.sol": "FiatTokenProxy"
+      },
       "evmVersion": "istanbul",
       "libraries": {},
       "outputSelection": {
