@@ -135,11 +135,10 @@ export const deploy = async ({
             metadata,
         })
 
-        logger.info(`${deploymentName} is deployed: ${contract.address}`) // TODO weird issue where this does not print for last contract deployed (proxy in this case)
-
+        console.log(`${deploymentName} is deployed: ${contract.address}`)
         return { ...contractDeployment, newlyDeployed: true }
     } else {
-        logger.info(`${deploymentName} is already deployed: ${existingDeployment.address}`)
+        console.log(`${deploymentName} is already deployed: ${existingDeployment.address}`)
         return { ...existingDeployment, newlyDeployed: false }
     }
 }
