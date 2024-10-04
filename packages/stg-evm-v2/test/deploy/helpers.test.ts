@@ -1,4 +1,5 @@
 import '@nomiclabs/hardhat-ethers'
+import crypto from 'crypto'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { expect } from 'chai'
@@ -10,7 +11,14 @@ import sinon from 'sinon'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { appendDependencies, appendTags, deploy, fillAddress, saveDeployment } from '../../ts-src/utils/helpers'
+import {
+    appendDependencies,
+    appendTags,
+    deploy,
+    fillAddress,
+    generateSolcInputHash,
+    saveDeployment,
+} from '../../ts-src/utils/helpers'
 
 describe('deploy/helpers', () => {
     let saveSpy: sinon.SinonSpy
@@ -184,9 +192,10 @@ describe('deploy/helpers', () => {
     })
 
     describe('saveDeployment', () => {
-        it('should save deployment with correct metadata, fields, libraries, and args', async () => {
+        it('should save deployment with correct metadata, fields, libraries, args, and solcInputHash', async () => {
             const deploymentName = 'MockContractDeployment'
             const deployedBytecode = await ethers.provider.getCode(mockContract.address)
+            const mockSolcInputHash = '1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
 
             const mockDeployTx = mockContract.deployTransaction
 
@@ -208,6 +217,7 @@ describe('deploy/helpers', () => {
                 libraries: mockLibraries,
                 args: mockArgs,
                 metadata: mockMetadata,
+                solcInputHash: mockSolcInputHash,
             })
 
             expect(saveSpy.calledOnce).to.be.true
@@ -222,13 +232,16 @@ describe('deploy/helpers', () => {
             expect(savedDeployment).to.have.property('libraries').that.eql(mockLibraries)
             expect(savedDeployment).to.have.property('args').that.eql(mockArgs)
             expect(savedDeployment).to.have.property('metadata', mockMetadata).that.eql(mockMetadata)
+            expect(savedDeployment).to.have.property('solcInputHash', mockSolcInputHash)
 
             expect(savedDeployment.metadata).to.be.a('string')
+            expect(savedDeployment.solcInputHash).to.be.a('string')
         })
 
-        it('should handle metadata correctly', async () => {
-            const deploymentName = 'MockContractDeploymentWithMetadata'
+        it('should handle solcInputHash correctly', async () => {
+            const deploymentName = 'MockContractDeploymentWithSolcInputHash'
             const deployedBytecode = await ethers.provider.getCode(mockContract.address)
+            const mockSolcInputHash = 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'
 
             const mockLibraries = {
                 MockLibrary: '0x1234567890abcdef1234567890abcdef12345678',
@@ -247,14 +260,13 @@ describe('deploy/helpers', () => {
                 libraries: mockLibraries,
                 args: mockArgs,
                 metadata: mockMetadata,
+                solcInputHash: mockSolcInputHash,
             })
 
             const savedDeployment = saveSpy.getCall(0).args[1]
 
-            const metadata = savedDeployment.metadata
-
-            expect(metadata).to.be.a('string')
-            expect(metadata).to.eql(mockMetadata)
+            expect(savedDeployment).to.have.property('solcInputHash', mockSolcInputHash)
+            expect(savedDeployment.solcInputHash).to.eql(mockSolcInputHash)
         })
     })
 
@@ -540,6 +552,45 @@ describe('deploy/helpers', () => {
             )
 
             expect(isValidSignatureNow).to.not.eql(undefined)
+        })
+    })
+
+    describe('generateSolcInputHash', () => {
+        let loggerMock: any
+
+        beforeEach(() => {
+            loggerMock = {
+                info: sinon.stub(),
+                warn: sinon.stub(),
+                error: sinon.stub(),
+            }
+        })
+
+        it('should generate the correct solcInputHash from metadata', () => {
+            const metadata = JSON.stringify({
+                language: 'Solidity',
+                compiler: {
+                    version: '0.6.12+commit.27d51765',
+                },
+                settings: {
+                    evmVersion: 'istanbul',
+                },
+            })
+
+            const expectedHash = crypto.createHash('sha256').update(metadata).digest('hex')
+
+            const solcInputHash = generateSolcInputHash(metadata, loggerMock)
+
+            expect(solcInputHash).to.eql(expectedHash)
+        })
+
+        it('should log an error and throw if metadata is invalid', () => {
+            const invalidMetadata = undefined
+
+            expect(() => generateSolcInputHash(invalidMetadata as unknown as string, loggerMock)).to.throw()
+
+            expect(loggerMock.error.calledOnce).to.be.true
+            expect(loggerMock.error.getCall(0).args[0]).to.include('Error reading or processing file')
         })
     })
 })

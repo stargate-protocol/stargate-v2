@@ -1,4 +1,5 @@
 import assert from 'assert'
+import crypto from 'crypto'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { Contract, ContractFactory } from 'ethers'
@@ -56,6 +57,7 @@ export const saveDeployment = async ({
     libraries,
     args = [],
     metadata,
+    solcInputHash,
 }: {
     hre: HardhatRuntimeEnvironment
     deploymentName: string
@@ -66,6 +68,7 @@ export const saveDeployment = async ({
     libraries?: Libraries
     args?: unknown[]
     metadata: string
+    solcInputHash: string
 }) => {
     const deployment: Deployment = {
         address: deploymentContract.address,
@@ -76,8 +79,8 @@ export const saveDeployment = async ({
         deployedBytecode: deployedBytecode,
         libraries: libraries ?? {},
         metadata,
+        solcInputHash,
     }
-
     await hre.deployments.save(deploymentName, deployment)
 
     return deployment
@@ -112,6 +115,8 @@ export const deploy = async ({
     args?: unknown[]
     metadata: string
 }) => {
+    const solcInputHash = generateSolcInputHash(metadata, logger)
+
     const existingDeployment = await hre.deployments.getOrNull(deploymentName)
 
     if (existingDeployment?.bytecode !== creationBytecode) {
@@ -133,6 +138,7 @@ export const deploy = async ({
             libraries,
             args,
             metadata,
+            solcInputHash,
         })
 
         console.log(`${deploymentName} is deployed: ${contract.address}`)
@@ -140,5 +146,21 @@ export const deploy = async ({
     } else {
         console.log(`${deploymentName} is already deployed: ${existingDeployment.address}`)
         return { ...existingDeployment, newlyDeployed: false }
+    }
+}
+
+/**
+ * Helper function that generates a SHA-256 hash of the provided metadata
+ * @param metadata metadata to hash
+ * @param logger logger
+ */
+export const generateSolcInputHash = (metadata: string, logger: Logger): string => {
+    try {
+        // Generate the SHA-256 hash of the JSON input
+        const solcInputHash = crypto.createHash('sha256').update(metadata).digest('hex')
+        return solcInputHash
+    } catch (error) {
+        logger.error(`Error reading or processing file: ${error}`)
+        throw error
     }
 }
