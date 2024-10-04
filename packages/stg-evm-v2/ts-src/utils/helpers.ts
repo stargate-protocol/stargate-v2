@@ -27,7 +27,12 @@ export const appendDependencies =
         (deploy.dependencies = [...(deploy.dependencies ?? []), ...dependencies]), deploy
     )
 
-// Utility to replace any $ in str with the address
+/**
+ * Helper function that replaces any $ placeholders in str with the provided address
+ * @param str The string with placeholders
+ * @param address The address to replace the placeholders with
+ * @returns str with placeholders replaced with address
+ */
 export const fillAddress = (str: string, address: string) => {
     // Ensure the address is 40 characters long (without the 0x prefix)
     if (address.slice(0, 2) === '0x') {
@@ -46,7 +51,10 @@ export const fillAddress = (str: string, address: string) => {
     return str
 }
 
-// Saves deployment information to the deployments folder
+/**
+ * Helper function that saves deployment information to the deployments folder
+ * @returns the saved deployment
+ */
 export const saveDeployment = async ({
     hre,
     deploymentName,
@@ -71,6 +79,7 @@ export const saveDeployment = async ({
     const deployment: Deployment = {
         address: deploymentContract.address,
         abi: abi as any,
+        // TODO transationHash and receipt are nice to have but not necessary (for verification)
         transactionHash: deploymentContract.deployTransaction.hash,
         receipt: await deploymentContract.deployTransaction.wait(),
         args,
@@ -85,6 +94,10 @@ export const saveDeployment = async ({
     return deployment
 }
 
+/**
+ * Helper function that deploys a contract and saves the deployment information
+ * @returns the saved deployment
+ */
 export const deploy = async ({
     hre,
     contractName,
@@ -98,7 +111,7 @@ export const deploy = async ({
     args = [],
     metadata,
 }: {
-    hre: HardhatRuntimeEnvironment // TODO review this file
+    hre: HardhatRuntimeEnvironment
     contractName: string
     deploymentName: string
     overrides: object
