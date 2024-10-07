@@ -130,7 +130,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://public-en-baobab.klaytn.net',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
@@ -261,7 +261,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-mainnet': {
         eid: EndpointId.KLAYTN_V2_MAINNET,
-        url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://kaia.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://rpc.ankr.com/klaytn',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
