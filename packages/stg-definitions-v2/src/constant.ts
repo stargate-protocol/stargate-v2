@@ -24,6 +24,7 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
+        [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
@@ -68,6 +69,7 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x252b234545e154543ad2784c7111eb90406be836',
         [EndpointId.BASE_V2_MAINNET]: '0xcdf31d62140204c08853b547e64707110fbc6680',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
+        [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -99,6 +101,7 @@ export const EXECUTORS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
+        [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -255,6 +258,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0x55d398326f99059fF775485246999027B3197955',
             },
+            [EndpointId.COREDAO_V2_MAINNET]: {
+                type: StargateType.Pool,
+                address: '0x900101d06a7426441ae63e9ab3b9b0f63be145f1',
+            },
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
@@ -367,6 +374,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BSC_V2_MAINNET]: {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+                type: StargateType.Pool,
+            },
+            [EndpointId.COREDAO_V2_MAINNET]: {
+                address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
@@ -519,6 +530,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BASE_V2_MAINNET]: {},
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
+        [EndpointId.COREDAO_V2_MAINNET]: {},
         [EndpointId.EBI_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
@@ -687,6 +699,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.CORE]: {
+        name: 'CORE',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.COREDAO_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
@@ -791,6 +813,24 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x6e690075eedBC52244Dd4822D9F7887d4f27442F',
             safeUrl: 'https://safe-transaction-bsc.safe.global/',
+        },
+    },
+    [EndpointId.COREDAO_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET], DVNS.STG[EndpointId.COREDAO_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET], DVNS.STG[EndpointId.COREDAO_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
+            nativeDropAmount: parseEther('0.1').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
+            safeUrl:
+                'https://gnosis.lzdevnet.org/transactions/queue?safe=core:0x43303706f215A53220291F0B8a896BCDA5EB709E',
         },
     },
     [EndpointId.EBI_V2_MAINNET]: {
