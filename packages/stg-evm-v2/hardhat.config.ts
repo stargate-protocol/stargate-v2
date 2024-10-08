@@ -118,7 +118,7 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
         useFeeData: true,
     },
@@ -130,7 +130,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://public-en.kairos.node.kaia.io',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
