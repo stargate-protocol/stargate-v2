@@ -1,0 +1,13 @@
+cache/
+out/
+/deployed
+/dist
+typechain-types
+.env.*
+/snapshot
+
+# ZkSync
+.zksolc-libraries-cache
+
+# devtool simulation artifacts
+.layerzero
