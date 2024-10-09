@@ -66,7 +66,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxContract,
             baseContract,
             bscContract,
-            coredaoPoint,
+            coredaoContract,
             ethContract,
             flareContract,
             gravityContract,
