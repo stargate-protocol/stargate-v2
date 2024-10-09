@@ -10,6 +10,7 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCoredao,
     onEbi,
     onEth,
     onFlare,
@@ -44,6 +45,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const avaxCreditMsging = onAvax(contract)
     const baseCreditMsging = onBase(contract)
     const bscCreditMsging = onBsc(contract)
+    const coredaoCreditMsging = onCoredao(contract)
     const ebiCreditMsging = onEbi(contract)
     const ethCreditMsging = onEth(contract)
     const flareCreditMsging = onFlare(contract)
@@ -107,6 +109,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BSC_V2_MAINNET],
+                },
+            },
+            {
+                contract: coredaoCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.COREDAO_V2_MAINNET],
                 },
             },
             {
@@ -269,6 +280,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             avaxCreditMsging,
             baseCreditMsging,
             bscCreditMsging,
+            coredaoCreditMsging,
             ebiCreditMsging,
             ethCreditMsging,
             flareCreditMsging,

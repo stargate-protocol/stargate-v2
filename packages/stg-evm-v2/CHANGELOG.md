@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.17
+
+### Patch Changes
+
+- 62bc1f8: Added README.md for @stargatefinance/stg-evm-sdk-v2 npm package
+- Updated dependencies [9712025]
+  - @stargatefinance/stg-definitions-v2@1.2.0
+
 ## 1.0.16
 
 ### Patch Changes
