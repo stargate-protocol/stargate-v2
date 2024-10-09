@@ -12,6 +12,7 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCoredao,
     onEth,
     onKava,
     onMantle,
@@ -48,6 +49,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const bscRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.BSC_V2_MAINNET, [
         RewardTokenName.STG,
+    ] as const)
+    const coredaoRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.COREDAO_V2_MAINNET, [
+        RewardTokenName.CORE,
     ] as const)
     const ethRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         RewardTokenName.STG,
@@ -144,6 +148,18 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                         [bscRewardTokenAddresses.STG]: {
                             [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDC]: 1000,
                             [lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT]: 9000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onCoredao(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
+                    allocations: {
+                        [coredaoRewardTokenAddresses.CORE]: {
+                            [lpTokenAddresses[EndpointId.COREDAO_V2_MAINNET].USDC]: 5000,
+                            [lpTokenAddresses[EndpointId.COREDAO_V2_MAINNET].USDT]: 5000,
                         },
                     },
                 },

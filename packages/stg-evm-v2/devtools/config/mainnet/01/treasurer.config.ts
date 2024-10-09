@@ -12,6 +12,7 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCoredao,
     onEbi,
     onEth,
     onFlare,
@@ -43,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
+    const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
@@ -78,6 +80,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
     ] as const)
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -206,6 +212,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [bscAssetAddresses.USDC]: true,
                         [bscAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onCoredao(contract),
+                config: {
+                    owner: coredaoAdmin,
+                    admin: coredaoAdmin,
+                    assets: {
+                        [coredaoAssetAddresses.USDC]: true,
+                        [coredaoAssetAddresses.USDT]: true,
                     },
                 },
             },

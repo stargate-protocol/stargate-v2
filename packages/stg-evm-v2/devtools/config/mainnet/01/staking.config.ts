@@ -15,6 +15,7 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCoredao,
     onEth,
     onKava,
     onMantle,
@@ -41,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const avaxRewarder = await contractFactory(onAvax(rewarder))
     const baseRewarder = await contractFactory(onBase(rewarder))
     const bscRewarder = await contractFactory(onBsc(rewarder))
+    const coredaoRewarder = await contractFactory(onCoredao(rewarder))
     const ethRewarder = await contractFactory(onEth(rewarder))
     const kavaRewarder = await contractFactory(onKava(rewarder))
     const mantleRewarder = await contractFactory(onMantle(rewarder))
@@ -57,6 +59,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const avaxStaking = onAvax(staking)
     const baseStaking = onBase(staking)
     const bscStaking = onBsc(staking)
+    const coredaoStaking = onCoredao(staking)
     const ethStaking = onEth(staking)
     const kavaStaking = onKava(staking)
     const mantleStaking = onMantle(staking)
@@ -75,6 +78,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const avaxPool = { rewarder: avaxRewarder.contract.address }
     const basePool = { rewarder: baseRewarder.contract.address }
     const bscPool = { rewarder: bscRewarder.contract.address }
+    const coredaoPool = { rewarder: coredaoRewarder.contract.address }
     const ethPool = { rewarder: ethRewarder.contract.address }
     const kavaPool = { rewarder: kavaRewarder.contract.address }
     const mantlePool = { rewarder: mantleRewarder.contract.address }
@@ -166,6 +170,22 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...bscPool,
                             token: lpTokenAddresses[EndpointId.BSC_V2_MAINNET].USDT,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: coredaoStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
+                    pools: [
+                        {
+                            ...coredaoPool,
+                            token: lpTokenAddresses[EndpointId.COREDAO_V2_MAINNET].USDC,
+                        },
+                        {
+                            ...coredaoPool,
+                            token: lpTokenAddresses[EndpointId.COREDAO_V2_MAINNET].USDT,
                         },
                     ],
                 },
