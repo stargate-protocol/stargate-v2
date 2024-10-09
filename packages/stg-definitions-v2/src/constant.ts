@@ -829,7 +829,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
-            safeUrl: 'https://gn.lzdevnet.org/app/core:0x43303706f215A53220291F0B8a896BCDA5EB709E/transactions/queue',
+            safeUrl: 'https://core-tx.lzdevnet.org/',
         },
     },
     [EndpointId.EBI_V2_MAINNET]: {
