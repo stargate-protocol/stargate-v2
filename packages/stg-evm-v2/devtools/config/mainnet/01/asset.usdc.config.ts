@@ -44,7 +44,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxContract = await getAssetNode(avaxPoint)
     const baseContract = await getAssetNode(basePoint)
     const bscContract = await getAssetNode(bscPoint)
-    const coredaoPoint = await getAssetNode(coredaoPoint)
+    const coredaoContract = await getAssetNode(coredaoPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
