@@ -827,11 +827,9 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
-        // TODO: Add full Coredao safe config
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
-            safeUrl:
-                'https://gnosis.lzdevnet.org/transactions/queue?safe=core:0x43303706f215A53220291F0B8a896BCDA5EB709E',
+            safeUrl: 'https://gn.lzdevnet.org/app/core:0x43303706f215A53220291F0B8a896BCDA5EB709E/transactions/queue',
         },
     },
     [EndpointId.EBI_V2_MAINNET]: {
