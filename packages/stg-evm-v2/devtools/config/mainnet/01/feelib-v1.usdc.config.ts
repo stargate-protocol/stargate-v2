@@ -10,6 +10,7 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCoredao,
     onEth,
     onFlare,
     onGravity,
@@ -40,6 +41,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const avaxFeeLibV1 = onAvax(contract)
     const baseFeeLibV1 = onBase(contract)
     const bscFeeLibV1 = onBsc(contract)
+    const coredaoFeeLibV1 = onCoredao(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const gravityFeeLibV1 = onGravity(contract)
@@ -74,6 +76,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: bscFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: coredaoFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

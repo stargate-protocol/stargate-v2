@@ -27,6 +27,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
@@ -118,6 +122,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.BSC_V2_MAINNET]: {
             [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [bscAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.COREDAO_V2_MAINNET]: {
+            [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [coredaoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.EBI_V2_MAINNET]: {
             [ebiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
@@ -218,6 +226,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const coredaoLPTokenAddresses = await getLPTokenAddresses(EndpointId.COREDAO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ethLPTokenAddresses = await getLPTokenAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,
@@ -278,6 +290,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.BSC_V2_MAINNET]: {
             [TokenName.USDC]: bscLPTokenAddresses.USDC,
             [TokenName.USDT]: bscLPTokenAddresses.USDT,
+        },
+        [EndpointId.COREDAO_V2_MAINNET]: {
+            [TokenName.USDC]: coredaoLPTokenAddresses.USDC,
+            [TokenName.USDT]: coredaoLPTokenAddresses.USDT,
         },
         [EndpointId.ETHEREUM_V2_MAINNET]: {
             [TokenName.ETH]: ethLPTokenAddresses.ETH,
