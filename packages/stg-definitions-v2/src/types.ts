@@ -91,6 +91,7 @@ export interface CreditMessagingNetworkConfig {
     sendCreditGasLimit: bigint
     requiredDVNs?: string[]
     executor?: string
+    confirmations?: bigint
 }
 
 export interface TokenMessagingNetworkConfig {
@@ -103,6 +104,7 @@ export interface TokenMessagingNetworkConfig {
     requiredDVNs?: string[]
     executor?: string
     queueCapacity: number
+    confirmations?: bigint
 }
 
 export interface OftWrapperConfig {
