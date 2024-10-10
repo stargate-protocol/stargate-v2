@@ -5,6 +5,14 @@ configDotenv({
     path: ['.env.local', '.env'],
 })
 
+// TODO remove unnecessary code here -- only keep usdc specific code
+// TODO update package.json as needed too
+// TODO add README
+// TODO once deployed, constants file in stg-evm-v2 should be updated to reflect the new usdc contract proxy address + tests for automation that does this
+// TODO implement USDCDeployer contract that transfers ownership to contract then inits proxy and impl then transfers ownership back to what it was + tests
+// TODO write deploy script for usdc contracts
+// TODO remove usdc deployment in stg-evm-v2
+
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import type { HDAccountsUserConfig, HardhatUserConfig, NetworksUserConfig } from 'hardhat/types'

@@ -14,6 +14,7 @@ describe('usdc/bytecode', () => {
                 SignatureChecker: libraryContract.address,
             },
         })
+        // TODO get contract creation and deployed bytecode from arb mainnet then fill in $ as needed before ensuring our newly deployed bytecodes match
         const tokenContract = await tokenContractFactory.deploy()
         const bytecode = await tokenContract.provider.getCode(tokenContract.address)
 
