@@ -433,6 +433,9 @@ importers:
       concurrently:
         specifier: ~8.2.2
         version: 8.2.2
+      crypto:
+        specifier: ^1.0.1
+        version: 1.0.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -6290,6 +6293,11 @@ packages:
 
   /crypt@0.0.2:
     resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+    dev: true
+
+  /crypto@1.0.1:
+    resolution: {integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==}
+    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
     dev: true
 
   /csv-generate@3.4.3:
