@@ -65,6 +65,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
     uint256 internal constant MOCK_NATIVE_FEE = 0.001 ether;
     uint8 internal constant SHARED_DECIMALS = 6;
     uint8 internal constant LOCAL_DECIMALS = 18;
+    uint16 internal constant CALLER_BPS = 50;
 
     uint16 internal constant DEFAULT_BPS = 97;
     uint256 internal constant DEFAULT_CALLER_BPS_CAP = type(uint256).max; // unset by default
@@ -852,10 +853,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
+            callerBps: CALLER_BPS,
             caller: address(0),
             partnerId: bytes2(0)
         });
@@ -902,8 +903,12 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
     function testQuote_OFTEpV2_WithNativeDrop() public {
         CustomQuoteOFTMockOFT oft = new CustomQuoteOFTMockOFT(OFT_NAME, OFT_SYMBOL, endpoints[B_EID], address(this));
-
         uint128 nativeDropAmount = 500;
+
+        bytes memory options = OptionsBuilder.newOptions().addExecutorNativeDropOption(
+            uint128(nativeDropAmount),
+            _addressToBytes32(receiver)
+        );
         IOFTWrapper.QuoteInput memory input = IOFTWrapper.QuoteInput({
             version: IOFTWrapper.OFTVersion.Epv2OFT,
             token: address(oft),
@@ -911,11 +916,11 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: nativeDropAmount
+            extraOptions: options
         });
 
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 50,
+            callerBps: CALLER_BPS,
             caller: address(this),
             partnerId: bytes2(0)
         });
@@ -940,10 +945,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
             to: input.toAddress,
             amountLD: mockAmountSentLD,
             minAmountLD: input.minAmountLD,
-            extraOptions: OptionsBuilder.newOptions().addExecutorNativeDropOption(
-                uint128(input.nativeDrop),
-                input.toAddress
-            ),
+            extraOptions: options,
             composeMsg: bytes(""),
             oftCmd: bytes("")
         });
@@ -987,11 +989,11 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
 
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 50,
+            callerBps: CALLER_BPS,
             caller: address(this),
             partnerId: bytes2(0)
         });
@@ -1061,10 +1063,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
+            callerBps: CALLER_BPS,
             caller: address(0),
             partnerId: bytes2(0)
         });
@@ -1112,9 +1114,8 @@ contract OFTWrapperTest is Test, LzTestHelper {
     }
 
     function testQuote_OFTEpV2_Integration_With_SendEpv2() public {
-        MockOFT oftMockA = new MockOFT("OFTMockA", "OMA", endpoints[A_EID], address(this));
-        MockOFT oftMockB = new MockOFT("OFTMockB", "OMB", endpoints[B_EID], address(this));
-        receiver = makeAddr("new_B_chain_receiver");
+        MockOFT oftMockA = new MockOFT(OFT_NAME, OFT_SYMBOL, endpoints[A_EID], address(this));
+        MockOFT oftMockB = new MockOFT(OFT_NAME, OFT_SYMBOL, endpoints[B_EID], address(this));
 
         oftMockA.setPeer(uint16(B_EID), _addressToBytes32(address(oftMockB)));
         oftMockB.setPeer(uint16(A_EID), _addressToBytes32(address(oftMockA)));
@@ -1124,6 +1125,7 @@ contract OFTWrapperTest is Test, LzTestHelper {
         uint256 senderInitialBalance = oftMockA.balanceOf(sender);
         uint256 receiverInitialBalance = oftMockB.balanceOf(receiver);
 
+        bytes memory options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
         IOFTWrapper.QuoteInput memory input = IOFTWrapper.QuoteInput({
             version: IOFTWrapper.OFTVersion.Epv2OFT,
             token: address(oftMockA),
@@ -1131,18 +1133,17 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: options
         });
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
-            caller: address(0),
+            callerBps: CALLER_BPS,
+            caller: address(oftMockA),
             partnerId: bytes2(0)
         });
 
         IOFTWrapper.QuoteResult memory quoteResult = oftWrapper.quote(input, feeObj);
         IOFTWrapper.QuoteFee memory nativeFee = getQuoteResultFeeWithName(NATIVE_FEE_NAME, quoteResult);
 
-        bytes memory options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
         SendParamEpv2 memory sendParam = SendParamEpv2({
             dstEid: B_EID,
             to: _addressToBytes32(receiver),
@@ -1169,6 +1170,8 @@ contract OFTWrapperTest is Test, LzTestHelper {
 
         uint256 receiverFinalBalance = oftMockB.balanceOf(receiver);
         uint256 senderFinalBalance = oftMockA.balanceOf(sender);
+        IOFTWrapper.QuoteFee memory wrapperFee = getQuoteResultFeeWithName(WRAPPER_FEE_NAME, quoteResult);
+        IOFTWrapper.QuoteFee memory callerFee = getQuoteResultFeeWithName(CALLER_FEE_NAME, quoteResult);
 
         assertEq(
             senderFinalBalance,
@@ -1187,7 +1190,6 @@ contract OFTWrapperTest is Test, LzTestHelper {
         (CustomQuoteOFTMockOFT oftMockA, CustomQuoteOFTMockOFT oftMockB) = setupMocks();
 
         oftMockA.mint(sender, INITIAL_AMOUNT);
-
         uint256 senderInitialBalance = oftMockA.balanceOf(sender);
         uint256 receiverInitialBalance = oftMockB.balanceOf(receiver);
 
@@ -1222,8 +1224,18 @@ contract OFTWrapperTest is Test, LzTestHelper {
     }
 
     function setupMocks() internal returns (CustomQuoteOFTMockOFT, CustomQuoteOFTMockOFT) {
-        CustomQuoteOFTMockOFT oftMockA = new CustomQuoteOFTMockOFT("OFTMockA", "OMA", endpoints[A_EID], address(this));
-        CustomQuoteOFTMockOFT oftMockB = new CustomQuoteOFTMockOFT("OFTMockB", "OMB", endpoints[B_EID], address(this));
+        CustomQuoteOFTMockOFT oftMockA = new CustomQuoteOFTMockOFT(
+            OFT_NAME,
+            OFT_SYMBOL,
+            endpoints[A_EID],
+            address(this)
+        );
+        CustomQuoteOFTMockOFT oftMockB = new CustomQuoteOFTMockOFT(
+            OFT_NAME,
+            OFT_SYMBOL,
+            endpoints[B_EID],
+            address(this)
+        );
 
         oftMockA.setPeer(uint16(B_EID), _addressToBytes32(address(oftMockB)));
         oftMockB.setPeer(uint16(A_EID), _addressToBytes32(address(oftMockA)));
@@ -1241,12 +1253,12 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
 
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
-            caller: address(0),
+            callerBps: CALLER_BPS,
+            caller: address(oftMockA),
             partnerId: bytes2(0)
         });
 
@@ -1327,10 +1339,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
+            callerBps: CALLER_BPS,
             caller: address(0),
             partnerId: bytes2(0)
         });
@@ -1389,10 +1401,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
+            callerBps: CALLER_BPS,
             caller: address(0),
             partnerId: bytes2(0)
         });
@@ -1449,10 +1461,10 @@ contract OFTWrapperTest is Test, LzTestHelper {
             amountLD: INITIAL_AMOUNT,
             minAmountLD: MIN_AMOUNT,
             toAddress: _addressToBytes32(receiver),
-            nativeDrop: 0
+            extraOptions: bytes("")
         });
         IOFTWrapper.FeeObj memory feeObj = IOFTWrapper.FeeObj({
-            callerBps: 0,
+            callerBps: CALLER_BPS,
             caller: address(0),
             partnerId: bytes2(0)
         });

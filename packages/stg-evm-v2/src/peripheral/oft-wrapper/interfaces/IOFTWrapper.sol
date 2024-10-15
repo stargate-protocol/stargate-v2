@@ -32,24 +32,23 @@ interface IOFTWrapper {
         uint256 amountLD;
         uint256 minAmountLD;
         bytes32 toAddress;
-        uint256 nativeDrop;
+        bytes extraOptions;
     }
 
     struct QuoteOFTInput {
-        // Fields from QuoteInput
         OFTVersion version;
         address token;
         uint16 dstEid;
         uint256 amountLD;
         uint256 minAmountLD;
         bytes32 toAddress;
-        uint256 nativeDrop;
         FeeObj feeObj;
         QuoteResult quoteResult;
         uint256 amountAfterWrapperFees;
         uint256 wrapperAndCallersFees;
         QuoteFee wrapperFee;
         QuoteFee callerFee;
+        bytes extraOptions;
     }
 
     struct QuoteFee {

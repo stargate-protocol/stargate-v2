@@ -29,6 +29,9 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     uint256 public constant BPS_DENOMINATOR = 10000;
     uint256 public constant MAX_UINT = 2 ** 256 - 1; // indicates a bp fee of 0 that overrides the default bps
     uint256 public constant QUOTE_SRC_AMOUNT_MIN = 0;
+    string public constant NATIVE_FEE_NAME = "nativeFee";
+    string public constant WRAPPER_FEE_NAME = "wrapperFee";
+    string public constant CALLER_FEE_NAME = "callerFee";
 
     uint256 public defaultBps;
     mapping(address => uint256) public oftBps;
@@ -324,6 +327,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             _amount,
             _feeObj.callerBps
         );
+
         require(amountToSwap >= _minAmount && amountToSwap > 0, "OFTWrapper: not enough amountToSwap");
 
         IOFT(_token).safeTransferFrom(msg.sender, address(this), amountToSwap + wrapperFee); // pay wrapper and move proxy tokens to contract
@@ -496,13 +500,13 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             amountLD: _input.amountLD,
             minAmountLD: _input.minAmountLD,
             toAddress: _input.toAddress,
-            nativeDrop: _input.nativeDrop,
             feeObj: _feeObj,
             quoteResult: quoteResult,
             amountAfterWrapperFees: amountAfterWrapperFees,
             wrapperAndCallersFees: wrapperAndCallersFees,
             wrapperFee: wrapperFee,
-            callerFee: callerFee
+            callerFee: callerFee,
+            extraOptions: _input.extraOptions
         });
 
         if (_input.version == OFTVersion.Epv1OFTv1) {
@@ -537,7 +541,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             false,
             bytes("")
         );
-        quoteResult.fees[2] = QuoteFee({ fee: "nativeFee", amount: int256(nativeFee), token: _input.token });
+        quoteResult.fees[2] = QuoteFee({ fee: NATIVE_FEE_NAME, amount: int256(nativeFee), token: _input.token });
 
         return quoteResult;
     }
@@ -565,7 +569,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             false,
             bytes("")
         );
-        quoteResult.fees[2] = QuoteFee({ fee: "nativeFee", amount: int256(nativeFee), token: _input.token });
+        quoteResult.fees[2] = QuoteFee({ fee: NATIVE_FEE_NAME, amount: int256(nativeFee), token: _input.token });
 
         return quoteResult;
     }
@@ -597,7 +601,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             false,
             bytes("")
         );
-        quoteResult.fees[3] = QuoteFee({ fee: "nativeFee", amount: int256(nativeFee), token: _input.token });
+        quoteResult.fees[3] = QuoteFee({ fee: NATIVE_FEE_NAME, amount: int256(nativeFee), token: _input.token });
 
         return quoteResult;
     }
@@ -609,33 +613,20 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         int256 wrapperAndCallersFees = quoteResult.fees[0].amount + quoteResult.fees[1].amount;
 
         {
-            bytes memory options = bytes("");
-            if (_input.nativeDrop != 0) {
-                require(_input.nativeDrop <= type(uint128).max, "OFTWrapper: nativeDrop exceeds uint128 max");
-                options = OptionsBuilder.newOptions().addExecutorNativeDropOption(
-                    uint128(_input.nativeDrop),
-                    _input.toAddress
-                );
-            } else {
-                // TODO: make this a constant or a parameter
-                // most likely just pass in extraOptions as happens in the other method
-                options = OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0);
-            }
-
             MessagingFee memory messagingFee = IOFTEpv2(_input.token).quoteSend(
                 SendParamEpv2({
                     dstEid: _input.dstEid,
                     to: _input.toAddress,
                     amountLD: quoteResult.srcAmount - uint256(wrapperAndCallersFees),
                     minAmountLD: _input.minAmountLD,
-                    extraOptions: options,
+                    extraOptions: _input.extraOptions,
                     composeMsg: bytes(""),
                     oftCmd: bytes("")
                 }),
                 false
             );
             quoteResult.fees[2] = QuoteFee({
-                fee: "nativeFee",
+                fee: NATIVE_FEE_NAME,
                 amount: int256(messagingFee.nativeFee),
                 token: _input.token
             });
@@ -710,7 +701,7 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             amountLD: _input.amountLD,
             minAmountLD: _input.minAmountLD,
             toAddress: _input.toAddress,
-            nativeDrop: _input.nativeDrop
+            extraOptions: _input.extraOptions
         });
 
         return _calculateInitialFeesAndAmount(input, _input.feeObj);
@@ -727,8 +718,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         );
         amountAfterFees = _amountAfterWrapperFees;
 
-        wrapperFee = QuoteFee({ fee: "wrapperFee", amount: int256(wrapperFeeAmount), token: _input.token });
-        callerFee = QuoteFee({ fee: "callerFee", amount: int256(callerFeeAmount), token: _input.token });
+        wrapperFee = QuoteFee({ fee: WRAPPER_FEE_NAME, amount: int256(wrapperFeeAmount), token: _input.token });
+        callerFee = QuoteFee({ fee: CALLER_FEE_NAME, amount: int256(callerFeeAmount), token: _input.token });
 
         return (wrapperFee, callerFee, amountAfterFees);
     }
