@@ -142,6 +142,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [coredaoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.DEGEN_V2_MAINNET]: {
+            [degenAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [degenAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [degenAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.EBI_V2_MAINNET]: {
             [ebiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
