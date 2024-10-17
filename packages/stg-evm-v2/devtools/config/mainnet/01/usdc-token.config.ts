@@ -9,7 +9,18 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
+import {
+    onDegen,
+    onFlare,
+    onGravity,
+    onIota,
+    onKlaytn,
+    onLightlink,
+    onPeaq,
+    onRarible,
+    onTaiko,
+    onXchain,
+} from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
