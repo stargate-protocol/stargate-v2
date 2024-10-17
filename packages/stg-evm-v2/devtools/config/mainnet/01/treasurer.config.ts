@@ -13,6 +13,7 @@ import {
     onBase,
     onBsc,
     onCoredao,
+    onDegen,
     onEbi,
     onEth,
     onFlare,
@@ -45,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
+    const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
@@ -84,6 +86,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -223,6 +230,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [coredaoAssetAddresses.USDC]: true,
                         [coredaoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onDegen(contract),
+                config: {
+                    owner: degenAdmin,
+                    admin: degenAdmin,
+                    assets: {
+                        [degenAssetAddresses.ETH]: true,
+                        [degenAssetAddresses.USDC]: true,
+                        [degenAssetAddresses.USDT]: true,
                     },
                 },
             },

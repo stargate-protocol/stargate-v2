@@ -25,6 +25,7 @@ export const DVNS = {
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
@@ -70,6 +71,7 @@ export const DVNS = {
         [EndpointId.BASE_V2_MAINNET]: '0xcdf31d62140204c08853b547e64707110fbc6680',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -102,6 +104,7 @@ export const EXECUTORS = {
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
+        [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -156,6 +159,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BASE_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -261,6 +269,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.COREDAO_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x900101d06a7426441ae63e9ab3b9b0f63be145f1',
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                type: StargateType.Oft,
             },
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -379,6 +390,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.COREDAO_V2_MAINNET]: {
                 address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -531,6 +547,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
+        [EndpointId.DEGEN_V2_MAINNET]: {},
         [EndpointId.EBI_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
@@ -735,8 +752,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ASTAR_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
-            safeUrl:
-                'https://astar-tx.lzdevnet.org/',
+            safeUrl: 'https://astar-tx.lzdevnet.org/',
         },
     },
     [EndpointId.AURORA_V2_MAINNET]: {
@@ -832,6 +848,23 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://core-tx.lzdevnet.org/',
         },
     },
+    [EndpointId.DEGEN_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+            nativeDropAmount: parseEther('1').toBigInt(),
+        },
+        // TODO        safeConfig: {
+        //            safeAddress: '',
+        //            safeUrl: 'https://degen-tx.lzdevnet.org/',
+        //        },
+    },
     [EndpointId.EBI_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -883,8 +916,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ETHERLINK_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
-            safeUrl:
-                'https://etherlink-tx.lzdevnet.org/',
+            safeUrl: 'https://etherlink-tx.lzdevnet.org/',
         },
     },
     [EndpointId.FANTOM_V2_MAINNET]: {
@@ -925,8 +957,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.FRAXTAL_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90',
-            safeUrl:
-                'https://fraxtal-tx.lzdevnet.org/',
+            safeUrl: 'https://fraxtal-tx.lzdevnet.org/',
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {
@@ -1071,22 +1102,19 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MOONBEAM_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
-            safeUrl:
-                'https://moonbeam-tx.lzdevnet.org/',
+            safeUrl: 'https://moonbeam-tx.lzdevnet.org/',
         },
     },
     [EndpointId.MOONRIVER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
-            safeUrl:
-                'https://moonriver-tx.lzdevnet.org/',
+            safeUrl: 'https://moonriver-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPBNB_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
-            safeUrl:
-                'https://opbnb-tx.lzdevnet.org/',
+            safeUrl: 'https://opbnb-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
@@ -1174,8 +1202,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.SHIMMER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
-            safeUrl:
-                'https://shimmer-tx.lzdevnet.org/',
+            safeUrl: 'https://shimmer-tx.lzdevnet.org/',
         },
     },
     [EndpointId.SEI_V2_MAINNET]: {
@@ -1268,8 +1295,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKATANA_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl:
-                'https://zkatana-tx.lzdevnet.org/',
+            safeUrl: 'https://zkatana-tx.lzdevnet.org/',
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
@@ -1304,8 +1330,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKSYNC_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',
-            safeUrl:
-                'https://safe-transaction-zksync.safe.global/',
+            safeUrl: 'https://safe-transaction-zksync.safe.global/',
         },
     },
 

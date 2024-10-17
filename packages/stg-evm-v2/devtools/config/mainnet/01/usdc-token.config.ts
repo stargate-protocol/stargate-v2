@@ -7,7 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
+import { onDegen, onFlare, onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
@@ -17,6 +17,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
+    const degenUSDCProxy = await contractFactory(onDegen(proxyContract))
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
@@ -26,6 +27,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
+    const degenUSDC = onDegen({ ...fiatContract, address: degenUSDCProxy.contract.address })
+    const degenStargateMultisig = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
+
     const flareUSDC = onFlare({ ...fiatContract, address: flareUSDCProxy.contract.address })
     const flareStargateMultisig = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
 
@@ -50,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdcAssets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
@@ -60,6 +65,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     return {
         contracts: [
+            {
+                contract: degenUSDC,
+                config: {
+                    owner: degenStargateMultisig,
+                    masterMinter: degenStargateMultisig,
+                    pauser: degenStargateMultisig,
+                    rescuer: degenStargateMultisig,
+                    blacklister: degenStargateMultisig,
+                    minters: {
+                        [degenAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
             {
                 contract: flareUSDC,
                 config: {
