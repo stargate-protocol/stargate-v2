@@ -7,7 +7,19 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onSei, onTaiko } from '../utils'
+import {
+    onDegen,
+    onEbi,
+    onFlare,
+    onGravity,
+    onIota,
+    onKlaytn,
+    onLightlink,
+    onPeaq,
+    onRarible,
+    onSei,
+    onTaiko,
+} from '../utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -17,6 +29,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
     // USDT contract pointers
+    const degenUSDT = onDegen(usdtContractTemplate)
     const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
@@ -27,6 +40,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
     // ETH contract pointers
+    const degenETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
+    )
+    const degenETH = onDegen({ contractName: degenETHContractName })
+
     const flareETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.FLARE_V2_MAINNET, TokenName.ETH)
@@ -61,6 +80,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
         TokenName.ETH,
@@ -92,6 +115,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     return {
         contracts: [
+            {
+                contract: degenETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                    minters: {
+                        [degenAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: degenUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                    minters: {
+                        [degenAssetAddresses.USDT]: true,
+                    },
+                },
+            },
             {
                 contract: ebiUSDT,
                 config: {

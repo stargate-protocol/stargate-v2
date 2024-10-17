@@ -7,6 +7,7 @@ import { getFeeLibV1DeployName } from '../../../../ops/util'
 import {
     onArb,
     onBase,
+    onDegen,
     onEth,
     onFlare,
     onGravity,
@@ -34,6 +35,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
+    const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const gravityFeeLibV1 = onGravity(contract)
@@ -53,6 +55,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         contracts: [
             {
                 contract: arbFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: degenFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
