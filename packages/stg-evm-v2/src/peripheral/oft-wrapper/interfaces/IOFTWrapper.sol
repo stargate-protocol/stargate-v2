@@ -18,6 +18,26 @@ interface IOFTWrapper {
         bytes2 partnerId;
     }
 
+    struct QuoteInput {
+        uint8 version;
+        address _token;
+        address _adapter;
+        uint16 _dstChainId;
+        uint256 _amount;
+        uint256 _minAmount;
+        bytes32 _toAddress;
+        uint256 _nativeDrop;
+    }
+
+    struct QuoteResult {
+        uint256 srcAmount;
+        uint256 dstAmount; // quoteOFT
+        uint256 srcAmountMin;
+        uint256 srcAmountMax;
+        uint256 nativeFee;
+        uint256 confirmations;
+    }
+
     function sendOFT(
         address _oft,
         uint16 _dstChainId,
@@ -152,4 +172,9 @@ interface IOFTWrapper {
         bool _payInLzToken,
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory);
+
+    function quote(
+        QuoteInput calldata _input,
+        FeeObj calldata _feeObj
+    ) external view returns (QuoteResult memory result);
 }
