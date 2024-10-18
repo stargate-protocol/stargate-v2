@@ -6,25 +6,17 @@ pragma solidity 0.8.4;
 
 contract TetherTokenV2 is TetherToken, EIP3009 {
     bytes32 internal constant _PERMIT_TYPEHASH =
-        keccak256(
-            "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
-        );
+        keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
-    constructor () initializer {}
+    constructor() initializer {}
 
-    function domainSeparator()
-        internal
-        view
-        virtual
-        override
-        returns (bytes32)
-    {
+    function domainSeparator() internal view virtual override returns (bytes32) {
         return _domainSeparatorV4();
     }
 
     /**
      * The following applies to the following function and comments to that function:
-     * 
+     *
      * SPDX-License-Identifier: Apache-2.0
      *
      * Copyright (c) 2023, Circle Internet Financial, LLC.
@@ -34,15 +26,15 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * You may obtain a copy of the License at
      *
      * http://www.apache.org/licenses/LICENSE-2.0
-     * 
+     *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      * See the License for the specific language governing permissions and
      * limitations under the License.
-     * 
+     *
      * ---------------------------------------------------------------------
-     * 
+     *
      * Adapted by Tether.to 2024 for greater flexibility and reusability
      */
     function _permit(
@@ -55,22 +47,12 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
         require(block.timestamp <= deadline, "ERC20Permit: expired deadline");
 
         bytes32 structHash = keccak256(
-            abi.encode(
-                _PERMIT_TYPEHASH,
-                owner_,
-                spender,
-                value,
-                _useNonce(owner_),
-                deadline
-            )
+            abi.encode(_PERMIT_TYPEHASH, owner_, spender, value, _useNonce(owner_), deadline)
         );
 
         bytes32 hash = _hashTypedDataV4(structHash);
 
-        require(
-            SignatureChecker.isValidSignatureNow(owner_, hash, signature),
-            "EIP2612: invalid signature"
-        );
+        require(SignatureChecker.isValidSignatureNow(owner_, hash, signature), "EIP2612: invalid signature");
 
         _approve(owner_, spender, value);
     }
@@ -99,7 +81,7 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
 
     /**
      * The following applies to the following function and comments to that function:
-     * 
+     *
      * SPDX-License-Identifier: Apache-2.0
      *
      * Copyright (c) 2023, Circle Internet Financial, LLC.
@@ -109,15 +91,15 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * You may obtain a copy of the License at
      *
      * http://www.apache.org/licenses/LICENSE-2.0
-     * 
+     *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      * See the License for the specific language governing permissions and
      * limitations under the License.
-     * 
+     *
      * ---------------------------------------------------------------------
-     * 
+     *
      * Adapted by Tether.to 2024 for greater flexibility and reusability
      */
 
@@ -130,19 +112,13 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * @param deadline    The time at which the signature expires (unix time), or max uint256 value to signal no expiration
      * @param signature   Signature bytes signed by an EOA wallet or a contract wallet
      */
-    function permit(
-        address owner_,
-        address spender,
-        uint256 value,
-        uint256 deadline,
-        bytes memory signature
-    ) external {
+    function permit(address owner_, address spender, uint256 value, uint256 deadline, bytes memory signature) external {
         _permit(owner_, spender, value, deadline, signature);
     }
 
     /**
      * The following applies to the following function and comments to that function:
-     * 
+     *
      * SPDX-License-Identifier: Apache-2.0
      *
      * Copyright (c) 2023, Circle Internet Financial, LLC.
@@ -152,15 +128,15 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * You may obtain a copy of the License at
      *
      * http://www.apache.org/licenses/LICENSE-2.0
-     * 
+     *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      * See the License for the specific language governing permissions and
      * limitations under the License.
-     * 
+     *
      * ---------------------------------------------------------------------
-     * 
+     *
      * Adapted by Tether.to 2024 for greater flexibility and reusability
      */
 
@@ -201,7 +177,7 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
 
     /**
      * The following applies to the following function and comments to that function:
-     * 
+     *
      * SPDX-License-Identifier: Apache-2.0
      *
      * Copyright (c) 2023, Circle Internet Financial, LLC.
@@ -211,15 +187,15 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * You may obtain a copy of the License at
      *
      * http://www.apache.org/licenses/LICENSE-2.0
-     * 
+     *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      * See the License for the specific language governing permissions and
      * limitations under the License.
-     * 
+     *
      * ---------------------------------------------------------------------
-     * 
+     *
      * Adapted by Tether.to 2024 for greater flexibility and reusability
      */
 
@@ -243,21 +219,13 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
         bytes32 nonce,
         bytes memory signature
     ) external onlyNotBlocked {
-        _transferWithAuthorizationValidityCheck(
-            from,
-            to,
-            value,
-            validAfter,
-            validBefore,
-            nonce,
-            signature
-        );
+        _transferWithAuthorizationValidityCheck(from, to, value, validAfter, validBefore, nonce, signature);
         _transfer(from, to, value);
     }
 
     /**
      * The following applies to the following function and comments to that function:
-     * 
+     *
      * SPDX-License-Identifier: Apache-2.0
      *
      * Copyright (c) 2023, Circle Internet Financial, LLC.
@@ -267,15 +235,15 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * You may obtain a copy of the License at
      *
      * http://www.apache.org/licenses/LICENSE-2.0
-     * 
+     *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      * See the License for the specific language governing permissions and
      * limitations under the License.
-     * 
+     *
      * ---------------------------------------------------------------------
-     * 
+     *
      * Adapted by Tether.to 2024 for greater flexibility and reusability
      */
 
@@ -318,7 +286,7 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
 
     /**
      * The following applies to the following function and comments to that function:
-     * 
+     *
      * SPDX-License-Identifier: Apache-2.0
      *
      * Copyright (c) 2023, Circle Internet Financial, LLC.
@@ -328,15 +296,15 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
      * You may obtain a copy of the License at
      *
      * http://www.apache.org/licenses/LICENSE-2.0
-     * 
+     *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
      * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      * See the License for the specific language governing permissions and
      * limitations under the License.
-     * 
+     *
      * ---------------------------------------------------------------------
-     * 
+     *
      * Adapted by Tether.to 2024 for greater flexibility and reusability
      */
 
@@ -362,15 +330,7 @@ contract TetherTokenV2 is TetherToken, EIP3009 {
         bytes32 nonce,
         bytes memory signature
     ) external onlyNotBlocked {
-        _receiveWithAuthorizationValidityCheck(
-            from,
-            to,
-            value,
-            validAfter,
-            validBefore,
-            nonce,
-            signature
-        );
+        _receiveWithAuthorizationValidityCheck(from, to, value, validAfter, validBefore, nonce, signature);
         _transfer(from, to, value);
     }
 
