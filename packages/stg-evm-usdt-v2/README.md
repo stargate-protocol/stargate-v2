@@ -26,5 +26,7 @@ To support USDT on Stargate for chains that do not yet have USDT, we must deploy
 3. Rename `.env.example` to `.env` and update the `MNEMONIC` with your actual mnemonic
 4. Run `pnpm hardhat run scripts/deploy.js --network <network name in hardhat.config.js>`. For example, `pnpm hardhat run scripts/deploy.js --network sepolia`
 
+Once successfully deployed, the deployment result, including the address of the `proxy`, `impl`, and `admin`, will be stored under the `.openzeppelin` directory.
+
 
 
