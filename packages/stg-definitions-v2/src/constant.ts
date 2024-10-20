@@ -911,10 +911,22 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
             nativeDropAmount: parseEther('1').toBigInt(),
         },
-        // TODO        safeConfig: {
-        //            safeAddress: '',
-        //            safeUrl: 'https://degen-tx.lzdevnet.org/',
-        //        },
+        safeConfig: {
+            safeAddress: '0x2F2F0C7097926e66a31A72BA956cf99DB6aeAe4A',
+            safeUrl: 'https://degen-tx.lzdevnet.org/',
+            contractNetworks: {
+                [666666666]: {
+                    multiSendAddress: '0xb952cFF2Bfb2939C8f1410966AC580cEEa9654Cd',
+                    multiSendCallOnlyAddress: '0x1E19eF7e15FfC6737b837BA398927847dA3d75f8',
+                    safeMasterCopyAddress: '0xd159BB62645f6e951cE6eF59b8da409a404f681F',
+                    safeProxyFactoryAddress: '0xEe830749c04334D9cC650a9320a9E72fcb540cA0',
+                    fallbackHandlerAddress: '0x67E086c9dc7F670428766355271a1638f7abC022',
+                    createCallAddress: '0x1E71241E5e7D8677868b19B3dFe87d2681Cf7185',
+                    signMessageLibAddress: '0x95A09f1142Afe3Ca316ea424224333bA7810f12A',
+                    simulateTxAccessorAddress: '0x63db1940eac4647dde9aA753DeF013a8eB52F39a',
+                },
+            },
+        },
     },
     [EndpointId.EBI_V2_MAINNET]: {
         creditMessaging: {
