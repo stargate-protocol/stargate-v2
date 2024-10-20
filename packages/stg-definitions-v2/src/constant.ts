@@ -39,6 +39,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.ORDERLY_V2_MAINNET]: '0x6a4c9096f162f0ab3c0517b0a40dc1ce44785e16',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
@@ -87,6 +88,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x0e95cf21ad9376a26997c97f326c5a0a267bb8ff',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
+        [EndpointId.ORDERLY_V2_MAINNET]: '0xd074b6bbcbec2f2b4c4265de3d95e521f82bf669',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.PLUME_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
@@ -126,6 +128,7 @@ export const EXECUTORS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.PLUME_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.ORDERLY_V2_MAINNET]: '0x1aCe9DD1BC743aD036eF2D92Af42Ca70A1159df5',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
@@ -354,6 +357,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.PEAQ_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xd8cF92E9B6Fae6B32f795AcB11Edd50E8dD6Ff4d',
+            },
+            [EndpointId.ORDERLY_V2_MAINNET]: {
+                type: StargateType.Oft,
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 type: StargateType.Pool,
