@@ -269,8 +269,8 @@ importers:
         version: 4.2.0
     devDependencies:
       '@layerzerolabs/typescript-config-next':
-        specifier: 3.0.6
-        version: 3.0.6
+        specifier: ~2.3.25
+        version: 2.3.25
       '@nomicfoundation/hardhat-network-helpers':
         specifier: ^1.0.8
         version: 1.0.12(hardhat@2.22.6)
@@ -290,7 +290,7 @@ importers:
         specifier: ^4.3.7
         version: 4.4.1
       hardhat:
-        specifier: ^2.15.0
+        specifier: ^2.16.0
         version: 2.22.6(ts-node@10.9.2)(typescript@5.5.3)
       hardhat-deploy:
         specifier: ^0.12.2
@@ -302,10 +302,10 @@ importers:
         specifier: ^1.0.9
         version: 1.0.10(hardhat@2.22.6)
       solidity-coverage:
-        specifier: ^0.8.2
+        specifier: ^0.8.12
         version: 0.8.12(hardhat@2.22.6)
       typechain:
-        specifier: ^8.2.0
+        specifier: ~8.3.2
         version: 8.3.2(typescript@5.5.3)
 
   packages/stg-evm-v2:
@@ -9109,6 +9109,7 @@ packages:
 
   /glob@7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -10978,7 +10979,7 @@ packages:
     requiresBuild: true
     dependencies:
       node-addon-api: 2.0.2
-      node-gyp-build: 4.8.0
+      node-gyp-build: 4.8.1
       readable-stream: 3.6.2
 
   /keyv@4.5.4:
