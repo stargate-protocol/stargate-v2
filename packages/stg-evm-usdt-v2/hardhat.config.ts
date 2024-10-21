@@ -20,12 +20,12 @@ const config: HardhatUserConfig = {
         bob: {
             default: 2,
         },
-        carol: {
+        carrot: {
             default: 3,
         },
     },
     networks: {
-        celo: {
+        'celo-mainnet': {
             url: 'https://forno.celo.org',
             accounts,
             chainId: 42220,
@@ -33,7 +33,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        alfajores: {
+        'celo-testnet': {
             url: 'https://alfajores-forno.celo-testnet.org',
             accounts,
             chainId: 44787,
@@ -41,7 +41,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        kava: {
+        'kava-mainnet': {
             url: 'https://rpc.ankr.com/kava_evm',
             accounts,
             chainId: 2222,
@@ -49,12 +49,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        avalanche: {
-            url: 'https://avalanche.public-rpc.com',
-            chainId: 43114,
-            accounts,
-        },
-        mainnet: {
+        'ethereum-mainnet': {
             url: process.env.ETHEREUM_RPC_URL || `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
             accounts,
             chainId: 1,
@@ -62,7 +57,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        sepolia: {
+        'sepolia-testnet': {
             url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://ethereum-sepolia-rpc.publicnode.com',
             accounts,
             chainId: 11155111,
