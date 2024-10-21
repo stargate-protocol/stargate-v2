@@ -3,3 +3,4 @@ cache
 .openzeppelin
 .env
 node_modules
+typechain-types

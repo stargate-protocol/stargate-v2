@@ -1,13 +1,15 @@
-require('@nomicfoundation/hardhat-toolbox');
-require('@openzeppelin/hardhat-upgrades');
-require('dotenv').config();
+import { HardhatUserConfig } from 'hardhat/config'
+import '@nomicfoundation/hardhat-toolbox'
+import '@openzeppelin/hardhat-upgrades'
+// eslint-disable-next-line import/no-unresolved
+import 'dotenv/config'
+import 'hardhat-deploy'
 
 const accounts = {
     mnemonic: process.env.MNEMONIC,
-};
+}
 
-/** @type import('hardhat/config').HardhatUserConfig */
-module.exports = {
+const config: HardhatUserConfig = {
     namedAccounts: {
         deployer: {
             default: 0,
@@ -40,7 +42,7 @@ module.exports = {
             tags: ['prod'],
         },
         kava: {
-            url: 'https://rpc.ankr.com/kava_evm	',
+            url: 'https://rpc.ankr.com/kava_evm',
             accounts,
             chainId: 2222,
             saveDeployments: true,
@@ -69,19 +71,17 @@ module.exports = {
     },
     etherscan: {
         apiKey: {
-            mainnet: process.env.ETHERSCAN_TOKEN,
-            ropsten: process.env.ETHERSCAN_TOKEN,
-            kovan: process.env.ETHERSCAN_TOKEN,
-            optimisticEthereum: process.env.ETHERSCAN_TOKEN,
-            arbitrumOne: process.env.ARBISCAN_TOKEN,
-            avalanche: process.env.ETHERSCAN_TOKEN,
-            opera: process.env.ETHERSCAN_TOKEN,
-            bsc: process.env.BSCSCAN_TOKEN,
+            mainnet: process.env.ETHERSCAN_TOKEN || '',
+            ropsten: process.env.ETHERSCAN_TOKEN || '',
+            kovan: process.env.ETHERSCAN_TOKEN || '',
+            optimisticEthereum: process.env.ETHERSCAN_TOKEN || '',
+            arbitrumOne: process.env.ARBISCAN_TOKEN || '',
+            avalanche: process.env.ETHERSCAN_TOKEN || '',
+            opera: process.env.ETHERSCAN_TOKEN || '',
+            bsc: process.env.BSCSCAN_TOKEN || '',
         },
     },
     sourcify: {
-        // Disabled by default
-        // Doesn't need an API key
         enabled: true,
     },
     solidity: {
@@ -106,4 +106,6 @@ module.exports = {
             },
         ],
     },
-};
+}
+
+export default config
