@@ -15,7 +15,7 @@
     "@openzeppelin/contracts-upgradeable": "4.2.0"
   },
   "devDependencies": {
-    "@layerzerolabs/typescript-config-next": "3.0.6",
+    "@layerzerolabs/typescript-config-next": "~2.3.25",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@nomicfoundation/hardhat-verify": "^1.0.1",
@@ -26,8 +26,8 @@
     "hardhat-deploy": "^0.12.2",
     "hardhat-deploy-ethers": "^0.3.0-beta.13",
     "hardhat-gas-reporter": "^1.0.9",
-    "solidity-coverage": "^0.8.2",
-    "typechain": "^8.2.0"
+    "solidity-coverage": "^0.8.12",
+    "typechain": "~8.3.2"
   },
   "engines": {
     "node": ">=16.0.0",
