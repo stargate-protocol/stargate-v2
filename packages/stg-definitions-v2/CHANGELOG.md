@@ -1,5 +1,18 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.2.1
+
+### Patch Changes
+
+- 005f00c: Specify confirmation for Credit & Token messaging
+- 7ceef3c: Add coredao mainnet config
+
+## 1.2.0
+
+### Minor Changes
+
+- 9712025: Update Gravity nativeDropAmount to 2
+
 ## 1.1.9
 
 ### Patch Changes

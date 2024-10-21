@@ -1,5 +1,29 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.0.19
+
+### Patch Changes
+
+- 393fde0: Add CoreDAO deployments
+
+## 1.0.18
+
+### Patch Changes
+
+- 005f00c: Specify confirmation for Credit & Token messaging
+- 7ceef3c: Add coredao mainnet config
+- Updated dependencies [005f00c]
+- Updated dependencies [7ceef3c]
+  - @stargatefinance/stg-definitions-v2@1.2.1
+
+## 1.0.17
+
+### Patch Changes
+
+- 62bc1f8: Added README.md for @stargatefinance/stg-evm-sdk-v2 npm package
+- Updated dependencies [9712025]
+  - @stargatefinance/stg-definitions-v2@1.2.0
+
 ## 1.0.16
 
 ### Patch Changes

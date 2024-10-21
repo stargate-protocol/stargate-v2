@@ -85,11 +85,13 @@ const toCreditMessagingEdgeConfig = (
             : undefined,
         ulnConfig: {
             requiredDVNs: fromConfig.requiredDVNs ?? [],
+            confirmations: fromConfig.confirmations,
         },
     },
     receiveConfig: {
         ulnConfig: {
             requiredDVNs: fromConfig.requiredDVNs ?? [],
+            confirmations: fromConfig.confirmations,
         },
     },
 })
@@ -140,11 +142,13 @@ const toTokenMessagingEdgeConfig = (
             : undefined,
         ulnConfig: {
             requiredDVNs: fromConfig.requiredDVNs ?? [],
+            confirmations: fromConfig.confirmations,
         },
     },
     receiveConfig: {
         ulnConfig: {
             requiredDVNs: fromConfig.requiredDVNs ?? [],
+            confirmations: fromConfig.confirmations,
         },
     },
 })

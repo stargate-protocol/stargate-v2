@@ -197,6 +197,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'coredao-mainnet': {
+        eid: EndpointId.COREDAO_V2_MAINNET,
+        url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'ebi-mainnet': {
         eid: EndpointId.EBI_V2_MAINNET,
         url: process.env.RPC_URL_EBI_MAINNET || 'https://rpc.ebi.xyz',
