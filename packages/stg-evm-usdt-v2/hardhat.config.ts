@@ -6,7 +6,7 @@ import 'dotenv/config'
 import 'hardhat-deploy'
 
 const accounts = {
-    mnemonic: process.env.MNEMONIC || '',
+    mnemonic: process.env.MNEMONIC,
 }
 
 const config: HardhatUserConfig = {
@@ -20,12 +20,12 @@ const config: HardhatUserConfig = {
         bob: {
             default: 2,
         },
-        carrot: {
+        carol: {
             default: 3,
         },
     },
     networks: {
-        'celo-mainnet': {
+        celo: {
             url: 'https://forno.celo.org',
             accounts,
             chainId: 42220,
@@ -33,7 +33,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        'celo-testnet': {
+        alfajores: {
             url: 'https://alfajores-forno.celo-testnet.org',
             accounts,
             chainId: 44787,
@@ -41,7 +41,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        'kava-mainnet': {
+        kava: {
             url: 'https://rpc.ankr.com/kava_evm',
             accounts,
             chainId: 2222,
@@ -49,7 +49,12 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        'ethereum-mainnet': {
+        avalanche: {
+            url: 'https://avalanche.public-rpc.com',
+            chainId: 43114,
+            accounts,
+        },
+        mainnet: {
             url: process.env.ETHEREUM_RPC_URL || `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
             accounts,
             chainId: 1,
@@ -57,7 +62,7 @@ const config: HardhatUserConfig = {
             live: true,
             tags: ['prod'],
         },
-        'sepolia-testnet': {
+        sepolia: {
             url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://ethereum-sepolia-rpc.publicnode.com',
             accounts,
             chainId: 11155111,
@@ -75,6 +80,9 @@ const config: HardhatUserConfig = {
             opera: process.env.ETHERSCAN_TOKEN || '',
             bsc: process.env.BSCSCAN_TOKEN || '',
         },
+    },
+    sourcify: {
+        enabled: true,
     },
     solidity: {
         compilers: [
