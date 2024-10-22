@@ -57,6 +57,7 @@ export enum RewardTokenName {
     AURORA = 'AURORA',
     SEI = 'SEI',
     CORE = 'CORE',
+    LL = 'LL',
 }
 
 export type RewardsConfig = Record<RewardTokenName, RewardsTokenConfig>
