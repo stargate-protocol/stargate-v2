@@ -724,13 +724,13 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
-    [RewardTokenName.LL]: {
-        name: 'LL',
+    [RewardTokenName.LLE]: {
+        name: 'LLE',
         networks: {
             //
             // Mainnet
             [EndpointId.LIGHTLINK_V2_MAINNET]: {
-                // TODO add new LL token address                address: '0x...',
+                address: '0xd9d7123552fA2bEdB2348bB562576D67f6E8e96E',
             },
         },
     },

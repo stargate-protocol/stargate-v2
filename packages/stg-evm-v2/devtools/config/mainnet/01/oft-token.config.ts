@@ -22,6 +22,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const gravityUSDT = onGravity(usdtContractTemplate)
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
+    const lightlinkUSDT = onLightlink(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
@@ -49,6 +50,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
+    const lightlinkETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.LIGHTLINK_V2_MAINNET, TokenName.ETH)
+    )
+    const lightlinkETH = onLightlink({ contractName: lightlinkETHContractName })
+
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
     const seiETH = onSei({ contractName: seiETHContractName })
 
@@ -68,6 +75,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
+    const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
@@ -155,6 +166,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
                     minters: {
                         [klaytnAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: lightlinkETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    minters: {
+                        [lightlinkAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: lightlinkUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    minters: {
+                        [lightlinkAssetAddresses.USDT]: true,
                     },
                 },
             },
