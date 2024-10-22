@@ -76,9 +76,6 @@ const config: HardhatUserConfig = {
             bsc: process.env.BSCSCAN_TOKEN || '',
         },
     },
-    sourcify: {
-        enabled: true,
-    },
     solidity: {
         compilers: [
             {
