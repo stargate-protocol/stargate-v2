@@ -25,6 +25,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
+    const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
     const metisPoint = getAssetPoint(EndpointId.METIS_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
@@ -40,6 +41,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const gravityContract = await getAssetNode(gravityPoint)
     const iotaContract = await getAssetNode(iotaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
+    const lightlinkContract = await getAssetNode(lightlinkPoint)
     const mantleContract = await getAssetNode(mantlePoint)
     const metisContract = await getAssetNode(metisPoint)
     const optContract = await getAssetNode(optPoint)
@@ -56,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             gravityContract,
             iotaContract,
             klaytnContract,
+            lightlinkContract,
             mantleContract,
             metisContract,
             optContract,
@@ -71,6 +74,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             flarePoint,
             gravityPoint,
             klaytnPoint,
+            lightlinkPoint,
             mantlePoint,
             metisPoint,
             optPoint,
