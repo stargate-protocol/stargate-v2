@@ -6,7 +6,7 @@ import 'dotenv/config'
 import 'hardhat-deploy'
 
 const accounts = {
-    mnemonic: process.env.MNEMONIC,
+    mnemonic: process.env.MNEMONIC || '',
 }
 
 const config: HardhatUserConfig = {
