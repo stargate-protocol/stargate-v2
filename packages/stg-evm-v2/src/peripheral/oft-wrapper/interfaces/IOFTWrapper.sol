@@ -62,7 +62,7 @@ interface IOFTWrapper {
         uint256 amountReceivedLD;
         uint256 srcAmountMin;
         uint256 srcAmountMax;
-        uint256 confirmations;
+        uint64 confirmations;
         QuoteFee[] fees;
     }
 

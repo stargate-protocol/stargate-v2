@@ -7,11 +7,12 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { IERC20Metadata } from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/IOFTV2.sol";
+import { OFTCore } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/OFTCore.sol";
 import { OFTCoreV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/OFTCoreV2.sol";
-import { BaseOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/BaseOFTV2.sol";
 import { IOFTWithFee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/IOFTWithFee.sol";
 import { Fee } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/fee/Fee.sol";
 import { IOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v1/interfaces/IOFT.sol";
+import { ILayerZeroEndpoint } from "@layerzerolabs/solidity-examples/contracts/lzApp/interfaces/ILayerZeroEndpoint.sol";
 import { IOFTWrapper } from "./interfaces/IOFTWrapper.sol";
 import { INativeOFT } from "./interfaces/INativeOFT.sol";
 import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2, OFTLimit, OFTFeeDetail, OFTReceipt, MessagingFee } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
@@ -19,7 +20,6 @@ import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/lib
 import { IOAppCore } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppCore.sol";
 import { IMessageLib } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLib.sol";
 import { UlnConfig } from "@layerzerolabs/lz-evm-messagelib-v2/contracts/uln/UlnBase.sol";
-import { console } from "hardhat/console.sol";
 
 contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     using OptionsBuilder for bytes;
@@ -32,6 +32,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
     string public constant NATIVE_FEE_NAME = "nativeFee";
     string public constant WRAPPER_FEE_NAME = "wrapperFee";
     string public constant CALLER_FEE_NAME = "callerFee";
+    uint8 public constant CONFIG_TYPE_OUTBOUND_BLOCK_CONFIRMATIONS = 5;
+    uint8 public constant CONFIG_TYPE_ULN_CONFIG = 2;
 
     uint256 public defaultBps;
     mapping(address => uint256) public oftBps;
@@ -517,6 +519,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             quoteResult = _quoteEpv1FeeOFTv2(quoteOFTInput);
         } else if (_input.version == OFTVersion.Epv2OFT) {
             quoteResult = _quoteEpv2OFT(quoteOFTInput);
+        } else {
+            revert("Unsupported OFT version");
         }
 
         return quoteResult;
@@ -542,6 +546,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             bytes("")
         );
         quoteResult.fees[2] = QuoteFee({ fee: NATIVE_FEE_NAME, amount: int256(nativeFee), token: _input.token });
+
+        quoteResult.confirmations = _getConfirmationsEpv1(_input);
 
         return quoteResult;
     }
@@ -570,6 +576,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
             bytes("")
         );
         quoteResult.fees[2] = QuoteFee({ fee: NATIVE_FEE_NAME, amount: int256(nativeFee), token: _input.token });
+
+        quoteResult.confirmations = _getConfirmationsEpv1(_input);
 
         return quoteResult;
     }
@@ -603,6 +611,8 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         );
         quoteResult.fees[3] = QuoteFee({ fee: NATIVE_FEE_NAME, amount: int256(nativeFee), token: _input.token });
 
+        quoteResult.confirmations = _getConfirmationsEpv1(_input);
+
         return quoteResult;
     }
 
@@ -612,35 +622,40 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         quoteResult = _getOftLimitsAndReceiptsForEpv2(_input);
         int256 wrapperAndCallersFees = quoteResult.fees[0].amount + quoteResult.fees[1].amount;
 
-        {
-            MessagingFee memory messagingFee = IOFTEpv2(_input.token).quoteSend(
-                SendParamEpv2({
-                    dstEid: _input.dstEid,
-                    to: _input.toAddress,
-                    amountLD: quoteResult.srcAmount - uint256(wrapperAndCallersFees),
-                    minAmountLD: _input.minAmountLD,
-                    extraOptions: _input.extraOptions,
-                    composeMsg: bytes(""),
-                    oftCmd: bytes("")
-                }),
-                false
-            );
-            quoteResult.fees[2] = QuoteFee({
-                fee: NATIVE_FEE_NAME,
-                amount: int256(messagingFee.nativeFee),
-                token: _input.token
-            });
-        }
+        require(quoteResult.srcAmount >= uint256(wrapperAndCallersFees), "Insufficient srcAmount for fee deduction");
+        uint256 amountAfterFees = quoteResult.srcAmount - uint256(wrapperAndCallersFees);
 
-        {
-            bytes memory rawConfig = IMessageLib(
-                IOAppCore(_input.token).endpoint().getSendLibrary(_input.token, _input.dstEid)
-            ).getConfig(_input.dstEid, _input.token, 2);
-            UlnConfig memory ulnConfig = abi.decode(rawConfig, (UlnConfig));
-            quoteResult.confirmations = ulnConfig.confirmations;
-        }
+        MessagingFee memory messagingFee = IOFTEpv2(_input.token).quoteSend(
+            SendParamEpv2({
+                dstEid: _input.dstEid,
+                to: _input.toAddress,
+                amountLD: amountAfterFees,
+                minAmountLD: _input.minAmountLD,
+                extraOptions: _input.extraOptions,
+                composeMsg: bytes(""),
+                oftCmd: bytes("")
+            }),
+            false
+        );
+        quoteResult.fees[2] = QuoteFee({
+            fee: NATIVE_FEE_NAME,
+            amount: int256(messagingFee.nativeFee),
+            token: _input.token
+        });
+
+        quoteResult.confirmations = _getConfirmationsEpv2(_input);
 
         return quoteResult;
+    }
+
+    function _getConfirmationsEpv2(QuoteOFTInput memory _input) internal view returns (uint64) {
+        bytes memory rawConfig = IMessageLib(
+            IOAppCore(_input.token).endpoint().getSendLibrary(_input.token, _input.dstEid)
+        ).getConfig(_input.dstEid, _input.token, CONFIG_TYPE_ULN_CONFIG);
+
+        UlnConfig memory ulnConfig = abi.decode(rawConfig, (UlnConfig));
+
+        return ulnConfig.confirmations;
     }
 
     function _getOftLimitsAndReceiptsForEpv2(QuoteOFTInput memory _input) internal view returns (QuoteResult memory) {
@@ -722,5 +737,28 @@ contract OFTWrapper is IOFTWrapper, Ownable, ReentrancyGuard {
         callerFee = QuoteFee({ fee: CALLER_FEE_NAME, amount: int256(callerFeeAmount), token: _input.token });
 
         return (wrapperFee, callerFee, amountAfterFees);
+    }
+
+    function _getConfirmationsEpv1(QuoteOFTInput memory _input) internal view returns (uint64) {
+        ILayerZeroEndpoint lzEndpoint;
+
+        if (_input.version == OFTVersion.Epv1OFTv1) {
+            lzEndpoint = ILayerZeroEndpoint(OFTCore(_input.token).lzEndpoint());
+        } else if (_input.version == OFTVersion.Epv1OFTv2 || _input.version == OFTVersion.Epv1FeeOFTv2) {
+            lzEndpoint = ILayerZeroEndpoint(OFTCoreV2(_input.token).lzEndpoint());
+        } else {
+            revert("Unsupported OFT version");
+        }
+
+        uint16 version = lzEndpoint.getSendVersion(_input.token);
+        bytes memory result = lzEndpoint.getConfig(
+            version,
+            _input.dstEid,
+            _input.token,
+            CONFIG_TYPE_OUTBOUND_BLOCK_CONFIRMATIONS
+        );
+        uint64 outboundBlockConfirmations = abi.decode(result, (uint64));
+
+        return outboundBlockConfirmations;
     }
 }
