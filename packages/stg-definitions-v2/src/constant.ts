@@ -1058,7 +1058,18 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xfa6D0b19CE28656079D822f6BBE3714ab1FDd44b',
             safeUrl: 'https://lightlink-tx.lzdevnet.org/',
-            //TODO: Add contractNetworks
+            contractNetworks: {
+                [1890]: {
+                    multiSendAddress: '0x84CDeb280870b531660087f347B2001775C9Ee0F',
+                    multiSendCallOnlyAddress: '0xcE521F12AB380D9a5526410A66932F28f73Cc19B',
+                    safeMasterCopyAddress: '0x1924A4c1C8C9e683E29f62737CfDFB933df1bE73',
+                    safeProxyFactoryAddress: '0xedB7D71C889E00CDcC3838c72CAE8Fb2C46022c1',
+                    fallbackHandlerAddress: '0x68cf966a4a97aD9604e314734260f82D3A9Be44D',
+                    createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
+                    signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
+                    simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
+                },
+            },
         },
     },
     [EndpointId.MANTA_V2_MAINNET]: {
