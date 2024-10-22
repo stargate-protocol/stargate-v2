@@ -32,6 +32,7 @@ export const DVNS = {
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.KAVA_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
+        [EndpointId.LIGHTLINK_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
@@ -77,7 +78,8 @@ export const DVNS = {
         [EndpointId.IOTA_V2_MAINNET]: '0xf18a7d86917653725afb7c215e47a24f9d784718',
         [EndpointId.KAVA_V2_MAINNET]: '0x9cbaf815ed62ef45c59e9f2cb05106babb4d31d3',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x17720e3f361dcc2f70871a2ce3ac51b0eaa5c2e4',
-        [EndpointId.MANTLE_V2_MAINNET]: '0xfe809470016196573d64a8d17a745bebea4ecc41',
+        [EndpointId.MANTLE_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
+        [EndpointId.LIGHTLINK_V2_MAINNET]: '0x0e95cf21ad9376a26997c97f326c5a0a267bb8ff',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
@@ -109,6 +111,7 @@ export const EXECUTORS = {
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.KAVA_V2_MAINNET]: '0x41ED8065dd9bC6c0caF21c39766eDCBA0F21851c',
         [EndpointId.KLAYTN_V2_MAINNET]: '0xe149187a987F129FD3d397ED04a60b0b89D1669f',
+        [EndpointId.LIGHTLINK_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
@@ -179,6 +182,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
+            },
+            [EndpointId.LIGHTLINK_V2_MAINNET]: {
+                type: StargateType.Native,
             },
             [EndpointId.MANTLE_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -283,6 +289,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x919C1c267BC06a7039e03fcc2eF738525769109c',
             },
             [EndpointId.KLAYTN_V2_MAINNET]: {
+                type: StargateType.Oft,
+            },
+            [EndpointId.LIGHTLINK_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
             [EndpointId.MANTLE_V2_MAINNET]: {
@@ -400,6 +409,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'USDC.e',
             },
             [EndpointId.KLAYTN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                name: 'Bridged USDC (Stargate)',
+                symbol: 'USDC.e',
+            },
+            [EndpointId.LIGHTLINK_V2_MAINNET]: {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
@@ -541,6 +555,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.IOTA_V2_MAINNET]: {},
         [EndpointId.KAVA_V2_MAINNET]: {},
         [EndpointId.KLAYTN_V2_MAINNET]: {},
+        [EndpointId.LIGHTLINK_V2_MAINNET]: {},
         [EndpointId.MANTA_V2_MAINNET]: {},
         [EndpointId.MANTLE_V2_MAINNET]: {},
         [EndpointId.METIS_V2_MAINNET]: {},
@@ -709,6 +724,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.LL]: {
+        name: 'LL',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.LIGHTLINK_V2_MAINNET]: {
+                // TODO add new LL token address                address: '0x...',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
@@ -735,8 +760,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ASTAR_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
-            safeUrl:
-                'https://astar-tx.lzdevnet.org/',
+            safeUrl: 'https://astar-tx.lzdevnet.org/',
         },
     },
     [EndpointId.AURORA_V2_MAINNET]: {
@@ -883,8 +907,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ETHERLINK_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
-            safeUrl:
-                'https://etherlink-tx.lzdevnet.org/',
+            safeUrl: 'https://etherlink-tx.lzdevnet.org/',
         },
     },
     [EndpointId.FANTOM_V2_MAINNET]: {
@@ -925,8 +948,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.FRAXTAL_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90',
-            safeUrl:
-                'https://fraxtal-tx.lzdevnet.org/',
+            safeUrl: 'https://fraxtal-tx.lzdevnet.org/',
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {
@@ -1021,6 +1043,24 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://klaytn-tx.lzdevnet.org/',
         },
     },
+    [EndpointId.LIGHTLINK_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET], DVNS.STG[EndpointId.LIGHTLINK_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET], DVNS.STG[EndpointId.LIGHTLINK_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0001').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xfa6D0b19CE28656079D822f6BBE3714ab1FDd44b',
+            safeUrl: 'https://lightlink-tx.lzdevnet.org/',
+            //TODO: Add contractNetworks
+        },
+    },
     [EndpointId.MANTA_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
@@ -1071,22 +1111,19 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MOONBEAM_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
-            safeUrl:
-                'https://moonbeam-tx.lzdevnet.org/',
+            safeUrl: 'https://moonbeam-tx.lzdevnet.org/',
         },
     },
     [EndpointId.MOONRIVER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
-            safeUrl:
-                'https://moonriver-tx.lzdevnet.org/',
+            safeUrl: 'https://moonriver-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPBNB_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
-            safeUrl:
-                'https://opbnb-tx.lzdevnet.org/',
+            safeUrl: 'https://opbnb-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
@@ -1174,8 +1211,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.SHIMMER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
-            safeUrl:
-                'https://shimmer-tx.lzdevnet.org/',
+            safeUrl: 'https://shimmer-tx.lzdevnet.org/',
         },
     },
     [EndpointId.SEI_V2_MAINNET]: {
@@ -1268,8 +1304,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKATANA_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl:
-                'https://zkatana-tx.lzdevnet.org/',
+            safeUrl: 'https://zkatana-tx.lzdevnet.org/',
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
@@ -1304,8 +1339,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKSYNC_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',
-            safeUrl:
-                'https://safe-transaction-zksync.safe.global/',
+            safeUrl: 'https://safe-transaction-zksync.safe.global/',
         },
     },
 
