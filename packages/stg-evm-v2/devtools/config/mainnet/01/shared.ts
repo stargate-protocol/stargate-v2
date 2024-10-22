@@ -60,6 +60,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.mETH,
@@ -160,6 +165,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [klaytnAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [klaytnAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.LIGHTLINK_V2_MAINNET]: {
+            [lightlinkAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [lightlinkAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [lightlinkAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.MANTLE_V2_MAINNET]: {
             [mantleAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [mantleAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -238,6 +248,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.mETH,
     ] as const)
     const kavaLPTokenAddresses = await getLPTokenAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
+    const lightlinkLPTokenAddresses = await getLPTokenAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
+        TokenName.ETH,
+    ] as const)
     const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.mETH,
@@ -302,6 +315,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [TokenName.USDT]: kavaLPTokenAddresses.USDT,
+        },
+        [EndpointId.LIGHTLINK_V2_MAINNET]: {
+            [TokenName.ETH]: lightlinkLPTokenAddresses.ETH,
         },
         [EndpointId.MANTLE_V2_MAINNET]: {
             [TokenName.ETH]: mantleLPTokenAddresses.ETH,

@@ -5,7 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onRarible, onTaiko, onXchain } from '../utils'
+import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
@@ -15,6 +15,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const gravityUSDC = onGravity(proxyContract)
     const iotaUSDC = onIota(proxyContract)
     const klaytnUSDC = onKlaytn(proxyContract)
+    const lightlinkUSDC = onLightlink(proxyContract)
     const raribleUSDC = onRarible(proxyContract)
     const taikoUSDC = onTaiko(proxyContract)
     const xchainUSDC = onXchain(proxyContract)
@@ -23,6 +24,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
+    const lightlinkStargateMultisig = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const xchainStargateMultisig = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
@@ -51,6 +53,12 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                 contract: klaytnUSDC,
                 config: {
                     admin: klaytnStargateMultisig,
+                },
+            },
+            {
+                contract: lightlinkUSDC,
+                config: {
+                    admin: lightlinkStargateMultisig,
                 },
             },
             {

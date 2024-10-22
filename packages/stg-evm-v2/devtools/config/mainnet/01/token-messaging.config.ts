@@ -18,6 +18,7 @@ import {
     onIota,
     onKava,
     onKlaytn,
+    onLightlink,
     onMantle,
     onMetis,
     onOpt,
@@ -52,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const iotaTokenMsging = onIota(contract)
     const kavaTokenMsging = onKava(contract)
     const klaytnTokenMsging = onKlaytn(contract)
+    const lightlinkTokenMsging = onLightlink(contract)
     const mantleTokenMsging = onMantle(contract)
     const metisTokenMsging = onMetis(contract)
     const optTokenMsging = onOpt(contract)
@@ -183,6 +185,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: lightlinkTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.LIGHTLINK_V2_MAINNET],
+                },
+            },
+            {
                 contract: mantleTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
@@ -287,6 +298,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             iotaTokenMsging,
             kavaTokenMsging,
             klaytnTokenMsging,
+            lightlinkTokenMsging,
             mantleTokenMsging,
             metisTokenMsging,
             optTokenMsging,
