@@ -17,5 +17,5 @@ export default defineConfig({
     esbuildOptions: (options) => {
         options.tsconfig = './tsconfig.json'
     },
-    external: ['dotenv/config', 'ethers', '@nomiclabs/hardhat-ethers'],
+    external: ['dotenv/config'], // Marking dotenv as external
 })

@@ -293,8 +293,11 @@ importers:
         specifier: ^3.1.7
         version: 3.1.8(hardhat@2.22.14)
       '@openzeppelin/hardhat-upgrades':
-        specifier: ^1.27.0
+        specifier: ^1.28.0
         version: 1.28.0(@nomiclabs/hardhat-ethers@2.2.3)(@nomiclabs/hardhat-etherscan@3.1.8)(ethers@5.7.2)(hardhat@2.22.14)
+      '@types/mocha':
+        specifier: ~10.0.7
+        version: 10.0.7
       chai:
         specifier: ^4.3.7
         version: 4.4.1
@@ -316,6 +319,9 @@ importers:
       solidity-coverage:
         specifier: ^0.8.12
         version: 0.8.12(hardhat@2.22.14)
+      tsup:
+        specifier: ^8.0.1
+        version: 8.0.2(ts-node@10.9.2)(typescript@5.6.3)
       typechain:
         specifier: ~8.3.2
         version: 8.3.2(typescript@5.6.3)
@@ -8474,7 +8480,7 @@ packages:
       array-union: 2.1.0
       dir-glob: 3.0.1
       fast-glob: 3.3.2
-      ignore: 5.3.1
+      ignore: 5.3.2
       merge2: 1.4.1
       slash: 3.0.0
     dev: true
