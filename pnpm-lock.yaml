@@ -271,6 +271,9 @@ importers:
       '@layerzerolabs/typescript-config-next':
         specifier: ~2.3.25
         version: 2.3.25
+      '@nomicfoundation/hardhat-chai-matchers':
+        specifier: ^1.0.6
+        version: 1.0.6(@nomiclabs/hardhat-ethers@2.2.3)(chai@4.4.1)(ethers@5.7.2)(hardhat@2.22.6)
       '@nomicfoundation/hardhat-network-helpers':
         specifier: ^1.0.8
         version: 1.0.12(hardhat@2.22.6)
@@ -280,6 +283,9 @@ importers:
       '@nomicfoundation/hardhat-verify':
         specifier: ^1.0.1
         version: 1.1.1(hardhat@2.22.6)
+      '@nomiclabs/hardhat-ethers':
+        specifier: ^2.2.3
+        version: 2.2.3(ethers@5.7.2)(hardhat@2.22.6)
       '@nomiclabs/hardhat-etherscan':
         specifier: ^3.1.7
         version: 3.1.8(hardhat@2.22.6)
@@ -289,6 +295,9 @@ importers:
       chai:
         specifier: ^4.3.7
         version: 4.4.1
+      ethereumjs-util:
+        specifier: ^7.1.5
+        version: 7.1.5
       hardhat:
         specifier: ^2.16.0
         version: 2.22.6(ts-node@10.9.2)(typescript@5.5.3)
