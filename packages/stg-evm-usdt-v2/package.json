@@ -5,7 +5,7 @@
   "keywords": [],
   "license": "ISC",
   "author": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "$npm_execpath tsup --clean",
     "compile": "hardhat compile",
