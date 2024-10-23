@@ -37,6 +37,10 @@ jobs:
           RPC_URL_ETHEREUM_MAINNET: ${{ secrets.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth' }}
 
   profile-gas:
+    #
+    # Disabled because we don't like it
+    #
+    if: false
     name: Profile gas
     runs-on: ubuntu-latest-4xlarge
     steps:
@@ -83,6 +87,10 @@ jobs:
             ${{ steps.profile-gas.outputs.gas-report }}
 
   diff-gas:
+    #
+    # Disabled because we don't like it
+    #
+    if: false
     name: Diff gas
     runs-on: ubuntu-latest-4xlarge
     steps:
