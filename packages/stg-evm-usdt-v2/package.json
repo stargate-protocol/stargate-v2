@@ -6,6 +6,10 @@
   "license": "ISC",
   "author": "",
   "main": "index.ts",
+  "files": [
+    "index.ts",
+    ".openzeppelin/*"
+  ],
   "scripts": {
     "build": "$npm_execpath tsup --clean",
     "compile": "hardhat compile",
