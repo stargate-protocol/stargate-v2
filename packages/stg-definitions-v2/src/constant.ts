@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from 'fs'
+import { join } from 'path'
+
 import { parseEther } from '@ethersproject/units'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
@@ -13,6 +16,31 @@ import {
     TokenMessagingNetworkConfig,
     TokenName,
 } from './types'
+
+const usdtEvmPath = require.resolve('@stargatefinance/usdt-evm')
+
+// Construct the path to deployment file, for example sepolia.json
+const usdtJsonPath = join(usdtEvmPath, '..', '.openzeppelin', 'sepolia.json') // TODO replace sepolia with the actual network name
+
+let usdtProxyAddress
+
+if (existsSync(usdtJsonPath)) {
+    try {
+        const usdtData = JSON.parse(readFileSync(usdtJsonPath, 'utf-8'))
+
+        // Check if proxies exist and fetch the latest one
+        if (usdtData.proxies && usdtData.proxies.length > 0) {
+            const lastProxy = usdtData.proxies[usdtData.proxies.length - 1]
+            usdtProxyAddress = lastProxy.address ?? ''
+        } else {
+            console.log(`No proxies found in ${usdtJsonPath}`)
+        }
+    } catch (error) {
+        console.error(`Error reading or parsing ${usdtJsonPath}: ${error}`)
+    }
+} else {
+    console.error(`${usdtJsonPath} does not exist`)
+}
 
 export const DVNS = {
     //
@@ -246,6 +274,16 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
+
+            /**
+             * Example USDT configuration
+             * 
+             * EndpointId.SOME_MAINNET]: {
+                type: StargateType.Pool,
+                address: usdtProxyAddress,
+            },
+             */
+
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
@@ -735,8 +773,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ASTAR_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
-            safeUrl:
-                'https://astar-tx.lzdevnet.org/',
+            safeUrl: 'https://astar-tx.lzdevnet.org/',
         },
     },
     [EndpointId.AURORA_V2_MAINNET]: {
@@ -883,8 +920,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ETHERLINK_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
-            safeUrl:
-                'https://etherlink-tx.lzdevnet.org/',
+            safeUrl: 'https://etherlink-tx.lzdevnet.org/',
         },
     },
     [EndpointId.FANTOM_V2_MAINNET]: {
@@ -925,8 +961,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.FRAXTAL_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90',
-            safeUrl:
-                'https://fraxtal-tx.lzdevnet.org/',
+            safeUrl: 'https://fraxtal-tx.lzdevnet.org/',
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {
@@ -1071,22 +1106,19 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MOONBEAM_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
-            safeUrl:
-                'https://moonbeam-tx.lzdevnet.org/',
+            safeUrl: 'https://moonbeam-tx.lzdevnet.org/',
         },
     },
     [EndpointId.MOONRIVER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
-            safeUrl:
-                'https://moonriver-tx.lzdevnet.org/',
+            safeUrl: 'https://moonriver-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPBNB_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
-            safeUrl:
-                'https://opbnb-tx.lzdevnet.org/',
+            safeUrl: 'https://opbnb-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
@@ -1174,8 +1206,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.SHIMMER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
-            safeUrl:
-                'https://shimmer-tx.lzdevnet.org/',
+            safeUrl: 'https://shimmer-tx.lzdevnet.org/',
         },
     },
     [EndpointId.SEI_V2_MAINNET]: {
@@ -1268,8 +1299,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKATANA_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl:
-                'https://zkatana-tx.lzdevnet.org/',
+            safeUrl: 'https://zkatana-tx.lzdevnet.org/',
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
@@ -1304,8 +1334,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKSYNC_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',
-            safeUrl:
-                'https://safe-transaction-zksync.safe.global/',
+            safeUrl: 'https://safe-transaction-zksync.safe.global/',
         },
     },
 
