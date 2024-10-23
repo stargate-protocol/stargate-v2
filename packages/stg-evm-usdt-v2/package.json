@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.2.0",
-    "@openzeppelin/contracts-upgradeable": "4.2.0"
+    "@openzeppelin/contracts-upgradeable": "4.2.0",
+    "ethers": "^5.7.2"
   },
   "devDependencies": {
     "@layerzerolabs/typescript-config-next": "~2.3.25",
