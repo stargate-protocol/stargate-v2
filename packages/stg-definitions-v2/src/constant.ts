@@ -1,9 +1,8 @@
-import { existsSync } from 'fs'
-import { join } from 'path'
-
 import { parseEther } from '@ethersproject/units'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
+
+// import { getUSDTAddress } from '../src/utils'
 
 import {
     type AssetConfig,
@@ -17,30 +16,9 @@ import {
     TokenName,
 } from './types'
 
-const usdtEvmPath = require.resolve('@stargatefinance/usdt-evm')
+// const sepoliaUSDTProxyAddress = getUSDTAddress(sepolia) // TODO error, thinks its not a function
 
-// Construct the path to deployment file, for example sepolia.json
-const usdtJsonPath = join(usdtEvmPath, '..', '.openzeppelin', 'sepolia.json') // Replace sepolia with the actual network name
-
-let usdtProxyAddress
-
-if (existsSync(usdtJsonPath)) {
-    try {
-        const usdtData = require(usdtJsonPath)
-
-        // Check if proxies exist and fetch the latest one
-        if (usdtData.proxies && usdtData.proxies.length > 0) {
-            const lastProxy = usdtData.proxies[usdtData.proxies.length - 1]
-            usdtProxyAddress = lastProxy.address ?? ''
-        } else {
-            console.log(`No proxies found in ${usdtJsonPath}`)
-        }
-    } catch (error) {
-        console.error(`Error loading ${usdtJsonPath}: ${error}`)
-    }
-} else {
-    console.error(`${usdtJsonPath} does not exist`)
-}
+// console.log('ravina sepoliaUSDTProxyAddress', sepoliaUSDTProxyAddress)
 
 export const DVNS = {
     //
@@ -284,9 +262,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             /**
              * Example USDT configuration
              * 
-             * EndpointId.SOME_MAINNET]: {
+             * EndpointId.SEPOLIA_V2_TESTNET]: {
                 type: StargateType.Pool,
-                address: usdtProxyAddress,
+                address: sepoliaUSDTProxyAddress,
             },
              */
 

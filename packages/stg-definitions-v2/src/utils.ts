@@ -24,3 +24,18 @@ export const getNetworkConfig = (endpointId: EndpointId): NetworkConfig => {
 
     return assert(config, `Missing network config for Endpoint ID ${endpointId}`), config
 }
+
+export const getUSDTAddress = (usdtData: any): string => {
+    try {
+        if (usdtData.proxies && usdtData.proxies.length > 0) {
+            const lastProxy = usdtData.proxies[usdtData.proxies.length - 1]
+            return lastProxy.address ?? ''
+        } else {
+            console.log(`No proxies found in ${JSON.stringify(usdtData)}`)
+        }
+    } catch (error) {
+        console.error(`Error loading data: ${error}`)
+    }
+
+    return ''
+}
