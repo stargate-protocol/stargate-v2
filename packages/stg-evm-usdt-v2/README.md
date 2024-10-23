@@ -26,7 +26,4 @@ To support USDT on Stargate for chains that do not yet have USDT, we must deploy
 3. Rename `.env.example` to `.env` and update the `MNEMONIC` with your actual mnemonic
 4. Run `pnpm hardhat deploy --network <network name in hardhat.config.js>`. For example, `pnpm hardhat deploy --network sepolia-testnet`
 
-Once successfully deployed, the deployment result, including the address of the `proxy`, `impl`, and `admin`, will be stored under the `.openzeppelin` directory.
-
-
-
+Once successfully deployed, the deployment result json, which includes the address of the USDT `proxy`, `impl`, and `admin`, will be stored under the `.openzeppelin` directory. To reference these deployment files in other packages, you must export the newly created file within `packages/stg-evm-usdt-v2/index.ts`. See how `sepolia` is exported for reference.
