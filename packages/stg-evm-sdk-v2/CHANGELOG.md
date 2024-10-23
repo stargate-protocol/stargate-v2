@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.9
+
+### Patch Changes
+
+- 8865894: publish coredao hydra
+
 ## 1.0.8
 
 ### Patch Changes
