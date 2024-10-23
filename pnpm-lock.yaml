@@ -270,6 +270,9 @@ importers:
       '@openzeppelin/contracts-upgradeable':
         specifier: 4.2.0
         version: 4.2.0
+      ethers:
+        specifier: ^5.7.2
+        version: 5.7.2
     devDependencies:
       '@layerzerolabs/typescript-config-next':
         specifier: ~2.3.25
