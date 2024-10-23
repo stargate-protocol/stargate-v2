@@ -15,6 +15,7 @@ import {
     onCoredao,
     onEth,
     onKava,
+    onLightlink,
     onMantle,
     onMetis,
     onOpt,
@@ -58,6 +59,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const kavaRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.KAVA_V2_MAINNET, [
         RewardTokenName.wKAVA,
+    ] as const)
+    const lightlinkRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
+        RewardTokenName.LLE,
     ] as const)
     const mantleRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.MANTLE_V2_MAINNET, [
         RewardTokenName.STG,
@@ -184,6 +188,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     allocations: {
                         [kavaRewardTokenAddresses.wKAVA]: {
                             [lpTokenAddresses[EndpointId.KAVA_V2_MAINNET].USDT]: 10000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onLightlink(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    allocations: {
+                        [lightlinkRewardTokenAddresses.LLE]: {
+                            [lpTokenAddresses[EndpointId.LIGHTLINK_V2_MAINNET].ETH]: 10000,
                         },
                     },
                 },

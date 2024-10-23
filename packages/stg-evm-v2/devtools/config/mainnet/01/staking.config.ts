@@ -18,6 +18,7 @@ import {
     onCoredao,
     onEth,
     onKava,
+    onLightlink,
     onMantle,
     onMetis,
     onOpt,
@@ -45,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const coredaoRewarder = await contractFactory(onCoredao(rewarder))
     const ethRewarder = await contractFactory(onEth(rewarder))
     const kavaRewarder = await contractFactory(onKava(rewarder))
+    const lightlinkRewarder = await contractFactory(onLightlink(rewarder))
     const mantleRewarder = await contractFactory(onMantle(rewarder))
     const metisRewarder = await contractFactory(onMetis(rewarder))
     const optRewarder = await contractFactory(onOpt(rewarder))
@@ -62,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const coredaoStaking = onCoredao(staking)
     const ethStaking = onEth(staking)
     const kavaStaking = onKava(staking)
+    const lightlinkStaking = onLightlink(staking)
     const mantleStaking = onMantle(staking)
     const metisStaking = onMetis(staking)
     const optStaking = onOpt(staking)
@@ -81,6 +84,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const coredaoPool = { rewarder: coredaoRewarder.contract.address }
     const ethPool = { rewarder: ethRewarder.contract.address }
     const kavaPool = { rewarder: kavaRewarder.contract.address }
+    const lightlinkPool = { rewarder: lightlinkRewarder.contract.address }
     const mantlePool = { rewarder: mantleRewarder.contract.address }
     const metisPool = { rewarder: metisRewarder.contract.address }
     const optPool = { rewarder: optRewarder.contract.address }
@@ -218,6 +222,18 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...kavaPool,
                             token: lpTokenAddresses[EndpointId.KAVA_V2_MAINNET].USDT,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: lightlinkStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    pools: [
+                        {
+                            ...lightlinkPool,
+                            token: lpTokenAddresses[EndpointId.LIGHTLINK_V2_MAINNET].ETH,
                         },
                     ],
                 },

@@ -18,6 +18,7 @@ import {
     onIota,
     onKava,
     onKlaytn,
+    onLightlink,
     onMantle,
     onMetis,
     onOpt,
@@ -53,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const iotaCreditMsging = onIota(contract)
     const kavaCreditMsging = onKava(contract)
     const klaytnCreditMsging = onKlaytn(contract)
+    const lightlinkCreditMsging = onLightlink(contract)
     const mantleCreditMsging = onMantle(contract)
     const metisCreditMsging = onMetis(contract)
     const optCreditMsging = onOpt(contract)
@@ -184,6 +186,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: lightlinkCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.LIGHTLINK_V2_MAINNET],
+                },
+            },
+            {
                 contract: mantleCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
@@ -288,6 +299,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             iotaCreditMsging,
             kavaCreditMsging,
             klaytnCreditMsging,
+            lightlinkCreditMsging,
             mantleCreditMsging,
             metisCreditMsging,
             optCreditMsging,
