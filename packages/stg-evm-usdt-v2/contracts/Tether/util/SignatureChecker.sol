@@ -8,15 +8,15 @@
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
+ * 
  * ---------------------------------------------------------------------
- *
+ * 
  * Adapted by Tether.to 2024 for greater flexibility and reusability
  */
 
@@ -39,7 +39,11 @@ library SignatureChecker {
      * @param digest        Keccak-256 hash digest of the signed message
      * @param signature signature byte array associated with hash
      */
-    function isValidSignatureNow(address signer, bytes32 digest, bytes memory signature) internal view returns (bool) {
+    function isValidSignatureNow(
+        address signer,
+        bytes32 digest,
+        bytes memory signature
+    ) internal view returns (bool) {
         if (!isContract(signer)) {
             return ECRecover.recover(digest, signature) == signer;
         }
@@ -62,11 +66,16 @@ library SignatureChecker {
         bytes memory signature
     ) internal view returns (bool) {
         (bool success, bytes memory result) = signer.staticcall(
-            abi.encodeWithSelector(IERC1271.isValidSignature.selector, digest, signature)
+            abi.encodeWithSelector(
+                IERC1271.isValidSignature.selector,
+                digest,
+                signature
+            )
         );
         return (success &&
             result.length >= 32 &&
-            abi.decode(result, (bytes32)) == bytes32(IERC1271.isValidSignature.selector));
+            abi.decode(result, (bytes32)) ==
+            bytes32(IERC1271.isValidSignature.selector));
     }
 
     /**
