@@ -204,6 +204,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'degen-mainnet': {
+        eid: EndpointId.DEGEN_V2_MAINNET,
+        url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'ebi-mainnet': {
         eid: EndpointId.EBI_V2_MAINNET,
         url: process.env.RPC_URL_EBI_MAINNET || 'https://rpc.ebi.xyz',

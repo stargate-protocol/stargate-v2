@@ -11,6 +11,7 @@ import {
     onBase,
     onBsc,
     onCoredao,
+    onDegen,
     onEbi,
     onEth,
     onFlare,
@@ -45,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const baseTokenMsging = onBase(contract)
     const bscTokenMsging = onBsc(contract)
     const coredaoTokenMsging = onCoredao(contract)
+    const degenTokenMsging = onDegen(contract)
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
     const flareTokenMsging = onFlare(contract)
@@ -117,6 +119,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.COREDAO_V2_MAINNET],
+                },
+            },
+            {
+                contract: degenTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.DEGEN_V2_MAINNET],
                 },
             },
             {
@@ -280,6 +291,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             baseTokenMsging,
             bscTokenMsging,
             coredaoTokenMsging,
+            degenTokenMsging,
             ebiTokenMsging,
             ethTokenMsging,
             flareTokenMsging,
