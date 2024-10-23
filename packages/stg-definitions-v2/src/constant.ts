@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'fs'
+import { existsSync } from 'fs'
 import { join } from 'path'
 
 import { parseEther } from '@ethersproject/units'
@@ -20,13 +20,13 @@ import {
 const usdtEvmPath = require.resolve('@stargatefinance/usdt-evm')
 
 // Construct the path to deployment file, for example sepolia.json
-const usdtJsonPath = join(usdtEvmPath, '..', '.openzeppelin', 'sepolia.json') // TODO replace sepolia with the actual network name
+const usdtJsonPath = join(usdtEvmPath, '..', '.openzeppelin', 'sepolia.json') // Replace sepolia with the actual network name
 
 let usdtProxyAddress
 
 if (existsSync(usdtJsonPath)) {
     try {
-        const usdtData = JSON.parse(readFileSync(usdtJsonPath, 'utf-8'))
+        const usdtData = require(usdtJsonPath)
 
         // Check if proxies exist and fetch the latest one
         if (usdtData.proxies && usdtData.proxies.length > 0) {
@@ -36,7 +36,7 @@ if (existsSync(usdtJsonPath)) {
             console.log(`No proxies found in ${usdtJsonPath}`)
         }
     } catch (error) {
-        console.error(`Error reading or parsing ${usdtJsonPath}: ${error}`)
+        console.error(`Error loading ${usdtJsonPath}: ${error}`)
     }
 } else {
     console.error(`${usdtJsonPath} does not exist`)
