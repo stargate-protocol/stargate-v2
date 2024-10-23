@@ -1,5 +1,7 @@
 import { parseEther } from '@ethersproject/units'
 
+// import { sepolia } from '@stargatefinance/usdt-evm' // TODO import USDT deployment json files for relevant networks
+
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 // import { getUSDTAddress } from '../src/utils'
@@ -16,6 +18,7 @@ import {
     TokenName,
 } from './types'
 
+// TODO fetch USDT proxy address for each relevant network
 // const sepoliaUSDTProxyAddress = getUSDTAddress(sepolia) // TODO error, thinks its not a function
 
 // console.log('ravina sepoliaUSDTProxyAddress', sepoliaUSDTProxyAddress)
@@ -260,6 +263,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
 
             /**
+             * TODO Configure network to use USDT proxy address for stargate
              * Example USDT configuration
              * 
              * EndpointId.SEPOLIA_V2_TESTNET]: {
