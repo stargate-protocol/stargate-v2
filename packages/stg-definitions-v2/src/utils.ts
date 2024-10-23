@@ -25,6 +25,7 @@ export const getNetworkConfig = (endpointId: EndpointId): NetworkConfig => {
     return assert(config, `Missing network config for Endpoint ID ${endpointId}`), config
 }
 
+// TODO get exact type for usdtData
 export const getUSDTAddress = (usdtData: any): string => {
     try {
         if (usdtData.proxies && usdtData.proxies.length > 0) {
