@@ -18,13 +18,22 @@ import "./WithBlockedList.sol";
 
 */
 
-contract TetherToken is Initializable, ERC20PermitUpgradeable, OwnableUpgradeable, WithBlockedList {
+contract TetherToken is
+    Initializable,
+    ERC20PermitUpgradeable,
+    OwnableUpgradeable,
+    WithBlockedList
+{
     // Unused variable retained to preserve storage slots across upgrades
     mapping(address => bool) public isTrusted;
 
     uint8 private tetherDecimals;
 
-    function initialize(string memory _name, string memory _symbol, uint8 _decimals) public initializer {
+    function initialize(
+        string memory _name,
+        string memory _symbol,
+        uint8 _decimals
+    ) public initializer {
         tetherDecimals = _decimals;
         __Ownable_init();
         __ERC20_init(_name, _symbol);
@@ -35,9 +44,16 @@ contract TetherToken is Initializable, ERC20PermitUpgradeable, OwnableUpgradeabl
         return tetherDecimals;
     }
 
-    function _beforeTokenTransfer(address from, address to, uint256) internal virtual override {
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256
+    ) internal virtual override {
         require(!isBlocked[from] || msg.sender == owner(), "TetherToken: from is blocked");
-        require(to != address(this), "TetherToken: transfer to the contract address");
+        require( 
+            to != address(this), 
+            "TetherToken: transfer to the contract address" 
+        ); 
     }
 
     function transferFrom(
@@ -48,8 +64,14 @@ contract TetherToken is Initializable, ERC20PermitUpgradeable, OwnableUpgradeabl
         return super.transferFrom(_sender, _recipient, _amount);
     }
 
-    function multiTransfer(address[] calldata _recipients, uint256[] calldata _values) external {
-        require(_recipients.length == _values.length, "TetherToken: multiTransfer mismatch");
+    function multiTransfer (
+        address[] calldata _recipients,
+        uint256[] calldata _values
+    ) external {
+        require(
+            _recipients.length == _values.length,
+            "TetherToken: multiTransfer mismatch"
+        );
         for (uint256 i = 0; i < _recipients.length; i++) {
             transfer(_recipients[i], _values[i]);
         }

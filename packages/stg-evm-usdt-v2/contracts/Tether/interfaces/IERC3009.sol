@@ -8,23 +8,30 @@
  * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
+ * 
  * ---------------------------------------------------------------------
- *
+ * 
  * Adapted by Tether.to 2024 for greater flexibility and reusability
  */
 
 pragma solidity >=0.6.12 <0.9.0;
 interface IERC3009 {
-    event AuthorizationUsed(address indexed authorizer, bytes32 indexed nonce);
 
-    event AuthorizationCanceled(address indexed authorizer, bytes32 indexed nonce);
+    event AuthorizationUsed(
+        address indexed authorizer,
+        bytes32 indexed nonce
+    );
+
+    event AuthorizationCanceled(
+        address indexed authorizer,
+        bytes32 indexed nonce
+    );
 
     /**
      * @notice Returns the state of an authorization
@@ -34,7 +41,10 @@ interface IERC3009 {
      * @param nonce         Nonce of the authorization
      * @return True if the nonce is used
      */
-    function authorizationState(address authorizer, bytes32 nonce) external view returns (bool);
+    function authorizationState(
+        address authorizer,
+        bytes32 nonce
+    ) external view returns (bool);
 
     /**
      * @notice Execute a transfer with a signed authorization
@@ -95,5 +105,12 @@ interface IERC3009 {
      * @param r             r of the signature
      * @param s             s of the signature
      */
-    function cancelAuthorization(address authorizer, bytes32 nonce, uint8 v, bytes32 r, bytes32 s) external;
+    function cancelAuthorization(
+        address authorizer,
+        bytes32 nonce,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external;
+
 }

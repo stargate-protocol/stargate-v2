@@ -4,9 +4,10 @@ pragma solidity 0.8.4;
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 
 contract TestTokenNoReturn is ERC20Upgradeable {
+
     function initialize() public initializer {
-        __ERC20_init("Test Token No Return", "NRT");
-        _mint(msg.sender, 10 ** 27); // 1 billion tokens, 18 decimal places
+      __ERC20_init('Test Token No Return', 'NRT');
+      _mint(msg.sender, 10**27); // 1 billion tokens, 18 decimal places
     }
 
     function decimals() public view virtual override returns (uint8) {
