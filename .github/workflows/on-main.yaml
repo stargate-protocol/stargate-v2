@@ -27,6 +27,10 @@ jobs:
     secrets: inherit
 
   update-gas:
+    #
+    # Disabled because we don't like it
+    #
+    if: false
     name: Update gas
     uses: ./.github/workflows/reusable-gas-snapshot.yaml
     secrets: inherit
