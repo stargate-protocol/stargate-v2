@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from 'fs'
+import { join } from 'path'
+
 import { parseEther } from '@ethersproject/units'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
@@ -13,6 +16,31 @@ import {
     TokenMessagingNetworkConfig,
     TokenName,
 } from './types'
+
+const usdtEvmPath = require.resolve('@stargatefinance/usdt-evm')
+
+// Construct the path to deployment file, for example sepolia.json
+const usdtJsonPath = join(usdtEvmPath, '..', '.openzeppelin', 'sepolia.json') // TODO replace sepolia with the actual network name
+
+let usdtProxyAddress
+
+if (existsSync(usdtJsonPath)) {
+    try {
+        const usdtData = JSON.parse(readFileSync(usdtJsonPath, 'utf-8'))
+
+        // Check if proxies exist and fetch the latest one
+        if (usdtData.proxies && usdtData.proxies.length > 0) {
+            const lastProxy = usdtData.proxies[usdtData.proxies.length - 1]
+            usdtProxyAddress = lastProxy.address ?? ''
+        } else {
+            console.log(`No proxies found in ${usdtJsonPath}`)
+        }
+    } catch (error) {
+        console.error(`Error reading or parsing ${usdtJsonPath}: ${error}`)
+    }
+} else {
+    console.error(`${usdtJsonPath} does not exist`)
+}
 
 export const DVNS = {
     //
@@ -252,6 +280,16 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
+
+            /**
+             * Example USDT configuration
+             * 
+             * EndpointId.SOME_MAINNET]: {
+                type: StargateType.Pool,
+                address: usdtProxyAddress,
+            },
+             */
+
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
