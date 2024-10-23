@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.3
+
+### Patch Changes
+
+- 8865894: publish coredao hydra
+
 ## 1.0.2
 
 ### Patch Changes
