@@ -139,13 +139,13 @@ importers:
         version: 2.1.1(esbuild@0.24.0)
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+        version: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
       tsup:
         specifier: ^8.0.1
-        version: 8.0.2(ts-node@10.9.2)(typescript@5.5.3)
+        version: 8.0.2(ts-node@10.9.2)(typescript@5.6.3)
       typescript:
-        specifier: ~5.5.3
-        version: 5.5.3
+        specifier: ~5.6.3
+        version: 5.6.3
       zod:
         specifier: ~3.22.4
         version: 3.22.5
@@ -178,13 +178,13 @@ importers:
         version: 18.19.31
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+        version: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
       tsup:
         specifier: ^8.0.1
-        version: 8.0.2(ts-node@10.9.2)(typescript@5.5.3)
+        version: 8.0.2(ts-node@10.9.2)(typescript@5.6.3)
       typescript:
-        specifier: ~5.5.3
-        version: 5.5.3
+        specifier: ~5.6.3
+        version: 5.6.3
       zod:
         specifier: ~3.22.4
         version: 3.22.5
@@ -197,7 +197,7 @@ importers:
     devDependencies:
       '@layerzerolabs/tsup-config-next':
         specifier: ~3.0.7
-        version: 3.0.7(ts-node@10.9.2)(typescript@5.5.3)
+        version: 3.0.7(ts-node@10.9.2)(typescript@5.6.3)
       '@layerzerolabs/typescript-config-next':
         specifier: ~3.0.7
         version: 3.0.7
@@ -218,22 +218,22 @@ importers:
         version: 3.2.5
       ts-jest:
         specifier: ^29.1.1
-        version: 29.1.3(@babel/core@7.24.4)(esbuild@0.19.12)(jest@29.7.0)(typescript@5.5.3)
+        version: 29.1.3(@babel/core@7.24.4)(esbuild@0.19.12)(jest@29.7.0)(typescript@5.6.3)
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+        version: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
       tsup:
         specifier: ^8.0.1
-        version: 8.0.2(ts-node@10.9.2)(typescript@5.5.3)
+        version: 8.0.2(ts-node@10.9.2)(typescript@5.6.3)
       typescript:
-        specifier: ~5.5.3
-        version: 5.5.3
+        specifier: ~5.6.3
+        version: 5.6.3
 
   packages/stg-evm-sdk-v2:
     devDependencies:
       '@layerzerolabs/tsup-config-next':
         specifier: ~3.0.7
-        version: 3.0.7(ts-node@10.9.2)(typescript@5.5.3)
+        version: 3.0.7(ts-node@10.9.2)(typescript@5.6.3)
       '@layerzerolabs/typescript-config-next':
         specifier: ~3.0.7
         version: 3.0.7
@@ -251,13 +251,13 @@ importers:
         version: 2.1.1(esbuild@0.24.0)
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+        version: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
       tsup:
         specifier: ^8.0.1
-        version: 8.0.2(ts-node@10.9.2)(typescript@5.5.3)
+        version: 8.0.2(ts-node@10.9.2)(typescript@5.6.3)
       typescript:
-        specifier: ~5.5.3
-        version: 5.5.3
+        specifier: ~5.6.3
+        version: 5.6.3
 
   packages/stg-evm-v2:
     dependencies:
@@ -2492,7 +2492,7 @@ packages:
       '@nomiclabs/hardhat-ethers': 2.2.3(ethers@5.7.2)(hardhat@2.22.14)
       '@safe-global/protocol-kit': 1.3.0(ethers@5.7.2)
       fp-ts: 2.16.9
-      hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.5.3)
+      hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.6.3)
       hardhat-deploy: 0.12.4
       micro-memoize: 4.1.2
       p-memoize: 4.0.4
@@ -3127,22 +3127,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/tsup-config-next@3.0.7(ts-node@10.9.2)(typescript@5.5.3):
-    resolution: {integrity: sha512-nNhkcmyUce2P8i0i2kd5+PutUeXaHQ9aSkYnBn6W9Z4/yoO/hBsAYMUR3FMu2e17bybDIcqWt2EEQmBb3XDHjw==}
-    dependencies:
-      '@chialab/esbuild-plugin-commonjs': 0.17.2
-      esbuild: 0.19.12
-      esbuild-node-externals: 1.15.0(esbuild@0.19.12)
-      tsup: 8.0.2(ts-node@10.9.2)(typescript@5.5.3)
-    transitivePeerDependencies:
-      - '@microsoft/api-extractor'
-      - '@swc/core'
-      - postcss
-      - supports-color
-      - ts-node
-      - typescript
-    dev: true
-
   /@layerzerolabs/tsup-config-next@3.0.7(ts-node@10.9.2)(typescript@5.6.3):
     resolution: {integrity: sha512-nNhkcmyUce2P8i0i2kd5+PutUeXaHQ9aSkYnBn6W9Z4/yoO/hBsAYMUR3FMu2e17bybDIcqWt2EEQmBb3XDHjw==}
     dependencies:
@@ -3277,7 +3261,7 @@ packages:
       '@layerzerolabs/ua-devtools': 0.3.20(@layerzerolabs/devtools@0.3.18)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@3.0.7)(@layerzerolabs/lz-v2-utilities@3.0.7)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
       '@layerzerolabs/ua-devtools-evm': 0.3.15(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.18)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@3.0.7)(@layerzerolabs/lz-v2-utilities@3.0.7)(@layerzerolabs/protocol-devtools-evm@0.3.10)(@layerzerolabs/protocol-devtools@0.3.9)(@layerzerolabs/ua-devtools@0.3.20)(zod@3.22.5)
       ethers: 5.7.2
-      hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.5.3)
+      hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.6.3)
       hardhat-deploy: 0.12.4
       p-memoize: 4.0.4
       typescript: 5.6.3
@@ -4041,7 +4025,7 @@ packages:
       hardhat: ^2.0.0
     dependencies:
       ethers: 5.7.2
-      hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.5.3)
+      hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.6.3)
     dev: true
 
   /@nomiclabs/hardhat-ethers@2.2.3(ethers@5.7.2)(hardhat@2.22.3):
@@ -9288,7 +9272,7 @@ packages:
       hardhat: 2.22.3(ts-node@10.9.2)(typescript@5.6.3)
     dev: true
 
-  /hardhat@2.22.14(ts-node@10.9.2)(typescript@5.5.3):
+  /hardhat@2.22.14(ts-node@10.9.2)(typescript@5.6.3):
     resolution: {integrity: sha512-sD8vHtS9l5QQVHzyPPe3auwZDJyZ0fG3Z9YENVa4oOqVEefCuHcPzdU736rei3zUKTqkX0zPIHkSMHpu02Fq1A==}
     hasBin: true
     peerDependencies:
@@ -9340,9 +9324,9 @@ packages:
       solc: 0.8.26(debug@4.3.7)
       source-map-support: 0.5.21
       stacktrace-parser: 0.1.10
-      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
       tsort: 0.0.1
-      typescript: 5.5.3
+      typescript: 5.6.3
       undici: 5.28.4
       uuid: 8.3.2
       ws: 7.5.10
@@ -10280,7 +10264,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -12067,7 +12051,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 3.0.0
-      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.5.3)
+      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
       yaml: 2.3.4
     dev: true
 
@@ -14006,7 +13990,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-jest@29.1.3(@babel/core@7.24.4)(esbuild@0.19.12)(jest@29.7.0)(typescript@5.5.3):
+  /ts-jest@29.1.3(@babel/core@7.24.4)(esbuild@0.19.12)(jest@29.7.0)(typescript@5.6.3):
     resolution: {integrity: sha512-6L9qz3ginTd1NKhOxmkP0qU3FyKjj5CPoY+anszfVn6Pmv/RIKzhiMCsH7Yb7UvJR9I2A64rm4zQl531s2F1iw==}
     engines: {node: ^14.15.0 || ^16.10.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -14040,7 +14024,7 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.6.2
-      typescript: 5.5.3
+      typescript: 5.6.3
       yargs-parser: 21.1.1
     dev: true
 
@@ -14049,37 +14033,6 @@ packages:
     dependencies:
       '@ts-morph/common': 0.22.0
       code-block-writer: 12.0.0
-    dev: true
-
-  /ts-node@10.9.2(@types/node@18.19.31)(typescript@5.5.3):
-    resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.11
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.4
-      '@types/node': 18.19.31
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 5.5.3
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
     dev: true
 
   /ts-node@10.9.2(@types/node@18.19.31)(typescript@5.6.3):
@@ -14138,45 +14091,6 @@ packages:
 
   /tsort@0.0.1:
     resolution: {integrity: sha512-Tyrf5mxF8Ofs1tNoxA13lFeZ2Zrbd6cKbuH3V+MQ5sb6DtBj5FjrXVsRWT8YvNAQTqNoz66dz1WsbigI22aEnw==}
-    dev: true
-
-  /tsup@8.0.2(ts-node@10.9.2)(typescript@5.5.3):
-    resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
-    engines: {node: '>=18'}
-    hasBin: true
-    peerDependencies:
-      '@microsoft/api-extractor': ^7.36.0
-      '@swc/core': ^1
-      postcss: ^8.4.12
-      typescript: '>=4.5.0'
-    peerDependenciesMeta:
-      '@microsoft/api-extractor':
-        optional: true
-      '@swc/core':
-        optional: true
-      postcss:
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      bundle-require: 4.0.3(esbuild@0.19.12)
-      cac: 6.7.14
-      chokidar: 3.6.0
-      debug: 4.3.5
-      esbuild: 0.19.12
-      execa: 5.1.1
-      globby: 11.1.0
-      joycon: 3.1.1
-      postcss-load-config: 4.0.2(ts-node@10.9.2)
-      resolve-from: 5.0.0
-      rollup: 4.16.4
-      source-map: 0.8.0-beta.0
-      sucrase: 3.35.0
-      tree-kill: 1.2.2
-      typescript: 5.5.3
-    transitivePeerDependencies:
-      - supports-color
-      - ts-node
     dev: true
 
   /tsup@8.0.2(ts-node@10.9.2)(typescript@5.6.3):
@@ -14468,12 +14382,6 @@ packages:
   /typeforce@1.18.0:
     resolution: {integrity: sha512-7uc1O8h1M1g0rArakJdf0uLRSSgFcYexrVoKo+bzJd32gd4gDy2L/Z+8/FjPnU9ydY3pEnVPtr9FyscYY60K1g==}
     dev: false
-
-  /typescript@5.5.3:
-    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-    dev: true
 
   /typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
