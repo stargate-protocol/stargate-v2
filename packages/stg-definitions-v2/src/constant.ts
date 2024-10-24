@@ -735,8 +735,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ASTAR_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
-            safeUrl:
-                'https://astar-tx.lzdevnet.org/',
+            safeUrl: 'https://astar-tx.lzdevnet.org/',
         },
     },
     [EndpointId.AURORA_V2_MAINNET]: {
@@ -837,14 +836,14 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
-            confirmations: BigInt(50),
+            // confirmations: BigInt(50),
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
-            confirmations: BigInt(50),
+            // confirmations: BigInt(50),
         },
         safeConfig: {
             safeAddress: '0xb93Aa694A3De8662E1ca9aD0C811440E48cDFe5E',
@@ -883,8 +882,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ETHERLINK_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
-            safeUrl:
-                'https://etherlink-tx.lzdevnet.org/',
+            safeUrl: 'https://etherlink-tx.lzdevnet.org/',
         },
     },
     [EndpointId.FANTOM_V2_MAINNET]: {
@@ -925,8 +923,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.FRAXTAL_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90',
-            safeUrl:
-                'https://fraxtal-tx.lzdevnet.org/',
+            safeUrl: 'https://fraxtal-tx.lzdevnet.org/',
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {
@@ -1071,22 +1068,19 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MOONBEAM_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
-            safeUrl:
-                'https://moonbeam-tx.lzdevnet.org/',
+            safeUrl: 'https://moonbeam-tx.lzdevnet.org/',
         },
     },
     [EndpointId.MOONRIVER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
-            safeUrl:
-                'https://moonriver-tx.lzdevnet.org/',
+            safeUrl: 'https://moonriver-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPBNB_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
-            safeUrl:
-                'https://opbnb-tx.lzdevnet.org/',
+            safeUrl: 'https://opbnb-tx.lzdevnet.org/',
         },
     },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
@@ -1174,8 +1168,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.SHIMMER_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
-            safeUrl:
-                'https://shimmer-tx.lzdevnet.org/',
+            safeUrl: 'https://shimmer-tx.lzdevnet.org/',
         },
     },
     [EndpointId.SEI_V2_MAINNET]: {
@@ -1268,8 +1261,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKATANA_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl:
-                'https://zkatana-tx.lzdevnet.org/',
+            safeUrl: 'https://zkatana-tx.lzdevnet.org/',
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
@@ -1304,8 +1296,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKSYNC_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',
-            safeUrl:
-                'https://safe-transaction-zksync.safe.global/',
+            safeUrl: 'https://safe-transaction-zksync.safe.global/',
         },
     },
 
