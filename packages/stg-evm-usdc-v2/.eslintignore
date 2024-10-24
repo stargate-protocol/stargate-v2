@@ -1,0 +1,8 @@
+.turbo
+artifacts
+cache
+deployed
+deployments
+dist
+node_modules
+out
