@@ -16,6 +16,7 @@ import {
     onGravity,
     onIota,
     onKlaytn,
+    onLightlink,
     onMantle,
     onOpt,
     onPolygon,
@@ -47,6 +48,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const gravityFeeLibV1 = onGravity(contract)
     const iotaFeeLibV1 = onIota(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
+    const lightlinkFeeLibV1 = onLightlink(contract)
     const mantleFeeLibV1 = onMantle(contract)
     const optFeeLibV1 = onOpt(contract)
     const polygonFeeLibV1 = onPolygon(contract)
@@ -100,6 +102,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: klaytnFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: lightlinkFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

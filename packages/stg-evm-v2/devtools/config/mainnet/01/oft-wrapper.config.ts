@@ -22,6 +22,7 @@ import {
     onIota,
     onKava,
     onKlaytn,
+    onLightlink,
     onManta,
     onMantle,
     onMetis,
@@ -62,6 +63,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const iotaOftWrapper = onIota(contract)
     const kavaOftWrapper = onKava(contract)
     const klaytnOftWrapper = onKlaytn(contract)
+    const lightlinkOftWrapper = onLightlink(contract)
     const mantaOftWrapper = onManta(contract)
     const mantleOftWrapper = onMantle(contract)
     const metisOftWrapper = onMetis(contract)
@@ -183,6 +185,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: klaytnOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.KLAYTN_V2_MAINNET),
+                },
+            },
+            {
+                contract: lightlinkOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
                 },
             },
             {
