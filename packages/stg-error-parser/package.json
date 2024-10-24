@@ -18,11 +18,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@layerzerolabs/evm-sdks-core": "~2.3.25"
+    "@layerzerolabs/evm-sdks-core": "~3.0.7"
   },
   "devDependencies": {
-    "@layerzerolabs/tsup-config-next": "~2.3.25",
-    "@layerzerolabs/typescript-config-next": "~2.3.25",
+    "@layerzerolabs/tsup-config-next": "~3.0.7",
+    "@layerzerolabs/typescript-config-next": "~3.0.7",
     "@stargatefinance/stg-evm-sdk-v2": "~1.0.9",
     "@types/jest": "^29.5.10",
     "@types/node": "^18.15.11",

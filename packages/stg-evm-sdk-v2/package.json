@@ -40,8 +40,8 @@
     "clean": "rm -rf .turbo dist artifacts deployments"
   },
   "devDependencies": {
-    "@layerzerolabs/tsup-config-next": "~2.3.25",
-    "@layerzerolabs/typescript-config-next": "~2.3.25",
+    "@layerzerolabs/tsup-config-next": "~3.0.7",
+    "@layerzerolabs/typescript-config-next": "~3.0.7",
     "@stargatefinance/stg-evm-v2": "~1.1.0",
     "@types/node": "^18.15.11",
     "esbuild-plugin-clean": "~1.0.1",
