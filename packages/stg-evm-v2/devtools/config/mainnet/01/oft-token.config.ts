@@ -7,7 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onFlare, onGravity, onIota, onKlaytn, onRarible, onSei, onTaiko } from '../utils'
+import { onEbi, onFlare, onGravity, onIota, onKlaytn, onLightlink, onRarible, onSei, onTaiko } from '../utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
