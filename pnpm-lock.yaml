@@ -70,9 +70,30 @@ importers:
       '@safe-global/protocol-kit':
         specifier: ^1.3.0
         version: 1.3.0(ethers@5.7.2)
+      '@stargatefinance/usdt-evm':
+        specifier: ^1.0.0
+        version: link:../stg-evm-usdt-v2
+      '@types/chai':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@types/mocha':
+        specifier: ~10.0.7
+        version: 10.0.7
       '@types/node':
         specifier: ^18.15.11
         version: 18.19.31
+      '@types/sinon':
+        specifier: ~17.0.3
+        version: 17.0.3
+      chai:
+        specifier: ^4.3.7
+        version: 4.5.0
+      mocha:
+        specifier: ^10.7.3
+        version: 10.7.3
+      ts-mocha:
+        specifier: ^10.0.0
+        version: 10.0.0(mocha@10.7.3)
       tsup:
         specifier: ^8.0.1
         version: 8.0.2(ts-node@10.9.2)(typescript@5.5.3)
@@ -2463,7 +2484,7 @@ packages:
       '@ethersproject/providers': 5.7.2
       '@layerzerolabs/devtools': 0.3.18(@ethersproject/bytes@5.7.0)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.44)(zod@3.22.5)
       '@layerzerolabs/devtools-evm': 0.3.13(@ethersproject/abi@5.7.0)(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools@0.3.18)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.44)(fp-ts@2.16.9)(zod@3.22.5)
-      '@layerzerolabs/export-deployments': 0.0.10
+      '@layerzerolabs/export-deployments': 0.0.11
       '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
       '@layerzerolabs/lz-definitions': 2.3.44
       '@nomiclabs/hardhat-ethers': 2.2.3(ethers@5.7.2)(hardhat@2.22.14)
@@ -3461,7 +3482,7 @@ packages:
       zksync-ethers: ^5.0.0
     dependencies:
       '@matterlabs/hardhat-zksync-solc': 1.1.4(hardhat@2.22.14)
-      chai: 4.4.1
+      chai: 4.5.0
       chalk: 4.1.2
       ethers: 5.7.2
       fs-extra: 11.2.0
@@ -3469,7 +3490,7 @@ packages:
       hardhat: 2.22.14(ts-node@10.9.2)(typescript@5.5.3)
       lodash: 4.17.21
       sinon: 17.0.1
-      sinon-chai: 3.7.0(chai@4.4.1)(sinon@17.0.1)
+      sinon-chai: 3.7.0(chai@4.5.0)(sinon@17.0.1)
       ts-morph: 21.0.1
       zksync-ethers: 5.9.2(ethers@5.7.2)
     transitivePeerDependencies:
@@ -3484,7 +3505,7 @@ packages:
       hardhat: ^2.19.4
     dependencies:
       '@nomiclabs/hardhat-docker': 2.0.2
-      chai: 4.4.1
+      chai: 4.5.0
       chalk: 4.1.2
       debug: 4.3.7(supports-color@8.1.1)
       dockerode: 4.0.2
@@ -3493,7 +3514,7 @@ packages:
       proper-lockfile: 4.1.2
       semver: 7.6.2
       sinon: 17.0.1
-      sinon-chai: 3.7.0(chai@4.4.1)(sinon@17.0.1)
+      sinon-chai: 3.7.0(chai@4.5.0)(sinon@17.0.1)
       undici: 5.28.4
     transitivePeerDependencies:
       - encoding
@@ -4406,7 +4427,7 @@ packages:
     dependencies:
       '@sinonjs/commons': 2.0.0
       lodash.get: 4.4.2
-      type-detect: 4.0.8
+      type-detect: 4.1.0
     dev: true
 
   /@sinonjs/text-encoding@0.7.2:
@@ -4653,11 +4674,15 @@ packages:
   /@types/chai-as-promised@7.1.8:
     resolution: {integrity: sha512-ThlRVIJhr69FLlh6IctTXFkmhtP3NpMZ2QGq69StYLyKZFp/HOp1VdKZj7RvfNWYYcJ1xlbLGLLWj1UvP5u/Gw==}
     dependencies:
-      '@types/chai': 4.3.14
+      '@types/chai': 5.0.0
     dev: true
 
   /@types/chai@4.3.14:
     resolution: {integrity: sha512-Wj71sXE4Q4AkGdG9Tvq1u/fquNz9EdG4LIJMwVVII7ashjD/8cf8fyIfJAjRr6YcsXnSE8cOGQPq1gqeR8z+3w==}
+    dev: true
+
+  /@types/chai@5.0.0:
+    resolution: {integrity: sha512-+DwhEHAaFPPdJ2ral3kNHFQXnTfscEEFsUxzD+d7nlcLrFK23JtNjH71RGasTcHb88b4vVi4mTyfpf8u2L8bdA==}
     dev: true
 
   /@types/concat-stream@1.6.1:
@@ -4736,6 +4761,7 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    requiresBuild: true
     dev: true
 
   /@types/jsonfile@6.1.4:
@@ -4840,11 +4866,9 @@ packages:
     resolution: {integrity: sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.5
-    dev: false
 
   /@types/sinonjs__fake-timers@8.1.5:
     resolution: {integrity: sha512-mQkU2jY8jJEF7YHjHvsQO8+3ughTL1mcnn96igfhONmR+fUPSKIkefQYpSe8bsly2Ep7oQbn/6VG5/9/0qcArQ==}
-    dev: false
 
   /@types/stack-utils@2.0.3:
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -6123,7 +6147,6 @@ packages:
       loupe: 2.3.7
       pathval: 1.1.1
       type-detect: 4.1.0
-    dev: false
 
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -6981,6 +7004,11 @@ packages:
   /diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+    dev: true
+
+  /diff@3.5.0:
+    resolution: {integrity: sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==}
+    engines: {node: '>=0.3.1'}
     dev: true
 
   /diff@4.0.2:
@@ -7972,6 +8000,7 @@ packages:
       is-hex-prefixed: 1.0.0
       strip-hex-prefix: 1.0.0
     dev: true
+    bundledDependencies: false
 
   /event-target-shim@5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
@@ -10319,6 +10348,7 @@ packages:
   /json5@1.0.2:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
     hasBin: true
+    requiresBuild: true
     dependencies:
       minimist: 1.2.8
     dev: true
@@ -12637,13 +12667,13 @@ packages:
     dependencies:
       is-arrayish: 0.3.2
 
-  /sinon-chai@3.7.0(chai@4.4.1)(sinon@17.0.1):
+  /sinon-chai@3.7.0(chai@4.5.0)(sinon@17.0.1):
     resolution: {integrity: sha512-mf5NURdUaSdnatJx3uhoBOrY9dtL19fiOtAdT1Azxg3+lNJFiuN0uzaU3xX1LeAfL17kHQhTAJgpsfhbMJMY2g==}
     peerDependencies:
       chai: ^4.0.0
       sinon: '>=4.0.0'
     dependencies:
-      chai: 4.4.1
+      chai: 4.5.0
       sinon: 17.0.1
     dev: true
 
@@ -13543,6 +13573,19 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
+  /ts-mocha@10.0.0(mocha@10.7.3):
+    resolution: {integrity: sha512-VRfgDO+iiuJFlNB18tzOfypJ21xn2xbuZyDvJvqpTbWgkAgD17ONGr8t+Tl8rcBtOBdjXp5e/Rk+d39f7XBHRw==}
+    engines: {node: '>= 6.X.X'}
+    hasBin: true
+    peerDependencies:
+      mocha: ^3.X.X || ^4.X.X || ^5.X.X || ^6.X.X || ^7.X.X || ^8.X.X || ^9.X.X || ^10.X.X
+    dependencies:
+      mocha: 10.7.3
+      ts-node: 7.0.1
+    optionalDependencies:
+      tsconfig-paths: 3.15.0
+    dev: true
+
   /ts-morph@21.0.1:
     resolution: {integrity: sha512-dbDtVdEAncKctzrVZ+Nr7kHpHkv+0JDJb2MjjpBaj8bFeCkePU9rHfMklmhuLFnpeq/EJZk2IhStY6NzqgjOkg==}
     dependencies:
@@ -13610,6 +13653,21 @@ packages:
       typescript: 5.5.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+    dev: true
+
+  /ts-node@7.0.1:
+    resolution: {integrity: sha512-BVwVbPJRspzNh2yfslyT1PSbl5uIk03EZlb493RKHN4qej/D06n1cEhjlOJG69oFsE7OT8XjpTUcYf6pKTLMhw==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dependencies:
+      arrify: 1.0.1
+      buffer-from: 1.1.2
+      diff: 3.5.0
+      make-error: 1.3.6
+      minimist: 1.2.8
+      mkdirp: 0.5.6
+      source-map-support: 0.5.21
+      yn: 2.0.0
     dev: true
 
   /tsconfig-paths@3.15.0:
@@ -14830,6 +14888,11 @@ packages:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+    dev: true
+
+  /yn@2.0.0:
+    resolution: {integrity: sha512-uTv8J/wiWTgUTg+9vLTi//leUl5vDQS6uii/emeTb2ssY7vl6QWf2fFbIIGjnhjvbdKlU0ed7QPgY1htTC86jQ==}
+    engines: {node: '>=4'}
     dev: true
 
   /yn@3.1.1:
