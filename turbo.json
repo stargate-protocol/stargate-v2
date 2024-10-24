@@ -22,5 +22,14 @@
       "dependsOn": ["^build", "compile"],
       "outputs": []
     }
-  }
+  },
+  "globalDependencies": [
+    "tsonfig.json",
+    "pnpm-lock.yaml",
+    ".eslintrc.js",
+    ".eslintignore",
+    ".prettierrc.js",
+    ".prettierignore",
+    ".solhintrc.js"
+  ]
 }
