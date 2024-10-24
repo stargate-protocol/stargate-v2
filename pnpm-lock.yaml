@@ -3143,6 +3143,22 @@ packages:
       - typescript
     dev: true
 
+  /@layerzerolabs/tsup-config-next@3.0.7(ts-node@10.9.2)(typescript@5.6.3):
+    resolution: {integrity: sha512-nNhkcmyUce2P8i0i2kd5+PutUeXaHQ9aSkYnBn6W9Z4/yoO/hBsAYMUR3FMu2e17bybDIcqWt2EEQmBb3XDHjw==}
+    dependencies:
+      '@chialab/esbuild-plugin-commonjs': 0.17.2
+      esbuild: 0.19.12
+      esbuild-node-externals: 1.15.0(esbuild@0.19.12)
+      tsup: 8.0.2(ts-node@10.9.2)(typescript@5.6.3)
+    transitivePeerDependencies:
+      - '@microsoft/api-extractor'
+      - '@swc/core'
+      - postcss
+      - supports-color
+      - ts-node
+      - typescript
+    dev: true
+
   /@layerzerolabs/typescript-config-next@3.0.7:
     resolution: {integrity: sha512-3cXM1IehfhvVAhaY2xB7YBvqKHwLxfTTIFPAMd0wgrjm5UJNywWy7MZyBF/J1R/HWlNf0QuRnDKy8AZtfYXpLA==}
     dev: true
@@ -14066,6 +14082,37 @@ packages:
       yn: 3.1.1
     dev: true
 
+  /ts-node@10.9.2(@types/node@18.19.31)(typescript@5.6.3):
+    resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 18.19.31
+      acorn: 8.11.3
+      acorn-walk: 8.3.2
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.6.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    dev: true
+
   /tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
     dependencies:
@@ -14091,6 +14138,45 @@ packages:
 
   /tsort@0.0.1:
     resolution: {integrity: sha512-Tyrf5mxF8Ofs1tNoxA13lFeZ2Zrbd6cKbuH3V+MQ5sb6DtBj5FjrXVsRWT8YvNAQTqNoz66dz1WsbigI22aEnw==}
+    dev: true
+
+  /tsup@8.0.2(ts-node@10.9.2)(typescript@5.6.3):
+    resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@microsoft/api-extractor': ^7.36.0
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      '@microsoft/api-extractor':
+        optional: true
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 4.0.3(esbuild@0.19.12)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      debug: 4.3.5
+      esbuild: 0.19.12
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.2(ts-node@10.9.2)
+      resolve-from: 5.0.0
+      rollup: 4.16.4
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tree-kill: 1.2.2
+      typescript: 5.6.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
     dev: true
 
   /tsup@8.0.2(ts-node@10.9.2)(typescript@5.6.3):
