@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.2.3
+
+### Patch Changes
+
+- 8a64b34: Update dependencies
+
 ## 1.2.2
 
 ### Patch Changes
