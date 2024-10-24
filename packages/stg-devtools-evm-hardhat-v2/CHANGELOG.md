@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 1.0.2
+
+### Patch Changes
+
+- 8a64b34: Update dependencies
+- Updated dependencies [8a64b34]
+  - @stargatefinance/stg-definitions-v2@1.2.3
+  - @stargatefinance/stg-devtools-v2@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes

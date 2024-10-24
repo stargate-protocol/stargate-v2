@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.4
+
+### Patch Changes
+
+- 8a64b34: Update dependencies
+
 ## 1.0.3
 
 ### Patch Changes
