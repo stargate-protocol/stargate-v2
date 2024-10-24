@@ -1,5 +1,18 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.1.0
+
+### Minor Changes
+
+- 65c78b5: Updated scripts to deploy 0.6.12 version of USDC contracts to resolve ownership issue
+
+### Patch Changes
+
+- 8865894: Add CoreDAO deployments
+- 8865894: publish coredao hydra
+- Updated dependencies [8865894]
+  - @stargatefinance/stg-definitions-v2@1.2.2
+
 ## 1.0.19
 
 ### Patch Changes
