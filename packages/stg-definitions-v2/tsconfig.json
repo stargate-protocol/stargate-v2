@@ -1,5 +1,5 @@
 {
-  "extends": "@layerzerolabs/typescript-config-next/library.json",
+  "extends": "@layerzerolabs/typescript-config-next/base.json",
   "include": ["src", "*.config.ts", "test/**/*.ts"],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
