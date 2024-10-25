@@ -76,9 +76,6 @@ importers:
       '@stargatefinance/usdt-evm':
         specifier: ^1.0.0
         version: link:../stg-evm-usdt-v2
-      '@types/chai':
-        specifier: ^5.0.0
-        version: 5.0.1
       '@types/mocha':
         specifier: ~10.0.7
         version: 10.0.7
