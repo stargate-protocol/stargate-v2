@@ -6,7 +6,7 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "types": ["node", "mocha"]
+    "types": ["node", "mocha", "chai"]
   },
   "include": [
     "hardhat.config.ts",
