@@ -121,6 +121,14 @@ jobs:
           # Run under simulation
           LZ_EXPERIMENTAL_WITH_SIMULATION: 1
 
+      - name: Preconfigure mainnet (simulation)
+        run: make preconfigure-mainnet CONFIGURE_ARGS_COMMON=--ci
+        env:
+          LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+          LZ_ENABLE_EXPERIMENTAL_BATCHED_WAIT: 1
+          # Run under simulation
+          LZ_EXPERIMENTAL_WITH_SIMULATION: 1
+
       - name: Configure mainnet (simulation)
         run: make configure-mainnet CONFIGURE_ARGS_COMMON=--ci
         env:

@@ -235,11 +235,11 @@ deploy-mainnet: DEPLOY_ARGS=--stage mainnet
 deploy-mainnet: build deploy
 
 # 
-# This target will configure the mainnet contracts
+# This target will configure everything that is easier to configure with a hot wallet
 # 
 
-configure-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
-configure-mainnet:
+preconfigure-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+preconfigure-mainnet:
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
@@ -252,6 +252,12 @@ configure-mainnet:
 	# Configure everything else for USDC
 	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
+# 
+# This target will configure the mainnet contracts
+# 
+
+configure-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+configure-mainnet:
 	# Configure the assets
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.meth.config.ts --signer deployer
@@ -329,18 +335,10 @@ transfer-mainnet:
 	# Configure OFT wrapper
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
-# Please be careful with this target, I'd much rather you run
+# Please be careful with this target, I'd much rather you run the commands one by one
 # 
 # make deploy-mainnet
-# make configure-mainnet
-# 
-# Then rerun 
-# 
-# make configure-mainnet
-# 
-# Like seven times
-# 
-# And only then
-# 
+# make preconfigure-mainnet
 # make transfer-mainnet
-mainnet: deploy-mainnet configure-mainnet transfer-mainnet
+# make configure-mainnet
+mainnet: deploy-mainnet preconfigure-mainnet transfer-mainnet configure-mainnet

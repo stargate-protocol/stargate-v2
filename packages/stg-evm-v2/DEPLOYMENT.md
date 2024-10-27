@@ -141,19 +141,15 @@ LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION=1 LZ_ENABLE_EXPERIMENTAL_RETRY=1 make 
 The safe way of doing this though is
 
 ```bash
+# First the contracts are deployed
 make deploy-mainnet
-make configure-mainnet
+# The the OFT/USDC contracts are configured with a hot wallet
+make preconfigure-mainnet
+# Then the ownership is transferred to the multisig
 make transfer-mainnet
-```
-
-After the mainnet has been transferred to the multisig, any new changes need to be submitted using the safe signer:
-
-```bash
-make configure-mainnet CONFIGURE_ARGS_COMMON="--safe"
-```
-
-Safe signer also supports batched mode that's currently feature-flagged in devtools:
-
-```bash
+# The the rest of the configuration is executed using a multisig
+#
+# The LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND feature flag is used to reduce
+# the amount of transactions that need to be signed
 LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND=1 make configure-mainnet CONFIGURE_ARGS_COMMON="--safe"
 ```
