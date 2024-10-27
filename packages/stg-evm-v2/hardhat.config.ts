@@ -273,6 +273,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'lightlink-mainnet': {
+        eid: EndpointId.LIGHTLINK_V2_MAINNET,
+        url: process.env.RPC_URL_LIGHTLINK_MAINNET || 'https://replicator.phoenix.lightlink.io/rpc/v1',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.LIGHTLINK_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'manta-mainnet': {
         eid: EndpointId.MANTA_V2_MAINNET,
         url: process.env.RPC_URL_MANTA_MAINNET || 'https://pacific-rpc.manta.network/http',
