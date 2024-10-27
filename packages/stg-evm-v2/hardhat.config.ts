@@ -83,7 +83,7 @@ const hardhatNamedAccounts: HardhatUserConfig = {
             default: 2,
         },
         usdcAdmin: {
-            default: 3,
+            default: 3, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
         },
     },
 }
