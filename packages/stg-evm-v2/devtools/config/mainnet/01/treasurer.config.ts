@@ -20,6 +20,7 @@ import {
     onIota,
     onKava,
     onKlaytn,
+    onLightlink,
     onMantle,
     onMetis,
     onOpt,
@@ -52,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
+    const lightlinkAdmin = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
     const mantleAdmin = getSafeAddress(EndpointId.MANTLE_V2_MAINNET)
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
@@ -112,6 +114,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -305,6 +312,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [klaytnAssetAddresses.ETH]: true,
                         [klaytnAssetAddresses.USDC]: true,
                         [klaytnAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onLightlink(contract),
+                config: {
+                    owner: lightlinkAdmin,
+                    admin: lightlinkAdmin,
+                    assets: {
+                        [lightlinkAssetAddresses.ETH]: true,
+                        [lightlinkAssetAddresses.USDC]: true,
+                        [lightlinkAssetAddresses.USDT]: true,
                     },
                 },
             },
