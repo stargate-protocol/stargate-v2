@@ -99,7 +99,7 @@
     "@layerzerolabs/devtools": "~0.3.18",
     "@layerzerolabs/devtools-evm": "~0.3.13",
     "@layerzerolabs/devtools-evm-hardhat": "~0.3.22",
-    "@layerzerolabs/export-deployments": "~0.0.10",
+    "@layerzerolabs/export-deployments": "~0.0.14",
     "@layerzerolabs/io-devtools": "~0.1.11",
     "@layerzerolabs/lz-evm-sdk-v1": "~3.0.7",
     "@layerzerolabs/protocol-devtools": "~0.3.9",

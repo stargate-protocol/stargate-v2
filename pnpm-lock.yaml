@@ -341,8 +341,8 @@ importers:
         specifier: ~0.3.22
         version: 0.3.22(@ethersproject/abi@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.18)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@3.0.7)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.7.2)(fp-ts@2.16.5)(hardhat-deploy@0.12.2)(hardhat@2.22.3)
       '@layerzerolabs/export-deployments':
-        specifier: ~0.0.10
-        version: 0.0.11
+        specifier: ~0.0.14
+        version: 0.0.14
       '@layerzerolabs/io-devtools':
         specifier: ~0.1.11
         version: 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
@@ -2706,8 +2706,8 @@ packages:
       typescript: 5.6.3
     dev: true
 
-  /@layerzerolabs/export-deployments@0.0.11:
-    resolution: {integrity: sha512-VhsAMRLqFJSp6s5WnZzEA0CbIW5TE5OTCRLxY1Hf8yhEAIqzWpUdkqnms65QeRJ+82Mkx6YoR27rBA9v/bgStg==}
+  /@layerzerolabs/export-deployments@0.0.14:
+    resolution: {integrity: sha512-OBwqci1LZGCq9ZSYfB4nHGZ3QKNVjr+yOUQB4M4gEpPrwaJGLOuOxQNLSEkRWPD8si22Nk48Elbrku8M1Ke3Ow==}
     hasBin: true
     dependencies:
       typescript: 5.6.3
