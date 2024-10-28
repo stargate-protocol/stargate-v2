@@ -72,8 +72,8 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
-    const balanceDeployer = await ethers.provider.getBalance(deployer)
-    const balanceUsdcAdmin = await ethers.provider.getBalance(usdcAdmin)
+    const balanceDeployer = await hre.ethers.provider.getBalance(deployer)
+    const balanceUsdcAdmin = await hre.ethers.provider.getBalance(usdcAdmin)
 
     logger.info(`deployer: ${deployer} | balance: ${balanceDeployer}`)
     logger.info(`usdcAdmin: ${usdcAdmin} | balance: ${balanceUsdcAdmin}`)
