@@ -2,8 +2,6 @@ import { CreditMessagingFactory } from '@stargatefinance/stg-devtools-v2'
 import pMemoize from 'p-memoize'
 
 import { OmniPoint } from '@layerzerolabs/devtools'
-import { EndpointV2Factory } from '@layerzerolabs/protocol-devtools'
-import { createEndpointV2Factory } from '@layerzerolabs/protocol-devtools-evm'
 
 import { CreditMessaging } from './sdk'
 
@@ -17,7 +15,6 @@ import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
  * @returns {StargateStakingFactory<StargateStaking>}
  */
 export const createCreditMessagingFactory = <TOmniPoint = never>(
-    contractFactory: OmniContractFactory<TOmniPoint | OmniPoint>,
-    endpointFactory: EndpointV2Factory = createEndpointV2Factory(contractFactory)
+    contractFactory: OmniContractFactory<TOmniPoint | OmniPoint>
 ): CreditMessagingFactory<CreditMessaging, TOmniPoint> =>
-    pMemoize(async (point) => new CreditMessaging(await contractFactory(point), endpointFactory))
+    pMemoize(async (point) => new CreditMessaging(await contractFactory(point)))

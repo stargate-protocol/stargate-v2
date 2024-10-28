@@ -21,12 +21,12 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@layerzerolabs/devtools": "~0.3.18",
-    "@layerzerolabs/io-devtools": "~0.1.11",
+    "@layerzerolabs/devtools": "~0.3.28",
+    "@layerzerolabs/io-devtools": "~0.1.13",
     "@layerzerolabs/lz-definitions": "~3.0.7",
     "@layerzerolabs/lz-v2-utilities": "~3.0.7",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
-    "@layerzerolabs/ua-devtools": "~0.3.20",
+    "@layerzerolabs/ua-devtools": "~1.0.5",
     "@stargatefinance/stg-definitions-v2": "~1.2.2",
     "@types/node": "^18.15.11",
     "ts-node": "^10.9.1",
