@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  '@layerzerolabs/lz-evm-sdk-v2': 3.0.7
   es5-ext: https://github.com/LayerZero-Labs/es5-ext
 
 patchedDependencies:
@@ -274,8 +275,8 @@ importers:
         specifier: 2.0.11
         version: 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)(solidity-bytes-utils@0.8.2)
       '@layerzerolabs/lz-evm-sdk-v2':
-        specifier: ~2.3.25
-        version: 2.3.25
+        specifier: 3.0.7
+        version: 3.0.7
       '@layerzerolabs/lz-evm-v1-0.7':
         specifier: ~2.3.25
         version: 2.3.25(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.2)
@@ -2690,6 +2691,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: true
 
   /@layerzerolabs/evm-sdks-core@3.0.7:
     resolution: {integrity: sha512-D9P69is6ACUdEwEUPvtUwYaqtDLlEr47S+QNL0vU6IR4iU14u7SPl2AeEQ+h9Ewfmoxwml/iqW/MAADnIazbJQ==}
@@ -2843,10 +2845,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/lz-evm-sdk-v2@2.3.25:
-    resolution: {integrity: sha512-0mHF6/uZe4AxxEbVDOSNVPDjuGX/eO7v6EHJclgmjC6nC89guLuDEP9MxxJB9z0OlNCrv0LdCC+6hUyFWiSHHQ==}
+  /@layerzerolabs/lz-evm-sdk-v2@3.0.7:
+    resolution: {integrity: sha512-PwviZdVNjeu0j2EJpZ/GcU5UmBis+tQyphG/Klb69QbTdf4fC1DhRQBqnF+msdhCAsih+gthMCWMLKuRGJ5f+Q==}
     dependencies:
-      '@layerzerolabs/evm-sdks-core': 2.3.44
+      '@layerzerolabs/evm-sdks-core': 3.0.7
       ethers: 5.7.2
     transitivePeerDependencies:
       - bufferutil
@@ -3093,7 +3095,7 @@ packages:
       '@layerzerolabs/io-devtools': 0.1.11(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
       '@layerzerolabs/lz-definitions': 2.3.44
       '@layerzerolabs/lz-evm-sdk-v1': 2.3.44
-      '@layerzerolabs/lz-evm-sdk-v2': 2.3.25
+      '@layerzerolabs/lz-evm-sdk-v2': 3.0.7
       '@layerzerolabs/lz-v2-utilities': 2.3.44
       '@layerzerolabs/protocol-devtools': 0.3.9(@layerzerolabs/devtools@0.3.18)(@layerzerolabs/lz-definitions@2.3.44)(zod@3.22.5)
       '@layerzerolabs/protocol-devtools-evm': 0.3.10(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@0.3.13)(@layerzerolabs/devtools@0.3.18)(@layerzerolabs/io-devtools@0.1.11)(@layerzerolabs/lz-definitions@2.3.44)(@layerzerolabs/protocol-devtools@0.3.9)(zod@3.22.5)
