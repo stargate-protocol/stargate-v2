@@ -10,7 +10,6 @@ import { Address } from 'hardhat-deploy/dist/types'
 import { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 import { createContractFactory } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-import { createEndpointV2Factory } from '@layerzerolabs/protocol-devtools-evm'
 
 const assetId = 1
 const gasLimit = 2n
@@ -55,10 +54,7 @@ describe('CreditMessaging/sdk', () => {
             await ethers.getContractFactory('CreditMessaging')
         ).deploy(mockEndpoint.address, owner.address)
 
-        sdk = new CreditMessaging(
-            { eid: EndpointId.ETHEREUM_V2_SANDBOX, contract: myCreditMessaging },
-            createEndpointV2Factory(contractFactory)
-        )
+        sdk = new CreditMessaging({ eid: EndpointId.ETHEREUM_V2_SANDBOX, contract: myCreditMessaging })
     })
 
     describe('getPlanner', () => {
