@@ -1,4 +1,4 @@
-import { HardhatUserConfig } from 'hardhat/config'
+import { HardhatUserConfig } from 'hardhat/types'
 import '@nomicfoundation/hardhat-toolbox'
 import '@openzeppelin/hardhat-upgrades'
 // eslint-disable-next-line import/no-unresolved
@@ -10,6 +10,7 @@ const accounts = {
 }
 
 const config: HardhatUserConfig = {
+    external: {contracts: [{ artifacts: 'node_modules/@openzeppelin/upgrades-core/artifacts/' }]},
     namedAccounts: {
         deployer: {
             default: 0,
@@ -84,24 +85,24 @@ const config: HardhatUserConfig = {
     solidity: {
         compilers: [
             {
-                version: '0.6.2',
-                settings: {
-                    optimizer: {
-                        enabled: true,
-                        runs: 100000,
-                    },
+              version: "0.6.2",
+              settings: {
+                optimizer: {
+                  enabled: true,
+                  runs: 100000,
                 },
+              },
             },
             {
-                version: '0.8.4',
-                settings: {
-                    optimizer: {
-                        enabled: true,
-                        runs: 100000,
-                    },
+              version: "0.8.4",
+              settings: {
+                optimizer: {
+                  enabled: true,
+                  runs: 100000,
                 },
-            },
-        ],
+              },
+            }
+          ],
     },
 }
 
