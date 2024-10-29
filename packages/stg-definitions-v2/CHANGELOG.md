@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.2.3
+
+### Patch Changes
+
+- 64e325b: lightlink mainnet config
+- 8a64b34: Update dependencies
+- 4e66bc7: Updating packages
+
 ## 1.2.2
 
 ### Patch Changes
