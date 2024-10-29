@@ -3,3 +3,4 @@
 .eslintignore
 pnpm-lock.yaml
 pnpm-workspace.yaml
+packages/stg-evm-usdt-v2/**
