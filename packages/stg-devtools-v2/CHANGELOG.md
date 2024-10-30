@@ -1,5 +1,13 @@
 # @stargatefinance/stg-devtools-v2
 
+## 1.0.3
+
+### Patch Changes
+
+- f0de1b6: Updating packages
+- Updated dependencies [f0de1b6]
+  - @stargatefinance/stg-definitions-v2@1.2.4
+
 ## 1.0.2
 
 ### Patch Changes
