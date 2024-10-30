@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.11
+
+### Patch Changes
+
+- f0de1b6: Updating packages
+
 ## 1.0.10
 
 ### Patch Changes
