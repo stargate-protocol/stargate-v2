@@ -72,6 +72,12 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
+    const balanceDeployer = await hre.ethers.provider.getBalance(deployer)
+    const balanceUsdcAdmin = await hre.ethers.provider.getBalance(usdcAdmin)
+
+    logger.info(`deployer: ${deployer} | balance: ${balanceDeployer}`)
+    logger.info(`usdcAdmin: ${usdcAdmin} | balance: ${balanceUsdcAdmin}`)
+
     // Deploy the SignatureChecker library contract
     const sigOverrides = {
         gasPrice: await hre.ethers.provider.getGasPrice(),
