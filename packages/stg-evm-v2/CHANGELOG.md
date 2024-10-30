@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.1.2
+
+### Patch Changes
+
+- d250980: Lightlink deployments
+
 ## 1.1.1
 
 ### Patch Changes
