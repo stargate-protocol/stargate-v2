@@ -1,4 +1,5 @@
 import { parseEther } from '@ethersproject/units'
+import { contracts } from '@stargatefinance/usdt-evm/deployed'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
@@ -13,6 +14,8 @@ import {
     TokenMessagingNetworkConfig,
     TokenName,
 } from './types'
+
+const usdtAddressSepolia = contracts.TetherTokenV2.addresses['sepolia-testnet'] // TODO fetch USDT addresses on desired networks in this way
 
 export const DVNS = {
     //
@@ -340,6 +343,13 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.SEPOLIA_V2_TESTNET]: {
                 type: StargateType.Pool,
             },
+            /**
+             * TODO configure USDT address for relevant network
+               [EndpointId.SEPOLIA_V2_TESTNET]: {
+                    address: usdtAddressSepolia,
+                    type: StargateType.Pool,
+                },
+             */
 
             //
             // SANDBOX
