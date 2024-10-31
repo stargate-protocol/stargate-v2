@@ -1,15 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-    entry: [
-        // 'hardhat.config.ts',
-        // 'ts-src/**/*.ts',
-        // 'devtools/**/*.ts',
-        // 'deploy/**/*.ts',
-        // 'tasks/**/*.ts',
-        // 'test/**/*.ts',
-        'deployed/*.ts'
-    ],
+    entry: ['deployed/*.ts'],
     outDir: 'dist/deployed',
     format: ['cjs', 'esm'],
     sourcemap: true,
