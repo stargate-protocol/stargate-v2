@@ -1,5 +1,32 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.1.3
+
+### Patch Changes
+
+- f0de1b6: Updating packages
+- Updated dependencies [f0de1b6]
+  - @stargatefinance/stg-definitions-v2@1.2.4
+
+## 1.1.2
+
+### Patch Changes
+
+- d250980: Lightlink deployments
+
+## 1.1.1
+
+### Patch Changes
+
+- 64e325b: lightlink mainnet config
+- 8a64b34: Update dependencies
+- a37a432: Update dependencies
+- 4e66bc7: Updating packages
+- Updated dependencies [64e325b]
+- Updated dependencies [8a64b34]
+- Updated dependencies [4e66bc7]
+  - @stargatefinance/stg-definitions-v2@1.2.3
+
 ## 1.1.0
 
 ### Minor Changes

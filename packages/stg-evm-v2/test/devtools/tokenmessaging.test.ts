@@ -11,7 +11,6 @@ import { Address } from 'hardhat-deploy/dist/types'
 import { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 import { createContractFactory } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
-import { createEndpointV2Factory } from '@layerzerolabs/protocol-devtools-evm'
 
 const busSize = 128
 const busFare = 100n
@@ -58,10 +57,7 @@ describe('TokenMessaging/sdk', () => {
             await ethers.getContractFactory('TokenMessaging')
         ).deploy(mockEndpoint.address, owner.address, busSize)
 
-        sdk = new TokenMessaging(
-            { eid: EndpointId.ETHEREUM_V2_SANDBOX, contract: myTokenMessaging },
-            createEndpointV2Factory(contractFactory)
-        )
+        sdk = new TokenMessaging({ eid: EndpointId.ETHEREUM_V2_SANDBOX, contract: myTokenMessaging })
     })
 
     describe('getPlanner', () => {
