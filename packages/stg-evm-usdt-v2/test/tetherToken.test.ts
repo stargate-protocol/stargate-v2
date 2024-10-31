@@ -1,7 +1,7 @@
 import { loadFixture } from '@nomicfoundation/hardhat-network-helpers'
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { expect } from 'chai'
-import { BigNumber } from 'ethers'
+import { BigNumber, Wallet } from 'ethers'
 import { ethers, upgrades } from 'hardhat'
 
 import { signPermit } from './helpers/signPermit'
@@ -16,7 +16,7 @@ describe('TetherToken', async () => {
         })
 
         // Contracts are deployed using the first signer/account by default
-        const [owner, otherAccount, thirdAccount]: SignerWithAddress[] = await ethers.getSigners()
+        const [owner, otherAccount, thirdAccount]: Wallet[] = (await ethers.getSigners()) as unknown as Wallet[]
 
         await token.mint(await otherAccount.getAddress(), _1e18.mul(BigNumber.from(50)))
 
@@ -102,7 +102,7 @@ describe('TetherToken', async () => {
                 spender: await owner.getAddress(),
                 tokenName: 'GreatBritishTether',
                 tokenAddress: token.address,
-                amount: amount.toString(),
+                amount: BigNumber.from(amount.toString()),
                 deadline,
                 chainId,
                 version: '1',
@@ -129,7 +129,7 @@ describe('TetherToken', async () => {
                 spender: await owner.getAddress(),
                 tokenName: 'GreatBritishTether',
                 tokenAddress: token.address,
-                amount: amount.toString(),
+                amount: BigNumber.from(amount.toString()),
                 deadline,
                 chainId,
                 version: '1',

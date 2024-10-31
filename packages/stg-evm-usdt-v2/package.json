@@ -5,15 +5,32 @@
   "keywords": [],
   "license": "ISC",
   "author": "",
-  "main": "index.ts",
+  "exports": {
+    "./deployed": {
+      "types": "./dist/deployed/index.d.ts",
+      "import": "./dist/deployed/index.mjs",
+      "require": "./dist/deployed/index.cjs"
+    },
+    "./deployed/*": {
+      "types": "./dist/deployed/*.d.ts",
+      "import": "./dist/deployed/*.mjs",
+      "require": "./dist/deployed/*.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
   "files": [
+    "dist",
     "deployments"
   ],
   "scripts": {
-    "build": "$npm_execpath tsup --clean",
+    "build": "$npm_execpath build:exports && $npm_execpath build:ts",
+    "build:exports": "npx @layerzerolabs/export-deployments -o deployed",
+    "build:ts": "$npm_execpath tsc --noEmit && $npm_execpath tsup --clean",
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "clean": "rm -rf dist && rm -rf node_modules && rm -rf cache && rm -rf artifacts && rm -rf typechain-types"
+    "clean": "rm -rf dist cache artifacts typechain-types node_modules"
   },
   "dependencies": {
     "@openzeppelin/contracts": "4.2.0",
@@ -21,6 +38,7 @@
     "ethers": "^5.7.2"
   },
   "devDependencies": {
+    "@layerzerolabs/export-deployments": "~0.0.14",
     "@layerzerolabs/io-devtools": "~0.1.13",
     "@layerzerolabs/typescript-config-next": "~2.3.25",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
@@ -40,7 +58,8 @@
     "hardhat-gas-reporter": "^1.0.9",
     "solidity-coverage": "^0.8.12",
     "tsup": "^8.0.1",
-    "typechain": "~8.3.2"
+    "typechain": "~8.3.2",
+    "typescript": "~5.6.3"
   },
   "engines": {
     "node": ">=16.0.0",

@@ -1,7 +1,7 @@
 
 import assert from 'assert';
-// import { type DeployFunction } from 'hardhat-deploy/types';
-import { DeployFunction } from 'hardhat-deploy/config'
+import { type DeployFunction } from 'hardhat-deploy/types';
+// import { DeployFunction } from 'hardhat-deploy/config'
 
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { createLogger, printRecord } from '@layerzerolabs/io-devtools';
@@ -15,12 +15,6 @@ const deployTetherTokenV2: DeployFunction = async function ({
     const namedAccounts = await getNamedAccounts();
     const deployer = namedAccounts.deployer;
     assert(deployer, 'Missing deployer');
-
-    // try {
-    //     await deployments.delete('TetherTokenV2');
-    // } catch (error) {
-    //     console.error(error);
-    // }
 
     const tetherTokenV2 = await deployments.deploy('TetherTokenV2', {
         from: deployer,

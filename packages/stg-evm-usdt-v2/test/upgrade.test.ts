@@ -23,7 +23,7 @@ describe('Upgrades', async () => {
         // Ensure that the new function doesn't exist in V1
         try {
             await tetherV1.newFunctionNotPreviouslyDefined()
-        } catch (e) {
+        } catch (e: any) {
             expect(e.toString()).to.equal('TypeError: tetherV1.newFunctionNotPreviouslyDefined is not a function')
         }
 
