@@ -13,7 +13,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "$npm_execpath tsup --clean",
+    "build": "npm_execpath tsup --clean"
     "clean": "rm -rf dist .turbo",
     "test": "jest"
   },
