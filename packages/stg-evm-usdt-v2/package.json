@@ -33,6 +33,7 @@
     "test": "hardhat test"
   },
   "devDependencies": {
+    "@ethersproject/abstract-signer": "~5.7.0",
     "@layerzerolabs/export-deployments": "~0.0.14",
     "@layerzerolabs/io-devtools": "~0.1.13",
     "@layerzerolabs/typescript-config-next": "~2.3.25",

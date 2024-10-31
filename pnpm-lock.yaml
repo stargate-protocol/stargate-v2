@@ -264,6 +264,9 @@ importers:
 
   packages/stg-evm-usdt-v2:
     devDependencies:
+      '@ethersproject/abstract-signer':
+        specifier: ~5.7.0
+        version: 5.7.0
       '@layerzerolabs/export-deployments':
         specifier: ~0.0.14
         version: 0.0.14
@@ -8911,7 +8914,7 @@ packages:
       solc: 0.8.26(debug@4.3.7)
       source-map-support: 0.5.21
       stacktrace-parser: 0.1.10
-      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
+      ts-node: 10.9.2(@types/node@18.19.59)(typescript@5.6.3)
       tsort: 0.0.1
       typescript: 5.6.3
       undici: 5.28.4
@@ -11502,7 +11505,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 3.0.0
-      ts-node: 10.9.2(@types/node@18.19.31)(typescript@5.6.3)
+      ts-node: 10.9.2(@types/node@18.19.59)(typescript@5.6.3)
       yaml: 2.3.4
     dev: true
 
