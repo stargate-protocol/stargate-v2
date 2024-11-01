@@ -130,7 +130,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://public-en.kairos.node.kaia.io',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://public-en-kairos.node.kaia.io',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
