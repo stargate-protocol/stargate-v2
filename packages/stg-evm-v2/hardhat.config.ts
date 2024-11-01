@@ -268,7 +268,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-mainnet': {
         eid: EndpointId.KLAYTN_V2_MAINNET,
-        url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://public-en.node.kaia.io',
+        url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://kaia.blockpi.network/v1/rpc/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -411,7 +411,7 @@ const networks: NetworksUserConfig = {
     },
     'zksync-mainnet': {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
-        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://zksync.drpc.org',
+        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://api.zan.top/zksync-mainnet',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
