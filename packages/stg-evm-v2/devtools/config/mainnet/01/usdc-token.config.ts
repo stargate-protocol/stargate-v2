@@ -16,6 +16,7 @@ import {
     onIota,
     onKlaytn,
     onLightlink,
+    onOrderly,
     onPeaq,
     onPlume,
     onRarible,
@@ -59,6 +60,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const plumeUSDCProxy = await contractFactory(
         onPlume({ contractName: 'FiatTokenProxy', address: usdcPlumeAsset.address })
     )
+    const orderlyUSDCProxy = await contractFactory(onOrderly(proxyContract))
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const superpositionUSDCProxy = await contractFactory(
         onSuperposition({ contractName: 'FiatTokenProxy', address: usdcSuperpositionAsset.address })
@@ -87,6 +89,8 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const peaqUSDC = onPeaq({ ...fiatContract, address: peaqUSDCProxy.contract.address })
     const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
+    const orderlyUSDC = onOrderly({ ...fiatContract, address: orderlyUSDCProxy.contract.address })
+    const orderlyStargateMultisig = getSafeAddress(EndpointId.ORDERLY_V2_MAINNET)
 
     const plumeUSDC = onPlume({ ...fiatContract, address: plumeUSDCProxy.contract.address })
     const plumeStargateMultisig = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
@@ -114,6 +118,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdcAssets)
+    const orderlyAssetAddresses = await getAssetAddresses(EndpointId.ORDERLY_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
@@ -222,6 +227,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: plumeStargateMultisig,
                     minters: {
                         [plumeAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: orderlyUSDC,
+                config: {
+                    owner: orderlyStargateMultisig,
+                    masterMinter: orderlyStargateMultisig,
+                    pauser: orderlyStargateMultisig,
+                    rescuer: orderlyStargateMultisig,
+                    blacklister: orderlyStargateMultisig,
+                    minters: {
+                        [orderlyAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

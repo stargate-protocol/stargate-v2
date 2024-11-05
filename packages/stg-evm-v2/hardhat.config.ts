@@ -358,6 +358,12 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_PEAQ_MAINNET || 'https://evm.peaq.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
+    },
+    'orderly-mainnet': {
+        eid: EndpointId.ORDERLY_V2_MAINNET,
+        url: process.env.RPC_URL_ORDERLY_MAINNET || 'https://rpc.orderly.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ORDERLY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'plume-mainnet': {

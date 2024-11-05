@@ -9,7 +9,18 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
+import {
+    onFlare,
+    onGravity,
+    onIota,
+    onKlaytn,
+    onLightlink,
+    onOrderly,
+    onPeaq,
+    onRarible,
+    onTaiko,
+    onXchain,
+} from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
@@ -25,6 +36,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const klaytnUSDC = onKlaytn(proxyContract)
     const lightlinkUSDC = onLightlink(proxyContract)
     const peaqUSDC = onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
+    const orderlyUSDC = onOrderly(proxyContract)
     const raribleUSDC = onRarible(proxyContract)
     const taikoUSDC = onTaiko(proxyContract)
     const xchainUSDC = onXchain(proxyContract)
@@ -35,6 +47,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkStargateMultisig = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
     const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
+    const orderlyStargateMultisig = getSafeAddress(EndpointId.ORDERLY_V2_MAINNET)
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const xchainStargateMultisig = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
@@ -75,6 +88,12 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                 contract: peaqUSDC,
                 config: {
                     admin: peaqStargateMultisig,
+                },
+            },
+            {
+                contract: orderlyUSDC,
+                config: {
+                    admin: orderlyStargateMultisig,
                 },
             },
             {
