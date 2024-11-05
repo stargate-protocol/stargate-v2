@@ -658,6 +658,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
         [EndpointId.PLUME_V2_MAINNET]: {},
+        [EndpointId.ORDERLY_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
@@ -1334,6 +1335,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
                     signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
                     simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
+                },
+            },
+        },
+    },
+    [EndpointId.ORDERLY_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET], DVNS.STG[EndpointId.ORDERLY_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET], DVNS.STG[EndpointId.ORDERLY_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
+            nativeDropAmount: parseEther('0.001').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xEdA49b9301b4310F6E4a4b42857906f8732a78dF',
+            safeUrl: 'https://orderly-tx.lzdevnet.org/',
+            contractNetworks: {
+                [291]: {
+                    multiSendAddress: '0x33383D7E8B6919B4b5ed13c279316D31C2Aae644',
+                    multiSendCallOnlyAddress: '0x927685d6658BBda1cb493b89aF828E8759B8DB14',
+                    safeMasterCopyAddress: '0x9e0B88C85AD0bF8fA233f6b310E9Da91D2262377',
+                    safeProxyFactoryAddress: '0x1a52d0bFD8f25e91895Ac4847ac5CA5fF27a2671',
+                    fallbackHandlerAddress: '0x695423B8F4BCA78a7FC54eFF2c272beB6cE50B29',
+                    signMessageLibAddress: '0x8f846A17aBEA9D26AC234840cb80c1d1B7Fa4d25',
+                    createCallAddress: '0x0f43Ba75cCF9d53043658fd57719C02f5eCaA185',
+                    simulateTxAccessorAddress: '0xCA521bCB2D179f925943623F420440a1327FC43B',
                 },
             },
         },
