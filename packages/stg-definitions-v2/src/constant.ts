@@ -36,6 +36,7 @@ export const DVNS = {
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
+        [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
@@ -82,6 +83,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x0e95cf21ad9376a26997c97f326c5a0a267bb8ff',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
+        [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x2fa870cee4da57de84d1db36759d4716ad7e5038',
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
@@ -115,6 +117,7 @@ export const EXECUTORS = {
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
+        [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
@@ -200,6 +203,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.PEAQ_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.SCROLL_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -305,6 +313,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58',
+            },
+            [EndpointId.PEAQ_V2_MAINNET]: {
+                type: StargateType.Oft,
+                // TODO: address: 'TBC'
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -425,6 +437,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
                 type: StargateType.Pool,
+            },
+            [EndpointId.PEAQ_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x9a2228EBa5239Cac3ee03CDC8661889585aA37fF',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
