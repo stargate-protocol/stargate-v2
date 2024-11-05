@@ -861,14 +861,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
-            confirmations: BigInt(50),
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
-            confirmations: BigInt(50),
         },
         safeConfig: {
             safeAddress: '0xb93Aa694A3De8662E1ca9aD0C811440E48cDFe5E',
