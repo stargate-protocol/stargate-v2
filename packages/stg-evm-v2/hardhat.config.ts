@@ -143,6 +143,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.sepolia.org',
         accounts: testnetAccounts,
     },
+    'abstract-testnet': {
+        eid: EndpointId.ABSTRACT_V2_TESTNET,
+        url: process.env.RPC_URL_ABSTRACT_TESTNET || 'https://api.testnet.abs.xyz',
+        accounts: testnetAccounts,
+    },
 
     //
     // Mainnet
