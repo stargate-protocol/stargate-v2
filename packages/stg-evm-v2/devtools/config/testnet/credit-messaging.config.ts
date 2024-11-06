@@ -21,6 +21,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const optCreditMsging = onOpt(contract)
     const arbCreditMsging = onArb(contract)
     const klaytnCreditMsging = onKlaytn(contract)
+    const absCreditMsging = onAbs(contract)
 
     // Now we collect the address of the deployed assets
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
@@ -30,6 +31,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
+    const absAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -86,6 +88,17 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     },
                 },
             },
+            {
+                contract: absCreditMsging,
+                config: {
+                    planner: DEFAULT_PLANNER,
+                    assets: {
+                        [absAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+                        [absAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+                        [absAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+                    },
+                },
+            },
         ],
         connections: generateCreditMessagingConfig([
             ethCreditMsging,
@@ -93,6 +106,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             optCreditMsging,
             arbCreditMsging,
             klaytnCreditMsging,
+            absCreditMsging,
         ]),
     }
 }

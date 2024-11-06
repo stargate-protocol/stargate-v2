@@ -5,7 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getNamedAccount } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onOpt } from './utils'
 
 const getDeployer = getNamedAccount('deployer')
 export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
@@ -100,6 +100,31 @@ export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
             },
             {
                 contract: onBsc(usdtPool),
+                config: {
+                    depositAmount: {
+                        [ethAdmin]: BigInt(18e18),
+                    },
+                },
+            },
+            {
+                contract: onAbs(nativePool),
+                config: {
+                    depositAmount: {
+                        [ethAdmin]: BigInt(1e18),
+                    },
+                    isNative: true,
+                },
+            },
+            {
+                contract: onAbs(usdcPool),
+                config: {
+                    depositAmount: {
+                        [ethAdmin]: BigInt(18e18),
+                    },
+                },
+            },
+            {
+                contract: onAbs(usdtPool),
                 config: {
                     depositAmount: {
                         [ethAdmin]: BigInt(18e18),
