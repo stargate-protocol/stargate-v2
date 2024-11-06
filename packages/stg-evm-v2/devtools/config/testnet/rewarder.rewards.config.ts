@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onOpt } from './utils'
 
 const contract = { contractName: 'StargateMultiRewarder' }
 
@@ -20,6 +20,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderRewardsNodeConfig, unk
     const bscRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.BSC_V2_TESTNET, rewardTokens)
     const optRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, rewardTokens)
     const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, rewardTokens)
+    const absRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ABSTRACT_V2_TESTNET, rewardTokens)
 
     // 1e18 reward per second
     const DEFAULT_REWARDS_CONFIG = {
@@ -62,6 +63,15 @@ export default async (): Promise<OmniGraphHardhat<RewarderRewardsNodeConfig, unk
                 config: {
                     rewards: {
                         rewardToken: arbRewardTokenAddresses.MOCK_A,
+                        ...DEFAULT_REWARDS_CONFIG,
+                    },
+                },
+            },
+            {
+                contract: onAbs(contract),
+                config: {
+                    rewards: {
+                        rewardToken: absRewardTokenAddresses.MOCK_A,
                         ...DEFAULT_REWARDS_CONFIG,
                     },
                 },

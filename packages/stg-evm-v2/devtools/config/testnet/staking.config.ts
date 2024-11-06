@@ -11,7 +11,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetLPTokenAddresses } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onOpt } from './utils'
 
 const staking = { contractName: 'StargateStaking' }
 const rewarder = { contractName: 'StargateMultiRewarder' }
@@ -24,12 +24,14 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscStaking = onBsc(staking)
     const optStaking = onOpt(staking)
     const arbStaking = onArb(staking)
+    const absStaking = onAbs(staking)
 
     // Get the rewarder contract
     const ethRewarder = await contractFactory(onEth(rewarder))
     const bscRewarder = await contractFactory(onBsc(rewarder))
     const optRewarder = await contractFactory(onOpt(rewarder))
     const arbRewarder = await contractFactory(onArb(rewarder))
+    const absRewarder = await contractFactory(onAbs(rewarder))
 
     // Template objects for pool configuration
     //
@@ -38,6 +40,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscPool = { rewarder: bscRewarder.contract.address }
     const optPool = { rewarder: optRewarder.contract.address }
     const arbPool = { rewarder: arbRewarder.contract.address }
+    const absPool = { rewarder: absRewarder.contract.address }
 
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
 
@@ -46,6 +49,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
     const optLPTokenAddresses = await getLPTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
+    const absLPTokenAddresses = await getLPTokenAddresses(EndpointId.ABSTRACT_V2_TESTNET, [TokenName.ETH] as const)
 
     return {
         contracts: [
@@ -113,6 +117,17 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...arbPool,
                             token: arbLPTokenAddresses.ETH,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: absStaking,
+                config: {
+                    pools: [
+                        {
+                            ...absPool,
+                            token: absLPTokenAddresses.ETH,
                         },
                     ],
                 },

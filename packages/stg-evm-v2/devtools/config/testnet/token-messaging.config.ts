@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateTokenMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
 
 const contract = { contractName: 'TokenMessaging' }
 
@@ -20,6 +20,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const optTokenMsging = onOpt(contract)
     const arbTokenMsging = onArb(contract)
     const klaytnTokenMsging = onKlaytn(contract)
+    const absTokenMsging = onAbs(contract)
 
     const defaultNodeConfig: TokenMessagingNodeConfig = {
         planner: DEFAULT_PLANNER,
@@ -33,6 +34,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
+    const absAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -89,6 +91,17 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     },
                 },
             },
+            {
+                contract: absTokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [absAssetAddresses.USDT]: ASSETS.USDC.assetId,
+                        [absAssetAddresses.USDT]: ASSETS.USDT.assetId,
+                        [absAssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
         ],
         connections: generateTokenMessagingConfig([
             ethTokenMsging,
@@ -96,6 +109,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             optTokenMsging,
             arbTokenMsging,
             klaytnTokenMsging,
+            absTokenMsging,
         ]),
     }
 }
