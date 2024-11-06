@@ -130,7 +130,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://public-en.kairos.node.kaia.io',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
@@ -411,7 +411,7 @@ const networks: NetworksUserConfig = {
     },
     'zksync-mainnet': {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
-        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://zksync.drpc.org',
+        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://mainnet.era.zksync.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
