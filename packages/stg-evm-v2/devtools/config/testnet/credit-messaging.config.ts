@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateCreditMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
 
 const contract = { contractName: 'CreditMessaging' }
 
