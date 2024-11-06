@@ -57,9 +57,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 
     const klaytnToBsc = getAssetEdge(klaytnPoint, bscPoint)
     const klaytnToEth = getAssetEdge(klaytnPoint, ethPoint)
-    const klaytnToOArb = getAssetEdge(klaytnPoint, arbPoint)
+    const klaytnToOArb = getAssetEdge(klaytnPoint, arbPoint) // typo in variable name? TODO
     const klaytnToOpt = getAssetEdge(klaytnPoint, optPoint)
     const klaytnToAbs = getAssetEdge(klaytnPoint, absPoint)
+
+    const absToBsc = getAssetEdge(absPoint, bscPoint)
+    const absToEth = getAssetEdge(absPoint, ethPoint)
+    const absToOpt = getAssetEdge(absPoint, optPoint)
+    const absToArb = getAssetEdge(absPoint, arbPoint)
+    const absToKlaytn = getAssetEdge(absPoint, klaytnPoint)
 
     return {
         contracts: [bscContract, ethContract, optContract, arbContract, klaytnContract, absContract],
@@ -108,6 +114,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             klaytnToOArb,
             klaytnToOpt,
             klaytnToAbs,
+
+            //
+            // Connections originating from ABS
+            //
+            absToBsc,
+            absToEth,
+            absToOpt,
+            absToArb,
+            absToKlaytn,
         ],
     }
 }

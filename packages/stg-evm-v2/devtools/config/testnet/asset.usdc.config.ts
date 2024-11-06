@@ -49,6 +49,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const klaytnToArb = getAssetEdge(klaytnPoint, arbPoint)
     const klaytnToAbs = getAssetEdge(klaytnPoint, absPoint)
 
+    const absToEth = getAssetEdge(absPoint, ethPoint)
+    const absToOpt = getAssetEdge(absPoint, optPoint)
+    const absToArb = getAssetEdge(absPoint, arbPoint)
+    const absToKlaytn = getAssetEdge(absPoint, klaytnPoint)
+
     return {
         contracts: [ethContract, optContract, arbContract, klaytnContract],
         connections: [
@@ -83,6 +88,14 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             klaytnToOpt,
             klaytnToArb,
             klaytnToAbs,
+
+            //
+            // Connections originating from ABS
+            //
+            absToEth,
+            absToOpt,
+            absToArb,
+            absToKlaytn,
         ],
     }
 }
