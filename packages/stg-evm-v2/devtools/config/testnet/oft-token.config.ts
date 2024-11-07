@@ -20,17 +20,17 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
-    const absETHContractName = getTokenDeployName(
-        TokenName.ETH,
-        getAssetType(EndpointId.ABSTRACT_V2_TESTNET, TokenName.ETH)
+    const absUSDTContractName = getTokenDeployName(
+        TokenName.USDT,
+        getAssetType(EndpointId.ABSTRACT_V2_TESTNET, TokenName.USDT)
     )
-    const absETH = onAbs({ contractName: absETHContractName })
+    const absUSDT = onAbs({ contractName: absUSDTContractName })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const assets = [TokenName.ETH, TokenName.USDT] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, assets)
-    const absAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_TESTNET, assets)
+    const absAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_TESTNET, [TokenName.USDT] as const)
 
     return {
         contracts: [
@@ -44,7 +44,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 },
             },
             {
-                contract: absETH,
+                contract: absUSDT,
                 config: {
                     minters: {
                         [absAssetAddresses.ETH]: true,
