@@ -47,7 +47,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 contract: absUSDT,
                 config: {
                     minters: {
-                        [absAssetAddresses.ETH]: true,
                         [absAssetAddresses.USDT]: true,
                     },
                 },
