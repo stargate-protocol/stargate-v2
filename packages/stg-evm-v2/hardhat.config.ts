@@ -472,7 +472,7 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
         ],
     },
     zksolc: {
-        version: '1.4.1',
+        version: '1.5.7',
         compilerSource: 'binary',
         settings: {
             // See https://github.com/zkSync-Community-Hub/zksync-developers/discussions/218#discussioncomment-7994804
