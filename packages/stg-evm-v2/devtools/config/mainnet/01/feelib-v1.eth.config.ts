@@ -16,6 +16,7 @@ import {
     onMantle,
     onMetis,
     onOpt,
+    onPeaq,
     onScroll,
     onSei,
     onZkConsensys,
@@ -42,6 +43,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const mantleFeeLibV1 = onMantle(contract)
     const metisFeeLibV1 = onMetis(contract)
     const optFeeLibV1 = onOpt(contract)
+    const peaqFeeLibV1 = onPeaq(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
@@ -103,6 +105,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: seiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: peaqFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],

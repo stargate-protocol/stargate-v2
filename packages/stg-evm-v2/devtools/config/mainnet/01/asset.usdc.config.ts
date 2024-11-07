@@ -32,6 +32,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
+    const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
@@ -54,6 +55,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const lightlinkContract = await getAssetNode(lightlinkPoint)
     const mantleContract = await getAssetNode(mantlePoint)
     const optContract = await getAssetNode(optPoint)
+    const peaqContract = await getAssetNode(peaqPoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
     const scrollContract = await getAssetNode(scrollPoint)
@@ -77,6 +79,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             lightlinkContract,
             mantleContract,
             optContract,
+            peaqContract,
             polygonContract,
             raribleContract,
             scrollContract,
@@ -99,6 +102,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             lightlinkPoint,
             mantlePoint,
             optPoint,
+            peaqPoint,
             polygonPoint,
             rariblePoint,
             scrollPoint,

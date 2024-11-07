@@ -7,7 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onFlare, onGravity, onIota, onKlaytn, onLightlink, onRarible, onSei, onTaiko } from '../utils'
+import { onEbi, onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onSei, onTaiko } from '../utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -23,6 +23,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const lightlinkUSDT = onLightlink(usdtContractTemplate)
+    const peaqUSDT = onPeaq(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
@@ -50,6 +51,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
+    const peaqETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.PEAQ_V2_MAINNET, TokenName.ETH)
+    )
+    const peaqETH = onPeaq({ contractName: peaqETHContractName })
+
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
     const seiETH = onSei({ contractName: seiETHContractName })
 
@@ -73,6 +80,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
+    const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
@@ -169,6 +180,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
                     minters: {
                         [lightlinkAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: peaqETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
+                    minters: {
+                        [peaqAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: peaqUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
+                    minters: {
+                        [peaqAssetAddresses.USDT]: true,
                     },
                 },
             },

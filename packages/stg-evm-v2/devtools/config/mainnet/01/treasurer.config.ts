@@ -24,6 +24,7 @@ import {
     onMantle,
     onMetis,
     onOpt,
+    onPeaq,
     onPolygon,
     onRarible,
     onScroll,
@@ -57,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const mantleAdmin = getSafeAddress(EndpointId.MANTLE_V2_MAINNET)
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
+    const peaqAdmin = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
@@ -135,6 +137,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTIMISM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -361,6 +368,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [optAssetAddresses.ETH]: true,
                         [optAssetAddresses.USDC]: true,
                         [optAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onPeaq(contract),
+                config: {
+                    owner: peaqAdmin,
+                    admin: peaqAdmin,
+                    assets: {
+                        [peaqAssetAddresses.ETH]: true,
+                        [peaqAssetAddresses.USDC]: true,
+                        [peaqAssetAddresses.USDT]: true,
                     },
                 },
             },
