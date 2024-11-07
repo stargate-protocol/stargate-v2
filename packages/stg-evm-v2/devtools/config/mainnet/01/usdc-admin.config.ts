@@ -1,13 +1,21 @@
+import assert from 'assert'
+
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
+import { getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
+
+// Except for Peaq where it's deployed externally
+const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
+assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Get the corresponding underlying USDC contract
@@ -16,7 +24,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaUSDC = onIota(proxyContract)
     const klaytnUSDC = onKlaytn(proxyContract)
     const lightlinkUSDC = onLightlink(proxyContract)
-    const peaqUSDC = onPeaq(proxyContract)
+    const peaqUSDC = onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
     const raribleUSDC = onRarible(proxyContract)
     const taikoUSDC = onTaiko(proxyContract)
     const xchainUSDC = onXchain(proxyContract)
