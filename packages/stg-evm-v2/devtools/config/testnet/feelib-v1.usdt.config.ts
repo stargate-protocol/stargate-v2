@@ -6,7 +6,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { getFeeLibV1DeployName } from '../../../ops/util'
 
 import { DEFAULT_FEE_CONFIG, DEFAULT_PLANNER } from './constants'
-import { onAbs, onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
 
 const tokenName = TokenName.USDT
 const contract = { contractName: getFeeLibV1DeployName(tokenName) }
@@ -17,7 +17,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const optFeeLibV1 = onOpt(contract)
     const arbFeeLibV1 = onArb(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
-    const absFeeLibV1 = onAbs(contract)
+    // const absFeeLibV1 = onAbs(contract)
 
     const defaultNodeConfig = {
         owner: DEFAULT_PLANNER,
@@ -50,10 +50,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 contract: klaytnFeeLibV1,
                 config: defaultNodeConfig,
             },
-            {
-                contract: absFeeLibV1,
-                config: defaultNodeConfig,
-            },
+            // {
+            //     contract: absFeeLibV1,
+            //     config: defaultNodeConfig,
+            // },
         ],
         connections: [
             //
@@ -79,11 +79,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: klaytnFeeLibV1,
                 config: defaultEdgeConfig,
             },
-            {
-                from: ethFeeLibV1,
-                to: absFeeLibV1,
-                config: defaultEdgeConfig,
-            },
+            // {
+            //     from: ethFeeLibV1,
+            //     to: absFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
 
             //
             // Connections originating from BSC
@@ -108,11 +108,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: klaytnFeeLibV1,
                 config: defaultEdgeConfig,
             },
-            {
-                from: bscFeeLibV1,
-                to: absFeeLibV1,
-                config: defaultEdgeConfig,
-            },
+            // {
+            //     from: bscFeeLibV1,
+            //     to: absFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
 
             //
             // Connections originating from OPT
@@ -137,11 +137,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: klaytnFeeLibV1,
                 config: defaultEdgeConfig,
             },
-            {
-                from: optFeeLibV1,
-                to: absFeeLibV1,
-                config: defaultEdgeConfig,
-            },
+            // {
+            //     from: optFeeLibV1,
+            //     to: absFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
 
             //
             // Connections originating from ARB
@@ -166,11 +166,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: klaytnFeeLibV1,
                 config: defaultEdgeConfig,
             },
-            {
-                from: arbFeeLibV1,
-                to: absFeeLibV1,
-                config: defaultEdgeConfig,
-            },
+            // {
+            //     from: arbFeeLibV1,
+            //     to: absFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
 
             //
             // Connections originating from KLAYTN
@@ -195,40 +195,40 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: arbFeeLibV1,
                 config: defaultEdgeConfig,
             },
-            {
-                from: klaytnFeeLibV1,
-                to: absFeeLibV1,
-                config: defaultEdgeConfig,
-            },
+            // {
+            //     from: klaytnFeeLibV1,
+            //     to: absFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
 
             //
             // Connections originating from ABS
             //
-            {
-                from: absFeeLibV1,
-                to: ethFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: absFeeLibV1,
-                to: bscFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: absFeeLibV1,
-                to: optFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: absFeeLibV1,
-                to: arbFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: absFeeLibV1,
-                to: klaytnFeeLibV1,
-                config: defaultEdgeConfig,
-            },
+            // {
+            //     from: absFeeLibV1,
+            //     to: ethFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
+            // {
+            //     from: absFeeLibV1,
+            //     to: bscFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
+            // {
+            //     from: absFeeLibV1,
+            //     to: optFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
+            // {
+            //     from: absFeeLibV1,
+            //     to: arbFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
+            // {
+            //     from: absFeeLibV1,
+            //     to: klaytnFeeLibV1,
+            //     config: defaultEdgeConfig,
+            // },
         ],
     }
 }

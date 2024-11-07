@@ -15,22 +15,23 @@ import type { HDAccountsUserConfig, HardhatUserConfig, NetworksUserConfig } from
 
 import '@nomiclabs/hardhat-ethers'
 import '@nomicfoundation/hardhat-chai-matchers'
-import '@nomiclabs/hardhat-etherscan'
+// import '@nomiclabs/hardhat-etherscan'
 import '@matterlabs/hardhat-zksync-solc'
 import '@matterlabs/hardhat-zksync-deploy'
-import 'hardhat-deploy'
-import 'hardhat-deploy-ethers'
-import 'hardhat-gas-reporter'
-import 'hardhat-contract-sizer'
-import 'hardhat-spdx-license-identifier'
-import 'solidity-coverage'
+// import 'hardhat-deploy'
+// import 'hardhat-deploy-ethers'
+// import 'hardhat-gas-reporter'
+// import 'hardhat-contract-sizer'
+// import 'hardhat-spdx-license-identifier'
+// import 'solidity-coverage'
 
-import '@layerzerolabs/toolbox-hardhat'
+// import '@layerzerolabs/toolbox-hardhat'
 
-import '@typechain/hardhat'
+// import '@typechain/hardhat'
+import '@matterlabs/hardhat-zksync-verify'
 
 // Devtools-specific tasks
-import './devtools/tasks'
+// import './devtools/tasks'
 
 const v1Deployments = join(dirname(require.resolve('@stargatefinance/stg-evm-v1/package.json')), 'deployments')
 
@@ -116,6 +117,16 @@ const networks: NetworksUserConfig = {
     //
     // Testnet
     //
+    'abstract-testnet': {
+        eid: EndpointId.ABSTRACT_V2_TESTNET,
+        url: process.env.RPC_URL_ABSTRACT_TESTNET || 'https://api.testnet.abs.xyz',
+        accounts: testnetAccounts,
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        // safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_TESTNET),
+        zksync: true,
+        ethNetwork: 'sepolia-testnet',
+        verifyURL: 'https://api-explorer-verify.testnet.abs.xyz/contract_verification',
+    },
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.gateway.tenderly.co',
@@ -141,11 +152,6 @@ const networks: NetworksUserConfig = {
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.sepolia.org',
-        accounts: testnetAccounts,
-    },
-    'abstract-testnet': {
-        eid: EndpointId.ABSTRACT_V2_TESTNET,
-        url: process.env.RPC_URL_ABSTRACT_TESTNET || 'https://api.testnet.abs.xyz',
         accounts: testnetAccounts,
     },
 
