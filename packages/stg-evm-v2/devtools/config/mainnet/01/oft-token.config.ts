@@ -23,7 +23,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const lightlinkUSDT = onLightlink(usdtContractTemplate)
-    const peaqUSDT = onPeaq(usdtContractTemplate)
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
@@ -189,15 +188,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
                     minters: {
                         [peaqAssetAddresses.ETH]: true,
-                    },
-                },
-            },
-            {
-                contract: peaqUSDT,
-                config: {
-                    owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
-                    minters: {
-                        [peaqAssetAddresses.USDT]: true,
                     },
                 },
             },
