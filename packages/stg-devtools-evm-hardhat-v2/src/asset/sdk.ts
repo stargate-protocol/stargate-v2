@@ -45,22 +45,11 @@ export class Asset extends Ownable implements IAsset {
             },
         ])
 
-        // TODO add contract name and function name to print log -- @layerzerolabs/devtools
-        // contract name should be in OmniTransaction.OmniPoint.contractName
-        // function name here is setAddressConfig which should be included in description? or its own optional field in OmniTransaction that prints if passed...
-
-        //         Add contract name to log
-        //              exists in OmniTransaction.OmniPoint.contractName so only need to add support to logger? can use devtools formatOmniPoint to list contract name
-        //         Add function being called to log
-        //              likely as an optional param to OmniTransaction first
-        //              then add support to logger?
-
-        // where/how is omnitransaction logged?
-
         return {
             ...this.createTransaction(data),
-            description: `Setting address config for ${formatOmniPoint(omniContractToPoint(this.contract))}:\n${printRecord(config)}`,
-            // TODO functionName: 'setAddressConfig',
+            description: `Setting address config for ${formatOmniPoint(omniContractToPoint(this.contract))}`,
+            functionName: 'setAddressConfig',
+            functionArgs: `config = ${printRecord(config)}`,
         }
     }
 
@@ -89,6 +78,8 @@ export class Asset extends Ownable implements IAsset {
         return {
             ...this.createTransaction(data),
             description: `Setting isOFT path for ${this.label} on ${formatEid(dstEid)} to ${isOft}`,
+            functionName: 'setOFTPath',
+            functionArgs: `dstEid = ${formatEid(dstEid)} \nisOft = ${isOft}`,
         }
     }
 
@@ -147,6 +138,8 @@ export class Asset extends Ownable implements IAsset {
         return {
             ...this.createTransaction(data),
             description: `Setting paused status for ${this.label} to ${paused}`,
+            functionName: 'setPaused',
+            functionArgs: `paused = ${paused}`,
         }
     }
 
