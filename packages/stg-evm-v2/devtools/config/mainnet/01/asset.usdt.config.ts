@@ -33,7 +33,6 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
     const metisPoint = getAssetPoint(EndpointId.METIS_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
-    const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
@@ -55,7 +54,6 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const mantleContract = await getAssetNode(mantlePoint)
     const metisContract = await getAssetNode(metisPoint)
     const optContract = await getAssetNode(optPoint)
-    const peaqContract = await getAssetNode(peaqPoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
     const seiContract = await getAssetNode(seiPoint)
@@ -78,7 +76,6 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             mantleContract,
             metisContract,
             optContract,
-            peaqContract,
             polygonContract,
             raribleContract,
             seiContract,
@@ -100,7 +97,6 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             mantlePoint,
             metisPoint,
             optPoint,
-            peaqPoint,
             polygonPoint,
             rariblePoint,
             seiPoint,
