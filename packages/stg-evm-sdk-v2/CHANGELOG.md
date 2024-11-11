@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.12
+
+### Patch Changes
+
+- c8104b4: Peaq Deployments
+
 ## 1.0.11
 
 ### Patch Changes
