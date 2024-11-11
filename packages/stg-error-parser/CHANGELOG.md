@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.6
+
+### Patch Changes
+
+- c8104b4: Peaq Deployments
+
 ## 1.0.5
 
 ### Patch Changes
