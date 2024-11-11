@@ -176,9 +176,6 @@ configure-testnet:
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
-	# Set the admin to secondary role so our calls as owner get through
-	$(CONFIGURE_USDC_SET_ADMIN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer deployer
-
 	# Configure the minters while we are still MasterMinters
 	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
@@ -250,9 +247,6 @@ preconfigure-mainnet:
 
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
-
-	# Set the admin to secondary role(MULTISIG) so our calls as owner get through
-	$(CONFIGURE_USDC_SET_ADMIN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer usdcAdmin
 
 	# Configure the minters while we are still MasterMinters
 	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer

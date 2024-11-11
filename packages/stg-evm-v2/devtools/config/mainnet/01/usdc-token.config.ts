@@ -1,3 +1,5 @@
+import assert from 'assert'
+
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
@@ -5,12 +7,16 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
-import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
+import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
+
+// Except for Peaq where it's deployed externally
+const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
+assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -22,7 +28,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const lightlinkUSDCProxy = await contractFactory(onLightlink(proxyContract))
-    const peaqUSDCProxy = await contractFactory(onPeaq(proxyContract))
+    const peaqUSDCProxy = await contractFactory(
+        onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
+    )
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
