@@ -48,7 +48,11 @@ export class Asset extends Ownable implements IAsset {
         return {
             ...this.createTransaction(data),
             description: `Setting address config for ${formatOmniPoint(omniContractToPoint(this.contract))}`,
-            metadata: { functionName: 'setAddressConfig', functionArgs: `config = ${printRecord(config)}` },
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setAddressConfig',
+                functionArgs: `config = ${printRecord(config)}`,
+            },
         }
     }
 
@@ -78,6 +82,7 @@ export class Asset extends Ownable implements IAsset {
             ...this.createTransaction(data),
             description: `Setting isOFT path for ${this.label} on ${formatEid(dstEid)} to ${isOft}`,
             metadata: {
+                contractName: this.contractName,
                 functionName: 'setOFTPath',
                 functionArgs: `dstEid = ${formatEid(dstEid)} \nisOft = ${isOft}`,
             },
@@ -140,6 +145,7 @@ export class Asset extends Ownable implements IAsset {
             ...this.createTransaction(data),
             description: `Setting paused status for ${this.label} to ${paused}`,
             metadata: {
+                contractName: this.contractName,
                 functionName: 'setPaused',
                 functionArgs: `paused = ${paused}`,
             },
