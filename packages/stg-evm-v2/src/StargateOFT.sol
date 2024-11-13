@@ -22,6 +22,12 @@ contract StargateOFT is StargateBase {
         address _owner
     ) StargateBase(_token, IERC20Metadata(_token).decimals(), _sharedDecimals, _endpoint, _owner) {}
 
+    /// @notice Transfer ownership of the token to a new owner.
+    /// @param _newOwner The account to set as owner
+    function transferTokenOwnership(address _newOwner) external onlyOwner {
+        IERC20Minter(token).transferOwnership(_newOwner); // TODO how do i know this is the correct function to call -- where exactly does this lead after the IERC20Minter?
+    }
+
     /// @notice Burn tokens to represent their removal from the local chain
     /// @param _from The address to burn tokens from
     /// @param _amount How many tokens to burn in LD
