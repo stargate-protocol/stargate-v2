@@ -13,8 +13,4 @@ interface IERC20Minter {
     /// @param _from The account to burn tokens from
     /// @param _amount How many tokens to burn
     function burnFrom(address _from, uint256 _amount) external;
-
-    /// @notice Transfer ownership of the token to a new owner.
-    /// @param _newOwner The account to set as owner
-    function transferOwnership(address _newOwner) external;
 }

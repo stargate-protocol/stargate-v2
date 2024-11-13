@@ -10,6 +10,10 @@ import { StargateBase, FeeParams } from "./StargateBase.sol";
 /// @title A Stargate contract representing an OFT. This contract will burn OFTs when sending tokens
 /// @title to other chains and mint tokens when receiving them from other chains.
 contract StargateOFT is StargateBase {
+    error TransferTokenOwnershipFailed();
+
+    event TokenOwnershipTransferred(address token, address newOwner);
+
     /// @notice Create a StargateOFT contract administering an OFT.
     /// @param _token The OFT to administer
     /// @param _sharedDecimals The minimum number of decimals used to represent value in this OFT
@@ -25,7 +29,11 @@ contract StargateOFT is StargateBase {
     /// @notice Transfer ownership of the token to a new owner.
     /// @param _newOwner The account to set as owner
     function transferTokenOwnership(address _newOwner) external onlyOwner {
-        IERC20Minter(token).transferOwnership(_newOwner); // TODO how do i know this is the correct function to call -- where exactly does this lead after the IERC20Minter?
+        try IERC20Minter(token).transferOwnership(_newOwner) {
+            emit TokenOwnershipTransferred(token, _newOwner);
+        } catch {
+            revert TransferTokenOwnershipFailed();
+        }
     }
 
     /// @notice Burn tokens to represent their removal from the local chain
