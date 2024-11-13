@@ -22,8 +22,11 @@ export const BlacklistableMixin: IBlacklistable = {
         return {
             ...this.createTransaction(data),
             description: `Setting blacklister to address ${blacklister}`,
-            functionName: 'setBlacklister',
-            functionArgs: `blacklister = ${blacklister}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setBlacklister',
+                functionArgs: `blacklister = ${blacklister}`,
+            },
         }
     },
     async isBlacklisted(this: OmniSDK, address: OmniAddress): Promise<boolean> {
@@ -47,6 +50,7 @@ export const BlacklistableMixin: IBlacklistable = {
             ...this.createTransaction(data),
             description: `Setting ${address} blacklist status to ${blacklisted}`,
             metadata: {
+                contractName: this.contractName,
                 functionName: 'setBlacklisted',
                 functionArgs: `address = ${address}\nblacklisted = ${blacklisted}`, // TODO confirm this pattern with Jan before proceeding to make this change in all files
             },

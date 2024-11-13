@@ -14,4 +14,9 @@ import type { AssetFactory } from '@stargatefinance/stg-devtools-v2'
  */
 export const createAssetFactory = <TOmniPoint = never>(
     contractFactory: OmniContractFactory<TOmniPoint>
-): AssetFactory<Asset, TOmniPoint> => pMemoize(async (point) => new Asset(await contractFactory(point)))
+): AssetFactory<Asset, TOmniPoint> =>
+    pMemoize(async (point) => {
+        const { contractName } = point as { contractName: string }
+
+        return new Asset(await contractFactory(point), contractName) // TODO should work once devtools PR is merged, published, and dependency is updated in this repo
+    })
