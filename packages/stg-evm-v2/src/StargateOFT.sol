@@ -7,6 +7,8 @@ import { StargateType } from "./interfaces/IStargate.sol";
 import { IERC20Minter } from "./interfaces/IERC20Minter.sol";
 import { StargateBase, FeeParams } from "./StargateBase.sol";
 
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+
 /// @title A Stargate contract representing an OFT. This contract will burn OFTs when sending tokens
 /// @title to other chains and mint tokens when receiving them from other chains.
 contract StargateOFT is StargateBase {
@@ -21,6 +23,12 @@ contract StargateOFT is StargateBase {
         address _endpoint,
         address _owner
     ) StargateBase(_token, IERC20Metadata(_token).decimals(), _sharedDecimals, _endpoint, _owner) {}
+
+    /// @notice Transfer ownership of the token to a new owner.
+    /// @param _newOwner The account to set as owner
+    function transferTokenOwnership(address _newOwner) external onlyOwner {
+        Ownable(token).transferOwnership(_newOwner);
+    }
 
     /// @notice Burn tokens to represent their removal from the local chain
     /// @param _from The address to burn tokens from
