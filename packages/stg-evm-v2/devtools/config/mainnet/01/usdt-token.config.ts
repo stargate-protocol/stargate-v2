@@ -1,10 +1,10 @@
 import assert from 'assert'
 
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
-import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
+import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { onPeaq } from '../utils'
@@ -15,8 +15,7 @@ const fiatContract = { contractName: 'FiatTokenV2_2' }
 const usdtPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDT)
 assert(usdtPeaqAsset.address != null, `External USDT address not found for PEAQ`)
 
-// TODO change USDCNodeConfig to USDTNodeConfig, but that does not yet exist
-export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
+export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
