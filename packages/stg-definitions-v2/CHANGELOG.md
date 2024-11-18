@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.0
+
+### Minor Changes
+
+- 676b2cd: Support for external USDT deployments
+
 ## 1.2.5
 
 ### Patch Changes
