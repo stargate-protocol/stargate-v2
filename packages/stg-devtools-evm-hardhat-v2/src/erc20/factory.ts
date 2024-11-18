@@ -16,4 +16,9 @@ import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
  */
 export const createERC20Factory = <TOmniPoint = never>(
     contractFactory: OmniContractFactory<TOmniPoint | OmniPoint>
-): ERC20Factory<ERC20, TOmniPoint> => pMemoize(async (point) => new ERC20(await contractFactory(point)))
+): ERC20Factory<ERC20, TOmniPoint> =>
+    pMemoize(async (point) => {
+        const { contractName } = point as { contractName: string }
+
+        return new ERC20(await contractFactory(point), contractName)
+    })
