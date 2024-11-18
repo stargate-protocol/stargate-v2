@@ -130,7 +130,6 @@
     "@uniswap/permit2-sdk": "^1.2.0",
     "chai": "^4.3.7",
     "concurrently": "~8.2.2",
-    "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "fp-ts": "~2.16.5",
     "hardhat": "^2.22.10",

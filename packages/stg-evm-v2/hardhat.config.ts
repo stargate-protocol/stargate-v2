@@ -118,7 +118,7 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.gateway.tenderly.co',
+        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
         useFeeData: true,
     },
@@ -140,7 +140,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.sepolia.org',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
 
