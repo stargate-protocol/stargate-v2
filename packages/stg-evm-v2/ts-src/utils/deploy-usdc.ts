@@ -1,5 +1,5 @@
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
-import { HardhatRuntimeEnvironment, Libraries } from 'hardhat/types'
+import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { DeployFunction } from 'hardhat-deploy/dist/types'
 
 import { getEidForNetworkName } from '@layerzerolabs/devtools-evm-hardhat'
@@ -8,18 +8,14 @@ import { Logger, createModuleLogger } from '@layerzerolabs/io-devtools'
 import { getUSDCImplDeployName, getUSDCProxyDeployName, getUSDCSignatureLibDeployName } from '../../ops/util'
 import { CONTRACT_USDC_TAGS } from '../constants'
 
-import USDCImpl from './USDCImpl.json'
-import USDCProxy from './USDCProxy.json'
-import USDCSignatureLib from './USDCSignatureLib.json'
-import { getFeeData } from './deployments'
-import { appendTags, deploy, fillAddress } from './helpers'
+import { createDeploy, getFeeData } from './deployments'
+import { appendTags } from './helpers'
 import { getAssetNetworkConfigMaybe, getTokenConfig } from './util'
 
 const appendTokenTags = appendTags(CONTRACT_USDC_TAGS)
 
 const tokenName = TokenName.USDC
 
-// Deploy function for USDC
 export const createDeployUSDC = (): DeployFunction =>
     appendTokenTags(async (hre) => {
         // First let's get some basic info
@@ -56,10 +52,10 @@ interface DeployUSDCOptions {
 }
 
 const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol }: DeployUSDCOptions) => {
+    const deploy = createDeploy(hre)
     const feeData = await getFeeData(hre)
     const { deployer, usdcAdmin } = await hre.getNamedAccounts()
     const deployerSigner = await hre.ethers.getSigner(deployer)
-    const usdcAdminSigner = await hre.ethers.getSigner(usdcAdmin)
 
     const signLibContractName = 'SignatureChecker'
     const implContractName = 'FiatTokenV2_2'
@@ -72,60 +68,30 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
 
     logger.info(`Deploying USDC token ${symbol} (name ${name})`)
 
-    const balanceDeployer = await hre.ethers.provider.getBalance(deployer)
-    const balanceUsdcAdmin = await hre.ethers.provider.getBalance(usdcAdmin)
-
-    logger.info(`deployer: ${deployer} | balance: ${balanceDeployer}`)
-    logger.info(`usdcAdmin: ${usdcAdmin} | balance: ${balanceUsdcAdmin}`)
-
-    // Deploy the SignatureChecker library contract
-    const sigOverrides = {
-        gasPrice: await hre.ethers.provider.getGasPrice(),
-    }
-
-    const signatureCheckerLibDeployment = await deploy({
-        hre,
-        contractName: signLibContractName,
-        deploymentName: signLibDeploymentName,
-        overrides: sigOverrides,
-        abi: USDCSignatureLib.abi,
-        creationBytecode: USDCSignatureLib.bytecode,
-        signer: deployerSigner,
-        logger,
-        libraries: {},
+    logger.info(`Deploying USDC SignatureChecker library contract ${signLibContractName} as ${signLibDeploymentName}`)
+    const signatureCheckerLibDeployment = await deploy(signLibDeploymentName, {
+        contract: signLibContractName,
+        from: deployer,
         args: [],
-        metadata: JSON.stringify(USDCSignatureLib.metadata),
+        log: true,
+        waitConfirmations: 1,
+        skipIfAlreadyDeployed: true,
+        gasPrice: await hre.ethers.provider.getGasPrice(),
     })
 
+    logger.info(`Deploying USDC implementation contract ${implContractName} as ${implDeploymentName}`)
     // Deploy implementation contract
-
-    // Link the SignatureChecker library into the implementation bytecode
-    const implBytecodeWithLib = fillAddress(USDCImpl.bytecode, signatureCheckerLibDeployment.address)
-    const implMetadataWithSigAddress = fillAddress(
-        JSON.stringify(USDCImpl.metadata),
-        signatureCheckerLibDeployment.address
-    )
-
-    const implAndProxyOverrides = {
-        ...feeData,
-    }
-
-    const libraries: Libraries = {
-        SignatureChecker: signatureCheckerLibDeployment.address,
-    }
-
-    const implTokenDeployment = await deploy({
-        hre,
-        contractName: implContractName,
-        deploymentName: implDeploymentName,
-        overrides: implAndProxyOverrides,
-        abi: USDCImpl.abi,
-        creationBytecode: implBytecodeWithLib,
-        signer: usdcAdminSigner, // NOTE may have insufficient funds
-        logger,
-        libraries,
+    const implTokenDeployment = await deploy(implDeploymentName, {
+        contract: implContractName,
+        from: usdcAdmin,
         args: [],
-        metadata: implMetadataWithSigAddress,
+        libraries: {
+            SignatureChecker: signatureCheckerLibDeployment.address,
+        },
+        log: true,
+        waitConfirmations: 1,
+        skipIfAlreadyDeployed: true,
+        ...feeData,
     })
 
     // Brick its initialization
@@ -160,27 +126,21 @@ const deployUSDC = async (hre: HardhatRuntimeEnvironment, { logger, name, symbol
         await brick3Tx.wait()
     }
 
-    // Deploy upgradable proxy contract with bytecode
-    const proxyBytecodeWithImplAddress = fillAddress(USDCProxy.bytecode, implTokenDeployment.address)
-    const proxyMetadataWithImplAddress = fillAddress(JSON.stringify(USDCProxy.metadata), implTokenDeployment.address)
-
-    const proxyDeployment = await deploy({
-        hre,
-        contractName: proxyContractName,
-        deploymentName: proxyDeploymentName,
-        overrides: implAndProxyOverrides,
-        abi: USDCProxy.abi,
-        creationBytecode: proxyBytecodeWithImplAddress,
-        signer: usdcAdminSigner, // NOTE may have insufficient funds
-        logger,
-        libraries: {},
+    logger.info(`Deploying USDC proxy contract based on contract ${proxyContractName} as ${proxyDeploymentName}`)
+    // Deploy upgradable proxy contract
+    const proxyDeployment = await deploy(proxyDeploymentName, {
+        contract: proxyContractName,
+        from: usdcAdmin,
         args: [implTokenDeployment.address],
-        metadata: proxyMetadataWithImplAddress,
+        log: true,
+        waitConfirmations: 1,
+        skipIfAlreadyDeployed: true,
+        ...feeData,
     })
 
     // Initialize the proxy
     if (proxyDeployment.newlyDeployed) {
-        logger.info(`Initializing USDC proxy contract based on ${proxyDeploymentName}`)
+        logger.info(`Initializing USDC proxy contract based on contract ${proxyContractName} as ${proxyDeploymentName}`)
 
         const proxyContract = new hre.ethers.Contract(
             proxyDeployment.address,
