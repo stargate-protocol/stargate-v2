@@ -17,4 +17,8 @@ import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 export const createCreditMessagingFactory = <TOmniPoint = never>(
     contractFactory: OmniContractFactory<TOmniPoint | OmniPoint>
 ): CreditMessagingFactory<CreditMessaging, TOmniPoint> =>
-    pMemoize(async (point) => new CreditMessaging(await contractFactory(point)))
+    pMemoize(async (point) => {
+        const { contractName } = point as { contractName: string }
+
+        return new CreditMessaging(await contractFactory(point), contractName)
+    })
