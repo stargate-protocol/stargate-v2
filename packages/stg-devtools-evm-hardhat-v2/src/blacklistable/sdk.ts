@@ -9,7 +9,7 @@ import { BlacklistableMixin } from './mixin'
 export class Blacklistable extends OmniSDK implements IBlacklistable {
     constructor(
         contract: OmniContract,
-        public readonly contractName = 'Blacklistable', // or StargateBase?
+        public readonly contractName = 'Blacklistable',
         logger?: Logger
     ) {
         super(contract, logger)
