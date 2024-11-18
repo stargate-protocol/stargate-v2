@@ -18,5 +18,5 @@ export const createAssetFactory = <TOmniPoint = never>(
     pMemoize(async (point) => {
         const { contractName } = point as { contractName: string }
 
-        return new Asset(await contractFactory(point), contractName) // TODO should work once devtools PR is merged, published, and dependency is updated in this repo
+        return new Asset(await contractFactory(point), contractName)
     })

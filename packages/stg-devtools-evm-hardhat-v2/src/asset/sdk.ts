@@ -10,8 +10,8 @@ import {
     ignoreZero,
     isDeepEqual,
 } from '@layerzerolabs/devtools'
-import { addChecksum, omniContractToPoint } from '@layerzerolabs/devtools-evm'
-import { printJson, printRecord } from '@layerzerolabs/io-devtools'
+import { OmniContract, addChecksum, omniContractToPoint } from '@layerzerolabs/devtools-evm'
+import { Logger, printJson, printRecord } from '@layerzerolabs/io-devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 
@@ -19,6 +19,14 @@ const UNLIMITED_CREDIT = BigInt('0xffffffffffffffff')
 const PAUSED = 3
 
 export class Asset extends Ownable implements IAsset {
+    constructor(
+        contract: OmniContract,
+        public readonly contractName = 'Asset', // or StargateBase?
+        logger?: Logger
+    ) {
+        super(contract, logger)
+    }
+
     @AsyncRetriable()
     async getAddressConfig(): Promise<AddressConfig> {
         const config = await this.contract.contract.getAddressConfig()

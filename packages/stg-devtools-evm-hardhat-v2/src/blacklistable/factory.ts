@@ -17,7 +17,4 @@ import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 export const createBlacklistableFactory = <TOmniPoint = never>(
     contractFactory: OmniContractFactory<TOmniPoint | OmniPoint>
 ): BlacklistableFactory<Blacklistable, TOmniPoint> =>
-    pMemoize(async (point) => {
-        const { contractName } = point as { contractName: string }
-        return new Blacklistable(await contractFactory(point), contractName)
-    })
+    pMemoize(async (point) => new Blacklistable(await contractFactory(point)))
