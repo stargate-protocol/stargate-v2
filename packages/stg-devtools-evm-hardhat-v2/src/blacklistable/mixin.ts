@@ -22,6 +22,11 @@ export const BlacklistableMixin: IBlacklistable = {
         return {
             ...this.createTransaction(data),
             description: `Setting blacklister to address ${blacklister}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setBlacklister',
+                functionArgs: `blacklister = ${blacklister}`,
+            },
         }
     },
     async isBlacklisted(this: OmniSDK, address: OmniAddress): Promise<boolean> {
@@ -44,6 +49,11 @@ export const BlacklistableMixin: IBlacklistable = {
         return {
             ...this.createTransaction(data),
             description: `Setting ${address} blacklist status to ${blacklisted}`,
+            metadata: {
+                contractName: this.setBlacklisted,
+                functionName: 'setBlacklister',
+                functionArgs: `address = ${address} \n blacklisted = ${blacklisted}`,
+            },
         }
     },
 }
