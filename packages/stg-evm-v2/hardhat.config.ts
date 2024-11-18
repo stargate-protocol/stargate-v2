@@ -140,7 +140,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.sepolia.org',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
 
