@@ -260,6 +260,15 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
+
+            /*
+                EXAMPLE:
+                    [EndpointId.ABC_V2_MAINNET]: {
+                        type: StargateType.Oft,
+                        address: '0xABC123',
+                    },
+             */
+
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
