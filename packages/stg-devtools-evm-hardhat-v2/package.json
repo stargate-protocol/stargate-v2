@@ -26,7 +26,7 @@
   "devDependencies": {
     "@layerzerolabs/devtools": "~0.4.1",
     "@layerzerolabs/devtools-evm": "~0.4.2",
-    "@layerzerolabs/devtools-evm-hardhat": "~1.2.3",
+    "@layerzerolabs/devtools-evm-hardhat": "~2.0.1",
     "@layerzerolabs/io-devtools": "~0.1.13",
     "@layerzerolabs/lz-definitions": "~3.0.18",
     "@layerzerolabs/lz-v2-utilities": "~3.0.18",
