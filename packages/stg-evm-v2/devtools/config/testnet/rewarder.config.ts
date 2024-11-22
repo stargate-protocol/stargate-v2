@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetLPTokenAddresses, createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onOpt } from './utils'
 
 const contract = { contractName: 'StargateMultiRewarder' }
 
@@ -20,6 +20,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const bscRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.BSC_V2_TESTNET, rewardTokens)
     const optRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, rewardTokens)
     const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, rewardTokens)
+    const absRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ABSTRACT_V2_TESTNET, rewardTokens)
 
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
@@ -27,6 +28,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
     const optLPTokenAddresses = await getLPTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
+    const absLPTokenAddresses = await getLPTokenAddresses(EndpointId.ABSTRACT_V2_TESTNET, [TokenName.ETH] as const)
 
     // 1e18 reward per second
     const DEFAULT_REWARDS_CONFIG = {
@@ -79,6 +81,16 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                             [arbLPTokenAddresses.USDT]: 1,
                             [arbLPTokenAddresses.USDC]: 1,
                             [arbLPTokenAddresses.ETH]: 1,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onAbs(contract),
+                config: {
+                    allocations: {
+                        [absRewardTokenAddresses.MOCK_A]: {
+                            [absLPTokenAddresses.ETH]: 1,
                         },
                     },
                 },

@@ -143,6 +143,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
+    'abstract-testnet': {
+        eid: EndpointId.ABSTRACT_V2_TESTNET,
+        url: process.env.RPC_URL_ABSTRACT_TESTNET || 'https://api.testnet.abs.xyz',
+        accounts: testnetAccounts,
+    },
 
     //
     // Mainnet
@@ -474,7 +479,7 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
         ],
     },
     zksolc: {
-        version: '1.4.1',
+        version: '1.5.7',
         compilerSource: 'binary',
         settings: {
             // See https://github.com/zkSync-Community-Hub/zksync-developers/discussions/218#discussioncomment-7994804
