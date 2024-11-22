@@ -144,6 +144,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
+        TokenName.USDT,
     ] as const)
     const polygonAssetAddresses = await getAssetAddresses(EndpointId.POLYGON_V2_MAINNET, [
         TokenName.USDC,
@@ -378,6 +379,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [peaqAssetAddresses.ETH]: true,
                         [peaqAssetAddresses.USDC]: true,
+                        [peaqAssetAddresses.USDT]: true,
                     },
                 },
             },
