@@ -1,3 +1,5 @@
+import assert from 'assert'
+
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { MintableNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
@@ -5,7 +7,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
-import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
+import { createGetAssetAddresses, getAssetNetworkConfig, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
     onDegen,
@@ -28,8 +30,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
+    // For external USDT deployments
+    const usdtDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDT)
+    assert(usdtDegenAsset.address != null, `External USDT address not found for DEGEN`)
+
     // USDT contract pointers
-    const degenUSDT = onDegen(usdtContractTemplate)
+    const degenUSDT = onDegen({ contractName: 'TransparentUpgradeableProxy', address: usdtDegenAsset.address })
     const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
