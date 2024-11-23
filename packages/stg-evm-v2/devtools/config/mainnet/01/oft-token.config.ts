@@ -1,5 +1,3 @@
-import assert from 'assert'
-
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { MintableNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
@@ -7,7 +5,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
-import { createGetAssetAddresses, getAssetNetworkConfig, getAssetType } from '../../../../ts-src/utils/util'
+import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import { onEbi, onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onSei, onTaiko } from '../utils'
 
@@ -18,10 +16,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
-    // For external USDT deployments
-    const usdtPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDT)
-    assert(usdtPeaqAsset.address != null, `External USDT address not found for PEAQ`)
-
     // USDT contract pointers
     const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
@@ -29,7 +23,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const iotaUSDT = onIota(usdtContractTemplate)
     const klaytnUSDT = onKlaytn(usdtContractTemplate)
     const lightlinkUSDT = onLightlink(usdtContractTemplate)
-    const peaqUSDT = onPeaq({ contractName: 'TransparentUpgradeableProxy', address: usdtPeaqAsset.address })
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
@@ -195,15 +188,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
                     minters: {
                         [peaqAssetAddresses.ETH]: true,
-                    },
-                },
-            },
-            {
-                contract: peaqUSDT,
-                config: {
-                    owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
-                    minters: {
-                        [peaqAssetAddresses.USDT]: true,
                     },
                 },
             },
