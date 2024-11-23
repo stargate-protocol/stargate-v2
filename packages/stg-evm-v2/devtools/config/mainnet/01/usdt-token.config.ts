@@ -9,7 +9,7 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { onPeaq } from '../utils'
 
-const fiatContract = { contractName: 'FiatTokenV2_2' }
+const fiatContract = { contractName: 'TetherTokenV2' }
 
 // For external USDT deployments
 const usdtPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDT)
@@ -21,7 +21,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const contractFactory = createContractFactory(getEnvironment)
 
     const peaqUSDTProxy = await contractFactory(
-        onPeaq({ contractName: 'FiatTokenProxy', address: usdtPeaqAsset.address })
+        onPeaq({ contractName: 'TransparentUpgradeableProxy', address: usdtPeaqAsset.address })
     )
 
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })

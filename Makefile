@@ -27,6 +27,9 @@ CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
 
 VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
 
+SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
+ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
+
 # Arguments to be always passed to hardhat lz:deploy devtools command
 # 
 # These allow consumers of this script to pass flags like --ci or --reset
@@ -308,6 +311,9 @@ transfer-mainnet:
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
+	# Copy TetherTokenV2.sol directory to the artifacts directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
+	
 	# Transfer USDT ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer
 
