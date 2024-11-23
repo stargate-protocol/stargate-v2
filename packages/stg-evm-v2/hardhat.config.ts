@@ -118,7 +118,7 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.gateway.tenderly.co',
+        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
         useFeeData: true,
     },
@@ -130,7 +130,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://public-en.kairos.node.kaia.io',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
@@ -140,7 +140,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.sepolia.org',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
 
@@ -336,6 +336,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.OPTIMISM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'peaq-mainnet': {
+        eid: EndpointId.PEAQ_V2_MAINNET,
+        url: process.env.RPC_URL_PEAQ_MAINNET || 'https://evm.peaq.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
         url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.meowrpc.com',
@@ -411,7 +418,7 @@ const networks: NetworksUserConfig = {
     },
     'zksync-mainnet': {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
-        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://zksync.drpc.org',
+        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://mainnet.era.zksync.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,

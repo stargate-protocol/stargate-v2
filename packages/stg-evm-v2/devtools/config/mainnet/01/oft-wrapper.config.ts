@@ -31,6 +31,7 @@ import {
     onMoonbeam,
     onOpbnb,
     onOpt,
+    onPeaq,
     onPolygon,
     onRarible,
     onScroll,
@@ -72,6 +73,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const moonRiverOftWrapper = onMoonRiver(contract)
     const opbnbOftWrapper = onOpbnb(contract)
     const optOftWrapper = onOpt(contract)
+    const peaqOftWrapper = onPeaq(contract)
     const polygonOftWrapper = onPolygon(contract)
     const raribleOftWrapper = onRarible(contract)
     const scrollOftWrapper = onScroll(contract)
@@ -239,6 +241,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: optOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
+                },
+            },
+            {
+                contract: peaqOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
                 },
             },
             {

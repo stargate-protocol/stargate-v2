@@ -1,3 +1,5 @@
+import assert from 'assert'
+
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
@@ -5,12 +7,16 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
-import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
+import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onRarible, onTaiko, onXchain } from '../utils'
+import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
+
+// Except for Peaq where it's deployed externally
+const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
+assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -22,6 +28,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const lightlinkUSDCProxy = await contractFactory(onLightlink(proxyContract))
+    const peaqUSDCProxy = await contractFactory(
+        onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
+    )
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
@@ -42,6 +51,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const lightlinkUSDC = onLightlink({ ...fiatContract, address: lightlinkUSDCProxy.contract.address })
     const lightlinkStargateMultisig = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
 
+    const peaqUSDC = onPeaq({ ...fiatContract, address: peaqUSDCProxy.contract.address })
+    const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
+
     const raribleUSDC = onRarible({ ...fiatContract, address: raribleUSDCProxy.contract.address })
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
 
@@ -59,6 +71,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
+    const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, usdcAssets)
@@ -127,6 +140,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: lightlinkStargateMultisig,
                     minters: {
                         [lightlinkAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: peaqUSDC,
+                config: {
+                    owner: peaqStargateMultisig,
+                    masterMinter: peaqStargateMultisig,
+                    pauser: peaqStargateMultisig,
+                    rescuer: peaqStargateMultisig,
+                    blacklister: peaqStargateMultisig,
+                    minters: {
+                        [peaqAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

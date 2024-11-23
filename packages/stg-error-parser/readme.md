@@ -30,4 +30,4 @@ This function checks a given string for any errors sent by a Stargate contract.
 parseError(data: string): LayerZeroParsedError | null
 ```
 
-This function parses a given string for error and decodes it.
+This function parses a given string for an error and decodes it.

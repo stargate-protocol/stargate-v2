@@ -1,5 +1,23 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [676b2cd]
+  - @stargatefinance/stg-definitions-v2@1.3.0
+  - @stargatefinance/stg-devtools-v2@2.0.0
+
+## 1.0.4
+
+### Patch Changes
+
+- c8104b4: Peaq Deployments
+- Updated dependencies [c8104b4]
+- Updated dependencies [453dec7]
+  - @stargatefinance/stg-definitions-v2@1.2.5
+  - @stargatefinance/stg-devtools-v2@1.0.4
+
 ## 1.0.3
 
 ### Patch Changes

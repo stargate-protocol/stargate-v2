@@ -36,6 +36,7 @@ export const DVNS = {
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
+        [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
@@ -82,6 +83,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x0e95cf21ad9376a26997c97f326c5a0a267bb8ff',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
+        [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x2fa870cee4da57de84d1db36759d4716ad7e5038',
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
@@ -115,6 +117,7 @@ export const EXECUTORS = {
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
+        [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
@@ -201,6 +204,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
+            [EndpointId.PEAQ_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.SCROLL_V2_MAINNET]: {
                 type: StargateType.Native,
             },
@@ -252,6 +260,15 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
+
+            /*
+                EXAMPLE:
+                    [EndpointId.ABC_V2_MAINNET]: {
+                        type: StargateType.Oft,
+                        address: '0xABC123',
+                    },
+             */
+
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
@@ -305,6 +322,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58',
+            },
+            [EndpointId.PEAQ_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xd8cF92E9B6Fae6B32f795AcB11Edd50E8dD6Ff4d',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -425,6 +446,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
                 type: StargateType.Pool,
+            },
+            [EndpointId.PEAQ_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xbbA60da06c2c5424f03f7434542280FCAd453d10',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
@@ -564,6 +589,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.MOONRIVER_V2_MAINNET]: {},
         [EndpointId.OPBNB_V2_MAINNET]: {},
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
+        [EndpointId.PEAQ_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
@@ -1152,6 +1178,35 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x392AC17A9028515a3bFA6CCe51F8b70306C6bd43',
             safeUrl: 'https://safe-transaction-optimism.safe.global/',
+        },
+    },
+    [EndpointId.PEAQ_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
+            nativeDropAmount: parseEther('0.01').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xB2687F7F6290aBa4ED3290ffFF6cB2e1cc30686D',
+            safeUrl: 'https://peaq-tx.lzdevnet.org/',
+            contractNetworks: {
+                [3338]: {
+                    multiSendAddress: '0x3150DF8a991204d541AD13988B609C6f50af0B7b',
+                    multiSendCallOnlyAddress: '0x6E5df01a1bEFe75bb01FCC20d3a8cCbF6c8f0356',
+                    safeMasterCopyAddress: '0xEFABd4B65F9E7097Dc7bf69de6FC9CbA2C227b9C',
+                    safeProxyFactoryAddress: '0xF545Fd55CeB06365f660AD8cC45A838eDAcBa6dC',
+                    fallbackHandlerAddress: '0xE3AfD9dDd88F10355C51197A350855B9c3FdC9d5',
+                    createCallAddress: '0x3fde1294F61A6f70e5eA7A4E4f3a4047E0C0eC11',
+                    signMessageLibAddress: '0xde261fCa19e0C85A46308D268C9968D001AF4d72',
+                    simulateTxAccessorAddress: '0x2023FD9E5d626425b55B8Beb62Ae5934e27a9f5e',
+                },
+            },
         },
     },
     [EndpointId.POLYGON_V2_MAINNET]: {

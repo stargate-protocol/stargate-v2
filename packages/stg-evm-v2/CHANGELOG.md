@@ -1,5 +1,26 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.2.0
+
+### Minor Changes
+
+- 676b2cd: Support for external USDT deployments
+
+### Patch Changes
+
+- Updated dependencies [676b2cd]
+  - @stargatefinance/stg-definitions-v2@1.3.0
+
+## 1.1.4
+
+### Patch Changes
+
+- c8104b4: Peaq Deployments
+- 453dec7: peaq mainnet config
+- Updated dependencies [c8104b4]
+- Updated dependencies [453dec7]
+  - @stargatefinance/stg-definitions-v2@1.2.5
+
 ## 1.1.3
 
 ### Patch Changes

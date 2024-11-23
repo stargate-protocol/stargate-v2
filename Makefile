@@ -25,6 +25,11 @@ CONFIGURE_TREASURER=$(HARDHAT) stg:wire::treasurer
 CONFIGURE_MINT_ALLOWANCE=$(HARDHAT) stg:set::mint-allowance
 CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
 
+VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
+
+SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
+ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
+
 # Arguments to be always passed to hardhat lz:deploy devtools command
 # 
 # These allow consumers of this script to pass flags like --ci or --reset
@@ -168,11 +173,11 @@ deploy-testnet: build deploy
 
 configure-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 configure-testnet:
+	# Validate RPCs
+	$(VALIDATE_RPCS) --config ./hardhat.config.ts --timeout 5000
+
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
-
-	# Set the admin to secondary role so our calls as owner get through
-	$(CONFIGURE_USDC_SET_ADMIN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer deployer
 
 	# Configure the minters while we are still MasterMinters
 	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -182,6 +187,9 @@ configure-testnet:
 
 	# Transfer ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+
+	# Transfer USDT ownership
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer
 
 	# Configure the assets
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
@@ -240,11 +248,11 @@ deploy-mainnet: build deploy
 
 preconfigure-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 preconfigure-mainnet:
+	# Validate RPCs
+	$(VALIDATE_RPCS) --config ./hardhat.config.ts
+
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
-
-	# Set the admin to secondary role(MULTISIG) so our calls as owner get through
-	$(CONFIGURE_USDC_SET_ADMIN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer usdcAdmin
 
 	# Configure the minters while we are still MasterMinters
 	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -302,6 +310,12 @@ transfer-mainnet:
 
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+
+	# Copy TetherTokenV2.sol directory to the artifacts directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
+	
+	# Transfer USDT ownership
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer
 
 	# The assets
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts --signer deployer
