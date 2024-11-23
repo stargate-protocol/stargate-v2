@@ -295,7 +295,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: 'RAVINA TODO',
+                address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
             },
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
