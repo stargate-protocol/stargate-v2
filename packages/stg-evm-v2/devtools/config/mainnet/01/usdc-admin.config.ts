@@ -9,18 +9,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import {
-    onDegen,
-    onFlare,
-    onGravity,
-    onIota,
-    onKlaytn,
-    onLightlink,
-    onPeaq,
-    onRarible,
-    onTaiko,
-    onXchain,
-} from '../utils'
+import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
@@ -30,7 +19,6 @@ assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Get the corresponding underlying USDC contract
-    const degenUSDC = onDegen(proxyContract)
     const flareUSDC = onFlare(proxyContract)
     const gravityUSDC = onGravity(proxyContract)
     const iotaUSDC = onIota(proxyContract)
@@ -41,7 +29,6 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const taikoUSDC = onTaiko(proxyContract)
     const xchainUSDC = onXchain(proxyContract)
 
-    const degenStargateMultisig = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const flareStargateMultisig = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
@@ -54,12 +41,6 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     return {
         contracts: [
-            {
-                contract: degenUSDC,
-                config: {
-                    admin: degenStargateMultisig,
-                },
-            },
             {
                 contract: flareUSDC,
                 config: {

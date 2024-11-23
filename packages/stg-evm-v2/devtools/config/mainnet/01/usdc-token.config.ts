@@ -29,12 +29,17 @@ const fiatContract = { contractName: 'FiatTokenV2_2' }
 const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
+const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
+assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
+
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
-    const degenUSDCProxy = await contractFactory(onDegen(proxyContract))
+    const degenUSDCProxy = await contractFactory(
+        onDegen({ contractName: 'FiatTokenProxy', address: usdcDegenAsset.address })
+    )
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))

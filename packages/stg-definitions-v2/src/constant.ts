@@ -424,7 +424,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: 'RAVINA TODO',
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
