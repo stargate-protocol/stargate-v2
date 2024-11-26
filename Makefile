@@ -174,7 +174,7 @@ deploy-testnet: build deploy
 configure-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 configure-testnet:
 	# Validate RPCs
-	$(VALIDATE_RPCS) --config ./hardhat.config.ts --timeout 5000
+	$(VALIDATE_RPCS) --config ./hardhat.config.ts --timeout 5000 --stage testnet
 
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
@@ -249,7 +249,7 @@ deploy-mainnet: build deploy
 preconfigure-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 preconfigure-mainnet:
 	# Validate RPCs
-	$(VALIDATE_RPCS) --config ./hardhat.config.ts
+	$(VALIDATE_RPCS) --config ./hardhat.config.ts --stage mainnet
 
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
