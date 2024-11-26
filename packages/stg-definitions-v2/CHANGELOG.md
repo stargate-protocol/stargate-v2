@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.1
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+- 48b1dc6: degen mainnet config
+- ea8c128: Updating peaq USDT configurations
+
 ## 1.3.0
 
 ### Minor Changes

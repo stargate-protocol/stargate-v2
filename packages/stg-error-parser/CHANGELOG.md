@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.7
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+
 ## 1.0.6
 
 ### Patch Changes
