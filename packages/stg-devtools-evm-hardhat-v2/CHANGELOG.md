@@ -1,5 +1,16 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 2.0.1
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+- Updated dependencies [9dc7d09]
+- Updated dependencies [48b1dc6]
+- Updated dependencies [ea8c128]
+  - @stargatefinance/stg-definitions-v2@1.3.1
+  - @stargatefinance/stg-devtools-v2@2.0.1
+
 ## 2.0.0
 
 ### Patch Changes

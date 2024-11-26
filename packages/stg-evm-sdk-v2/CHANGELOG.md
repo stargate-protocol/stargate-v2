@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.13
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+
 ## 1.0.12
 
 ### Patch Changes
