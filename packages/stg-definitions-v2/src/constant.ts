@@ -25,6 +25,7 @@ export const DVNS = {
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
@@ -72,6 +73,7 @@ export const DVNS = {
         [EndpointId.BASE_V2_MAINNET]: '0xcdf31d62140204c08853b547e64707110fbc6680',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -106,6 +108,7 @@ export const EXECUTORS = {
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
+        [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -162,6 +165,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BASE_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -284,6 +292,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.COREDAO_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x900101d06a7426441ae63e9ab3b9b0f63be145f1',
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
             },
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -409,6 +421,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.COREDAO_V2_MAINNET]: {
                 address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
@@ -570,6 +586,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
+        [EndpointId.DEGEN_V2_MAINNET]: {},
         [EndpointId.EBI_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
@@ -880,6 +897,35 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
             safeUrl: 'https://core-tx.lzdevnet.org/',
+        },
+    },
+    [EndpointId.DEGEN_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+            nativeDropAmount: parseEther('1').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x2F2F0C7097926e66a31A72BA956cf99DB6aeAe4A',
+            safeUrl: 'https://degen-tx.lzdevnet.org/',
+            contractNetworks: {
+                [666666666]: {
+                    multiSendAddress: '0xb952cFF2Bfb2939C8f1410966AC580cEEa9654Cd',
+                    multiSendCallOnlyAddress: '0x1E19eF7e15FfC6737b837BA398927847dA3d75f8',
+                    safeMasterCopyAddress: '0xd159BB62645f6e951cE6eF59b8da409a404f681F',
+                    safeProxyFactoryAddress: '0xEe830749c04334D9cC650a9320a9E72fcb540cA0',
+                    fallbackHandlerAddress: '0x67E086c9dc7F670428766355271a1638f7abC022',
+                    createCallAddress: '0x1E71241E5e7D8677868b19B3dFe87d2681Cf7185',
+                    signMessageLibAddress: '0x95A09f1142Afe3Ca316ea424224333bA7810f12A',
+                    simulateTxAccessorAddress: '0x63db1940eac4647dde9aA753DeF013a8eB52F39a',
+                },
+            },
         },
     },
     [EndpointId.EBI_V2_MAINNET]: {

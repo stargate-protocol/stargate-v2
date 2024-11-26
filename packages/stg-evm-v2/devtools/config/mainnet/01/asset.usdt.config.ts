@@ -22,6 +22,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
     const coredaoPoint = getAssetPoint(EndpointId.COREDAO_V2_MAINNET)
+    const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
     const ebiPoint = getAssetPoint(EndpointId.EBI_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
@@ -44,6 +45,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxContract = await getAssetNode(avaxPoint)
     const bscContract = await getAssetNode(bscPoint)
     const coredaoContract = await getAssetNode(coredaoPoint)
+    const degenContract = await getAssetNode(degenPoint)
     const ebiContract = await getAssetNode(ebiPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
@@ -67,6 +69,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxContract,
             bscContract,
             coredaoContract,
+            degenContract,
             ebiContract,
             ethContract,
             flareContract,
@@ -89,6 +92,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxPoint,
             bscPoint,
             coredaoPoint,
+            degenPoint,
             ebiPoint,
             ethPoint,
             flarePoint,
