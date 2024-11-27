@@ -7,7 +7,6 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
-import { onPeaq } from '../mainnet/utils'
 
 import { onBL3 } from './utils'
 
@@ -26,7 +25,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onBL3({ contractName: 'TransparentUpgradeableProxy', address: usdtBL3Asset.address })
     )
 
-    const bl3USDT = onPeaq({ ...fiatContract, address: bl3USDTProxy.contract.address })
+    const bl3USDT = onBL3({ ...fiatContract, address: bl3USDTProxy.contract.address })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdtAssets = [TokenName.USDT] as const

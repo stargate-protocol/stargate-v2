@@ -14,7 +14,7 @@ import { onBL3, onKlaytn } from './utils'
 const getStargateMultisig = getNamedAccount('usdcAdmin')
 
 // Except for external deployments
-const usdcBL3Asset = getAssetNetworkConfig(EndpointId.BL3_TESTNET, TokenName.USDC)
+const usdcBL3Asset = getAssetNetworkConfig(EndpointId.BL3_V2_TESTNET, TokenName.USDC)
 assert(usdcBL3Asset.address != null, `External USDC address not found for BL3`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
