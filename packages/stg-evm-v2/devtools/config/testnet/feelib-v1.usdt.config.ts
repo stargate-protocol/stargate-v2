@@ -6,7 +6,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { getFeeLibV1DeployName } from '../../../ops/util'
 
 import { DEFAULT_FEE_CONFIG, DEFAULT_PLANNER } from './constants'
-import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onArb, onBL3, onBsc, onEth, onKlaytn, onOpt } from './utils'
 
 const tokenName = TokenName.USDT
 const contract = { contractName: getFeeLibV1DeployName(tokenName) }
@@ -17,6 +17,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const optFeeLibV1 = onOpt(contract)
     const arbFeeLibV1 = onArb(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
+    const bl3FeeLibV1 = onBL3(contract)
 
     const defaultNodeConfig = {
         owner: DEFAULT_PLANNER,
@@ -49,6 +50,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 contract: klaytnFeeLibV1,
                 config: defaultNodeConfig,
             },
+            {
+                contract: bl3FeeLibV1,
+                config: defaultNodeConfig,
+            },
         ],
         connections: [
             //
@@ -72,6 +77,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             {
                 from: ethFeeLibV1,
                 to: klaytnFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: ethFeeLibV1,
+                to: bl3FeeLibV1,
                 config: defaultEdgeConfig,
             },
 
@@ -98,6 +108,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: klaytnFeeLibV1,
                 config: defaultEdgeConfig,
             },
+            {
+                from: bscFeeLibV1,
+                to: bl3FeeLibV1,
+                config: defaultEdgeConfig,
+            },
 
             //
             // Connections originating from OPT
@@ -120,6 +135,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             {
                 from: optFeeLibV1,
                 to: klaytnFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: optFeeLibV1,
+                to: ethFeeLibV1,
                 config: defaultEdgeConfig,
             },
 
@@ -146,6 +166,11 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 to: klaytnFeeLibV1,
                 config: defaultEdgeConfig,
             },
+            {
+                from: arbFeeLibV1,
+                to: bl3FeeLibV1,
+                config: defaultEdgeConfig,
+            },
 
             //
             // Connections originating from KLAYTN
@@ -168,6 +193,40 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             {
                 from: klaytnFeeLibV1,
                 to: arbFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: klaytnFeeLibV1,
+                to: bl3FeeLibV1,
+                config: defaultEdgeConfig,
+            },
+
+            //
+            // Connections originating from BL3
+            //
+            {
+                from: bl3FeeLibV1,
+                to: ethFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: bl3FeeLibV1,
+                to: bscFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: bl3FeeLibV1,
+                to: optFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: bl3FeeLibV1,
+                to: arbFeeLibV1,
+                config: defaultEdgeConfig,
+            },
+            {
+                from: bl3FeeLibV1,
+                to: bl3FeeLibV1,
                 config: defaultEdgeConfig,
             },
         ],

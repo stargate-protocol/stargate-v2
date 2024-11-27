@@ -122,6 +122,11 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         useFeeData: true,
     },
+    'bl3-testnet': {
+        eid: EndpointId.BL3_V2_TESTNET,
+        url: process.env.RPC_URL_BL3_TESTNET || 'RAVINA TODO',
+        accounts: testnetAccounts,
+    },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
         url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
