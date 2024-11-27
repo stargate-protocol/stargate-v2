@@ -66,10 +66,9 @@ abstract contract StargateBase is Transfer, IStargate, ITokenMessagingHandler, I
 
     modifier nonReentrantAndNotPaused() {
         // On the first call to nonReentrant, _status will be _NOT_ENTERED
-        if (status != NOT_ENTERED) {
-            if (status == ENTERED) revert Stargate_ReentrantCall();
-            revert Stargate_Paused();
-        }
+        if (status == ENTERED) revert Stargate_ReentrantCall();
+        // if paused revert
+        if (status == PAUSED) revert Stargate_Paused();
         // Any calls to nonReentrant after this point will fail
         status = ENTERED;
         _;
