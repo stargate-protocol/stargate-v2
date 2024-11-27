@@ -124,18 +124,18 @@ const networks: NetworksUserConfig = {
     },
     'bl3-testnet': {
         eid: EndpointId.BL3_V2_TESTNET,
-        url: process.env.RPC_URL_BL3_TESTNET || 'RAVINA TODO',
+        url: process.env.RPC_URL_BL3_TESTNET || '',
         accounts: testnetAccounts,
     },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
-        url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
+        url: process.env.RPC_URL_BSC_TESTNET || 'https://data-seed-prebsc-2-s1.bnbchain.org:8545',
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
@@ -145,7 +145,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
 

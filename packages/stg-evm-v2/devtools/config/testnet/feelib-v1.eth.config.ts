@@ -5,7 +5,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../ops/util'
 
-import { DEFAULT_FEE_CONFIG, DEFAULT_PLANNER } from './constants'
+import { DEFAULT_PLANNER } from './constants'
 import { onArb, onBL3, onEth, onKlaytn, onOpt } from './utils'
 
 const tokenName = TokenName.ETH
@@ -20,11 +20,6 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
     const defaultNodeConfig = {
         owner: DEFAULT_PLANNER,
-    }
-
-    const defaultEdgeConfig: FeeLibV1EdgeConfig = {
-        paused: false,
-        feeConfig: DEFAULT_FEE_CONFIG,
     }
 
     return {
@@ -50,126 +45,6 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
         ],
-        connections: [
-            //
-            // Connections originating from ETH
-            //
-            {
-                from: ethFeeLibV1,
-                to: optFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: ethFeeLibV1,
-                to: arbFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: ethFeeLibV1,
-                to: klaytnFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: ethFeeLibV1,
-                to: bl3FeeLibV1,
-                config: defaultEdgeConfig,
-            },
-
-            //
-            // Connections originating from OPT
-            //
-            {
-                from: optFeeLibV1,
-                to: ethFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: optFeeLibV1,
-                to: arbFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: optFeeLibV1,
-                to: klaytnFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: optFeeLibV1,
-                to: bl3FeeLibV1,
-                config: defaultEdgeConfig,
-            },
-
-            //
-            // Connections originating from ARB
-            //
-            {
-                from: arbFeeLibV1,
-                to: ethFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: arbFeeLibV1,
-                to: optFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: arbFeeLibV1,
-                to: klaytnFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: arbFeeLibV1,
-                to: bl3FeeLibV1,
-                config: defaultEdgeConfig,
-            },
-
-            //
-            // Connections originating from KLAYTN
-            //
-            {
-                from: klaytnFeeLibV1,
-                to: ethFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: klaytnFeeLibV1,
-                to: optFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: klaytnFeeLibV1,
-                to: arbFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: klaytnFeeLibV1,
-                to: bl3FeeLibV1,
-                config: defaultEdgeConfig,
-            },
-
-            //
-            // Connections originating from BL3
-            //
-            {
-                from: bl3FeeLibV1,
-                to: ethFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: bl3FeeLibV1,
-                to: optFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: bl3FeeLibV1,
-                to: arbFeeLibV1,
-                config: defaultEdgeConfig,
-            },
-            {
-                from: bl3FeeLibV1,
-                to: bl3FeeLibV1,
-                config: defaultEdgeConfig,
-            },
-        ],
+        connections: [],
     }
 }
