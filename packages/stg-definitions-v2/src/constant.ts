@@ -367,7 +367,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BL3_V2_TESTNET]: {
                 type: StargateType.Oft,
-                address: 'RAVINA TODO',
+                address: '0x164A2dE1bc5dc56F329909F7c97Bae929CaE557B',
             },
             [EndpointId.BSC_V2_TESTNET]: {
                 address: '0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765',
@@ -514,7 +514,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BL3_V2_TESTNET]: {
                 type: StargateType.Oft,
-                address: 'RAVINA TODO',
+                address: '0x015fd589F4f1A33ce4487E12714e1B15129c9329',
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'USDC.e',
