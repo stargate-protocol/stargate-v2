@@ -1,5 +1,17 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.2.1
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+- 48b1dc6: degen mainnet config
+- ea8c128: Updating peaq USDT configurations
+- Updated dependencies [9dc7d09]
+- Updated dependencies [48b1dc6]
+- Updated dependencies [ea8c128]
+  - @stargatefinance/stg-definitions-v2@1.3.1
+
 ## 1.2.0
 
 ### Minor Changes
