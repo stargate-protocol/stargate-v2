@@ -1,5 +1,12 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.14
+
+### Patch Changes
+
+- 253a1a8: bl3 testnet
+- da1a8b9: degen mainnet
+
 ## 1.0.13
 
 ### Patch Changes

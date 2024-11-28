@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.2
+
+### Patch Changes
+
+- 253a1a8: bl3 testnet
+- da1a8b9: degen mainnet
+
 ## 1.3.1
 
 ### Patch Changes
