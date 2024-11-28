@@ -383,7 +383,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ODYSSEY_V2_TESTNET]: {
                 type: StargateType.Oft,
-                address: 'RAVINA TODO',
+                address: '0x880f614c729c622c727f3625b263a36c0b89167F',
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
@@ -531,7 +531,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ODYSSEY_V2_TESTNET]: {
                 type: StargateType.Oft,
-                address: 'RAVINA TODO',
+                address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 address: '0x488327236B65C61A6c083e8d811a4E0D3d1D4268',
