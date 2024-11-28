@@ -50,13 +50,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
             //         owner: bl3AssetAddresses.USDT,
             //     },
             // },
-            // TODO comment out for github ci/cd?
-            {
-                contract: odysseyUSDT,
-                config: {
-                    owner: odysseyAssetAddresses.USDT,
-                },
-            },
+            // {
+            //     contract: odysseyUSDT,
+            //     config: {
+            //         owner: odysseyAssetAddresses.USDT,
+            //     },
+            // },
         ],
         connections: [],
     }

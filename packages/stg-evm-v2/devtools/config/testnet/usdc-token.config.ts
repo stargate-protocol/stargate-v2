@@ -79,19 +79,18 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
             //         },
             //     },
             // },
-            // TODO comment out for ci/cd?
-            {
-                contract: odysseyUSDC,
-                config: {
-                    masterMinter: odysseyStargateMultisig,
-                    pauser: odysseyStargateMultisig,
-                    rescuer: odysseyStargateMultisig,
-                    blacklister: odysseyStargateMultisig,
-                    minters: {
-                        [odysseyAssetAddresses.USDC]: 2n ** 256n - 1n,
-                    },
-                },
-            },
+            // {
+            //     contract: odysseyUSDC,
+            //     config: {
+            //         masterMinter: odysseyStargateMultisig,
+            //         pauser: odysseyStargateMultisig,
+            //         rescuer: odysseyStargateMultisig,
+            //         blacklister: odysseyStargateMultisig,
+            //         minters: {
+            //             [odysseyAssetAddresses.USDC]: 2n ** 256n - 1n,
+            //         },
+            //     },
+            // },
         ],
         connections: [],
     }
