@@ -138,6 +138,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
         accounts: testnetAccounts,
     },
+    'odyssey-testnet': {
+        eid: EndpointId.ODYSSEY_V2_TESTNET,
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
+        accounts: testnetAccounts,
+    },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
