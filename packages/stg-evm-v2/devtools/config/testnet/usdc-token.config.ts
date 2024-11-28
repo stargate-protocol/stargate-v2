@@ -1,3 +1,5 @@
+import assert from 'assert'
+
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
@@ -5,11 +7,15 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../ops/util'
-import { createGetAssetAddresses, getNamedAccount } from '../../../ts-src/utils/util'
+import { createGetAssetAddresses, getAssetNetworkConfig, getNamedAccount } from '../../../ts-src/utils/util'
 
-import { onKlaytn } from './utils'
+import { onBL3, onKlaytn } from './utils'
 
 const getStargateMultisig = getNamedAccount('usdcAdmin')
+
+// Except for external deployments
+const usdcBL3Asset = getAssetNetworkConfig(EndpointId.BL3_V2_TESTNET, TokenName.USDC)
+assert(usdcBL3Asset.address != null, `External USDC address not found for BL3`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -17,17 +23,23 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const contractFactory = createContractFactory(getEnvironment)
 
     const klaytnUSDCProxy = await contractFactory(onKlaytn({ contractName: getUSDCProxyDeployName() }))
+    const bl3USDCProxy = await contractFactory(onBL3({ contractName: 'FiatTokenProxy', address: usdcBL3Asset.address }))
 
     // Get the corresponding underlying USDC contract
     const klaytnUSDC = onKlaytn({ contractName: 'FiatTokenV2_2', address: klaytnUSDCProxy.contract.address })
+    const bl3USDC = onBL3({ contractName: 'FiatTokenV2_2', address: bl3USDCProxy.contract.address })
 
     const klaytn = await getEnvironment(EndpointId.KLAYTN_V2_TESTNET)
     const klaytnStargateMultisig = await klaytn.getNamedAccounts().then(getStargateMultisig)
+
+    const bl3 = await getEnvironment(EndpointId.BL3_V2_TESTNET)
+    const bl3StargateMultisig = await bl3.getNamedAccounts().then(getStargateMultisig)
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const assets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, assets)
+    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, assets)
 
     return {
         contracts: [
@@ -43,6 +55,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     },
                 },
             },
+            // Will fail on github ci/cd because of the external deployment -- already configured correctly
+            // {
+            //     contract: bl3USDC,
+            //     config: {
+            //         masterMinter: bl3StargateMultisig,
+            //         pauser: bl3StargateMultisig,
+            //         rescuer: bl3StargateMultisig,
+            //         blacklister: bl3StargateMultisig,
+            //         minters: {
+            //             [bl3AssetAddresses.USDC]: 2n ** 256n - 1n,
+            //         },
+            //     },
+            // },
         ],
         connections: [],
     }

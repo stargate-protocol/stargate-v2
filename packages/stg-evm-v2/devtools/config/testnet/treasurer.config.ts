@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses, getNamedAccount } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onArb, onBL3, onBsc, onEth, onKlaytn, onOpt } from './utils'
 
 const contract = { contractName: 'Treasurer' }
 const getDeployer = getNamedAccount('deployer')
@@ -19,6 +19,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const opt = await getEnvironment(EndpointId.OPTSEP_V2_TESTNET)
     const arb = await getEnvironment(EndpointId.ARBSEP_V2_TESTNET)
     const klaytn = await getEnvironment(EndpointId.KLAYTN_V2_TESTNET)
+    const bl3 = await getEnvironment(EndpointId.BL3_V2_TESTNET)
 
     // Then grab the deployer account for each network to be used as the admin
     const ethAdmin = await eth.getNamedAccounts().then(getDeployer)
@@ -26,6 +27,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const optAdmin = await opt.getNamedAccounts().then(getDeployer)
     const arbAdmin = await arb.getNamedAccounts().then(getDeployer)
     const klaytnAdmin = await klaytn.getNamedAccounts().then(getDeployer)
+    const bl3Admin = await bl3.getNamedAccounts().then(getDeployer)
 
     // Now we collect the address of the deployed assets
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
@@ -35,6 +37,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
+    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -88,6 +91,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [klaytnAssetAddresses.USDT]: true,
                         [klaytnAssetAddresses.USDC]: true,
                         [klaytnAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: onBL3(contract),
+                config: {
+                    admin: bl3Admin,
+                    assets: {
+                        [bl3AssetAddresses.USDT]: true,
+                        [bl3AssetAddresses.USDC]: true,
+                        [bl3AssetAddresses.ETH]: true,
                     },
                 },
             },

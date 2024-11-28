@@ -7,7 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../ts-src/utils/util'
 
-import { onKlaytn } from './utils'
+import { onBL3, onKlaytn } from './utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -20,10 +20,14 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
+    const bl3ETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.BL3_V2_TESTNET, TokenName.ETH))
+    const bl3ETH = onBL3({ contractName: bl3ETHContractName })
+
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const assets = [TokenName.ETH, TokenName.USDT] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, assets)
+    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, assets)
 
     return {
         contracts: [
@@ -33,6 +37,14 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     minters: {
                         [klaytnAssetAddresses.ETH]: true,
                         [klaytnAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: bl3ETH,
+                config: {
+                    minters: {
+                        [bl3AssetAddresses.ETH]: true,
                     },
                 },
             },

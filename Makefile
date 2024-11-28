@@ -188,6 +188,9 @@ configure-testnet:
 	# Transfer ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
+	# Copy TetherTokenV2.sol directory to the artifacts directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
+
 	# Transfer USDT ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer
 

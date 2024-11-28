@@ -235,6 +235,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Native,
             },
+            [EndpointId.BL3_V2_TESTNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
@@ -359,6 +364,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
+            },
+            [EndpointId.BL3_V2_TESTNET]: {
+                type: StargateType.Oft,
+                address: '0x164A2dE1bc5dc56F329909F7c97Bae929CaE557B',
             },
             [EndpointId.BSC_V2_TESTNET]: {
                 address: '0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765',
@@ -503,6 +512,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3253a335E7bFfB4790Aa4C25C4250d206E9b9773',
                 type: StargateType.Pool,
             },
+            [EndpointId.BL3_V2_TESTNET]: {
+                type: StargateType.Oft,
+                address: '0x015fd589F4f1A33ce4487E12714e1B15129c9329',
+            },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'USDC.e',
                 type: StargateType.Oft,
@@ -623,6 +636,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         // TESTNET
         //
         [EndpointId.ARBSEP_V2_TESTNET]: {},
+        [EndpointId.BL3_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
@@ -1457,6 +1471,10 @@ export const NETWORKS: NetworksConfig = {
     // TESTNET
     //
     [EndpointId.ARBSEP_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.BL3_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
