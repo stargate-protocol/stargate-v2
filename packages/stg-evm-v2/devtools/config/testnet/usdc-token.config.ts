@@ -55,18 +55,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     },
                 },
             },
-            {
-                contract: bl3USDC,
-                config: {
-                    masterMinter: bl3StargateMultisig,
-                    pauser: bl3StargateMultisig,
-                    rescuer: bl3StargateMultisig,
-                    blacklister: bl3StargateMultisig,
-                    minters: {
-                        [bl3AssetAddresses.USDC]: 2n ** 256n - 1n,
-                    },
-                },
-            },
+            // Will fail on github ci/cd because of the external deployment -- already configured correctly
+            // {
+            //     contract: bl3USDC,
+            //     config: {
+            //         masterMinter: bl3StargateMultisig,
+            //         pauser: bl3StargateMultisig,
+            //         rescuer: bl3StargateMultisig,
+            //         blacklister: bl3StargateMultisig,
+            //         minters: {
+            //             [bl3AssetAddresses.USDC]: 2n ** 256n - 1n,
+            //         },
+            //     },
+            // },
         ],
         connections: [],
     }
