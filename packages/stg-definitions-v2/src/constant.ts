@@ -514,7 +514,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BL3_V2_TESTNET]: {
                 type: StargateType.Oft,
-                address: '0xcE899A3411A3C4aE4f5f9E5df6c75b8CC4e0B2f4',
+                address: '0x015fd589F4f1A33ce4487E12714e1B15129c9329',
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'USDC.e',
