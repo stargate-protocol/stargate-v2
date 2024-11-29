@@ -5,7 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getNamedAccount } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+import { onArb, onBsc, onEth, onMantle, onOpt } from './utils'
 
 const getDeployer = getNamedAccount('deployer')
 export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
@@ -13,9 +13,11 @@ export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
 
     const eth = await getEnvironment(EndpointId.SEPOLIA_V2_TESTNET)
+    const mantle = await getEnvironment(EndpointId.MANTLESEP_V2_TESTNET)
 
     // Then grab the deployer account for each network to be used as the admin
     const ethAdmin = await eth.getNamedAccounts().then(getDeployer)
+    const mantleAdmin = await mantle.getNamedAccounts().then(getDeployer)
 
     const nativePool = { contractName: 'StargatePoolNative' }
     const usdcPool = { contractName: 'StargatePoolUSDC' }
@@ -103,6 +105,31 @@ export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
                 config: {
                     depositAmount: {
                         [ethAdmin]: BigInt(18e18),
+                    },
+                },
+            },
+            {
+                contract: onMantle(nativePool),
+                config: {
+                    depositAmount: {
+                        [mantleAdmin]: BigInt(1e18),
+                    },
+                    isNative: true,
+                },
+            },
+            {
+                contract: onMantle(usdcPool),
+                config: {
+                    depositAmount: {
+                        [mantleAdmin]: BigInt(18e18),
+                    },
+                },
+            },
+            {
+                contract: onMantle(usdtPool),
+                config: {
+                    depositAmount: {
+                        [mantleAdmin]: BigInt(18e18),
                     },
                 },
             },

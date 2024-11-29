@@ -250,6 +250,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Pool,
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Native,
             },
@@ -384,6 +389,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ODYSSEY_V2_TESTNET]: {
                 type: StargateType.Oft,
                 address: '0x880f614c729c622c727f3625b263a36c0b89167F',
+            },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                type: StargateType.Pool,
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
@@ -533,6 +541,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                type: StargateType.Pool,
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 address: '0x488327236B65C61A6c083e8d811a4E0D3d1D4268',
                 type: StargateType.Pool,
@@ -653,6 +664,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
         [EndpointId.ODYSSEY_V2_TESTNET]: {},
+        [EndpointId.MANTLESEP_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
         [EndpointId.SEPOLIA_V2_TESTNET]: {},
 
@@ -678,6 +690,9 @@ export const REWARDS: RewardsConfig = {
             [EndpointId.BSC_V2_TESTNET]: {},
             [EndpointId.OPTSEP_V2_TESTNET]: {},
             [EndpointId.ARBSEP_V2_TESTNET]: {},
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                /* TODO this is a pool*/
+            },
 
             //
             // Sandbox
@@ -722,6 +737,13 @@ export const REWARDS: RewardsConfig = {
             },
             [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
                 address: '0x808d7c71ad2ba3FA531b068a2417C63106BC0949',
+            },
+
+            //
+            // Testnet
+            //
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                address: 'TODO?',
             },
         },
     },
@@ -1501,6 +1523,10 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.ODYSSEY_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.MANTLESEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
