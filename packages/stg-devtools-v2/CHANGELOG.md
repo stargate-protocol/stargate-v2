@@ -1,5 +1,13 @@
 # @stargatefinance/stg-devtools-v2
 
+## 2.0.3
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+- Updated dependencies [974c8e6]
+  - @stargatefinance/stg-definitions-v2@1.3.3
+
 ## 2.0.2
 
 ### Patch Changes
