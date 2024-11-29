@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.15
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+
 ## 1.0.14
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.2.3
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+- Updated dependencies [974c8e6]
+  - @stargatefinance/stg-definitions-v2@1.3.3
+
 ## 1.2.2
 
 ### Patch Changes
