@@ -138,6 +138,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
         accounts: testnetAccounts,
     },
+    'storyodyssey-testnet': {
+        eid: EndpointId.ODYSSEY_V2_TESTNET,
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
+        accounts: testnetAccounts,
+    },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
@@ -145,7 +150,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://1rpc.io/sepolia',
         accounts: testnetAccounts,
     },
 
