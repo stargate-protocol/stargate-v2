@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.9
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+
 ## 1.0.8
 
 ### Patch Changes
