@@ -1,5 +1,18 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.9
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+
+## 1.0.8
+
+### Patch Changes
+
+- 253a1a8: bl3 testnet
+- da1a8b9: degen mainnet
+
 ## 1.0.7
 
 ### Patch Changes
