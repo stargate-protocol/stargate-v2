@@ -1264,7 +1264,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
+            nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0xB2687F7F6290aBa4ED3290ffFF6cB2e1cc30686D',
