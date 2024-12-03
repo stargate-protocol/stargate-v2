@@ -365,6 +365,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'plume-mainnet': {
+        eid: EndpointId.PLUME_V2_MAINNET,
+        url: process.env.RPC_URL_PLUME_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
         url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.meowrpc.com',
