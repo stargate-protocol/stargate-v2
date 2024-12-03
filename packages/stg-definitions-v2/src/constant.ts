@@ -1303,18 +1303,20 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUME_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
-        safeAddress: '0x30b1Ca299577f70bc456Fa37C6822d9088069d31',
-        safeUrl: 'https://plume-tx.lzdevnet.org/',
-        contractNetworks: {
-            [98865]: {
-                multiSendAddress: '0x1E999A606771577f10AFee9111b6263cCF176a1D',
-                multiSendCallOnlyAddress: '0x3BE538f8E6a8809892a1a9618bda69C518a14a8a',
-                safeMasterCopyAddress: '0xB79F7E683E365E21B150812b86f1e0D60512D168',
-                safeProxyFactoryAddress: '0x73aFaC05744f1246Ac94d5Ee92d56be5a7298ecC',
-                fallbackHandlerAddress: '0x1B01E51e3ff9D83DD245D8320c5007b6a3dBF91c',
-                createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
-                signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
-                simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
+        safeConfig: {
+            safeAddress: '0x30b1Ca299577f70bc456Fa37C6822d9088069d31',
+            safeUrl: 'https://plume-tx.lzdevnet.org/',
+            contractNetworks: {
+                [98865]: {
+                    multiSendAddress: '0x1E999A606771577f10AFee9111b6263cCF176a1D',
+                    multiSendCallOnlyAddress: '0x3BE538f8E6a8809892a1a9618bda69C518a14a8a',
+                    safeMasterCopyAddress: '0xB79F7E683E365E21B150812b86f1e0D60512D168',
+                    safeProxyFactoryAddress: '0x73aFaC05744f1246Ac94d5Ee92d56be5a7298ecC',
+                    fallbackHandlerAddress: '0x1B01E51e3ff9D83DD245D8320c5007b6a3dBF91c',
+                    createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
+                    signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
+                    simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
+                },
             },
         },
     },
