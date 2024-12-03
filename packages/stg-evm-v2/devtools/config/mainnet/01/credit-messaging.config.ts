@@ -24,6 +24,7 @@ import {
     onMetis,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
     onScroll,
@@ -62,6 +63,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const metisCreditMsging = onMetis(contract)
     const optCreditMsging = onOpt(contract)
     const peaqCreditMsging = onPeaq(contract)
+    const plumeCreditMsging = onPlume(contract)
     const polygonCreditMsging = onPolygon(contract)
     const raribleCreditMsging = onRarible(contract)
     const scrollCreditMsging = onScroll(contract)
@@ -244,6 +246,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: plumeCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.PLUME_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.PLUME_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.PLUME_V2_MAINNET],
+                },
+            },
+            {
                 contract: polygonCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
@@ -327,6 +338,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             metisCreditMsging,
             optCreditMsging,
             peaqCreditMsging,
+            plumeCreditMsging,
             polygonCreditMsging,
             raribleCreditMsging,
             scrollCreditMsging,
