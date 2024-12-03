@@ -41,6 +41,9 @@ assert(usdcPlumeAsset.address != null, `External USDC address not found for PLUM
 const usdcSuperpositionAsset = getAssetNetworkConfig(EndpointId.SUPERPOSITION_V2_MAINNET, TokenName.USDC)
 assert(usdcSuperpositionAsset.address != null, `External USDC address not found for SUPERPOSITION`)
 
+const usdcOrderlyAsset = getAssetNetworkConfig(EndpointId.ORDERLY_V2_MAINNET, TokenName.USDC)
+assert(usdcOrderlyAsset.address != null, `External USDC address not found for ORDERLY`)
+
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
@@ -54,13 +57,15 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const lightlinkUSDCProxy = await contractFactory(onLightlink(proxyContract))
+    const orderlyUSDCProxy = await contractFactory(
+        onOrderly({ contractName: 'FiatTokenProxy', address: usdcOrderlyAsset.address })
+    )
     const peaqUSDCProxy = await contractFactory(
         onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
     )
     const plumeUSDCProxy = await contractFactory(
         onPlume({ contractName: 'FiatTokenProxy', address: usdcPlumeAsset.address })
     )
-    const orderlyUSDCProxy = await contractFactory(onOrderly(proxyContract))
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const superpositionUSDCProxy = await contractFactory(
         onSuperposition({ contractName: 'FiatTokenProxy', address: usdcSuperpositionAsset.address })
@@ -87,10 +92,11 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const lightlinkUSDC = onLightlink({ ...fiatContract, address: lightlinkUSDCProxy.contract.address })
     const lightlinkStargateMultisig = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
 
-    const peaqUSDC = onPeaq({ ...fiatContract, address: peaqUSDCProxy.contract.address })
-    const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
     const orderlyUSDC = onOrderly({ ...fiatContract, address: orderlyUSDCProxy.contract.address })
     const orderlyStargateMultisig = getSafeAddress(EndpointId.ORDERLY_V2_MAINNET)
+
+    const peaqUSDC = onPeaq({ ...fiatContract, address: peaqUSDCProxy.contract.address })
+    const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
 
     const plumeUSDC = onPlume({ ...fiatContract, address: plumeUSDCProxy.contract.address })
     const plumeStargateMultisig = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
@@ -116,9 +122,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
+    const orderlyAssetAddresses = await getAssetAddresses(EndpointId.ORDERLY_V2_MAINNET, usdcAssets)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdcAssets)
-    const orderlyAssetAddresses = await getAssetAddresses(EndpointId.ORDERLY_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
