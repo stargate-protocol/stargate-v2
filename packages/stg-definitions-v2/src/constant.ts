@@ -692,15 +692,13 @@ export const REWARDS: RewardsConfig = {
             //
             // Testnet
             //
-            // We don't deploy the token on testnet since there are no pools
+            // We don't deploy the token on testnet since there are no farms
             //
             [EndpointId.SEPOLIA_V2_TESTNET]: {},
             [EndpointId.BSC_V2_TESTNET]: {},
             [EndpointId.OPTSEP_V2_TESTNET]: {},
             [EndpointId.ARBSEP_V2_TESTNET]: {},
-            [EndpointId.MANTLESEP_V2_TESTNET]: {
-                /* TODO this is a pool*/
-            },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {},
 
             //
             // Sandbox
@@ -745,13 +743,6 @@ export const REWARDS: RewardsConfig = {
             },
             [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
                 address: '0x808d7c71ad2ba3FA531b068a2417C63106BC0949',
-            },
-
-            //
-            // Testnet
-            //
-            [EndpointId.MANTLESEP_V2_TESTNET]: {
-                address: 'TODO?',
             },
         },
     },
