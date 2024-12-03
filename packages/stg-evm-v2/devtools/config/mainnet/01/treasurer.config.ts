@@ -26,6 +26,7 @@ import {
     onMetis,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
     onScroll,
@@ -61,6 +62,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqAdmin = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
+    const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
@@ -153,6 +155,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, [TokenName.USDC] as const)
     const polygonAssetAddresses = await getAssetAddresses(EndpointId.POLYGON_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -399,6 +402,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [peaqAssetAddresses.ETH]: true,
                         [peaqAssetAddresses.USDC]: true,
                         [peaqAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onPlume(contract),
+                config: {
+                    owner: plumeAdmin,
+                    admin: plumeAdmin,
+                    assets: {
+                        [plumeAssetAddresses.USDC]: true,
                     },
                 },
             },
