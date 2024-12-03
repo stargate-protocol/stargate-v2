@@ -122,15 +122,25 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         useFeeData: true,
     },
+    'bl3-testnet': {
+        eid: EndpointId.BL3_V2_TESTNET,
+        url: process.env.RPC_URL_BL3_TESTNET || '',
+        accounts: testnetAccounts,
+    },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
-        url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
+        url: process.env.RPC_URL_BSC_TESTNET || 'https://data-seed-prebsc-2-s1.bnbchain.org:8545',
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
+        accounts: testnetAccounts,
+    },
+    'storyodyssey-testnet': {
+        eid: EndpointId.ODYSSEY_V2_TESTNET,
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
@@ -140,7 +150,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://1rpc.io/sepolia',
         accounts: testnetAccounts,
     },
 
@@ -202,6 +212,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'degen-mainnet': {
+        eid: EndpointId.DEGEN_V2_MAINNET,
+        url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ebi-mainnet': {
@@ -341,6 +358,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_PEAQ_MAINNET || 'https://evm.peaq.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'plume-mainnet': {
+        eid: EndpointId.PLUME_V2_MAINNET,
+        url: process.env.RPC_URL_PLUME_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'polygon-mainnet': {

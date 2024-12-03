@@ -1,5 +1,24 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.15
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+
+## 1.0.14
+
+### Patch Changes
+
+- 253a1a8: bl3 testnet
+- da1a8b9: degen mainnet
+
+## 1.0.13
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+
 ## 1.0.12
 
 ### Patch Changes

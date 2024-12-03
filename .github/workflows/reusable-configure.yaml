@@ -42,6 +42,7 @@ env:
   RPC_URL_ZKSYNC_MAINNET: ${{ secrets.RPC_URL_ZKSYNC_MAINNET }}
   # Testnet
   RPC_URL_OPTIMISM_TESTNET: ${{ secrets.RPC_URL_OPTIMISM_TESTNET }}
+  RPC_URL_BL3_TESTNET: ${{ secrets.RPC_URL_BL3_TESTNET }}
 
 jobs:
   deploy-sandbox:

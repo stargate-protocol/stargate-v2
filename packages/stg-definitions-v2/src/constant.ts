@@ -25,6 +25,7 @@ export const DVNS = {
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
@@ -37,6 +38,7 @@ export const DVNS = {
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
+        [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
@@ -72,6 +74,7 @@ export const DVNS = {
         [EndpointId.BASE_V2_MAINNET]: '0xcdf31d62140204c08853b547e64707110fbc6680',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -84,6 +87,7 @@ export const DVNS = {
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
+        [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x2fa870cee4da57de84d1db36759d4716ad7e5038',
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
@@ -106,6 +110,7 @@ export const EXECUTORS = {
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
+        [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -118,6 +123,7 @@ export const EXECUTORS = {
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.PLUME_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
@@ -162,6 +168,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BASE_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -227,7 +238,17 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Native,
             },
+            [EndpointId.BL3_V2_TESTNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.KLAYTN_V2_TESTNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+            [EndpointId.ODYSSEY_V2_TESTNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -285,6 +306,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0x900101d06a7426441ae63e9ab3b9b0f63be145f1',
             },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
+            },
             [EndpointId.EBI_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
@@ -325,7 +350,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PEAQ_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0xef589ab11Ff43e87F50Dc6D8C20a91C5CaDF1901',
+                address: '0xd8cF92E9B6Fae6B32f795AcB11Edd50E8dD6Ff4d',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -348,12 +373,20 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
             },
+            [EndpointId.BL3_V2_TESTNET]: {
+                type: StargateType.Oft,
+                address: '0x164A2dE1bc5dc56F329909F7c97Bae929CaE557B',
+            },
             [EndpointId.BSC_V2_TESTNET]: {
                 address: '0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765',
                 type: StargateType.Pool,
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 type: StargateType.Oft,
+            },
+            [EndpointId.ODYSSEY_V2_TESTNET]: {
+                type: StargateType.Oft,
+                address: '0x880f614c729c622c727f3625b263a36c0b89167F',
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
@@ -410,6 +443,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
             },
+            [EndpointId.DEGEN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
+            },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
                 type: StargateType.Pool,
@@ -451,6 +488,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xbbA60da06c2c5424f03f7434542280FCAd453d10',
             },
+            [EndpointId.PLUME_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x28E0f0eed8d6A6a96033feEe8b2D7F32EB5CCc48',
+            },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
                 type: StargateType.Pool,
@@ -487,9 +528,17 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3253a335E7bFfB4790Aa4C25C4250d206E9b9773',
                 type: StargateType.Pool,
             },
+            [EndpointId.BL3_V2_TESTNET]: {
+                type: StargateType.Oft,
+                address: '0x015fd589F4f1A33ce4487E12714e1B15129c9329',
+            },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'USDC.e',
                 type: StargateType.Oft,
+            },
+            [EndpointId.ODYSSEY_V2_TESTNET]: {
+                type: StargateType.Oft,
+                address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 address: '0x488327236B65C61A6c083e8d811a4E0D3d1D4268',
@@ -570,6 +619,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
+        [EndpointId.DEGEN_V2_MAINNET]: {},
         [EndpointId.EBI_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
@@ -590,6 +640,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.OPBNB_V2_MAINNET]: {},
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
+        [EndpointId.PLUME_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
@@ -606,8 +657,10 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         // TESTNET
         //
         [EndpointId.ARBSEP_V2_TESTNET]: {},
+        [EndpointId.BL3_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
+        [EndpointId.ODYSSEY_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
         [EndpointId.SEPOLIA_V2_TESTNET]: {},
 
@@ -880,6 +933,35 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
             safeUrl: 'https://core-tx.lzdevnet.org/',
+        },
+    },
+    [EndpointId.DEGEN_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+            nativeDropAmount: parseEther('1').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x2F2F0C7097926e66a31A72BA956cf99DB6aeAe4A',
+            safeUrl: 'https://degen-tx.lzdevnet.org/',
+            contractNetworks: {
+                [666666666]: {
+                    multiSendAddress: '0xb952cFF2Bfb2939C8f1410966AC580cEEa9654Cd',
+                    multiSendCallOnlyAddress: '0x1E19eF7e15FfC6737b837BA398927847dA3d75f8',
+                    safeMasterCopyAddress: '0xd159BB62645f6e951cE6eF59b8da409a404f681F',
+                    safeProxyFactoryAddress: '0xEe830749c04334D9cC650a9320a9E72fcb540cA0',
+                    fallbackHandlerAddress: '0x67E086c9dc7F670428766355271a1638f7abC022',
+                    createCallAddress: '0x1E71241E5e7D8677868b19B3dFe87d2681Cf7185',
+                    signMessageLibAddress: '0x95A09f1142Afe3Ca316ea424224333bA7810f12A',
+                    simulateTxAccessorAddress: '0x63db1940eac4647dde9aA753DeF013a8eB52F39a',
+                },
+            },
         },
     },
     [EndpointId.EBI_V2_MAINNET]: {
@@ -1209,6 +1291,35 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    [EndpointId.PLUME_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLUME_V2_MAINNET], DVNS.STG[EndpointId.PLUME_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLUME_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLUME_V2_MAINNET], DVNS.STG[EndpointId.PLUME_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLUME_V2_MAINNET],
+            nativeDropAmount: parseEther('0.001').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x30b1Ca299577f70bc456Fa37C6822d9088069d31',
+            safeUrl: 'https://plume-tx.lzdevnet.org/',
+            contractNetworks: {
+                [98865]: {
+                    multiSendAddress: '0x1E999A606771577f10AFee9111b6263cCF176a1D',
+                    multiSendCallOnlyAddress: '0x3BE538f8E6a8809892a1a9618bda69C518a14a8a',
+                    safeMasterCopyAddress: '0xB79F7E683E365E21B150812b86f1e0D60512D168',
+                    safeProxyFactoryAddress: '0x73aFaC05744f1246Ac94d5Ee92d56be5a7298ecC',
+                    fallbackHandlerAddress: '0x1B01E51e3ff9D83DD245D8320c5007b6a3dBF91c',
+                    createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
+                    signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
+                    simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
+                },
+            },
+        },
+    },
     [EndpointId.POLYGON_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1414,11 +1525,19 @@ export const NETWORKS: NetworksConfig = {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
+    [EndpointId.BL3_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
     [EndpointId.BSC_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.KLAYTN_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.ODYSSEY_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },

@@ -11,6 +11,7 @@ import {
     onBase,
     onBsc,
     onCoredao,
+    onDegen,
     onEth,
     onFlare,
     onGravity,
@@ -20,6 +21,7 @@ import {
     onMantle,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
     onScroll,
@@ -44,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const baseFeeLibV1 = onBase(contract)
     const bscFeeLibV1 = onBsc(contract)
     const coredaoFeeLibV1 = onCoredao(contract)
+    const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const gravityFeeLibV1 = onGravity(contract)
@@ -53,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const mantleFeeLibV1 = onMantle(contract)
     const optFeeLibV1 = onOpt(contract)
     const peaqFeeLibV1 = onPeaq(contract)
+    const plumeFeeLibV1 = onPlume(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
     const scrollFeeLibV1 = onScroll(contract)
@@ -84,6 +88,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: coredaoFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: degenFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -120,6 +128,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: peaqFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: plumeFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

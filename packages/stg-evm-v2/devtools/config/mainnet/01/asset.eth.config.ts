@@ -20,6 +20,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     // Now we define all the contracts
     const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
+    const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
@@ -37,6 +38,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     // And all their nodes
     const arbContract = await getAssetNode(arbPoint)
     const baseContract = await getAssetNode(basePoint)
+    const degenContract = await getAssetNode(degenPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
@@ -56,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             arbContract,
             ethContract,
             baseContract,
+            degenContract,
             flareContract,
             gravityContract,
             iotaContract,
@@ -73,6 +76,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             arbPoint,
             ethPoint,
             basePoint,
+            degenPoint,
             iotaPoint,
             flarePoint,
             gravityPoint,

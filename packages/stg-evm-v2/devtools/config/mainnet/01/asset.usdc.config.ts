@@ -24,6 +24,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
     const coredaoPoint = getAssetPoint(EndpointId.COREDAO_V2_MAINNET)
+    const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
@@ -33,6 +34,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
+    const plumePoint = getAssetPoint(EndpointId.PLUME_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
@@ -47,6 +49,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const baseContract = await getAssetNode(basePoint)
     const bscContract = await getAssetNode(bscPoint)
     const coredaoContract = await getAssetNode(coredaoPoint)
+    const degenContract = await getAssetNode(degenPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
@@ -56,6 +59,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const mantleContract = await getAssetNode(mantlePoint)
     const optContract = await getAssetNode(optPoint)
     const peaqContract = await getAssetNode(peaqPoint)
+    const plumeContract = await getAssetNode(plumePoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
     const scrollContract = await getAssetNode(scrollPoint)
@@ -71,6 +75,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             baseContract,
             bscContract,
             coredaoContract,
+            degenContract,
             ethContract,
             flareContract,
             gravityContract,
@@ -80,6 +85,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             mantleContract,
             optContract,
             peaqContract,
+            plumeContract,
             polygonContract,
             raribleContract,
             scrollContract,
@@ -94,6 +100,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             basePoint,
             bscPoint,
             coredaoPoint,
+            degenPoint,
             ethPoint,
             flarePoint,
             gravityPoint,
@@ -103,6 +110,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             mantlePoint,
             optPoint,
             peaqPoint,
+            plumePoint,
             polygonPoint,
             rariblePoint,
             scrollPoint,

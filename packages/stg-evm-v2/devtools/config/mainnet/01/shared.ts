@@ -31,6 +31,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
@@ -84,7 +89,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
+        TokenName.USDT,
     ] as const)
+    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, [TokenName.USDC] as const)
     const polygonAssetAddresses = await getAssetAddresses(EndpointId.POLYGON_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -135,6 +142,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.COREDAO_V2_MAINNET]: {
             [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [coredaoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.DEGEN_V2_MAINNET]: {
+            [degenAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [degenAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [degenAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.EBI_V2_MAINNET]: {
             [ebiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
@@ -193,6 +205,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.PEAQ_V2_MAINNET]: {
             [peaqAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [peaqAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [peaqAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.PLUME_V2_MAINNET]: {
+            [plumeAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.POLYGON_V2_MAINNET]: {
             [polygonAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,

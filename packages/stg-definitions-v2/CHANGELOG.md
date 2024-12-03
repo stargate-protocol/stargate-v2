@@ -1,5 +1,26 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.3
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+
+## 1.3.2
+
+### Patch Changes
+
+- 253a1a8: bl3 testnet
+- da1a8b9: degen mainnet
+
+## 1.3.1
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+- 48b1dc6: degen mainnet config
+- ea8c128: Updating peaq USDT configurations
+
 ## 1.3.0
 
 ### Minor Changes

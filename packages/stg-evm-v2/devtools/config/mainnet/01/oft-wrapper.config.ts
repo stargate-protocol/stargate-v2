@@ -12,6 +12,7 @@ import {
     onBase,
     onBlast,
     onBsc,
+    onDegen,
     onEbi,
     onEth,
     onEtherLink,
@@ -32,6 +33,7 @@ import {
     onOpbnb,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
     onScroll,
@@ -54,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const baseOftWrapper = onBase(contract)
     const blastOftWrapper = onBlast(contract)
     const bscOftWrapper = onBsc(contract)
+    const degenOftWrapper = onDegen(contract)
     const ebiOftWrapper = onEbi(contract)
     const ethOftWrapper = onEth(contract)
     const etherLinkOftWrapper = onEtherLink(contract)
@@ -74,6 +77,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const opbnbOftWrapper = onOpbnb(contract)
     const optOftWrapper = onOpt(contract)
     const peaqOftWrapper = onPeaq(contract)
+    const plumeOftWrapper = onPlume(contract)
     const polygonOftWrapper = onPolygon(contract)
     const raribleOftWrapper = onRarible(contract)
     const scrollOftWrapper = onScroll(contract)
@@ -127,6 +131,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: bscOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
+                },
+            },
+            {
+                contract: degenOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
                 },
             },
             {
@@ -247,6 +257,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: peaqOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
+                },
+            },
+            {
+                contract: plumeOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.PLUME_V2_MAINNET),
                 },
             },
             {

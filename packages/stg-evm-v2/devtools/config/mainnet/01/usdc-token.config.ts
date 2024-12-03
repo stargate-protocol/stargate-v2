@@ -9,20 +9,41 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
+import {
+    onDegen,
+    onFlare,
+    onGravity,
+    onIota,
+    onKlaytn,
+    onLightlink,
+    onPeaq,
+    onPlume,
+    onRarible,
+    onTaiko,
+    onXchain,
+} from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
 
-// Except for Peaq where it's deployed externally
+// Except for chains where it's deployed externally
 const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
+
+const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
+assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
+
+const usdcPlumeAsset = getAssetNetworkConfig(EndpointId.PLUME_V2_MAINNET, TokenName.USDC)
+assert(usdcPlumeAsset.address != null, `External USDC address not found for PLUME`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
+    const degenUSDCProxy = await contractFactory(
+        onDegen({ contractName: 'FiatTokenProxy', address: usdcDegenAsset.address })
+    )
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
@@ -31,11 +52,17 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const peaqUSDCProxy = await contractFactory(
         onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
     )
+    const plumeUSDCProxy = await contractFactory(
+        onPlume({ contractName: 'FiatTokenProxy', address: usdcPlumeAsset.address })
+    )
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
+    const degenUSDC = onDegen({ ...fiatContract, address: degenUSDCProxy.contract.address })
+    const degenStargateMultisig = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
+
     const flareUSDC = onFlare({ ...fiatContract, address: flareUSDCProxy.contract.address })
     const flareStargateMultisig = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
 
@@ -54,6 +81,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const peaqUSDC = onPeaq({ ...fiatContract, address: peaqUSDCProxy.contract.address })
     const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
 
+    const plumeUSDC = onPlume({ ...fiatContract, address: plumeUSDCProxy.contract.address })
+    const plumeStargateMultisig = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
+
     const raribleUSDC = onRarible({ ...fiatContract, address: raribleUSDCProxy.contract.address })
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
 
@@ -66,18 +96,33 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdcAssets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
+    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, usdcAssets)
 
     return {
         contracts: [
+            {
+                contract: degenUSDC,
+                config: {
+                    owner: degenStargateMultisig,
+                    masterMinter: degenStargateMultisig,
+                    pauser: degenStargateMultisig,
+                    rescuer: degenStargateMultisig,
+                    blacklister: degenStargateMultisig,
+                    minters: {
+                        [degenAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
             {
                 contract: flareUSDC,
                 config: {
@@ -153,6 +198,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: peaqStargateMultisig,
                     minters: {
                         [peaqAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: plumeUSDC,
+                config: {
+                    owner: plumeStargateMultisig,
+                    masterMinter: plumeStargateMultisig,
+                    pauser: plumeStargateMultisig,
+                    rescuer: plumeStargateMultisig,
+                    blacklister: plumeStargateMultisig,
+                    minters: {
+                        [plumeAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

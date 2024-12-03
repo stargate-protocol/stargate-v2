@@ -13,6 +13,7 @@ import {
     onBase,
     onBsc,
     onCoredao,
+    onDegen,
     onEbi,
     onEth,
     onFlare,
@@ -25,6 +26,7 @@ import {
     onMetis,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
     onScroll,
@@ -47,6 +49,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
+    const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
@@ -59,6 +62,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqAdmin = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
+    const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
@@ -88,6 +92,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -144,7 +153,9 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
+        TokenName.USDT,
     ] as const)
+    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, [TokenName.USDC] as const)
     const polygonAssetAddresses = await getAssetAddresses(EndpointId.POLYGON_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -236,6 +247,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [coredaoAssetAddresses.USDC]: true,
                         [coredaoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onDegen(contract),
+                config: {
+                    owner: degenAdmin,
+                    admin: degenAdmin,
+                    assets: {
+                        [degenAssetAddresses.ETH]: true,
+                        [degenAssetAddresses.USDC]: true,
+                        [degenAssetAddresses.USDT]: true,
                     },
                 },
             },
@@ -378,6 +401,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [peaqAssetAddresses.ETH]: true,
                         [peaqAssetAddresses.USDC]: true,
+                        [peaqAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onPlume(contract),
+                config: {
+                    owner: plumeAdmin,
+                    admin: plumeAdmin,
+                    assets: {
+                        [plumeAssetAddresses.USDC]: true,
                     },
                 },
             },
