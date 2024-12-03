@@ -136,6 +136,9 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: plumeFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: orderlyFeeLibV1,
                 config: defaultNodeConfig,
             },
