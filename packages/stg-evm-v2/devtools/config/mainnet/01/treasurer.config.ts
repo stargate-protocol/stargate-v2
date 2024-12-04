@@ -19,6 +19,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -56,6 +57,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
+    const islanderAdmin = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkAdmin = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
@@ -121,6 +123,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -324,6 +331,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [iotaAssetAddresses.ETH]: true,
                         [iotaAssetAddresses.USDC]: true,
                         [iotaAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onIslander(contract),
+                config: {
+                    owner: islanderAdmin,
+                    admin: islanderAdmin,
+                    assets: {
+                        [islanderAssetAddresses.ETH]: true,
+                        [islanderAssetAddresses.USDC]: true,
+                        [islanderAssetAddresses.USDT]: true,
                     },
                 },
             },
