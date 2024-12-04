@@ -39,6 +39,7 @@ import {
     onScroll,
     onSei,
     onShimmer,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -83,6 +84,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const scrollOftWrapper = onScroll(contract)
     const seiOftWrapper = onSei(contract)
     const shimmerOftWrapper = onShimmer(contract)
+    const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
     const xchainOftWrapper = onXchain(contract)
     const zkatanaOftWrapper = onZkatana(contract)
@@ -293,6 +295,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: shimmerOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.SHIMMER_V2_MAINNET),
+                },
+            },
+            {
+                contract: superpositionOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
                 },
             },
             {
