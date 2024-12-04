@@ -7,7 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { onDegen, onPeaq } from '../utils'
+import { onDegen, onIslander, onPeaq } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
@@ -17,6 +17,9 @@ assert(usdtPeaqAsset.address != null, `External USDT address not found for PEAQ`
 
 const usdtDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDT)
 assert(usdtDegenAsset.address != null, `External USDT address not found for DEGEN`)
+
+const usdtIslanderAsset = getAssetNetworkConfig(EndpointId.ISLANDER_V2_MAINNET, TokenName.USDT)
+assert(usdtIslanderAsset.address != null, `External USDT address not found for ISLANDER`)
 
 export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -31,14 +34,20 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onDegen({ contractName: 'TransparentUpgradeableProxy', address: usdtDegenAsset.address })
     )
 
+    const islanderUSDTProxy = await contractFactory(
+        onIslander({ contractName: 'TransparentUpgradeableProxy', address: usdtIslanderAsset.address })
+    )
+
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })
     const degenUSDT = onDegen({ ...fiatContract, address: degenUSDTProxy.contract.address })
+    const islanderUSDT = onIslander({ ...fiatContract, address: islanderUSDTProxy.contract.address })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdtAssets = [TokenName.USDT] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdtAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdtAssets)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdtAssets)
 
     return {
         contracts: [
@@ -52,6 +61,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: degenUSDT,
                 config: {
                     owner: degenAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: islanderUSDT,
+                config: {
+                    owner: islanderAssetAddresses.USDT,
                 },
             },
         ],

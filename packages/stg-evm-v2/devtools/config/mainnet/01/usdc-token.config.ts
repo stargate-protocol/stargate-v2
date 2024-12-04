@@ -14,6 +14,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKlaytn,
     onLightlink,
     onPeaq,
@@ -34,6 +35,9 @@ assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`
 const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
 assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
 
+const usdcIslanderAsset = getAssetNetworkConfig(EndpointId.ISLANDER_V2_MAINNET, TokenName.USDC)
+assert(usdcIslanderAsset.address != null, `External USDC address not found for ISLANDER`)
+
 const usdcPlumeAsset = getAssetNetworkConfig(EndpointId.PLUME_V2_MAINNET, TokenName.USDC)
 assert(usdcPlumeAsset.address != null, `External USDC address not found for PLUME`)
 
@@ -51,6 +55,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
+    const islanderUSDCProxy = await contractFactory(
+        onIslander({ contractName: 'FiatTokenProxy', address: usdcIslanderAsset.address })
+    )
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const lightlinkUSDCProxy = await contractFactory(onLightlink(proxyContract))
     const peaqUSDCProxy = await contractFactory(
@@ -78,6 +85,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const iotaUSDC = onIota({ ...fiatContract, address: iotaUSDCProxy.contract.address })
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
+
+    const islanderUSDC = onIslander({ ...fiatContract, address: islanderUSDCProxy.contract.address })
+    const islanderStargateMultisig = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
 
     const klaytnUSDC = onKlaytn({ ...fiatContract, address: klaytnUSDCProxy.contract.address })
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
@@ -110,6 +120,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdcAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
@@ -170,6 +181,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: iotaStargateMultisig,
                     minters: {
                         [iotaAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: islanderUSDC,
+                config: {
+                    owner: islanderStargateMultisig,
+                    masterMinter: islanderStargateMultisig,
+                    pauser: islanderStargateMultisig,
+                    rescuer: islanderStargateMultisig,
+                    blacklister: islanderStargateMultisig,
+                    minters: {
+                        [islanderAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },
