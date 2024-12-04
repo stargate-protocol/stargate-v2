@@ -13,6 +13,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKlaytn,
     onLightlink,
     onPeaq,
@@ -28,7 +29,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
-    // USDT contract pointers
+    // USDT contract pointers (for old method of deployment)
     const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
@@ -38,7 +39,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
-    // ETH contract pointers
+    // ETH contract pointers (for all WETH OFT)
     const degenETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
@@ -61,6 +62,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.IOTA_V2_MAINNET, TokenName.ETH)
     )
     const iotaETH = onIota({ contractName: iotaETHContractName })
+
+    const islanderETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.ISLANDER_V2_MAINNET, TokenName.ETH)
+    )
+    const islanderETH = onIslander({ contractName: islanderETHContractName })
 
     const klaytnETHContractName = getTokenDeployName(
         TokenName.ETH,
