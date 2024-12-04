@@ -1445,7 +1445,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
+            safeAddress: '0x670c49578aFd9644ceF7BFc43b399E11c4ba7837',
             safeUrl: 'https://superposition-tx.lzdevnet.org/',
             contractNetworks: {
                 [55244]: {
