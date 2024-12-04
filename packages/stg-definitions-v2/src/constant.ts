@@ -1150,7 +1150,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET], DVNS.STG[EndpointId.ISLANDER_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0001').toBigInt(),
+            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x61F36B8575ED9e363a131838dD02b69230253702',
