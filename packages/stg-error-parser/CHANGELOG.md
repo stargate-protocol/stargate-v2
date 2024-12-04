@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.10
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+
 ## 1.0.9
 
 ### Patch Changes
