@@ -7,6 +7,7 @@ configDotenv({
     path: ['.env.local', '.env'],
 })
 
+import { AsyncRetriable } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getSafeConfig } from './devtools/config/utils'
@@ -31,6 +32,8 @@ import '@typechain/hardhat'
 
 // Devtools-specific tasks
 import './devtools/tasks'
+
+AsyncRetriable.config.numAttempts = process.env.NUM_RETRIES ? parseInt(process.env.NUM_RETRIES) : 5
 
 const v1Deployments = join(dirname(require.resolve('@stargatefinance/stg-evm-v1/package.json')), 'deployments')
 
