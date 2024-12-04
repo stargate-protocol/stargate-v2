@@ -39,6 +39,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
+    const superpositionPoint = getAssetPoint(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
     const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
 
@@ -64,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const raribleContract = await getAssetNode(rariblePoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const seiContract = await getAssetNode(seiPoint)
+    const superpositionContract = await getAssetNode(superpositionPoint)
     const taikoContract = await getAssetNode(taikoPoint)
     const xchainContract = await getAssetNode(xchainPoint)
 
@@ -90,6 +92,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             raribleContract,
             scrollContract,
             seiContract,
+            superpositionContract,
             taikoContract,
             xchainContract,
         ],
@@ -115,6 +118,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rariblePoint,
             scrollPoint,
             seiPoint,
+            superpositionPoint,
             taikoPoint,
             xchainPoint,
         ]),

@@ -31,6 +31,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -67,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
     const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
@@ -172,6 +174,9 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
+        TokenName.USDC,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
@@ -457,6 +462,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [seiAssetAddresses.ETH]: true,
                         [seiAssetAddresses.USDC]: true,
                         [seiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onSuperposition(contract),
+                config: {
+                    owner: superpositionAdmin,
+                    admin: superpositionAdmin,
+                    assets: {
+                        [superpositionAssetAddresses.USDC]: true,
                     },
                 },
             },

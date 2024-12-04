@@ -29,6 +29,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -67,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const raribleTokenMsging = onRarible(contract)
     const scrollTokenMsging = onScroll(contract)
     const seiTokenMsging = onSei(contract)
+    const superpositionTokenMsging = onSuperposition(contract)
     const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
     const xchainTokenMsging = onXchain(contract)
@@ -290,6 +292,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: superpositionTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SUPERPOSITION_V2_MAINNET],
+                },
+            },
+            {
                 contract: taikoTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
@@ -342,6 +353,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             raribleTokenMsging,
             scrollTokenMsging,
             seiTokenMsging,
+            superpositionTokenMsging,
             taikoTokenMsging,
             zkConsensysTokenMsging,
             xchainTokenMsging,
