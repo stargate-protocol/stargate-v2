@@ -87,7 +87,7 @@ export const DVNS = {
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
-        [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.PLUME_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x2fa870cee4da57de84d1db36759d4716ad7e5038',
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
