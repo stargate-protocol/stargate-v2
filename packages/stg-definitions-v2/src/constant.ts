@@ -490,7 +490,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PLUME_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x28E0f0eed8d6A6a96033feEe8b2D7F32EB5CCc48',
+                address: '0x16bAdC7802793bde213Ec0c1Ab41D5383Ed26b4a',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
