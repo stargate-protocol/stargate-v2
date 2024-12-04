@@ -1,5 +1,15 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.2.4
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+- ba5517b: plume mainnet config changeset
+- Updated dependencies [d5f5fae]
+- Updated dependencies [ba5517b]
+  - @stargatefinance/stg-definitions-v2@1.3.4
+
 ## 1.2.3
 
 ### Patch Changes

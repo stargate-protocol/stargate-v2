@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.16
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+
 ## 1.0.15
 
 ### Patch Changes
