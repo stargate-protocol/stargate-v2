@@ -515,8 +515,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SUPERPOSITION_V2_MAINNET]: {
                 type: StargateType.Oft,
-                // TODO Redploy Superposition USDC & add address
-                //address: ''
+                address: '0x4bb13347ce7Cbf8884ADB137AEDa0355Ef61B259',
             },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
