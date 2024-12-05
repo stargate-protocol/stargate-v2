@@ -10,8 +10,8 @@ import {
     ignoreZero,
     isDeepEqual,
 } from '@layerzerolabs/devtools'
-import { addChecksum, omniContractToPoint } from '@layerzerolabs/devtools-evm'
-import { printJson, printRecord } from '@layerzerolabs/io-devtools'
+import { OmniContract, addChecksum, omniContractToPoint } from '@layerzerolabs/devtools-evm'
+import { Logger, printJson, printRecord } from '@layerzerolabs/io-devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 
@@ -19,6 +19,14 @@ const UNLIMITED_CREDIT = BigInt('0xffffffffffffffff')
 const PAUSED = 3
 
 export class Asset extends Ownable implements IAsset {
+    constructor(
+        contract: OmniContract,
+        public readonly contractName = 'Asset', // or StargateBase?
+        logger?: Logger
+    ) {
+        super(contract, logger)
+    }
+
     @AsyncRetriable()
     async getAddressConfig(): Promise<AddressConfig> {
         const config = await this.contract.contract.getAddressConfig()
@@ -47,7 +55,12 @@ export class Asset extends Ownable implements IAsset {
 
         return {
             ...this.createTransaction(data),
-            description: `Setting address config for ${formatOmniPoint(omniContractToPoint(this.contract))}:\n${printRecord(config)}`,
+            description: `Setting address config for ${formatOmniPoint(omniContractToPoint(this.contract))}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setAddressConfig',
+                functionArgs: `config = ${printRecord(config)}`,
+            },
         }
     }
 
@@ -76,6 +89,11 @@ export class Asset extends Ownable implements IAsset {
         return {
             ...this.createTransaction(data),
             description: `Setting isOFT path for ${this.label} on ${formatEid(dstEid)} to ${isOft}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setOFTPath',
+                functionArgs: `dstEid = ${formatEid(dstEid)} \nisOft = ${isOft}`,
+            },
         }
     }
 
@@ -134,6 +152,11 @@ export class Asset extends Ownable implements IAsset {
         return {
             ...this.createTransaction(data),
             description: `Setting paused status for ${this.label} to ${paused}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setPaused',
+                functionArgs: `paused = ${paused}`,
+            },
         }
     }
 
