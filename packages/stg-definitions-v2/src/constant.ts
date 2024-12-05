@@ -1153,7 +1153,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x61F36B8575ED9e363a131838dD02b69230253702',
+            safeAddress: '0xce578Ad2a804BfD2a999a9911609f551B2a940bb',
             safeUrl: 'https://vana-tx.lzdevnet.org/',
             contractNetworks: {
                 [1480]: {
