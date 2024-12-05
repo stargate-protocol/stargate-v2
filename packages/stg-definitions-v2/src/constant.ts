@@ -483,7 +483,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ISLANDER_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO address: '',
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
             [EndpointId.KLAYTN_V2_MAINNET]: {
                 type: StargateType.Oft,
