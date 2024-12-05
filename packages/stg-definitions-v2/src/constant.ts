@@ -257,6 +257,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Pool,
+                address: '0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111',
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Native,
