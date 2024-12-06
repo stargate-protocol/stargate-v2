@@ -1,5 +1,20 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.5
+
+### Patch Changes
+
+- 90500af: Plume updates
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- cbbf60a: vana mainnet config
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- bc66d16: Superposition
+- 19f993b: Superposition update
+- 52766b7: Superposition deployment
+- 3d2232d: Plume Updates
+
 ## 1.3.4
 
 ### Patch Changes
