@@ -17,6 +17,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -29,6 +30,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -55,6 +57,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const flareTokenMsging = onFlare(contract)
     const gravityTokenMsging = onGravity(contract)
     const iotaTokenMsging = onIota(contract)
+    const islanderTokenMsging = onIslander(contract)
     const kavaTokenMsging = onKava(contract)
     const klaytnTokenMsging = onKlaytn(contract)
     const lightlinkTokenMsging = onLightlink(contract)
@@ -67,6 +70,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const raribleTokenMsging = onRarible(contract)
     const scrollTokenMsging = onScroll(contract)
     const seiTokenMsging = onSei(contract)
+    const superpositionTokenMsging = onSuperposition(contract)
     const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
     const xchainTokenMsging = onXchain(contract)
@@ -182,6 +186,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: islanderTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ISLANDER_V2_MAINNET],
+                },
+            },
+            {
                 contract: kavaTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
@@ -290,6 +303,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: superpositionTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SUPERPOSITION_V2_MAINNET],
+                },
+            },
+            {
                 contract: taikoTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
@@ -330,6 +352,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             flareTokenMsging,
             gravityTokenMsging,
             iotaTokenMsging,
+            islanderTokenMsging,
             kavaTokenMsging,
             klaytnTokenMsging,
             lightlinkTokenMsging,
@@ -342,6 +365,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             raribleTokenMsging,
             scrollTokenMsging,
             seiTokenMsging,
+            superpositionTokenMsging,
             taikoTokenMsging,
             zkConsensysTokenMsging,
             xchainTokenMsging,

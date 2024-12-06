@@ -14,11 +14,13 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKlaytn,
     onLightlink,
     onPeaq,
     onPlume,
     onRarible,
+    onSuperposition,
     onTaiko,
     onXchain,
 } from '../utils'
@@ -33,8 +35,14 @@ assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`
 const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
 assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
 
+const usdcIslanderAsset = getAssetNetworkConfig(EndpointId.ISLANDER_V2_MAINNET, TokenName.USDC)
+assert(usdcIslanderAsset.address != null, `External USDC address not found for ISLANDER`)
+
 const usdcPlumeAsset = getAssetNetworkConfig(EndpointId.PLUME_V2_MAINNET, TokenName.USDC)
 assert(usdcPlumeAsset.address != null, `External USDC address not found for PLUME`)
+
+const usdcSuperpositionAsset = getAssetNetworkConfig(EndpointId.SUPERPOSITION_V2_MAINNET, TokenName.USDC)
+assert(usdcSuperpositionAsset.address != null, `External USDC address not found for SUPERPOSITION`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -47,6 +55,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const iotaUSDCProxy = await contractFactory(onIota(proxyContract))
+    const islanderUSDCProxy = await contractFactory(
+        onIslander({ contractName: 'FiatTokenProxy', address: usdcIslanderAsset.address })
+    )
     const klaytnUSDCProxy = await contractFactory(onKlaytn(proxyContract))
     const lightlinkUSDCProxy = await contractFactory(onLightlink(proxyContract))
     const peaqUSDCProxy = await contractFactory(
@@ -56,6 +67,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
         onPlume({ contractName: 'FiatTokenProxy', address: usdcPlumeAsset.address })
     )
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
+    const superpositionUSDCProxy = await contractFactory(
+        onSuperposition({ contractName: 'FiatTokenProxy', address: usdcSuperpositionAsset.address })
+    )
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
@@ -72,6 +86,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const iotaUSDC = onIota({ ...fiatContract, address: iotaUSDCProxy.contract.address })
     const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
 
+    const islanderUSDC = onIslander({ ...fiatContract, address: islanderUSDCProxy.contract.address })
+    const islanderStargateMultisig = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
+
     const klaytnUSDC = onKlaytn({ ...fiatContract, address: klaytnUSDCProxy.contract.address })
     const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
 
@@ -87,6 +104,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const raribleUSDC = onRarible({ ...fiatContract, address: raribleUSDCProxy.contract.address })
     const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
 
+    const superpositionUSDC = onSuperposition({ ...fiatContract, address: superpositionUSDCProxy.contract.address })
+    const superpositionStargateMultisig = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
+
     const taikoUSDC = onTaiko({ ...fiatContract, address: taikoUSDCProxy.contract.address })
     const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
 
@@ -100,11 +120,13 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, usdcAssets)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdcAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, usdcAssets)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
+    const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, usdcAssets)
 
@@ -159,6 +181,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: iotaStargateMultisig,
                     minters: {
                         [iotaAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: islanderUSDC,
+                config: {
+                    owner: islanderStargateMultisig,
+                    masterMinter: islanderStargateMultisig,
+                    pauser: islanderStargateMultisig,
+                    rescuer: islanderStargateMultisig,
+                    blacklister: islanderStargateMultisig,
+                    minters: {
+                        [islanderAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },
@@ -224,6 +259,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: raribleStargateMultisig,
                     minters: {
                         [raribleAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: superpositionUSDC,
+                config: {
+                    owner: superpositionStargateMultisig,
+                    masterMinter: superpositionStargateMultisig,
+                    pauser: superpositionStargateMultisig,
+                    rescuer: superpositionStargateMultisig,
+                    blacklister: superpositionStargateMultisig,
+                    minters: {
+                        [superpositionAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

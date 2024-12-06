@@ -1,5 +1,15 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 2.0.4
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+- Updated dependencies [d5f5fae]
+- Updated dependencies [ba5517b]
+  - @stargatefinance/stg-definitions-v2@1.3.4
+  - @stargatefinance/stg-devtools-v2@2.0.4
+
 ## 2.0.3
 
 ### Patch Changes

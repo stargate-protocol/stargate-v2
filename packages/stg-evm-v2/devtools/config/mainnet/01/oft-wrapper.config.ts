@@ -21,6 +21,7 @@ import {
     onFraxtal,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -39,6 +40,7 @@ import {
     onScroll,
     onSei,
     onShimmer,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -65,6 +67,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const fraxtalOftWrapper = onFraxtal(contract)
     const gravityOftWrapper = onGravity(contract)
     const iotaOftWrapper = onIota(contract)
+    const islanderOftWrapper = onIslander(contract)
     const kavaOftWrapper = onKava(contract)
     const klaytnOftWrapper = onKlaytn(contract)
     const lightlinkOftWrapper = onLightlink(contract)
@@ -83,6 +86,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const scrollOftWrapper = onScroll(contract)
     const seiOftWrapper = onSei(contract)
     const shimmerOftWrapper = onShimmer(contract)
+    const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
     const xchainOftWrapper = onXchain(contract)
     const zkatanaOftWrapper = onZkatana(contract)
@@ -185,6 +189,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: iotaOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                },
+            },
+            {
+                contract: islanderOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
                 },
             },
             {
@@ -293,6 +303,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: shimmerOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.SHIMMER_V2_MAINNET),
+                },
+            },
+            {
+                contract: superpositionOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
                 },
             },
             {

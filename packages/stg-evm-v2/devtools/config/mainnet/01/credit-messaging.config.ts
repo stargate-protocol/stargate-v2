@@ -17,6 +17,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -29,6 +30,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -56,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const flareCreditMsging = onFlare(contract)
     const gravityCreditMsging = onGravity(contract)
     const iotaCreditMsging = onIota(contract)
+    const islanderCreditMsging = onIslander(contract)
     const kavaCreditMsging = onKava(contract)
     const klaytnCreditMsging = onKlaytn(contract)
     const lightlinkCreditMsging = onLightlink(contract)
@@ -68,6 +71,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const raribleCreditMsging = onRarible(contract)
     const scrollCreditMsging = onScroll(contract)
     const seiCreditMsging = onSei(contract)
+    const superpositionCreditMsging = onSuperposition(contract)
     const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
     const xchainCreditMsging = onXchain(contract)
@@ -183,6 +187,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: islanderCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ISLANDER_V2_MAINNET],
+                },
+            },
+            {
                 contract: kavaCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.KAVA_V2_MAINNET),
@@ -291,6 +304,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: superpositionCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SUPERPOSITION_V2_MAINNET],
+                },
+            },
+            {
                 contract: taikoCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
@@ -331,6 +353,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             flareCreditMsging,
             gravityCreditMsging,
             iotaCreditMsging,
+            islanderCreditMsging,
             kavaCreditMsging,
             klaytnCreditMsging,
             lightlinkCreditMsging,
@@ -343,6 +366,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             raribleCreditMsging,
             scrollCreditMsging,
             seiCreditMsging,
+            superpositionCreditMsging,
             taikoCreditMsging,
             zkConsensysCreditMsging,
             xchainCreditMsging,

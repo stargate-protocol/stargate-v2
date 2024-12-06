@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.4
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+- ba5517b: plume mainnet config changeset
+
 ## 1.3.3
 
 ### Patch Changes

@@ -16,6 +16,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKlaytn,
     onLightlink,
     onMantle,
@@ -26,6 +27,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
 } from '../utils'
@@ -51,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const flareFeeLibV1 = onFlare(contract)
     const gravityFeeLibV1 = onGravity(contract)
     const iotaFeeLibV1 = onIota(contract)
+    const islanderFeeLibV1 = onIslander(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const lightlinkFeeLibV1 = onLightlink(contract)
     const mantleFeeLibV1 = onMantle(contract)
@@ -61,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const raribleFeeLibV1 = onRarible(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
+    const superpositionFeeLibV1 = onSuperposition(contract)
     const taikoFeeLibV1 = onTaiko(contract)
     const xchainFeeLibV1 = onXchain(contract)
 
@@ -111,6 +115,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: islanderFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: klaytnFeeLibV1,
                 config: defaultNodeConfig,
             },
@@ -148,6 +156,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: seiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: superpositionFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

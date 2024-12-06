@@ -59,6 +59,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        // TokenName.USDT,
+    ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
@@ -108,6 +113,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
+        TokenName.USDC,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
@@ -173,6 +181,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [iotaAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [iotaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.ISLANDER_V2_MAINNET]: {
+            [islanderAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [islanderAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            // [islanderAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.KAVA_V2_MAINNET]: {
             [kavaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
@@ -226,6 +239,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [seiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [seiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [seiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.SUPERPOSITION_V2_MAINNET]: {
+            [superpositionAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,

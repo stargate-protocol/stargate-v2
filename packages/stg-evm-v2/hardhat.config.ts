@@ -281,6 +281,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.IOTA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'islander-mainnet': {
+        eid: EndpointId.ISLANDER_V2_MAINNET,
+        url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://rpc.islander.vana.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ISLANDER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'kava-mainnet': {
         eid: EndpointId.KAVA_V2_MAINNET,
         url: process.env.RPC_URL_KAVA_MAINNET || 'https://evm.kava.chainstacklabs.com',
@@ -407,6 +414,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'superposition-mainnet': {
+        eid: EndpointId.SUPERPOSITION_V2_MAINNET,
+        url: process.env.RPC_URL_SUPERPOSITION_MAINNET || 'https://rpc.superposition.so',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'taiko-mainnet': {

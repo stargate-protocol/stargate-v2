@@ -19,6 +19,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -31,6 +32,7 @@ import {
     onRarible,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -55,6 +57,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
+    const islanderAdmin = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkAdmin = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
@@ -67,6 +70,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
     const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
@@ -123,6 +127,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        // TokenName.USDT,
+    ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
@@ -172,6 +181,9 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
+        TokenName.USDC,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
@@ -323,6 +335,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
+                contract: onIslander(contract),
+                config: {
+                    owner: islanderAdmin,
+                    admin: islanderAdmin,
+                    assets: {
+                        [islanderAssetAddresses.ETH]: true,
+                        [islanderAssetAddresses.USDC]: true,
+                        // [islanderAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
                 contract: onKava(contract),
                 config: {
                     owner: kavaAdmin,
@@ -457,6 +481,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [seiAssetAddresses.ETH]: true,
                         [seiAssetAddresses.USDC]: true,
                         [seiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onSuperposition(contract),
+                config: {
+                    owner: superpositionAdmin,
+                    admin: superpositionAdmin,
+                    assets: {
+                        [superpositionAssetAddresses.USDC]: true,
                     },
                 },
             },
