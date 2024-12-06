@@ -24,7 +24,7 @@ import {
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
-// Except for Peaq where it's deployed externally
+// Except for chains where it's deployed externally
 const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 

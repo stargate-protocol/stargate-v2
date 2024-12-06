@@ -4,10 +4,9 @@ import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { DEFAULT_PLANNER } from './constants'
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { generateAssetConfig } from '../../utils'
-
-import { DEFAULT_PLANNER } from './constants'
 
 const tokenName = TokenName.USDT
 
@@ -28,6 +27,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
+    // const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
     const kavaPoint = getAssetPoint(EndpointId.KAVA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
@@ -51,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
     const iotaContract = await getAssetNode(iotaPoint)
+    // const islanderContract = await getAssetNode(islanderPoint)
     const kavaContract = await getAssetNode(kavaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
     const lightlinkContract = await getAssetNode(lightlinkPoint)
@@ -75,6 +76,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             flareContract,
             gravityContract,
             iotaContract,
+            // islanderContract,
             kavaContract,
             klaytnContract,
             lightlinkContract,
@@ -98,6 +100,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             flarePoint,
             gravityPoint,
             iotaPoint,
+            // islanderPoint,
             kavaPoint,
             klaytnPoint,
             lightlinkPoint,

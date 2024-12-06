@@ -31,6 +31,7 @@ export const DVNS = {
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.ISLANDER_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.KAVA_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
@@ -82,6 +83,7 @@ export const DVNS = {
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.IOTA_V2_MAINNET]: '0xf18a7d86917653725afb7c215e47a24f9d784718',
+        [EndpointId.ISLANDER_V2_MAINNET]: '0x9eeee79f5dbc4d99354b5cb547c138af432f937b',
         [EndpointId.KAVA_V2_MAINNET]: '0x9cbaf815ed62ef45c59e9f2cb05106babb4d31d3',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x17720e3f361dcc2f70871a2ce3ac51b0eaa5c2e4',
         [EndpointId.MANTLE_V2_MAINNET]: '0xfe809470016196573d64a8d17a745bebea4ecc41',
@@ -120,6 +122,7 @@ export const EXECUTORS = {
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
+        [EndpointId.ISLANDER_V2_MAINNET]: '0x4b80F7d25c451D204b1C93D9bdf2aB3B04f3EA4a',
         [EndpointId.KAVA_V2_MAINNET]: '0x41ED8065dd9bC6c0caF21c39766eDCBA0F21851c',
         [EndpointId.KLAYTN_V2_MAINNET]: '0xe149187a987F129FD3d397ED04a60b0b89D1669f',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -194,6 +197,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.IOTA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+            [EndpointId.ISLANDER_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -331,6 +339,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
+            },
+            [EndpointId.ISLANDER_V2_MAINNET]: {
+                type: StargateType.Oft,
+                //TODO address: '',
             },
             [EndpointId.KAVA_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -475,6 +487,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
             },
+            [EndpointId.ISLANDER_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
+            },
             [EndpointId.KLAYTN_V2_MAINNET]: {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
@@ -503,7 +519,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PLUME_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x16bAdC7802793bde213Ec0c1Ab41D5383Ed26b4a',
+                address: '0x3938A812c54304fEffD266C7E2E70B48F9475aD6',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
@@ -525,7 +541,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SUPERPOSITION_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x4bb13347ce7Cbf8884ADB137AEDa0355Ef61B259',
+                address: '0x6c030c5CC283F791B26816f325b9C632d964F8A1',
             },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -645,6 +661,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
         [EndpointId.IOTA_V2_MAINNET]: {},
+        [EndpointId.ISLANDER_V2_MAINNET]: {},
         [EndpointId.KAVA_V2_MAINNET]: {},
         [EndpointId.KLAYTN_V2_MAINNET]: {},
         [EndpointId.LIGHTLINK_V2_MAINNET]: {},
@@ -1134,6 +1151,35 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    [EndpointId.ISLANDER_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET], DVNS.STG[EndpointId.ISLANDER_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET], DVNS.STG[EndpointId.ISLANDER_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
+            nativeDropAmount: parseEther('0.01').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xce578Ad2a804BfD2a999a9911609f551B2a940bb',
+            safeUrl: 'https://vana-tx.lzdevnet.org/',
+            contractNetworks: {
+                [1480]: {
+                    multiSendAddress: '0x84CDeb280870b531660087f347B2001775C9Ee0F',
+                    multiSendCallOnlyAddress: '0xcE521F12AB380D9a5526410A66932F28f73Cc19B',
+                    safeMasterCopyAddress: '0x1924A4c1C8C9e683E29f62737CfDFB933df1bE73',
+                    safeProxyFactoryAddress: '0xedB7D71C889E00CDcC3838c72CAE8Fb2C46022c1',
+                    fallbackHandlerAddress: '0x68cf966a4a97aD9604e314734260f82D3A9Be44D',
+                    createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
+                    signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
+                    simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
+                },
+            },
+        },
+    },
     [EndpointId.KAVA_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1485,7 +1531,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
+            safeAddress: '0x670c49578aFd9644ceF7BFc43b399E11c4ba7837',
             safeUrl: 'https://superposition-tx.lzdevnet.org/',
             contractNetworks: {
                 [55244]: {

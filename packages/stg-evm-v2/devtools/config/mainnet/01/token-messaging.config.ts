@@ -17,6 +17,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -57,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const flareTokenMsging = onFlare(contract)
     const gravityTokenMsging = onGravity(contract)
     const iotaTokenMsging = onIota(contract)
+    const islanderTokenMsging = onIslander(contract)
     const kavaTokenMsging = onKava(contract)
     const klaytnTokenMsging = onKlaytn(contract)
     const lightlinkTokenMsging = onLightlink(contract)
@@ -183,6 +185,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
+                },
+            },
+            {
+                contract: islanderTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ISLANDER_V2_MAINNET],
                 },
             },
             {
@@ -352,6 +363,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             flareTokenMsging,
             gravityTokenMsging,
             iotaTokenMsging,
+            islanderTokenMsging,
             kavaTokenMsging,
             klaytnTokenMsging,
             lightlinkTokenMsging,
