@@ -1,5 +1,27 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 2.0.5
+
+### Patch Changes
+
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- 52766b7: Superposition deployment
+- Updated dependencies [90500af]
+- Updated dependencies [19f993b]
+- Updated dependencies [b2a2ac5]
+- Updated dependencies [cbbf60a]
+- Updated dependencies [b263a9c]
+- Updated dependencies [aede3f7]
+- Updated dependencies [bc66d16]
+- Updated dependencies [19f993b]
+- Updated dependencies [52766b7]
+- Updated dependencies [3d2232d]
+  - @stargatefinance/stg-definitions-v2@1.3.5
+  - @stargatefinance/stg-devtools-v2@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes
