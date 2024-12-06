@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateTokenMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onBsc, onEth, onKlaytn, onOdyssey, onOpt } from './utils'
+import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'TokenMessaging' }
 
@@ -22,6 +22,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const klaytnTokenMsging = onKlaytn(contract)
     const bl3TokenMsging = onBL3(contract)
     const odysseyTokenMsging = onOdyssey(contract)
+    const mantleTokenMsging = onMantle(contract)
 
     const defaultNodeConfig: TokenMessagingNodeConfig = {
         planner: DEFAULT_PLANNER,
@@ -37,6 +38,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
     const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
+    const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -115,6 +117,17 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     },
                 },
             },
+            {
+                contract: mantleTokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [mantleAssetAddresses.USDT]: ASSETS.USDT.assetId,
+                        [mantleAssetAddresses.USDC]: ASSETS.USDC.assetId,
+                        [mantleAssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
         ],
         connections: generateTokenMessagingConfig([
             ethTokenMsging,
@@ -124,6 +137,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             klaytnTokenMsging,
             bl3TokenMsging,
             odysseyTokenMsging,
+            mantleTokenMsging,
         ]),
     }
 }
