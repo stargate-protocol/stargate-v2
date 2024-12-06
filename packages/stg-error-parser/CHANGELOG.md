@@ -1,5 +1,15 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.11
+
+### Patch Changes
+
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- 52766b7: Superposition deployment
+
 ## 1.0.10
 
 ### Patch Changes
