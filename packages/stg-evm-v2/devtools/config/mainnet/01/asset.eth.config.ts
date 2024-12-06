@@ -25,6 +25,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
+    const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
     const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
@@ -43,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const flareContract = await getAssetNode(flarePoint)
     const gravityContract = await getAssetNode(gravityPoint)
     const iotaContract = await getAssetNode(iotaPoint)
+    const islanderContract = await getAssetNode(islanderPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
     const lightlinkContract = await getAssetNode(lightlinkPoint)
     const mantleContract = await getAssetNode(mantlePoint)
@@ -62,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             flareContract,
             gravityContract,
             iotaContract,
+            islanderContract,
             klaytnContract,
             lightlinkContract,
             mantleContract,
@@ -78,6 +81,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             basePoint,
             degenPoint,
             iotaPoint,
+            islanderPoint,
             flarePoint,
             gravityPoint,
             klaytnPoint,

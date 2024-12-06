@@ -17,6 +17,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -57,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const flareCreditMsging = onFlare(contract)
     const gravityCreditMsging = onGravity(contract)
     const iotaCreditMsging = onIota(contract)
+    const islanderCreditMsging = onIslander(contract)
     const kavaCreditMsging = onKava(contract)
     const klaytnCreditMsging = onKlaytn(contract)
     const lightlinkCreditMsging = onLightlink(contract)
@@ -182,6 +184,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
+                },
+            },
+            {
+                contract: islanderCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ISLANDER_V2_MAINNET],
                 },
             },
             {
@@ -342,6 +353,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             flareCreditMsging,
             gravityCreditMsging,
             iotaCreditMsging,
+            islanderCreditMsging,
             kavaCreditMsging,
             klaytnCreditMsging,
             lightlinkCreditMsging,

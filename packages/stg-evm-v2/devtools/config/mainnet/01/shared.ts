@@ -59,6 +59,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        // TokenName.USDT,
+    ] as const)
     const kavaAssetAddresses = await getAssetAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
@@ -175,6 +180,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [iotaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [iotaAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [iotaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.ISLANDER_V2_MAINNET]: {
+            [islanderAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [islanderAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            // [islanderAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [kavaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,

@@ -16,6 +16,7 @@ import {
     onFlare,
     onGravity,
     onIota,
+    onIslander,
     onKlaytn,
     onLightlink,
     onMantle,
@@ -52,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const flareFeeLibV1 = onFlare(contract)
     const gravityFeeLibV1 = onGravity(contract)
     const iotaFeeLibV1 = onIota(contract)
+    const islanderFeeLibV1 = onIslander(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const lightlinkFeeLibV1 = onLightlink(contract)
     const mantleFeeLibV1 = onMantle(contract)
@@ -110,6 +112,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: iotaFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: islanderFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
