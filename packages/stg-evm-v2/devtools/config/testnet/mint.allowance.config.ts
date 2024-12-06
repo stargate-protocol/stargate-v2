@@ -4,10 +4,9 @@ import { ERC20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { onArb, onBsc, onEth, onOpt } from './utils'
 import { getUSDTDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
-
-import { onArb, onBsc, onEth, onMantle, onOpt } from './utils'
 
 const contract = { contractName: REWARDS[RewardTokenName.MOCK_A].name }
 const rewarder = { contractName: 'StargateMultiRewarder' }
@@ -22,27 +21,18 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
     const eth = await getEnvironment(EndpointId.SEPOLIA_V2_TESTNET)
     const arb = await getEnvironment(EndpointId.ARBSEP_V2_TESTNET)
     const opt = await getEnvironment(EndpointId.OPTSEP_V2_TESTNET)
-    const mantle = await getEnvironment(EndpointId.MANTLESEP_V2_TESTNET)
 
     // Then grab the deployer account for each network to be used as the admin
     const bscAdmin = await bsc.getNamedAccounts().then(getDeployer)
     const ethAdmin = await eth.getNamedAccounts().then(getDeployer)
     const arbAdmin = await arb.getNamedAccounts().then(getDeployer)
     const optAdmin = await opt.getNamedAccounts().then(getDeployer)
-    const mantleAdmin = await mantle.getNamedAccounts().then(getDeployer)
 
     // Rewarder contracts to give allowance to
     const bscRewarder = await contractFactory(onBsc(rewarder))
     const ethRewarder = await contractFactory(onEth(rewarder))
     const arbRewarder = await contractFactory(onArb(rewarder))
     const optRewarder = await contractFactory(onOpt(rewarder))
-    const mantleRewarder = await contractFactory(onMantle(rewarder))
-
-    // WETH
-    const mantleWeth = onMantle({
-        contractName: 'OFTTokenERC20',
-        address: ASSETS[TokenName.ETH].networks[EndpointId.MANTLESEP_V2_TESTNET]?.address,
-    })
 
     // USDC
     const ethUsdc = onEth({
@@ -57,10 +47,6 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
         contractName: 'FiatTokenV2_2',
         address: ASSETS[TokenName.USDC].networks[EndpointId.ARBSEP_V2_TESTNET]?.address,
     })
-    const mantleUsdc = onArb({
-        contractName: 'FiatTokenV2_2',
-        address: ASSETS[TokenName.USDC].networks[EndpointId.MANTLESEP_V2_TESTNET]?.address,
-    })
 
     // USDT
     const ethUsdt = await contractFactory(onEth({ contractName: getUSDTDeployName() }))
@@ -70,10 +56,6 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
     })
     const optUsdt = await contractFactory(onOpt({ contractName: getUSDTDeployName() }))
     const arbUsdt = await contractFactory(onArb({ contractName: getUSDTDeployName() }))
-    const mantleUsdt = onMantle({
-        contractName: 'FiatTokenV2_2',
-        address: ASSETS[TokenName.USDT].networks[EndpointId.MANTLESEP_V2_TESTNET]?.address,
-    })
 
     // collect eth pools
     const ethUsdcPool = await contractFactory(onEth({ contractName: 'StargatePoolUSDC' }))
@@ -89,11 +71,6 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
 
     // collect bsc pools
     const bscUsdtPool = await contractFactory(onBsc({ contractName: 'StargatePoolUSDT' }))
-
-    // collect mantle pools
-    const mantleUsdcPool = await contractFactory(onMantle({ contractName: 'StargatePoolUSDC' }))
-    const mantleUsdtPool = await contractFactory(onMantle({ contractName: 'StargatePoolUSDT' }))
-    const mantleNativePool = await contractFactory(onMantle({ contractName: 'StargatePoolNative' }))
 
     const ethUsdtContract = { address: ethUsdt.contract.address }
     const optUsdtContract = { address: optUsdt.contract.address }
@@ -151,19 +128,6 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
                     },
                     mint: {
                         [optAdmin]: BigInt(24192e23),
-                    },
-                },
-            },
-            {
-                contract: onMantle(contract),
-                config: {
-                    allowance: {
-                        [mantleAdmin]: {
-                            [mantleRewarder.contract.address]: BigInt(24192e23),
-                        },
-                    },
-                    mint: {
-                        [mantleAdmin]: BigInt(24192e23),
                     },
                 },
             },
@@ -256,45 +220,6 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
                     },
                     mint: {
                         [bscAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: mantleUsdc,
-                config: {
-                    allowance: {
-                        [mantleAdmin]: {
-                            [mantleUsdcPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [mantleAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: mantleUsdt,
-                config: {
-                    allowance: {
-                        [mantleAdmin]: {
-                            [mantleUsdtPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [mantleAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: mantleWeth,
-                config: {
-                    allowance: {
-                        [mantleAdmin]: {
-                            [mantleNativePool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [mantleAdmin]: BigInt(18e18),
                     },
                 },
             },

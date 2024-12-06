@@ -395,6 +395,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x880f614c729c622c727f3625b263a36c0b89167F',
             },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
+                address: '0xcC4Ac915857532ADa58D69493554C6d869932Fe6',
                 type: StargateType.Pool,
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
@@ -550,6 +551,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
+                address: '0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080',
                 type: StargateType.Pool,
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {

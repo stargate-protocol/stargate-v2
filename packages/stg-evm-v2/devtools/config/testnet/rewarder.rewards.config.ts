@@ -4,9 +4,8 @@ import { RewarderRewardsNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { onArb, onBsc, onEth, onOpt } from './utils'
 import { createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
-
-import { onArb, onBsc, onEth, onMantle, onOpt } from './utils'
 
 const contract = { contractName: 'StargateMultiRewarder' }
 
@@ -20,7 +19,6 @@ export default async (): Promise<OmniGraphHardhat<RewarderRewardsNodeConfig, unk
     const bscRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.BSC_V2_TESTNET, rewardTokens)
     const optRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, rewardTokens)
     const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, rewardTokens)
-    const mantleRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, rewardTokens)
 
     // 1e18 reward per second
     const DEFAULT_REWARDS_CONFIG = {
@@ -63,15 +61,6 @@ export default async (): Promise<OmniGraphHardhat<RewarderRewardsNodeConfig, unk
                 config: {
                     rewards: {
                         rewardToken: arbRewardTokenAddresses.MOCK_A,
-                        ...DEFAULT_REWARDS_CONFIG,
-                    },
-                },
-            },
-            {
-                contract: onMantle(contract),
-                config: {
-                    rewards: {
-                        rewardToken: mantleRewardTokenAddresses.MOCK_A,
                         ...DEFAULT_REWARDS_CONFIG,
                     },
                 },
