@@ -515,7 +515,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SUPERPOSITION_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0xB200Aa4817c2D31CDC92207190B1C1419C607a0D',
+                address: '0x6c030c5CC283F791B26816f325b9C632d964F8A1',
             },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
