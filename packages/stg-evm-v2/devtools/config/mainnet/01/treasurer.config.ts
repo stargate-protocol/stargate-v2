@@ -12,6 +12,7 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEbi,
@@ -50,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
+    const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
     const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
@@ -95,6 +97,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, [TokenName.USDC] as const)
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -248,6 +251,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [bscAssetAddresses.USDC]: true,
                         [bscAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onCodex(contract),
+                config: {
+                    owner: codexAdmin,
+                    admin: codexAdmin,
+                    assets: {
+                        [codexAssetAddresses.USDC]: true,
                     },
                 },
             },

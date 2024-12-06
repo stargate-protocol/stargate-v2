@@ -27,6 +27,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, [TokenName.USDC] as const)
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -146,6 +147,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.BSC_V2_MAINNET]: {
             [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [bscAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.CODEX_V2_MAINNET]: {
+            [codexAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.COREDAO_V2_MAINNET]: {
             [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
