@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-devtools-evm-hardhat-v2",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -36,8 +36,8 @@
     "@layerzerolabs/ua-devtools": "~1.0.5",
     "@layerzerolabs/ua-devtools-evm": "~3.0.1",
     "@layerzerolabs/ua-devtools-evm-hardhat": "~4.0.1",
-    "@stargatefinance/stg-definitions-v2": "~1.3.4",
-    "@stargatefinance/stg-devtools-v2": "~2.0.4",
+    "@stargatefinance/stg-definitions-v2": "~1.3.5",
+    "@stargatefinance/stg-devtools-v2": "~2.0.5",
     "@types/node": "^18.15.11",
     "esbuild-plugin-clean": "~1.0.1",
     "esbuild-plugin-copy": "~2.1.1",
@@ -58,8 +58,8 @@
     "@layerzerolabs/ua-devtools": "^0.3.20",
     "@layerzerolabs/ua-devtools-evm": "^0.3.15",
     "@layerzerolabs/ua-devtools-evm-hardhat": "^0.3.19",
-    "@stargatefinance/stg-definitions-v2": "^1.3.4",
-    "@stargatefinance/stg-devtools-v2": "~2.0.4",
+    "@stargatefinance/stg-definitions-v2": "^1.3.5",
+    "@stargatefinance/stg-devtools-v2": "~2.0.5",
     "zod": "~3.22.4"
   },
   "publishConfig": {

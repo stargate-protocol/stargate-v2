@@ -143,6 +143,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
         accounts: testnetAccounts,
     },
+    'mantlesep-testnet': {
+        eid: EndpointId.MANTLESEP_V2_TESTNET,
+        url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
+        accounts: mainnetAccounts,
+    },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
