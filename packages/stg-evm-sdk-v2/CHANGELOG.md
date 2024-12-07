@@ -1,5 +1,12 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.0.18
+
+### Patch Changes
+
+- 63af792: codex
+- 2f0bda9: islander usdt
+
 ## 1.0.17
 
 ### Patch Changes

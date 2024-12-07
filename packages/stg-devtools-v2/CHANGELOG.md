@@ -1,5 +1,17 @@
 # @stargatefinance/stg-devtools-v2
 
+## 2.0.6
+
+### Patch Changes
+
+- 63af792: codex
+- 2f0bda9: islander usdt
+- Updated dependencies [427f30e]
+- Updated dependencies [7be2990]
+- Updated dependencies [63af792]
+- Updated dependencies [2f0bda9]
+  - @stargatefinance/stg-definitions-v2@1.3.6
+
 ## 2.0.5
 
 ### Patch Changes

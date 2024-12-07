@@ -1,5 +1,12 @@
 # @stargatefinance/stg-error-parser
 
+## 1.0.12
+
+### Patch Changes
+
+- 63af792: codex
+- 2f0bda9: islander usdt
+
 ## 1.0.11
 
 ### Patch Changes

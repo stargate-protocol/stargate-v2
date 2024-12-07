@@ -1,5 +1,14 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.3.6
+
+### Patch Changes
+
+- 427f30e: Codex Mainnet Config
+- 7be2990: vana usdt
+- 63af792: codex
+- 2f0bda9: islander usdt
+
 ## 1.3.5
 
 ### Patch Changes
