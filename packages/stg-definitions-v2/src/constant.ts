@@ -348,7 +348,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ISLANDER_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO address: '',
+                address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
             [EndpointId.KAVA_V2_MAINNET]: {
                 type: StargateType.Pool,
