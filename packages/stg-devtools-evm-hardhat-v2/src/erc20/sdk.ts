@@ -7,15 +7,30 @@ import {
     UIntNumberSchema,
     tapError,
 } from '@layerzerolabs/devtools'
+import { OmniContract } from '@layerzerolabs/devtools-evm'
+import { Logger } from '@layerzerolabs/io-devtools'
 import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 
 export class ERC20 extends Ownable implements IERC20 {
+    constructor(
+        contract: OmniContract,
+        public readonly contractName = 'ERC20',
+        logger?: Logger
+    ) {
+        super(contract, logger)
+    }
+
     async approve(spender: OmniAddress, amount: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('approve', [spender, amount])
 
         return {
             ...this.createTransaction(data),
             description: `Approving ${spender} to spend ${amount} tokens`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'approve',
+                functionArgs: `spender = ${spender} \n amount = ${amount}`,
+            },
         }
     }
 
@@ -68,6 +83,11 @@ export class ERC20 extends Ownable implements IERC20 {
         return {
             ...this.createTransaction(data),
             description: `Minting ${amount} tokens to ${account}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'mint',
+                functionArgs: `account = ${account} \n amount = ${amount}`,
+            },
         }
     }
 }
