@@ -1,6 +1,8 @@
 import { ICreditMessaging } from '@stargatefinance/stg-devtools-v2'
 
 import { AsyncRetriable, type OmniAddress, type OmniTransaction, formatEid, ignoreZero } from '@layerzerolabs/devtools'
+import { OmniContract } from '@layerzerolabs/devtools-evm'
+import { Logger } from '@layerzerolabs/io-devtools'
 
 import { Messaging } from '../messaging'
 
@@ -10,6 +12,14 @@ import type { EndpointId } from '@layerzerolabs/lz-definitions'
 export const MSG_TYPE_CREDIT_MESSAGING = 3
 
 export class CreditMessaging extends Messaging implements ICreditMessaging {
+    constructor(
+        contract: OmniContract,
+        public readonly contractName = 'CreditMessaging',
+        logger?: Logger
+    ) {
+        super(contract, logger)
+    }
+
     @AsyncRetriable()
     async getPlanner(): Promise<OmniAddress | undefined> {
         const planner = await this.contract.contract.planner()
@@ -23,6 +33,11 @@ export class CreditMessaging extends Messaging implements ICreditMessaging {
         return {
             ...this.createTransaction(data),
             description: `Setting planner to: ${planner}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setPlanner',
+                functionArgs: `planner = ${planner}`,
+            },
         }
     }
 
@@ -39,6 +54,11 @@ export class CreditMessaging extends Messaging implements ICreditMessaging {
         return {
             ...this.createTransaction(data),
             description: `Setting gas limit for ${formatEid(eid)} to: ${gasLimit}`,
+            metadata: {
+                contractName: this.contractName,
+                functionName: 'setGasLimit',
+                functionArgs: `eid = ${eid} \n gasLimit = ${gasLimit}`,
+            },
         }
     }
 }
