@@ -9,6 +9,7 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { ICommonOFT } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/interfaces/ICommonOFT.sol";
 
 import { OptionsBuilder } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/libs/OptionsBuilder.sol";
+import { EnforcedOptionParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppOptionsType3.sol";
 import { IOFT as IOFTEpv2, MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 import { IOFTWrapper, OFTWrapper } from "../../../../src/peripheral/oft-wrapper/OFTWrapper.sol";
@@ -773,6 +774,35 @@ contract OFTWrapperTest is Test, LzTestHelper {
             SendParamEpv2(1, "", _amount, 0, OptionsBuilder.newOptions(), "", ""),
             false,
             _createFeeObj(_callerBps, address(this), bytes2(0x0034))
+        );
+    }
+
+    function test_quote() public {
+        uint256 amount = 1 ether;
+        uint256 minAmount = 0.5 ether;
+        uint16 callerBps = 0;
+        uint256 nativeDrop = 0.1 ether;
+
+        EnforcedOptionParam[] memory _enforcedOptions = new EnforcedOptionParam[](1);
+        _enforcedOptions[0] = EnforcedOptionParam(
+            1,
+            1,
+            OptionsBuilder.newOptions().addExecutorLzReceiveOption(200_000, 0)
+        );
+        oft.setEnforcedOptions(_enforcedOptions);
+
+        IOFTWrapper.QuoteResult memory result = oftWrapper.quote(
+            IOFTWrapper.QuoteInput(
+                2,
+                address(oft),
+                address(0),
+                1,
+                amount,
+                minAmount,
+                _addressToBytes32(address(this)),
+                nativeDrop
+            ),
+            _createFeeObj(callerBps, address(this), bytes2(0x0034))
         );
     }
 }
