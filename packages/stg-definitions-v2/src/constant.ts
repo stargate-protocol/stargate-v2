@@ -208,9 +208,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.HEMI_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
+                type: StargateType.Native,
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -1237,7 +1235,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET], DVNS.STG[EndpointId.HEMI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00005').toBigInt(),
+            nativeDropAmount: parseEther('0.005').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x012c45ab17B7c2AE53CA68046a50bcDf77b46Ad7',
