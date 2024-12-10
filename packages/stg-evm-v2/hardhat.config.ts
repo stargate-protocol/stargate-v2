@@ -274,6 +274,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.FRAXTAL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'fuse-mainnet': {
+        eid: EndpointId.FUSE_V2_MAINNET,
+        url: process.env.RPC_URL_FUSE_MAINNET || 'https://rpc.fuse.io',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
