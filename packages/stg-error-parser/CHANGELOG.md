@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
 ## 1.0.12
 
 ### Patch Changes
