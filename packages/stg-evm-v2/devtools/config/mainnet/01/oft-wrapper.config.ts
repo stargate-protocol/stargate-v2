@@ -20,6 +20,7 @@ import {
     onFantom,
     onFlare,
     onFraxtal,
+    onFuse,
     onGravity,
     onIota,
     onIslander,
@@ -67,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const fantomOftWrapper = onFantom(contract)
     const flareOftWrapper = onFlare(contract)
     const fraxtalOftWrapper = onFraxtal(contract)
+    const fuseOftWrapper = onFuse(contract)
     const gravityOftWrapper = onGravity(contract)
     const iotaOftWrapper = onIota(contract)
     const islanderOftWrapper = onIslander(contract)
@@ -185,6 +187,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: fraxtalOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.FRAXTAL_V2_MAINNET),
+                },
+            },
+            {
+                contract: fuseOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
                 },
             },
             {

@@ -11,6 +11,7 @@ import {
     onDegen,
     onEbi,
     onFlare,
+    onFuse,
     onGravity,
     onIota,
     onIslander,
@@ -21,6 +22,8 @@ import {
     onSei,
     onTaiko,
 } from '../utils'
+
+// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -51,6 +54,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.FLARE_V2_MAINNET, TokenName.ETH)
     )
     const flareETH = onFlare({ contractName: flareETHContractName })
+
+    const fuseETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.FUSE_V2_MAINNET, TokenName.ETH)
+    )
+    const fuseETH = onFuse({ contractName: fuseETHContractName })
 
     const gravityETHContractName = getTokenDeployName(
         TokenName.ETH,
@@ -95,6 +104,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
+    const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [TokenName.ETH] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -154,6 +164,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
                     minters: {
                         [flareAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: fuseETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    minters: {
+                        [fuseAssetAddresses.ETH]: true,
                     },
                 },
             },

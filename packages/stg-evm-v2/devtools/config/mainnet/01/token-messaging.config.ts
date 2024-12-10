@@ -16,6 +16,7 @@ import {
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
     onIota,
     onIslander,
@@ -57,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
     const flareTokenMsging = onFlare(contract)
+    const fuseTokenMsging = onFuse(contract)
     const gravityTokenMsging = onGravity(contract)
     const iotaTokenMsging = onIota(contract)
     const islanderTokenMsging = onIslander(contract)
@@ -176,6 +178,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.FLARE_V2_MAINNET],
+                },
+            },
+            {
+                contract: fuseTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
                 },
             },
             {
@@ -362,6 +373,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             ebiTokenMsging,
             ethTokenMsging,
             flareTokenMsging,
+            fuseTokenMsging,
             gravityTokenMsging,
             iotaTokenMsging,
             islanderTokenMsging,

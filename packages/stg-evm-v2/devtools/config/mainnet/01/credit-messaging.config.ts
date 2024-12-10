@@ -16,6 +16,7 @@ import {
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
     onIota,
     onIslander,
@@ -58,6 +59,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const ebiCreditMsging = onEbi(contract)
     const ethCreditMsging = onEth(contract)
     const flareCreditMsging = onFlare(contract)
+    const fuseCreditMsging = onFuse(contract)
     const gravityCreditMsging = onGravity(contract)
     const iotaCreditMsging = onIota(contract)
     const islanderCreditMsging = onIslander(contract)
@@ -177,6 +179,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.FLARE_V2_MAINNET],
+                },
+            },
+            {
+                contract: fuseCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
                 },
             },
             {
@@ -363,6 +374,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             ebiCreditMsging,
             ethCreditMsging,
             flareCreditMsging,
+            fuseCreditMsging,
             gravityCreditMsging,
             iotaCreditMsging,
             islanderCreditMsging,
