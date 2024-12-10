@@ -18,6 +18,7 @@ import {
     onFlare,
     onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKava,
@@ -60,6 +61,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const flareTokenMsging = onFlare(contract)
     const fuseTokenMsging = onFuse(contract)
     const gravityTokenMsging = onGravity(contract)
+    const hemiTokenMsging = onHemi(contract)
     const iotaTokenMsging = onIota(contract)
     const islanderTokenMsging = onIslander(contract)
     const kavaTokenMsging = onKava(contract)
@@ -196,6 +198,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.GRAVITY_V2_MAINNET],
+                },
+            },
+            {
+                contract: hemiTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.HEMI_V2_MAINNET],
                 },
             },
             {
@@ -375,6 +386,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             flareTokenMsging,
             fuseTokenMsging,
             gravityTokenMsging,
+            hemiTokenMsging,
             iotaTokenMsging,
             islanderTokenMsging,
             kavaTokenMsging,

@@ -288,6 +288,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'hemi-mainnet': {
+        eid: EndpointId.HEMI_V2_MAINNET,
+        url: process.env.RPC_URL_HEMI_MAINNET || 'https://7e57304f.rpc.hemi.network/rpc',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'iota-mainnet': {
         eid: EndpointId.IOTA_V2_MAINNET,
         url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',

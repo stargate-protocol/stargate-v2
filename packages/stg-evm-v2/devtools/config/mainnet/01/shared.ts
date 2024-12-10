@@ -60,6 +60,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -189,6 +194,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [gravityAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [gravityAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [gravityAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.HEMI_V2_MAINNET]: {
+            [hemiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [hemiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [hemiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.IOTA_V2_MAINNET]: {
             [iotaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

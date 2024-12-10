@@ -363,10 +363,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
-            // [EndpointId.HEMI_V2_MAINNET]: {
-            //     type: StargateType.Oft,
-            //     //TODO address: '',
-            // },
+            [EndpointId.HEMI_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xbB0D083fb1be0A9f6157ec484b6C79E0A4e31C2e',
+            },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
             },

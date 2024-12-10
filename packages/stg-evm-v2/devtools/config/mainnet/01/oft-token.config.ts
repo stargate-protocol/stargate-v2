@@ -13,6 +13,7 @@ import {
     onFlare,
     onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKlaytn,
@@ -66,6 +67,13 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.GRAVITY_V2_MAINNET, TokenName.ETH)
     )
     const gravityETH = onGravity({ contractName: gravityETHContractName })
+
+    const hemiETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.HEMI_V2_MAINNET, TokenName.ETH)
+    )
+    const hemiETH = onHemi({ contractName: hemiETHContractName })
+
     const iotaETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.IOTA_V2_MAINNET, TokenName.ETH)
@@ -109,6 +117,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
+    const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, [TokenName.ETH] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -191,6 +200,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                     minters: {
                         [gravityAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: hemiETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    minters: {
+                        [hemiAssetAddresses.ETH]: true,
                     },
                 },
             },
