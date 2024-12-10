@@ -1,5 +1,17 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+### Patch Changes
+
+- Updated dependencies [246556f]
+- Updated dependencies [e6193bd]
+  - @stargatefinance/stg-definitions-v2@1.4.0
+
 ## 1.2.6
 
 ### Patch Changes

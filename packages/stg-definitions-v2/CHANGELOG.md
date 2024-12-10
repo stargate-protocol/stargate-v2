@@ -1,5 +1,15 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+### Patch Changes
+
+- e6193bd: executor bump
+
 ## 1.3.6
 
 ### Patch Changes

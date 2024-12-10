@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.1.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
 ## 1.0.18
 
 ### Patch Changes
