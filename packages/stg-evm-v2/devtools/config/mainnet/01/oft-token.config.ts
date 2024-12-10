@@ -66,7 +66,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.GRAVITY_V2_MAINNET, TokenName.ETH)
     )
     const gravityETH = onGravity({ contractName: gravityETHContractName })
-
     const iotaETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.IOTA_V2_MAINNET, TokenName.ETH)
