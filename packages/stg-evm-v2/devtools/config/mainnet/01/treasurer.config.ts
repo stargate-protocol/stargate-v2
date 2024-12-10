@@ -20,6 +20,7 @@ import {
     onFlare,
     onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKava,
@@ -60,6 +61,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
+    const hemiAdmin = getSafeAddress(EndpointId.HEMI_V2_MAINNET)
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const islanderAdmin = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
@@ -128,6 +130,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -351,6 +358,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [gravityAssetAddresses.ETH]: true,
                         [gravityAssetAddresses.USDC]: true,
                         [gravityAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onHemi(contract),
+                config: {
+                    owner: hemiAdmin,
+                    admin: hemiAdmin,
+                    assets: {
+                        [hemiAssetAddresses.ETH]: true,
+                        [hemiAssetAddresses.USDC]: true,
+                        [hemiAssetAddresses.USDT]: true,
                     },
                 },
             },
