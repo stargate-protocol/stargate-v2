@@ -118,7 +118,7 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
         useFeeData: true,
     },
@@ -129,13 +129,13 @@ const networks: NetworksUserConfig = {
     },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
-        url: process.env.RPC_URL_BSC_TESTNET || 'https://data-seed-prebsc-2-s1.bnbchain.org:8545',
+        url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
     'odyssey-testnet': {
@@ -155,7 +155,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://1rpc.io/sepolia',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
 
