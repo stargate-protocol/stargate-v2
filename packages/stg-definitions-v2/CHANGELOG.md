@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.1
+
+### Patch Changes
+
+- 00d3d6e: fuse mainnet config
+- 9923622: islander usdt
+- 9b41f9b: hemi
+
 ## 1.4.0
 
 ### Minor Changes

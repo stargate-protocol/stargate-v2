@@ -1,5 +1,17 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 3.0.1
+
+### Patch Changes
+
+- 9923622: islander usdt
+- 9b41f9b: hemi
+- Updated dependencies [00d3d6e]
+- Updated dependencies [9923622]
+- Updated dependencies [9b41f9b]
+  - @stargatefinance/stg-definitions-v2@1.4.1
+  - @stargatefinance/stg-devtools-v2@3.0.1
+
 ## 3.0.0
 
 ### Minor Changes
