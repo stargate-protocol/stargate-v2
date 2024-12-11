@@ -15,9 +15,9 @@ import type { HDAccountsUserConfig, HardhatUserConfig, NetworksUserConfig } from
 
 import '@nomiclabs/hardhat-ethers'
 import '@nomicfoundation/hardhat-chai-matchers'
-import '@nomiclabs/hardhat-etherscan'
 import '@matterlabs/hardhat-zksync-solc'
 import '@matterlabs/hardhat-zksync-deploy'
+import '@matterlabs/hardhat-zksync-verify'
 import 'hardhat-deploy'
 import 'hardhat-deploy-ethers'
 import 'hardhat-gas-reporter'
@@ -124,7 +124,9 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'https://ethereum-sepolia-rpc.publicnode.com',
-        // verifyURL: 'https://api-explorer-verify.testnet.abs.xyz/contract_verification',
+        gas: 10000000,
+        gasMultiplier: 2.0,
+        verifyURL: 'https://api-explorer-verify.testnet.abs.xyz/contract_verification',
     },
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
