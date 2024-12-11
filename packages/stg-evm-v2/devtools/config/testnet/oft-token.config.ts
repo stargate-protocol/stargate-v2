@@ -4,10 +4,9 @@ import { MintableNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { onAbs, onBL3, onKlaytn, onOdyssey } from './utils'
 import { getTokenDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../ts-src/utils/util'
-
-import { onBL3, onKlaytn, onOdyssey } from './utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -29,12 +28,19 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const odysseyETH = onOdyssey({ contractName: odysseyETHContractName })
 
+    const absETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.ABSTRACT_V2_TESTNET, TokenName.ETH)
+    )
+    const absETH = onAbs({ contractName: absETHContractName })
+
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const assets = [TokenName.ETH, TokenName.USDT] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, assets)
     const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, assets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, assets)
+    const absAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_TESTNET, assets)
 
     return {
         contracts: [
@@ -60,6 +66,14 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 config: {
                     minters: {
                         [odysseyAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: absETH,
+                config: {
+                    minters: {
+                        [absAssetAddresses.ETH]: true,
                     },
                 },
             },

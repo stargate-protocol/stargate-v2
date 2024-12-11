@@ -3,10 +3,9 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { getFeeLibV1DeployName } from '../../../ops/util'
-
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onAbs, onArb, onBL3, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { getFeeLibV1DeployName } from '../../../ops/util'
 
 const tokenName = TokenName.ETH
 const contract = { contractName: getFeeLibV1DeployName(tokenName) }
@@ -19,6 +18,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const bl3FeeLibV1 = onBL3(contract)
     const odysseyFeeLibV1 = onOdyssey(contract)
     const mantleFeeLibV1 = onMantle(contract)
+    const absFeeLibV1 = onAbs(contract)
 
     const defaultNodeConfig = {
         owner: DEFAULT_PLANNER,
@@ -52,6 +52,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: mantleFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: absFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],
