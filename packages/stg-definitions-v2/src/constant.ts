@@ -264,7 +264,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             // TESTNET
             //
             [EndpointId.ABSTRACT_V2_TESTNET]: {
-                type: StargateType.Native,
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Native,
