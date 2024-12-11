@@ -6,9 +6,10 @@ import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { onAbs, onBL3, onKlaytn, onOdyssey } from './utils'
 import { getUSDCProxyDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig, getNamedAccount } from '../../../ts-src/utils/util'
+
+import { onAbs, onBL3, onKlaytn, onOdyssey } from './utils'
 
 const getStargateMultisig = getNamedAccount('usdcAdmin')
 

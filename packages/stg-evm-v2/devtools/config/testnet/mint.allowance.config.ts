@@ -4,9 +4,10 @@ import { ERC20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
 import { getUSDTDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
+
+import { onArb, onBsc, onEth, onOpt } from './utils'
 
 const contract = { contractName: REWARDS[RewardTokenName.MOCK_A].name }
 const rewarder = { contractName: 'StargateMultiRewarder' }

@@ -6,8 +6,9 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
-import { onBL3, onOdyssey } from './utils'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
+
+import { onBL3, onOdyssey } from './utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 

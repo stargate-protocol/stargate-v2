@@ -4,9 +4,10 @@ import { MintableNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { onAbs, onBL3, onKlaytn, onOdyssey } from './utils'
 import { getTokenDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../ts-src/utils/util'
+
+import { onAbs, onBL3, onKlaytn, onOdyssey } from './utils'
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks

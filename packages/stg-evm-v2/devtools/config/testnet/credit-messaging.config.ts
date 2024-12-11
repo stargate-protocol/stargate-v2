@@ -6,6 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateCreditMessagingConfig } from '../utils'
+
 import { DEFAULT_PLANNER } from './constants'
 import { onAbs, onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 

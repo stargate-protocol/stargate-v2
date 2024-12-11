@@ -4,8 +4,9 @@ import { RewarderNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { onAbs, onArb, onBsc, onEth, onMantle, onOpt } from './utils'
 import { createGetLPTokenAddresses, createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
+
+import { onArb, onBsc, onEth, onMantle, onOpt } from './utils'
 
 const contract = { contractName: 'StargateMultiRewarder' }
 
@@ -20,7 +21,6 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const optRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, rewardTokens)
     const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, rewardTokens)
     const mantleRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, rewardTokens)
-    const absRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ABSTRACT_V2_TESTNET, rewardTokens)
 
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
@@ -29,7 +29,6 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const optLPTokenAddresses = await getLPTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
-    const absLPTokenAddresses = await getLPTokenAddresses(EndpointId.ABSTRACT_V2_TESTNET, allAssets)
 
     // 1e18 reward per second
     const DEFAULT_REWARDS_CONFIG = {
@@ -94,18 +93,6 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                             [mantleLPTokenAddresses.USDT]: 1,
                             [mantleLPTokenAddresses.USDC]: 1,
                             [mantleLPTokenAddresses.ETH]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onAbs(contract),
-                config: {
-                    allocations: {
-                        [absRewardTokenAddresses.MOCK_A]: {
-                            [absLPTokenAddresses.USDT]: 1,
-                            [absLPTokenAddresses.USDC]: 1,
-                            [absLPTokenAddresses.ETH]: 1,
                         },
                     },
                 },
