@@ -4,7 +4,7 @@ import { RewarderNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { onArb, onBsc, onEth, onMantle, onOpt } from './utils'
+import { onAbs, onArb, onBsc, onEth, onMantle, onOpt } from './utils'
 import { createGetLPTokenAddresses, createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
 
 const contract = { contractName: 'StargateMultiRewarder' }

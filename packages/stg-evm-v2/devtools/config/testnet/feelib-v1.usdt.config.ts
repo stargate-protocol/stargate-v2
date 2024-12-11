@@ -4,7 +4,7 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onAbs, onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 import { getFeeLibV1DeployName } from '../../../ops/util'
 
 const tokenName = TokenName.USDT
