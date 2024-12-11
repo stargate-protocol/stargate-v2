@@ -263,6 +263,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // TESTNET
             //
+            [EndpointId.ABSTRACT_V2_TESTNET]: {
+                type: StargateType.Native,
+            },
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Native,
             },
@@ -416,6 +419,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // TESTNET
             //
+            [EndpointId.ABSTRACT_V2_TESTNET]: {
+                //TODO address: 'USDTProxy',
+                type: StargateType.Oft,
+            },
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
             },
@@ -594,6 +601,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // TESTNET
             //
+            [EndpointId.ABSTRACT_V2_TESTNET]: {
+                address: '0x4b3E620388a5a89393877E3b225A236D1423a337',
+                type: StargateType.Oft,
+            },
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 address: '0x3253a335E7bFfB4790Aa4C25C4250d206E9b9773',
                 type: StargateType.Pool,
@@ -735,6 +746,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         //
         // TESTNET
         //
+        [EndpointId.ABSTRACT_V2_TESTNET]: {},
         [EndpointId.ARBSEP_V2_TESTNET]: {},
         [EndpointId.BL3_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
@@ -762,6 +774,7 @@ export const REWARDS: RewardsConfig = {
             //
             // We don't deploy the token on testnet since there are no farms
             //
+            [EndpointId.ABSTRACT_V2_TESTNET]: {},
             [EndpointId.SEPOLIA_V2_TESTNET]: {},
             [EndpointId.BSC_V2_TESTNET]: {},
             [EndpointId.OPTSEP_V2_TESTNET]: {},
@@ -1753,6 +1766,10 @@ export const NETWORKS: NetworksConfig = {
     //
     // TESTNET
     //
+    [EndpointId.ABSTRACT_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
     [EndpointId.ARBSEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,

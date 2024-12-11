@@ -23,6 +23,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const bl3Point = getAssetPoint(EndpointId.BL3_V2_TESTNET)
     const odysseyPoint = getAssetPoint(EndpointId.ODYSSEY_V2_TESTNET)
     const mantlePoint = getAssetPoint(EndpointId.MANTLESEP_V2_TESTNET)
+    const absPoint = getAssetPoint(EndpointId.ABSTRACT_V2_TESTNET)
 
     // And all their nodes
     const bscContract = await getAssetNode(bscPoint)
@@ -33,6 +34,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const bl3Contract = await getAssetNode(bl3Point)
     const odysseyContract = await getAssetNode(odysseyPoint)
     const mantleContract = await getAssetNode(mantlePoint)
+    const absContract = await getAssetNode(absPoint)
 
     // And all their connections
     const bscToEth = getAssetEdge(bscPoint, ethPoint)
@@ -42,6 +44,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const bscToBL3 = getAssetEdge(bscPoint, bl3Point)
     const bscToOdyssey = getAssetEdge(bscPoint, odysseyPoint)
     const bscToMantle = getAssetEdge(bscPoint, mantlePoint)
+    const bscToAbs = getAssetEdge(bscPoint, absPoint)
 
     const ethToBsc = getAssetEdge(ethPoint, bscPoint)
     const ethToOpt = getAssetEdge(ethPoint, optPoint)
@@ -50,6 +53,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ethToBL3 = getAssetEdge(ethPoint, bl3Point)
     const ethToOdyssey = getAssetEdge(ethPoint, odysseyPoint)
     const ethToMantle = getAssetEdge(ethPoint, mantlePoint)
+    const ethToAbs = getAssetEdge(ethPoint, absPoint)
 
     const optToBsc = getAssetEdge(optPoint, bscPoint)
     const optToEth = getAssetEdge(optPoint, ethPoint)
@@ -58,6 +62,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const optToBL3 = getAssetEdge(optPoint, bl3Point)
     const optToOdyssey = getAssetEdge(optPoint, odysseyPoint)
     const optToMantle = getAssetEdge(optPoint, mantlePoint)
+    const optToAbs = getAssetEdge(optPoint, absPoint)
 
     const arbToBsc = getAssetEdge(arbPoint, bscPoint)
     const arbToEth = getAssetEdge(arbPoint, ethPoint)
@@ -66,6 +71,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const arbToBL3 = getAssetEdge(arbPoint, bl3Point)
     const arbToOdyssey = getAssetEdge(arbPoint, odysseyPoint)
     const arbToMantle = getAssetEdge(arbPoint, mantlePoint)
+    const arbToAbs = getAssetEdge(arbPoint, absPoint)
 
     const klaytnToBsc = getAssetEdge(klaytnPoint, bscPoint)
     const klaytnToEth = getAssetEdge(klaytnPoint, ethPoint)
@@ -74,6 +80,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const klaytnToBL3 = getAssetEdge(klaytnPoint, bl3Point)
     const klaytnToOdyssey = getAssetEdge(klaytnPoint, odysseyPoint)
     const klaytnToMantle = getAssetEdge(klaytnPoint, mantlePoint)
+    const klaytnToAbs = getAssetEdge(klaytnPoint, absPoint)
 
     const bl3ToBsc = getAssetEdge(bl3Point, bscPoint)
     const bl3ToEth = getAssetEdge(bl3Point, ethPoint)
@@ -82,6 +89,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const bl3ToKlaytn = getAssetEdge(bl3Point, klaytnPoint)
     const bl3ToOdyssey = getAssetEdge(bl3Point, odysseyPoint)
     const bl3ToMantle = getAssetEdge(bl3Point, mantlePoint)
+    const bl3ToAbs = getAssetEdge(bl3Point, absPoint)
 
     const odysseyToBsc = getAssetEdge(odysseyPoint, bscPoint)
     const odysseyToEth = getAssetEdge(odysseyPoint, ethPoint)
@@ -90,6 +98,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const odysseyToKlaytn = getAssetEdge(odysseyPoint, klaytnPoint)
     const odysseyToBL3 = getAssetEdge(odysseyPoint, bl3Point)
     const odysseyToMantle = getAssetEdge(odysseyPoint, mantlePoint)
+    const odysseyToAbs = getAssetEdge(odysseyPoint, absPoint)
 
     const mantleToBsc = getAssetEdge(mantlePoint, bscPoint)
     const mantleToEth = getAssetEdge(mantlePoint, ethPoint)
@@ -98,6 +107,16 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const mantleToKlaytn = getAssetEdge(mantlePoint, klaytnPoint)
     const mantleToBL3 = getAssetEdge(mantlePoint, bl3Point)
     const mantleToOdyssey = getAssetEdge(mantlePoint, odysseyPoint)
+    const mantleToAbs = getAssetEdge(mantlePoint, absPoint)
+
+    const absToBsc = getAssetEdge(absPoint, bscPoint)
+    const absToEth = getAssetEdge(absPoint, ethPoint)
+    const absToArb = getAssetEdge(absPoint, arbPoint)
+    const absToOpt = getAssetEdge(absPoint, optPoint)
+    const absToKlaytn = getAssetEdge(absPoint, klaytnPoint)
+    const absToBL3 = getAssetEdge(absPoint, bl3Point)
+    const absToOdyssey = getAssetEdge(absPoint, odysseyPoint)
+    const absToMantle = getAssetEdge(absPoint, mantlePoint)
 
     return {
         contracts: [
@@ -109,6 +128,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             bl3Contract,
             odysseyContract,
             mantleContract,
+            absContract,
         ],
         connections: [
             //
@@ -121,6 +141,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             bscToBL3,
             bscToOdyssey,
             bscToMantle,
+            bscToAbs,
 
             //
             // Connections originating from ETH
@@ -132,6 +153,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ethToBL3,
             ethToOdyssey,
             ethToMantle,
+            ethToAbs,
 
             //
             // Connections originating from OPT
@@ -143,6 +165,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             optToBL3,
             optToOdyssey,
             optToMantle,
+            optToAbs,
 
             //
             // Connections originating from ARB
@@ -154,6 +177,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             arbToBL3,
             arbToOdyssey,
             arbToMantle,
+            arbToAbs,
 
             //
             // Connections originating from KLAYTN
@@ -165,6 +189,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             klaytnToBL3,
             klaytnToOdyssey,
             klaytnToMantle,
+            klaytnToAbs,
 
             //
             // Connections originating from BL3
@@ -176,6 +201,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             bl3ToKlaytn,
             bl3ToOdyssey,
             bl3ToMantle,
+            bl3ToAbs,
 
             //
             // Connections originating from ODYSSEY
@@ -187,6 +213,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             odysseyToKlaytn,
             odysseyToBL3,
             odysseyToMantle,
+            odysseyToAbs,
 
             //
             // Connections originating from MANTLE
@@ -198,6 +225,19 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             mantleToKlaytn,
             mantleToBL3,
             mantleToOdyssey,
+            mantleToAbs,
+
+            //
+            // Connections originating from ABSTRACT
+            //
+            absToBsc,
+            absToEth,
+            absToArb,
+            absToOpt,
+            absToKlaytn,
+            absToBL3,
+            absToOdyssey,
+            absToMantle,
         ],
     }
 }
