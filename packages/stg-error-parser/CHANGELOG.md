@@ -1,5 +1,12 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.1
+
+### Patch Changes
+
+- 9923622: islander usdt
+- 9b41f9b: hemi
+
 ## 1.1.0
 
 ### Minor Changes

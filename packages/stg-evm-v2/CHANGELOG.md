@@ -1,5 +1,17 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.1
+
+### Patch Changes
+
+- 00d3d6e: fuse mainnet config
+- 9923622: islander usdt
+- 9b41f9b: hemi
+- Updated dependencies [00d3d6e]
+- Updated dependencies [9923622]
+- Updated dependencies [9b41f9b]
+  - @stargatefinance/stg-definitions-v2@1.4.1
+
 ## 1.3.0
 
 ### Minor Changes
