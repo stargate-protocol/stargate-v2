@@ -17,6 +17,7 @@ import {
     onBsc,
     onCoredao,
     onEth,
+    onHemi,
     onKava,
     onLightlink,
     onMantle,
@@ -45,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscRewarder = await contractFactory(onBsc(rewarder))
     const coredaoRewarder = await contractFactory(onCoredao(rewarder))
     const ethRewarder = await contractFactory(onEth(rewarder))
+    const hemiRewarder = await contractFactory(onHemi(rewarder))
     const kavaRewarder = await contractFactory(onKava(rewarder))
     const lightlinkRewarder = await contractFactory(onLightlink(rewarder))
     const mantleRewarder = await contractFactory(onMantle(rewarder))
@@ -63,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscStaking = onBsc(staking)
     const coredaoStaking = onCoredao(staking)
     const ethStaking = onEth(staking)
+    const hemiStaking = onHemi(staking)
     const kavaStaking = onKava(staking)
     const lightlinkStaking = onLightlink(staking)
     const mantleStaking = onMantle(staking)
@@ -83,6 +86,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscPool = { rewarder: bscRewarder.contract.address }
     const coredaoPool = { rewarder: coredaoRewarder.contract.address }
     const ethPool = { rewarder: ethRewarder.contract.address }
+    const hemiPool = { rewarder: hemiRewarder.contract.address }
     const kavaPool = { rewarder: kavaRewarder.contract.address }
     const lightlinkPool = { rewarder: lightlinkRewarder.contract.address }
     const mantlePool = { rewarder: mantleRewarder.contract.address }
@@ -210,6 +214,18 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...ethPool,
                             token: lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: hemiStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    pools: [
+                        {
+                            ...hemiPool,
+                            token: lpTokenAddresses[EndpointId.HEMI_V2_MAINNET].ETH,
                         },
                     ],
                 },

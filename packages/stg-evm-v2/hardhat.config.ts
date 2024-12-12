@@ -118,7 +118,7 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
+        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
         useFeeData: true,
     },
@@ -129,19 +129,24 @@ const networks: NetworksUserConfig = {
     },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
-        url: process.env.RPC_URL_BSC_TESTNET || 'https://data-seed-prebsc-2-s1.bnbchain.org:8545',
+        url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://rpc.ankr.com/klaytn_testnet',
+        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
-    'storyodyssey-testnet': {
+    'odyssey-testnet': {
         eid: EndpointId.ODYSSEY_V2_TESTNET,
         url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
         accounts: testnetAccounts,
+    },
+    'mantlesep-testnet': {
+        eid: EndpointId.MANTLESEP_V2_TESTNET,
+        url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
+        accounts: mainnetAccounts,
     },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
@@ -150,7 +155,7 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://1rpc.io/sepolia',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
 
@@ -205,6 +210,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_BSC_MAINNET || 'https://bsc-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'codex-mainnet': {
+        eid: EndpointId.CODEX_V2_MAINNET,
+        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.is/',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'coredao-mainnet': {
@@ -262,11 +274,25 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.FRAXTAL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'fuse-mainnet': {
+        eid: EndpointId.FUSE_V2_MAINNET,
+        url: process.env.RPC_URL_FUSE_MAINNET || 'https://rpc.fuse.io',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'hemi-mainnet': {
+        eid: EndpointId.HEMI_V2_MAINNET,
+        url: process.env.RPC_URL_HEMI_MAINNET || 'https://7e57304f.rpc.hemi.network/rpc',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'iota-mainnet': {

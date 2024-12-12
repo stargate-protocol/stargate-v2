@@ -4,9 +4,10 @@ import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { DEFAULT_PLANNER } from './constants'
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { generateAssetConfig } from '../../utils'
+
+import { DEFAULT_PLANNER } from './constants'
 
 const tokenName = TokenName.USDT
 
@@ -25,9 +26,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ebiPoint = getAssetPoint(EndpointId.EBI_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
+    const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
+    const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
-    // const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
+    const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
     const kavaPoint = getAssetPoint(EndpointId.KAVA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
@@ -49,9 +52,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ebiContract = await getAssetNode(ebiPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
+    const fuseContract = await getAssetNode(fusePoint)
     const gravityContract = await getAssetNode(gravityPoint)
+    const hemiContract = await getAssetNode(hemiPoint)
     const iotaContract = await getAssetNode(iotaPoint)
-    // const islanderContract = await getAssetNode(islanderPoint)
+    const islanderContract = await getAssetNode(islanderPoint)
     const kavaContract = await getAssetNode(kavaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
     const lightlinkContract = await getAssetNode(lightlinkPoint)
@@ -74,9 +79,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ebiContract,
             ethContract,
             flareContract,
+            fuseContract,
             gravityContract,
+            hemiContract,
             iotaContract,
-            // islanderContract,
+            islanderContract,
             kavaContract,
             klaytnContract,
             lightlinkContract,
@@ -98,9 +105,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ebiPoint,
             ethPoint,
             flarePoint,
+            fusePoint,
             gravityPoint,
+            hemiPoint,
             iotaPoint,
-            // islanderPoint,
+            islanderPoint,
             kavaPoint,
             klaytnPoint,
             lightlinkPoint,

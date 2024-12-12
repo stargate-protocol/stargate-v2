@@ -1,5 +1,57 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+### Patch Changes
+
+- Updated dependencies [246556f]
+- Updated dependencies [e6193bd]
+  - @stargatefinance/stg-definitions-v2@1.4.0
+
+## 1.2.6
+
+### Patch Changes
+
+- 427f30e: Codex Mainnet Config
+- 7be2990: vana usdt
+- 63af792: codex
+- 2f0bda9: islander usdt
+- Updated dependencies [427f30e]
+- Updated dependencies [7be2990]
+- Updated dependencies [63af792]
+- Updated dependencies [2f0bda9]
+  - @stargatefinance/stg-definitions-v2@1.3.6
+
+## 1.2.5
+
+### Patch Changes
+
+- 90500af: Plume updates
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- cbbf60a: vana mainnet config
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- bc66d16: Superposition
+- 19f993b: Superposition update
+- 52766b7: Superposition deployment
+- 3d2232d: Plume Updates
+- Updated dependencies [90500af]
+- Updated dependencies [19f993b]
+- Updated dependencies [b2a2ac5]
+- Updated dependencies [cbbf60a]
+- Updated dependencies [b263a9c]
+- Updated dependencies [aede3f7]
+- Updated dependencies [bc66d16]
+- Updated dependencies [19f993b]
+- Updated dependencies [52766b7]
+- Updated dependencies [3d2232d]
+  - @stargatefinance/stg-definitions-v2@1.3.5
+
 ## 1.2.4
 
 ### Patch Changes

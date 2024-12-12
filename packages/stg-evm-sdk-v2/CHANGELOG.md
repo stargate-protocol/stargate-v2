@@ -1,5 +1,28 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.1.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+## 1.0.18
+
+### Patch Changes
+
+- 63af792: codex
+- 2f0bda9: islander usdt
+
+## 1.0.17
+
+### Patch Changes
+
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- 52766b7: Superposition deployment
+
 ## 1.0.16
 
 ### Patch Changes

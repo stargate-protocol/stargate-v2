@@ -10,12 +10,15 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKava,
@@ -51,12 +54,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const avaxTokenMsging = onAvax(contract)
     const baseTokenMsging = onBase(contract)
     const bscTokenMsging = onBsc(contract)
+    const codexTokenMsging = onCodex(contract)
     const coredaoTokenMsging = onCoredao(contract)
     const degenTokenMsging = onDegen(contract)
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
     const flareTokenMsging = onFlare(contract)
+    const fuseTokenMsging = onFuse(contract)
     const gravityTokenMsging = onGravity(contract)
+    const hemiTokenMsging = onHemi(contract)
     const iotaTokenMsging = onIota(contract)
     const islanderTokenMsging = onIslander(contract)
     const kavaTokenMsging = onKava(contract)
@@ -125,6 +131,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: codexTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.CODEX_V2_MAINNET],
+                },
+            },
+            {
                 contract: coredaoTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
@@ -170,12 +185,30 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: fuseTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
                 contract: gravityTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.GRAVITY_V2_MAINNET],
+                },
+            },
+            {
+                contract: hemiTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.HEMI_V2_MAINNET],
                 },
             },
             {
@@ -356,12 +389,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             avaxTokenMsging,
             baseTokenMsging,
             bscTokenMsging,
+            codexTokenMsging,
             coredaoTokenMsging,
             degenTokenMsging,
             ebiTokenMsging,
             ethTokenMsging,
             flareTokenMsging,
+            fuseTokenMsging,
             gravityTokenMsging,
+            hemiTokenMsging,
             iotaTokenMsging,
             islanderTokenMsging,
             kavaTokenMsging,

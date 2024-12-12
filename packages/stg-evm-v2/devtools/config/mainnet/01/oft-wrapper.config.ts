@@ -12,6 +12,7 @@ import {
     onBase,
     onBlast,
     onBsc,
+    onCodex,
     onDegen,
     onEbi,
     onEth,
@@ -19,7 +20,9 @@ import {
     onFantom,
     onFlare,
     onFraxtal,
+    onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKava,
@@ -58,6 +61,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const baseOftWrapper = onBase(contract)
     const blastOftWrapper = onBlast(contract)
     const bscOftWrapper = onBsc(contract)
+    const codexOftWrapper = onCodex(contract)
     const degenOftWrapper = onDegen(contract)
     const ebiOftWrapper = onEbi(contract)
     const ethOftWrapper = onEth(contract)
@@ -65,7 +69,9 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const fantomOftWrapper = onFantom(contract)
     const flareOftWrapper = onFlare(contract)
     const fraxtalOftWrapper = onFraxtal(contract)
+    const fuseOftWrapper = onFuse(contract)
     const gravityOftWrapper = onGravity(contract)
+    const hemiOftWrapper = onHemi(contract)
     const iotaOftWrapper = onIota(contract)
     const islanderOftWrapper = onIslander(contract)
     const kavaOftWrapper = onKava(contract)
@@ -138,6 +144,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
+                contract: codexOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                },
+            },
+            {
                 contract: degenOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
@@ -180,9 +192,21 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
+                contract: fuseOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                },
+            },
+            {
                 contract: gravityOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
+                },
+            },
+            {
+                contract: hemiOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
                 },
             },
             {

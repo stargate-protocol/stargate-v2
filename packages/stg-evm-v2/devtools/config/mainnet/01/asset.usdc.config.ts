@@ -23,11 +23,14 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
+    const codexPoint = getAssetPoint(EndpointId.CODEX_V2_MAINNET)
     const coredaoPoint = getAssetPoint(EndpointId.COREDAO_V2_MAINNET)
     const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
+    const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
+    const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
     const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
@@ -51,11 +54,14 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const avaxContract = await getAssetNode(avaxPoint)
     const baseContract = await getAssetNode(basePoint)
     const bscContract = await getAssetNode(bscPoint)
+    const codexContract = await getAssetNode(codexPoint)
     const coredaoContract = await getAssetNode(coredaoPoint)
     const degenContract = await getAssetNode(degenPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
+    const fuseContract = await getAssetNode(fusePoint)
     const gravityContract = await getAssetNode(gravityPoint)
+    const hemiContract = await getAssetNode(hemiPoint)
     const iotaContract = await getAssetNode(iotaPoint)
     const islanderContract = await getAssetNode(islanderPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
@@ -80,11 +86,14 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxContract,
             baseContract,
             bscContract,
+            codexContract,
             coredaoContract,
             degenContract,
             ethContract,
             flareContract,
+            fuseContract,
             gravityContract,
+            hemiContract,
             iotaContract,
             islanderContract,
             klaytnContract,
@@ -108,11 +117,14 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             avaxPoint,
             basePoint,
             bscPoint,
+            codexPoint,
             coredaoPoint,
             degenPoint,
             ethPoint,
             flarePoint,
+            fusePoint,
             gravityPoint,
+            hemiPoint,
             iotaPoint,
             islanderPoint,
             klaytnPoint,

@@ -10,11 +10,14 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKlaytn,
@@ -48,11 +51,14 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const avaxFeeLibV1 = onAvax(contract)
     const baseFeeLibV1 = onBase(contract)
     const bscFeeLibV1 = onBsc(contract)
+    const codexFeeLibV1 = onCodex(contract)
     const coredaoFeeLibV1 = onCoredao(contract)
     const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
+    const fuseFeeLibV1 = onFuse(contract)
     const gravityFeeLibV1 = onGravity(contract)
+    const hemiFeeLibV1 = onHemi(contract)
     const iotaFeeLibV1 = onIota(contract)
     const islanderFeeLibV1 = onIslander(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
@@ -93,6 +99,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: codexFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: coredaoFeeLibV1,
                 config: defaultNodeConfig,
             },
@@ -109,7 +119,15 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: fuseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: gravityFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: hemiFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

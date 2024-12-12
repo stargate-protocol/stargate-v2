@@ -10,12 +10,15 @@ import {
     onAvax,
     onBase,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKava,
@@ -52,12 +55,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const avaxCreditMsging = onAvax(contract)
     const baseCreditMsging = onBase(contract)
     const bscCreditMsging = onBsc(contract)
+    const codexCreditMsging = onCodex(contract)
     const coredaoCreditMsging = onCoredao(contract)
     const degenCreditMsging = onDegen(contract)
     const ebiCreditMsging = onEbi(contract)
     const ethCreditMsging = onEth(contract)
     const flareCreditMsging = onFlare(contract)
+    const fuseCreditMsging = onFuse(contract)
     const gravityCreditMsging = onGravity(contract)
+    const hemiCreditMsging = onHemi(contract)
     const iotaCreditMsging = onIota(contract)
     const islanderCreditMsging = onIslander(contract)
     const kavaCreditMsging = onKava(contract)
@@ -126,6 +132,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: codexCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.CODEX_V2_MAINNET],
+                },
+            },
+            {
                 contract: coredaoCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.COREDAO_V2_MAINNET),
@@ -171,12 +186,30 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: fuseCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
                 contract: gravityCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.GRAVITY_V2_MAINNET],
+                },
+            },
+            {
+                contract: hemiCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.HEMI_V2_MAINNET],
                 },
             },
             {
@@ -357,12 +390,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             avaxCreditMsging,
             baseCreditMsging,
             bscCreditMsging,
+            codexCreditMsging,
             coredaoCreditMsging,
             degenCreditMsging,
             ebiCreditMsging,
             ethCreditMsging,
             flareCreditMsging,
+            fuseCreditMsging,
             gravityCreditMsging,
+            hemiCreditMsging,
             iotaCreditMsging,
             islanderCreditMsging,
             kavaCreditMsging,

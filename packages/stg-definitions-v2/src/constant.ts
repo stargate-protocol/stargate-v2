@@ -24,12 +24,15 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
+        [EndpointId.CODEX_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
+        [EndpointId.FUSE_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
+        [EndpointId.HEMI_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.ISLANDER_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.KAVA_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
@@ -76,12 +79,15 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x252b234545e154543ad2784c7111eb90406be836',
         [EndpointId.BASE_V2_MAINNET]: '0xcdf31d62140204c08853b547e64707110fbc6680',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
+        [EndpointId.CODEX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
+        [EndpointId.FUSE_V2_MAINNET]: '0x9f45834f0c8042e36935781b944443e906886a87',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
+        [EndpointId.HEMI_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.IOTA_V2_MAINNET]: '0xf18a7d86917653725afb7c215e47a24f9d784718',
         [EndpointId.ISLANDER_V2_MAINNET]: '0x9eeee79f5dbc4d99354b5cb547c138af432f937b',
         [EndpointId.KAVA_V2_MAINNET]: '0x9cbaf815ed62ef45c59e9f2cb05106babb4d31d3',
@@ -115,14 +121,17 @@ export const EXECUTORS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
+        [EndpointId.CODEX_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.FUSE_V2_MAINNET]: '0xc905E74BEb8229E258c3C6E5bC0D6Cc54C534688',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.HEMI_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
-        [EndpointId.ISLANDER_V2_MAINNET]: '0x4b80F7d25c451D204b1C93D9bdf2aB3B04f3EA4a',
+        [EndpointId.ISLANDER_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.KAVA_V2_MAINNET]: '0x41ED8065dd9bC6c0caF21c39766eDCBA0F21851c',
         [EndpointId.KLAYTN_V2_MAINNET]: '0xe149187a987F129FD3d397ED04a60b0b89D1669f',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -191,10 +200,18 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.FUSE_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
+            },
+            [EndpointId.HEMI_V2_MAINNET]: {
+                type: StargateType.Native,
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -267,6 +284,12 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Pool,
+                address: '0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111',
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Native,
             },
@@ -334,15 +357,23 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.FLARE_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
+            [EndpointId.FUSE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x3695Dd1D1D43B794C0B13eb8be8419Eb3ac22bf7',
+            },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 type: StargateType.Oft,
+            },
+            [EndpointId.HEMI_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xbB0D083fb1be0A9f6157ec484b6C79E0A4e31C2e',
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
             [EndpointId.ISLANDER_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO address: '',
+                address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
             [EndpointId.KAVA_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -409,6 +440,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x880f614c729c622c727f3625b263a36c0b89167F',
             },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                address: '0xcC4Ac915857532ADa58D69493554C6d869932Fe6',
+                type: StargateType.Pool,
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
             },
@@ -460,6 +495,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
                 type: StargateType.Pool,
             },
+            [EndpointId.CODEX_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xbbA60da06c2c5424f03f7434542280FCAd453d10',
+            },
             [EndpointId.COREDAO_V2_MAINNET]: {
                 address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
@@ -477,10 +516,18 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
             },
+            [EndpointId.FUSE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xc6Bc407706B7140EE8Eef2f86F9504651b63e7f9',
+            },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
+            },
+            [EndpointId.HEMI_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xad11a8BEb98bbf61dbb1aa0F6d6F2ECD87b35afA',
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -573,6 +620,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
+            [EndpointId.MANTLESEP_V2_TESTNET]: {
+                address: '0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080',
+                type: StargateType.Pool,
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 address: '0x488327236B65C61A6c083e8d811a4E0D3d1D4268',
                 type: StargateType.Pool,
@@ -651,6 +702,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BASE_V2_MAINNET]: {},
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
+        [EndpointId.CODEX_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
         [EndpointId.DEGEN_V2_MAINNET]: {},
         [EndpointId.EBI_V2_MAINNET]: {},
@@ -658,8 +710,10 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
         [EndpointId.FANTOM_V2_MAINNET]: {},
         [EndpointId.FLARE_V2_MAINNET]: {},
+        [EndpointId.FUSE_V2_MAINNET]: {},
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
+        [EndpointId.HEMI_V2_MAINNET]: {},
         [EndpointId.IOTA_V2_MAINNET]: {},
         [EndpointId.ISLANDER_V2_MAINNET]: {},
         [EndpointId.KAVA_V2_MAINNET]: {},
@@ -697,6 +751,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
         [EndpointId.ODYSSEY_V2_TESTNET]: {},
+        [EndpointId.MANTLESEP_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
         [EndpointId.SEPOLIA_V2_TESTNET]: {},
 
@@ -716,12 +771,13 @@ export const REWARDS: RewardsConfig = {
             //
             // Testnet
             //
-            // We don't deploy the token on testnet since there are no pools
+            // We don't deploy the token on testnet since there are no farms
             //
             [EndpointId.SEPOLIA_V2_TESTNET]: {},
             [EndpointId.BSC_V2_TESTNET]: {},
             [EndpointId.OPTSEP_V2_TESTNET]: {},
             [EndpointId.ARBSEP_V2_TESTNET]: {},
+            [EndpointId.MANTLESEP_V2_TESTNET]: {},
 
             //
             // Sandbox
@@ -954,6 +1010,35 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://safe-transaction-bsc.safe.global/',
         },
     },
+    [EndpointId.CODEX_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.CODEX_V2_MAINNET], DVNS.STG[EndpointId.CODEX_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.CODEX_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.CODEX_V2_MAINNET], DVNS.STG[EndpointId.CODEX_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.CODEX_V2_MAINNET],
+            nativeDropAmount: parseEther('0.001').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x539bd5B55eBFb8EfEDc51f115d96FE9705027621',
+            safeUrl: 'https://codex-tx.lzdevnet.org/',
+            contractNetworks: {
+                [81224]: {
+                    multiSendAddress: '0x00B3FA8E2020e93Cc092508C61DcCa70425635E3',
+                    multiSendCallOnlyAddress: '0xddE16aA6EA27d17c83D43C8f62f828427Ae9848d',
+                    safeMasterCopyAddress: '0xA042C3543E6b546a34ECe6411cD3E3093e7551ec',
+                    safeProxyFactoryAddress: '0x3Dc5fA91e051BB23051Fd424125bc90f24A7DFB9',
+                    fallbackHandlerAddress: '0x075bB7db8EbE09E507295A9Be57da19DEA01aa3B',
+                    createCallAddress: '0x5BF7D6509be83C1e0AA5b9C0bCaF81d626204848',
+                    signMessageLibAddress: '0x9DE94C4F9AB1E1157d3637E04bD96fb8A8143401',
+                    simulateTxAccessorAddress: '0xa60175Fe4Ea218afE3C5dD23203a0fe82BDB6638',
+                },
+            },
+        },
+    },
     [EndpointId.COREDAO_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1093,6 +1178,35 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: 'https://fraxtal-tx.lzdevnet.org/',
         },
     },
+    [EndpointId.FUSE_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET], DVNS.STG[EndpointId.FUSE_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET], DVNS.STG[EndpointId.FUSE_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
+            nativeDropAmount: parseEther('0.1').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x10fE9418bc6bf06C849c070AE341238B45F8B805',
+            safeUrl: 'https://fuse-tx.lzdevnet.org/',
+            contractNetworks: {
+                ['122']: {
+                    multiSendAddress: '0x13D863F99B511c6B0aA9b279Dfbb8CEd03a67443',
+                    multiSendCallOnlyAddress: '0x657cC5bB95cFe05FcB87315a884Ab2b46F8DF893',
+                    safeMasterCopyAddress: '0x8E141E7EAF0d2100c13EfCb7371ECfbCFCcb6755',
+                    safeProxyFactoryAddress: '0x4e667200683d0b84CbB6dEEEa821d6B8b1cbE50e',
+                    fallbackHandlerAddress: '0xC216cd825eCb640BB17b4f63dbe49b3cA28bEEE3',
+                    createCallAddress: '0xe434357848A9b57C640055427238397ad2a14b81',
+                    signMessageLibAddress: '0x590a2737c8EF1C2e52F81624ea8dBFa7deA0565B',
+                    simulateTxAccessorAddress: '0x5a864A828a401E4eDa8756A15e48819963f9DAAC',
+                },
+            },
+        },
+    },
     [EndpointId.GRAVITY_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1118,6 +1232,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
                     signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
                     simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
+                },
+            },
+        },
+    },
+    [EndpointId.HEMI_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET], DVNS.STG[EndpointId.HEMI_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET], DVNS.STG[EndpointId.HEMI_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
+            nativeDropAmount: parseEther('0.005').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x012c45ab17B7c2AE53CA68046a50bcDf77b46Ad7',
+            safeUrl: 'https://hemi-tx.lzdevnet.org/',
+            contractNetworks: {
+                [43111]: {
+                    multiSendAddress: '0x84CDeb280870b531660087f347B2001775C9Ee0F',
+                    multiSendCallOnlyAddress: '0xcE521F12AB380D9a5526410A66932F28f73Cc19B',
+                    safeMasterCopyAddress: '0x1924A4c1C8C9e683E29f62737CfDFB933df1bE73',
+                    safeProxyFactoryAddress: '0xedB7D71C889E00CDcC3838c72CAE8Fb2C46022c1',
+                    fallbackHandlerAddress: '0x68cf966a4a97aD9604e314734260f82D3A9Be44D',
+                    createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
+                    signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
+                    simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
                 },
             },
         },
@@ -1667,6 +1810,10 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.ODYSSEY_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.MANTLESEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
