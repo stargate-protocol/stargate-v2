@@ -422,7 +422,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             // TESTNET
             //
             [EndpointId.ABSTRACT_V2_TESTNET]: {
-                //TODO address: 'USDTProxy',
+                address: '0xF8D752587211556A97876ffc8b347aF8f9D8897D',
                 type: StargateType.Oft,
             },
             [EndpointId.ARBSEP_V2_TESTNET]: {
