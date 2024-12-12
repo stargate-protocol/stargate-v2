@@ -65,12 +65,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
             //         owner: odysseyAssetAddresses.USDT,
             //     },
             // },
-            {
-                contract: absUSDT,
-                config: {
-                    owner: absAssetAddresses.USDT,
-                },
-            },
+            // {
+            //     contract: absUSDT,
+            //     config: {
+            //         owner: absAssetAddresses.USDT,
+            //     },
+            // },
         ],
         connections: [],
     }

@@ -63,18 +63,18 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     return {
         contracts: [
-            {
-                contract: klaytnUSDC,
-                config: {
-                    masterMinter: klaytnStargateMultisig,
-                    pauser: klaytnStargateMultisig,
-                    rescuer: klaytnStargateMultisig,
-                    blacklister: klaytnStargateMultisig,
-                    minters: {
-                        [klaytnAssetAddresses.USDC]: 2n ** 256n - 1n,
-                    },
-                },
-            },
+            // {
+            //     contract: klaytnUSDC,
+            //     config: {
+            //         masterMinter: klaytnStargateMultisig,
+            //         pauser: klaytnStargateMultisig,
+            //         rescuer: klaytnStargateMultisig,
+            //         blacklister: klaytnStargateMultisig,
+            //         minters: {
+            //             [klaytnAssetAddresses.USDC]: 2n ** 256n - 1n,
+            //         },
+            //     },
+            // },
             // Will fail on github ci/cd because of the external deployment -- already configured correctly
             // {
             //     contract: bl3USDC,
@@ -100,18 +100,18 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
             //         },
             //     },
             // },
-            {
-                contract: absUSDC,
-                config: {
-                    masterMinter: absStargateMultisig,
-                    pauser: absStargateMultisig,
-                    rescuer: absStargateMultisig,
-                    blacklister: absStargateMultisig,
-                    minters: {
-                        [absAssetAddresses.USDC]: 2n ** 256n - 1n,
-                    },
-                },
-            },
+            // {
+            //     contract: absUSDC,
+            //     config: {
+            //         masterMinter: absStargateMultisig,
+            //         pauser: absStargateMultisig,
+            //         rescuer: absStargateMultisig,
+            //         blacklister: absStargateMultisig,
+            //         minters: {
+            //             [absAssetAddresses.USDC]: 2n ** 256n - 1n,
+            //         },
+            //     },
+            // },
         ],
         connections: [],
     }
