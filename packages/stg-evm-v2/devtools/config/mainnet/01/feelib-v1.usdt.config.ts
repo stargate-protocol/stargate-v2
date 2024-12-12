@@ -13,7 +13,9 @@ import {
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
     onIota,
     onIslander,
     onKava,
@@ -28,6 +30,7 @@ import {
     onSei,
     onTaiko,
 } from '../utils'
+
 import { DEFAULT_PLANNER } from './constants'
 
 const tokenName = TokenName.USDT
@@ -46,7 +49,9 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const ebiFeeLibV1 = onEbi(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
+    const fuseFeeLibV1 = onFuse(contract)
     const gravityFeeLibV1 = onGravity(contract)
+    const hemiFeeLibV1 = onHemi(contract)
     const iotaFeeLibV1 = onIota(contract)
     const islanderFeeLibV1 = onIslander(contract)
     const kavaFeeLibV1 = onKava(contract)
@@ -96,7 +101,15 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: fuseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: gravityFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: hemiFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
