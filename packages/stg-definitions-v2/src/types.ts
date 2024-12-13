@@ -58,6 +58,7 @@ export enum RewardTokenName {
     SEI = 'SEI',
     CORE = 'CORE',
     LLE = 'LLE',
+    WETH = 'WETH',
 }
 
 export type RewardsConfig = Record<RewardTokenName, RewardsTokenConfig>
