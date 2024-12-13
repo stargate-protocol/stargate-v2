@@ -31,6 +31,7 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
     onSuperposition,
@@ -74,6 +75,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const plumeTokenMsging = onPlume(contract)
     const polygonTokenMsging = onPolygon(contract)
     const raribleTokenMsging = onRarible(contract)
+    const rootstockTokenMsging = onRootstock(contract)
     const scrollTokenMsging = onScroll(contract)
     const seiTokenMsging = onSei(contract)
     const superpositionTokenMsging = onSuperposition(contract)
@@ -318,6 +320,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: rootstockTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ROOTSTOCK_V2_MAINNET],
+                },
+            },
+            {
                 contract: scrollTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
@@ -399,6 +410,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             plumeTokenMsging,
             polygonTokenMsging,
             raribleTokenMsging,
+            rootstockTokenMsging,
             scrollTokenMsging,
             seiTokenMsging,
             superpositionTokenMsging,

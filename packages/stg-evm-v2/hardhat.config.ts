@@ -414,6 +414,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.RARIBLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'rootstock-mainnet': {
+        eid: EndpointId.ROOTSTOCK_MAINNET,
+        url: process.env.RPC_URL_ROOTSTOCK_MAINNET || 'https://rootstock.drpc.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'scroll-mainnet': {
         eid: EndpointId.SCROLL_V2_MAINNET,
         url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.drpc.org',
