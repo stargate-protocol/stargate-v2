@@ -894,6 +894,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.WETH]: {
+        name: 'WETH',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.HEMI_V2_MAINNET]: {
+                address: '0x4200000000000000000000000000000000000006',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
