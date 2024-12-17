@@ -27,7 +27,7 @@ assert(usdtHemiAsset.address != null, `External USDT address not found for HEMI`
 const usdtIslanderAsset = getAssetNetworkConfig(EndpointId.ISLANDER_V2_MAINNET, TokenName.USDT)
 assert(usdtIslanderAsset.address != null, `External USDT address not found for ISLANDER`)
 
-const usdtRootstockAsset = getAssetNetworkConfig(EndpointId.ROOTSTOCK_MAINNET, TokenName.USDT)
+const usdtRootstockAsset = getAssetNetworkConfig(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.USDT)
 assert(usdtRootstockAsset.address != null, `External USDT address not found for ROOTSTOCK`)
 
 export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> => {
@@ -74,7 +74,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdtAssets)
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdtAssets)
     const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdtAssets)
-    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_MAINNET, usdtAssets)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdtAssets)
 
     return {
         contracts: [

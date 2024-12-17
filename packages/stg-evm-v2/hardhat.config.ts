@@ -415,8 +415,8 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'rootstock-mainnet': {
-        eid: EndpointId.ROOTSTOCK_MAINNET,
-        url: process.env.RPC_URL_ROOTSTOCK_MAINNET || 'https://rootstock.drpc.org',
+        eid: EndpointId.ROOTSTOCK_V2_MAINNET,
+        url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://rootstock.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
