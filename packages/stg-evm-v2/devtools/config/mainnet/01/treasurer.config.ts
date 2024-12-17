@@ -33,6 +33,7 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
     onSuperposition,
@@ -74,6 +75,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
+    const rootStockAdmin = getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
@@ -187,6 +189,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -509,6 +516,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [raribleAssetAddresses.USDC]: true,
                         [raribleAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onRootstock(contract),
+                config: {
+                    owner: rootStockAdmin,
+                    admin: rootStockAdmin,
+                    assets: {
+                        [rootstockAssetAddresses.ETH]: true,
+                        [rootstockAssetAddresses.USDC]: true,
+                        [rootstockAssetAddresses.USDT]: true,
                     },
                 },
             },

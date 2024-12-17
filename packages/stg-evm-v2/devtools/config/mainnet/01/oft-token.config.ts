@@ -19,6 +19,7 @@ import {
     onLightlink,
     onPeaq,
     onRarible,
+    onRootstock,
     onSei,
     onTaiko,
 } from '../utils'
@@ -90,6 +91,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const peaqETH = onPeaq({ contractName: peaqETHContractName })
 
+    const rootstockETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.ETH)
+    )
+    const rootstockETH = onRootstock({ contractName: rootstockETHContractName })
+
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
     const seiETH = onSei({ contractName: seiETHContractName })
 
@@ -130,6 +137,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDT] as const)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDT] as const)
 
@@ -267,6 +278,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
                     minters: {
                         [raribleAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: rootstockETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    minters: {
+                        [rootstockAssetAddresses.ETH]: true,
                     },
                 },
             },

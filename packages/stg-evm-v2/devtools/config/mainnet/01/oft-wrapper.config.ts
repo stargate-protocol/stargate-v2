@@ -40,6 +40,7 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
     onShimmer,
@@ -89,6 +90,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const plumeOftWrapper = onPlume(contract)
     const polygonOftWrapper = onPolygon(contract)
     const raribleOftWrapper = onRarible(contract)
+    const rootstockOftWrapper = onRootstock(contract)
     const scrollOftWrapper = onScroll(contract)
     const seiOftWrapper = onSei(contract)
     const shimmerOftWrapper = onShimmer(contract)
@@ -309,6 +311,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: raribleOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
+                },
+            },
+            {
+                contract: rootstockOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
                 },
             },
             {

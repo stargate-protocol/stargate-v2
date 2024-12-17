@@ -27,6 +27,7 @@ import {
     onPeaq,
     onPolygon,
     onRarible,
+    onRootstock,
     onSei,
     onTaiko,
 } from '../utils'
@@ -63,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const peaqFeeLibV1 = onPeaq(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
+    const rootstockFeeLibV1 = onRootstock(contract)
     const seiFeeLibV1 = onSei(contract)
     const taikoFeeLibV1 = onTaiko(contract)
 
@@ -154,6 +156,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: raribleFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: rootstockFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

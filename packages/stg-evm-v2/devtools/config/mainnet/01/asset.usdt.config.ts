@@ -40,6 +40,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
+    const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
 
@@ -66,6 +67,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const peaqContract = await getAssetNode(peaqPoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
+    const rootstockContract = await getAssetNode(rootstockPoint)
     const seiContract = await getAssetNode(seiPoint)
     const taikoContract = await getAssetNode(taikoPoint)
 
@@ -93,6 +95,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             peaqContract,
             polygonContract,
             raribleContract,
+            rootstockContract,
             seiContract,
             taikoContract,
         ],
@@ -119,6 +122,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             peaqPoint,
             polygonPoint,
             rariblePoint,
+            rootstockPoint,
             seiPoint,
             taikoPoint,
         ]),

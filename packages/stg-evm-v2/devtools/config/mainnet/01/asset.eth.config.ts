@@ -34,6 +34,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const metisPoint = getAssetPoint(EndpointId.METIS_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
+    const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const zkConsensysPoint = getAssetPoint(EndpointId.ZKCONSENSYS_V2_MAINNET)
@@ -55,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const metisContract = await getAssetNode(metisPoint)
     const optContract = await getAssetNode(optPoint)
     const peaqContract = await getAssetNode(peaqPoint)
+    const rootstockContract = await getAssetNode(rootstockPoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const seiContract = await getAssetNode(seiPoint)
     const zkConsensysContract = await getAssetNode(zkConsensysPoint)
@@ -77,6 +79,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             metisContract,
             optContract,
             peaqContract,
+            rootstockContract,
             scrollContract,
             seiContract,
             zkConsensysContract,
@@ -98,6 +101,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             metisPoint,
             optPoint,
             peaqPoint,
+            rootstockPoint,
             scrollPoint,
             seiPoint,
             zkConsensysPoint,
