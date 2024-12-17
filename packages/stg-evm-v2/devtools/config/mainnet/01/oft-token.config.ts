@@ -120,6 +120,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -220,6 +224,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     minters: {
                         [iotaAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: islanderETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    minters: {
+                        [islanderAssetAddresses.ETH]: true,
                     },
                 },
             },
