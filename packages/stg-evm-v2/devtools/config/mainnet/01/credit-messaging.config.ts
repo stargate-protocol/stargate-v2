@@ -31,6 +31,7 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
     onSuperposition,
@@ -75,6 +76,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const plumeCreditMsging = onPlume(contract)
     const polygonCreditMsging = onPolygon(contract)
     const raribleCreditMsging = onRarible(contract)
+    const rootstockCreditMsging = onRootstock(contract)
     const scrollCreditMsging = onScroll(contract)
     const seiCreditMsging = onSei(contract)
     const superpositionCreditMsging = onSuperposition(contract)
@@ -319,6 +321,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: rootstockCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ROOTSTOCK_V2_MAINNET],
+                },
+            },
+            {
                 contract: scrollCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
@@ -400,6 +411,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             plumeCreditMsging,
             polygonCreditMsging,
             raribleCreditMsging,
+            rootstockCreditMsging,
             scrollCreditMsging,
             seiCreditMsging,
             superpositionCreditMsging,

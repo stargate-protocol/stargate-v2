@@ -28,6 +28,7 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
     onSuperposition,
@@ -68,6 +69,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const plumeFeeLibV1 = onPlume(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
+    const rootstockFeeLibV1 = onRootstock(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
     const superpositionFeeLibV1 = onSuperposition(contract)
@@ -166,6 +168,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: raribleFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: rootstockFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

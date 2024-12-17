@@ -41,6 +41,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const plumePoint = getAssetPoint(EndpointId.PLUME_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
+    const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const superpositionPoint = getAssetPoint(EndpointId.SUPERPOSITION_V2_MAINNET)
@@ -71,6 +72,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const plumeContract = await getAssetNode(plumePoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
+    const rootstockContract = await getAssetNode(rootstockPoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const seiContract = await getAssetNode(seiPoint)
     const superpositionContract = await getAssetNode(superpositionPoint)
@@ -102,6 +104,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             plumeContract,
             polygonContract,
             raribleContract,
+            rootstockContract,
             scrollContract,
             seiContract,
             superpositionContract,
@@ -132,6 +135,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             plumePoint,
             polygonPoint,
             rariblePoint,
+            rootstockPoint,
             scrollPoint,
             seiPoint,
             superpositionPoint,

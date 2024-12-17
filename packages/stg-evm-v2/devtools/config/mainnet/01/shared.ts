@@ -116,6 +116,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const scrollAssetAddresses = await getAssetAddresses(EndpointId.SCROLL_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -254,6 +259,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.RARIBLE_V2_MAINNET]: {
             [raribleAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [raribleAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.ROOTSTOCK_V2_MAINNET]: {
+            [rootstockAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [rootstockAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [rootstockAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.SCROLL_V2_MAINNET]: {
             [scrollAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
