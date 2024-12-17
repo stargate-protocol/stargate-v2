@@ -283,8 +283,8 @@ importers:
         specifier: ~3.0.7
         version: 3.0.7(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.4)
       '@layerzerolabs/lz-utilities':
-        specifier: ~3.0.23
-        version: 3.0.23
+        specifier: ~3.0.30
+        version: 3.0.30
       '@layerzerolabs/lz-v2-utilities':
         specifier: ~3.0.23
         version: 3.0.23
@@ -2873,8 +2873,8 @@ packages:
       hardhat-deploy: 0.12.4
     dev: false
 
-  /@layerzerolabs/lz-utilities@3.0.23:
-    resolution: {integrity: sha512-G4wWEtdRjf2AWrtj70dVFdnSys5G85PlMUFsOFxwfTgNFcGAbgw+XlFscNfGgvXdaVTZ7ojsmTm5i1XJsEgbzg==}
+  /@layerzerolabs/lz-utilities@3.0.30:
+    resolution: {integrity: sha512-jwEGuLZeJu6TwQnVuiVfTWGmEXTkftGVOegI/gmu5gMWWdyKiPmYNT6Dk0v/MX0PnSmbrJnjwNOZZsY6WAQv+A==}
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@initia/initia.js': 0.2.19
