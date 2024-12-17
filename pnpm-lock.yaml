@@ -283,7 +283,7 @@ importers:
         specifier: ~3.0.7
         version: 3.0.7(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.4)
       '@layerzerolabs/lz-utilities':
-        specifier: ~3.0.30
+        specifier: ~3.0.29
         version: 3.0.30
       '@layerzerolabs/lz-v2-utilities':
         specifier: ~3.0.23
