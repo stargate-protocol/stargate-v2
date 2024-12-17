@@ -418,7 +418,7 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ROOTSTOCK_MAINNET,
         url: process.env.RPC_URL_ROOTSTOCK_MAINNET || 'https://rootstock.drpc.org',
         accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_MAINNET),
+        safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'scroll-mainnet': {
