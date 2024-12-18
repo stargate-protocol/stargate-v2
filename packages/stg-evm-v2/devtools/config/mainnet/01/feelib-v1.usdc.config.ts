@@ -25,6 +25,7 @@ import {
     onLightlink,
     onMantle,
     onOpt,
+    onOrderly,
     onPeaq,
     onPlume,
     onPolygon,
@@ -69,6 +70,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const optFeeLibV1 = onOpt(contract)
     const peaqFeeLibV1 = onPeaq(contract)
     const plumeFeeLibV1 = onPlume(contract)
+    const orderlyFeeLibV1 = onOrderly(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
     const rootstockFeeLibV1 = onRootstock(contract)
@@ -166,6 +168,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: plumeFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: orderlyFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
