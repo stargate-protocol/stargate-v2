@@ -1304,6 +1304,14 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
             safeUrl: 'https://safe-transaction-ink.safe.global/',
+            contractNetworks: {
+                [57073]: {
+                    multiSendAddress: '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526',
+                    multiSendCallOnlyAddress: '0x9641d764fc13c8B624c04430C7356C1C7C8102e2',
+                    safeMasterCopyAddress: '0x41675C099F32341bf84BFc5382aF534df5C7461a',
+                    safeProxyFactoryAddress: '0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67',
+                },
+            },
         },
     },
     [EndpointId.IOTA_V2_MAINNET]: {
