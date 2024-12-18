@@ -23,6 +23,7 @@ import {
     onFuse,
     onGravity,
     onHemi,
+    onInk,
     onIota,
     onIslander,
     onKava,
@@ -73,6 +74,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const fuseOftWrapper = onFuse(contract)
     const gravityOftWrapper = onGravity(contract)
     const hemiOftWrapper = onHemi(contract)
+    const inkOftWrapper = onInk(contract)
     const iotaOftWrapper = onIota(contract)
     const islanderOftWrapper = onIslander(contract)
     const kavaOftWrapper = onKava(contract)
@@ -209,6 +211,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: hemiOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                },
+            },
+            {
+                contract: inkOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.INK_V2_MAINNET),
                 },
             },
             {

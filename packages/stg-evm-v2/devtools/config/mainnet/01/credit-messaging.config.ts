@@ -19,6 +19,7 @@ import {
     onFuse,
     onGravity,
     onHemi,
+    onInk,
     onIota,
     onIslander,
     onKava,
@@ -64,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const fuseCreditMsging = onFuse(contract)
     const gravityCreditMsging = onGravity(contract)
     const hemiCreditMsging = onHemi(contract)
+    const inkCreditMsging = onInk(contract)
     const iotaCreditMsging = onIota(contract)
     const islanderCreditMsging = onIslander(contract)
     const kavaCreditMsging = onKava(contract)
@@ -210,6 +212,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.HEMI_V2_MAINNET],
+                },
+            },
+            {
+                contract: inkCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.INK_V2_MAINNET],
                 },
             },
             {
@@ -399,6 +410,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             fuseCreditMsging,
             gravityCreditMsging,
             hemiCreditMsging,
+            inkCreditMsging,
             iotaCreditMsging,
             islanderCreditMsging,
             kavaCreditMsging,
