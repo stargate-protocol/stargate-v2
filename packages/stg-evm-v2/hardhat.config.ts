@@ -295,6 +295,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'ink-mainnet': {
+        eid: EndpointId.INK_V2_MAINNET,
+        url: process.env.RPC_URL_INK_MAINNET || 'https://rpc-gel.inkonchain.com',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.INK_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'iota-mainnet': {
         eid: EndpointId.IOTA_V2_MAINNET,
         url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',

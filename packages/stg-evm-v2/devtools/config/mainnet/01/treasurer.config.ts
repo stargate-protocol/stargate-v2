@@ -21,6 +21,7 @@ import {
     onFuse,
     onGravity,
     onHemi,
+    onInk,
     onIota,
     onIslander,
     onKava,
@@ -63,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const hemiAdmin = getSafeAddress(EndpointId.HEMI_V2_MAINNET)
+    const inkAdmin = getSafeAddress(EndpointId.INK_V2_MAINNET)
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
     const islanderAdmin = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
@@ -141,6 +143,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const inkAssetAddresses = await getAssetAddresses(EndpointId.INK_V2_MAINNET, [TokenName.USDC] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -389,6 +392,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [iotaAssetAddresses.ETH]: true,
                         [iotaAssetAddresses.USDC]: true,
                         [iotaAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onInk(contract),
+                config: {
+                    owner: inkAdmin,
+                    admin: inkAdmin,
+                    assets: {
+                        [inkAssetAddresses.USDC]: true,
                     },
                 },
             },
