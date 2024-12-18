@@ -33,6 +33,7 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
         [EndpointId.HEMI_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.INK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.ISLANDER_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.KAVA_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
@@ -88,6 +89,7 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x9f45834f0c8042e36935781b944443e906886a87',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.HEMI_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.INK_V2_MAINNET]: '0xe900e073badafdc6f72541f34e6b701bde835487',
         [EndpointId.IOTA_V2_MAINNET]: '0xf18a7d86917653725afb7c215e47a24f9d784718',
         [EndpointId.ISLANDER_V2_MAINNET]: '0x9eeee79f5dbc4d99354b5cb547c138af432f937b',
         [EndpointId.KAVA_V2_MAINNET]: '0x9cbaf815ed62ef45c59e9f2cb05106babb4d31d3',
@@ -130,6 +132,7 @@ export const EXECUTORS = {
         [EndpointId.FUSE_V2_MAINNET]: '0xc905E74BEb8229E258c3C6E5bC0D6Cc54C534688',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.HEMI_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
+        [EndpointId.INK_V2_MAINNET]: '0xFEbCF17b11376C724AB5a5229803C6e838b6eAe5',
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ISLANDER_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.KAVA_V2_MAINNET]: '0x41ED8065dd9bC6c0caF21c39766eDCBA0F21851c',
@@ -535,6 +538,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xad11a8BEb98bbf61dbb1aa0F6d6F2ECD87b35afA',
             },
+            [EndpointId.INK_V2_MAINNET]: {
+                type: StargateType.Oft,
+                //TODO   address: '',
+            },
             [EndpointId.IOTA_V2_MAINNET]: {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
@@ -720,6 +727,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
         [EndpointId.HEMI_V2_MAINNET]: {},
+        [EndpointId.INK_V2_MAINNET]: {},
         [EndpointId.IOTA_V2_MAINNET]: {},
         [EndpointId.ISLANDER_V2_MAINNET]: {},
         [EndpointId.KAVA_V2_MAINNET]: {},
@@ -1279,6 +1287,23 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
                 },
             },
+        },
+    },
+    [EndpointId.INK_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0003').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
+            safeUrl: 'https://safe-transaction-ink.safe.global/',
         },
     },
     [EndpointId.IOTA_V2_MAINNET]: {
