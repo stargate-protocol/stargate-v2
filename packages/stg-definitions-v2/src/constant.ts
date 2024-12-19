@@ -19,6 +19,7 @@ export const DVNS = {
     // MAINNET
     //
     NETHERMIND: {
+        [EndpointId.ABSTRACT_V2_MAINNET]: '0xc4a1f52fda034a9a5e1b3b27d14451d15776fef6',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.AURORA_V2_MAINNET]: '0x34730f2570e6cff8b1c91faabf37d0dd917c4367',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
@@ -75,6 +76,7 @@ export const DVNS = {
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x620A9DF73D2F1015eA75aea1067227F9013f5C51',
     } satisfies Partial<Record<EndpointId, string>>,
     STG: {
+        [EndpointId.ABSTRACT_V2_MAINNET]: '0xcec9f0a49073ac4a1c439d06cb9448512389a64e',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x5756a74e8e18d8392605ba667171962b2b2826b5',
         [EndpointId.AURORA_V2_MAINNET]: '0xe11c808bc6099abc9be566c9017aa2ab0f131d35',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x252b234545e154543ad2784c7111eb90406be836',
@@ -118,6 +120,7 @@ export const EXECUTORS = {
     // MAINNET
     //
     LZ_LABS: {
+        [EndpointId.ABSTRACT_V2_MAINNET]: '0x643E1471f37c4680Df30cF0C540Cd379a0fF58A5',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x31CAe3B7fB82d847621859fb1585353c5720660D',
         [EndpointId.AURORA_V2_MAINNET]: '0xA2b402FFE8dd7460a8b425644B6B9f50667f0A61',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
@@ -335,6 +338,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                     },
              */
 
+            [EndpointId.ABSTRACT_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x0709f39376deee2a2dfc94a58edeb2eb9df012bd',
+            },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
@@ -484,6 +491,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
+            [EndpointId.ABSTRACT_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x84A71ccD554Cc1b02749b35d22F684CC8ec987e1',
+            },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
                 type: StargateType.Pool,
@@ -708,6 +719,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         //
         // MAINNET
         //
+        [EndpointId.ABSTRACT_V2_MAINNET]: {},
         [EndpointId.ARBITRUM_V2_MAINNET]: {},
         [EndpointId.ASTAR_V2_MAINNET]: {},
         [EndpointId.AURORA_V2_MAINNET]: {},
@@ -935,6 +947,35 @@ export const NETWORKS: NetworksConfig = {
     //
     // MAINNET
     //
+    [EndpointId.ABSTRACT_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET], DVNS.STG[EndpointId.ABSTRACT_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET], DVNS.STG[EndpointId.ABSTRACT_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0008').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xaF0B7759f24AA346a857dc17E9Ef965b023D5c8E',
+            safeUrl: 'https://abstract-tx.lzdevnet.org/',
+            contractNetworks: {
+                [2741]: {
+                    multiSendAddress: '0x6dF2A06dF3D40381031456912f5333FbA3cFd471',
+                    multiSendCallOnlyAddress: '0xe550e10beBFA7602E5E481fd77AA7Ec7FE299840',
+                    safeMasterCopyAddress: '0x68c1B65211c0d2d39Ed04b2b4F0B6f743A168320',
+                    safeProxyFactoryAddress: '0xeF1505D46Ab6c6282D91885fF652daed5D5eCE7d',
+                    fallbackHandlerAddress: '0xeaa8d1D0E736C59F7F0211C272d25f7AEC9FCB51',
+                    createCallAddress: '0xfBa3c4698e99307496CE94D7FAe2ed69169c85f7',
+                    signMessageLibAddress: '0xC205b5856F78044882048B961e2fb4180D35f443',
+                    simulateTxAccessorAddress: '0xe0Af8a33FCad3DbD1B6bE03E7c5d38Fbf753F6e7',
+                },
+            },
+        },
+    },
     [EndpointId.ARBITRUM_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
