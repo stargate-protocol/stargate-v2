@@ -1,5 +1,18 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.1
+
+### Patch Changes
+
+- 650b96f: ink mainnet
+- 15e136b: Rootstock config
+- 408bd54: hemi contracts
+- 00d3d6e: fuse mainnet config
+- ae6c67e: Updating packages
+- 680e77b: safe addresses ink
+- 9923622: islander usdt
+- 9b41f9b: hemi
+
 ## 1.4.0
 
 ### Minor Changes

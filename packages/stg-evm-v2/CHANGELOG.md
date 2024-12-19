@@ -1,5 +1,29 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.1
+
+### Patch Changes
+
+- 650b96f: ink mainnet
+- 15e136b: Rootstock config
+- 0d7cb3a: Updated RPCs
+- 408bd54: hemi contracts
+- 00d3d6e: fuse mainnet config
+- ae6c67e: Updating packages
+- 5b9355d: rootstock deployments
+- 9923622: islander usdt
+- b6d1475: ink
+- 9b41f9b: hemi
+- Updated dependencies [650b96f]
+- Updated dependencies [15e136b]
+- Updated dependencies [408bd54]
+- Updated dependencies [00d3d6e]
+- Updated dependencies [ae6c67e]
+- Updated dependencies [680e77b]
+- Updated dependencies [9923622]
+- Updated dependencies [9b41f9b]
+  - @stargatefinance/stg-definitions-v2@1.4.1
+
 ## 1.3.0
 
 ### Minor Changes
