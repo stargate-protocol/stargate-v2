@@ -1,5 +1,14 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.1.1
+
+### Patch Changes
+
+- 408bd54: hemi contracts
+- ae6c67e: Updating packages
+- 9923622: islander usdt
+- 9b41f9b: hemi
+
 ## 1.1.0
 
 ### Minor Changes
