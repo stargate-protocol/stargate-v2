@@ -162,6 +162,13 @@ const networks: NetworksUserConfig = {
     //
     // Mainnet
     //
+    'abstract-mainnet': {
+        eid: EndpointId.ABSTRACT_V2_MAINNET,
+        url: process.env.RPC_URL_ABSTRACT_MAINNET,
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
         url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://rpc.ankr.com/arbitrum',

@@ -7,6 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
@@ -50,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const getEnvironment = createGetHreByEid()
 
     // Named accounts retrieval
+    const abstractAdmin = getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET)
     const arbAdmin = getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET)
     const auroraAdmin = getSafeAddress(EndpointId.AURORA_V2_MAINNET)
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
@@ -87,6 +89,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
 
     // Now we collect the address of the deployed assets
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -223,6 +229,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
 
     return {
         contracts: [
+            {
+                contract: onAbstract(contract),
+                config: {
+                    owner: abstractAdmin,
+                    admin: abstractAdmin,
+                    assets: {
+                        [abstractAssetAddresses.USDC]: true,
+                        [abstractAssetAddresses.USDT]: true,
+                    },
+                },
+            },
             {
                 contract: onArb(contract),
                 config: {
