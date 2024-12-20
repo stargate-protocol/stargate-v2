@@ -7,13 +7,16 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { onDegen, onFuse, onHemi, onIslander, onPeaq, onRootstock } from '../utils'
+import { onAbstract, onDegen, onFuse, onHemi, onIslander, onPeaq, onRootstock } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
 // For external USDT deployments
 const usdtPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDT)
 assert(usdtPeaqAsset.address != null, `External USDT address not found for PEAQ`)
+
+const usdtAbstractAsset = getAssetNetworkConfig(EndpointId.ABSTRACT_V2_MAINNET, TokenName.USDT)
+assert(usdtAbstractAsset.address != null, `External USDT address not found for ABSTRACT`)
 
 const usdtDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDT)
 assert(usdtDegenAsset.address != null, `External USDT address not found for DEGEN`)
@@ -39,6 +42,10 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onPeaq({ contractName: 'TransparentUpgradeableProxy', address: usdtPeaqAsset.address })
     )
 
+    const abstractUSDTProxy = await contractFactory(
+        onAbstract({ contractName: 'TransparentUpgradeableProxy', address: usdtAbstractAsset.address })
+    )
+
     const degenUSDTProxy = await contractFactory(
         onDegen({ contractName: 'TransparentUpgradeableProxy', address: usdtDegenAsset.address })
     )
@@ -60,6 +67,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     )
 
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })
+    const abstractUSDT = onAbstract({ ...fiatContract, address: abstractUSDTProxy.contract.address })
     const degenUSDT = onDegen({ ...fiatContract, address: degenUSDTProxy.contract.address })
     const fuseUSDT = onFuse({ ...fiatContract, address: fuseUSDTProxy.contract.address })
     const hemiUSDT = onHemi({ ...fiatContract, address: hemiUSDTProxy.contract.address })
@@ -70,6 +78,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const usdtAssets = [TokenName.USDT] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdtAssets)
+    const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, usdtAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdtAssets)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdtAssets)
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdtAssets)
@@ -82,6 +91,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: peaqUSDT,
                 config: {
                     owner: peaqAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: abstractUSDT,
+                config: {
+                    owner: abstractAssetAddresses.USDT,
                 },
             },
             {

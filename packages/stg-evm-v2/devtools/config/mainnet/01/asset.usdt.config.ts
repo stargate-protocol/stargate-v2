@@ -18,6 +18,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // Now we define all the contracts
+    const abstractPoint = getAssetPoint(EndpointId.ABSTRACT_V2_MAINNET)
     const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
@@ -45,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
 
     // And all their nodes
+    const abstractContract = await getAssetNode(abstractPoint)
     const arbContract = await getAssetNode(arbPoint)
     const avaxContract = await getAssetNode(avaxPoint)
     const bscContract = await getAssetNode(bscPoint)
@@ -73,6 +75,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 
     return {
         contracts: [
+            abstractContract,
             arbContract,
             avaxContract,
             bscContract,
@@ -100,6 +103,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             taikoContract,
         ],
         connections: generateAssetConfig(tokenName, [
+            abstractPoint,
             arbPoint,
             avaxPoint,
             bscPoint,

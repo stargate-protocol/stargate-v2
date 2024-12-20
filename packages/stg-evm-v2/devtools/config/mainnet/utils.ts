@@ -1,6 +1,7 @@
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
 export const onArb = withEid(EndpointId.ARBITRUM_V2_MAINNET)
 export const onAstar = withEid(EndpointId.ASTAR_V2_MAINNET)
 export const onAurora = withEid(EndpointId.AURORA_V2_MAINNET)

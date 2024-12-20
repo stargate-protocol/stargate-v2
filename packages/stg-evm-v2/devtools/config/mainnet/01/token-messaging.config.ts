@@ -5,6 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { generateTokenMessagingConfig, getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
@@ -50,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const getEnvironment = createGetHreByEid()
     const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
+    const abstractTokenMsging = onAbstract(contract)
     const arbTokenMsging = onArb(contract)
     const auroraTokenMsging = onAurora(contract)
     const avaxTokenMsging = onAvax(contract)
@@ -87,6 +89,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
 
     return {
         contracts: [
+            {
+                contract: abstractTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ABSTRACT_V2_MAINNET],
+                },
+            },
             {
                 contract: arbTokenMsging,
                 config: {
@@ -395,6 +406,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             },
         ],
         connections: generateTokenMessagingConfig([
+            abstractTokenMsging,
             arbTokenMsging,
             auroraTokenMsging,
             avaxTokenMsging,

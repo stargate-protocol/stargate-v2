@@ -9,6 +9,10 @@ import { createGetAssetAddresses, createGetLPTokenAddresses } from '../../../../
 export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid()) => {
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
+    const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -144,6 +148,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
+        [EndpointId.ABSTRACT_V2_MAINNET]: {
+            [abstractAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [abstractAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.ARBITRUM_V2_MAINNET]: {
             [arbAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [arbAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,

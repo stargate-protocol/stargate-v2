@@ -5,6 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAstar,
     onAurora,
@@ -56,6 +57,7 @@ import {
 const contract = { contractName: 'OFTWrapper' }
 
 export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>> => {
+    const abstractOftWrapper = onAbstract(contract)
     const arbOftWrapper = onArb(contract)
     const astarOftWrapper = onAstar(contract)
     const auroraOftWrapper = onAurora(contract)
@@ -105,6 +107,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
 
     return {
         contracts: [
+            {
+                contract: abstractOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                },
+            },
             {
                 contract: arbOftWrapper,
                 config: {

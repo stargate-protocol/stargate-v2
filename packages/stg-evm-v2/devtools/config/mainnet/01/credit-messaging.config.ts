@@ -5,6 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { generateCreditMessagingConfig, getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
@@ -51,6 +52,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const getEnvironment = createGetHreByEid()
     const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
+    const abstractCreditMsging = onAbstract(contract)
     const arbCreditMsging = onArb(contract)
     const auroraCreditMsging = onAurora(contract)
     const avaxCreditMsging = onAvax(contract)
@@ -88,6 +90,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
 
     return {
         contracts: [
+            {
+                contract: abstractCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ABSTRACT_V2_MAINNET],
+                },
+            },
             {
                 contract: arbCreditMsging,
                 config: {
@@ -396,6 +407,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             },
         ],
         connections: generateCreditMessagingConfig([
+            abstractCreditMsging,
             arbCreditMsging,
             auroraCreditMsging,
             avaxCreditMsging,
