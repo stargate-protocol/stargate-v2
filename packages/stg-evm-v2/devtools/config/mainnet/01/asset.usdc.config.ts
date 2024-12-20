@@ -118,7 +118,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             xchainContract,
         ],
         connections: generateAssetConfig(tokenName, [
-            abstractContract,
+            abstractPoint,
             arbPoint,
             auroraPoint,
             avaxPoint,
