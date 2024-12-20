@@ -10,6 +10,7 @@ import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onCodex,
     onDegen,
     onFlare,
@@ -36,6 +37,9 @@ const fiatContract = { contractName: 'FiatTokenV2_2' }
 // Except for chains where it's deployed externally
 const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
+
+const usdcAbstractAsset = getAssetNetworkConfig(EndpointId.ABSTRACT_V2_MAINNET, TokenName.USDC)
+assert(usdcAbstractAsset.address != null, `External USDC address not found for ABSTRACT`)
 
 const usdcCodexAsset = getAssetNetworkConfig(EndpointId.CODEX_V2_MAINNET, TokenName.USDC)
 assert(usdcCodexAsset.address != null, `External USDC address not found for CODEX`)
@@ -69,6 +73,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
+    const abstractUSDCProxy = await contractFactory(
+        onAbstract({ contractName: 'FiatTokenProxy', address: usdcAbstractAsset.address })
+    )
     const codexUSDCProxy = await contractFactory(
         onCodex({ contractName: 'FiatTokenProxy', address: usdcCodexAsset.address })
     )
@@ -107,6 +114,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
+    const abstractUSDC = onAbstract({ ...fiatContract, address: abstractUSDCProxy.contract.address })
+    const abstractStargateMultisig = getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET)
+
     const codexUSDC = onCodex({ ...fiatContract, address: codexUSDCProxy.contract.address })
     const codexStargateMultisig = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
 
@@ -164,6 +174,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdcAssets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, usdcAssets)
     const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, usdcAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
@@ -185,6 +196,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     return {
         contracts: [
+            {
+                contract: abstractUSDC,
+                config: {
+                    owner: abstractStargateMultisig,
+                    masterMinter: abstractStargateMultisig,
+                    pauser: abstractStargateMultisig,
+                    rescuer: abstractStargateMultisig,
+                    blacklister: abstractStargateMultisig,
+                    minters: {
+                        [abstractAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
             {
                 contract: codexUSDC,
                 config: {

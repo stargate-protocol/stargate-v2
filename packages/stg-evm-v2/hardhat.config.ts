@@ -162,6 +162,15 @@ const networks: NetworksUserConfig = {
     //
     // Mainnet
     //
+    'abstract-mainnet': {
+        eid: EndpointId.ABSTRACT_V2_MAINNET,
+        url: process.env.RPC_URL_ABSTRACT_MAINNET || '',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        zksync: true,
+        ethNetwork: 'ethereum-mainnet',
+    },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
         url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://rpc.ankr.com/arbitrum',
@@ -552,7 +561,7 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
         ],
     },
     zksolc: {
-        version: '1.4.1',
+        version: '1.5.7',
         compilerSource: 'binary',
         settings: {
             // See https://github.com/zkSync-Community-Hub/zksync-developers/discussions/218#discussioncomment-7994804
