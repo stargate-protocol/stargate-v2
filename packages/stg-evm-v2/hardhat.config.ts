@@ -168,6 +168,8 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+        zksync: true,
+        ethNetwork: 'ethereum-mainnet',
     },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
