@@ -10,14 +10,18 @@ import {
     onDegen,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
     onIota,
+    onIslander,
     onKlaytn,
     onLightlink,
     onMantle,
     onMetis,
     onOpt,
     onPeaq,
+    onRootstock,
     onScroll,
     onSei,
     onZkConsensys,
@@ -38,14 +42,18 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
+    const fuseFeeLibV1 = onFuse(contract)
     const gravityFeeLibV1 = onGravity(contract)
+    const hemiFeeLibV1 = onHemi(contract)
     const iotaFeeLibV1 = onIota(contract)
+    const islanderFeeLibV1 = onIslander(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const lightlinkFeeLibV1 = onLightlink(contract)
     const mantleFeeLibV1 = onMantle(contract)
     const metisFeeLibV1 = onMetis(contract)
     const optFeeLibV1 = onOpt(contract)
     const peaqFeeLibV1 = onPeaq(contract)
+    const rootstockFeeLibV1 = onRootstock(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
@@ -70,6 +78,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: fuseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: optFeeLibV1,
                 config: defaultNodeConfig,
             },
@@ -78,7 +90,15 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: hemiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: iotaFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: islanderFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -115,6 +135,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: peaqFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: rootstockFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],

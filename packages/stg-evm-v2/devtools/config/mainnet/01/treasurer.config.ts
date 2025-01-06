@@ -7,18 +7,24 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
     onBase,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
+    onInk,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -29,8 +35,10 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -43,18 +51,24 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const getEnvironment = createGetHreByEid()
 
     // Named accounts retrieval
+    const abstractAdmin = getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET)
     const arbAdmin = getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET)
     const auroraAdmin = getSafeAddress(EndpointId.AURORA_V2_MAINNET)
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
+    const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
     const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
+    const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
+    const hemiAdmin = getSafeAddress(EndpointId.HEMI_V2_MAINNET)
+    const inkAdmin = getSafeAddress(EndpointId.INK_V2_MAINNET)
     const iotaAdmin = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
+    const islanderAdmin = getSafeAddress(EndpointId.ISLANDER_V2_MAINNET)
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkAdmin = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
@@ -65,14 +79,20 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
+    const rootStockAdmin = getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
     const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
 
     // Now we collect the address of the deployed assets
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -91,6 +111,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, [TokenName.USDC] as const)
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -113,12 +134,28 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const inkAssetAddresses = await getAssetAddresses(EndpointId.INK_V2_MAINNET, [TokenName.USDC] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -164,6 +201,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const scrollAssetAddresses = await getAssetAddresses(EndpointId.SCROLL_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -172,6 +214,9 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
+        TokenName.USDC,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
@@ -184,6 +229,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
 
     return {
         contracts: [
+            {
+                contract: onAbstract(contract),
+                config: {
+                    owner: abstractAdmin,
+                    admin: abstractAdmin,
+                    assets: {
+                        [abstractAssetAddresses.USDC]: true,
+                        [abstractAssetAddresses.USDT]: true,
+                    },
+                },
+            },
             {
                 contract: onArb(contract),
                 config: {
@@ -236,6 +292,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [bscAssetAddresses.USDC]: true,
                         [bscAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onCodex(contract),
+                config: {
+                    owner: codexAdmin,
+                    admin: codexAdmin,
+                    assets: {
+                        [codexAssetAddresses.USDC]: true,
                     },
                 },
             },
@@ -299,6 +365,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
+                contract: onFuse(contract),
+                config: {
+                    owner: fuseAdmin,
+                    admin: fuseAdmin,
+                    assets: {
+                        [fuseAssetAddresses.ETH]: true,
+                        [fuseAssetAddresses.USDC]: true,
+                        [fuseAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
                 contract: onGravity(contract),
                 config: {
                     owner: gravityAdmin,
@@ -311,6 +389,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
+                contract: onHemi(contract),
+                config: {
+                    owner: hemiAdmin,
+                    admin: hemiAdmin,
+                    assets: {
+                        [hemiAssetAddresses.ETH]: true,
+                        [hemiAssetAddresses.USDC]: true,
+                        [hemiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
                 contract: onIota(contract),
                 config: {
                     owner: iotaAdmin,
@@ -319,6 +409,28 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [iotaAssetAddresses.ETH]: true,
                         [iotaAssetAddresses.USDC]: true,
                         [iotaAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onInk(contract),
+                config: {
+                    owner: inkAdmin,
+                    admin: inkAdmin,
+                    assets: {
+                        [inkAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onIslander(contract),
+                config: {
+                    owner: islanderAdmin,
+                    admin: islanderAdmin,
+                    assets: {
+                        [islanderAssetAddresses.ETH]: true,
+                        [islanderAssetAddresses.USDC]: true,
+                        [islanderAssetAddresses.USDT]: true,
                     },
                 },
             },
@@ -438,6 +550,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
+                contract: onRootstock(contract),
+                config: {
+                    owner: rootStockAdmin,
+                    admin: rootStockAdmin,
+                    assets: {
+                        [rootstockAssetAddresses.ETH]: true,
+                        [rootstockAssetAddresses.USDC]: true,
+                        [rootstockAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
                 contract: onScroll(contract),
                 config: {
                     owner: scrollAdmin,
@@ -457,6 +581,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [seiAssetAddresses.ETH]: true,
                         [seiAssetAddresses.USDC]: true,
                         [seiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onSuperposition(contract),
+                config: {
+                    owner: superpositionAdmin,
+                    admin: superpositionAdmin,
+                    assets: {
+                        [superpositionAssetAddresses.USDC]: true,
                     },
                 },
             },

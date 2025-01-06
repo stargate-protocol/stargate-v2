@@ -20,6 +20,7 @@ env:
   # We'll add all the RPC URLs from secrets
   #
   # Mainnet
+  RPC_URL_ABSTRACT_MAINNET: ${{ secrets.RPC_URL_ABSTRACT_MAINNET }}
   RPC_URL_ARBITRUM_MAINNET: ${{ secrets.RPC_URL_ARBITRUM_MAINNET }}
   RPC_URL_AURORA_MAINNET: ${{ secrets.RPC_URL_AURORA_MAINNET }}
   RPC_URL_AVALANCHE_MAINNET: ${{ secrets.RPC_URL_AVALANCHE_MAINNET }}

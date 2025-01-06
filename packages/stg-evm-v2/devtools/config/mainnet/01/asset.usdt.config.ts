@@ -18,6 +18,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // Now we define all the contracts
+    const abstractPoint = getAssetPoint(EndpointId.ABSTRACT_V2_MAINNET)
     const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
@@ -26,8 +27,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ebiPoint = getAssetPoint(EndpointId.EBI_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
+    const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
+    const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
+    const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
     const kavaPoint = getAssetPoint(EndpointId.KAVA_V2_MAINNET)
     const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
@@ -37,10 +41,12 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
+    const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
 
     // And all their nodes
+    const abstractContract = await getAssetNode(abstractPoint)
     const arbContract = await getAssetNode(arbPoint)
     const avaxContract = await getAssetNode(avaxPoint)
     const bscContract = await getAssetNode(bscPoint)
@@ -49,8 +55,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ebiContract = await getAssetNode(ebiPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
+    const fuseContract = await getAssetNode(fusePoint)
     const gravityContract = await getAssetNode(gravityPoint)
+    const hemiContract = await getAssetNode(hemiPoint)
     const iotaContract = await getAssetNode(iotaPoint)
+    const islanderContract = await getAssetNode(islanderPoint)
     const kavaContract = await getAssetNode(kavaPoint)
     const klaytnContract = await getAssetNode(klaytnPoint)
     const lightlinkContract = await getAssetNode(lightlinkPoint)
@@ -60,11 +69,13 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const peaqContract = await getAssetNode(peaqPoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
+    const rootstockContract = await getAssetNode(rootstockPoint)
     const seiContract = await getAssetNode(seiPoint)
     const taikoContract = await getAssetNode(taikoPoint)
 
     return {
         contracts: [
+            abstractContract,
             arbContract,
             avaxContract,
             bscContract,
@@ -73,8 +84,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ebiContract,
             ethContract,
             flareContract,
+            fuseContract,
             gravityContract,
+            hemiContract,
             iotaContract,
+            islanderContract,
             kavaContract,
             klaytnContract,
             lightlinkContract,
@@ -84,10 +98,12 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             peaqContract,
             polygonContract,
             raribleContract,
+            rootstockContract,
             seiContract,
             taikoContract,
         ],
         connections: generateAssetConfig(tokenName, [
+            abstractPoint,
             arbPoint,
             avaxPoint,
             bscPoint,
@@ -96,8 +112,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ebiPoint,
             ethPoint,
             flarePoint,
+            fusePoint,
             gravityPoint,
+            hemiPoint,
             iotaPoint,
+            islanderPoint,
             kavaPoint,
             klaytnPoint,
             lightlinkPoint,
@@ -107,6 +126,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             peaqPoint,
             polygonPoint,
             rariblePoint,
+            rootstockPoint,
             seiPoint,
             taikoPoint,
         ]),

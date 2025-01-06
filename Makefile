@@ -29,6 +29,7 @@ VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
 
 SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
 ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
+ARTIFACTS_ZK_DIR=packages/stg-evm-v2/artifacts-zk/
 
 # Arguments to be always passed to hardhat lz:deploy devtools command
 # 
@@ -191,6 +192,9 @@ configure-testnet:
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
 
+	# Copy TetherTokenV2.sol directory to the artifacts-zk directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_ZK_DIR)
+
 	# Transfer USDT ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer
 
@@ -316,6 +320,9 @@ transfer-mainnet:
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
+
+	# Copy TetherTokenV2.sol directory to the artifacts-zk directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_ZK_DIR)
 	
 	# Transfer USDT ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer

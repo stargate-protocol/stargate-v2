@@ -20,9 +20,9 @@
     ]
   },
   "resolutions": {
-    "@layerzerolabs/lz-definitions": "~3.0.18",
-    "@layerzerolabs/lz-evm-sdk-v2": "3.0.18",
-    "@layerzerolabs/lz-v2-utilities": "~3.0.18",
+    "@layerzerolabs/lz-definitions": "~3.0.30",
+    "@layerzerolabs/lz-evm-sdk-v2": "3.0.30",
+    "@layerzerolabs/lz-v2-utilities": "~3.0.30",
     "es5-ext": "https://github.com/LayerZero-Labs/es5-ext"
   },
   "devDependencies": {

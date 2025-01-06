@@ -5,18 +5,24 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { generateTokenMessagingConfig, getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
     onBase,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEbi,
     onEth,
     onFlare,
+    onFuse,
     onGravity,
+    onHemi,
+    onInk,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -27,8 +33,10 @@ import {
     onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -43,18 +51,24 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const getEnvironment = createGetHreByEid()
     const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
+    const abstractTokenMsging = onAbstract(contract)
     const arbTokenMsging = onArb(contract)
     const auroraTokenMsging = onAurora(contract)
     const avaxTokenMsging = onAvax(contract)
     const baseTokenMsging = onBase(contract)
     const bscTokenMsging = onBsc(contract)
+    const codexTokenMsging = onCodex(contract)
     const coredaoTokenMsging = onCoredao(contract)
     const degenTokenMsging = onDegen(contract)
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
     const flareTokenMsging = onFlare(contract)
+    const fuseTokenMsging = onFuse(contract)
     const gravityTokenMsging = onGravity(contract)
+    const hemiTokenMsging = onHemi(contract)
+    const inkTokenMsging = onInk(contract)
     const iotaTokenMsging = onIota(contract)
+    const islanderTokenMsging = onIslander(contract)
     const kavaTokenMsging = onKava(contract)
     const klaytnTokenMsging = onKlaytn(contract)
     const lightlinkTokenMsging = onLightlink(contract)
@@ -65,14 +79,25 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const plumeTokenMsging = onPlume(contract)
     const polygonTokenMsging = onPolygon(contract)
     const raribleTokenMsging = onRarible(contract)
+    const rootstockTokenMsging = onRootstock(contract)
     const scrollTokenMsging = onScroll(contract)
     const seiTokenMsging = onSei(contract)
+    const superpositionTokenMsging = onSuperposition(contract)
     const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
     const xchainTokenMsging = onXchain(contract)
 
     return {
         contracts: [
+            {
+                contract: abstractTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ABSTRACT_V2_MAINNET],
+                },
+            },
             {
                 contract: arbTokenMsging,
                 config: {
@@ -116,6 +141,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BSC_V2_MAINNET],
+                },
+            },
+            {
+                contract: codexTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.CODEX_V2_MAINNET],
                 },
             },
             {
@@ -164,6 +198,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: fuseTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
                 contract: gravityTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
@@ -173,12 +216,39 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: hemiTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.HEMI_V2_MAINNET],
+                },
+            },
+            {
+                contract: inkTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.INK_V2_MAINNET],
+                },
+            },
+            {
                 contract: iotaTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
+                },
+            },
+            {
+                contract: islanderTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ISLANDER_V2_MAINNET],
                 },
             },
             {
@@ -272,6 +342,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: rootstockTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ROOTSTOCK_V2_MAINNET],
+                },
+            },
+            {
                 contract: scrollTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
@@ -287,6 +366,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
+                },
+            },
+            {
+                contract: superpositionTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SUPERPOSITION_V2_MAINNET],
                 },
             },
             {
@@ -318,18 +406,24 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             },
         ],
         connections: generateTokenMessagingConfig([
+            abstractTokenMsging,
             arbTokenMsging,
             auroraTokenMsging,
             avaxTokenMsging,
             baseTokenMsging,
             bscTokenMsging,
+            codexTokenMsging,
             coredaoTokenMsging,
             degenTokenMsging,
             ebiTokenMsging,
             ethTokenMsging,
             flareTokenMsging,
+            fuseTokenMsging,
             gravityTokenMsging,
+            hemiTokenMsging,
+            inkTokenMsging,
             iotaTokenMsging,
+            islanderTokenMsging,
             kavaTokenMsging,
             klaytnTokenMsging,
             lightlinkTokenMsging,
@@ -340,8 +434,10 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             plumeTokenMsging,
             polygonTokenMsging,
             raribleTokenMsging,
+            rootstockTokenMsging,
             scrollTokenMsging,
             seiTokenMsging,
+            superpositionTokenMsging,
             taikoTokenMsging,
             zkConsensysTokenMsging,
             xchainTokenMsging,
