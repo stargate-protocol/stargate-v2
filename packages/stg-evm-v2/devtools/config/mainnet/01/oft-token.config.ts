@@ -7,7 +7,24 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
-import { onEbi, onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onSei, onTaiko } from '../utils'
+import {
+    onDegen,
+    onEbi,
+    onFlare,
+    onFuse,
+    onGravity,
+    onIota,
+    onIslander,
+    onKlaytn,
+    onLightlink,
+    onPeaq,
+    onRarible,
+    onRootstock,
+    onSei,
+    onTaiko,
+} from '../utils'
+
+// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -16,7 +33,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
-    // USDT contract pointers
+    // USDT contract pointers (for old method of deployment)
     const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
@@ -26,12 +43,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const raribleUSDT = onRarible(usdtContractTemplate)
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
-    // ETH contract pointers
+    // ETH contract pointers (for all WETH OFT)
+    const degenETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
+    )
+    const degenETH = onDegen({ contractName: degenETHContractName })
+
     const flareETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.FLARE_V2_MAINNET, TokenName.ETH)
     )
     const flareETH = onFlare({ contractName: flareETHContractName })
+
+    const fuseETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.FUSE_V2_MAINNET, TokenName.ETH)
+    )
+    const fuseETH = onFuse({ contractName: fuseETHContractName })
 
     const gravityETHContractName = getTokenDeployName(
         TokenName.ETH,
@@ -43,6 +72,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.IOTA_V2_MAINNET, TokenName.ETH)
     )
     const iotaETH = onIota({ contractName: iotaETHContractName })
+
+    const islanderETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.ISLANDER_V2_MAINNET, TokenName.ETH)
+    )
+    const islanderETH = onIslander({ contractName: islanderETHContractName })
 
     const klaytnETHContractName = getTokenDeployName(
         TokenName.ETH,
@@ -56,21 +91,36 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const peaqETH = onPeaq({ contractName: peaqETHContractName })
 
+    const rootstockETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.ETH)
+    )
+    const rootstockETH = onRootstock({ contractName: rootstockETHContractName })
+
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
     const seiETH = onSei({ contractName: seiETHContractName })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
+    const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [TokenName.ETH] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
@@ -87,11 +137,24 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDT] as const)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
     const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDT] as const)
 
     return {
         contracts: [
+            {
+                contract: degenETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                    minters: {
+                        [degenAssetAddresses.ETH]: true,
+                    },
+                },
+            },
             {
                 contract: ebiUSDT,
                 config: {
@@ -116,6 +179,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
                     minters: {
                         [flareAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: fuseETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    minters: {
+                        [fuseAssetAddresses.ETH]: true,
                     },
                 },
             },
@@ -152,6 +224,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     minters: {
                         [iotaAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: islanderETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    minters: {
+                        [islanderAssetAddresses.ETH]: true,
                     },
                 },
             },
@@ -197,6 +278,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
                     minters: {
                         [raribleAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: rootstockETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    minters: {
+                        [rootstockAssetAddresses.ETH]: true,
                     },
                 },
             },

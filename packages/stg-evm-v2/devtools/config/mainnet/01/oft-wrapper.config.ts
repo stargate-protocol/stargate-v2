@@ -5,6 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAstar,
     onAurora,
@@ -12,14 +13,20 @@ import {
     onBase,
     onBlast,
     onBsc,
+    onCodex,
+    onDegen,
     onEbi,
     onEth,
     onEtherLink,
     onFantom,
     onFlare,
     onFraxtal,
+    onFuse,
     onGravity,
+    onHemi,
+    onInk,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -32,11 +39,14 @@ import {
     onOpbnb,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
     onShimmer,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -47,6 +57,7 @@ import {
 const contract = { contractName: 'OFTWrapper' }
 
 export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>> => {
+    const abstractOftWrapper = onAbstract(contract)
     const arbOftWrapper = onArb(contract)
     const astarOftWrapper = onAstar(contract)
     const auroraOftWrapper = onAurora(contract)
@@ -54,14 +65,20 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const baseOftWrapper = onBase(contract)
     const blastOftWrapper = onBlast(contract)
     const bscOftWrapper = onBsc(contract)
+    const codexOftWrapper = onCodex(contract)
+    const degenOftWrapper = onDegen(contract)
     const ebiOftWrapper = onEbi(contract)
     const ethOftWrapper = onEth(contract)
     const etherLinkOftWrapper = onEtherLink(contract)
     const fantomOftWrapper = onFantom(contract)
     const flareOftWrapper = onFlare(contract)
     const fraxtalOftWrapper = onFraxtal(contract)
+    const fuseOftWrapper = onFuse(contract)
     const gravityOftWrapper = onGravity(contract)
+    const hemiOftWrapper = onHemi(contract)
+    const inkOftWrapper = onInk(contract)
     const iotaOftWrapper = onIota(contract)
+    const islanderOftWrapper = onIslander(contract)
     const kavaOftWrapper = onKava(contract)
     const klaytnOftWrapper = onKlaytn(contract)
     const lightlinkOftWrapper = onLightlink(contract)
@@ -74,11 +91,14 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const opbnbOftWrapper = onOpbnb(contract)
     const optOftWrapper = onOpt(contract)
     const peaqOftWrapper = onPeaq(contract)
+    const plumeOftWrapper = onPlume(contract)
     const polygonOftWrapper = onPolygon(contract)
     const raribleOftWrapper = onRarible(contract)
+    const rootstockOftWrapper = onRootstock(contract)
     const scrollOftWrapper = onScroll(contract)
     const seiOftWrapper = onSei(contract)
     const shimmerOftWrapper = onShimmer(contract)
+    const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
     const xchainOftWrapper = onXchain(contract)
     const zkatanaOftWrapper = onZkatana(contract)
@@ -87,6 +107,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
 
     return {
         contracts: [
+            {
+                contract: abstractOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                },
+            },
             {
                 contract: arbOftWrapper,
                 config: {
@@ -130,6 +156,18 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
+                contract: codexOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                },
+            },
+            {
+                contract: degenOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                },
+            },
+            {
                 contract: ebiOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
@@ -166,15 +204,39 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
+                contract: fuseOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                },
+            },
+            {
                 contract: gravityOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
                 },
             },
             {
+                contract: hemiOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                },
+            },
+            {
+                contract: inkOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                },
+            },
+            {
                 contract: iotaOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
+                },
+            },
+            {
+                contract: islanderOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
                 },
             },
             {
@@ -250,6 +312,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
+                contract: plumeOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.PLUME_V2_MAINNET),
+                },
+            },
+            {
                 contract: polygonOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
@@ -259,6 +327,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: raribleOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.RARIBLE_V2_MAINNET),
+                },
+            },
+            {
+                contract: rootstockOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
                 },
             },
             {
@@ -277,6 +351,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: shimmerOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.SHIMMER_V2_MAINNET),
+                },
+            },
+            {
+                contract: superpositionOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
                 },
             },
             {

@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-devtools-evm-hardhat-v2",
-  "version": "1.0.4",
+  "version": "3.0.1",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -24,20 +24,20 @@
     "p-memoize": "~4.0.4"
   },
   "devDependencies": {
-    "@layerzerolabs/devtools": "~0.3.28",
+    "@layerzerolabs/devtools": "~0.4.1",
     "@layerzerolabs/devtools-evm": "~0.4.2",
     "@layerzerolabs/devtools-evm-hardhat": "~1.2.3",
     "@layerzerolabs/io-devtools": "~0.1.13",
-    "@layerzerolabs/lz-definitions": "~3.0.7",
-    "@layerzerolabs/lz-v2-utilities": "~3.0.7",
+    "@layerzerolabs/lz-definitions": "~3.0.18",
+    "@layerzerolabs/lz-v2-utilities": "~3.0.18",
     "@layerzerolabs/protocol-devtools": "~0.4.3",
     "@layerzerolabs/protocol-devtools-evm": "~1.2.1",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
     "@layerzerolabs/ua-devtools": "~1.0.5",
     "@layerzerolabs/ua-devtools-evm": "~3.0.1",
     "@layerzerolabs/ua-devtools-evm-hardhat": "~4.0.1",
-    "@stargatefinance/stg-definitions-v2": "~1.2.5",
-    "@stargatefinance/stg-devtools-v2": "~1.0.4",
+    "@stargatefinance/stg-definitions-v2": "~1.4.1",
+    "@stargatefinance/stg-devtools-v2": "~3.0.1",
     "@types/node": "^18.15.11",
     "esbuild-plugin-clean": "~1.0.1",
     "esbuild-plugin-copy": "~2.1.1",
@@ -47,19 +47,19 @@
     "zod": "~3.22.4"
   },
   "peerDependencies": {
-    "@layerzerolabs/devtools": "^0.3.18",
+    "@layerzerolabs/devtools": "~0.4.1",
     "@layerzerolabs/devtools-evm": "^0.3.13",
     "@layerzerolabs/devtools-evm-hardhat": "^0.3.21",
     "@layerzerolabs/io-devtools": "^0.1.11",
-    "@layerzerolabs/lz-definitions": "^3.0.7",
-    "@layerzerolabs/lz-v2-utilities": "^3.0.7",
+    "@layerzerolabs/lz-definitions": "~3.0.18",
+    "@layerzerolabs/lz-v2-utilities": "~3.0.18",
     "@layerzerolabs/protocol-devtools": "^0.3.9",
     "@layerzerolabs/protocol-devtools-evm": "^0.3.10",
     "@layerzerolabs/ua-devtools": "^0.3.20",
     "@layerzerolabs/ua-devtools-evm": "^0.3.15",
     "@layerzerolabs/ua-devtools-evm-hardhat": "^0.3.19",
-    "@stargatefinance/stg-definitions-v2": "^1.2.5",
-    "@stargatefinance/stg-devtools-v2": "~1.0.4",
+    "@stargatefinance/stg-definitions-v2": "^1.4.1",
+    "@stargatefinance/stg-devtools-v2": "~3.0.1",
     "zod": "~3.22.4"
   },
   "publishConfig": {

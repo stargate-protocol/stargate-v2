@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateTokenMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'TokenMessaging' }
 
@@ -20,6 +20,9 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const optTokenMsging = onOpt(contract)
     const arbTokenMsging = onArb(contract)
     const klaytnTokenMsging = onKlaytn(contract)
+    const bl3TokenMsging = onBL3(contract)
+    const odysseyTokenMsging = onOdyssey(contract)
+    const mantleTokenMsging = onMantle(contract)
 
     const defaultNodeConfig: TokenMessagingNodeConfig = {
         planner: DEFAULT_PLANNER,
@@ -33,6 +36,9 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
+    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
+    const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
+    const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -89,6 +95,39 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     },
                 },
             },
+            {
+                contract: bl3TokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [bl3AssetAddresses.USDT]: ASSETS.USDT.assetId,
+                        [bl3AssetAddresses.USDC]: ASSETS.USDC.assetId,
+                        [bl3AssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
+            {
+                contract: odysseyTokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [odysseyAssetAddresses.USDT]: ASSETS.USDT.assetId,
+                        [odysseyAssetAddresses.USDC]: ASSETS.USDC.assetId,
+                        [odysseyAssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
+            {
+                contract: mantleTokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [mantleAssetAddresses.USDT]: ASSETS.USDT.assetId,
+                        [mantleAssetAddresses.USDC]: ASSETS.USDC.assetId,
+                        [mantleAssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
         ],
         connections: generateTokenMessagingConfig([
             ethTokenMsging,
@@ -96,6 +135,9 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             optTokenMsging,
             arbTokenMsging,
             klaytnTokenMsging,
+            bl3TokenMsging,
+            odysseyTokenMsging,
+            mantleTokenMsging,
         ]),
     }
 }

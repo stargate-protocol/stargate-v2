@@ -14,6 +14,7 @@ import {
     onBsc,
     onCoredao,
     onEth,
+    onHemi,
     onKava,
     onLightlink,
     onMantle,
@@ -56,6 +57,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const ethRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         RewardTokenName.STG,
+    ] as const)
+    const hemiRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.HEMI_V2_MAINNET, [
+        RewardTokenName.WETH,
     ] as const)
     const kavaRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.KAVA_V2_MAINNET, [
         RewardTokenName.wKAVA,
@@ -177,6 +181,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                             [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 4220,
                             [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 3381,
                             [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 2399,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onHemi(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    allocations: {
+                        [hemiRewardTokenAddresses.WETH]: {
+                            [lpTokenAddresses[EndpointId.HEMI_V2_MAINNET].ETH]: 10000,
                         },
                     },
                 },

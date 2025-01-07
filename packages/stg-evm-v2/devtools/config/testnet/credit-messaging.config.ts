@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateCreditMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBsc, onEth, onKlaytn, onOpt } from './utils'
+import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'CreditMessaging' }
 
@@ -21,6 +21,9 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const optCreditMsging = onOpt(contract)
     const arbCreditMsging = onArb(contract)
     const klaytnCreditMsging = onKlaytn(contract)
+    const bl3CreditMsging = onBL3(contract)
+    const odysseyCreditMsging = onOdyssey(contract)
+    const mantleCreditMsging = onMantle(contract)
 
     // Now we collect the address of the deployed assets
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
@@ -30,6 +33,9 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
+    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
+    const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
+    const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -86,6 +92,39 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     },
                 },
             },
+            {
+                contract: bl3CreditMsging,
+                config: {
+                    planner: DEFAULT_PLANNER,
+                    assets: {
+                        [bl3AssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+                        [bl3AssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+                        [bl3AssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+                    },
+                },
+            },
+            {
+                contract: odysseyCreditMsging,
+                config: {
+                    planner: DEFAULT_PLANNER,
+                    assets: {
+                        [odysseyAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+                        [odysseyAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+                        [odysseyAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+                    },
+                },
+            },
+            {
+                contract: mantleCreditMsging,
+                config: {
+                    planner: DEFAULT_PLANNER,
+                    assets: {
+                        [mantleAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+                        [mantleAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+                        [mantleAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+                    },
+                },
+            },
         ],
         connections: generateCreditMessagingConfig([
             ethCreditMsging,
@@ -93,6 +132,9 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             optCreditMsging,
             arbCreditMsging,
             klaytnCreditMsging,
+            bl3CreditMsging,
+            odysseyCreditMsging,
+            mantleCreditMsging,
         ]),
     }
 }

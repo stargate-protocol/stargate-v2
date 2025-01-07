@@ -118,9 +118,14 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://arbitrum-sepolia.gateway.tenderly.co',
+        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
         useFeeData: true,
+    },
+    'bl3-testnet': {
+        eid: EndpointId.BL3_V2_TESTNET,
+        url: process.env.RPC_URL_BL3_TESTNET || '',
+        accounts: testnetAccounts,
     },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
@@ -133,6 +138,16 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
+    'odyssey-testnet': {
+        eid: EndpointId.ODYSSEY_V2_TESTNET,
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
+        accounts: testnetAccounts,
+    },
+    'mantlesep-testnet': {
+        eid: EndpointId.MANTLESEP_V2_TESTNET,
+        url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
+        accounts: mainnetAccounts,
+    },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
@@ -140,13 +155,22 @@ const networks: NetworksUserConfig = {
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.sepolia.org',
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
 
     //
     // Mainnet
     //
+    'abstract-mainnet': {
+        eid: EndpointId.ABSTRACT_V2_MAINNET,
+        url: process.env.RPC_URL_ABSTRACT_MAINNET || '',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        zksync: true,
+        ethNetwork: 'ethereum-mainnet',
+    },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
         url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://rpc.ankr.com/arbitrum',
@@ -197,11 +221,25 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'codex-mainnet': {
+        eid: EndpointId.CODEX_V2_MAINNET,
+        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.is/',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'degen-mainnet': {
+        eid: EndpointId.DEGEN_V2_MAINNET,
+        url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ebi-mainnet': {
@@ -245,6 +283,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.FRAXTAL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'fuse-mainnet': {
+        eid: EndpointId.FUSE_V2_MAINNET,
+        url: process.env.RPC_URL_FUSE_MAINNET || 'https://rpc.fuse.io',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
@@ -252,11 +297,32 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'hemi-mainnet': {
+        eid: EndpointId.HEMI_V2_MAINNET,
+        url: process.env.RPC_URL_HEMI_MAINNET || 'https://7e57304f.rpc.hemi.network/rpc',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'ink-mainnet': {
+        eid: EndpointId.INK_V2_MAINNET,
+        url: process.env.RPC_URL_INK_MAINNET || 'https://rpc-gel.inkonchain.com',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.INK_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'iota-mainnet': {
         eid: EndpointId.IOTA_V2_MAINNET,
         url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.IOTA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'islander-mainnet': {
+        eid: EndpointId.ISLANDER_V2_MAINNET,
+        url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://rpc.islander.vana.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ISLANDER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'kava-mainnet': {
@@ -343,6 +409,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'plume-mainnet': {
+        eid: EndpointId.PLUME_V2_MAINNET,
+        url: process.env.RPC_URL_PLUME_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
         url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.meowrpc.com',
@@ -355,6 +428,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_RARIBLE_MAINNET || 'https://mainnet.rpc.rarichain.org/http',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.RARIBLE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'rootstock-mainnet': {
+        eid: EndpointId.ROOTSTOCK_V2_MAINNET,
+        url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://rootstock.drpc.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'scroll-mainnet': {
@@ -378,6 +458,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'superposition-mainnet': {
+        eid: EndpointId.SUPERPOSITION_V2_MAINNET,
+        url: process.env.RPC_URL_SUPERPOSITION_MAINNET || 'https://rpc.superposition.so',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'taiko-mainnet': {
@@ -474,7 +561,7 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
         ],
     },
     zksolc: {
-        version: '1.4.1',
+        version: '1.5.7',
         compilerSource: 'binary',
         settings: {
             // See https://github.com/zkSync-Community-Hub/zksync-developers/discussions/218#discussioncomment-7994804

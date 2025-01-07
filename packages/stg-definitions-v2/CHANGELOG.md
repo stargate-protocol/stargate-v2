@@ -1,5 +1,86 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.1
+
+### Patch Changes
+
+- 650b96f: ink mainnet
+- 15e136b: Rootstock config
+- 408bd54: hemi contracts
+- 00d3d6e: fuse mainnet config
+- ae6c67e: Updating packages
+- 680e77b: safe addresses ink
+- 9923622: islander usdt
+- 9b41f9b: hemi
+
+## 1.4.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+### Patch Changes
+
+- e6193bd: executor bump
+
+## 1.3.6
+
+### Patch Changes
+
+- 427f30e: Codex Mainnet Config
+- 7be2990: vana usdt
+- 63af792: codex
+- 2f0bda9: islander usdt
+
+## 1.3.5
+
+### Patch Changes
+
+- 90500af: Plume updates
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- cbbf60a: vana mainnet config
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- bc66d16: Superposition
+- 19f993b: Superposition update
+- 52766b7: Superposition deployment
+- 3d2232d: Plume Updates
+
+## 1.3.4
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+- ba5517b: plume mainnet config changeset
+
+## 1.3.3
+
+### Patch Changes
+
+- 974c8e6: Story Odyssey Testnet
+
+## 1.3.2
+
+### Patch Changes
+
+- 253a1a8: bl3 testnet
+- da1a8b9: degen mainnet
+
+## 1.3.1
+
+### Patch Changes
+
+- 9dc7d09: peaq usdt
+- 48b1dc6: degen mainnet config
+- ea8c128: Updating peaq USDT configurations
+
+## 1.3.0
+
+### Minor Changes
+
+- 676b2cd: Support for external USDT deployments
+
 ## 1.2.5
 
 ### Patch Changes
