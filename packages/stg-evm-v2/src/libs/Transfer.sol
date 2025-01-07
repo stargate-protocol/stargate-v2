@@ -9,10 +9,10 @@ contract Transfer is Ownable {
     error Transfer_TransferFailed();
     error Transfer_ApproveFailed();
 
-    // @dev default this to 2300, but it is modifiable
+    // @dev default this to 5000, but it is modifiable
     // @dev this is intended to provide just enough gas to receive native tokens.
     // @dev ie. empty fallbacks or EOA addresses
-    uint256 internal transferGasLimit = 2300;
+    uint256 internal transferGasLimit = 5000;
 
     function getTransferGasLimit() external view returns (uint256) {
         return transferGasLimit;
