@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.2
+
+### Patch Changes
+
+- 847a6f2: peaq custom gas
+- 3a4ebbb: abstract
+
 ## 1.4.1
 
 ### Patch Changes
