@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.2
+
+### Patch Changes
+
+- 3a4ebbb: abstract
+
 ## 1.1.1
 
 ### Patch Changes
