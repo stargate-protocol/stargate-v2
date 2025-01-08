@@ -33,6 +33,7 @@ export class Asset extends Ownable implements IAsset {
         }
     }
 
+    @AsyncRetriable()
     async setAddressConfig(config: AddressConfig): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setAddressConfig', [
             {
@@ -70,6 +71,7 @@ export class Asset extends Ownable implements IAsset {
         return credit.toBigInt() === UNLIMITED_CREDIT
     }
 
+    @AsyncRetriable()
     async setOFTPath(dstEid: EndpointId, isOft: boolean): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setOFTPath', [dstEid, isOft])
 
@@ -128,6 +130,7 @@ export class Asset extends Ownable implements IAsset {
         return paused === PAUSED
     }
 
+    @AsyncRetriable()
     async setPaused(paused: boolean): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setPause', [paused])
 

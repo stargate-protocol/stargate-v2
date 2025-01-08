@@ -62,6 +62,7 @@ export class ERC20 extends Ownable implements IERC20 {
         return allowance.toBigInt()
     }
 
+    @AsyncRetriable()
     async mint(account: OmniAddress, amount: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('mint', [account, amount])
 

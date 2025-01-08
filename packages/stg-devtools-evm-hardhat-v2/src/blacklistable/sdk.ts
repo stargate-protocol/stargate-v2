@@ -10,6 +10,7 @@ export class Blacklistable extends OmniSDK implements IBlacklistable {
     async getBlacklister(): Promise<string> {
         return BlacklistableMixin.getBlacklister.call(this)
     }
+    @AsyncRetriable()
     async setBlacklister(blacklister: string): Promise<OmniTransaction> {
         return BlacklistableMixin.setBlacklister.call(this, blacklister)
     }
@@ -17,6 +18,7 @@ export class Blacklistable extends OmniSDK implements IBlacklistable {
     async isBlacklisted(address: string): Promise<boolean> {
         return BlacklistableMixin.isBlacklisted.call(this, address)
     }
+    @AsyncRetriable()
     async setBlacklisted(address: string, blacklisted: boolean): Promise<OmniTransaction> {
         return BlacklistableMixin.setBlacklisted.call(this, address, blacklisted)
     }

@@ -10,9 +10,11 @@ export class Mintable extends Ownable implements IMintable {
     async isMinter(minter: OmniAddress): Promise<boolean> {
         return MintableMixin.isMinter.call(this, minter)
     }
+    @AsyncRetriable()
     async addMinter(minter: OmniAddress): Promise<OmniTransaction> {
         return MintableMixin.addMinter.call(this, minter)
     }
+    @AsyncRetriable()
     async removeMinter(minter: OmniAddress): Promise<OmniTransaction> {
         return MintableMixin.removeMinter.call(this, minter)
     }
