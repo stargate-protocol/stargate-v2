@@ -64,7 +64,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     return {
         contracts: [
             {
-                contract: abstractContract,
+                contract: abstractFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
