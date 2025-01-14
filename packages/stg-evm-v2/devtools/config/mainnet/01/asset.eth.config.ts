@@ -88,7 +88,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             zkConsensysContract,
         ],
         connections: generateAssetConfig(tokenName, [
-            abstractContract,
+            abstractPoint,
             arbPoint,
             ethPoint,
             basePoint,
