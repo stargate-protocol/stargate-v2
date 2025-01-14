@@ -38,7 +38,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         owner: DEFAULT_PLANNER,
     }
 
-    const abstractContract = onAbstract(contract)
+    const abstractFeeLibV1 = onAbstract(contract)
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
     const degenFeeLibV1 = onDegen(contract)
