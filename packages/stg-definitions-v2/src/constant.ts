@@ -187,6 +187,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
+            [EndpointId.ABSTRACT_V2_MAINNET]: {
+                type: StargateType.Native,
+            },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
