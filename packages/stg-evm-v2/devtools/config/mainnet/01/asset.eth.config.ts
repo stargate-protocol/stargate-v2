@@ -18,6 +18,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // Now we define all the contracts
+    const abstractPoint = getAssetPoint(EndpointId.ABSTRACT_V2_MAINNET)
     const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
     const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
@@ -40,6 +41,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const zkConsensysPoint = getAssetPoint(EndpointId.ZKCONSENSYS_V2_MAINNET)
 
     // And all their nodes
+    const abstractContract = await getAssetNode(abstractPoint)
     const arbContract = await getAssetNode(arbPoint)
     const baseContract = await getAssetNode(basePoint)
     const degenContract = await getAssetNode(degenPoint)
@@ -63,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 
     return {
         contracts: [
+            abstractContract,
             arbContract,
             ethContract,
             baseContract,
@@ -85,6 +88,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             zkConsensysContract,
         ],
         connections: generateAssetConfig(tokenName, [
+            abstractContract,
             arbPoint,
             ethPoint,
             basePoint,

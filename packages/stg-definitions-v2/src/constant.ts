@@ -941,6 +941,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.ETH]: {
+        name: 'ETH',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.ABSTRACT_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
