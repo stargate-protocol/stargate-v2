@@ -10,6 +10,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
     const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -149,6 +150,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
 
     return {
         [EndpointId.ABSTRACT_V2_MAINNET]: {
+            [abstractAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [abstractAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [abstractAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
@@ -304,6 +306,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
 
 export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) => {
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
+    const abstractLPTokenAddresses = await getLPTokenAddresses(EndpointId.ABSTRACT_V2_MAINNET, [TokenName.ETH] as const)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -371,6 +374,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
     ] as const)
 
     return {
+        [EndpointId.ABSTRACT_V2_MAINNET]: {
+            [TokenName.ETH]: abstractLPTokenAddresses.ETH,
+        },
         [EndpointId.ARBITRUM_V2_MAINNET]: {
             [TokenName.ETH]: arbLPTokenAddresses.ETH,
             [TokenName.USDC]: arbLPTokenAddresses.USDC,

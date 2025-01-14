@@ -10,6 +10,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
@@ -39,6 +40,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment))
 
     // Get the rewarder contract
+    const abstractRewarder = await contractFactory(onAbstract(rewarder))
     const arbRewarder = await contractFactory(onArb(rewarder))
     const auroraRewarder = await contractFactory(onAurora(rewarder))
     const avaxRewarder = await contractFactory(onAvax(rewarder))
@@ -58,6 +60,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const zkConsensysRewarder = await contractFactory(onZkConsensys(rewarder))
 
     // Get the staking contract
+    const abstractStaking = onAbstract(staking)
     const arbStaking = onArb(staking)
     const auroraStaking = onAurora(staking)
     const avaxStaking = onAvax(staking)
@@ -79,6 +82,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     // Template objects for pool configuration
     //
     // These will need to be populated with a token address and passed to pools configuration
+    const abstractPool = { rewarder: abstractRewarder.contract.address }
     const arbPool = { rewarder: arbRewarder.contract.address }
     const auroraPool = { rewarder: auroraRewarder.contract.address }
     const avaxPool = { rewarder: avaxRewarder.contract.address }
@@ -102,6 +106,18 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
 
     return {
         contracts: [
+            {
+                contract: abstractStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    pools: [
+                        {
+                            ...abstractPool,
+                            token: lpTokenAddresses[EndpointId.ABSTRACT_V2_MAINNET].ETH,
+                        },
+                    ],
+                },
+            },
             {
                 contract: arbStaking,
                 config: {

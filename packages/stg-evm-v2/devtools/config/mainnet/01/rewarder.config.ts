@@ -7,6 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
@@ -36,6 +37,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
 
     // Step 1: Retrieve all the reward token addresses on the given chains
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
+    const abstractRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        RewardTokenName.ETH,
+    ] as const)
     const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         RewardTokenName.ARB,
         RewardTokenName.STG,
@@ -95,6 +99,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
 
     return {
         contracts: [
+            {
+                contract: onAbstract(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    allocations: {
+                        [abstractRewardTokenAddresses.ETH]: {
+                            [lpTokenAddresses[EndpointId.ABSTRACT_V2_MAINNET].ETH]: 10000,
+                        },
+                    },
+                },
+            },
             {
                 contract: onArb(contract),
                 config: {
