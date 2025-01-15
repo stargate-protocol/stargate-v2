@@ -39,6 +39,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const metisPoint = getAssetPoint(EndpointId.METIS_V2_MAINNET)
     const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
+    const plumePoint = getAssetPoint(EndpointId.PLUME_V2_MAINNET)
     const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
@@ -67,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const metisContract = await getAssetNode(metisPoint)
     const optContract = await getAssetNode(optPoint)
     const peaqContract = await getAssetNode(peaqPoint)
+    const plumeContract = await getAssetNode(plumePoint)
     const polygonContract = await getAssetNode(polygonPoint)
     const raribleContract = await getAssetNode(rariblePoint)
     const rootstockContract = await getAssetNode(rootstockPoint)
@@ -96,6 +98,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             metisContract,
             optContract,
             peaqContract,
+            plumeContract,
             polygonContract,
             raribleContract,
             rootstockContract,
@@ -124,6 +127,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             metisPoint,
             optPoint,
             peaqPoint,
+            plumePoint,
             polygonPoint,
             rariblePoint,
             rootstockPoint,
