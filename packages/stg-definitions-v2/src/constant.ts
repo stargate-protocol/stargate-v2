@@ -423,6 +423,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
             },
+            [EndpointId.PLUME_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xA849026cDA282eeeBC3C39Afcbe87a69424F16B4',
+            },
             [EndpointId.RARIBLE_V2_MAINNET]: {
                 type: StargateType.Oft,
             },

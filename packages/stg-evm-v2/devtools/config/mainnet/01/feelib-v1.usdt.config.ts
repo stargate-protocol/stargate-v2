@@ -26,6 +26,7 @@ import {
     onMetis,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
     onRootstock,
@@ -64,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const metisFeeLibV1 = onMetis(contract)
     const optFeeLibV1 = onOpt(contract)
     const peaqFeeLibV1 = onPeaq(contract)
+    const plumeFeeLibV1 = onPlume(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
     const rootstockFeeLibV1 = onRootstock(contract)
@@ -154,6 +156,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: peaqFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: plumeFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
