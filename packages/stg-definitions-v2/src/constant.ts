@@ -438,6 +438,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0xB75D0B03c06A926e488e2659DF1A861F860bD3d1',
             },
+            [EndpointId.SUPERPOSITION_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x14B761873111416e7b50B9dF615d85cFF8dD3b7b',
+            },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
             },

@@ -220,6 +220,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     ] as const)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
+        TokenName.USDT,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
@@ -595,6 +596,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     admin: superpositionAdmin,
                     assets: {
                         [superpositionAssetAddresses.USDC]: true,
+                        [superpositionAssetAddresses.USDT]: true,
                     },
                 },
             },
