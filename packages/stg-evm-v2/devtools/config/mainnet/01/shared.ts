@@ -141,6 +141,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     ] as const)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
+        TokenName.USDT,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
@@ -294,6 +295,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         },
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {
             [superpositionAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [superpositionAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
