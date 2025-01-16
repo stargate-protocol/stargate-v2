@@ -417,7 +417,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PEAQ_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0xd8cF92E9B6Fae6B32f795AcB11Edd50E8dD6Ff4d',
+                address: '0xf4D9235269a96aaDaFc9aDAe454a0618eBE37949',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 type: StargateType.Pool,
