@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.4
+
+### Patch Changes
+
+- 48dc419: updating packages
+- Updated dependencies [48dc419]
+  - @stargatefinance/stg-definitions-v2@1.4.4
+
 ## 1.3.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.4
+
+### Patch Changes
+
+- 48dc419: updating packages
+
 ## 1.4.3
 
 ### Patch Changes
