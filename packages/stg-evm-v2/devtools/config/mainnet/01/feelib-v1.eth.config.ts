@@ -12,6 +12,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onIota,
@@ -45,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const fuseFeeLibV1 = onFuse(contract)
+    const glueFeeLibV1 = onGlue(contract)
     const gravityFeeLibV1 = onGravity(contract)
     const hemiFeeLibV1 = onHemi(contract)
     const iotaFeeLibV1 = onIota(contract)
@@ -89,6 +91,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: optFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: glueFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

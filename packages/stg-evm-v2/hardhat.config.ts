@@ -290,6 +290,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'glue-mainnet': {
+        eid: EndpointId.GLUE_V2_MAINNET,
+        url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',

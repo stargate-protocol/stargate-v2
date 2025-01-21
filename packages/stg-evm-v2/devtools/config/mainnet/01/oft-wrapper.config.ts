@@ -22,6 +22,7 @@ import {
     onFlare,
     onFraxtal,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -74,6 +75,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const flareOftWrapper = onFlare(contract)
     const fraxtalOftWrapper = onFraxtal(contract)
     const fuseOftWrapper = onFuse(contract)
+    const glueOftWrapper = onGlue(contract)
     const gravityOftWrapper = onGravity(contract)
     const hemiOftWrapper = onHemi(contract)
     const inkOftWrapper = onInk(contract)
@@ -207,6 +209,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: fuseOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                },
+            },
+            {
+                contract: glueOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
                 },
             },
             {

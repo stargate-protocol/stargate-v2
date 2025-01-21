@@ -12,6 +12,7 @@ import {
     onEbi,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onIota,
     onIslander,
@@ -62,6 +63,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const fuseETH = onFuse({ contractName: fuseETHContractName })
 
+    const glueETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.GLUE_V2_MAINNET, TokenName.ETH)
+    )
+    const glueETH = onGlue({ contractName: glueETHContractName })
+
     const gravityETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.GRAVITY_V2_MAINNET, TokenName.ETH)
@@ -100,7 +107,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
     const seiETH = onSei({ contractName: seiETHContractName })
 
-    // Now we collect the address of the deployed assets(StargateOft.sol etc.)
+    // Now we collect the address of the deployed WETH assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
@@ -112,6 +119,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [TokenName.ETH] as const)
+    const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [TokenName.ETH] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -188,6 +196,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
                     minters: {
                         [fuseAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: glueETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    minters: {
+                        [glueAssetAddresses.ETH]: true,
                     },
                 },
             },

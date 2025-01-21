@@ -20,6 +20,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -64,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
+    const glueAdmin = getSafeAddress(EndpointId.GLUE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const hemiAdmin = getSafeAddress(EndpointId.HEMI_V2_MAINNET)
     const inkAdmin = getSafeAddress(EndpointId.INK_V2_MAINNET)
@@ -138,6 +140,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+        TokenName.USDC,
     ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
@@ -376,6 +383,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [fuseAssetAddresses.ETH]: true,
                         [fuseAssetAddresses.USDC]: true,
                         [fuseAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onGlue(contract),
+                config: {
+                    owner: glueAdmin,
+                    admin: glueAdmin,
+                    assets: {
+                        [glueAssetAddresses.ETH]: true,
+                        [glueAssetAddresses.USDT]: true,
+                        [glueAssetAddresses.USDC]: true,
                     },
                 },
             },
