@@ -46,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
+    const soneiumPoint = getAssetPoint(EndpointId.SONEIUM_V2_MAINNET)
     const superpositionPoint = getAssetPoint(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
     const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
@@ -79,6 +80,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rootstockContract = await getAssetNode(rootstockPoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const seiContract = await getAssetNode(seiPoint)
+    const soneiumContract = await getAssetNode(soneiumPoint)
     const superpositionContract = await getAssetNode(superpositionPoint)
     const taikoContract = await getAssetNode(taikoPoint)
     const xchainContract = await getAssetNode(xchainPoint)
@@ -113,6 +115,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rootstockContract,
             scrollContract,
             seiContract,
+            soneiumContract,
             superpositionContract,
             taikoContract,
             xchainContract,
@@ -146,6 +149,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rootstockPoint,
             scrollPoint,
             seiPoint,
+            soneiumPoint,
             superpositionPoint,
             taikoPoint,
             xchainPoint,

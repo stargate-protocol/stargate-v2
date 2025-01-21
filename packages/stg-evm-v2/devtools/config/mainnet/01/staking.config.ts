@@ -27,6 +27,7 @@ import {
     onPolygon,
     onScroll,
     onSei,
+    onSoneium,
     onZkConsensys,
 } from '../utils'
 
@@ -57,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const polygonRewarder = await contractFactory(onPolygon(rewarder))
     const scrollRewarder = await contractFactory(onScroll(rewarder))
     const seiRewarder = await contractFactory(onSei(rewarder))
+    const soneiumRewarder = await contractFactory(onSoneium(rewarder))
     const zkConsensysRewarder = await contractFactory(onZkConsensys(rewarder))
 
     // Get the staking contract
@@ -77,6 +79,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const polygonStaking = onPolygon(staking)
     const scrollStaking = onScroll(staking)
     const seiStaking = onSei(staking)
+    const soneiumStaking = onSoneium(staking)
     const zkConsensysStaking = onZkConsensys(staking)
 
     // Template objects for pool configuration
@@ -99,6 +102,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const polygonPool = { rewarder: polygonRewarder.contract.address }
     const scrollPool = { rewarder: scrollRewarder.contract.address }
     const seiPool = { rewarder: seiRewarder.contract.address }
+    const soneiumPool = { rewarder: soneiumRewarder.contract.address }
     const zkConsensysPool = { rewarder: zkConsensysRewarder.contract.address }
 
     // get the LPToken addresses
@@ -370,6 +374,22 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...seiPool,
                             token: lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: soneiumStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    pools: [
+                        {
+                            ...soneiumPool,
+                            token: lpTokenAddresses[EndpointId.SONEIUM_V2_MAINNET].ETH,
+                        },
+                        {
+                            ...soneiumPool,
+                            token: lpTokenAddresses[EndpointId.SONEIUM_V2_MAINNET].USDC,
                         },
                     ],
                 },

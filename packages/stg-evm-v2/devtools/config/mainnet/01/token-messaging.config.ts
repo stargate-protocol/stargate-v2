@@ -36,6 +36,7 @@ import {
     onRootstock,
     onScroll,
     onSei,
+    onSoneium,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -82,6 +83,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const rootstockTokenMsging = onRootstock(contract)
     const scrollTokenMsging = onScroll(contract)
     const seiTokenMsging = onSei(contract)
+    const soneiumTokenMsging = onSoneium(contract)
     const superpositionTokenMsging = onSuperposition(contract)
     const taikoTokenMsging = onTaiko(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
@@ -369,6 +371,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: soneiumTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SONEIUM_V2_MAINNET],
+                },
+            },
+            {
                 contract: superpositionTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
@@ -437,6 +448,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             rootstockTokenMsging,
             scrollTokenMsging,
             seiTokenMsging,
+            soneiumTokenMsging,
             superpositionTokenMsging,
             taikoTokenMsging,
             zkConsensysTokenMsging,

@@ -36,6 +36,7 @@ import {
     onRootstock,
     onScroll,
     onSei,
+    onSoneium,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -83,6 +84,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const rootstockCreditMsging = onRootstock(contract)
     const scrollCreditMsging = onScroll(contract)
     const seiCreditMsging = onSei(contract)
+    const soneiumCreditMsging = onSoneium(contract)
     const superpositionCreditMsging = onSuperposition(contract)
     const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
@@ -370,6 +372,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: soneiumCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SONEIUM_V2_MAINNET],
+                },
+            },
+            {
                 contract: superpositionCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
@@ -438,6 +449,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             rootstockCreditMsging,
             scrollCreditMsging,
             seiCreditMsging,
+            soneiumCreditMsging,
             superpositionCreditMsging,
             taikoCreditMsging,
             zkConsensysCreditMsging,

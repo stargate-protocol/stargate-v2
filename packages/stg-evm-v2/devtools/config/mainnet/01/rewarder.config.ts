@@ -24,6 +24,7 @@ import {
     onPolygon,
     onScroll,
     onSei,
+    onSoneium,
     onZkConsensys,
 } from '../utils'
 
@@ -89,6 +90,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const seiRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SEI_V2_MAINNET, [
         RewardTokenName.SEI,
+    ] as const)
+    const soneiumRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
+        RewardTokenName.WETH,
     ] as const)
     const zkConsensysRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         RewardTokenName.STG,
@@ -308,6 +312,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                         [seiRewardTokenAddresses.SEI]: {
                             [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC]: 5000,
                             [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT]: 5000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onSoneium(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    allocations: {
+                        [soneiumRewardTokenAddresses.WETH]: {
+                            [lpTokenAddresses[EndpointId.SONEIUM_V2_MAINNET].ETH]: 10000,
                         },
                     },
                 },
