@@ -60,6 +60,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -208,6 +213,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [fuseAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [fuseAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [fuseAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.GLUE_V2_MAINNET]: {
+            [glueAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [glueAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [glueAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.GRAVITY_V2_MAINNET]: {
             [gravityAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

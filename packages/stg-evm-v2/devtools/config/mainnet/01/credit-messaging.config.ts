@@ -18,6 +18,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -65,6 +66,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const ethCreditMsging = onEth(contract)
     const flareCreditMsging = onFlare(contract)
     const fuseCreditMsging = onFuse(contract)
+    const glueCreditMsging = onGlue(contract)
     const gravityCreditMsging = onGravity(contract)
     const hemiCreditMsging = onHemi(contract)
     const inkCreditMsging = onInk(contract)
@@ -205,6 +207,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
+                contract: glueCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GLUE_V2_MAINNET],
                 },
             },
             {
@@ -420,6 +431,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             ethCreditMsging,
             flareCreditMsging,
             fuseCreditMsging,
+            glueCreditMsging,
             gravityCreditMsging,
             hemiCreditMsging,
             inkCreditMsging,

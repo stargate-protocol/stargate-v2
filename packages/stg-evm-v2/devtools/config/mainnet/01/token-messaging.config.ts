@@ -18,6 +18,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -64,6 +65,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const ethTokenMsging = onEth(contract)
     const flareTokenMsging = onFlare(contract)
     const fuseTokenMsging = onFuse(contract)
+    const glueTokenMsging = onGlue(contract)
     const gravityTokenMsging = onGravity(contract)
     const hemiTokenMsging = onHemi(contract)
     const inkTokenMsging = onInk(contract)
@@ -204,6 +206,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
+                contract: glueTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GLUE_V2_MAINNET],
                 },
             },
             {
@@ -419,6 +430,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             ethTokenMsging,
             flareTokenMsging,
             fuseTokenMsging,
+            glueTokenMsging,
             gravityTokenMsging,
             hemiTokenMsging,
             inkTokenMsging,
