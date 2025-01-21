@@ -10,6 +10,7 @@ import {
     onAurora,
     onAvax,
     onBase,
+    onBera,
     onBsc,
     onCodex,
     onCoredao,
@@ -53,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const auroraFeeLibV1 = onAurora(contract)
     const avaxFeeLibV1 = onAvax(contract)
     const baseFeeLibV1 = onBase(contract)
+    const beraFeeLibV1 = onBera(contract)
     const bscFeeLibV1 = onBsc(contract)
     const codexFeeLibV1 = onCodex(contract)
     const coredaoFeeLibV1 = onCoredao(contract)
@@ -100,6 +102,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: baseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: beraFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

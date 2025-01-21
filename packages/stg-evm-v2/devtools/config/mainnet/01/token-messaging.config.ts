@@ -10,6 +10,7 @@ import {
     onAurora,
     onAvax,
     onBase,
+    onBera,
     onBsc,
     onCodex,
     onCoredao,
@@ -56,6 +57,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const auroraTokenMsging = onAurora(contract)
     const avaxTokenMsging = onAvax(contract)
     const baseTokenMsging = onBase(contract)
+    const beraTokenMsging = onBera(contract)
     const bscTokenMsging = onBsc(contract)
     const codexTokenMsging = onCodex(contract)
     const coredaoTokenMsging = onCoredao(contract)
@@ -132,6 +134,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.BASE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BASE_V2_MAINNET],
+                },
+            },
+            {
+                contract: beraTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.BERA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.BERA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.BERA_V2_MAINNET],
                 },
             },
             {
@@ -411,6 +422,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             auroraTokenMsging,
             avaxTokenMsging,
             baseTokenMsging,
+            beraTokenMsging,
             bscTokenMsging,
             codexTokenMsging,
             coredaoTokenMsging,

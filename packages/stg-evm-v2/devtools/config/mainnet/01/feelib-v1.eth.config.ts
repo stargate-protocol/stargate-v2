@@ -8,6 +8,7 @@ import {
     onAbstract,
     onArb,
     onBase,
+    onBera,
     onDegen,
     onEth,
     onFlare,
@@ -41,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const abstractFeeLibV1 = onAbstract(contract)
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
+    const beraFeeLibV1 = onBera(contract)
     const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
@@ -69,6 +71,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: arbFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: beraFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
