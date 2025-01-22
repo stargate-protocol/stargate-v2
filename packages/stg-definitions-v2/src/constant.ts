@@ -1796,9 +1796,20 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0xc38C19FC8E2e66715dd80b2b8192A30e36dD68af',
-            //TODO : verify what the API is for this Superchain Safe? Below is not correct
-            safeUrl: 'https://safe.optimism.io/',
+            safeAddress: '0xea4645d254A9E3C67595EaF3AFaaf3E0DaA4fa0e',
+            safeUrl: 'https://soneium-tx.lzdevnet.org/',
+            contractNetworks: {
+                [1868]: {
+                    multiSendAddress: '0x9946dea53F93F17A974630F35D533b83C79417a0',
+                    multiSendCallOnlyAddress: '0xb67aE1Ee4dd72a84D9Db534f9279c5984E7E4a9E',
+                    safeMasterCopyAddress: '0x59c04Ecf0e4EBcaDa027b7B03E46339B1C7575C2',
+                    safeProxyFactoryAddress: '0xF9073883A11fFEC9627D227F936ebb2E79b5864F',
+                    fallbackHandlerAddress: '0x3F694eC171E2000C7A9993aF67Fd10325D30cD7F',
+                    createCallAddress: '0x04f9dcEcf954D0bBD16108a828Df34C010144acD',
+                    signMessageLibAddress: '0xD334818e16AbF71EF5fd5F7E3A1Bef78DF21B596',
+                    simulateTxAccessorAddress: '0x623bB01e9AA264D82AD9E9869ACeACff7038F83E',
+                },
+            },
         },
     },
     [EndpointId.SUPERPOSITION_V2_MAINNET]: {
