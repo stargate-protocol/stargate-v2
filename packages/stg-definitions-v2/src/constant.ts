@@ -1317,6 +1317,9 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
+            taxiGasLimit: 180000n,
+            busGasLimit: 60000n,
+            busRideGasLimit: 55000n,
         },
         safeConfig: {
             safeAddress: '0x6C0d029292f48068f576515c79Fc6bCDec5F58DA',
@@ -1639,6 +1642,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
+            taxiGasLimit: 180000n,
             busGasLimit: 60000n,
             busRideGasLimit: 55000n,
         },
