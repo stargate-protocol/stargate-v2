@@ -51,6 +51,7 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
+        [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.XCHAIN_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -109,6 +110,7 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
         [EndpointId.SEI_V2_MAINNET]: '0xbd00c87850416db0995ef8030b104f875e1bdd15',
+        [EndpointId.SONEIUM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TAIKO_V2_MAINNET]: '0x37473676ff697f2eba29c8a3105309abf00ba013',
         [EndpointId.XCHAIN_V2_MAINNET]: '0x56053a8f4db677e5774f8ee5bdd9d2dc270075f3',
@@ -154,6 +156,7 @@ export const EXECUTORS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
+        [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.XCHAIN_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -280,6 +283,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
+            },
+            [EndpointId.SONEIUM_V2_MAINNET]: {
+                type: StargateType.Native,
             },
             [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -633,6 +639,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1',
                 type: StargateType.Pool,
             },
+            [EndpointId.SONEIUM_V2_MAINNET]: {
+                address: '0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369',
+                type: StargateType.Pool,
+            },
             [EndpointId.SUPERPOSITION_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x6c030c5CC283F791B26816f325b9C632d964F8A1',
@@ -785,6 +795,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SCROLL_V2_MAINNET]: {},
         [EndpointId.SEI_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
+        [EndpointId.SONEIUM_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
@@ -961,6 +972,9 @@ export const REWARDS: RewardsConfig = {
             //
             // Mainnet
             [EndpointId.HEMI_V2_MAINNET]: {
+                address: '0x4200000000000000000000000000000000000006',
+            },
+            [EndpointId.SONEIUM_V2_MAINNET]: {
                 address: '0x4200000000000000000000000000000000000006',
             },
         },
@@ -1811,6 +1825,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
                     signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
                     simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
+                },
+            },
+        },
+    },
+    [EndpointId.SONEIUM_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET], DVNS.STG[EndpointId.SONEIUM_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET], DVNS.STG[EndpointId.SONEIUM_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0005').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xea4645d254A9E3C67595EaF3AFaaf3E0DaA4fa0e',
+            safeUrl: 'https://soneium-tx.lzdevnet.org/',
+            contractNetworks: {
+                [1868]: {
+                    multiSendAddress: '0x9946dea53F93F17A974630F35D533b83C79417a0',
+                    multiSendCallOnlyAddress: '0xb67aE1Ee4dd72a84D9Db534f9279c5984E7E4a9E',
+                    safeMasterCopyAddress: '0x59c04Ecf0e4EBcaDa027b7B03E46339B1C7575C2',
+                    safeProxyFactoryAddress: '0xF9073883A11fFEC9627D227F936ebb2E79b5864F',
+                    fallbackHandlerAddress: '0x3F694eC171E2000C7A9993aF67Fd10325D30cD7F',
+                    createCallAddress: '0x04f9dcEcf954D0bBD16108a828Df34C010144acD',
+                    signMessageLibAddress: '0xD334818e16AbF71EF5fd5F7E3A1Bef78DF21B596',
+                    simulateTxAccessorAddress: '0x623bB01e9AA264D82AD9E9869ACeACff7038F83E',
                 },
             },
         },

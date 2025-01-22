@@ -467,6 +467,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'soneium-mainnet': {
+        eid: EndpointId.SONEIUM_V2_MAINNET,
+        url: process.env.RPC_URL_SONEIUM_MAINNET || 'https://rpc.soneium.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'superposition-mainnet': {
         eid: EndpointId.SUPERPOSITION_V2_MAINNET,
         url: process.env.RPC_URL_SUPERPOSITION_MAINNET || 'https://rpc.superposition.so',
