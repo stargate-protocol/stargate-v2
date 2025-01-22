@@ -1407,6 +1407,9 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
             nativeDropAmount: parseEther('0.0003').toBigInt(),
+            busGasLimit: 60000n,
+            busRideGasLimit: 60000n,
+            nativeDropGasLimit: 25000n,
         },
         safeConfig: {
             safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
