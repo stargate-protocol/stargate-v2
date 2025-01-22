@@ -1331,6 +1331,9 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
+            taxiGasLimit: 180000n,
+            busGasLimit: 60000n,
+            busRideGasLimit: 55000n,
         },
         safeConfig: {
             safeAddress: '0x6C0d029292f48068f576515c79Fc6bCDec5F58DA',
@@ -1418,6 +1421,9 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
             nativeDropAmount: parseEther('0.0003').toBigInt(),
+            busGasLimit: 60000n,
+            busRideGasLimit: 60000n,
+            nativeDropGasLimit: 25000n,
         },
         safeConfig: {
             safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
@@ -1653,8 +1659,9 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
-            busGasLimit: 60000n,
-            busRideGasLimit: 55000n,
+            taxiGasLimit: 180000n,
+            busGasLimit: 65000n,
+            busRideGasLimit: 60000n,
         },
         safeConfig: {
             safeAddress: '0xB2687F7F6290aBa4ED3290ffFF6cB2e1cc30686D',
@@ -1875,6 +1882,9 @@ export const NETWORKS: NetworksConfig = {
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
+            busGasLimit: 60000n,
+            busRideGasLimit: 60000n,
+            nativeDropGasLimit: 25000n,
         },
         safeConfig: {
             safeAddress: '0x670c49578aFd9644ceF7BFc43b399E11c4ba7837',
