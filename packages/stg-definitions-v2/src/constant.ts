@@ -1836,6 +1836,9 @@ export const NETWORKS: NetworksConfig = {
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
+            busGasLimit: 60000n,
+            busRideGasLimit: 60000n,
+            nativeDropGasLimit: 25000n,
         },
         safeConfig: {
             safeAddress: '0x670c49578aFd9644ceF7BFc43b399E11c4ba7837',
