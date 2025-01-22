@@ -1646,8 +1646,8 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
             taxiGasLimit: 180000n,
-            busGasLimit: 60000n,
-            busRideGasLimit: 55000n,
+            busGasLimit: 65000n,
+            busRideGasLimit: 60000n,
         },
         safeConfig: {
             safeAddress: '0xB2687F7F6290aBa4ED3290ffFF6cB2e1cc30686D',
