@@ -209,9 +209,9 @@ const networks: NetworksUserConfig = {
     },
     'bera-mainnet': {
         eid: EndpointId.BERA_V2_MAINNET,
-        url: process.env.RPC_URL_BERA_MAINNET,
+        url: process.env.RPC_URL_BERA_MAINNET || '',
         httpHeaders: {
-            Authorization: process.env.AUTH_TOKEN_BERA_MAINNET,
+            Authorization: process.env.AUTH_TOKEN_BERA_MAINNET || '',
         },
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
