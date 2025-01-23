@@ -1126,8 +1126,8 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
-            safeUrl: 'https://safe-transaction-ink.safe.global/',
+            safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
+            safeUrl: 'https://transaction.bp.w3us.site/',
             contractNetworks: {
                 [80094]: {
                     multiSendAddress: '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526',
