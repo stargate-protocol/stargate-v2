@@ -528,7 +528,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BERA_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO address: '',
+                address: '0x549943e04f40284185054145c6E4e9568C1D3241',
             },
             [EndpointId.BSC_V2_MAINNET]: {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
@@ -1092,11 +1092,11 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
-            //TODO nativeDropAmount: parseEther('0.1').toBigInt(),
+            nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         safeConfig: {
-            //TODO safeAddress: '',
-            //TODO safeUrl: 'https://bera-tx.lzdevnet.org/',
+            safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
+            safeUrl: 'https://transaction.bp.w3us.site/',
         },
     },
     [EndpointId.BLAST_V2_MAINNET]: {
