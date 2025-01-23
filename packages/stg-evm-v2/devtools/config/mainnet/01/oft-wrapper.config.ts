@@ -11,6 +11,7 @@ import {
     onAurora,
     onAvax,
     onBase,
+    onBera,
     onBlast,
     onBsc,
     onCodex,
@@ -65,6 +66,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const auroraOftWrapper = onAurora(contract)
     const avaxOftWrapper = onAvax(contract)
     const baseOftWrapper = onBase(contract)
+    const beraOftWrapper = onBera(contract)
     const blastOftWrapper = onBlast(contract)
     const bscOftWrapper = onBsc(contract)
     const codexOftWrapper = onCodex(contract)
@@ -145,6 +147,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: baseOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.BASE_V2_MAINNET),
+                },
+            },
+            {
+                contract: beraOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.BERA_V2_MAINNET),
                 },
             },
             {

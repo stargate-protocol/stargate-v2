@@ -25,6 +25,7 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
+        [EndpointId.BERA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.CODEX_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -83,6 +84,7 @@ export const DVNS = {
         [EndpointId.AURORA_V2_MAINNET]: '0xe11c808bc6099abc9be566c9017aa2ab0f131d35',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x252b234545e154543ad2784c7111eb90406be836',
         [EndpointId.BASE_V2_MAINNET]: '0xcdf31d62140204c08853b547e64707110fbc6680',
+        [EndpointId.BERA_V2_MAINNET]: '0x6e70fcdc42d3d63748b7d8883399dcb16bbb5c8c',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
         [EndpointId.CODEX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
@@ -129,6 +131,7 @@ export const EXECUTORS = {
         [EndpointId.AURORA_V2_MAINNET]: '0xA2b402FFE8dd7460a8b425644B6B9f50667f0A61',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
+        [EndpointId.BERA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.CODEX_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
@@ -201,6 +204,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BASE_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.BERA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -536,6 +544,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913',
                 type: StargateType.Pool,
             },
+            [EndpointId.BERA_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x549943e04f40284185054145c6E4e9568C1D3241',
+            },
             [EndpointId.BSC_V2_MAINNET]: {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
                 type: StargateType.Pool,
@@ -758,6 +770,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.AURORA_V2_MAINNET]: {},
         [EndpointId.AVALANCHE_V2_MAINNET]: {},
         [EndpointId.BASE_V2_MAINNET]: {},
+        [EndpointId.BERA_V2_MAINNET]: {},
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
         [EndpointId.CODEX_V2_MAINNET]: {},
@@ -1098,6 +1111,35 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x81EAb64E630C4a2E3E849268A6B64cb76D1C8109',
             safeUrl: 'https://safe-transaction-base.safe.global/',
+        },
+    },
+    [EndpointId.BERA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.001').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
+            safeUrl: 'https://safe-transaction-ink.safe.global/',
+            contractNetworks: {
+                [80094]: {
+                    multiSendAddress: '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526',
+                    multiSendCallOnlyAddress: '0x9641d764fc13c8B624c04430C7356C1C7C8102e2',
+                    safeMasterCopyAddress: '0x41675C099F32341bf84BFc5382aF534df5C7461a',
+                    safeProxyFactoryAddress: '0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67',
+                    fallbackHandlerAddress: '0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99',
+                    createCallAddress: '0x9b35Af71d77eaf8d7e40252370304687390A1A52',
+                    signMessageLibAddress: '0xd53cd0aB83D845Ac265BE939c57F53AD838012c9',
+                    simulateTxAccessorAddress: '0x3d4BA2E0884aa488718476ca2FB8Efc291A46199',
+                },
+            },
         },
     },
     [EndpointId.BLAST_V2_MAINNET]: {

@@ -12,6 +12,7 @@ import {
     onAurora,
     onAvax,
     onBase,
+    onBera,
     onBsc,
     onCodex,
     onCoredao,
@@ -58,6 +59,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const auroraAdmin = getSafeAddress(EndpointId.AURORA_V2_MAINNET)
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
+    const beraAdmin = getSafeAddress(EndpointId.BERA_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
@@ -108,6 +110,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const baseAssetAddresses = await getAssetAddresses(EndpointId.BASE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
+    const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
@@ -297,6 +303,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [baseAssetAddresses.ETH]: true,
                         [baseAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onBera(contract),
+                config: {
+                    owner: beraAdmin,
+                    admin: beraAdmin,
+                    assets: {
+                        [beraAssetAddresses.ETH]: true,
+                        [beraAssetAddresses.USDC]: true,
                     },
                 },
             },
