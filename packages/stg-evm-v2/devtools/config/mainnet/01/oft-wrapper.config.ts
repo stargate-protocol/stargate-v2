@@ -23,6 +23,7 @@ import {
     onFlare,
     onFraxtal,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -47,6 +48,7 @@ import {
     onScroll,
     onSei,
     onShimmer,
+    onSoneium,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -76,6 +78,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const flareOftWrapper = onFlare(contract)
     const fraxtalOftWrapper = onFraxtal(contract)
     const fuseOftWrapper = onFuse(contract)
+    const glueOftWrapper = onGlue(contract)
     const gravityOftWrapper = onGravity(contract)
     const hemiOftWrapper = onHemi(contract)
     const inkOftWrapper = onInk(contract)
@@ -100,6 +103,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const scrollOftWrapper = onScroll(contract)
     const seiOftWrapper = onSei(contract)
     const shimmerOftWrapper = onShimmer(contract)
+    const soneiumOftWrapper = onSoneium(contract)
     const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
     const xchainOftWrapper = onXchain(contract)
@@ -215,6 +219,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: fuseOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                },
+            },
+            {
+                contract: glueOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
                 },
             },
             {
@@ -359,6 +369,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: shimmerOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.SHIMMER_V2_MAINNET),
+                },
+            },
+            {
+                contract: soneiumOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
                 },
             },
             {

@@ -19,6 +19,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -37,6 +38,7 @@ import {
     onRootstock,
     onScroll,
     onSei,
+    onSoneium,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -67,6 +69,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const ethCreditMsging = onEth(contract)
     const flareCreditMsging = onFlare(contract)
     const fuseCreditMsging = onFuse(contract)
+    const glueCreditMsging = onGlue(contract)
     const gravityCreditMsging = onGravity(contract)
     const hemiCreditMsging = onHemi(contract)
     const inkCreditMsging = onInk(contract)
@@ -85,6 +88,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const rootstockCreditMsging = onRootstock(contract)
     const scrollCreditMsging = onScroll(contract)
     const seiCreditMsging = onSei(contract)
+    const soneiumCreditMsging = onSoneium(contract)
     const superpositionCreditMsging = onSuperposition(contract)
     const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
@@ -216,6 +220,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
+                contract: glueCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GLUE_V2_MAINNET],
                 },
             },
             {
@@ -381,6 +394,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: soneiumCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SONEIUM_V2_MAINNET],
+                },
+            },
+            {
                 contract: superpositionCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
@@ -432,6 +454,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             ethCreditMsging,
             flareCreditMsging,
             fuseCreditMsging,
+            glueCreditMsging,
             gravityCreditMsging,
             hemiCreditMsging,
             inkCreditMsging,
@@ -450,6 +473,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             rootstockCreditMsging,
             scrollCreditMsging,
             seiCreditMsging,
+            soneiumCreditMsging,
             superpositionCreditMsging,
             taikoCreditMsging,
             zkConsensysCreditMsging,

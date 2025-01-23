@@ -21,6 +21,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -39,6 +40,7 @@ import {
     onRootstock,
     onScroll,
     onSei,
+    onSoneium,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -66,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
+    const glueAdmin = getSafeAddress(EndpointId.GLUE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const hemiAdmin = getSafeAddress(EndpointId.HEMI_V2_MAINNET)
     const inkAdmin = getSafeAddress(EndpointId.INK_V2_MAINNET)
@@ -84,6 +87,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const rootStockAdmin = getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const soneiumAdmin = getSafeAddress(EndpointId.SONEIUM_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
@@ -144,6 +148,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+        TokenName.USDC,
     ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
@@ -223,6 +232,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const soneiumAssetAddresses = await getAssetAddresses(EndpointId.SONEIUM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
     ] as const)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
@@ -393,6 +406,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [fuseAssetAddresses.ETH]: true,
                         [fuseAssetAddresses.USDC]: true,
                         [fuseAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onGlue(contract),
+                config: {
+                    owner: glueAdmin,
+                    admin: glueAdmin,
+                    assets: {
+                        [glueAssetAddresses.ETH]: true,
+                        [glueAssetAddresses.USDT]: true,
+                        [glueAssetAddresses.USDC]: true,
                     },
                 },
             },
@@ -602,6 +627,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [seiAssetAddresses.ETH]: true,
                         [seiAssetAddresses.USDC]: true,
                         [seiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onSoneium(contract),
+                config: {
+                    owner: soneiumAdmin,
+                    admin: soneiumAdmin,
+                    assets: {
+                        [soneiumAssetAddresses.ETH]: true,
+                        [soneiumAssetAddresses.USDC]: true,
                     },
                 },
             },

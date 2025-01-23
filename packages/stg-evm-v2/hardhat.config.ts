@@ -300,6 +300,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'glue-mainnet': {
+        eid: EndpointId.GLUE_V2_MAINNET,
+        url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
@@ -468,6 +475,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'soneium-mainnet': {
+        eid: EndpointId.SONEIUM_V2_MAINNET,
+        url: process.env.RPC_URL_SONEIUM_MAINNET || 'https://rpc.soneium.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'superposition-mainnet': {

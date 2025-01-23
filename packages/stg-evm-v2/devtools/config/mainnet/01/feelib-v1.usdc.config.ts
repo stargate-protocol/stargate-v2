@@ -18,6 +18,7 @@ import {
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -34,6 +35,7 @@ import {
     onRootstock,
     onScroll,
     onSei,
+    onSoneium,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -62,6 +64,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const fuseFeeLibV1 = onFuse(contract)
+    const glueFeeLibV1 = onGlue(contract)
     const gravityFeeLibV1 = onGravity(contract)
     const hemiFeeLibV1 = onHemi(contract)
     const inkFeeLibV1 = onInk(contract)
@@ -78,6 +81,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const rootstockFeeLibV1 = onRootstock(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
+    const soneiumFeeLibV1 = onSoneium(contract)
     const superpositionFeeLibV1 = onSuperposition(contract)
     const taikoFeeLibV1 = onTaiko(contract)
     const xchainFeeLibV1 = onXchain(contract)
@@ -134,6 +138,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: fuseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: glueFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -198,6 +206,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: seiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: soneiumFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
