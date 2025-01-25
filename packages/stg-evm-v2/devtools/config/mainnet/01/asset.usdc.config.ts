@@ -30,6 +30,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
+    const flowPoint = getAssetPoint(EndpointId.FLOW_V2_MAINNET)
     const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
     const gluePoint = getAssetPoint(EndpointId.GLUE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)

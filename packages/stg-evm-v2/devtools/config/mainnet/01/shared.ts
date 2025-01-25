@@ -59,6 +59,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -220,6 +225,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [flareAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [flareAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [flareAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.FLOW_V2_MAINNET]: {
+            [flowAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [flowAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [flowAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.FUSE_V2_MAINNET]: {
             [fuseAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

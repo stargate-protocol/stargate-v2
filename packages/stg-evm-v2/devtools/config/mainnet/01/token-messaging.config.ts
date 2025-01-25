@@ -18,6 +18,7 @@ import {
     onEbi,
     onEth,
     onFlare,
+    onFlow,
     onFuse,
     onGlue,
     onGravity,
@@ -67,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const ebiTokenMsging = onEbi(contract)
     const ethTokenMsging = onEth(contract)
     const flareTokenMsging = onFlare(contract)
+    const flowTokenMsging = onFlow(contract)
     const fuseTokenMsging = onFuse(contract)
     const glueTokenMsging = onGlue(contract)
     const gravityTokenMsging = onGravity(contract)
@@ -210,6 +212,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.FLARE_V2_MAINNET],
+                },
+            },
+            {
+                contract: flowTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FLOW_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FLOW_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FLOW_V2_MAINNET],
                 },
             },
             {
@@ -452,6 +463,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             ebiTokenMsging,
             ethTokenMsging,
             flareTokenMsging,
+            flowTokenMsging,
             fuseTokenMsging,
             glueTokenMsging,
             gravityTokenMsging,
