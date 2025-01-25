@@ -5,12 +5,15 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import {
+    onAbstract,
     onArb,
     onBase,
+    onBera,
     onDegen,
     onEth,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onIota,
@@ -24,6 +27,7 @@ import {
     onRootstock,
     onScroll,
     onSei,
+    onSoneium,
     onZkConsensys,
 } from '../utils'
 
@@ -37,12 +41,15 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         owner: DEFAULT_PLANNER,
     }
 
+    const abstractFeeLibV1 = onAbstract(contract)
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
+    const beraFeeLibV1 = onBera(contract)
     const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const fuseFeeLibV1 = onFuse(contract)
+    const glueFeeLibV1 = onGlue(contract)
     const gravityFeeLibV1 = onGravity(contract)
     const hemiFeeLibV1 = onHemi(contract)
     const iotaFeeLibV1 = onIota(contract)
@@ -56,13 +63,22 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const rootstockFeeLibV1 = onRootstock(contract)
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
+    const soneiumFeeLibV1 = onSoneium(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
 
     // TODO alphebatize
     return {
         contracts: [
             {
+                contract: abstractFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: arbFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: beraFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -83,6 +99,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: optFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: glueFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -131,6 +151,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: seiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: soneiumFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

@@ -1,5 +1,25 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.4
+
+### Patch Changes
+
+- 48dc419: updating packages
+- Updated dependencies [48dc419]
+  - @stargatefinance/stg-definitions-v2@1.4.4
+
+## 1.3.3
+
+### Patch Changes
+
+- 57f3aa1: plume usdt
+- 165f566: abstract mainnet config
+- Updated dependencies [57f3aa1]
+- Updated dependencies [fb26852]
+- Updated dependencies [7baaa4c]
+- Updated dependencies [165f566]
+  - @stargatefinance/stg-definitions-v2@1.4.3
+
 ## 1.3.2
 
 ### Patch Changes

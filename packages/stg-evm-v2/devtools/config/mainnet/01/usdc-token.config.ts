@@ -11,10 +11,12 @@ import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-s
 import { getSafeAddress } from '../../utils'
 import {
     onAbstract,
+    onBera,
     onCodex,
     onDegen,
     onFlare,
     onFuse,
+    onGlue,
     onGravity,
     onHemi,
     onInk,
@@ -41,6 +43,9 @@ assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`
 const usdcAbstractAsset = getAssetNetworkConfig(EndpointId.ABSTRACT_V2_MAINNET, TokenName.USDC)
 assert(usdcAbstractAsset.address != null, `External USDC address not found for ABSTRACT`)
 
+const usdcBeraAsset = getAssetNetworkConfig(EndpointId.BERA_V2_MAINNET, TokenName.USDC)
+assert(usdcBeraAsset.address != null, `External USDC address not found for BERA`)
+
 const usdcCodexAsset = getAssetNetworkConfig(EndpointId.CODEX_V2_MAINNET, TokenName.USDC)
 assert(usdcCodexAsset.address != null, `External USDC address not found for CODEX`)
 
@@ -49,6 +54,9 @@ assert(usdcDegenAsset.address != null, `External USDC address not found for DEGE
 
 const usdcFuseAsset = getAssetNetworkConfig(EndpointId.FUSE_V2_MAINNET, TokenName.USDC)
 assert(usdcFuseAsset.address != null, `External USDC address not found for FUSE`)
+
+const usdcGlueAsset = getAssetNetworkConfig(EndpointId.GLUE_V2_MAINNET, TokenName.USDC)
+assert(usdcGlueAsset.address != null, `External USDC address not found for GLUE`)
 
 const usdcHemiAsset = getAssetNetworkConfig(EndpointId.HEMI_V2_MAINNET, TokenName.USDC)
 assert(usdcHemiAsset.address != null, `External USDC address not found for HEMI`)
@@ -73,8 +81,13 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
+    // The newer USDC deployments (since December 2024)
+
     const abstractUSDCProxy = await contractFactory(
         onAbstract({ contractName: 'FiatTokenProxy', address: usdcAbstractAsset.address })
+    )
+    const beraUSDCProxy = await contractFactory(
+        onBera({ contractName: 'FiatTokenProxy', address: usdcBeraAsset.address })
     )
     const codexUSDCProxy = await contractFactory(
         onCodex({ contractName: 'FiatTokenProxy', address: usdcCodexAsset.address })
@@ -85,6 +98,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
     const fuseUSDCProxy = await contractFactory(
         onFuse({ contractName: 'FiatTokenProxy', address: usdcFuseAsset.address })
+    )
+    const glueUSDCProxy = await contractFactory(
+        onGlue({ contractName: 'FiatTokenProxy', address: usdcGlueAsset.address })
     )
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const hemiUSDCProxy = await contractFactory(
@@ -117,6 +133,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const abstractUSDC = onAbstract({ ...fiatContract, address: abstractUSDCProxy.contract.address })
     const abstractStargateMultisig = getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET)
 
+    const beraUSDC = onBera({ ...fiatContract, address: beraUSDCProxy.contract.address })
+    const beraStargateMultisig = getSafeAddress(EndpointId.BERA_V2_MAINNET)
+
     const codexUSDC = onCodex({ ...fiatContract, address: codexUSDCProxy.contract.address })
     const codexStargateMultisig = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
 
@@ -128,6 +147,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const fuseUSDC = onFuse({ ...fiatContract, address: fuseUSDCProxy.contract.address })
     const fuseStargateMultisig = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
+
+    const glueUSDC = onGlue({ ...fiatContract, address: glueUSDCProxy.contract.address })
+    const glueStargateMultisig = getSafeAddress(EndpointId.GLUE_V2_MAINNET)
 
     const gravityUSDC = onGravity({ ...fiatContract, address: gravityUSDCProxy.contract.address })
     const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
@@ -175,10 +197,12 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const usdcAssets = [TokenName.USDC] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, usdcAssets)
+    const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, usdcAssets)
     const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, usdcAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdcAssets)
+    const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdcAssets)
     const inkAssetAddresses = await getAssetAddresses(EndpointId.INK_V2_MAINNET, usdcAssets)
@@ -206,6 +230,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: abstractStargateMultisig,
                     minters: {
                         [abstractAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: beraUSDC,
+                config: {
+                    owner: beraStargateMultisig,
+                    masterMinter: beraStargateMultisig,
+                    pauser: beraStargateMultisig,
+                    rescuer: beraStargateMultisig,
+                    blacklister: beraStargateMultisig,
+                    minters: {
+                        [beraAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },
@@ -258,6 +295,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: fuseStargateMultisig,
                     minters: {
                         [fuseAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: glueUSDC,
+                config: {
+                    owner: glueStargateMultisig,
+                    masterMinter: glueStargateMultisig,
+                    pauser: glueStargateMultisig,
+                    rescuer: glueStargateMultisig,
+                    blacklister: glueStargateMultisig,
+                    minters: {
+                        [glueAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

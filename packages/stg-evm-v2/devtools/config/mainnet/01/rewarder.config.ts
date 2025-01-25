@@ -7,6 +7,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
@@ -23,6 +24,7 @@ import {
     onPolygon,
     onScroll,
     onSei,
+    onSoneium,
     onZkConsensys,
 } from '../utils'
 
@@ -36,6 +38,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
 
     // Step 1: Retrieve all the reward token addresses on the given chains
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
+    const abstractRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        RewardTokenName.ETH,
+    ] as const)
     const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         RewardTokenName.ARB,
         RewardTokenName.STG,
@@ -86,6 +91,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const seiRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SEI_V2_MAINNET, [
         RewardTokenName.SEI,
     ] as const)
+    const soneiumRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
+        RewardTokenName.WETH,
+    ] as const)
     const zkConsensysRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         RewardTokenName.STG,
     ] as const)
@@ -95,6 +103,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
 
     return {
         contracts: [
+            {
+                contract: onAbstract(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    allocations: {
+                        [abstractRewardTokenAddresses.ETH]: {
+                            [lpTokenAddresses[EndpointId.ABSTRACT_V2_MAINNET].ETH]: 10000,
+                        },
+                    },
+                },
+            },
             {
                 contract: onArb(contract),
                 config: {
@@ -293,6 +312,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                         [seiRewardTokenAddresses.SEI]: {
                             [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC]: 5000,
                             [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT]: 5000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onSoneium(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    allocations: {
+                        [soneiumRewardTokenAddresses.WETH]: {
+                            [lpTokenAddresses[EndpointId.SONEIUM_V2_MAINNET].ETH]: 10000,
                         },
                     },
                 },

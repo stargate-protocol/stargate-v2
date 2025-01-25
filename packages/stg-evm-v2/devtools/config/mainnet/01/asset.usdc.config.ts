@@ -23,6 +23,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const auroraPoint = getAssetPoint(EndpointId.AURORA_V2_MAINNET)
     const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
+    const beraPoint = getAssetPoint(EndpointId.BERA_V2_MAINNET)
     const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
     const codexPoint = getAssetPoint(EndpointId.CODEX_V2_MAINNET)
     const coredaoPoint = getAssetPoint(EndpointId.COREDAO_V2_MAINNET)
@@ -30,6 +31,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
+    const gluePoint = getAssetPoint(EndpointId.GLUE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
     const inkPoint = getAssetPoint(EndpointId.INK_V2_MAINNET)
@@ -46,6 +48,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
+    const soneiumPoint = getAssetPoint(EndpointId.SONEIUM_V2_MAINNET)
     const superpositionPoint = getAssetPoint(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
     const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
@@ -56,6 +59,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const auroraContract = await getAssetNode(auroraPoint)
     const avaxContract = await getAssetNode(avaxPoint)
     const baseContract = await getAssetNode(basePoint)
+    const beraContract = await getAssetNode(beraPoint)
     const bscContract = await getAssetNode(bscPoint)
     const codexContract = await getAssetNode(codexPoint)
     const coredaoContract = await getAssetNode(coredaoPoint)
@@ -63,6 +67,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
     const fuseContract = await getAssetNode(fusePoint)
+    const glueContract = await getAssetNode(gluePoint)
     const gravityContract = await getAssetNode(gravityPoint)
     const hemiContract = await getAssetNode(hemiPoint)
     const inkContract = await getAssetNode(inkPoint)
@@ -79,6 +84,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rootstockContract = await getAssetNode(rootstockPoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const seiContract = await getAssetNode(seiPoint)
+    const soneiumContract = await getAssetNode(soneiumPoint)
     const superpositionContract = await getAssetNode(superpositionPoint)
     const taikoContract = await getAssetNode(taikoPoint)
     const xchainContract = await getAssetNode(xchainPoint)
@@ -90,6 +96,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             auroraContract,
             avaxContract,
             baseContract,
+            beraContract,
             bscContract,
             codexContract,
             coredaoContract,
@@ -97,6 +104,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ethContract,
             flareContract,
             fuseContract,
+            glueContract,
             gravityContract,
             hemiContract,
             inkContract,
@@ -113,6 +121,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rootstockContract,
             scrollContract,
             seiContract,
+            soneiumContract,
             superpositionContract,
             taikoContract,
             xchainContract,
@@ -123,6 +132,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             auroraPoint,
             avaxPoint,
             basePoint,
+            beraPoint,
             bscPoint,
             codexPoint,
             coredaoPoint,
@@ -130,6 +140,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ethPoint,
             flarePoint,
             fusePoint,
+            gluePoint,
             gravityPoint,
             hemiPoint,
             inkPoint,
@@ -146,6 +157,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rootstockPoint,
             scrollPoint,
             seiPoint,
+            soneiumPoint,
             superpositionPoint,
             taikoPoint,
             xchainPoint,

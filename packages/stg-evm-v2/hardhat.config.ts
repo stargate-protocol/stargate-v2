@@ -216,6 +216,16 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.BASE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'bera-mainnet': {
+        eid: EndpointId.BERA_V2_MAINNET,
+        url: process.env.RPC_URL_BERA_MAINNET || '',
+        httpHeaders: {
+            Authorization: process.env.AUTH_TOKEN_BERA_MAINNET || '',
+        },
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'blast-mainnet': {
         eid: EndpointId.BLAST_V2_MAINNET,
         url: process.env.RPC_URL_BLAST_MAINNET || 'https://blast-rpc.publicnode.com',
@@ -297,6 +307,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FUSE_MAINNET || 'https://rpc.fuse.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'glue-mainnet': {
+        eid: EndpointId.GLUE_V2_MAINNET,
+        url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'gravity-mainnet': {
@@ -467,6 +484,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'soneium-mainnet': {
+        eid: EndpointId.SONEIUM_V2_MAINNET,
+        url: process.env.RPC_URL_SONEIUM_MAINNET || 'https://rpc.soneium.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'superposition-mainnet': {

@@ -18,12 +18,15 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // Now we define all the contracts
+    const abstractPoint = getAssetPoint(EndpointId.ABSTRACT_V2_MAINNET)
     const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
     const basePoint = getAssetPoint(EndpointId.BASE_V2_MAINNET)
+    const beraPoint = getAssetPoint(EndpointId.BERA_V2_MAINNET)
     const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
     const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
+    const gluePoint = getAssetPoint(EndpointId.GLUE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
@@ -37,15 +40,19 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollPoint = getAssetPoint(EndpointId.SCROLL_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
+    const soneiumPoint = getAssetPoint(EndpointId.SONEIUM_V2_MAINNET)
     const zkConsensysPoint = getAssetPoint(EndpointId.ZKCONSENSYS_V2_MAINNET)
 
     // And all their nodes
+    const abstractContract = await getAssetNode(abstractPoint)
     const arbContract = await getAssetNode(arbPoint)
     const baseContract = await getAssetNode(basePoint)
+    const beraContract = await getAssetNode(beraPoint)
     const degenContract = await getAssetNode(degenPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
     const fuseContract = await getAssetNode(fusePoint)
+    const glueContract = await getAssetNode(gluePoint)
     const gravityContract = await getAssetNode(gravityPoint)
     const hemiContract = await getAssetNode(hemiPoint)
     const iotaContract = await getAssetNode(iotaPoint)
@@ -59,16 +66,20 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rootstockContract = await getAssetNode(rootstockPoint)
     const scrollContract = await getAssetNode(scrollPoint)
     const seiContract = await getAssetNode(seiPoint)
+    const soneiumContract = await getAssetNode(soneiumPoint)
     const zkConsensysContract = await getAssetNode(zkConsensysPoint)
 
     return {
         contracts: [
+            abstractContract,
             arbContract,
             ethContract,
             baseContract,
+            beraContract,
             degenContract,
             flareContract,
             fuseContract,
+            glueContract,
             gravityContract,
             hemiContract,
             iotaContract,
@@ -82,17 +93,21 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rootstockContract,
             scrollContract,
             seiContract,
+            soneiumContract,
             zkConsensysContract,
         ],
         connections: generateAssetConfig(tokenName, [
+            abstractPoint,
             arbPoint,
             ethPoint,
             basePoint,
+            beraPoint,
             degenPoint,
             iotaPoint,
             islanderPoint,
             flarePoint,
             fusePoint,
+            gluePoint,
             gravityPoint,
             hemiPoint,
             klaytnPoint,
@@ -104,6 +119,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rootstockPoint,
             scrollPoint,
             seiPoint,
+            soneiumPoint,
             zkConsensysPoint,
         ]),
     }

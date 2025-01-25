@@ -1,5 +1,20 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.4
+
+### Patch Changes
+
+- 48dc419: updating packages
+
+## 1.4.3
+
+### Patch Changes
+
+- 57f3aa1: plume usdt
+- fb26852: peaq usdt update
+- 7baaa4c: abstract eth definitions
+- 165f566: abstract mainnet config
+
 ## 1.4.2
 
 ### Patch Changes
