@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.4
+
+### Patch Changes
+
+- d370440: berachain mainnet config
+
 ## 1.1.3
 
 ### Patch Changes
