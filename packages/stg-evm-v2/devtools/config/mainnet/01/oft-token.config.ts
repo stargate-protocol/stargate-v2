@@ -8,6 +8,7 @@ import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onBera,
     onDegen,
     onEbi,
     onFlare,
@@ -45,6 +46,11 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const taikoUSDT = onTaiko(usdtContractTemplate)
 
     // ETH contract pointers (for all WETH OFT)
+    const beraETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.BERA_V2_MAINNET, TokenName.ETH)
+    )
+    const beraETH = onBera({ contractName: beraETHContractName })
     const degenETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
@@ -109,6 +115,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     // Now we collect the address of the deployed WETH assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [TokenName.ETH] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -154,6 +161,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     return {
         contracts: [
+            {
+                contract: beraETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.BERA_V2_MAINNET),
+                    minters: {
+                        [beraAssetAddresses.ETH]: true,
+                    },
+                },
+            },
             {
                 contract: degenETH,
                 config: {
