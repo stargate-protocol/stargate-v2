@@ -8,6 +8,7 @@ import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
+    onBera,
     onDegen,
     onEbi,
     onFlare,
@@ -49,6 +50,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         getAssetType(EndpointId.BERA_V2_MAINNET, TokenName.ETH)
     )
+    const beraETH = onBera({ contractName: beraETHContractName })
     const degenETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
