@@ -1357,7 +1357,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
+            safeAddress: '0xce578Ad2a804BfD2a999a9911609f551B2a940bb',
             safeUrl: 'https://flow-tx.lzdevnet.org/',
             contractNetworks: {
                 ['747']: {
