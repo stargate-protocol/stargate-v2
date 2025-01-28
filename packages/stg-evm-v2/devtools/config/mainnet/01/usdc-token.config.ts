@@ -53,7 +53,7 @@ assert(usdcCodexAsset.address != null, `External USDC address not found for CODE
 const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
 assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
 
-const usdcFlowAsset = getAssetNetworkConfig(EndpointId.FLARE_V2_MAINNET, TokenName.USDC)
+const usdcFlowAsset = getAssetNetworkConfig(EndpointId.FLOW_V2_MAINNET, TokenName.USDC)
 assert(usdcFlowAsset.address != null, `External USDC address not found for FLOW`)
 
 const usdcFuseAsset = getAssetNetworkConfig(EndpointId.FUSE_V2_MAINNET, TokenName.USDC)

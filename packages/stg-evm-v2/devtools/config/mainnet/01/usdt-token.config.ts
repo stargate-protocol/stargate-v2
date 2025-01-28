@@ -21,8 +21,8 @@ assert(usdtAbstractAsset.address != null, `External USDT address not found for A
 const usdtDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDT)
 assert(usdtDegenAsset.address != null, `External USDT address not found for DEGEN`)
 
-const usdtFlowAsset = getAssetNetworkConfig(EndpointId.FUSE_V2_MAINNET, TokenName.USDT)
-assert(usdtFlowAsset.address != null, `External USDT address not found for FUSE`)
+const usdtFlowAsset = getAssetNetworkConfig(EndpointId.FLOW_V2_MAINNET, TokenName.USDT)
+assert(usdtFlowAsset.address != null, `External USDT address not found for FLOW`)
 
 const usdtFuseAsset = getAssetNetworkConfig(EndpointId.FUSE_V2_MAINNET, TokenName.USDT)
 assert(usdtFuseAsset.address != null, `External USDT address not found for FUSE`)
