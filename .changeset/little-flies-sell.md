@@ -7,4 +7,4 @@
 "@stargatefinance/stg-evm-sdk-v2": patch
 ---
 
-berachain mainnet config
+flowevm mainnet config

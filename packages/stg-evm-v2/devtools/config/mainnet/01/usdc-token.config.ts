@@ -15,6 +15,7 @@ import {
     onCodex,
     onDegen,
     onFlare,
+    onFlow,
     onFuse,
     onGlue,
     onGravity,
@@ -51,6 +52,9 @@ assert(usdcCodexAsset.address != null, `External USDC address not found for CODE
 
 const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
 assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
+
+const usdcFlowAsset = getAssetNetworkConfig(EndpointId.FLOW_V2_MAINNET, TokenName.USDC)
+assert(usdcFlowAsset.address != null, `External USDC address not found for FLOW`)
 
 const usdcFuseAsset = getAssetNetworkConfig(EndpointId.FUSE_V2_MAINNET, TokenName.USDC)
 assert(usdcFuseAsset.address != null, `External USDC address not found for FUSE`)
@@ -96,6 +100,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
         onDegen({ contractName: 'FiatTokenProxy', address: usdcDegenAsset.address })
     )
     const flareUSDCProxy = await contractFactory(onFlare(proxyContract))
+    const flowUSDCProxy = await contractFactory(
+        onFlow({ contractName: 'FiatTokenProxy', address: usdcFlowAsset.address })
+    )
     const fuseUSDCProxy = await contractFactory(
         onFuse({ contractName: 'FiatTokenProxy', address: usdcFuseAsset.address })
     )
@@ -144,6 +151,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const flareUSDC = onFlare({ ...fiatContract, address: flareUSDCProxy.contract.address })
     const flareStargateMultisig = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
+
+    const flowUSDC = onFlow({ ...fiatContract, address: flowUSDCProxy.contract.address })
+    const flowStargateMultisig = getSafeAddress(EndpointId.FLOW_V2_MAINNET)
 
     const fuseUSDC = onFuse({ ...fiatContract, address: fuseUSDCProxy.contract.address })
     const fuseStargateMultisig = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
@@ -201,6 +211,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, usdcAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
+    const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, usdcAssets)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdcAssets)
     const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
@@ -282,6 +293,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: flareStargateMultisig,
                     minters: {
                         [flareAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: flowUSDC,
+                config: {
+                    owner: flowStargateMultisig,
+                    masterMinter: flowStargateMultisig,
+                    pauser: flowStargateMultisig,
+                    rescuer: flowStargateMultisig,
+                    blacklister: flowStargateMultisig,
+                    minters: {
+                        [flowAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

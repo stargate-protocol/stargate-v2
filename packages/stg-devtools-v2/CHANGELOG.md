@@ -1,5 +1,16 @@
 # @stargatefinance/stg-devtools-v2
 
+## 3.0.4
+
+### Patch Changes
+
+- d370440: berachain mainnet config
+- Updated dependencies [12e197e]
+- Updated dependencies [3e4ebf0]
+- Updated dependencies [d370440]
+- Updated dependencies [2b01ada]
+  - @stargatefinance/stg-definitions-v2@1.4.5
+
 ## 3.0.3
 
 ### Patch Changes

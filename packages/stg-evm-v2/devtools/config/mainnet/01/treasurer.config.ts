@@ -20,6 +20,7 @@ import {
     onEbi,
     onEth,
     onFlare,
+    onFlow,
     onFuse,
     onGlue,
     onGravity,
@@ -67,6 +68,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
+    const flowAdmin = getSafeAddress(EndpointId.FLOW_V2_MAINNET)
     const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
     const glueAdmin = getSafeAddress(EndpointId.GLUE_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
@@ -140,6 +142,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -394,6 +401,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [flareAssetAddresses.ETH]: true,
                         [flareAssetAddresses.USDC]: true,
                         [flareAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onFlow(contract),
+                config: {
+                    owner: flowAdmin,
+                    admin: flowAdmin,
+                    assets: {
+                        [flowAssetAddresses.ETH]: true,
+                        [flowAssetAddresses.USDC]: true,
+                        [flowAssetAddresses.USDT]: true,
                     },
                 },
             },
