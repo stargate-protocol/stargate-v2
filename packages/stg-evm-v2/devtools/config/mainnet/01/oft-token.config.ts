@@ -36,7 +36,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
-    // USDT contract pointers (for old method of deployment) (old)
+    // USDT contract pointers (for old method of deployment)
     const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
