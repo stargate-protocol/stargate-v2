@@ -100,38 +100,46 @@ import {
 
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 
+interface SubtaskLoadConfigTaskArgsExtended extends SubtaskLoadConfigTaskArgs {
+    fromChains: string
+    toChains: string
+}
 /**
  * Wiring task for credit messaging contracts
  */
-wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load credit messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: CreditMessagingOmniGraphHardhatSchema,
-            })
-    )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure credit messaging',
-        (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureCreditMessaging,
-                sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
-            })
-    )
+wireTask(TASK_STG_WIRE_CREDIT_MESSAGING)
+    .addParam('fromChains', "Comma-separated list of from chains or 'all'")
+    .addParam('toChains', "Comma-separated list of to chains or 'all'")
+    .setAction(async (args, hre) => {
+        console.log('ravina args', args)
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load credit messaging config',
+            (args: SubtaskLoadConfigTaskArgsExtended, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CreditMessagingOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure credit messaging',
+            (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureCreditMessaging,
+                    sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for token messaging contracts
