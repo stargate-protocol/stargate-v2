@@ -1,5 +1,14 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.5
+
+### Patch Changes
+
+- 12e197e: Soneium Mainnet Config
+- 3e4ebf0: Glue Mainnet Config
+- d370440: berachain mainnet config
+- 2b01ada: msig address
+
 ## 1.4.4
 
 ### Patch Changes

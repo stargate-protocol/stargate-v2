@@ -1,5 +1,22 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.5
+
+### Patch Changes
+
+- 12e197e: Soneium Mainnet Config
+- 399a817: oft
+- 40ec972: glue contracts
+- 362b3ac: soneium contract deployments
+- 3e4ebf0: Glue Mainnet Config
+- 785c7d9: Bera contracts
+- d370440: berachain mainnet config
+- Updated dependencies [12e197e]
+- Updated dependencies [3e4ebf0]
+- Updated dependencies [d370440]
+- Updated dependencies [2b01ada]
+  - @stargatefinance/stg-definitions-v2@1.4.5
+
 ## 1.3.4
 
 ### Patch Changes
