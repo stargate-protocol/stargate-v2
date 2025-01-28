@@ -286,6 +286,13 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FLARE_V2_MAINNET),
     },
+    'flow-mainnet': {
+        eid: EndpointId.FLOW_V2_MAINNET,
+        url: process.env.RPC_URL_FLOW_MAINNET || 'https://mainnet.evm.nodes.onflow.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.FLOW_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'fraxtal-mainnet': {
         eid: EndpointId.FRAXTAL_V2_MAINNET,
         url: process.env.RPC_URL_FRAXTAL_MAINNET || 'https://rpc.frax.com',

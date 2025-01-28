@@ -12,6 +12,7 @@ import {
     onDegen,
     onEbi,
     onFlare,
+    onFlow,
     onFuse,
     onGlue,
     onGravity,
@@ -62,6 +63,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.FLARE_V2_MAINNET, TokenName.ETH)
     )
     const flareETH = onFlare({ contractName: flareETHContractName })
+
+    const flowETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.FLOW_V2_MAINNET, TokenName.ETH)
+    )
+    const flowETH = onFlow({ contractName: flowETHContractName })
 
     const fuseETHContractName = getTokenDeployName(
         TokenName.ETH,
@@ -125,6 +132,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
+    const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, [TokenName.ETH] as const)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [TokenName.ETH] as const)
     const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [TokenName.ETH] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
@@ -203,6 +211,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.FLARE_V2_MAINNET),
                     minters: {
                         [flareAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: flowETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.FLOW_V2_MAINNET),
+                    minters: {
+                        [flowAssetAddresses.ETH]: true,
                     },
                 },
             },

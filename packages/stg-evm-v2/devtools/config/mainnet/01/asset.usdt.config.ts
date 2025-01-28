@@ -27,6 +27,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ebiPoint = getAssetPoint(EndpointId.EBI_V2_MAINNET)
     const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
     const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
+    const flowPoint = getAssetPoint(EndpointId.FLOW_V2_MAINNET)
     const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
     const gluePoint = getAssetPoint(EndpointId.GLUE_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
@@ -57,6 +58,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const ebiContract = await getAssetNode(ebiPoint)
     const ethContract = await getAssetNode(ethPoint)
     const flareContract = await getAssetNode(flarePoint)
+    const flowContract = await getAssetNode(flowPoint)
     const fuseContract = await getAssetNode(fusePoint)
     const glueContract = await getAssetNode(gluePoint)
     const gravityContract = await getAssetNode(gravityPoint)
@@ -88,6 +90,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ebiContract,
             ethContract,
             flareContract,
+            flowContract,
             fuseContract,
             glueContract,
             gravityContract,
@@ -118,6 +121,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             ebiPoint,
             ethPoint,
             flarePoint,
+            flowPoint,
             fusePoint,
             gluePoint,
             gravityPoint,

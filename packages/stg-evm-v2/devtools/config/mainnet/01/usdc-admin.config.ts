@@ -13,7 +13,7 @@ import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, o
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
-// Except for chains where it's deployed externally - this is all chains as of December 2024
+// Except for chains where it's deployed externally - which is all chains as of December 2024
 const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenName.USDC)
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
