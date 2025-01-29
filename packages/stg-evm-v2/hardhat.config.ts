@@ -15,15 +15,16 @@ import type { HDAccountsUserConfig, HardhatUserConfig, NetworksUserConfig } from
 
 import '@nomiclabs/hardhat-ethers'
 import '@nomicfoundation/hardhat-chai-matchers'
-import '@nomiclabs/hardhat-etherscan'
-import '@matterlabs/hardhat-zksync-solc'
-import '@matterlabs/hardhat-zksync-deploy'
 import 'hardhat-deploy'
 import 'hardhat-deploy-ethers'
 import 'hardhat-gas-reporter'
 import 'hardhat-contract-sizer'
 import 'hardhat-spdx-license-identifier'
 import 'solidity-coverage'
+import '@matterlabs/hardhat-zksync-deploy'
+import '@matterlabs/hardhat-zksync-solc'
+
+import '@matterlabs/hardhat-zksync-verify'
 
 import '@layerzerolabs/toolbox-hardhat'
 
@@ -162,7 +163,7 @@ const networks: NetworksUserConfig = {
     //
     // Mainnet
     //
-    'abstract-mainnet': {
+    abstract: {
         eid: EndpointId.ABSTRACT_V2_MAINNET,
         url: process.env.RPC_URL_ABSTRACT_MAINNET || '',
         accounts: mainnetAccounts,
@@ -170,6 +171,8 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
+        chainId: 2741,
+        verifyURL: 'https://api.abscan.org/api',
     },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
@@ -611,6 +614,21 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
                 enabled: true,
             },
         },
+    },
+    etherscan: {
+        apiKey: {
+            abstract: process.env.ABSTRACT_API_KEY || '',
+        },
+        customChains: [
+            {
+                network: 'abstract',
+                chainId: 2741,
+                urls: {
+                    apiURL: 'https://api.abscan.org/api',
+                    browserURL: 'https://abscan.org/',
+                },
+            },
+        ],
     },
     // options for hardhat-spdx-license-identifier
     spdxLicenseIdentifier: {
