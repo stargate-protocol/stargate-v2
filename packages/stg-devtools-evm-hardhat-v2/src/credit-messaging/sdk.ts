@@ -17,6 +17,7 @@ export class CreditMessaging extends Messaging implements ICreditMessaging {
         return ignoreZero(planner)
     }
 
+    @AsyncRetriable()
     async setPlanner(planner: OmniAddress): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setPlanner', [planner])
 
@@ -33,6 +34,7 @@ export class CreditMessaging extends Messaging implements ICreditMessaging {
         return gasLimit.toBigInt()
     }
 
+    @AsyncRetriable()
     async setGasLimit(eid: EndpointId, gasLimit: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setGasLimit', [eid, gasLimit])
 

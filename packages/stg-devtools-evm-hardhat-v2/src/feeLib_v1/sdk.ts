@@ -21,6 +21,7 @@ export class FeeLibV1 extends Ownable implements IFeeLibV1 {
         return FeeConfigSchema.parse({ ...config })
     }
 
+    @AsyncRetriable()
     async setFeeConfig(
         eid: EndpointId,
         zone1UpperBound: bigint,
@@ -59,6 +60,7 @@ export class FeeLibV1 extends Ownable implements IFeeLibV1 {
         return (await this.contract.contract.feeConfigs(eid)).paused
     }
 
+    @AsyncRetriable()
     async setPaused(eid: EndpointId, paused: boolean): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setPaused', [eid, paused])
 

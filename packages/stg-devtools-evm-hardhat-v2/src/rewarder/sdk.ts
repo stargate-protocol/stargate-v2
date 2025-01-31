@@ -4,6 +4,7 @@ import { AsyncRetriable, OmniAddress, type OmniTransaction } from '@layerzerolab
 import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 
 export class Rewarder extends Ownable implements IRewarder {
+    @AsyncRetriable()
     async setReward(token: OmniAddress, amount: bigint, start: number, duration: number): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setReward', [token, amount, start, duration])
 
@@ -37,6 +38,7 @@ export class Rewarder extends Ownable implements IRewarder {
         return allocations
     }
 
+    @AsyncRetriable()
     async setAllocPoints(rewardToken: OmniAddress, allocations: Allocations): Promise<OmniTransaction> {
         const stakingTokens = Object.keys(allocations)
         const points = Object.values(allocations)

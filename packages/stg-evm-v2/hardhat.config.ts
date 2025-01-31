@@ -7,6 +7,7 @@ configDotenv({
     path: ['.env.local', '.env'],
 })
 
+import { AsyncRetriable } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getSafeConfig } from './devtools/config/utils'
@@ -32,6 +33,14 @@ import '@typechain/hardhat'
 // Devtools-specific tasks
 import './devtools/tasks'
 
+AsyncRetriable.config = {
+    enabled: true,
+    numAttempts: process.env.NUM_RETRIES ? parseInt(process.env.NUM_RETRIES) : 5,
+    maxDelay: 1_000,
+    onRetry: (attemptNum, totalNumRetries, error) => {
+        console.log(`Attempt ${attemptNum}/${totalNumRetries}: ${error} \n`)
+    },
+}
 const v1Deployments = join(dirname(require.resolve('@stargatefinance/stg-evm-v1/package.json')), 'deployments')
 
 /**

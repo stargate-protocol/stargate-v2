@@ -9,6 +9,7 @@ export class Treasurer extends Ownable implements ITreasurer {
         return await this.contract.contract.admin()
     }
 
+    @AsyncRetriable()
     async setAdmin(admin: OmniAddress): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setAdmin', [admin])
 
@@ -23,6 +24,7 @@ export class Treasurer extends Ownable implements ITreasurer {
         return await this.contract.contract.stargates(asset)
     }
 
+    @AsyncRetriable()
     async setAsset(asset: OmniAddress, managed: boolean): Promise<OmniTransaction> {
         // The contracts reference these as stargates, but really they are 'assets'
         const data = this.contract.contract.interface.encodeFunctionData('setStargate', [asset, managed])
