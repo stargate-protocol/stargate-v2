@@ -1,5 +1,16 @@
 # @stargatefinance/stg-devtools-v2
 
+## 3.0.5
+
+### Patch Changes
+
+- 92851db: flowevm mainnet config
+- 9bcdd2a: update packages
+- Updated dependencies [28a9fe8]
+- Updated dependencies [92851db]
+- Updated dependencies [9bcdd2a]
+  - @stargatefinance/stg-definitions-v2@1.4.6
+
 ## 3.0.4
 
 ### Patch Changes

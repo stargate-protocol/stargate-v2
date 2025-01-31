@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.6
+
+### Patch Changes
+
+- 28a9fe8: new dependencies for bera
+- 4e05d45: Flow
+- 92851db: flowevm mainnet config
+- 9bcdd2a: update packages
+- b4542e9: contract deployments for Flow
+- Updated dependencies [28a9fe8]
+- Updated dependencies [92851db]
+- Updated dependencies [9bcdd2a]
+  - @stargatefinance/stg-definitions-v2@1.4.6
+
 ## 1.3.5
 
 ### Patch Changes

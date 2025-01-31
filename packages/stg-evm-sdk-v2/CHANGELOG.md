@@ -1,5 +1,12 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.1.5
+
+### Patch Changes
+
+- 92851db: flowevm mainnet config
+- 9bcdd2a: update packages
+
 ## 1.1.4
 
 ### Patch Changes
