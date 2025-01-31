@@ -6,9 +6,12 @@ import sinon from 'sinon'
 import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { chainFunctions, filterConnections, getContracts } from '../../devtools/config/mainnet/utils'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
+    const mockContractData = { contractName: 'MockContract' }
+
     describe('createGetAssetAddresses()', () => {
         it('should return an empty object if called with no tokens', async () => {
             const getTokenAddresses = createGetAssetAddresses()
@@ -92,6 +95,70 @@ describe('devtools/utils', () => {
                 detectNetworkStub.restore()
                 getLPTokenStub.restore()
             }
+        })
+    })
+
+    describe('getContracts', () => {
+        it('should return all contracts when chains is null', () => {
+            const result = getContracts(null, mockContractData)
+            expect(result.length).to.equal(Object.keys(chainFunctions).length)
+            expect(result[0]).to.have.property('eid')
+            expect(result[0]).to.have.property('contractName', 'MockContract')
+        })
+
+        it('should return specified contracts for valid chain names', () => {
+            const chains = ['ethereum-mainnet', 'arbitrum-mainnet']
+            const result = getContracts(chains, mockContractData)
+            expect(result.length).to.equal(2)
+            expect(result[0].eid).to.equal(EndpointId.ETHEREUM_V2_MAINNET)
+            expect(result[1].eid).to.equal(EndpointId.ARBITRUM_V2_MAINNET)
+        })
+
+        it('should ignore invalid chain names', () => {
+            const chains = ['ethereum-mainnet', 'invalid-chain']
+            const result = getContracts(chains, mockContractData)
+            expect(result.length).to.equal(1)
+            expect(result[0].eid).to.equal(EndpointId.ETHEREUM_V2_MAINNET)
+        })
+
+        it('should trim whitespace from chain names', () => {
+            const chains = [' ethereum-mainnet ', 'arbitrum-mainnet ']
+            const result = getContracts(chains, mockContractData)
+            expect(result.length).to.equal(2)
+            expect(result[0].eid).to.equal(EndpointId.ETHEREUM_V2_MAINNET)
+            expect(result[1].eid).to.equal(EndpointId.ARBITRUM_V2_MAINNET)
+        })
+    })
+
+    describe('filterConnections', () => {
+        const mockConnections = [
+            { from: { eid: 1 }, to: { eid: 2 } },
+            { from: { eid: 2 }, to: { eid: 3 } },
+            { from: { eid: 3 }, to: { eid: 1 } },
+            { from: { eid: 1 }, to: { eid: 3 } },
+        ]
+
+        const mockFromContracts = [{ eid: 1 }, { eid: 2 }]
+        const mockToContracts = [{ eid: 2 }, { eid: 3 }]
+
+        it('should filter connections based on from and to contracts', () => {
+            const result = filterConnections(mockConnections, mockFromContracts, mockToContracts)
+            expect(result.length).to.equal(3)
+            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 2 } })
+            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 3 } })
+            expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 } })
+        })
+
+        it('should return empty array when no connections match', () => {
+            const noMatchFromContracts = [{ eid: 4 }]
+            const noMatchToContracts = [{ eid: 5 }]
+            const result = filterConnections(mockConnections, noMatchFromContracts, noMatchToContracts)
+            expect(result.length).to.equal(0)
+        })
+
+        it('should handle empty input arrays', () => {
+            const result = filterConnections([], [], [])
+            expect(result.length).to.equal(0)
         })
     })
 })

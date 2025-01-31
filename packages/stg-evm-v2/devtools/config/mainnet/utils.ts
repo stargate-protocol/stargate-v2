@@ -54,3 +54,80 @@ export const onXchain = withEid(EndpointId.XCHAIN_V2_MAINNET)
 export const onZkatana = withEid(EndpointId.ZKATANA_V2_MAINNET)
 export const onZkConsensys = withEid(EndpointId.ZKCONSENSYS_V2_MAINNET)
 export const onZkPolygon = withEid(EndpointId.ZKPOLYGON_V2_MAINNET)
+
+// NOTE: because we need to load these upfront, ensure all rpcs are good even if we are not wiring those chains
+export const chainFunctions = {
+    'abstract-mainnet': onAbstract,
+    'arbitrum-mainnet': onArb,
+    'astar-mainnet': onAstar,
+    'aurora-mainnet': onAurora,
+    'avalanche-mainnet': onAvax,
+    'base-mainnet': onBase,
+    'bera-mainnet': onBera,
+    'blast-mainnet': onBlast,
+    'bsc-mainnet': onBsc,
+    'codex-mainnet': onCodex,
+    'coredao-mainnet': onCoredao,
+    'degen-mainnet': onDegen,
+    'ebi-mainnet': onEbi,
+    'ethereum-mainnet': onEth,
+    'etherlink-mainnet': onEtherLink,
+    'fantom-mainnet': onFantom,
+    'flare-mainnet': onFlare,
+    'flow-mainnet': onFlow,
+    'fraxtal-mainnet': onFraxtal,
+    'fuse-mainnet': onFuse,
+    'glue-mainnet': onGlue,
+    'gravity-mainnet': onGravity,
+    'hemi-mainnet': onHemi,
+    'ink-mainnet': onInk,
+    'iota-mainnet': onIota,
+    'islander-mainnet': onIslander,
+    'kava-mainnet': onKava,
+    'klaytn-mainnet': onKlaytn,
+    'lightlink-mainnet': onLightlink,
+    'manta-mainnet': onManta,
+    'mantle-mainnet': onMantle,
+    'metis-mainnet': onMetis,
+    'mode-mainnet': onMode,
+    'moonbeam-mainnet': onMoonbeam,
+    'moonriver-mainnet': onMoonRiver,
+    'opbnb-mainnet': onOpbnb,
+    'optimism-mainnet': onOpt,
+    'peaq-mainnet': onPeaq,
+    'plume-mainnet': onPlume,
+    'polygon-mainnet': onPolygon,
+    'rarible-mainnet': onRarible,
+    'rootstock-mainnet': onRootstock,
+    'scroll-mainnet': onScroll,
+    'sei-mainnet': onSei,
+    'shimmer-mainnet': onShimmer,
+    'soneium-mainnet': onSoneium,
+    'superposition-mainnet': onSuperposition,
+    'taiko-mainnet': onTaiko,
+    'xchain-mainnet': onXchain,
+    'zkatana-mainnet': onZkatana,
+    'zkconsensys-mainnet': onZkConsensys,
+    'zkpolygon-mainnet': onZkPolygon,
+}
+
+export function getContracts(chains: string[] | null, contract: any) {
+    if (!chains) {
+        // If chains is null, include all contracts
+        return Object.values(chainFunctions).map((func) => func(contract))
+    }
+
+    return chains
+        .map((chain) => chain.trim())
+        .filter((chain): chain is keyof typeof chainFunctions => chain in chainFunctions)
+        .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
+}
+
+export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
+    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
+    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
+
+    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
+        return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
+    })
+}
