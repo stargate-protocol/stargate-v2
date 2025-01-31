@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.6
+
+### Patch Changes
+
+- 28a9fe8: new dependencies for bera
+- 92851db: flowevm mainnet config
+- 9bcdd2a: update packages
+
 ## 1.4.5
 
 ### Patch Changes
