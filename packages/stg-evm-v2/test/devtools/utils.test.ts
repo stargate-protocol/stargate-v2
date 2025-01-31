@@ -10,8 +10,6 @@ import { chainFunctions, filterConnections, getContracts } from '../../devtools/
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
-    const mockContractData = { contractName: 'MockContract' }
-
     describe('createGetAssetAddresses()', () => {
         it('should return an empty object if called with no tokens', async () => {
             const getTokenAddresses = createGetAssetAddresses()
@@ -98,6 +96,8 @@ describe('devtools/utils', () => {
         })
     })
 
+    const mockContractData = { contractName: 'MockContract' }
+
     describe('getContracts', () => {
         it('should return all contracts when chains is null', () => {
             const result = getContracts(null, mockContractData)
@@ -107,58 +107,109 @@ describe('devtools/utils', () => {
         })
 
         it('should return specified contracts for valid chain names', () => {
-            const chains = ['ethereum-mainnet', 'arbitrum-mainnet']
+            const chains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
             const result = getContracts(chains, mockContractData)
-            expect(result.length).to.equal(2)
-            expect(result[0].eid).to.equal(EndpointId.ETHEREUM_V2_MAINNET)
-            expect(result[1].eid).to.equal(EndpointId.ARBITRUM_V2_MAINNET)
+            expect(result.length).to.equal(4)
+            expect(result.map((r) => r.eid)).to.have.members([
+                EndpointId.ETHEREUM_V2_MAINNET,
+                EndpointId.ARBITRUM_V2_MAINNET,
+                EndpointId.OPTIMISM_V2_MAINNET,
+                EndpointId.BASE_V2_MAINNET,
+            ])
         })
 
-        it('should ignore invalid chain names', () => {
-            const chains = ['ethereum-mainnet', 'invalid-chain']
+        it('should ignore invalid chain names and return only valid ones', () => {
+            const chains = [
+                'ethereum-mainnet',
+                'invalid-chain-1',
+                'arbitrum-mainnet',
+                'invalid-chain-2',
+                'base-mainnet',
+            ]
             const result = getContracts(chains, mockContractData)
-            expect(result.length).to.equal(1)
-            expect(result[0].eid).to.equal(EndpointId.ETHEREUM_V2_MAINNET)
+            expect(result.length).to.equal(3)
+            expect(result.map((r) => r.eid)).to.have.members([
+                EndpointId.ETHEREUM_V2_MAINNET,
+                EndpointId.ARBITRUM_V2_MAINNET,
+                EndpointId.BASE_V2_MAINNET,
+            ])
         })
 
         it('should trim whitespace from chain names', () => {
-            const chains = [' ethereum-mainnet ', 'arbitrum-mainnet ']
+            const chains = [' ethereum-mainnet', 'arbitrum-mainnet ', '  base-mainnet']
             const result = getContracts(chains, mockContractData)
-            expect(result.length).to.equal(2)
-            expect(result[0].eid).to.equal(EndpointId.ETHEREUM_V2_MAINNET)
-            expect(result[1].eid).to.equal(EndpointId.ARBITRUM_V2_MAINNET)
+            expect(result.length).to.equal(3)
+            expect(result.map((r) => r.eid)).to.have.members([
+                EndpointId.ETHEREUM_V2_MAINNET,
+                EndpointId.ARBITRUM_V2_MAINNET,
+                EndpointId.BASE_V2_MAINNET,
+            ])
+        })
+
+        it('should return an empty array for an empty input array', () => {
+            const result = getContracts([], mockContractData)
+            expect(result).to.be.an('array').that.is.empty
         })
     })
 
     describe('filterConnections', () => {
         const mockConnections = [
-            { from: { eid: 1 }, to: { eid: 2 } },
-            { from: { eid: 2 }, to: { eid: 3 } },
-            { from: { eid: 3 }, to: { eid: 1 } },
-            { from: { eid: 1 }, to: { eid: 3 } },
+            { from: { eid: 1 }, to: { eid: 2 }, data: 'A' },
+            { from: { eid: 2 }, to: { eid: 3 }, data: 'B' },
+            { from: { eid: 3 }, to: { eid: 1 }, data: 'C' },
+            { from: { eid: 1 }, to: { eid: 3 }, data: 'D' },
+            { from: { eid: 2 }, to: { eid: 1 }, data: 'E' },
+            { from: { eid: 4 }, to: { eid: 5 }, data: 'F' },
         ]
 
-        const mockFromContracts = [{ eid: 1 }, { eid: 2 }]
-        const mockToContracts = [{ eid: 2 }, { eid: 3 }]
-
         it('should filter connections based on from and to contracts', () => {
+            const mockFromContracts = [{ eid: 1 }, { eid: 2 }]
+            const mockToContracts = [{ eid: 2 }, { eid: 3 }]
             const result = filterConnections(mockConnections, mockFromContracts, mockToContracts)
             expect(result.length).to.equal(3)
-            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 2 } })
-            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 3 } })
-            expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 } })
+            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 2 }, data: 'A' })
+            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 3 }, data: 'D' })
+            expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 }, data: 'B' })
+        })
+
+        it('should handle overlapping from and to contracts', () => {
+            const mockFromContracts = [{ eid: 1 }, { eid: 2 }, { eid: 3 }]
+            const mockToContracts = [{ eid: 1 }, { eid: 2 }, { eid: 3 }]
+            const result = filterConnections(mockConnections, mockFromContracts, mockToContracts)
+            expect(result.length).to.equal(5)
+            expect(result).to.not.deep.include({ from: { eid: 4 }, to: { eid: 5 }, data: 'F' })
         })
 
         it('should return empty array when no connections match', () => {
             const noMatchFromContracts = [{ eid: 4 }]
             const noMatchToContracts = [{ eid: 5 }]
             const result = filterConnections(mockConnections, noMatchFromContracts, noMatchToContracts)
-            expect(result.length).to.equal(0)
+            expect(result.length).to.equal(1)
+            expect(result).to.deep.include({ from: { eid: 4 }, to: { eid: 5 }, data: 'F' })
         })
 
         it('should handle empty input arrays', () => {
             const result = filterConnections([], [], [])
             expect(result.length).to.equal(0)
+        })
+
+        it('should handle scenario with multiple matching connections', () => {
+            const complexConnections = [
+                { from: { eid: 1 }, to: { eid: 2 } },
+                { from: { eid: 1 }, to: { eid: 3 } },
+                { from: { eid: 1 }, to: { eid: 4 } },
+                { from: { eid: 2 }, to: { eid: 3 } },
+                { from: { eid: 2 }, to: { eid: 4 } },
+                { from: { eid: 3 }, to: { eid: 4 } },
+            ]
+            const fromContracts = [{ eid: 1 }, { eid: 2 }]
+            const toContracts = [{ eid: 3 }, { eid: 4 }]
+            const result = filterConnections(complexConnections, fromContracts, toContracts)
+            expect(result.length).to.equal(4)
+            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 3 } })
+            expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 4 } })
+            expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 } })
+            expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 4 } })
         })
     })
 })
