@@ -3,7 +3,7 @@ import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatef
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { generateCreditMessagingConfig, getSafeAddress } from '../../utils'
-import { filterConnections, getContracts } from '../utils'
+import { filterConnections, getContracts, isValidCreditMessagingChain } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getMessagingAssetConfig } from './shared'
@@ -17,8 +17,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     console.log('FROM_CHAINS:', fromChains)
     console.log('TO_CHAINS:', toChains)
 
-    const fromContracts = getContracts(fromChains, contract)
-    const toContracts = getContracts(toChains, contract)
+    let fromContracts
+    let toContracts
+    try {
+        fromContracts = getContracts(fromChains, contract, isValidCreditMessagingChain)
+        toContracts = getContracts(toChains, contract, isValidCreditMessagingChain)
+    } catch (error) {
+        console.error('Error getting contracts: ', error)
+        throw error
+    }
 
     const contractMap = new Map()
 

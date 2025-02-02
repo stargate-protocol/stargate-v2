@@ -6,7 +6,12 @@ import sinon from 'sinon'
 import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { chainFunctions, filterConnections, getContracts } from '../../devtools/config/mainnet/utils'
+import {
+    filterConnections,
+    getContracts,
+    isValidCreditMessagingChain,
+    validCreditMessagingChains,
+} from '../../devtools/config/mainnet/utils'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
@@ -96,19 +101,19 @@ describe('devtools/utils', () => {
         })
     })
 
-    const mockContractData = { contractName: 'MockContract' }
-
     describe('getContracts', () => {
-        it('should return all contracts when chains is null', () => {
-            const result = getContracts(null, mockContractData)
-            expect(result.length).to.equal(Object.keys(chainFunctions).length)
+        const mockContractData = { contractName: 'MockContract' }
+
+        it('should return all valid contracts when chains is null', () => {
+            const result = getContracts(null, mockContractData, isValidCreditMessagingChain)
+            expect(result.length).to.equal(validCreditMessagingChains.size)
             expect(result[0]).to.have.property('eid')
             expect(result[0]).to.have.property('contractName', 'MockContract')
         })
 
         it('should return specified contracts for valid chain names', () => {
             const chains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
-            const result = getContracts(chains, mockContractData)
+            const result = getContracts(chains, mockContractData, isValidCreditMessagingChain)
             expect(result.length).to.equal(4)
             expect(result.map((r) => r.eid)).to.have.members([
                 EndpointId.ETHEREUM_V2_MAINNET,
@@ -118,7 +123,7 @@ describe('devtools/utils', () => {
             ])
         })
 
-        it('should ignore invalid chain names and return only valid ones', () => {
+        it('should throw an error for invalid chain names', () => {
             const chains = [
                 'ethereum-mainnet',
                 'invalid-chain-1',
@@ -126,18 +131,14 @@ describe('devtools/utils', () => {
                 'invalid-chain-2',
                 'base-mainnet',
             ]
-            const result = getContracts(chains, mockContractData)
-            expect(result.length).to.equal(3)
-            expect(result.map((r) => r.eid)).to.have.members([
-                EndpointId.ETHEREUM_V2_MAINNET,
-                EndpointId.ARBITRUM_V2_MAINNET,
-                EndpointId.BASE_V2_MAINNET,
-            ])
+            expect(() => getContracts(chains, mockContractData, isValidCreditMessagingChain)).to.throw(
+                'Invalid chains found: invalid-chain-1, invalid-chain-2'
+            )
         })
 
         it('should trim whitespace from chain names', () => {
             const chains = [' ethereum-mainnet', 'arbitrum-mainnet ', '  base-mainnet']
-            const result = getContracts(chains, mockContractData)
+            const result = getContracts(chains, mockContractData, isValidCreditMessagingChain)
             expect(result.length).to.equal(3)
             expect(result.map((r) => r.eid)).to.have.members([
                 EndpointId.ETHEREUM_V2_MAINNET,
@@ -146,9 +147,9 @@ describe('devtools/utils', () => {
             ])
         })
 
-        it('should return an empty array for an empty input array', () => {
-            const result = getContracts([], mockContractData)
-            expect(result).to.be.an('array').that.is.empty
+        it('should return all valid contracts for an empty input array', () => {
+            const result = getContracts([], mockContractData, isValidCreditMessagingChain)
+            expect(result.length).to.equal(validCreditMessagingChains.size)
         })
     })
 

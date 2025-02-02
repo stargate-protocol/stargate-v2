@@ -111,15 +111,68 @@ export const chainFunctions = {
     'zkpolygon-mainnet': onZkPolygon,
 }
 
-export function getContracts(chains: string[] | null, contract: any) {
-    if (!chains) {
-        // If chains is null, include all contracts
-        return Object.values(chainFunctions).map((func) => func(contract))
+export const validCreditMessagingChains = new Set([
+    'abstract-mainnet',
+    'arbitrum-mainnet',
+    'aurora-mainnet',
+    'avalanche-mainnet',
+    'base-mainnet',
+    'bera-mainnet',
+    'bsc-mainnet',
+    'codex-mainnet',
+    'coredao-mainnet',
+    'degen-mainnet',
+    'ebi-mainnet',
+    'ethereum-mainnet',
+    'flare-mainnet',
+    'flow-mainnet',
+    'fuse-mainnet',
+    'glue-mainnet',
+    'gravity-mainnet',
+    'hemi-mainnet',
+    'ink-mainnet',
+    'iota-mainnet',
+    'islander-mainnet',
+    'kava-mainnet',
+    'klaytn-mainnet',
+    'lightlink-mainnet',
+    'mantle-mainnet',
+    'metis-mainnet',
+    'optimism-mainnet',
+    'peaq-mainnet',
+    'plume-mainnet',
+    'polygon-mainnet',
+    'rarible-mainnet',
+    'rootstock-mainnet',
+    'scroll-mainnet',
+    'sei-mainnet',
+    'soneium-mainnet',
+    'superposition-mainnet',
+    'taiko-mainnet',
+    'zkconsensys-mainnet',
+    'xchain-mainnet',
+    // Add other valid chains for credit messaging
+])
+
+export function isValidCreditMessagingChain(chain: string): boolean {
+    return validCreditMessagingChains.has(chain)
+}
+
+export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
+    if (!chains || chains.length === 0) {
+        // If chains is null or empty, include all valid contracts
+        return Object.keys(chainFunctions)
+            .filter(isValidChain)
+            .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
+    }
+
+    const invalidChains = chains.filter((chain) => !isValidChain(chain.trim()))
+    if (invalidChains.length > 0) {
+        throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
     }
 
     return chains
         .map((chain) => chain.trim())
-        .filter((chain): chain is keyof typeof chainFunctions => chain in chainFunctions)
         .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
 }
 
