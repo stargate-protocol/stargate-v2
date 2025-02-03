@@ -23,6 +23,7 @@ import {
     onFlow,
     onFuse,
     onGlue,
+    onGnosis,
     onGravity,
     onHemi,
     onInk,
@@ -71,6 +72,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const flowAdmin = getSafeAddress(EndpointId.FLOW_V2_MAINNET)
     const fuseAdmin = getSafeAddress(EndpointId.FUSE_V2_MAINNET)
     const glueAdmin = getSafeAddress(EndpointId.GLUE_V2_MAINNET)
+    const gnosisAdmin = getSafeAddress(EndpointId.GNOSIS_V2_MAINNET)
     const gravityAdmin = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
     const hemiAdmin = getSafeAddress(EndpointId.HEMI_V2_MAINNET)
     const inkAdmin = getSafeAddress(EndpointId.INK_V2_MAINNET)
@@ -159,6 +161,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
+        TokenName.USDC,
+    ] as const)
+    const gnosisAssetAddresses = await getAssetAddresses(EndpointId.GNOSIS_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
     ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
@@ -437,6 +443,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [glueAssetAddresses.ETH]: true,
                         [glueAssetAddresses.USDT]: true,
                         [glueAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onGnosis(contract),
+                config: {
+                    owner: gnosisAdmin,
+                    admin: gnosisAdmin,
+                    assets: {
+                        [gnosisAssetAddresses.ETH]: true,
+                        [gnosisAssetAddresses.USDC]: true,
                     },
                 },
             },
