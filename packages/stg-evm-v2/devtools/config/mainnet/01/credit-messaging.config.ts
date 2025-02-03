@@ -21,6 +21,7 @@ import {
     onFlow,
     onFuse,
     onGlue,
+    onGnosis,
     onGravity,
     onHemi,
     onInk,
@@ -72,7 +73,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const flowCreditMsging = onFlow(contract)
     const fuseCreditMsging = onFuse(contract)
     const glueCreditMsging = onGlue(contract)
-    const gnosisCreditMsging = onGravity(contract)
+    const gnosisCreditMsging = onGnosis(contract)
     const gravityCreditMsging = onGravity(contract)
     const hemiCreditMsging = onHemi(contract)
     const inkCreditMsging = onInk(contract)
