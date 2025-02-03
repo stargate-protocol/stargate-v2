@@ -72,6 +72,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const flowCreditMsging = onFlow(contract)
     const fuseCreditMsging = onFuse(contract)
     const glueCreditMsging = onGlue(contract)
+    const gnosisCreditMsging = onGravity(contract)
     const gravityCreditMsging = onGravity(contract)
     const hemiCreditMsging = onHemi(contract)
     const inkCreditMsging = onInk(contract)
@@ -240,6 +241,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.GLUE_V2_MAINNET],
+                },
+            },
+            {
+                contract: gnosisCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GNOSIS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GNOSIS_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GNOSIS_V2_MAINNET],
                 },
             },
             {
@@ -467,6 +477,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             flowCreditMsging,
             fuseCreditMsging,
             glueCreditMsging,
+            gnosisCreditMsging,
             gravityCreditMsging,
             hemiCreditMsging,
             inkCreditMsging,

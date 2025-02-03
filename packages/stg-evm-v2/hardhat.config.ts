@@ -314,6 +314,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'gnosis-mainnet': {
+        eid: EndpointId.GNOSIS_V2_MAINNET,
+        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://rpc.ankr.com/gnosis',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',

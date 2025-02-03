@@ -21,6 +21,7 @@ import {
     onFlow,
     onFuse,
     onGlue,
+    onGnosis,
     onGravity,
     onHemi,
     onInk,
@@ -71,6 +72,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const flowTokenMsging = onFlow(contract)
     const fuseTokenMsging = onFuse(contract)
     const glueTokenMsging = onGlue(contract)
+    const gnosisTokenMsging = onGnosis(contract)
     const gravityTokenMsging = onGravity(contract)
     const hemiTokenMsging = onHemi(contract)
     const inkTokenMsging = onInk(contract)
@@ -239,6 +241,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     delegate: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.GLUE_V2_MAINNET],
+                },
+            },
+            {
+                contract: gnosisTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GNOSIS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GNOSIS_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GNOSIS_V2_MAINNET],
                 },
             },
             {
@@ -466,6 +477,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             flowTokenMsging,
             fuseTokenMsging,
             glueTokenMsging,
+            gnosisTokenMsging,
             gravityTokenMsging,
             hemiTokenMsging,
             inkTokenMsging,

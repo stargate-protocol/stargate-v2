@@ -74,6 +74,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const gnosisAssetAddresses = await getAssetAddresses(EndpointId.GNOSIS_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.ETH,
+    ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -241,6 +245,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [glueAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [glueAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.GNOSIS_V2_MAINNET]: {
+            [gnosisAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [gnosisAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
         [EndpointId.GRAVITY_V2_MAINNET]: {
             [gravityAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [gravityAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -376,6 +384,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDT,
         TokenName.mETH,
     ] as const)
+    const gnosisLPTokenAddresses = await getLPTokenAddresses(EndpointId.GNOSIS_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const hemiLPTokenAddresses = await getLPTokenAddresses(EndpointId.HEMI_V2_MAINNET, [TokenName.ETH] as const)
     const kavaLPTokenAddresses = await getLPTokenAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const lightlinkLPTokenAddresses = await getLPTokenAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
@@ -449,6 +461,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
             [TokenName.ETH]: ethLPTokenAddresses.ETH,
             [TokenName.USDC]: ethLPTokenAddresses.USDC,
             [TokenName.USDT]: ethLPTokenAddresses.USDT,
+        },
+        [EndpointId.GNOSIS_V2_MAINNET]: {
+            [TokenName.ETH]: gnosisLPTokenAddresses.ETH,
+            [TokenName.USDC]: gnosisLPTokenAddresses.USDC,
         },
         [EndpointId.HEMI_V2_MAINNET]: {
             [TokenName.ETH]: hemiLPTokenAddresses.ETH,

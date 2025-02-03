@@ -28,6 +28,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const flowPoint = getAssetPoint(EndpointId.FLOW_V2_MAINNET)
     const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
     const gluePoint = getAssetPoint(EndpointId.GLUE_V2_MAINNET)
+    const gnosisPoint = getAssetPoint(EndpointId.GNOSIS_V2_MAINNET)
     const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
     const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
     const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
@@ -55,6 +56,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const flowContract = await getAssetNode(flowPoint)
     const fuseContract = await getAssetNode(fusePoint)
     const glueContract = await getAssetNode(gluePoint)
+    const gnosisContract = await getAssetNode(gnosisPoint)
     const gravityContract = await getAssetNode(gravityPoint)
     const hemiContract = await getAssetNode(hemiPoint)
     const iotaContract = await getAssetNode(iotaPoint)
@@ -83,6 +85,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             flowContract,
             fuseContract,
             glueContract,
+            gnosisContract,
             gravityContract,
             hemiContract,
             iotaContract,
@@ -112,6 +115,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             flowPoint,
             fusePoint,
             gluePoint,
+            gnosisPoint,
             gravityPoint,
             hemiPoint,
             klaytnPoint,
