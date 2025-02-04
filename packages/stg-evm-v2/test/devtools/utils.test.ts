@@ -182,11 +182,10 @@ describe('devtools/utils', () => {
         })
 
         it('should return empty array when no connections match', () => {
-            const noMatchFromContracts = [{ eid: 4 }]
-            const noMatchToContracts = [{ eid: 5 }]
+            const noMatchFromContracts = [{ eid: 5 }]
+            const noMatchToContracts = [{ eid: 4 }]
             const result = filterConnections(mockConnections, noMatchFromContracts, noMatchToContracts)
-            expect(result.length).to.equal(1)
-            expect(result).to.deep.include({ from: { eid: 4 }, to: { eid: 5 }, data: 'F' })
+            expect(result.length).to.equal(0)
         })
 
         it('should handle empty input arrays', () => {

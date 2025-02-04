@@ -171,9 +171,7 @@ export function getContracts(chains: string[] | null, contract: any, isValidChai
         throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
     }
 
-    return chains
-        .map((chain) => chain.trim())
-        .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
+    return chains.map((chain) => chainFunctions[chain.trim() as keyof typeof chainFunctions](contract))
 }
 
 export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
