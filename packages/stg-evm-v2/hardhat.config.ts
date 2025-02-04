@@ -219,9 +219,6 @@ const networks: NetworksUserConfig = {
     'bera-mainnet': {
         eid: EndpointId.BERA_V2_MAINNET,
         url: process.env.RPC_URL_BERA_MAINNET || '',
-        httpHeaders: {
-            Authorization: process.env.AUTH_TOKEN_BERA_MAINNET || '',
-        },
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -321,6 +318,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'gnosis-mainnet': {
+        eid: EndpointId.GNOSIS_V2_MAINNET,
+        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://rpc.ankr.com/gnosis',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'gravity-mainnet': {

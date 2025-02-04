@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.7
+
+### Patch Changes
+
+- 62d3ff9: gnosis mainnet config
+- 9fa29e5: update packages
+
 ## 1.4.6
 
 ### Patch Changes
