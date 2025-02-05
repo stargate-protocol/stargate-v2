@@ -23,6 +23,7 @@ export abstract class Messaging extends OApp implements IMessaging {
         return UIntNumberSchema.parse(await this.contract.contract.assetIds(asset))
     }
 
+    @AsyncRetriable()
     async setAssetId(asset: OmniAddress, assetId: number): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setAssetId', [asset, assetId])
 
@@ -37,6 +38,7 @@ export abstract class Messaging extends OApp implements IMessaging {
         return UIntNumberSchema.parse(await this.contract.contract.maxAssetId())
     }
 
+    @AsyncRetriable()
     async setMaxAssetId(maxAssetId: number): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setMaxAssetId', [maxAssetId])
 
@@ -53,6 +55,7 @@ export abstract class Messaging extends OApp implements IMessaging {
         return ignoreZero(planner)
     }
 
+    @AsyncRetriable()
     async setPlanner(planner: OmniAddress): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setPlanner', [planner])
 

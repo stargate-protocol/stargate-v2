@@ -11,6 +11,7 @@ export class Staking extends Ownable implements IStaking {
         return ignoreZero(rewarder)
     }
 
+    @AsyncRetriable()
     async setPool(token: OmniAddress, rewarder: OmniAddress): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setPool', [token, rewarder])
 

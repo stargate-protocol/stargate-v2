@@ -32,6 +32,7 @@ export class TokenMessaging extends Messaging implements ITokenMessaging {
         return ignoreZero(planner)
     }
 
+    @AsyncRetriable()
     async setPlanner(planner: OmniAddress): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setPlanner', [planner])
 
@@ -55,6 +56,7 @@ export class TokenMessaging extends Messaging implements ITokenMessaging {
         return ignoreZero(hash)
     }
 
+    @AsyncRetriable()
     async initializeBusQueueStorage(
         dstEids: EndpointId[],
         startSlot: bigint,
@@ -79,6 +81,7 @@ export class TokenMessaging extends Messaging implements ITokenMessaging {
         return UIntNumberSchema.parse(queue.maxNumPassengers)
     }
 
+    @AsyncRetriable()
     async setMaxPassengers(dstEid: EndpointId, maxPassengers: number): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setMaxNumPassengers', [dstEid, maxPassengers])
 
@@ -98,6 +101,7 @@ export class TokenMessaging extends Messaging implements ITokenMessaging {
         }
     }
 
+    @AsyncRetriable()
     async setFares(dstEid: EndpointId, fares: Fares): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setFares', [
             dstEid,
@@ -121,6 +125,7 @@ export class TokenMessaging extends Messaging implements ITokenMessaging {
         }
     }
 
+    @AsyncRetriable()
     async setGasLimit(dstEid: EndpointId, gasLimit: TokenMessagingGasLimits): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setGasLimit', [
             dstEid,
@@ -141,6 +146,7 @@ export class TokenMessaging extends Messaging implements ITokenMessaging {
         return nativeDropAmount.toBigInt()
     }
 
+    @AsyncRetriable()
     async setNativeDropAmount(dstEid: EndpointId, nativeDropAmount: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setNativeDropAmount', [
             dstEid,

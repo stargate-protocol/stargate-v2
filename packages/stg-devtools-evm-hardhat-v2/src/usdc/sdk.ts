@@ -17,6 +17,7 @@ export class USDC extends OmniSDK implements IUSDC {
     async hasOwner(address: string): Promise<boolean> {
         return OwnableMixin.hasOwner.call(this, address)
     }
+    @AsyncRetriable()
     async setOwner(address: string): Promise<OmniTransaction> {
         return OwnableMixin.setOwner.call(this, address)
     }
@@ -24,6 +25,7 @@ export class USDC extends OmniSDK implements IUSDC {
     async getPauser(): Promise<string> {
         return PausableMixin.getPauser.call(this)
     }
+    @AsyncRetriable()
     async setPauser(pauser: string): Promise<OmniTransaction> {
         return PausableMixin.setPauser.call(this, pauser)
     }
@@ -31,6 +33,7 @@ export class USDC extends OmniSDK implements IUSDC {
     async isPaused(): Promise<boolean> {
         return PausableMixin.isPaused.call(this)
     }
+    @AsyncRetriable()
     async setPaused(paused: boolean): Promise<OmniTransaction> {
         return PausableMixin.setPaused.call(this, paused)
     }
@@ -38,9 +41,11 @@ export class USDC extends OmniSDK implements IUSDC {
     async getRescuer(): Promise<string> {
         return RescuableMixin.getRescuer.call(this)
     }
+    @AsyncRetriable()
     async setRescuer(rescuer: string): Promise<OmniTransaction> {
         return RescuableMixin.setRescuer.call(this, rescuer)
     }
+    @AsyncRetriable()
     async rescueERC20(tokenContract: string, to: string, amount: bigint): Promise<OmniTransaction> {
         return RescuableMixin.rescueERC20.call(this, tokenContract, to, amount)
     }
@@ -48,6 +53,7 @@ export class USDC extends OmniSDK implements IUSDC {
     async getBlacklister(): Promise<string> {
         return BlacklistableMixin.getBlacklister.call(this)
     }
+    @AsyncRetriable()
     async setBlacklister(blacklister: string): Promise<OmniTransaction> {
         return BlacklistableMixin.setBlacklister.call(this, blacklister)
     }
@@ -55,6 +61,7 @@ export class USDC extends OmniSDK implements IUSDC {
     async isBlacklisted(address: string): Promise<boolean> {
         return BlacklistableMixin.isBlacklisted.call(this, address)
     }
+    @AsyncRetriable()
     async setBlacklisted(address: string, blacklisted: boolean): Promise<OmniTransaction> {
         return BlacklistableMixin.setBlacklisted.call(this, address, blacklisted)
     }
@@ -70,6 +77,7 @@ export class USDC extends OmniSDK implements IUSDC {
 
         return UIntBigIntSchema.parse(await this.contract.contract.minterAllowance(minter))
     }
+    @AsyncRetriable()
     async configureMinter(minter: OmniAddress, allowance: bigint): Promise<OmniTransaction> {
         this.logger.debug(`Configuring minter for ${this.label} : ${minter} <${allowance}>`)
 
@@ -80,6 +88,7 @@ export class USDC extends OmniSDK implements IUSDC {
             description: `Configuring minter: ${minter} to ${allowance} allowance`,
         }
     }
+    @AsyncRetriable()
     async removeMinter(minter: OmniAddress): Promise<OmniTransaction> {
         this.logger.debug(`Removing minter for ${this.label} : ${minter}`)
 
@@ -96,6 +105,7 @@ export class USDC extends OmniSDK implements IUSDC {
 
         return await this.contract.contract.masterMinter()
     }
+    @AsyncRetriable()
     async setMasterMinter(masterMinter: OmniAddress): Promise<OmniTransaction> {
         this.logger.debug(`Setting master minter for ${this.label} : ${masterMinter}`)
 
@@ -113,6 +123,7 @@ export class USDC extends OmniSDK implements IUSDC {
 
         return this.logger.debug(`Got admin: ${admin}`), admin
     }
+    @AsyncRetriable()
     async setAdmin(admin: OmniAddress): Promise<OmniTransaction> {
         this.logger.debug(`Setting admin for ${this.label} : ${admin}`)
 

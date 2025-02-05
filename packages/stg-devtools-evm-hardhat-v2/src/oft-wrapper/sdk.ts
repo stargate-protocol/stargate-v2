@@ -19,6 +19,7 @@ export class OFTWrapper extends Ownable implements IOFTWrapper {
         return BigNumberishBigIntSchema.parse(bps)
     }
 
+    @AsyncRetriable()
     async setDefaultBps(bps: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setDefaultBps', [bps])
 
@@ -28,6 +29,7 @@ export class OFTWrapper extends Ownable implements IOFTWrapper {
         }
     }
 
+    @AsyncRetriable()
     async setOFTBps(token: OmniAddress, bps: bigint): Promise<OmniTransaction> {
         const data = this.contract.contract.interface.encodeFunctionData('setOFTBps', [token, bps])
 

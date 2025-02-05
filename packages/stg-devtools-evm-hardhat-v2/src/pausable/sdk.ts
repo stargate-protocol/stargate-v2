@@ -11,6 +11,7 @@ export class Pausable extends OmniSDK implements IPausable {
         return PausableMixin.getPauser.call(this)
     }
 
+    @AsyncRetriable()
     async setPauser(pauser: OmniAddress): Promise<OmniTransaction> {
         return PausableMixin.setPauser.call(this, pauser)
     }
@@ -20,6 +21,7 @@ export class Pausable extends OmniSDK implements IPausable {
         return PausableMixin.isPaused.call(this)
     }
 
+    @AsyncRetriable()
     async setPaused(paused: boolean): Promise<OmniTransaction> {
         return PausableMixin.setPaused.call(this, paused)
     }
