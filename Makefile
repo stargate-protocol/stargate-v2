@@ -29,6 +29,7 @@ VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
 
 SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
 ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
+ARTIFACTS_ZK_DIR=packages/stg-evm-v2/artifacts-zk/
 
 # Arguments to be always passed to hardhat lz:deploy devtools command
 # 
@@ -191,6 +192,9 @@ configure-testnet:
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
 
+	# Copy TetherTokenV2.sol directory to the artifacts-zk directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_ZK_DIR)
+
 	# Transfer USDT ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer
 
@@ -206,7 +210,7 @@ configure-testnet:
 	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
 
 	# Initialize bus storage for token messaging
-	$(CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
+	# $(CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
 
 	# Configure feelib V1
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
@@ -285,7 +289,7 @@ configure-mainnet:
 	# Initialize bus storage for token messaging
 	#
 	# We want this particular configuration to never be batched as the individual transactions are quite gas-intensive
-	LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND="" $(CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
+	# LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND="" $(CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts --signer deployer
 
 	# Configure feelib V1
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
@@ -316,6 +320,9 @@ transfer-mainnet:
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
+
+	# Copy TetherTokenV2.sol directory to the artifacts-zk directory
+	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_ZK_DIR)
 	
 	# Transfer USDT ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdt-token.config.ts --signer deployer

@@ -5,18 +5,28 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { generateCreditMessagingConfig, getSafeAddress } from '../../utils'
 import {
+    onAbstract,
     onArb,
     onAurora,
     onAvax,
     onBase,
+    onBera,
     onBsc,
+    onCodex,
     onCoredao,
     onDegen,
     onEbi,
     onEth,
     onFlare,
+    onFlow,
+    onFuse,
+    onGlue,
+    onGnosis,
     onGravity,
+    onHemi,
+    onInk,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -24,10 +34,14 @@ import {
     onMetis,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onScroll,
     onSei,
+    onSoneium,
+    onSuperposition,
     onTaiko,
     onXchain,
     onZkConsensys,
@@ -43,18 +57,28 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const getEnvironment = createGetHreByEid()
     const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
+    const abstractCreditMsging = onAbstract(contract)
     const arbCreditMsging = onArb(contract)
     const auroraCreditMsging = onAurora(contract)
     const avaxCreditMsging = onAvax(contract)
     const baseCreditMsging = onBase(contract)
+    const beraCreditMsging = onBera(contract)
     const bscCreditMsging = onBsc(contract)
+    const codexCreditMsging = onCodex(contract)
     const coredaoCreditMsging = onCoredao(contract)
     const degenCreditMsging = onDegen(contract)
     const ebiCreditMsging = onEbi(contract)
     const ethCreditMsging = onEth(contract)
     const flareCreditMsging = onFlare(contract)
+    const flowCreditMsging = onFlow(contract)
+    const fuseCreditMsging = onFuse(contract)
+    const glueCreditMsging = onGlue(contract)
+    const gnosisCreditMsging = onGnosis(contract)
     const gravityCreditMsging = onGravity(contract)
+    const hemiCreditMsging = onHemi(contract)
+    const inkCreditMsging = onInk(contract)
     const iotaCreditMsging = onIota(contract)
+    const islanderCreditMsging = onIslander(contract)
     const kavaCreditMsging = onKava(contract)
     const klaytnCreditMsging = onKlaytn(contract)
     const lightlinkCreditMsging = onLightlink(contract)
@@ -62,16 +86,29 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const metisCreditMsging = onMetis(contract)
     const optCreditMsging = onOpt(contract)
     const peaqCreditMsging = onPeaq(contract)
+    const plumeCreditMsging = onPlume(contract)
     const polygonCreditMsging = onPolygon(contract)
     const raribleCreditMsging = onRarible(contract)
+    const rootstockCreditMsging = onRootstock(contract)
     const scrollCreditMsging = onScroll(contract)
     const seiCreditMsging = onSei(contract)
+    const soneiumCreditMsging = onSoneium(contract)
+    const superpositionCreditMsging = onSuperposition(contract)
     const taikoCreditMsging = onTaiko(contract)
     const zkConsensysCreditMsging = onZkConsensys(contract)
     const xchainCreditMsging = onXchain(contract)
 
     return {
         contracts: [
+            {
+                contract: abstractCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ABSTRACT_V2_MAINNET],
+                },
+            },
             {
                 contract: arbCreditMsging,
                 config: {
@@ -109,12 +146,30 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: beraCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.BERA_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.BERA_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.BERA_V2_MAINNET],
+                },
+            },
+            {
                 contract: bscCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.BSC_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.BSC_V2_MAINNET],
+                },
+            },
+            {
+                contract: codexCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.CODEX_V2_MAINNET],
                 },
             },
             {
@@ -163,6 +218,42 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: flowCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FLOW_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FLOW_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FLOW_V2_MAINNET],
+                },
+            },
+            {
+                contract: fuseCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.FUSE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.FUSE_V2_MAINNET],
+                },
+            },
+            {
+                contract: glueCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GLUE_V2_MAINNET],
+                },
+            },
+            {
+                contract: gnosisCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.GNOSIS_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.GNOSIS_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.GNOSIS_V2_MAINNET],
+                },
+            },
+            {
                 contract: gravityCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
@@ -172,12 +263,39 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: hemiCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.HEMI_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.HEMI_V2_MAINNET],
+                },
+            },
+            {
+                contract: inkCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.INK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.INK_V2_MAINNET],
+                },
+            },
+            {
                 contract: iotaCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     delegate: getSafeAddress(EndpointId.IOTA_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.IOTA_V2_MAINNET],
+                },
+            },
+            {
+                contract: islanderCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ISLANDER_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ISLANDER_V2_MAINNET],
                 },
             },
             {
@@ -244,6 +362,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: plumeCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.PLUME_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.PLUME_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.PLUME_V2_MAINNET],
+                },
+            },
+            {
                 contract: polygonCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
@@ -262,6 +389,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 },
             },
             {
+                contract: rootstockCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.ROOTSTOCK_V2_MAINNET],
+                },
+            },
+            {
                 contract: scrollCreditMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
@@ -277,6 +413,24 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     delegate: getSafeAddress(EndpointId.SEI_V2_MAINNET),
                     planner: DEFAULT_PLANNER,
                     assets: assetConfigs[EndpointId.SEI_V2_MAINNET],
+                },
+            },
+            {
+                contract: soneiumCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SONEIUM_V2_MAINNET],
+                },
+            },
+            {
+                contract: superpositionCreditMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.SUPERPOSITION_V2_MAINNET],
                 },
             },
             {
@@ -308,18 +462,28 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             },
         ],
         connections: generateCreditMessagingConfig([
+            abstractCreditMsging,
             arbCreditMsging,
             auroraCreditMsging,
             avaxCreditMsging,
             baseCreditMsging,
+            beraCreditMsging,
             bscCreditMsging,
+            codexCreditMsging,
             coredaoCreditMsging,
             degenCreditMsging,
             ebiCreditMsging,
             ethCreditMsging,
             flareCreditMsging,
+            flowCreditMsging,
+            fuseCreditMsging,
+            glueCreditMsging,
+            gnosisCreditMsging,
             gravityCreditMsging,
+            hemiCreditMsging,
+            inkCreditMsging,
             iotaCreditMsging,
+            islanderCreditMsging,
             kavaCreditMsging,
             klaytnCreditMsging,
             lightlinkCreditMsging,
@@ -327,10 +491,14 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             metisCreditMsging,
             optCreditMsging,
             peaqCreditMsging,
+            plumeCreditMsging,
             polygonCreditMsging,
             raribleCreditMsging,
+            rootstockCreditMsging,
             scrollCreditMsging,
             seiCreditMsging,
+            soneiumCreditMsging,
+            superpositionCreditMsging,
             taikoCreditMsging,
             zkConsensysCreditMsging,
             xchainCreditMsging,

@@ -5,6 +5,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import {
+    onAbstract,
     onArb,
     onAvax,
     onBsc,
@@ -13,8 +14,13 @@ import {
     onEbi,
     onEth,
     onFlare,
+    onFlow,
+    onFuse,
+    onGlue,
     onGravity,
+    onHemi,
     onIota,
+    onIslander,
     onKava,
     onKlaytn,
     onLightlink,
@@ -22,8 +28,10 @@ import {
     onMetis,
     onOpt,
     onPeaq,
+    onPlume,
     onPolygon,
     onRarible,
+    onRootstock,
     onSei,
     onTaiko,
 } from '../utils'
@@ -38,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         owner: DEFAULT_PLANNER,
     }
 
+    const abstractFeeLibV1 = onAbstract(contract)
     const arbFeeLibV1 = onArb(contract)
     const avaxFeeLibV1 = onAvax(contract)
     const bscFeeLibV1 = onBsc(contract)
@@ -46,8 +55,13 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const ebiFeeLibV1 = onEbi(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
+    const flowFeeLibV1 = onFlow(contract)
+    const fuseFeeLibV1 = onFuse(contract)
+    const glueFeeLibV1 = onGlue(contract)
     const gravityFeeLibV1 = onGravity(contract)
+    const hemiFeeLibV1 = onHemi(contract)
     const iotaFeeLibV1 = onIota(contract)
+    const islanderFeeLibV1 = onIslander(contract)
     const kavaFeeLibV1 = onKava(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const lightlinkFeeLibV1 = onLightlink(contract)
@@ -55,13 +69,19 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const metisFeeLibV1 = onMetis(contract)
     const optFeeLibV1 = onOpt(contract)
     const peaqFeeLibV1 = onPeaq(contract)
+    const plumeFeeLibV1 = onPlume(contract)
     const polygonFeeLibV1 = onPolygon(contract)
     const raribleFeeLibV1 = onRarible(contract)
+    const rootstockFeeLibV1 = onRootstock(contract)
     const seiFeeLibV1 = onSei(contract)
     const taikoFeeLibV1 = onTaiko(contract)
 
     return {
         contracts: [
+            {
+                contract: abstractFeeLibV1,
+                config: defaultNodeConfig,
+            },
             {
                 contract: arbFeeLibV1,
                 config: defaultNodeConfig,
@@ -95,11 +115,31 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: flowFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: fuseFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: glueFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: gravityFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
+                contract: hemiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: iotaFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: islanderFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
@@ -131,11 +171,19 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
                 config: defaultNodeConfig,
             },
             {
+                contract: plumeFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
                 contract: polygonFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
                 contract: raribleFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: rootstockFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

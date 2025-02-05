@@ -1,5 +1,162 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.3.7
+
+### Patch Changes
+
+- 62d3ff9: gnosis mainnet config
+- 3550ab5: gnosis deployments
+- 9fa29e5: update packages
+- Updated dependencies [62d3ff9]
+- Updated dependencies [9fa29e5]
+  - @stargatefinance/stg-definitions-v2@1.4.7
+
+## 1.3.6
+
+### Patch Changes
+
+- 28a9fe8: new dependencies for bera
+- 4e05d45: Flow
+- 92851db: flowevm mainnet config
+- 9bcdd2a: update packages
+- b4542e9: contract deployments for Flow
+- Updated dependencies [28a9fe8]
+- Updated dependencies [92851db]
+- Updated dependencies [9bcdd2a]
+  - @stargatefinance/stg-definitions-v2@1.4.6
+
+## 1.3.5
+
+### Patch Changes
+
+- 12e197e: Soneium Mainnet Config
+- 399a817: oft
+- 40ec972: glue contracts
+- 362b3ac: soneium contract deployments
+- 3e4ebf0: Glue Mainnet Config
+- 785c7d9: Bera contracts
+- d370440: berachain mainnet config
+- Updated dependencies [12e197e]
+- Updated dependencies [3e4ebf0]
+- Updated dependencies [d370440]
+- Updated dependencies [2b01ada]
+  - @stargatefinance/stg-definitions-v2@1.4.5
+
+## 1.3.4
+
+### Patch Changes
+
+- 48dc419: updating packages
+- Updated dependencies [48dc419]
+  - @stargatefinance/stg-definitions-v2@1.4.4
+
+## 1.3.3
+
+### Patch Changes
+
+- 57f3aa1: plume usdt
+- 165f566: abstract mainnet config
+- Updated dependencies [57f3aa1]
+- Updated dependencies [fb26852]
+- Updated dependencies [7baaa4c]
+- Updated dependencies [165f566]
+  - @stargatefinance/stg-definitions-v2@1.4.3
+
+## 1.3.2
+
+### Patch Changes
+
+- 3a4ebbb: abstract
+- Updated dependencies [847a6f2]
+- Updated dependencies [3a4ebbb]
+  - @stargatefinance/stg-definitions-v2@1.4.2
+
+## 1.3.1
+
+### Patch Changes
+
+- 650b96f: ink mainnet
+- 15e136b: Rootstock config
+- 0d7cb3a: Updated RPCs
+- 408bd54: hemi contracts
+- 00d3d6e: fuse mainnet config
+- ae6c67e: Updating packages
+- 5b9355d: rootstock deployments
+- 9923622: islander usdt
+- b6d1475: ink
+- 9b41f9b: hemi
+- Updated dependencies [650b96f]
+- Updated dependencies [15e136b]
+- Updated dependencies [408bd54]
+- Updated dependencies [00d3d6e]
+- Updated dependencies [ae6c67e]
+- Updated dependencies [680e77b]
+- Updated dependencies [9923622]
+- Updated dependencies [9b41f9b]
+  - @stargatefinance/stg-definitions-v2@1.4.1
+
+## 1.3.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+### Patch Changes
+
+- Updated dependencies [246556f]
+- Updated dependencies [e6193bd]
+  - @stargatefinance/stg-definitions-v2@1.4.0
+
+## 1.2.6
+
+### Patch Changes
+
+- 427f30e: Codex Mainnet Config
+- 7be2990: vana usdt
+- 63af792: codex
+- 2f0bda9: islander usdt
+- Updated dependencies [427f30e]
+- Updated dependencies [7be2990]
+- Updated dependencies [63af792]
+- Updated dependencies [2f0bda9]
+  - @stargatefinance/stg-definitions-v2@1.3.6
+
+## 1.2.5
+
+### Patch Changes
+
+- 90500af: Plume updates
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- cbbf60a: vana mainnet config
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- bc66d16: Superposition
+- 19f993b: Superposition update
+- 52766b7: Superposition deployment
+- 3d2232d: Plume Updates
+- Updated dependencies [90500af]
+- Updated dependencies [19f993b]
+- Updated dependencies [b2a2ac5]
+- Updated dependencies [cbbf60a]
+- Updated dependencies [b263a9c]
+- Updated dependencies [aede3f7]
+- Updated dependencies [bc66d16]
+- Updated dependencies [19f993b]
+- Updated dependencies [52766b7]
+- Updated dependencies [3d2232d]
+  - @stargatefinance/stg-definitions-v2@1.3.5
+
+## 1.2.4
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+- ba5517b: plume mainnet config changeset
+- Updated dependencies [d5f5fae]
+- Updated dependencies [ba5517b]
+  - @stargatefinance/stg-definitions-v2@1.3.4
+
 ## 1.2.3
 
 ### Patch Changes

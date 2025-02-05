@@ -9,6 +9,11 @@ import { createGetAssetAddresses, createGetLPTokenAddresses } from '../../../../
 export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid()) => {
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
+    const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -23,10 +28,15 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, [TokenName.USDC] as const)
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -49,12 +59,42 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const gnosisAssetAddresses = await getAssetAddresses(EndpointId.GNOSIS_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.ETH,
+    ] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const inkAssetAddresses = await getAssetAddresses(EndpointId.INK_V2_MAINNET, [TokenName.USDC] as const)
     const iotaAssetAddresses = await getAssetAddresses(EndpointId.IOTA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
@@ -91,11 +131,20 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const polygonAssetAddresses = await getAssetAddresses(EndpointId.POLYGON_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -108,6 +157,13 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const soneiumAssetAddresses = await getAssetAddresses(EndpointId.SONEIUM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
+    const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
+        TokenName.USDC,
+    ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -118,6 +174,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
 
     return {
+        [EndpointId.ABSTRACT_V2_MAINNET]: {
+            [abstractAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [abstractAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [abstractAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.ARBITRUM_V2_MAINNET]: {
             [arbAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [arbAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -134,9 +195,16 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [baseAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [baseAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
+        [EndpointId.BERA_V2_MAINNET]: {
+            [beraAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [beraAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
         [EndpointId.BSC_V2_MAINNET]: {
             [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [bscAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.CODEX_V2_MAINNET]: {
+            [codexAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.COREDAO_V2_MAINNET]: {
             [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -162,15 +230,47 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [flareAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [flareAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.FLOW_V2_MAINNET]: {
+            [flowAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [flowAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [flowAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.FUSE_V2_MAINNET]: {
+            [fuseAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [fuseAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [fuseAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.GLUE_V2_MAINNET]: {
+            [glueAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [glueAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [glueAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.GNOSIS_V2_MAINNET]: {
+            [gnosisAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [gnosisAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
         [EndpointId.GRAVITY_V2_MAINNET]: {
             [gravityAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [gravityAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [gravityAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.HEMI_V2_MAINNET]: {
+            [hemiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [hemiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [hemiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.INK_V2_MAINNET]: {
+            [inkAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
         [EndpointId.IOTA_V2_MAINNET]: {
             [iotaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [iotaAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [iotaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.ISLANDER_V2_MAINNET]: {
+            [islanderAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [islanderAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [islanderAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [kavaAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
@@ -206,6 +306,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [peaqAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [peaqAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.PLUME_V2_MAINNET]: {
+            [plumeAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [plumeAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
         [EndpointId.POLYGON_V2_MAINNET]: {
             [polygonAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [polygonAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
@@ -213,6 +317,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.RARIBLE_V2_MAINNET]: {
             [raribleAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [raribleAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.ROOTSTOCK_V2_MAINNET]: {
+            [rootstockAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [rootstockAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [rootstockAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.SCROLL_V2_MAINNET]: {
             [scrollAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
@@ -222,6 +331,13 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [seiAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [seiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [seiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.SONEIUM_V2_MAINNET]: {
+            [soneiumAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [soneiumAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.SUPERPOSITION_V2_MAINNET]: {
+            [superpositionAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -238,6 +354,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
 
 export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) => {
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
+    const abstractLPTokenAddresses = await getLPTokenAddresses(EndpointId.ABSTRACT_V2_MAINNET, [TokenName.ETH] as const)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -267,6 +384,11 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDT,
         TokenName.mETH,
     ] as const)
+    const gnosisLPTokenAddresses = await getLPTokenAddresses(EndpointId.GNOSIS_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
+    const hemiLPTokenAddresses = await getLPTokenAddresses(EndpointId.HEMI_V2_MAINNET, [TokenName.ETH] as const)
     const kavaLPTokenAddresses = await getLPTokenAddresses(EndpointId.KAVA_V2_MAINNET, [TokenName.USDT] as const)
     const lightlinkLPTokenAddresses = await getLPTokenAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
         TokenName.ETH,
@@ -299,11 +421,18 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const soneiumLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
 
     return {
+        [EndpointId.ABSTRACT_V2_MAINNET]: {
+            [TokenName.ETH]: abstractLPTokenAddresses.ETH,
+        },
         [EndpointId.ARBITRUM_V2_MAINNET]: {
             [TokenName.ETH]: arbLPTokenAddresses.ETH,
             [TokenName.USDC]: arbLPTokenAddresses.USDC,
@@ -332,6 +461,13 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
             [TokenName.ETH]: ethLPTokenAddresses.ETH,
             [TokenName.USDC]: ethLPTokenAddresses.USDC,
             [TokenName.USDT]: ethLPTokenAddresses.USDT,
+        },
+        [EndpointId.GNOSIS_V2_MAINNET]: {
+            [TokenName.ETH]: gnosisLPTokenAddresses.ETH,
+            [TokenName.USDC]: gnosisLPTokenAddresses.USDC,
+        },
+        [EndpointId.HEMI_V2_MAINNET]: {
+            [TokenName.ETH]: hemiLPTokenAddresses.ETH,
         },
         [EndpointId.KAVA_V2_MAINNET]: {
             [TokenName.USDT]: kavaLPTokenAddresses.USDT,
@@ -364,6 +500,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SEI_V2_MAINNET]: {
             [TokenName.USDC]: seiLPTokenAddresses.USDC,
             [TokenName.USDT]: seiLPTokenAddresses.USDT,
+        },
+        [EndpointId.SONEIUM_V2_MAINNET]: {
+            [TokenName.ETH]: soneiumLPTokenAddresses.ETH,
+            [TokenName.USDC]: soneiumLPTokenAddresses.USDC,
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [TokenName.ETH]: zkConsensysLPTokenAddresses.ETH,

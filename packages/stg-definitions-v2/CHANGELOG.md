@@ -1,5 +1,105 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.7
+
+### Patch Changes
+
+- 62d3ff9: gnosis mainnet config
+- 9fa29e5: update packages
+
+## 1.4.6
+
+### Patch Changes
+
+- 28a9fe8: new dependencies for bera
+- 92851db: flowevm mainnet config
+- 9bcdd2a: update packages
+
+## 1.4.5
+
+### Patch Changes
+
+- 12e197e: Soneium Mainnet Config
+- 3e4ebf0: Glue Mainnet Config
+- d370440: berachain mainnet config
+- 2b01ada: msig address
+
+## 1.4.4
+
+### Patch Changes
+
+- 48dc419: updating packages
+
+## 1.4.3
+
+### Patch Changes
+
+- 57f3aa1: plume usdt
+- fb26852: peaq usdt update
+- 7baaa4c: abstract eth definitions
+- 165f566: abstract mainnet config
+
+## 1.4.2
+
+### Patch Changes
+
+- 847a6f2: peaq custom gas
+- 3a4ebbb: abstract
+
+## 1.4.1
+
+### Patch Changes
+
+- 650b96f: ink mainnet
+- 15e136b: Rootstock config
+- 408bd54: hemi contracts
+- 00d3d6e: fuse mainnet config
+- ae6c67e: Updating packages
+- 680e77b: safe addresses ink
+- 9923622: islander usdt
+- 9b41f9b: hemi
+
+## 1.4.0
+
+### Minor Changes
+
+- 246556f: Renamed storyodyssey-testnet to odyssey-testnet
+
+### Patch Changes
+
+- e6193bd: executor bump
+
+## 1.3.6
+
+### Patch Changes
+
+- 427f30e: Codex Mainnet Config
+- 7be2990: vana usdt
+- 63af792: codex
+- 2f0bda9: islander usdt
+
+## 1.3.5
+
+### Patch Changes
+
+- 90500af: Plume updates
+- 19f993b: superposition usdc
+- b2a2ac5: plume mainnet
+- cbbf60a: vana mainnet config
+- b263a9c: Mantle Sepolia Testnet
+- aede3f7: final plume stargateoftusdc, feelib, token
+- bc66d16: Superposition
+- 19f993b: Superposition update
+- 52766b7: Superposition deployment
+- 3d2232d: Plume Updates
+
+## 1.3.4
+
+### Patch Changes
+
+- d5f5fae: plume mainnet
+- ba5517b: plume mainnet config changeset
+
 ## 1.3.3
 
 ### Patch Changes
