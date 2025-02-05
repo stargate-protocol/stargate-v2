@@ -3,8 +3,9 @@ import { PoolNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
 import { getNamedAccount } from '../../../ts-src/utils/util'
+
+import { onArb, onBsc, onEth, onOpt } from './utils'
 
 const getDeployer = getNamedAccount('deployer')
 export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {

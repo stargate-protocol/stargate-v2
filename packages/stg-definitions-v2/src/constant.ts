@@ -186,7 +186,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     taxiGasLimit: 150000n,
     busGasLimit: 38000n,
     busRideGasLimit: 60000n,
-    nativeDropGasLimit: 20000n,
+    nativeDropGasLimit: 25000n,
     maxPassengerCount: 20,
     queueCapacity: 512,
 }
@@ -1252,7 +1252,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
-            nativeDropAmount: parseEther('1').toBigInt(),
+            nativeDropAmount: parseEther('5').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x2F2F0C7097926e66a31A72BA956cf99DB6aeAe4A',
@@ -1777,7 +1777,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
+            nativeDropAmount: parseEther('0.1').toBigInt(),
             taxiGasLimit: 180000n,
             busGasLimit: 65000n,
             busRideGasLimit: 60000n,
@@ -1884,7 +1884,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET], DVNS.STG[EndpointId.ROOTSTOCK_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00000000005').toBigInt(),
+            nativeDropAmount: parseEther('0.000055').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x12BF73dADeaFAD42C0293752617C3cDc0b14A364',
