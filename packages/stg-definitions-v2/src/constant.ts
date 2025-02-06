@@ -1468,7 +1468,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x92f4BA1931E1A03f5486228502C5f2A2b622dd17',
-            safeUrl: 'https://safe-transaction-mainnet.safe.global/',
+            safeUrl: 'https://safe-transaction-gnosis-chain.safe.global/',
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {
