@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.4.0
+
+### Minor Changes
+
+- b0178cf: per pair wiring for credit messaging
+- f6e1cc9: Making all configurations retriable and allowing dynamic number of retries via NUM_RETRIES environment variable
+
+### Patch Changes
+
+- f1ae9bf: update nativeDrop
+- Updated dependencies [c674e0a]
+- Updated dependencies [f1ae9bf]
+  - @stargatefinance/stg-definitions-v2@1.4.8
+
 ## 1.3.7
 
 ### Patch Changes

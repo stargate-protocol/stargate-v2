@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.8
+
+### Patch Changes
+
+- c674e0a: gnosis safe
+- f1ae9bf: update nativeDrop
+
 ## 1.4.7
 
 ### Patch Changes
