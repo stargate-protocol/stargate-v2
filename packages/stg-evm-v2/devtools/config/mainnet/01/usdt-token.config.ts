@@ -7,7 +7,19 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { onAbstract, onDegen, onFlow, onFuse, onGlue, onHemi, onIslander, onPeaq, onPlume, onRootstock } from '../utils'
+import {
+    onAbstract,
+    onDegen,
+    onFlow,
+    onFuse,
+    onGlue,
+    onGoat,
+    onHemi,
+    onIslander,
+    onPeaq,
+    onPlume,
+    onRootstock,
+} from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
