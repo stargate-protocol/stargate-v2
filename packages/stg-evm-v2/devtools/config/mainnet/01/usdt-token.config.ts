@@ -7,7 +7,19 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { onAbstract, onDegen, onFlow, onFuse, onGlue, onHemi, onIslander, onPeaq, onPlume, onRootstock } from '../utils'
+import {
+    onAbstract,
+    onDegen,
+    onFlow,
+    onFuse,
+    onGlue,
+    onGoat,
+    onHemi,
+    onIslander,
+    onPeaq,
+    onPlume,
+    onRootstock,
+} from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
@@ -29,6 +41,9 @@ assert(usdtFuseAsset.address != null, `External USDT address not found for FUSE`
 
 const usdtGlueAsset = getAssetNetworkConfig(EndpointId.GLUE_V2_MAINNET, TokenName.USDT)
 assert(usdtGlueAsset.address != null, `External USDT address not found for GLUE`)
+
+const usdtGoatAsset = getAssetNetworkConfig(EndpointId.GOAT_V2_MAINNET, TokenName.USDT)
+assert(usdtGoatAsset.address != null, `External USDT address not found for GOAT`)
 
 const usdtHemiAsset = getAssetNetworkConfig(EndpointId.HEMI_V2_MAINNET, TokenName.USDT)
 assert(usdtHemiAsset.address != null, `External USDT address not found for HEMI`)
@@ -71,6 +86,10 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onGlue({ contractName: 'TransparentUpgradeableProxy', address: usdtGlueAsset.address })
     )
 
+    const goatUSDTProxy = await contractFactory(
+        onGoat({ contractName: 'TransparentUpgradeableProxy', address: usdtGoatAsset.address })
+    )
+
     const hemiUSDTProxy = await contractFactory(
         onHemi({ contractName: 'TransparentUpgradeableProxy', address: usdtHemiAsset.address })
     )
@@ -93,6 +112,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const flowUSDT = onFlow({ ...fiatContract, address: flowUSDTProxy.contract.address })
     const fuseUSDT = onFuse({ ...fiatContract, address: fuseUSDTProxy.contract.address })
     const glueUSDT = onGlue({ ...fiatContract, address: glueUSDTProxy.contract.address })
+    const goatUSDT = onGoat({ ...fiatContract, address: goatUSDTProxy.contract.address })
     const hemiUSDT = onHemi({ ...fiatContract, address: hemiUSDTProxy.contract.address })
     const islanderUSDT = onIslander({ ...fiatContract, address: islanderUSDTProxy.contract.address })
     const plumeUSDT = onPlume({ ...fiatContract, address: plumeUSDTProxy.contract.address })
@@ -107,6 +127,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, usdtAssets)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdtAssets)
     const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, usdtAssets)
+    const goatAssetAddresses = await getAssetAddresses(EndpointId.GOAT_V2_MAINNET, usdtAssets)
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdtAssets)
     const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdtAssets)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdtAssets)
@@ -148,6 +169,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: glueUSDT,
                 config: {
                     owner: glueAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: goatUSDT,
+                config: {
+                    owner: goatAssetAddresses.USDT,
                 },
             },
             {

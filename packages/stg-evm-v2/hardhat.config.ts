@@ -327,6 +327,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'goat-mainnet': {
+        eid: EndpointId.GOAT_V2_MAINNET,
+        url: process.env.RPC_URL_GOAT_MAINNET || 'https://rpc.goat.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.GOAT_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'gravity-mainnet': {
         eid: EndpointId.GRAVITY_V2_MAINNET,
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',

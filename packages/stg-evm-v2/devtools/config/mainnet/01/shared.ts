@@ -74,6 +74,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const goatAssetAddresses = await getAssetAddresses(EndpointId.GOAT_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const gnosisAssetAddresses = await getAssetAddresses(EndpointId.GNOSIS_V2_MAINNET, [
         TokenName.USDC,
         TokenName.ETH,
@@ -244,6 +249,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [glueAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [glueAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [glueAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.GOAT_V2_MAINNET]: {
+            [goatAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [goatAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [goatAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.GNOSIS_V2_MAINNET]: {
             [gnosisAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,

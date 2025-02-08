@@ -18,6 +18,7 @@ import {
     onFlow,
     onFuse,
     onGlue,
+    onGoat,
     onGravity,
     onHemi,
     onInk,
@@ -61,6 +62,9 @@ assert(usdcFuseAsset.address != null, `External USDC address not found for FUSE`
 
 const usdcGlueAsset = getAssetNetworkConfig(EndpointId.GLUE_V2_MAINNET, TokenName.USDC)
 assert(usdcGlueAsset.address != null, `External USDC address not found for GLUE`)
+
+const usdcGoatAsset = getAssetNetworkConfig(EndpointId.GOAT_V2_MAINNET, TokenName.USDC)
+assert(usdcGoatAsset.address != null, 'External USDC address not found for GLUE')
 
 const usdcHemiAsset = getAssetNetworkConfig(EndpointId.HEMI_V2_MAINNET, TokenName.USDC)
 assert(usdcHemiAsset.address != null, `External USDC address not found for HEMI`)
@@ -108,6 +112,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     )
     const glueUSDCProxy = await contractFactory(
         onGlue({ contractName: 'FiatTokenProxy', address: usdcGlueAsset.address })
+    )
+    const goatUSDCProxy = await contractFactory(
+        onGoat({ contractName: 'FiatTokenProxy', address: usdcInkAsset.address })
     )
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const hemiUSDCProxy = await contractFactory(
@@ -160,6 +167,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const glueUSDC = onGlue({ ...fiatContract, address: glueUSDCProxy.contract.address })
     const glueStargateMultisig = getSafeAddress(EndpointId.GLUE_V2_MAINNET)
+
+    const goatUSDC = onGoat({ ...fiatContract, address: goatUSDCProxy.contract.address })
+    const goatStargateMultisig = getSafeAddress(EndpointId.GOAT_V2_MAINNET)
 
     const gravityUSDC = onGravity({ ...fiatContract, address: gravityUSDCProxy.contract.address })
     const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
@@ -214,6 +224,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, usdcAssets)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdcAssets)
     const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, usdcAssets)
+    const goatAssetAddresses = await getAssetAddresses(EndpointId.GOAT_V2_MAINNET, usdcAssets)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, usdcAssets)
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdcAssets)
     const inkAssetAddresses = await getAssetAddresses(EndpointId.INK_V2_MAINNET, usdcAssets)
@@ -332,6 +343,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: glueStargateMultisig,
                     minters: {
                         [glueAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: goatUSDC,
+                config: {
+                    owner: goatStargateMultisig,
+                    masterMinter: goatStargateMultisig,
+                    pauser: goatStargateMultisig,
+                    rescuer: goatStargateMultisig,
+                    blacklister: goatStargateMultisig,
+                    minters: {
+                        [goatAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },
