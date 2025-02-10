@@ -2171,7 +2171,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x60049009F2c54E50f93739Ffa2B1896b4594292B',
-            safeUrl: 'https://unichain-tx.lzdevnet.org/',
+            safeUrl: 'https://safe-transaction-unichain.staging.5afe.dev/',
             /// TODO  contractNetworks: {
             //     [130]: {
             //         multiSendAddress: '',
