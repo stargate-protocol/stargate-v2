@@ -44,6 +44,7 @@ import {
     onScroll,
     onSei,
     onSoneium,
+    onStory,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -94,6 +95,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
     const soneiumAdmin = getSafeAddress(EndpointId.SONEIUM_V2_MAINNET)
+    const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
@@ -256,6 +258,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const soneiumAssetAddresses = await getAssetAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
+    ] as const)
+    const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
     ] as const)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
@@ -693,6 +700,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [soneiumAssetAddresses.ETH]: true,
                         [soneiumAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onStory(contract),
+                config: {
+                    owner: storyAdmin,
+                    admin: storyAdmin,
+                    assets: {
+                        [storyAssetAddresses.ETH]: true,
+                        [storyAssetAddresses.USDC]: true,
+                        [storyAssetAddresses.USDT]: true,
                     },
                 },
             },

@@ -166,6 +166,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
     ] as const)
@@ -345,6 +350,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [soneiumAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [soneiumAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.STORY_V2_MAINNET]: {
+            [storyAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [storyAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [storyAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {
             [superpositionAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
