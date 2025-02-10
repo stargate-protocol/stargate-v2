@@ -1985,16 +1985,16 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
-            //TODO safeUrl: 'https://transaction.staging.safe.story.foundation/',
+            safeUrl: 'https://transaction.staging.safe.story.foundation/',
             // contractNetworks: {
             //     [1514]: {
-            //         multiSendAddress: '',
-            //         multiSendCallOnlyAddress: '',
+            //         multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+            //         multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
             //         safeMasterCopyAddress: '',
             //         safeProxyFactoryAddress: '',
             //         fallbackHandlerAddress: '',
             //         createCallAddress: '',
-            //         signMessageLibAddress: '',
+            //         signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
             //         simulateTxAccessorAddress: '',
             //     },
             // },
