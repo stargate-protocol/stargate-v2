@@ -46,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
     const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
+    const storyPoint = getAssetPoint(EndpointId.STORY_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
 
     // And all their nodes
@@ -77,6 +78,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const raribleContract = await getAssetNode(rariblePoint)
     const rootstockContract = await getAssetNode(rootstockPoint)
     const seiContract = await getAssetNode(seiPoint)
+    const storyContract = await getAssetNode(storyPoint)
     const taikoContract = await getAssetNode(taikoPoint)
 
     return {
@@ -109,6 +111,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             raribleContract,
             rootstockContract,
             seiContract,
+            storyContract,
             taikoContract,
         ],
         connections: generateAssetConfig(tokenName, [
@@ -140,6 +143,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             rariblePoint,
             rootstockPoint,
             seiPoint,
+            storyPoint,
             taikoPoint,
         ]),
     }

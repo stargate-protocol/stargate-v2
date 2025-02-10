@@ -30,6 +30,7 @@ import {
     onScroll,
     onSei,
     onSoneium,
+    onStory,
     onZkConsensys,
 } from '../utils'
 
@@ -68,6 +69,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
     const soneiumFeeLibV1 = onSoneium(contract)
+    const storyFeeLibV1 = onStory(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
 
     // TODO alphebatize
@@ -167,6 +169,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: soneiumFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: storyFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

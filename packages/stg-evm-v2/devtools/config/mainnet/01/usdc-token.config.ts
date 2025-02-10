@@ -29,6 +29,7 @@ import {
     onPlume,
     onRarible,
     onRootstock,
+    onStory,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -76,6 +77,9 @@ assert(usdcPlumeAsset.address != null, `External USDC address not found for PLUM
 
 const usdcRootstockAsset = getAssetNetworkConfig(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.USDC)
 assert(usdcRootstockAsset.address != null, `External USDC address not found for ROOTSTOCK`)
+
+const usdcStoryAsset = getAssetNetworkConfig(EndpointId.STORY_V2_MAINNET, TokenName.USDC)
+assert(usdcStoryAsset.address != null, `External USDC address not found for STORY`)
 
 const usdcSuperpositionAsset = getAssetNetworkConfig(EndpointId.SUPERPOSITION_V2_MAINNET, TokenName.USDC)
 assert(usdcSuperpositionAsset.address != null, `External USDC address not found for SUPERPOSITION`)
@@ -129,6 +133,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const raribleUSDCProxy = await contractFactory(onRarible(proxyContract))
     const rootstockUSDCProxy = await contractFactory(
         onRootstock({ contractName: 'FiatTokenProxy', address: usdcRootstockAsset.address })
+    )
+    const storyUSDCProxy = await contractFactory(
+        onStory({ contractName: 'FiatTokenProxy', address: usdcStoryAsset.address })
     )
     const superpositionUSDCProxy = await contractFactory(
         onSuperposition({ contractName: 'FiatTokenProxy', address: usdcSuperpositionAsset.address })
@@ -194,6 +201,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const rootstockUSDC = onRootstock({ ...fiatContract, address: rootstockUSDCProxy.contract.address })
     const rootstockStargateMultisig = getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET)
 
+    const storyUSDC = onStory({ ...fiatContract, address: storyUSDCProxy.contract.address })
+    const storyStargateMultisig = getSafeAddress(EndpointId.STORY_V2_MAINNET)
+
     const superpositionUSDC = onSuperposition({ ...fiatContract, address: superpositionUSDCProxy.contract.address })
     const superpositionStargateMultisig = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
 
@@ -225,6 +235,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdcAssets)
+    const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, usdcAssets)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, usdcAssets)
@@ -475,6 +486,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: rootstockStargateMultisig,
                     minters: {
                         [rootstockAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: storyUSDC,
+                config: {
+                    owner: storyStargateMultisig,
+                    masterMinter: storyStargateMultisig,
+                    pauser: storyStargateMultisig,
+                    rescuer: storyStargateMultisig,
+                    blacklister: storyStargateMultisig,
+                    minters: {
+                        [storyAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

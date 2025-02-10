@@ -33,6 +33,7 @@ import {
     onRarible,
     onRootstock,
     onSei,
+    onStory,
     onTaiko,
 } from '../utils'
 
@@ -74,6 +75,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const raribleFeeLibV1 = onRarible(contract)
     const rootstockFeeLibV1 = onRootstock(contract)
     const seiFeeLibV1 = onSei(contract)
+    const storyFeeLibV1 = onStory(contract)
     const taikoFeeLibV1 = onTaiko(contract)
 
     return {
@@ -188,6 +190,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: seiFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: storyFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

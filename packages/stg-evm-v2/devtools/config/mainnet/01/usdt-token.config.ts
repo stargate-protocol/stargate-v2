@@ -7,7 +7,19 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { onAbstract, onDegen, onFlow, onFuse, onGlue, onHemi, onIslander, onPeaq, onPlume, onRootstock } from '../utils'
+import {
+    onAbstract,
+    onDegen,
+    onFlow,
+    onFuse,
+    onGlue,
+    onHemi,
+    onIslander,
+    onPeaq,
+    onPlume,
+    onRootstock,
+    onStory,
+} from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
@@ -41,6 +53,9 @@ assert(usdtPlumeAsset.address != null, `External USDT address not found for PLUM
 
 const usdtRootstockAsset = getAssetNetworkConfig(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.USDT)
 assert(usdtRootstockAsset.address != null, `External USDT address not found for ROOTSTOCK`)
+
+const usdtStoryAsset = getAssetNetworkConfig(EndpointId.STORY_V2_MAINNET, TokenName.USDT)
+assert(usdtStoryAsset.address != null, `External USDT address not found for STORY`)
 
 export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -87,6 +102,10 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onRootstock({ contractName: 'TransparentUpgradeableProxy', address: usdtRootstockAsset.address })
     )
 
+    const storyUSDTProxy = await contractFactory(
+        onStory({ contractName: 'TransparentUpgradeableProxy', address: usdtStoryAsset.address })
+    )
+
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })
     const abstractUSDT = onAbstract({ ...fiatContract, address: abstractUSDTProxy.contract.address })
     const degenUSDT = onDegen({ ...fiatContract, address: degenUSDTProxy.contract.address })
@@ -97,6 +116,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const islanderUSDT = onIslander({ ...fiatContract, address: islanderUSDTProxy.contract.address })
     const plumeUSDT = onPlume({ ...fiatContract, address: plumeUSDTProxy.contract.address })
     const rootstockUSDT = onRootstock({ ...fiatContract, address: rootstockUSDTProxy.contract.address })
+    const storyUSDT = onStory({ ...fiatContract, address: storyUSDTProxy.contract.address })
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdtAssets = [TokenName.USDT] as const
@@ -111,6 +131,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdtAssets)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdtAssets)
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdtAssets)
+    const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, usdtAssets)
 
     return {
         contracts: [
@@ -172,6 +193,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: rootstockUSDT,
                 config: {
                     owner: rootstockAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: storyUSDT,
+                config: {
+                    owner: storyAssetAddresses.USDT,
                 },
             },
         ],
