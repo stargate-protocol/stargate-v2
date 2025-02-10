@@ -1981,7 +1981,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET], DVNS.STG[EndpointId.STORY_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0005').toBigInt(),
+            nativeDropAmount: parseEther('0.05').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
