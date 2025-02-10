@@ -45,6 +45,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onUnichain,
     onXchain,
     onZkConsensys,
 } from '../utils'
@@ -98,6 +99,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const storyTokenMsging = onStory(contract)
     const superpositionTokenMsging = onSuperposition(contract)
     const taikoTokenMsging = onTaiko(contract)
+    const unichainTokenMsging = onUnichain(contract)
     const zkConsensysTokenMsging = onZkConsensys(contract)
     const xchainTokenMsging = onXchain(contract)
 
@@ -464,6 +466,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                 },
             },
             {
+                contract: unichainTokenMsging,
+                config: {
+                    owner: getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET),
+                    delegate: getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET),
+                    planner: DEFAULT_PLANNER,
+                    assets: assetConfigs[EndpointId.UNICHAIN_V2_MAINNET],
+                },
+            },
+            {
                 contract: zkConsensysTokenMsging,
                 config: {
                     owner: getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET),
@@ -523,6 +534,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             storyTokenMsging,
             superpositionTokenMsging,
             taikoTokenMsging,
+            unichainTokenMsging,
             zkConsensysTokenMsging,
             xchainTokenMsging,
         ]),

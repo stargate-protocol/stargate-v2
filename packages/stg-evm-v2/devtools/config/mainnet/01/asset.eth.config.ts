@@ -45,6 +45,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const soneiumPoint = getAssetPoint(EndpointId.SONEIUM_V2_MAINNET)
     const storyPoint = getAssetPoint(EndpointId.STORY_V2_MAINNET)
+    const unichainPoint = getAssetPoint(EndpointId.UNICHAIN_V2_MAINNET)
     const zkConsensysPoint = getAssetPoint(EndpointId.ZKCONSENSYS_V2_MAINNET)
 
     // And all their nodes
@@ -75,6 +76,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const seiContract = await getAssetNode(seiPoint)
     const soneiumContract = await getAssetNode(soneiumPoint)
     const storyContract = await getAssetNode(storyPoint)
+    const unichainContract = await getAssetNode(unichainPoint)
     const zkConsensysContract = await getAssetNode(zkConsensysPoint)
 
     return {
@@ -106,6 +108,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             seiContract,
             soneiumContract,
             storyContract,
+            unichainContract,
             zkConsensysContract,
         ],
         connections: generateAssetConfig(tokenName, [
@@ -136,6 +139,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             seiPoint,
             soneiumPoint,
             storyPoint,
+            unichainPoint,
             zkConsensysPoint,
         ]),
     }

@@ -52,6 +52,7 @@ export const onSoneium = withEid(EndpointId.SONEIUM_V2_MAINNET)
 export const onStory = withEid(EndpointId.STORY_V2_MAINNET)
 export const onSuperposition = withEid(EndpointId.SUPERPOSITION_V2_MAINNET)
 export const onTaiko = withEid(EndpointId.TAIKO_V2_MAINNET)
+export const onUnichain = withEid(EndpointId.UNICHAIN_V2_MAINNET)
 export const onXchain = withEid(EndpointId.XCHAIN_V2_MAINNET)
 export const onZkatana = withEid(EndpointId.ZKATANA_V2_MAINNET)
 export const onZkConsensys = withEid(EndpointId.ZKCONSENSYS_V2_MAINNET)
@@ -110,6 +111,7 @@ export const chainFunctions = {
     'story-mainnet': onStory,
     'superposition-mainnet': onSuperposition,
     'taiko-mainnet': onTaiko,
+    'unichain-mainnet': onUnichain,
     'xchain-mainnet': onXchain,
     'zkatana-mainnet': onZkatana,
     'zkconsensys-mainnet': onZkConsensys,
@@ -157,6 +159,7 @@ export const validCreditMessagingChains = new Set([
     'story-mainnet',
     'superposition-mainnet',
     'taiko-mainnet',
+    'unichain-mainnet',
     'zkconsensys-mainnet',
     'xchain-mainnet',
     // Add other valid chains for credit messaging

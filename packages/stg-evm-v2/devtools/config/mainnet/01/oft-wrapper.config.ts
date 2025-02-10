@@ -55,6 +55,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onUnichain,
     onXchain,
     onZkConsensys,
     onZkPolygon,
@@ -114,6 +115,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const storyOftWrapper = onStory(contract)
     const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
+    const unichainOftWrapper = onUnichain(contract)
     const xchainOftWrapper = onXchain(contract)
     const zkatanaOftWrapper = onZkatana(contract)
     const zkConsensysOftWrapper = onZkConsensys(contract)
@@ -419,6 +421,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: taikoOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                },
+            },
+            {
+                contract: unichainOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET),
                 },
             },
             {
