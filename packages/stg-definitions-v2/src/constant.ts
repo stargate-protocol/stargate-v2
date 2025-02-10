@@ -624,7 +624,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.GOAT_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO address: '',
+                address: '0x3022b87ac063DE95b1570F46f5e470F8B53112D8',
             },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 type: StargateType.Oft,
