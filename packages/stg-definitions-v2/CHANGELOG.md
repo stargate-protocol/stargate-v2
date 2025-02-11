@@ -1,5 +1,15 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.8
+
+### Patch Changes
+
+- 0791b03: goat mainnet config
+- f42047c: bump gaslimit
+- 56d4490: Updating packages
+- c674e0a: gnosis safe
+- f1ae9bf: update nativeDrop
+
 ## 1.4.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-evm-v2",
-  "version": "1.3.7",
+  "version": "1.4.0",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -79,7 +79,7 @@
     "@layerzerolabs/lz-evm-v1-0.7": "~3.0.7",
     "@layerzerolabs/lz-utilities": "~3.0.30",
     "@layerzerolabs/lz-v2-utilities": "~3.0.30",
-    "@stargatefinance/stg-definitions-v2": "~1.4.7",
+    "@stargatefinance/stg-definitions-v2": "~1.4.8",
     "@stargatefinance/stg-evm-v1": "~1.0.31",
     "@types/sinon": "~17.0.3",
     "ethers": "^5.7.2"
@@ -123,8 +123,8 @@
     "@safe-global/api-kit": "^1.3.0",
     "@safe-global/protocol-kit": "^1.3.0",
     "@safe-global/safe-core-sdk-types": "^2.3.0",
-    "@stargatefinance/stg-devtools-evm-hardhat-v2": "~3.0.6",
-    "@stargatefinance/stg-devtools-v2": "~3.0.6",
+    "@stargatefinance/stg-devtools-evm-hardhat-v2": "~3.1.0",
+    "@stargatefinance/stg-devtools-v2": "~3.0.7",
     "@typechain/ethers-v5": "~11.1.2",
     "@typechain/hardhat": "~9.1.0",
     "@types/mocha": "~10.0.7",
