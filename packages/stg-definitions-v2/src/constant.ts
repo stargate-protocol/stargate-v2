@@ -36,6 +36,7 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.GLUE_V2_MAINNET]: '0xaa3099f91912e07976c2dd1598dc740d81bd3fea',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
+        [EndpointId.GOAT_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
         [EndpointId.HEMI_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.INK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -98,6 +99,7 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x9f45834f0c8042e36935781b944443e906886a87',
         [EndpointId.GLUE_V2_MAINNET]: '0xd1c70192cc0eb9a89e3d9032b9facab259a0a1e9',
         [EndpointId.GNOSIS_V2_MAINNET]: '0xfcea5cef8b1ae3a454577c9444cdd95c1284b0cf',
+        [EndpointId.GOAT_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.HEMI_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.INK_V2_MAINNET]: '0xe900e073badafdc6f72541f34e6b701bde835487',
@@ -147,6 +149,7 @@ export const EXECUTORS = {
         [EndpointId.FUSE_V2_MAINNET]: '0xc905E74BEb8229E258c3C6E5bC0D6Cc54C534688',
         [EndpointId.GLUE_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x38340337f9ADF5D76029Ab3A667d34E5a032F7BA',
+        [EndpointId.GOAT_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.HEMI_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.INK_V2_MAINNET]: '0xFEbCF17b11376C724AB5a5229803C6e838b6eAe5',
@@ -249,6 +252,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Pool,
                 address: '0x6a023ccd1ff6f2045c3309768ead9e68f978f6e1',
+            },
+            [EndpointId.GOAT_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -423,6 +431,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3695Dd1D1D43B794C0B13eb8be8419Eb3ac22bf7',
             },
             [EndpointId.GLUE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xE1AD845D93853fff44990aE0DcecD8575293681e',
+            },
+            [EndpointId.GOAT_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xE1AD845D93853fff44990aE0DcecD8575293681e',
             },
@@ -609,6 +621,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.GNOSIS_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x2a22f9c3b484c3629090feed35f17ff8f88f76f0',
+            },
+            [EndpointId.GOAT_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x3022b87ac063DE95b1570F46f5e470F8B53112D8',
             },
             [EndpointId.GRAVITY_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -815,6 +831,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GLUE_V2_MAINNET]: {},
         [EndpointId.GNOSIS_V2_MAINNET]: {},
+        [EndpointId.GOAT_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
         [EndpointId.HEMI_V2_MAINNET]: {},
         [EndpointId.INK_V2_MAINNET]: {},
@@ -1473,6 +1490,35 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x92f4BA1931E1A03f5486228502C5f2A2b622dd17',
             safeUrl: 'https://safe-transaction-gnosis-chain.safe.global/',
+        },
+    },
+    [EndpointId.GOAT_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET], DVNS.STG[EndpointId.GOAT_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET], DVNS.STG[EndpointId.GOAT_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
+            nativeDropAmount: parseEther('0.00001').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x93fC2AffA2633C873A74876B76C8e4154579E8Ef',
+            safeUrl: 'https://goat-tx.lzdevnet.org',
+            contractNetworks: {
+                ['2345']: {
+                    multiSendAddress: '0x8a6e7041bf6bee63796248D55f7f8539B93e6392',
+                    multiSendCallOnlyAddress: '0xC9A6781b600b76Cc1c9b3Ad4111924d5e6dF3928',
+                    safeMasterCopyAddress: '0xf74Bd2417160FcabB7d02bA7672409d28dDF1967',
+                    safeProxyFactoryAddress: '0x1C9A3476021f6fAd683F37601F222eB7DD30eC1e',
+                    fallbackHandlerAddress: '0x4e7B97aaaA57f55586982E56A882054f8Ba9cA3C',
+                    createCallAddress: '0x0dCD7594D2cC5Ca28174c9CCAf31bAF555e6c897',
+                    signMessageLibAddress: '0x5C6B04D0F934c7E6710eFAaA52dbCfc9e84A96Ac',
+                    simulateTxAccessorAddress: '0xe6c71861cCCEe52980B8cdeFA76A0c844aC22ceE',
+                },
+            },
         },
     },
     [EndpointId.GRAVITY_V2_MAINNET]: {

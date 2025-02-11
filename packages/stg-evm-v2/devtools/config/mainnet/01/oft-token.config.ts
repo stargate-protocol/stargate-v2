@@ -15,6 +15,7 @@ import {
     onFlow,
     onFuse,
     onGlue,
+    onGoat,
     onGravity,
     onIota,
     onIslander,
@@ -82,6 +83,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const glueETH = onGlue({ contractName: glueETHContractName })
 
+    const goatETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.GOAT_V2_MAINNET, TokenName.ETH)
+    )
+    const goatETH = onGoat({ contractName: goatETHContractName })
+
     const gravityETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.GRAVITY_V2_MAINNET, TokenName.ETH)
@@ -135,6 +142,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, [TokenName.ETH] as const)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, [TokenName.ETH] as const)
     const glueAssetAddresses = await getAssetAddresses(EndpointId.GLUE_V2_MAINNET, [TokenName.ETH] as const)
+    const goatAssetAddresses = await getAssetAddresses(EndpointId.GOAT_V2_MAINNET, [TokenName.ETH] as const)
     const gravityAssetAddresses = await getAssetAddresses(EndpointId.GRAVITY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -238,6 +246,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.GLUE_V2_MAINNET),
                     minters: {
                         [glueAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: goatETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.GOAT_V2_MAINNET),
+                    minters: {
+                        [goatAssetAddresses.ETH]: true,
                     },
                 },
             },

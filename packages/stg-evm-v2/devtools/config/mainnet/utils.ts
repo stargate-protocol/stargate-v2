@@ -23,6 +23,7 @@ export const onFraxtal = withEid(EndpointId.FRAXTAL_V2_MAINNET)
 export const onFuse = withEid(EndpointId.FUSE_V2_MAINNET)
 export const onGlue = withEid(EndpointId.GLUE_V2_MAINNET)
 export const onGnosis = withEid(EndpointId.GNOSIS_V2_MAINNET)
+export const onGoat = withEid(EndpointId.GOAT_V2_MAINNET)
 export const onGravity = withEid(EndpointId.GRAVITY_V2_MAINNET)
 export const onHemi = withEid(EndpointId.HEMI_V2_MAINNET)
 export const onInk = withEid(EndpointId.INK_V2_MAINNET)
@@ -79,6 +80,7 @@ export const chainFunctions = {
     'fuse-mainnet': onFuse,
     'glue-mainnet': onGlue,
     'gnosis-mainnet': onGnosis,
+    'goat-mainnet': onGoat,
     'gravity-mainnet': onGravity,
     'hemi-mainnet': onHemi,
     'ink-mainnet': onInk,
@@ -130,6 +132,7 @@ export const validCreditMessagingChains = new Set([
     'fuse-mainnet',
     'glue-mainnet',
     'gnosis-mainnet',
+    'goat-mainnet',
     'gravity-mainnet',
     'hemi-mainnet',
     'ink-mainnet',
