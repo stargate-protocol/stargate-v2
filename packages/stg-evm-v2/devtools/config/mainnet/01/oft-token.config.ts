@@ -259,15 +259,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 },
             },
             {
-                contract: goatUSDT,
-                config: {
-                    owner: getSafeAddress(EndpointId.GOAT_V2_MAINNET),
-                    minters: {
-                        [goatAssetAddresses.USDT]: true,
-                    },
-                },
-            },
-            {
                 contract: gravityETH,
                 config: {
                     owner: getSafeAddress(EndpointId.GRAVITY_V2_MAINNET),
