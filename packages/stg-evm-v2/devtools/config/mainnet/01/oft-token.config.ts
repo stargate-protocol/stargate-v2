@@ -384,6 +384,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 },
             },
             {
+                contract: storyUSDT,
+                config: {
+                    owner: getSafeAddress(EndpointId.STORY_V2_MAINNET),
+                    minters: {
+                        [storyAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
                 contract: taikoUSDT,
                 config: {
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
