@@ -2039,18 +2039,18 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
             safeUrl: 'https://transaction.staging.safe.story.foundation/',
-            // contractNetworks: {
-            //     [1514]: {
-            //         multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
-            //         multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
-            //         safeMasterCopyAddress: '',
-            //         safeProxyFactoryAddress: '',
-            //         fallbackHandlerAddress: '',
-            //         createCallAddress: '',
-            //         signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
-            //         simulateTxAccessorAddress: '',
-            //     },
-            // },
+            contractNetworks: {
+                [1514]: {
+                    multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
+                    multiSendCallOnlyAddress: '0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B',
+                    safeMasterCopyAddress: '0xfb1bffC9d739B8D520DaF37dF666da4C687191EA',
+                    safeProxyFactoryAddress: '0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC',
+                    fallbackHandlerAddress: '0x017062a1dE2FE6b99BE3d9d37841FeD19F573804',
+                    createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
+                    signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
+                    simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
+                },
+            },
         },
     },
     [EndpointId.SONEIUM_V2_MAINNET]: {
