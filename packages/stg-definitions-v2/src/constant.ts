@@ -1155,6 +1155,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
+            busGasLimit: 60000n,
+            nativeDropGasLimit: 30000n,
         },
         safeConfig: {
             safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
