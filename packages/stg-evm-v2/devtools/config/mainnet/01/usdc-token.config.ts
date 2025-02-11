@@ -114,7 +114,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
         onGlue({ contractName: 'FiatTokenProxy', address: usdcGlueAsset.address })
     )
     const goatUSDCProxy = await contractFactory(
-        onGoat({ contractName: 'FiatTokenProxy', address: usdcInkAsset.address })
+        onGoat({ contractName: 'FiatTokenProxy', address: usdcGoatAsset.address })
     )
     const gravityUSDCProxy = await contractFactory(onGravity(proxyContract))
     const hemiUSDCProxy = await contractFactory(
