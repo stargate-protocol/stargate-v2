@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.7
+
+### Patch Changes
+
+- 56d4490: Updating packages
+
 ## 1.1.6
 
 ### Patch Changes

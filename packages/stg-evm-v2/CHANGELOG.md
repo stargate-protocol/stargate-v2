@@ -1,5 +1,25 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.4.0
+
+### Minor Changes
+
+- b0178cf: per pair wiring for credit messaging
+- f6e1cc9: Making all configurations retriable and allowing dynamic number of retries via NUM_RETRIES environment variable
+
+### Patch Changes
+
+- 8a21693: goat deployments
+- 0791b03: goat mainnet config
+- 56d4490: Updating packages
+- f1ae9bf: update nativeDrop
+- Updated dependencies [0791b03]
+- Updated dependencies [f42047c]
+- Updated dependencies [56d4490]
+- Updated dependencies [c674e0a]
+- Updated dependencies [f1ae9bf]
+  - @stargatefinance/stg-definitions-v2@1.4.8
+
 ## 1.3.7
 
 ### Patch Changes
