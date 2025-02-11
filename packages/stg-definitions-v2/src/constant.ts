@@ -873,6 +873,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SEI_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
+        [EndpointId.STORY_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
