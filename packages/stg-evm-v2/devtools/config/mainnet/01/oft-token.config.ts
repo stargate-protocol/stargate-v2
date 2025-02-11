@@ -25,6 +25,7 @@ import {
     onRarible,
     onRootstock,
     onSei,
+    onStory,
     onTaiko,
 } from '../utils'
 
@@ -127,6 +128,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const seiETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.SEI_V2_MAINNET, TokenName.ETH))
     const seiETH = onSei({ contractName: seiETHContractName })
 
+    const storyETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.STORY_V2_MAINNET, TokenName.ETH)
+    )
+    const storyETH = onStory({ contractName: storyETHContractName })
+
     // Now we collect the address of the deployed WETH assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [TokenName.ETH] as const)
@@ -173,6 +180,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.USDT,
     ] as const)
     const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
+    const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDT] as const)
 
     return {
@@ -363,6 +371,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.SEI_V2_MAINNET),
                     minters: {
                         [seiAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: storyETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.STORY_V2_MAINNET),
+                    minters: {
+                        [storyAssetAddresses.ETH]: true,
                     },
                 },
             },

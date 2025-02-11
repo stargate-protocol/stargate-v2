@@ -52,6 +52,7 @@ import {
     onSei,
     onShimmer,
     onSoneium,
+    onStory,
     onSuperposition,
     onTaiko,
     onXchain,
@@ -110,6 +111,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const seiOftWrapper = onSei(contract)
     const shimmerOftWrapper = onShimmer(contract)
     const soneiumOftWrapper = onSoneium(contract)
+    const storyOftWrapper = onStory(contract)
     const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
     const xchainOftWrapper = onXchain(contract)
@@ -399,6 +401,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: soneiumOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.SONEIUM_V2_MAINNET),
+                },
+            },
+            {
+                contract: storyOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.STORY_V2_MAINNET),
                 },
             },
             {

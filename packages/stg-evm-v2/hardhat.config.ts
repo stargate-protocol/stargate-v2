@@ -511,6 +511,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'story-mainnet': {
+        eid: EndpointId.STORY_V2_MAINNET,
+        url: process.env.RPC_URL_STORY_MAINNET || 'https://mainnet.storyrpc.io',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.STORY_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'superposition-mainnet': {
         eid: EndpointId.SUPERPOSITION_V2_MAINNET,
         url: process.env.RPC_URL_SUPERPOSITION_MAINNET || 'https://rpc.superposition.so',
