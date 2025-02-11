@@ -1940,6 +1940,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
             nativeDropAmount: parseEther('0.0006').toBigInt(),
+            busGasLimit: 60000n,
+            nativeDropGasLimit: 30000n,
         },
         safeConfig: {
             safeAddress: '0x196009FbeD5825a4Fe7443b5a1908E359d051769',
@@ -1969,8 +1971,6 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET], DVNS.STG[EndpointId.SONEIUM_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.0005').toBigInt(),
-            busGasLimit: 60000n,
-            nativeDropGasLimit: 30000n,
         },
         safeConfig: {
             safeAddress: '0xea4645d254A9E3C67595EaF3AFaaf3E0DaA4fa0e',
