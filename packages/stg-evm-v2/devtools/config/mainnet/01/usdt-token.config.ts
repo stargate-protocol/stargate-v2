@@ -19,6 +19,7 @@ import {
     onPeaq,
     onPlume,
     onRootstock,
+    onStory,
 } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
