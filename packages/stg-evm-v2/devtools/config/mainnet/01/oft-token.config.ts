@@ -87,7 +87,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         getAssetType(EndpointId.GOAT_V2_MAINNET, TokenName.ETH)
     )
-    const goatETH = onGoat({ contractName: glueETHContractName })
+    const goatETH = onGoat({ contractName: goatETHContractName })
 
     const gravityETHContractName = getTokenDeployName(
         TokenName.ETH,
