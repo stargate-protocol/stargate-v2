@@ -1201,7 +1201,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
-            safeUrl: 'https://transaction.bp.w3us.site',
+            safeUrl: 'https://transaction.safe.berachain.com',
             contractNetworks: {
                 [80094]: {
                     multiSendAddress: '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526',
