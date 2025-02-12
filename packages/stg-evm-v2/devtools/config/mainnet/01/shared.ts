@@ -178,6 +178,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const unichainAssetAddresses = await getAssetAddresses(EndpointId.UNICHAIN_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -362,6 +363,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [taikoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.UNICHAIN_V2_MAINNET]: {
+            [unichainAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [zkConsensysAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

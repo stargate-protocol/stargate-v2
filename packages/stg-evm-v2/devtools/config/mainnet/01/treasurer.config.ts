@@ -47,6 +47,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onUnichain,
     onXchain,
     onZkConsensys,
 } from '../utils'
@@ -98,6 +99,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
+    const unichainAdmin = getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
     const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
 
@@ -271,6 +273,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const unichainAssetAddresses = await getAssetAddresses(EndpointId.UNICHAIN_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -733,6 +736,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [taikoAssetAddresses.USDC]: true,
                         [taikoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onUnichain(contract),
+                config: {
+                    owner: unichainAdmin,
+                    admin: unichainAdmin,
+                    assets: {
+                        [unichainAssetAddresses.ETH]: true,
                     },
                 },
             },
