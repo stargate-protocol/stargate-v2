@@ -1,5 +1,15 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.9
+
+### Patch Changes
+
+- 25129c6: story aminnet
+- 4487e04: bera safe api
+- 110bd5e: unichain mainnet
+- 6715fc6: updating packages
+- 5c1b68c: story oft wrapper
+
 ## 1.4.8
 
 ### Patch Changes

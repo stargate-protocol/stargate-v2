@@ -1,5 +1,26 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.5.0
+
+### Minor Changes
+
+- e6a922b: Dynamic wiring for token messaging
+
+### Patch Changes
+
+- 25129c6: story aminnet
+- 1d6ea2c: unichain deployments
+- 110bd5e: unichain mainnet
+- 6715fc6: updating packages
+- 5c1b68c: story oft wrapper
+- 5c72c48: story deployments
+- Updated dependencies [25129c6]
+- Updated dependencies [4487e04]
+- Updated dependencies [110bd5e]
+- Updated dependencies [6715fc6]
+- Updated dependencies [5c1b68c]
+  - @stargatefinance/stg-definitions-v2@1.4.9
+
 ## 1.4.0
 
 ### Minor Changes

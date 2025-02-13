@@ -165,8 +165,59 @@ export const validCreditMessagingChains = new Set([
     // Add other valid chains for credit messaging
 ])
 
+export const validTokenMessagingChains = new Set([
+    'abstract-mainnet',
+    'arbitrum-mainnet',
+    'aurora-mainnet',
+    'avalanche-mainnet',
+    'base-mainnet',
+    'bera-mainnet',
+    'bsc-mainnet',
+    'codex-mainnet',
+    'coredao-mainnet',
+    'degen-mainnet',
+    'ebi-mainnet',
+    'ethereum-mainnet',
+    'flare-mainnet',
+    'flow-mainnet',
+    'fuse-mainnet',
+    'glue-mainnet',
+    'gnosis-mainnet',
+    'goat-mainnet',
+    'gravity-mainnet',
+    'hemi-mainnet',
+    'ink-mainnet',
+    'iota-mainnet',
+    'islander-mainnet',
+    'kava-mainnet',
+    'klaytn-mainnet',
+    'lightlink-mainnet',
+    'mantle-mainnet',
+    'metis-mainnet',
+    'optimism-mainnet',
+    'peaq-mainnet',
+    'plume-mainnet',
+    'polygon-mainnet',
+    'rarible-mainnet',
+    'rootstock-mainnet',
+    'scroll-mainnet',
+    'sei-mainnet',
+    'soneium-mainnet',
+    'story-mainnet',
+    'superposition-mainnet',
+    'taiko-mainnet',
+    'unichain-mainnet',
+    'zkconsensys-mainnet',
+    'xchain-mainnet',
+    // Add other valid chains for token messaging
+])
+
 export function isValidCreditMessagingChain(chain: string): boolean {
     return validCreditMessagingChains.has(chain)
+}
+
+export function isValidTokenMessagingChain(chain: string): boolean {
+    return validTokenMessagingChains.has(chain)
 }
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
