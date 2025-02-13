@@ -3,7 +3,7 @@ import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatef
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { generateCreditMessagingConfig, getSafeAddress } from '../../utils'
-import { filterConnections, getContracts, isValidCreditMessagingChain } from '../utils'
+import { filterConnections, getContracts, isValidCreditMessagingChain, validCreditMessagingChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getMessagingAssetConfig } from './shared'
@@ -11,8 +11,8 @@ import { getMessagingAssetConfig } from './shared'
 const contract = { contractName: 'CreditMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, CreditMessagingEdgeConfig>> => {
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : null
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : null
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : [...validCreditMessagingChains]
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : [...validCreditMessagingChains]
 
     console.log('FROM_CHAINS:', fromChains)
     console.log('TO_CHAINS:', toChains)
