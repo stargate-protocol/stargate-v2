@@ -14,8 +14,8 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : [...validCreditMessagingChains]
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : [...validCreditMessagingChains]
 
-    console.log('FROM_CHAINS:', fromChains)
-    console.log('TO_CHAINS:', toChains)
+    console.log('CREDIT_MESSAGING FROM_CHAINS:', fromChains)
+    console.log('CREDIT_MESSAGING TO_CHAINS:', toChains)
 
     let fromContracts
     let toContracts
