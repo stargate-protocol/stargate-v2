@@ -13,7 +13,6 @@ export const onBsc = withEid(EndpointId.BSC_V2_MAINNET)
 export const onCodex = withEid(EndpointId.CODEX_V2_MAINNET)
 export const onCoredao = withEid(EndpointId.COREDAO_V2_MAINNET)
 export const onDegen = withEid(EndpointId.DEGEN_V2_MAINNET)
-export const onEbi = withEid(EndpointId.EBI_V2_MAINNET)
 export const onEth = withEid(EndpointId.ETHEREUM_V2_MAINNET)
 export const onEtherLink = withEid(EndpointId.ETHERLINK_V2_MAINNET)
 export const onFantom = withEid(EndpointId.FANTOM_V2_MAINNET)
@@ -72,7 +71,6 @@ export const chainFunctions = {
     'codex-mainnet': onCodex,
     'coredao-mainnet': onCoredao,
     'degen-mainnet': onDegen,
-    'ebi-mainnet': onEbi,
     'ethereum-mainnet': onEth,
     'etherlink-mainnet': onEtherLink,
     'fantom-mainnet': onFantom,
@@ -129,7 +127,6 @@ export const validCreditMessagingChains = new Set([
     'codex-mainnet',
     'coredao-mainnet',
     'degen-mainnet',
-    'ebi-mainnet',
     'ethereum-mainnet',
     'flare-mainnet',
     'flow-mainnet',
@@ -176,7 +173,6 @@ export const validTokenMessagingChains = new Set([
     'codex-mainnet',
     'coredao-mainnet',
     'degen-mainnet',
-    'ebi-mainnet',
     'ethereum-mainnet',
     'flare-mainnet',
     'flow-mainnet',

@@ -11,7 +11,6 @@ import {
     onBsc,
     onCoredao,
     onDegen,
-    onEbi,
     onEth,
     onFlare,
     onFlow,
@@ -54,7 +53,6 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const bscFeeLibV1 = onBsc(contract)
     const coredaoFeeLibV1 = onCoredao(contract)
     const degenFeeLibV1 = onDegen(contract)
-    const ebiFeeLibV1 = onEbi(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
     const flowFeeLibV1 = onFlow(contract)
@@ -104,10 +102,6 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: degenFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: ebiFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
