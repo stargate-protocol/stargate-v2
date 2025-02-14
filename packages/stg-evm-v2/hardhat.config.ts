@@ -535,7 +535,7 @@ const networks: NetworksUserConfig = {
     },
     'unichain-mainnet': {
         eid: EndpointId.UNICHAIN_V2_MAINNET,
-        url: process.env.RPC_URL_UNICHAIN_MAINNET || '',
+        url: process.env.RPC_URL_UNICHAIN_MAINNET || 'https://mainnet.unichain.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.UNICHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
