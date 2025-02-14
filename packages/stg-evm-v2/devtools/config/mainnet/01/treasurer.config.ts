@@ -44,6 +44,7 @@ import {
     onScroll,
     onSei,
     onSoneium,
+    onSonic,
     onStory,
     onSuperposition,
     onTaiko,
@@ -96,6 +97,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
     const soneiumAdmin = getSafeAddress(EndpointId.SONEIUM_V2_MAINNET)
+    const sonicAdmin = getSafeAddress(EndpointId.SONIC_V2_MAINNET)
     const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
@@ -261,6 +263,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const sonicAssetAddresses = await getAssetAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -703,6 +706,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [soneiumAssetAddresses.ETH]: true,
                         [soneiumAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onSonic(contract),
+                config: {
+                    owner: sonicAdmin,
+                    admin: sonicAdmin,
+                    assets: {
+                        [sonicAssetAddresses.USDC]: true,
                     },
                 },
             },

@@ -28,6 +28,7 @@ import {
     onScroll,
     onSei,
     onSoneium,
+    onSonic,
     onZkConsensys,
 } from '../utils'
 
@@ -59,6 +60,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const scrollRewarder = await contractFactory(onScroll(rewarder))
     const seiRewarder = await contractFactory(onSei(rewarder))
     const soneiumRewarder = await contractFactory(onSoneium(rewarder))
+    const sonicRewarder = await contractFactory(onSonic(rewarder))
     const zkConsensysRewarder = await contractFactory(onZkConsensys(rewarder))
 
     // Get the staking contract
@@ -80,6 +82,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const scrollStaking = onScroll(staking)
     const seiStaking = onSei(staking)
     const soneiumStaking = onSoneium(staking)
+    const sonicStaking = onSonic(staking)
     const zkConsensysStaking = onZkConsensys(staking)
 
     // Template objects for pool configuration
@@ -103,6 +106,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const scrollPool = { rewarder: scrollRewarder.contract.address }
     const seiPool = { rewarder: seiRewarder.contract.address }
     const soneiumPool = { rewarder: soneiumRewarder.contract.address }
+    const sonicPool = { rewarder: sonicRewarder.contract.address }
     const zkConsensysPool = { rewarder: zkConsensysRewarder.contract.address }
 
     // get the LPToken addresses
@@ -390,6 +394,18 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...soneiumPool,
                             token: lpTokenAddresses[EndpointId.SONEIUM_V2_MAINNET].USDC,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: sonicStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.SONIC_V2_MAINNET),
+                    pools: [
+                        {
+                            ...sonicPool,
+                            token: lpTokenAddresses[EndpointId.SONIC_V2_MAINNET].USDC,
                         },
                     ],
                 },
