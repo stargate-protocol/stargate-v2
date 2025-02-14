@@ -886,6 +886,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SEI_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
+        [EndpointId.SONIC_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
@@ -1077,6 +1078,16 @@ export const REWARDS: RewardsConfig = {
             //
             // Mainnet
             [EndpointId.ABSTRACT_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
+            },
+        },
+    },
+    [RewardTokenName.S]: {
+        name: 'S',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.SONIC_V2_MAINNET]: {
                 address: '0x0000000000000000000000000000000000000000',
             },
         },
