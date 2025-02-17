@@ -6,6 +6,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import {
     onAbstract,
+    onApe,
     onArb,
     onBase,
     onBera,
@@ -47,6 +48,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     }
 
     const abstractFeeLibV1 = onAbstract(contract)
+    const apeFeeLibV1 = onApe(contract)
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
     const beraFeeLibV1 = onBera(contract)
@@ -81,6 +83,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         contracts: [
             {
                 contract: abstractFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: apeFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
