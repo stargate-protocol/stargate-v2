@@ -9,6 +9,7 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import {
     onAbstract,
+    onApe,
     onDegen,
     onFlow,
     onFuse,
@@ -30,6 +31,9 @@ assert(usdtPeaqAsset.address != null, `External USDT address not found for PEAQ`
 
 const usdtAbstractAsset = getAssetNetworkConfig(EndpointId.ABSTRACT_V2_MAINNET, TokenName.USDT)
 assert(usdtAbstractAsset.address != null, `External USDT address not found for ABSTRACT`)
+
+const usdtApeAsset = getAssetNetworkConfig(EndpointId.APE_V2_MAINNET, TokenName.USDT)
+assert(usdtApeAsset.address != null, `External USDT address not found for APE`)
 
 const usdtDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDT)
 assert(usdtDegenAsset.address != null, `External USDT address not found for DEGEN`)
@@ -74,6 +78,10 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onAbstract({ contractName: 'TransparentUpgradeableProxy', address: usdtAbstractAsset.address })
     )
 
+    const apeUSDTProxy = await contractFactory(
+        onApe({ contractName: 'TransparentUpgradeableProxy', address: usdtApeAsset.address })
+    )
+
     const degenUSDTProxy = await contractFactory(
         onDegen({ contractName: 'TransparentUpgradeableProxy', address: usdtDegenAsset.address })
     )
@@ -116,6 +124,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
 
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })
     const abstractUSDT = onAbstract({ ...fiatContract, address: abstractUSDTProxy.contract.address })
+    const apeUSDT = onApe({ ...fiatContract, address: apeUSDTProxy.contract.address })
     const degenUSDT = onDegen({ ...fiatContract, address: degenUSDTProxy.contract.address })
     const flowUSDT = onFlow({ ...fiatContract, address: flowUSDTProxy.contract.address })
     const fuseUSDT = onFuse({ ...fiatContract, address: fuseUSDTProxy.contract.address })
@@ -132,6 +141,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdtAssets)
     const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, usdtAssets)
+    const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, usdtAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdtAssets)
     const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, usdtAssets)
     const fuseAssetAddresses = await getAssetAddresses(EndpointId.FUSE_V2_MAINNET, usdtAssets)
@@ -155,6 +165,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: abstractUSDT,
                 config: {
                     owner: abstractAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: apeUSDT,
+                config: {
+                    owner: apeAssetAddresses.USDT,
                 },
             },
             {
