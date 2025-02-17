@@ -180,6 +180,13 @@ const networks: NetworksUserConfig = {
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
     },
+    'ape-mainnet': {
+        eid: EndpointId.APE_V2_MAINNET,
+        url: process.env.RPC_URL_APE_MAINNET || 'https://apechain.drpc.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.APE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
         url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://rpc.ankr.com/arbitrum',
