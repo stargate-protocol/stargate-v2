@@ -345,6 +345,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.TELOS_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.UNICHAIN_V2_MAINNET]: {
                 type: StargateType.Native,
             },
@@ -535,6 +540,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
+            },
+            [EndpointId.TELOS_V2_MAINNET]: {
+                type: StargateType.Oft,
+                //TODO add address once deployed
+                // address: '',
             },
 
             //
@@ -756,6 +766,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
+            },
+            [EndpointId.TELOS_V2_MAINNET]: {
+                type: StargateType.Oft,
+                // TODO add address once deployed & verified
+                // address: '',
             },
             [EndpointId.XCHAIN_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -2254,6 +2269,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
                     signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
                     simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
+                },
+            },
+        },
+    },
+    [EndpointId.TELOS_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET], DVNS.STG[EndpointId.TELOS_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET], DVNS.STG[EndpointId.TELOS_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
+            nativeDropAmount: parseEther('1').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x8421259dda5CE973680a1aAC7EFf45589A515B55',
+            safeUrl: 'https://telos-tx.lzdevnet.org',
+            contractNetworks: {
+                [40]: {
+                    multiSendAddress: '0xcCf6684d2d2E788C81e7D608c7f48456Af2AD31E',
+                    multiSendCallOnlyAddress: '0x9FfC5769005618a25E8BBBDe30AE90A0539F3BFd',
+                    safeMasterCopyAddress: '0x6df82166C61b3a48C8799aE938f7e5e74dD84E32',
+                    safeProxyFactoryAddress: '0xeF1020c42DF001c7218D7b8F05B7BD04e8CFC9D0',
+                    fallbackHandlerAddress: '0x6946bFb85475a8BaD9f43ed7C7B14F35102CeD4f',
+                    createCallAddress: '0x8cF8eb579421E90e0C705405f5716f2F651eEb3e',
+                    signMessageLibAddress: '0xbb2BB33d947BB94ce21cF09e584FF0f62Dc78D91',
+                    simulateTxAccessorAddress: '0x8283a2A5016755776C911458f87356DbC2AE9c1b',
                 },
             },
         },
