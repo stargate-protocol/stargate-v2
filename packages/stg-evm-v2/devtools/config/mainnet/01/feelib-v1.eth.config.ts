@@ -33,6 +33,7 @@ import {
     onSei,
     onSoneium,
     onStory,
+    onTelos,
     onUnichain,
     onZkConsensys,
 } from '../utils'
@@ -75,6 +76,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const seiFeeLibV1 = onSei(contract)
     const soneiumFeeLibV1 = onSoneium(contract)
     const storyFeeLibV1 = onStory(contract)
+    const telosFeeLibV1 = onTelos(contract)
     const unichainFeeLibV1 = onUnichain(contract)
     const zkConsensysFeeLibV1 = onZkConsensys(contract)
 
@@ -195,6 +197,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: rootstockFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: telosFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

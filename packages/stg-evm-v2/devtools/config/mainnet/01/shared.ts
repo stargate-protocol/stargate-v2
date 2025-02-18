@@ -184,6 +184,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const telosAssetAddress = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const unichainAssetAddresses = await getAssetAddresses(EndpointId.UNICHAIN_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
@@ -377,6 +382,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [taikoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.TELOS_V2_MAINNET]: {
+            [telosAssetAddress.ETH]: ASSETS[TokenName.ETH].assetId,
+            [telosAssetAddress.USDC]: ASSETS[TokenName.USDC].assetId,
+            [telosAssetAddress.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.UNICHAIN_V2_MAINNET]: {
             [unichainAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

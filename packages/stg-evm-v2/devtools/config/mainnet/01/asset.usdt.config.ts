@@ -50,6 +50,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
     const storyPoint = getAssetPoint(EndpointId.STORY_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
+    const telosPoint = getAssetPoint(EndpointId.TELOS_V2_MAINNET)
 
     // And all their nodes
     const abstractContract = await getAssetNode(abstractPoint)
@@ -84,6 +85,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const seiContract = await getAssetNode(seiPoint)
     const storyContract = await getAssetNode(storyPoint)
     const taikoContract = await getAssetNode(taikoPoint)
+    const telosContract = await getAssetNode(telosPoint)
 
     return {
         contracts: [
@@ -119,6 +121,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             seiContract,
             storyContract,
             taikoContract,
+            telosContract,
         ],
         connections: generateAssetConfig(tokenName, [
             abstractPoint,
@@ -153,6 +156,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             seiPoint,
             storyPoint,
             taikoPoint,
+            telosPoint,
         ]),
     }
 }

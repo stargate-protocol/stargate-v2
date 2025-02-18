@@ -28,6 +28,7 @@ import {
     onSei,
     onStory,
     onTaiko,
+    onTelos,
 } from '../utils'
 
 // Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
@@ -137,6 +138,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const storyETH = onStory({ contractName: storyETHContractName })
 
+    const telosETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.TAIKO_V2_MAINNET, TokenName.ETH)
+    )
+    const telosETH = onTelos({ contractName: telosETHContractName })
+
     // Now we collect the address of the deployed WETH assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [TokenName.ETH] as const)
@@ -186,6 +193,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const seiAssetAddresses = await getAssetAddresses(EndpointId.SEI_V2_MAINNET, [TokenName.ETH] as const)
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDT] as const)
+    const telosAssetAddresses = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, [TokenName.ETH] as const)
 
     return {
         contracts: [
@@ -402,6 +410,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
                     minters: {
                         [taikoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: telosETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.TELOS_V2_MAINNET),
+                    minters: {
+                        [telosAssetAddresses.ETH]: true,
                     },
                 },
             },

@@ -547,6 +547,13 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
         gasPrice: 20000000,
     },
+    'telos-mainnet': {
+        eid: EndpointId.TELOS_V2_MAINNET,
+        url: process.env.RPC_URL_TELOS_MAINNET || 'https://rpc.telos.net',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.TELOS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'unichain-mainnet': {
         eid: EndpointId.UNICHAIN_V2_MAINNET,
         url: process.env.RPC_URL_UNICHAIN_MAINNET || 'https://mainnet.unichain.org',
