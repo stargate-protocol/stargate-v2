@@ -120,14 +120,14 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET),
                     allocations: {
                         [arbRewardTokenAddresses.ARB]: {
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].ETH]: 6000,
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDC]: 2500,
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 1500,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 10000,
                         },
                         [arbRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].ETH]: 6000,
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDC]: 2500,
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 1500,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -149,8 +149,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET),
                     allocations: {
                         [avaRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.AVALANCHE_V2_MAINNET].USDC]: 5000,
-                            [lpTokenAddresses[EndpointId.AVALANCHE_V2_MAINNET].USDT]: 5000,
+                            [lpTokenAddresses[EndpointId.AVALANCHE_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.AVALANCHE_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -161,8 +161,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BASE_V2_MAINNET),
                     allocations: {
                         [baseRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].ETH]: 6500,
-                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].USDC]: 3500,
+                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].USDC]: 0,
                         },
                     },
                 },
@@ -197,9 +197,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     allocations: {
                         [ethRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 4220,
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 3381,
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 2399,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -243,9 +243,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.MANTLE_V2_MAINNET),
                     allocations: {
                         [mantleRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.MANTLE_V2_MAINNET].ETH]: 7000,
-                            [lpTokenAddresses[EndpointId.MANTLE_V2_MAINNET].USDC]: 1500,
-                            [lpTokenAddresses[EndpointId.MANTLE_V2_MAINNET].USDT]: 1500,
+                            [lpTokenAddresses[EndpointId.MANTLE_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.MANTLE_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.MANTLE_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -256,8 +256,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.METIS_V2_MAINNET),
                     allocations: {
                         [metisRewardTokenAddresses.METIS]: {
-                            [lpTokenAddresses[EndpointId.METIS_V2_MAINNET].ETH]: 5625,
-                            [lpTokenAddresses[EndpointId.METIS_V2_MAINNET].USDT]: 4375,
+                            [lpTokenAddresses[EndpointId.METIS_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.METIS_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -268,14 +268,14 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET),
                     allocations: {
                         [optRewardTokenAddresses.OP]: {
-                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].ETH]: 6000,
-                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDC]: 1500,
-                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDT]: 2500,
+                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDT]: 10000,
                         },
                         [optRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].ETH]: 6000,
-                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDC]: 1500,
-                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDT]: 2500,
+                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.OPTIMISM_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -286,8 +286,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.POLYGON_V2_MAINNET),
                     allocations: {
                         [polygonRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.POLYGON_V2_MAINNET].USDC]: 5959,
-                            [lpTokenAddresses[EndpointId.POLYGON_V2_MAINNET].USDT]: 4041,
+                            [lpTokenAddresses[EndpointId.POLYGON_V2_MAINNET].USDC]: 0,
+                            [lpTokenAddresses[EndpointId.POLYGON_V2_MAINNET].USDT]: 10000,
                         },
                     },
                 },
@@ -298,8 +298,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.SCROLL_V2_MAINNET),
                     allocations: {
                         [scrollRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].ETH]: 7000,
-                            [lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].USDC]: 3000,
+                            [lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].ETH]: 0,
+                            [lpTokenAddresses[EndpointId.SCROLL_V2_MAINNET].USDC]: 10000,
                         },
                     },
                 },
