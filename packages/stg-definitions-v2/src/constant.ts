@@ -594,8 +594,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.APE_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO add USDC adddress once deployed & verified
-                // address: '',
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
