@@ -543,8 +543,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.TELOS_V2_MAINNET]: {
                 type: StargateType.Oft,
-                //TODO add address once deployed
-                // address: '',
+                address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
             },
 
             //
