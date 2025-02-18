@@ -161,8 +161,8 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BASE_V2_MAINNET),
                     allocations: {
                         [baseRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].ETH]: 5000,
-                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].USDC]: 5000,
+                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].ETH]: 6500,
+                            [lpTokenAddresses[EndpointId.BASE_V2_MAINNET].USDC]: 3500,
                         },
                     },
                 },
