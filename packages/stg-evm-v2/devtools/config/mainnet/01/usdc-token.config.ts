@@ -93,8 +93,8 @@ assert(usdcStoryAsset.address != null, `External USDC address not found for STOR
 const usdcSuperpositionAsset = getAssetNetworkConfig(EndpointId.SUPERPOSITION_V2_MAINNET, TokenName.USDC)
 assert(usdcSuperpositionAsset.address != null, `External USDC address not found for SUPERPOSITION`)
 
-const usdcTelonsAsset = getAssetNetworkConfig(EndpointId.TAIKO_V2_MAINNET, TokenName.USDC)
-assert(usdcTelonsAsset.address != null, `External USDC address not found for TAIKO`)
+const usdcTelosAsset = getAssetNetworkConfig(EndpointId.TELOS_V2_MAINNET, TokenName.USDC)
+assert(usdcTelosAsset.address != null, `External USDC address not found for TELOS`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
