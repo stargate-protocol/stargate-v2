@@ -54,6 +54,7 @@ export const onSonic = withEid(EndpointId.SONIC_V2_MAINNET)
 export const onStory = withEid(EndpointId.STORY_V2_MAINNET)
 export const onSuperposition = withEid(EndpointId.SUPERPOSITION_V2_MAINNET)
 export const onTaiko = withEid(EndpointId.TAIKO_V2_MAINNET)
+export const onTelos = withEid(EndpointId.TELOS_V2_MAINNET)
 export const onUnichain = withEid(EndpointId.UNICHAIN_V2_MAINNET)
 export const onXchain = withEid(EndpointId.XCHAIN_V2_MAINNET)
 export const onZkatana = withEid(EndpointId.ZKATANA_V2_MAINNET)
@@ -115,6 +116,7 @@ export const chainFunctions = {
     'story-mainnet': onStory,
     'superposition-mainnet': onSuperposition,
     'taiko-mainnet': onTaiko,
+    'telos-mainnet': onTelos,
     'unichain-mainnet': onUnichain,
     'xchain-mainnet': onXchain,
     'zkatana-mainnet': onZkatana,
@@ -165,6 +167,7 @@ export const validCreditMessagingChains = new Set([
     'story-mainnet',
     'superposition-mainnet',
     'taiko-mainnet',
+    'telos-mainnet',
     'unichain-mainnet',
     'zkconsensys-mainnet',
     'xchain-mainnet',
@@ -214,6 +217,7 @@ export const validTokenMessagingChains = new Set([
     'story-mainnet',
     'superposition-mainnet',
     'taiko-mainnet',
+    'telos-mainnet',
     'unichain-mainnet',
     'zkconsensys-mainnet',
     'xchain-mainnet',

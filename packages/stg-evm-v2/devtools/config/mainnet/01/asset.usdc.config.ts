@@ -57,6 +57,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const storyPoint = getAssetPoint(EndpointId.STORY_V2_MAINNET)
     const superpositionPoint = getAssetPoint(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
+    const telosPoint = getAssetPoint(EndpointId.TELOS_V2_MAINNET)
     const xchainPoint = getAssetPoint(EndpointId.XCHAIN_V2_MAINNET)
 
     // And all their nodes
@@ -99,6 +100,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const storyContract = await getAssetNode(storyPoint)
     const superpositionContract = await getAssetNode(superpositionPoint)
     const taikoContract = await getAssetNode(taikoPoint)
+    const telosContract = await getAssetNode(telosPoint)
     const xchainContract = await getAssetNode(xchainPoint)
 
     return {
@@ -142,6 +144,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             storyContract,
             superpositionContract,
             taikoContract,
+            telosContract,
             xchainContract,
         ],
         connections: generateAssetConfig(tokenName, [
@@ -184,6 +187,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
             storyPoint,
             superpositionPoint,
             taikoPoint,
+            telosPoint,
             xchainPoint,
         ]),
     }

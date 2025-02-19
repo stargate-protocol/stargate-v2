@@ -49,6 +49,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onTelos,
     onUnichain,
     onXchain,
     onZkConsensys,
@@ -103,6 +104,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
+    const telosAdmin = getSafeAddress(EndpointId.TELOS_V2_MAINNET)
     const unichainAdmin = getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET)
     const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
     const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
@@ -280,6 +282,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
     ] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const telosAssetAddresses = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -768,6 +775,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [taikoAssetAddresses.USDC]: true,
                         [taikoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onTelos(contract),
+                config: {
+                    owner: telosAdmin,
+                    admin: telosAdmin,
+                    assets: {
+                        [telosAssetAddresses.ETH]: true,
+                        [telosAssetAddresses.USDC]: true,
+                        [telosAssetAddresses.USDT]: true,
                     },
                 },
             },
