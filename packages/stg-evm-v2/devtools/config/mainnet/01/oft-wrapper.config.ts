@@ -120,7 +120,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const storyOftWrapper = onStory(contract)
     const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
-    const telosOfteWrapper = onTelos(contract)
+    const telosOftWrapper = onTelos(contract)
     const unichainOftWrapper = onUnichain(contract)
     const xchainOftWrapper = onXchain(contract)
     const zkatanaOftWrapper = onZkatana(contract)
