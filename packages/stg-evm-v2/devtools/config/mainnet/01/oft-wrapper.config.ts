@@ -442,7 +442,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
-                contract: telosOfteWrapper,
+                contract: telosOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.TELOS_V2_MAINNET),
                 },
