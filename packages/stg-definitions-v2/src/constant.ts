@@ -57,6 +57,7 @@ export const DVNS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
         [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
+        [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -123,6 +124,7 @@ export const DVNS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
         [EndpointId.SEI_V2_MAINNET]: '0xbd00c87850416db0995ef8030b104f875e1bdd15',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.SONIC_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.STORY_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TAIKO_V2_MAINNET]: '0x37473676ff697f2eba29c8a3105309abf00ba013',
@@ -176,6 +178,7 @@ export const EXECUTORS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
+        [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -734,6 +737,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369',
                 type: StargateType.Pool,
             },
+            [EndpointId.SONIC_V2_MAINNET]: {
+                address: '0x29219dd400f2bf60e5a23d13be72b486d4038894',
+                type: StargateType.Pool,
+            },
             [EndpointId.STORY_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
@@ -896,6 +903,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SEI_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
+        [EndpointId.SONIC_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
@@ -1091,6 +1099,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.S]: {
+        name: 'S',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.SONIC_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
@@ -1166,6 +1184,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET], DVNS.STG[EndpointId.ARBITRUM_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.00001').toBigInt(),
+            busGasLimit: 60000n,
+            busRideGasLimit: 55000n,
         },
         safeConfig: {
             safeAddress: '0x9CD50907aeb5D16F29Bddf7e1aBb10018Ee8717d',
@@ -2090,8 +2110,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET], DVNS.STG[EndpointId.STORY_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
             nativeDropAmount: parseEther('0.05').toBigInt(),
-            busGasLimit: 65000n,
-            nativeDropGasLimit: 35000n,
+            busGasLimit: 75000n,
+            nativeDropGasLimit: 45000n,
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
@@ -2135,6 +2155,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0x04f9dcEcf954D0bBD16108a828Df34C010144acD',
                     signMessageLibAddress: '0xD334818e16AbF71EF5fd5F7E3A1Bef78DF21B596',
                     simulateTxAccessorAddress: '0x623bB01e9AA264D82AD9E9869ACeACff7038F83E',
+                },
+            },
+        },
+    },
+    [EndpointId.SONIC_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET], DVNS.STG[EndpointId.SONIC_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET], DVNS.STG[EndpointId.SONIC_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
+            nativeDropAmount: parseEther('0.5').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x347eD93cA2F7aDCe6B1629590cC9717A8904e73A',
+            safeUrl: 'https://safe-transaction-sonic.safe.global/',
+            contractNetworks: {
+                [146]: {
+                    multiSendAddress: '0x38869bf66a61cF6bDB996A6aE40D5853Fd43B526',
+                    multiSendCallOnlyAddress: '0x9641d764fc13c8B624c04430C7356C1C7C8102e2',
+                    safeMasterCopyAddress: '0x41675C099F32341bf84BFc5382aF534df5C7461a',
+                    safeProxyFactoryAddress: '0x4e1DCf7AD4e460CfD30791CCC4F9c8a4f820ec67',
+                    fallbackHandlerAddress: '0xfd0732Dc9E303f09fCEf3a7388Ad10A83459Ec99',
+                    createCallAddress: '0x9b35Af71d77eaf8d7e40252370304687390A1A52',
+                    signMessageLibAddress: '0xd53cd0aB83D845Ac265BE939c57F53AD838012c9',
+                    simulateTxAccessorAddress: '0x3d4BA2E0884aa488718476ca2FB8Efc291A46199',
                 },
             },
         },

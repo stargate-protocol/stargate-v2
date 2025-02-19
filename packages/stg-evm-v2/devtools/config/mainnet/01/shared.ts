@@ -171,6 +171,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const sonicAssetAddresses = await getAssetAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -362,6 +363,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [soneiumAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [soneiumAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
+        [EndpointId.SONIC_V2_MAINNET]: {
+            [sonicAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
         [EndpointId.STORY_V2_MAINNET]: {
             [storyAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [storyAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -459,6 +463,7 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const sonicLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -538,6 +543,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [TokenName.ETH]: soneiumLPTokenAddresses.ETH,
             [TokenName.USDC]: soneiumLPTokenAddresses.USDC,
+        },
+        [EndpointId.SONIC_V2_MAINNET]: {
+            [TokenName.USDC]: sonicLPTokenAddresses.USDC,
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [TokenName.ETH]: zkConsensysLPTokenAddresses.ETH,

@@ -25,6 +25,7 @@ import {
     onScroll,
     onSei,
     onSoneium,
+    onSonic,
     onZkConsensys,
 } from '../utils'
 
@@ -93,6 +94,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const soneiumRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         RewardTokenName.WETH,
+    ] as const)
+    const sonicRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SONIC_V2_MAINNET, [
+        RewardTokenName.S,
     ] as const)
     const zkConsensysRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         RewardTokenName.STG,
@@ -323,6 +327,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     allocations: {
                         [soneiumRewardTokenAddresses.WETH]: {
                             [lpTokenAddresses[EndpointId.SONEIUM_V2_MAINNET].ETH]: 10000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onSonic(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.SONIC_V2_MAINNET),
+                    allocations: {
+                        [sonicRewardTokenAddresses.S]: {
+                            [lpTokenAddresses[EndpointId.SONIC_V2_MAINNET].USDC]: 10000,
                         },
                     },
                 },

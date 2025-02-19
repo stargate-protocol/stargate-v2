@@ -518,6 +518,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'sonic-mainnet': {
+        eid: EndpointId.SONIC_V2_MAINNET,
+        url: process.env.RPC_URL_SONIC_MAINNET || 'https://rpc.soniclabs.com',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SONIC_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'story-mainnet': {
         eid: EndpointId.STORY_V2_MAINNET,
         url: process.env.RPC_URL_STORY_MAINNET || 'https://mainnet.storyrpc.io',
