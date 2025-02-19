@@ -923,6 +923,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.STORY_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
+        [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
         [EndpointId.ZKATANA_V2_MAINNET]: {},
