@@ -43,6 +43,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onTelos,
     onXchain,
 } from '../utils'
 
@@ -94,6 +95,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const storyFeeLibV1 = onStory(contract)
     const superpositionFeeLibV1 = onSuperposition(contract)
     const taikoFeeLibV1 = onTaiko(contract)
+    const telosFeeLibV1 = onTelos(contract)
     const xchainFeeLibV1 = onXchain(contract)
 
     return {
@@ -248,6 +250,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: taikoFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: telosFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

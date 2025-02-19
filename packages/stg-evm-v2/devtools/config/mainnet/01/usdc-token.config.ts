@@ -34,6 +34,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onTelos,
     onXchain,
 } from '../utils'
 
@@ -91,6 +92,9 @@ assert(usdcStoryAsset.address != null, `External USDC address not found for STOR
 
 const usdcSuperpositionAsset = getAssetNetworkConfig(EndpointId.SUPERPOSITION_V2_MAINNET, TokenName.USDC)
 assert(usdcSuperpositionAsset.address != null, `External USDC address not found for SUPERPOSITION`)
+
+const usdcTelosAsset = getAssetNetworkConfig(EndpointId.TELOS_V2_MAINNET, TokenName.USDC)
+assert(usdcTelosAsset.address != null, `External USDC address not found for TELOS`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -153,6 +157,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
         onSuperposition({ contractName: 'FiatTokenProxy', address: usdcSuperpositionAsset.address })
     )
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
+    const telosUSDCProxy = await contractFactory(
+        onTelos({ contractName: 'FiatTokenProxy', address: usdcTelosAsset.address })
+    )
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
     // Get the corresponding underlying USDC contract
@@ -228,6 +235,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const taikoUSDC = onTaiko({ ...fiatContract, address: taikoUSDCProxy.contract.address })
     const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
 
+    const telosUSDC = onTelos({ ...fiatContract, address: telosUSDCProxy.contract.address })
+    const telosStargateMultisig = getSafeAddress(EndpointId.TELOS_V2_MAINNET)
+
     const xchainUSDC = onXchain({ ...fiatContract, address: xchainUSDCProxy.contract.address })
     const xchainStargateMultisig = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
 
@@ -258,6 +268,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, usdcAssets)
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, usdcAssets)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, usdcAssets)
+    const telosAssetAddresses = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, usdcAssets)
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, usdcAssets)
 
     return {
@@ -571,6 +582,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: taikoStargateMultisig,
                     minters: {
                         [taikoAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: telosUSDC,
+                config: {
+                    owner: telosStargateMultisig,
+                    masterMinter: telosStargateMultisig,
+                    pauser: telosStargateMultisig,
+                    rescuer: telosStargateMultisig,
+                    blacklister: telosStargateMultisig,
+                    minters: {
+                        [telosAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

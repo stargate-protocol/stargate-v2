@@ -57,6 +57,7 @@ import {
     onStory,
     onSuperposition,
     onTaiko,
+    onTelos,
     onUnichain,
     onXchain,
     onZkConsensys,
@@ -119,6 +120,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const storyOftWrapper = onStory(contract)
     const superpositionOftWrapper = onSuperposition(contract)
     const taikoOftWrapper = onTaiko(contract)
+    const telosOftWrapper = onTelos(contract)
     const unichainOftWrapper = onUnichain(contract)
     const xchainOftWrapper = onXchain(contract)
     const zkatanaOftWrapper = onZkatana(contract)
@@ -437,6 +439,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: taikoOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.TAIKO_V2_MAINNET),
+                },
+            },
+            {
+                contract: telosOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.TELOS_V2_MAINNET),
                 },
             },
             {

@@ -37,6 +37,7 @@ import {
     onSei,
     onStory,
     onTaiko,
+    onTelos,
 } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -81,6 +82,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const seiFeeLibV1 = onSei(contract)
     const storyFeeLibV1 = onStory(contract)
     const taikoFeeLibV1 = onTaiko(contract)
+    const telosFeeLibV1 = onTelos(contract)
 
     return {
         contracts: [
@@ -210,6 +212,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: taikoFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: telosFeeLibV1,
                 config: defaultNodeConfig,
             },
         ],
