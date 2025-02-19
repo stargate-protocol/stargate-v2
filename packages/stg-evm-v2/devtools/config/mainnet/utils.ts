@@ -49,6 +49,7 @@ export const onScroll = withEid(EndpointId.SCROLL_V2_MAINNET)
 export const onSei = withEid(EndpointId.SEI_V2_MAINNET)
 export const onShimmer = withEid(EndpointId.SHIMMER_V2_MAINNET)
 export const onSoneium = withEid(EndpointId.SONEIUM_V2_MAINNET)
+export const onSonic = withEid(EndpointId.SONIC_V2_MAINNET)
 export const onStory = withEid(EndpointId.STORY_V2_MAINNET)
 export const onSuperposition = withEid(EndpointId.SUPERPOSITION_V2_MAINNET)
 export const onTaiko = withEid(EndpointId.TAIKO_V2_MAINNET)
@@ -108,6 +109,7 @@ export const chainFunctions = {
     'sei-mainnet': onSei,
     'shimmer-mainnet': onShimmer,
     'soneium-mainnet': onSoneium,
+    'sonic-mainnet': onSonic,
     'story-mainnet': onStory,
     'superposition-mainnet': onSuperposition,
     'taiko-mainnet': onTaiko,
@@ -156,6 +158,7 @@ export const validCreditMessagingChains = new Set([
     'scroll-mainnet',
     'sei-mainnet',
     'soneium-mainnet',
+    'sonic-mainnet',
     'story-mainnet',
     'superposition-mainnet',
     'taiko-mainnet',
@@ -203,6 +206,7 @@ export const validTokenMessagingChains = new Set([
     'scroll-mainnet',
     'sei-mainnet',
     'soneium-mainnet',
+    'sonic-mainnet',
     'story-mainnet',
     'superposition-mainnet',
     'taiko-mainnet',
