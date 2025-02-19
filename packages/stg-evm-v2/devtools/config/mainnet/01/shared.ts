@@ -14,6 +14,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBITRUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -190,6 +195,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [abstractAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [abstractAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [abstractAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.APE_V2_MAINNET]: {
+            [apeAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [apeAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [apeAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.ARBITRUM_V2_MAINNET]: {
             [arbAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

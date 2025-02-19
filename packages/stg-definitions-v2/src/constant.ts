@@ -20,6 +20,7 @@ export const DVNS = {
     //
     NETHERMIND: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0xc4a1f52fda034a9a5e1b3b27d14451d15776fef6',
+        [EndpointId.APE_V2_MAINNET]: '0x07653d28b0f53d4c54b70eb1f9025795b23a9d6e',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.AURORA_V2_MAINNET]: '0x34730f2570e6cff8b1c91faabf37d0dd917c4367',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
@@ -86,6 +87,7 @@ export const DVNS = {
     } satisfies Partial<Record<EndpointId, string>>,
     STG: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0xcec9f0a49073ac4a1c439d06cb9448512389a64e',
+        [EndpointId.APE_V2_MAINNET]: '0x794c0b0071d4a926c443468f027912e693678151',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x5756a74e8e18d8392605ba667171962b2b2826b5',
         [EndpointId.AURORA_V2_MAINNET]: '0xe11c808bc6099abc9be566c9017aa2ab0f131d35',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x252b234545e154543ad2784c7111eb90406be836',
@@ -139,6 +141,7 @@ export const EXECUTORS = {
     //
     LZ_LABS: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0x643E1471f37c4680Df30cF0C540Cd379a0fF58A5',
+        [EndpointId.APE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x31CAe3B7fB82d847621859fb1585353c5720660D',
         [EndpointId.AURORA_V2_MAINNET]: '0xA2b402FFE8dd7460a8b425644B6B9f50667f0A61',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
@@ -216,6 +219,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             [EndpointId.ABSTRACT_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.APE_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -409,6 +417,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x0709f39376deee2a2dfc94a58edeb2eb9df012bd',
             },
+            [EndpointId.APE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
+            },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
@@ -581,6 +593,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ABSTRACT_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x84A71ccD554Cc1b02749b35d22F684CC8ec987e1',
+            },
+            [EndpointId.APE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
@@ -839,6 +855,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         // MAINNET
         //
         [EndpointId.ABSTRACT_V2_MAINNET]: {},
+        [EndpointId.APE_V2_MAINNET]: {},
         [EndpointId.ARBITRUM_V2_MAINNET]: {},
         [EndpointId.ASTAR_V2_MAINNET]: {},
         [EndpointId.AURORA_V2_MAINNET]: {},
@@ -1123,6 +1140,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xfBa3c4698e99307496CE94D7FAe2ed69169c85f7',
                     signMessageLibAddress: '0xC205b5856F78044882048B961e2fb4180D35f443',
                     simulateTxAccessorAddress: '0xe0Af8a33FCad3DbD1B6bE03E7c5d38Fbf753F6e7',
+                },
+            },
+        },
+    },
+    [EndpointId.APE_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET], DVNS.STG[EndpointId.APE_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET], DVNS.STG[EndpointId.APE_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
+            nativeDropAmount: parseEther('0.1').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x4a43eCB40A35795545192875E2Bb6866F6f91da8',
+            safeUrl: 'https://safe-transaction-apechain.safe.onchainden.com/',
+            contractNetworks: {
+                [33139]: {
+                    multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
+                    multiSendCallOnlyAddress: '0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B',
+                    safeMasterCopyAddress: '0xfb1bffC9d739B8D520DaF37dF666da4C687191EA',
+                    safeProxyFactoryAddress: '0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC',
+                    fallbackHandlerAddress: '0x017062a1dE2FE6b99BE3d9d37841FeD19F573804',
+                    createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
+                    signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
+                    simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
                 },
             },
         },

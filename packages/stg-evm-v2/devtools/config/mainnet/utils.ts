@@ -2,6 +2,7 @@ import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
+export const onApe = withEid(EndpointId.APE_V2_MAINNET)
 export const onArb = withEid(EndpointId.ARBITRUM_V2_MAINNET)
 export const onAstar = withEid(EndpointId.ASTAR_V2_MAINNET)
 export const onAurora = withEid(EndpointId.AURORA_V2_MAINNET)
@@ -62,6 +63,7 @@ export const onZkPolygon = withEid(EndpointId.ZKPOLYGON_V2_MAINNET)
 // NOTE: because we need to load these upfront, ensure all rpcs are good even if we are not wiring those chains
 export const chainFunctions = {
     'abstract-mainnet': onAbstract,
+    'ape-mainnet': onApe,
     'arbitrum-mainnet': onArb,
     'astar-mainnet': onAstar,
     'aurora-mainnet': onAurora,
@@ -122,6 +124,7 @@ export const chainFunctions = {
 
 export const validCreditMessagingChains = new Set([
     'abstract-mainnet',
+    'ape-mainnet',
     'arbitrum-mainnet',
     'aurora-mainnet',
     'avalanche-mainnet',
@@ -170,6 +173,7 @@ export const validCreditMessagingChains = new Set([
 
 export const validTokenMessagingChains = new Set([
     'abstract-mainnet',
+    'ape-mainnet',
     'arbitrum-mainnet',
     'aurora-mainnet',
     'avalanche-mainnet',

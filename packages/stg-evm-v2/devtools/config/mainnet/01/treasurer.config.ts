@@ -8,6 +8,7 @@ import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { getSafeAddress } from '../../utils'
 import {
     onAbstract,
+    onApe,
     onArb,
     onAurora,
     onAvax,
@@ -61,6 +62,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
 
     // Named accounts retrieval
     const abstractAdmin = getSafeAddress(EndpointId.ABSTRACT_V2_MAINNET)
+    const apeAdmin = getSafeAddress(EndpointId.APE_V2_MAINNET)
     const arbAdmin = getSafeAddress(EndpointId.ARBITRUM_V2_MAINNET)
     const auroraAdmin = getSafeAddress(EndpointId.AURORA_V2_MAINNET)
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
@@ -108,6 +110,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     // Now we collect the address of the deployed assets
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -292,6 +299,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [abstractAssetAddresses.USDC]: true,
                         [abstractAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onApe(contract),
+                config: {
+                    owner: apeAdmin,
+                    admin: apeAdmin,
+                    assets: {
+                        [apeAssetAddresses.ETH]: true,
+                        [apeAssetAddresses.USDC]: true,
+                        [apeAssetAddresses.USDT]: true,
                     },
                 },
             },
