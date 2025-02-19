@@ -140,7 +140,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
 
     const telosETHContractName = getTokenDeployName(
         TokenName.ETH,
-        getAssetType(EndpointId.TAIKO_V2_MAINNET, TokenName.ETH)
+        getAssetType(EndpointId.TELOS_V2_MAINNET, TokenName.ETH)
     )
     const telosETH = onTelos({ contractName: telosETHContractName })
 
