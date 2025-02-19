@@ -158,7 +158,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     )
     const taikoUSDCProxy = await contractFactory(onTaiko(proxyContract))
     const telosUSDCProxy = await contractFactory(
-        onTelos({ contractName: 'FiatTokenProxy', address: usdcTelonsAsset.address })
+        onTelos({ contractName: 'FiatTokenProxy', address: usdcTelosAsset.address })
     )
     const xchainUSDCProxy = await contractFactory(onXchain(proxyContract))
 
