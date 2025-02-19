@@ -67,7 +67,7 @@ const contract = { contractName: 'OFTWrapper' }
 
 export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>> => {
     const abstractOftWrapper = onAbstract(contract)
-    const apeOfteWrapper = onApe(contract)
+    const apeOftWrapper = onApe(contract)
     const arbOftWrapper = onArb(contract)
     const astarOftWrapper = onAstar(contract)
     const auroraOftWrapper = onAurora(contract)
