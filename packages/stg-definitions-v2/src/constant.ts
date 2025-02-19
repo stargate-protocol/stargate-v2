@@ -416,7 +416,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.APE_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0xf1815bd50389c46847f0bda824ec8da914045d14',
+                address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
             },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Pool,
