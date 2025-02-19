@@ -1120,6 +1120,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET], DVNS.STG[EndpointId.ARBITRUM_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.00001').toBigInt(),
+            busGasLimit: 60000n,
+            busRideGasLimit: 55000n,
         },
         safeConfig: {
             safeAddress: '0x9CD50907aeb5D16F29Bddf7e1aBb10018Ee8717d',
@@ -2044,8 +2046,8 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET], DVNS.STG[EndpointId.STORY_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
             nativeDropAmount: parseEther('0.05').toBigInt(),
-            busGasLimit: 65000n,
-            nativeDropGasLimit: 35000n,
+            busGasLimit: 75000n,
+            nativeDropGasLimit: 45000n,
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
