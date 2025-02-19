@@ -138,6 +138,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
+                contract: apeOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.APE_V2_MAINNET),
+                },
+            },
+            {
                 contract: astarOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.ASTAR_V2_MAINNET),
