@@ -225,7 +225,7 @@ const networks: NetworksUserConfig = {
     },
     'bera-mainnet': {
         eid: EndpointId.BERA_V2_MAINNET,
-        url: process.env.RPC_URL_BERA_MAINNET || '',
+        url: process.env.RPC_URL_BERA_MAINNET || 'https://rpc.berachain.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -385,7 +385,7 @@ const networks: NetworksUserConfig = {
     },
     'klaytn-mainnet': {
         eid: EndpointId.KLAYTN_V2_MAINNET,
-        url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://rpc.ankr.com/klaytn',
+        url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://klaytn.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
