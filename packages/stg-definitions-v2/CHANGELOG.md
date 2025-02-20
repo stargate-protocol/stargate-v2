@@ -1,5 +1,16 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.10
+
+### Patch Changes
+
+- cb4848b: ape mainnet
+- 7ac6710: Updating packages
+- 2874f1b: telos mainnet
+- b08c16e: bump gas
+- 7a4064e: bump gas limits
+- 87c92a6: updated unichain tx service url to production url
+
 ## 1.4.9
 
 ### Patch Changes

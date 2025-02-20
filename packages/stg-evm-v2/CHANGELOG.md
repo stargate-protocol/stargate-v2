@@ -1,5 +1,23 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.5.1
+
+### Patch Changes
+
+- cb4848b: ape mainnet
+- 7ac6710: Updating packages
+- 2874f1b: telos mainnet
+- 53af4f5: Sonic deployments
+- 7e81e2b: Telos deployments
+- 2a94e25: Ape deployments
+- Updated dependencies [cb4848b]
+- Updated dependencies [7ac6710]
+- Updated dependencies [2874f1b]
+- Updated dependencies [b08c16e]
+- Updated dependencies [7a4064e]
+- Updated dependencies [87c92a6]
+  - @stargatefinance/stg-definitions-v2@1.4.10
+
 ## 1.5.0
 
 ### Minor Changes
