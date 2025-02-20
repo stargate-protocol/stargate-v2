@@ -126,10 +126,10 @@ importers:
         specifier: ~4.0.1
         version: 4.0.1(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@1.2.3)(@layerzerolabs/devtools-evm@0.4.2)(@layerzerolabs/devtools@0.4.1)(@layerzerolabs/io-devtools@0.1.13)(@layerzerolabs/lz-definitions@3.0.67)(@layerzerolabs/protocol-devtools-evm@1.2.1)(@layerzerolabs/protocol-devtools@0.4.3)(@layerzerolabs/ua-devtools-evm@3.0.1)(@layerzerolabs/ua-devtools@1.0.5)(ethers@5.7.2)(hardhat-deploy@0.12.4)(hardhat@2.22.14)
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~1.4.9
+        specifier: ~1.4.10
         version: link:../stg-definitions-v2
       '@stargatefinance/stg-devtools-v2':
-        specifier: ~3.0.8
+        specifier: ~3.0.9
         version: link:../stg-devtools-v2
       '@types/node':
         specifier: ^18.15.11
@@ -174,7 +174,7 @@ importers:
         specifier: ~1.0.5
         version: 1.0.5(@layerzerolabs/devtools@0.4.1)(@layerzerolabs/io-devtools@0.1.13)(@layerzerolabs/lz-definitions@3.0.67)(@layerzerolabs/lz-v2-utilities@3.0.67)(@layerzerolabs/protocol-devtools@0.4.3)(zod@3.22.5)
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~1.4.9
+        specifier: ~1.4.10
         version: link:../stg-definitions-v2
       '@types/node':
         specifier: ^18.15.11
@@ -205,7 +205,7 @@ importers:
         specifier: ~3.0.7
         version: 3.0.7
       '@stargatefinance/stg-evm-sdk-v2':
-        specifier: ~1.1.8
+        specifier: ~1.1.9
         version: link:../stg-evm-sdk-v2
       '@types/jest':
         specifier: ^29.5.10
@@ -241,7 +241,7 @@ importers:
         specifier: ~3.0.7
         version: 3.0.7
       '@stargatefinance/stg-evm-v2':
-        specifier: ~1.5.0
+        specifier: ~1.5.1
         version: link:../stg-evm-v2
       '@types/node':
         specifier: ^18.15.11
@@ -289,7 +289,7 @@ importers:
         specifier: ~3.0.67
         version: 3.0.67
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~1.4.9
+        specifier: ~1.4.10
         version: link:../stg-definitions-v2
       '@stargatefinance/stg-evm-v1':
         specifier: ~1.0.31
@@ -416,10 +416,10 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@stargatefinance/stg-devtools-evm-hardhat-v2':
-        specifier: ~3.1.1
+        specifier: ~3.1.2
         version: link:../stg-devtools-evm-hardhat-v2
       '@stargatefinance/stg-devtools-v2':
-        specifier: ~3.0.8
+        specifier: ~3.0.9
         version: link:../stg-devtools-v2
       '@typechain/ethers-v5':
         specifier: ~11.1.2
