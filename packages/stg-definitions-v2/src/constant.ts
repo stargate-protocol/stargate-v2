@@ -384,6 +384,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111',
             },
+            [EndpointId.MONAD_V2_TESTNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Pool,
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Native,
             },
@@ -569,6 +574,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
                 address: '0xcC4Ac915857532ADa58D69493554C6d869932Fe6',
+                type: StargateType.Pool,
+            },
+            [EndpointId.MONAD_V2_TESTNET]: {
                 type: StargateType.Pool,
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
@@ -799,6 +807,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080',
                 type: StargateType.Pool,
             },
+            [EndpointId.MONAD_V2_TESTNET]: {
+                type: StargateType.Pool,
+            },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 address: '0x488327236B65C61A6c083e8d811a4E0D3d1D4268',
                 type: StargateType.Pool,
@@ -889,8 +900,8 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FANTOM_V2_MAINNET]: {},
         [EndpointId.FLARE_V2_MAINNET]: {},
         [EndpointId.FLOW_V2_MAINNET]: {},
-        [EndpointId.FUSE_V2_MAINNET]: {},
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
+        [EndpointId.FUSE_V2_MAINNET]: {},
         [EndpointId.GLUE_V2_MAINNET]: {},
         [EndpointId.GNOSIS_V2_MAINNET]: {},
         [EndpointId.GOAT_V2_MAINNET]: {},
@@ -938,8 +949,9 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BL3_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
-        [EndpointId.ODYSSEY_V2_TESTNET]: {},
         [EndpointId.MANTLESEP_V2_TESTNET]: {},
+        [EndpointId.MONAD_V2_TESTNET]: {},
+        [EndpointId.ODYSSEY_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
         [EndpointId.SEPOLIA_V2_TESTNET]: {},
 
@@ -966,6 +978,7 @@ export const REWARDS: RewardsConfig = {
             [EndpointId.OPTSEP_V2_TESTNET]: {},
             [EndpointId.ARBSEP_V2_TESTNET]: {},
             [EndpointId.MANTLESEP_V2_TESTNET]: {},
+            [EndpointId.MONAD_V2_TESTNET]: {},
 
             //
             // Sandbox
@@ -2425,6 +2438,10 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.MANTLESEP_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.MONAD_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
