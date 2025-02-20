@@ -40,6 +40,7 @@ import {
     onScroll,
     onSei,
     onSoneium,
+    onSonic,
     onStory,
     onSuperposition,
     onTaiko,
@@ -92,6 +93,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const scrollFeeLibV1 = onScroll(contract)
     const seiFeeLibV1 = onSei(contract)
     const soneiumFeeLibV1 = onSoneium(contract)
+    const sonicFeeLibV1 = onSonic(contract)
     const storyFeeLibV1 = onStory(contract)
     const superpositionFeeLibV1 = onSuperposition(contract)
     const taikoFeeLibV1 = onTaiko(contract)
@@ -238,6 +240,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: soneiumFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: sonicFeeLibV1,
                 config: defaultNodeConfig,
             },
             {
