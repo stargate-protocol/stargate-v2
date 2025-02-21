@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 1.5.2
+
+### Patch Changes
+
+- 8d34bce: Fixed sonic ownership config
+- Updated dependencies [8ac1688]
+  - @stargatefinance/stg-definitions-v2@1.4.11
+
 ## 1.5.1
 
 ### Patch Changes
