@@ -388,6 +388,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Pool,
+                address: '0xB5a30b0FDc5EA94A52fDc42e3E9760Cb8449Fb37',
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
                 type: StargateType.Native,
@@ -577,6 +578,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.MONAD_V2_TESTNET]: {
+                address: '0x88b8E2161DEDC77EF4ab7585569D2415a1C1055D',
                 type: StargateType.Pool,
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
@@ -808,6 +810,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.MONAD_V2_TESTNET]: {
+                address: '0xf817257fed379853cDe0fa4F97AB987181B1E5Ea',
                 type: StargateType.Pool,
             },
             [EndpointId.OPTSEP_V2_TESTNET]: {
