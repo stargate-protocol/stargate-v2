@@ -1175,7 +1175,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x4a43eCB40A35795545192875E2Bb6866F6f91da8',
-            safeUrl: 'https://safe-transaction-apechain.safe.onchainden.com/',
+            safeUrl: 'https://safe-transaction-apechain.safe.onchainden.com',
             contractNetworks: {
                 [33139]: {
                     multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
