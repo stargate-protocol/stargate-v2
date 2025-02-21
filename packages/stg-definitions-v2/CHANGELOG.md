@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 1.4.11
+
+### Patch Changes
+
+- 8ac1688: safe url fix for ape
+
 ## 1.4.10
 
 ### Patch Changes
