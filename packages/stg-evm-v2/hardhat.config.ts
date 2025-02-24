@@ -169,7 +169,7 @@ const networks: NetworksUserConfig = {
     },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
-        url: process.env.RPC_URL_MONAD_TESTNET || 'wss://monad-testnet.drpc.org',
+        url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
         accounts: testnetAccounts,
     },
 
