@@ -203,3 +203,33 @@ export const getSafeAddress = (eid: EndpointId): string => getSafeConfig(eid).sa
  * Tiny helper around non-null assert
  */
 const assertAndReturn = <T>(value: T | null | undefined, message: string): T => (assert(value != null, message), value)
+
+export function getContractsInChain(
+    chains: string[] | null,
+    contract: any,
+    isValidChain: (chain: string) => boolean,
+    chainFunctions: any
+) {
+    if (!chains || chains.length === 0) {
+        // If chains is null or empty, include all valid contracts
+        return Object.keys(chainFunctions)
+            .filter(isValidChain)
+            .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
+    }
+
+    const invalidChains = chains.filter((chain) => !isValidChain(chain.trim()))
+    if (invalidChains.length > 0) {
+        throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
+    }
+
+    return chains.map((chain) => chainFunctions[chain.trim() as keyof typeof chainFunctions](contract))
+}
+
+export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
+    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
+    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
+
+    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
+        return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
+    })
+}
