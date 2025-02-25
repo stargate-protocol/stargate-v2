@@ -7,11 +7,16 @@ import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import {
-    filterConnections,
-    getContracts,
-    isValidCreditMessagingChain,
-    validCreditMessagingChains,
+    getContracts as getContractsMainnet,
+    isValidCreditMessagingChain as isValidCreditMessagingChainMainnet,
+    validCreditMessagingChains as validCreditMessagingChainsMainnet,
 } from '../../devtools/config/mainnet/utils'
+import {
+    getContracts as getContractsTestnet,
+    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
+    validCreditMessagingChains as validCreditMessagingChainsTestnet,
+} from '../../devtools/config/testnet/utils'
+import { filterConnections } from '../../devtools/config/utils'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
@@ -105,15 +110,23 @@ describe('devtools/utils', () => {
         const mockContractData = { contractName: 'MockContract' }
 
         it('should return all valid contracts when chains is null', () => {
-            const result = getContracts(null, mockContractData, isValidCreditMessagingChain)
-            expect(result.length).to.equal(validCreditMessagingChains.size)
+            // Mainnet
+            const result = getContractsMainnet(null, mockContractData, isValidCreditMessagingChainMainnet)
+            expect(result.length).to.equal(validCreditMessagingChainsMainnet.size)
             expect(result[0]).to.have.property('eid')
             expect(result[0]).to.have.property('contractName', 'MockContract')
+
+            // Testnet
+            const resultTestnet = getContractsTestnet(null, mockContractData, isValidCreditMessagingChainTestnet)
+            expect(resultTestnet.length).to.equal(validCreditMessagingChainsTestnet.size)
+            expect(resultTestnet[0]).to.have.property('eid')
+            expect(resultTestnet[0]).to.have.property('contractName', 'MockContract')
         })
 
         it('should return specified contracts for valid chain names', () => {
+            // Mainnet
             const chains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
-            const result = getContracts(chains, mockContractData, isValidCreditMessagingChain)
+            const result = getContractsMainnet(chains, mockContractData, isValidCreditMessagingChainMainnet)
             expect(result.length).to.equal(4)
             expect(result.map((r) => r.eid)).to.have.members([
                 EndpointId.ETHEREUM_V2_MAINNET,
@@ -121,9 +134,25 @@ describe('devtools/utils', () => {
                 EndpointId.OPTIMISM_V2_MAINNET,
                 EndpointId.BASE_V2_MAINNET,
             ])
+
+            // Testnet
+            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'opt-testnet']
+            const resultTestnet = getContractsTestnet(
+                chainsTestnet,
+                mockContractData,
+                isValidCreditMessagingChainTestnet
+            )
+            expect(resultTestnet.length).to.equal(4)
+            expect(resultTestnet.map((r) => r.eid)).to.have.members([
+                EndpointId.ARBSEP_V2_TESTNET,
+                EndpointId.BSC_V2_TESTNET,
+                EndpointId.SEPOLIA_V2_TESTNET,
+                EndpointId.OPTSEP_V2_TESTNET,
+            ])
         })
 
         it('should throw an error for invalid chain names', () => {
+            // Mainnet
             const chains = [
                 'ethereum-mainnet',
                 'invalid-chain-1',
@@ -131,25 +160,51 @@ describe('devtools/utils', () => {
                 'invalid-chain-2',
                 'base-mainnet',
             ]
-            expect(() => getContracts(chains, mockContractData, isValidCreditMessagingChain)).to.throw(
+            expect(() => getContractsMainnet(chains, mockContractData, isValidCreditMessagingChainMainnet)).to.throw(
                 'Invalid chains found: invalid-chain-1, invalid-chain-2'
             )
+
+            // Testnet
+            const chainsTestnet = ['arbsep-testnet', 'invalid-chain-1', 'bsc-testnet', 'invalid-chain-2']
+            expect(() =>
+                getContractsTestnet(chainsTestnet, mockContractData, isValidCreditMessagingChainTestnet)
+            ).to.throw('Invalid chains found: invalid-chain-1, invalid-chain-2')
         })
 
         it('should trim whitespace from chain names', () => {
+            // Mainnet
             const chains = [' ethereum-mainnet', 'arbitrum-mainnet ', '  base-mainnet']
-            const result = getContracts(chains, mockContractData, isValidCreditMessagingChain)
+            const result = getContractsMainnet(chains, mockContractData, isValidCreditMessagingChainMainnet)
             expect(result.length).to.equal(3)
             expect(result.map((r) => r.eid)).to.have.members([
                 EndpointId.ETHEREUM_V2_MAINNET,
                 EndpointId.ARBITRUM_V2_MAINNET,
                 EndpointId.BASE_V2_MAINNET,
             ])
+
+            // Testnet
+            const chainsTestnet = ['arbsep-testnet     ', '    bsc-testnet', ' sepolia-testnet ']
+            const resultTestnet = getContractsTestnet(
+                chainsTestnet,
+                mockContractData,
+                isValidCreditMessagingChainTestnet
+            )
+            expect(resultTestnet.length).to.equal(3)
+            expect(resultTestnet.map((r) => r.eid)).to.have.members([
+                EndpointId.ARBSEP_V2_TESTNET,
+                EndpointId.BSC_V2_TESTNET,
+                EndpointId.SEPOLIA_V2_TESTNET,
+            ])
         })
 
         it('should return all valid contracts for an empty input array', () => {
-            const result = getContracts([], mockContractData, isValidCreditMessagingChain)
-            expect(result.length).to.equal(validCreditMessagingChains.size)
+            // Mainnet
+            const result = getContractsMainnet([], mockContractData, isValidCreditMessagingChainMainnet)
+            expect(result.length).to.equal(validCreditMessagingChainsMainnet.size)
+
+            // Testnet
+            const resultTestnet = getContractsTestnet([], mockContractData, isValidCreditMessagingChainTestnet)
+            expect(resultTestnet.length).to.equal(validCreditMessagingChainsTestnet.size)
         })
     })
 
