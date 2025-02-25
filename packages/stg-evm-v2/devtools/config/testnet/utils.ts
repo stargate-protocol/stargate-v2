@@ -35,8 +35,24 @@ export const validCreditMessagingChains = new Set([
     // Add other valid chains for credit messaging
 ])
 
+export const validTokenMessagingChains = new Set([
+    'arbsep-testnet',
+    'bl3-testnet',
+    'bsc-testnet',
+    'klaytn-testnet',
+    'mantle-testnet',
+    'odyssey-testnet',
+    'opt-testnet',
+    'sepolia-testnet',
+    // Add other valid chains for token messaging
+])
+
 export function isValidCreditMessagingChain(chain: string): boolean {
     return validCreditMessagingChains.has(chain)
+}
+
+export function isValidTokenMessagingChain(chain: string): boolean {
+    return validTokenMessagingChains.has(chain)
 }
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
