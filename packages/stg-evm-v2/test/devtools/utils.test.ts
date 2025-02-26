@@ -16,7 +16,7 @@ import {
     isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
     validCreditMessagingChains as validCreditMessagingChainsTestnet,
 } from '../../devtools/config/testnet/utils'
-import { filterConnections } from '../../devtools/config/utils'
+import { filterConnections, setsDifference } from '../../devtools/config/utils'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
@@ -265,6 +265,44 @@ describe('devtools/utils', () => {
             expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 4 } })
             expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 } })
             expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 4 } })
+        })
+    })
+
+    describe.only('setsDifference', () => {
+        const mockContractData = { contractName: 'MockContract' }
+
+        it('should return empty set when sets are identical', () => {
+            const setA = new Set(['a', 'b', 'c'])
+            const result = setsDifference(setA, setA)
+
+            expect(result.size).to.equal(0)
+        })
+
+        it('should return all elements when sets are disjoint', () => {
+            const setA = new Set(['a', 'b', 'c'])
+            const setB = new Set(['d', 'e', 'f'])
+            const result = setsDifference(setA, setB)
+
+            expect(result.size).to.equal(setA.size)
+            expect(result).to.deep.equal(setA)
+        })
+
+        it('should return elements in setA that are not in setB', () => {
+            const setA = new Set(['a', 'b', 'c'])
+            const setB = new Set(['b', 'd', 'e'])
+            const result = setsDifference(setA, setB)
+
+            expect(result.size).to.equal(2)
+            expect(result).to.deep.equal(new Set(['a', 'c']))
+        })
+
+        it('should handle empty sets', () => {
+            const setA = new Set(['a', 'b', 'c'])
+            const setB = new Set([])
+            const result = setsDifference(setA, setB)
+
+            expect(result.size).to.equal(setA.size)
+            expect(result).to.deep.equal(setA)
         })
     })
 })
