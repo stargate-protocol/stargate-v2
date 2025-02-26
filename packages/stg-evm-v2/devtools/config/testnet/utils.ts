@@ -1,7 +1,7 @@
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getContractsInChain } from '../utils'
+import { getContractsInChain, setsDifference } from '../utils'
 
 export const onEth = withEid(EndpointId.SEPOLIA_V2_TESTNET)
 export const onBsc = withEid(EndpointId.BSC_V2_TESTNET)
@@ -23,29 +23,17 @@ export const chainFunctions = {
     'sepolia-testnet': onEth,
 }
 
-export const validCreditMessagingChains = new Set([
-    'arbsep-testnet',
-    'bl3-testnet',
-    'bsc-testnet',
-    'klaytn-testnet',
-    'mantle-testnet',
-    'odyssey-testnet',
-    'opt-testnet',
-    'sepolia-testnet',
-    // Add other valid chains for credit messaging
+export const allChains = new Set(Object.keys(chainFunctions))
+
+const excludedCreditMessagingChains = new Set([
+    // Add invalid chains for credit messaging
+])
+const excludedTokenMessagingChains = new Set([
+    // Add invalid chains for token messaging
 ])
 
-export const validTokenMessagingChains = new Set([
-    'arbsep-testnet',
-    'bl3-testnet',
-    'bsc-testnet',
-    'klaytn-testnet',
-    'mantle-testnet',
-    'odyssey-testnet',
-    'opt-testnet',
-    'sepolia-testnet',
-    // Add other valid chains for token messaging
-])
+export const validCreditMessagingChains = setsDifference(allChains, excludedCreditMessagingChains)
+export const validTokenMessagingChains = setsDifference(allChains, excludedTokenMessagingChains)
 
 export function isValidCreditMessagingChain(chain: string): boolean {
     return validCreditMessagingChains.has(chain)

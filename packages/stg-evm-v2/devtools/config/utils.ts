@@ -233,3 +233,13 @@ export function filterConnections(connections: any[], fromContracts: any[], toCo
         return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
     })
 }
+
+/**
+ * Returns the difference between two sets
+ * @param setA - The first set
+ * @param setB - The second set
+ * @returns A new set containing elements that are in setA but not in setB
+ */
+export function setsDifference(setA: Set<string>, setB: Set<string>): Set<string> {
+    return new Set<string>([...setA].filter((x) => !setB.has(x)))
+}
