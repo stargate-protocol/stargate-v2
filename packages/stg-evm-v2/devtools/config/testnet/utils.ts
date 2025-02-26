@@ -26,10 +26,10 @@ export const chainFunctions = {
 export const allChains = new Set(Object.keys(chainFunctions))
 
 const excludedCreditMessagingChains = new Set([
-    // Add invalid chains for credit messaging
+    // Add chains that should be excluded from credit messaging
 ])
 const excludedTokenMessagingChains = new Set([
-    // Add invalid chains for token messaging
+    // Add chains that should be excluded from token messaging
 ])
 
 export const validCreditMessagingChains = setsDifference(allChains, excludedCreditMessagingChains)
