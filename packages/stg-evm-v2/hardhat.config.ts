@@ -149,7 +149,7 @@ const networks: NetworksUserConfig = {
     },
     'odyssey-testnet': {
         eid: EndpointId.ODYSSEY_V2_TESTNET,
-        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://story-testnet-evm.itrocket.net',
         accounts: testnetAccounts,
     },
     'mantlesep-testnet': {

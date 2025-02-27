@@ -1,6 +1,8 @@
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { getContractsInChain } from '../utils'
+
 export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
 export const onApe = withEid(EndpointId.APE_V2_MAINNET)
 export const onArb = withEid(EndpointId.ARBITRUM_V2_MAINNET)
@@ -233,26 +235,5 @@ export function isValidTokenMessagingChain(chain: string): boolean {
 }
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
-    if (!chains || chains.length === 0) {
-        // If chains is null or empty, include all valid contracts
-        return Object.keys(chainFunctions)
-            .filter(isValidChain)
-            .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
-    }
-
-    const invalidChains = chains.filter((chain) => !isValidChain(chain.trim()))
-    if (invalidChains.length > 0) {
-        throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
-    }
-
-    return chains.map((chain) => chainFunctions[chain.trim() as keyof typeof chainFunctions](contract))
-}
-
-export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
-    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
-    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
-
-    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
-        return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
-    })
+    return getContractsInChain(chains, contract, isValidChain, chainFunctions)
 }
