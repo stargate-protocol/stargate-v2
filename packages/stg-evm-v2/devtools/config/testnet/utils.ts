@@ -12,18 +12,18 @@ export const onBL3 = withEid(EndpointId.BL3_V2_TESTNET)
 export const onOdyssey = withEid(EndpointId.ODYSSEY_V2_TESTNET)
 export const onMantle = withEid(EndpointId.MANTLESEP_V2_TESTNET)
 
-export const chainFunctions = {
-    'arbsep-testnet': onArb,
-    'bl3-testnet': onBL3,
-    'bsc-testnet': onBsc,
-    'klaytn-testnet': onKlaytn,
-    'mantle-testnet': onMantle,
-    'odyssey-testnet': onOdyssey,
-    'opt-testnet': onOpt,
-    'sepolia-testnet': onEth,
+export const chainEids = {
+    'arbsep-testnet': EndpointId.ARBSEP_V2_TESTNET,
+    'bl3-testnet': EndpointId.BL3_V2_TESTNET,
+    'bsc-testnet': EndpointId.BSC_V2_TESTNET,
+    'klaytn-testnet': EndpointId.KLAYTN_V2_TESTNET,
+    'mantle-testnet': EndpointId.MANTLESEP_V2_TESTNET,
+    'odyssey-testnet': EndpointId.ODYSSEY_V2_TESTNET,
+    'opt-testnet': EndpointId.OPTSEP_V2_TESTNET,
+    'sepolia-testnet': EndpointId.SEPOLIA_V2_TESTNET,
 }
 
-export const allChains = new Set(Object.keys(chainFunctions))
+export const allSupportedChains = new Set(Object.keys(chainEids))
 
 const excludedCreditMessagingChains = new Set([
     // Add chains that should be excluded from credit messaging
@@ -32,8 +32,8 @@ const excludedTokenMessagingChains = new Set([
     // Add chains that should be excluded from token messaging
 ])
 
-export const validCreditMessagingChains = setsDifference(allChains, excludedCreditMessagingChains)
-export const validTokenMessagingChains = setsDifference(allChains, excludedTokenMessagingChains)
+export const validCreditMessagingChains = setsDifference(allSupportedChains, excludedCreditMessagingChains)
+export const validTokenMessagingChains = setsDifference(allSupportedChains, excludedTokenMessagingChains)
 
 export function isValidCreditMessagingChain(chain: string): boolean {
     return validCreditMessagingChains.has(chain)
@@ -44,5 +44,5 @@ export function isValidTokenMessagingChain(chain: string): boolean {
 }
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
-    return getContractsInChain(chains, contract, isValidChain, chainFunctions)
+    return getContractsInChain(chains, contract, isValidChain, chainEids)
 }

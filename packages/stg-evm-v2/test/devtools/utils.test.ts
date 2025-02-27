@@ -16,7 +16,7 @@ import {
     isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
     validCreditMessagingChains as validCreditMessagingChainsTestnet,
 } from '../../devtools/config/testnet/utils'
-import { filterConnections, setsDifference } from '../../devtools/config/utils'
+import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
@@ -268,7 +268,7 @@ describe('devtools/utils', () => {
         })
     })
 
-    describe.only('setsDifference', () => {
+    describe('setsDifference', () => {
         const mockContractData = { contractName: 'MockContract' }
 
         it('should return empty set when sets are identical', () => {
@@ -303,6 +303,50 @@ describe('devtools/utils', () => {
 
             expect(result.size).to.equal(setA.size)
             expect(result).to.deep.equal(setA)
+        })
+    })
+
+    describe('getContractWithEid', () => {
+        const mockContractData = { contractName: 'MockContract' }
+        const mockBigContractData = {
+            address: '0x123',
+            name: 'TestContract',
+            abi: ['test'],
+            customField: 'value',
+        }
+        const eids = [EndpointId.ETHEREUM_MAINNET, EndpointId.BSC_MAINNET, EndpointId.AVALANCHE_MAINNET]
+
+        it('should correctly combine EID with contract', () => {
+            const eid = eids[0]
+
+            const result = getContractWithEid(eid, mockContractData)
+
+            expect(result).to.deep.equal({
+                ...mockContractData,
+                eid,
+            })
+        })
+
+        it('should work with different EIDs', () => {
+            eids.forEach((eid) => {
+                const result = getContractWithEid(eid, mockContractData)
+                expect(result.eid).to.equal(eid)
+            })
+        })
+
+        it('should preserve all original contract properties', () => {
+            const eid = eids[0]
+
+            const result = getContractWithEid(eid, mockBigContractData)
+
+            expect(result).to.deep.equal({
+                ...mockBigContractData,
+                eid,
+            })
+            expect(result.address).to.equal(mockBigContractData.address)
+            expect(result.name).to.equal(mockBigContractData.name)
+            expect(result.abi).to.deep.equal(mockBigContractData.abi)
+            expect(result.customField).to.equal(mockBigContractData.customField)
         })
     })
 })
