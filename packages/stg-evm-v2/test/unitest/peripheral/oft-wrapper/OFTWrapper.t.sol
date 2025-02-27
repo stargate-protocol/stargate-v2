@@ -115,7 +115,8 @@ contract OFTWrapperTest is Test, LzTestHelper {
         // * _amountLD won't be so small it will slip (even on the return trip), or too large that it will overflow.
         // * fees are somewhat realistic and at least don't near 100%
         // * token specific bps are enabled randomly in some cases.
-        _assumeAmountLD(_amountLD);
+        // _assumeAmountLD(_amountLD);
+        _amountLD = bound(_amountLD, 1e16, type(uint64).max);
         _assumeBps(_callerBps, _defaultBps);
         oftWrapper.setDefaultBps(_defaultBps);
         // Optionally set/use token-specific bps for A_EID -> B_EID transfer.

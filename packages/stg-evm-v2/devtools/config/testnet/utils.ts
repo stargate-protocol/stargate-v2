@@ -23,7 +23,7 @@ export const chainEids = {
     'sepolia-testnet': EndpointId.SEPOLIA_V2_TESTNET,
 }
 
-export const allChains = new Set(Object.keys(chainEids))
+export const allSupportedChains = new Set(Object.keys(chainEids))
 
 const excludedCreditMessagingChains = new Set([
     // Add chains that should be excluded from credit messaging
@@ -32,8 +32,8 @@ const excludedTokenMessagingChains = new Set([
     // Add chains that should be excluded from token messaging
 ])
 
-export const validCreditMessagingChains = setsDifference(allChains, excludedCreditMessagingChains)
-export const validTokenMessagingChains = setsDifference(allChains, excludedTokenMessagingChains)
+export const validCreditMessagingChains = setsDifference(allSupportedChains, excludedCreditMessagingChains)
+export const validTokenMessagingChains = setsDifference(allSupportedChains, excludedTokenMessagingChains)
 
 export function isValidCreditMessagingChain(chain: string): boolean {
     return validCreditMessagingChains.has(chain)

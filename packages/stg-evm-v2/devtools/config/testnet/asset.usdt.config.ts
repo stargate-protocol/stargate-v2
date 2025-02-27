@@ -6,7 +6,7 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { createGetAssetNode, createGetAssetOmniPoint } from '../../utils'
 import { generateAssetConfig, setsDifference } from '../utils'
 
-import { allChains, chainEids } from './utils'
+import { allSupportedChains, chainEids } from './utils'
 
 const tokenName = TokenName.USDT
 
@@ -16,7 +16,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName)
 
     // all defined chains except excluded ones will be considered valid
-    const validChains = setsDifference(allChains, excludedChains)
+    const validChains = setsDifference(allSupportedChains, excludedChains)
 
     // Now we define all the contracts (from the valid chains set)
     const points = Array.from(validChains).map((chain) => getAssetPoint(chainEids[chain as keyof typeof chainEids]))
@@ -31,5 +31,5 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 }
 
 const excludedChains = new Set([
-    // Add chains that should be excluded from eth asset config
+    // Add chains that should be excluded from usdt asset config
 ])
