@@ -11,7 +11,7 @@ import {
 import { MSG_TYPE_BUS, MSG_TYPE_CREDIT_MESSAGING, MSG_TYPE_TAXI } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { AssetEdgeConfig, CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
 
-import { formatEid } from '@layerzerolabs/devtools'
+import { formatEid, withEid } from '@layerzerolabs/devtools'
 import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
@@ -208,13 +208,13 @@ export function getContractsInChain(
     chains: string[] | null,
     contract: any,
     isValidChain: (chain: string) => boolean,
-    chainFunctions: any
+    chainEids: any
 ) {
     if (!chains || chains.length === 0) {
         // If chains is null or empty, include all valid contracts
-        return Object.keys(chainFunctions)
+        return Object.keys(chainEids)
             .filter(isValidChain)
-            .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
+            .map((chain) => withEid(chainEids[chain as keyof typeof chainEids])(contract))
     }
 
     const invalidChains = chains.filter((chain) => !isValidChain(chain.trim()))
@@ -222,7 +222,7 @@ export function getContractsInChain(
         throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
     }
 
-    return chains.map((chain) => chainFunctions[chain.trim() as keyof typeof chainFunctions](contract))
+    return chains.map((chain) => withEid(chainEids[chain.trim() as keyof typeof chainEids])(contract))
 }
 
 export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
