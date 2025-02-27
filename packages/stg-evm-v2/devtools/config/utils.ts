@@ -222,7 +222,7 @@ export function getContractsInChain(
         throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
     }
 
-    return chains.map((chain) => withEid(chainEids[chain.trim() as keyof typeof chainEids])(contract))
+    return chains.map((chain) => getContractWithEid(chainEids[chain.trim() as keyof typeof chainEids], contract))
 }
 
 export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
@@ -232,6 +232,10 @@ export function filterConnections(connections: any[], fromContracts: any[], toCo
     return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
         return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
     })
+}
+
+export function getContractWithEid(eid: EndpointId, contract: any) {
+    return withEid(eid)(contract)
 }
 
 /**
