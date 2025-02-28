@@ -4,49 +4,8 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
-import {
-    onAbstract,
-    onApe,
-    onArb,
-    onAurora,
-    onAvax,
-    onBase,
-    onBera,
-    onBsc,
-    onCodex,
-    onCoredao,
-    onDegen,
-    onEth,
-    onFlare,
-    onFlow,
-    onFuse,
-    onGlue,
-    onGnosis,
-    onGoat,
-    onGravity,
-    onHemi,
-    onInk,
-    onIota,
-    onIslander,
-    onKlaytn,
-    onLightlink,
-    onMantle,
-    onOpt,
-    onPeaq,
-    onPlume,
-    onPolygon,
-    onRarible,
-    onRootstock,
-    onScroll,
-    onSei,
-    onSoneium,
-    onSonic,
-    onStory,
-    onSuperposition,
-    onTaiko,
-    onTelos,
-    onXchain,
-} from '../utils'
+import { getContractWithEid, setsDifference } from '../../utils'
+import { allSupportedChains, chainEids } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -58,215 +17,46 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         owner: DEFAULT_PLANNER,
     }
 
-    const abstractFeeLibV1 = onAbstract(contract)
-    const apeFeeLibV1 = onApe(contract)
-    const arbFeeLibV1 = onArb(contract)
-    const auroraFeeLibV1 = onAurora(contract)
-    const avaxFeeLibV1 = onAvax(contract)
-    const baseFeeLibV1 = onBase(contract)
-    const beraFeeLibV1 = onBera(contract)
-    const bscFeeLibV1 = onBsc(contract)
-    const codexFeeLibV1 = onCodex(contract)
-    const coredaoFeeLibV1 = onCoredao(contract)
-    const degenFeeLibV1 = onDegen(contract)
-    const ethFeeLibV1 = onEth(contract)
-    const flareFeeLibV1 = onFlare(contract)
-    const flowFeeLibV1 = onFlow(contract)
-    const fuseFeeLibV1 = onFuse(contract)
-    const glueFeeLibV1 = onGlue(contract)
-    const gnosisFeeLibV1 = onGnosis(contract)
-    const goatFeeLibV1 = onGoat(contract)
-    const gravityFeeLibV1 = onGravity(contract)
-    const hemiFeeLibV1 = onHemi(contract)
-    const inkFeeLibV1 = onInk(contract)
-    const iotaFeeLibV1 = onIota(contract)
-    const islanderFeeLibV1 = onIslander(contract)
-    const klaytnFeeLibV1 = onKlaytn(contract)
-    const lightlinkFeeLibV1 = onLightlink(contract)
-    const mantleFeeLibV1 = onMantle(contract)
-    const optFeeLibV1 = onOpt(contract)
-    const peaqFeeLibV1 = onPeaq(contract)
-    const plumeFeeLibV1 = onPlume(contract)
-    const polygonFeeLibV1 = onPolygon(contract)
-    const raribleFeeLibV1 = onRarible(contract)
-    const rootstockFeeLibV1 = onRootstock(contract)
-    const scrollFeeLibV1 = onScroll(contract)
-    const seiFeeLibV1 = onSei(contract)
-    const soneiumFeeLibV1 = onSoneium(contract)
-    const sonicFeeLibV1 = onSonic(contract)
-    const storyFeeLibV1 = onStory(contract)
-    const superpositionFeeLibV1 = onSuperposition(contract)
-    const taikoFeeLibV1 = onTaiko(contract)
-    const telosFeeLibV1 = onTelos(contract)
-    const xchainFeeLibV1 = onXchain(contract)
+    // all defined chains except excluded ones will be considered valid
+    const validChains = setsDifference(allSupportedChains, excludedChains)
+
+    // Now we get the contracts for the valid chains
+    const contracts = Array.from(validChains).map((chain) => {
+        return {
+            contract: getContractWithEid(chainEids[chain as keyof typeof chainEids], contract),
+            config: defaultNodeConfig,
+        }
+    })
 
     return {
-        contracts: [
-            {
-                contract: abstractFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: apeFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: arbFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: avaxFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: auroraFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: baseFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: beraFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: bscFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: codexFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: coredaoFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: degenFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: ethFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: flareFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: flowFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: fuseFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: glueFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: gnosisFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: goatFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: gravityFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: hemiFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: inkFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: iotaFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: islanderFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: klaytnFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: lightlinkFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: mantleFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: optFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: peaqFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: plumeFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: polygonFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: raribleFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: rootstockFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: scrollFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: seiFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: soneiumFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: sonicFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: storyFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: superpositionFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: taikoFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: telosFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: xchainFeeLibV1,
-                config: defaultNodeConfig,
-            },
-        ],
+        contracts,
         connections: [],
     }
 }
+
+/**
+ * total mainnet chains supported 59
+ * excluded chains 18
+ * valid chains 41
+ */
+const excludedChains = new Set([
+    'astar-mainnet',
+    'blast-mainnet',
+    'ebi-mainnet',
+    'etherlink-mainnet',
+    'fantom-mainnet',
+    'fraxtal-mainnet',
+    'kava-mainnet',
+    'manta-mainnet',
+    'metis-mainnet',
+    'mode-mainnet',
+    'moonbeam-mainnet',
+    'moonriver-mainnet',
+    'opbnb-mainnet',
+    'shimmer-mainnet',
+    'unichain-mainnet',
+    'zkatana-mainnet',
+    'zkconsensys-mainnet',
+    'zkpolygon-mainnet',
+    // Add chains that should be excluded from usdc feelib v1 config
+])
