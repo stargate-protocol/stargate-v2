@@ -4,62 +4,36 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../ops/util'
+import { getContractWithEid, setsDifference } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { allSupportedChains, chainEids } from './utils'
 
 const tokenName = TokenName.USDT
 const contract = { contractName: getFeeLibV1DeployName(tokenName) }
 
 export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1EdgeConfig>> => {
-    const bscFeeLibV1 = onBsc(contract)
-    const ethFeeLibV1 = onEth(contract)
-    const optFeeLibV1 = onOpt(contract)
-    const arbFeeLibV1 = onArb(contract)
-    const klaytnFeeLibV1 = onKlaytn(contract)
-    const bl3FeeLibV1 = onBL3(contract)
-    const odysseyFeeLibV1 = onOdyssey(contract)
-    const mantleFeeLibV1 = onMantle(contract)
-
     const defaultNodeConfig = {
         owner: DEFAULT_PLANNER,
     }
 
+    // all defined chains except excluded ones will be considered valid
+    const validChains = setsDifference(allSupportedChains, excludedChains)
+
+    // Now we get the contracts for the valid chains
+    const contracts = Array.from(validChains).map((chain) => {
+        return {
+            contract: getContractWithEid(chainEids[chain as keyof typeof chainEids], contract),
+            config: defaultNodeConfig,
+        }
+    })
+
     return {
-        contracts: [
-            {
-                contract: ethFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: bscFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: optFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: arbFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: klaytnFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: bl3FeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: odysseyFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: mantleFeeLibV1,
-                config: defaultNodeConfig,
-            },
-        ],
+        contracts,
         connections: [],
     }
 }
+
+const excludedChains = new Set([
+    // Add chains that should be excluded from usdt feelib v1 config
+])
