@@ -13,6 +13,7 @@ export const onBlast = withEid(EndpointId.BLAST_V2_MAINNET)
 export const onBsc = withEid(EndpointId.BSC_V2_MAINNET)
 export const onCodex = withEid(EndpointId.CODEX_V2_MAINNET)
 export const onCoredao = withEid(EndpointId.COREDAO_V2_MAINNET)
+export const onCronos = withEid(EndpointId.CRONOSEVM_V2_MAINNET)
 export const onDegen = withEid(EndpointId.DEGEN_V2_MAINNET)
 export const onEbi = withEid(EndpointId.EBI_V2_MAINNET)
 export const onEth = withEid(EndpointId.ETHEREUM_V2_MAINNET)
@@ -75,6 +76,7 @@ export const chainFunctions = {
     'bsc-mainnet': onBsc,
     'codex-mainnet': onCodex,
     'coredao-mainnet': onCoredao,
+    'cronos-mainnet': onCronos,
     'degen-mainnet': onDegen,
     'ebi-mainnet': onEbi,
     'ethereum-mainnet': onEth,
@@ -135,6 +137,7 @@ export const validCreditMessagingChains = new Set([
     'bsc-mainnet',
     'codex-mainnet',
     'coredao-mainnet',
+    'cronos-mainnet',
     'degen-mainnet',
     'ebi-mainnet',
     'ethereum-mainnet',
@@ -185,6 +188,7 @@ export const validTokenMessagingChains = new Set([
     'bsc-mainnet',
     'codex-mainnet',
     'coredao-mainnet',
+    'cronos-mainnet',
     'degen-mainnet',
     'ebi-mainnet',
     'ethereum-mainnet',
