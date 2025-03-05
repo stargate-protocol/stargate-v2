@@ -16,6 +16,7 @@ import {
     onBlast,
     onBsc,
     onCodex,
+    onCronos,
     onDegen,
     onEbi,
     onEth,
@@ -79,6 +80,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const blastOftWrapper = onBlast(contract)
     const bscOftWrapper = onBsc(contract)
     const codexOftWrapper = onCodex(contract)
+    const cronosOftWrapper = onCronos(contract)
     const degenOftWrapper = onDegen(contract)
     const ebiOftWrapper = onEbi(contract)
     const ethOftWrapper = onEth(contract)
@@ -193,6 +195,12 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 contract: codexOftWrapper,
                 config: {
                     owner: getSafeAddress(EndpointId.CODEX_V2_MAINNET),
+                },
+            },
+            {
+                contract: cronosOftWrapper,
+                config: {
+                    owner: getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET),
                 },
             },
             {
