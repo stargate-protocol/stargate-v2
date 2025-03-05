@@ -29,6 +29,7 @@ export const DVNS = {
         [EndpointId.BERA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.CODEX_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
+        [EndpointId.CRONOSEVM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.EBI_V2_MAINNET]: '0x261150ab73528dbd51573a52917eab243be9729a',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
@@ -97,6 +98,7 @@ export const DVNS = {
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
         [EndpointId.CODEX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
+        [EndpointId.CRONOSEVM_V2_MAINNET]: '', // todo fill when the dvn is deployed
         [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
         [EndpointId.EBI_V2_MAINNET]: '0x97841d4ab18e9a923322a002d5b8eb42b31ccdb5',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
@@ -152,6 +154,7 @@ export const EXECUTORS = {
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.CODEX_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
+        [EndpointId.CRONOSEVM_V2_MAINNET]: '0x4b80F7d25c451D204b1C93D9bdf2aB3B04f3EA4a',
         [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.EBI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
@@ -235,6 +238,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.BERA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+            [EndpointId.CRONOSEVM_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -642,6 +650,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
             },
+            [EndpointId.CRONOSEVM_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '', // todo fill when the contract is deployed
+            },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
@@ -882,6 +894,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BSC_V2_MAINNET]: {},
         [EndpointId.CODEX_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
+        [EndpointId.CRONOSEVM_V2_MAINNET]: {},
         [EndpointId.DEGEN_V2_MAINNET]: {},
         [EndpointId.EBI_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
@@ -1366,6 +1379,36 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
             safeUrl: 'https://core-tx.lzdevnet.org/',
+        },
+    },
+    [EndpointId.CRONOSEVM_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET], DVNS.STG[EndpointId.CRONOSEVM_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET], DVNS.STG[EndpointId.CRONOSEVM_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
+            nativeDropAmount: parseEther('0.1').toBigInt(), // todo check if this value is correct
+        },
+        safeConfig: {
+            // todo fill this information when the safe is deployed
+            safeAddress: '',
+            safeUrl: '',
+            contractNetworks: {
+                [25]: {
+                    multiSendAddress: '',
+                    multiSendCallOnlyAddress: '',
+                    safeMasterCopyAddress: '',
+                    safeProxyFactoryAddress: '',
+                    fallbackHandlerAddress: '',
+                    createCallAddress: '',
+                    signMessageLibAddress: '',
+                    simulateTxAccessorAddress: '',
+                },
+            },
         },
     },
     [EndpointId.DEGEN_V2_MAINNET]: {
