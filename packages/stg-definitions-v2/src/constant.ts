@@ -652,7 +652,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.CRONOSEVM_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '', // todo fill when the contract is deployed
+                address: '0xf951eC28187D9E5Ca673Da8FE6757E6f0Be5F77C',
             },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -1394,19 +1394,18 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.1').toBigInt(), // todo check if this value is correct
         },
         safeConfig: {
-            // todo fill this information when the safe is deployed
-            safeAddress: '',
-            safeUrl: '',
+            safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
+            safeUrl: ' https://transaction.cronos-safe.org',
             contractNetworks: {
                 [25]: {
-                    multiSendAddress: '',
-                    multiSendCallOnlyAddress: '',
-                    safeMasterCopyAddress: '',
-                    safeProxyFactoryAddress: '',
-                    fallbackHandlerAddress: '',
-                    createCallAddress: '',
-                    signMessageLibAddress: '',
-                    simulateTxAccessorAddress: '',
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
                 },
             },
         },
