@@ -1391,7 +1391,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET], DVNS.STG[EndpointId.CRONOSEVM_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(), // todo check if this value is correct
+            nativeDropAmount: parseEther('5').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
