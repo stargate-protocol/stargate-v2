@@ -1395,7 +1395,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
-            safeUrl: ' https://transaction.cronos-safe.org',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/cronosevm`,
             contractNetworks: {
                 [25]: {
                     multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
