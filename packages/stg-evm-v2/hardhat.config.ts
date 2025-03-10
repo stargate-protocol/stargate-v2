@@ -258,6 +258,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'cronos-mainnet': {
+        eid: EndpointId.CRONOSEVM_V2_MAINNET,
+        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://endpoints.omniatech.io/v1/cronos/mainnet/public',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'degen-mainnet': {
         eid: EndpointId.DEGEN_V2_MAINNET,
         url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',

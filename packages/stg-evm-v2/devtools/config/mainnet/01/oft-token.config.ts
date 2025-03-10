@@ -10,6 +10,7 @@ import { getSafeAddress } from '../../utils'
 import {
     onApe,
     onBera,
+    onCronos,
     onDegen,
     onEbi,
     onFlare,
@@ -58,6 +59,11 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.BERA_V2_MAINNET, TokenName.ETH)
     )
     const beraETH = onBera({ contractName: beraETHContractName })
+    const cronosETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.CRONOSEVM_V2_MAINNET, TokenName.ETH)
+    )
+    const cronosETH = onCronos({ contractName: cronosETHContractName })
     const degenETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
@@ -148,6 +154,10 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [TokenName.ETH] as const)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [TokenName.ETH] as const)
+    const cronosAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -212,6 +222,16 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BERA_V2_MAINNET),
                     minters: {
                         [beraAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: cronosETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET),
+                    minters: {
+                        [cronosAssetAddresses.ETH]: true,
+                        [cronosAssetAddresses.USDC]: true,
                     },
                 },
             },

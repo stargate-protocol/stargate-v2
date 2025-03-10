@@ -46,6 +46,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const cronosAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -236,6 +240,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.COREDAO_V2_MAINNET]: {
             [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [coredaoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.CRONOSEVM_V2_MAINNET]: {
+            [cronosAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [cronosAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.DEGEN_V2_MAINNET]: {
             [degenAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

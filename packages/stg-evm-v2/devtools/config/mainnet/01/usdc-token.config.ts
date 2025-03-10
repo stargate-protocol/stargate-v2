@@ -14,6 +14,7 @@ import {
     onApe,
     onBera,
     onCodex,
+    onCronos,
     onDegen,
     onFlare,
     onFlow,
@@ -56,6 +57,9 @@ assert(usdcBeraAsset.address != null, `External USDC address not found for BERA`
 
 const usdcCodexAsset = getAssetNetworkConfig(EndpointId.CODEX_V2_MAINNET, TokenName.USDC)
 assert(usdcCodexAsset.address != null, `External USDC address not found for CODEX`)
+
+const usdcCronosAsset = getAssetNetworkConfig(EndpointId.CRONOSEVM_V2_MAINNET, TokenName.USDC)
+assert(usdcCronosAsset.address != null, `External USDC address not found for CRONOS`)
 
 const usdcDegenAsset = getAssetNetworkConfig(EndpointId.DEGEN_V2_MAINNET, TokenName.USDC)
 assert(usdcDegenAsset.address != null, `External USDC address not found for DEGEN`)
@@ -112,6 +116,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     )
     const codexUSDCProxy = await contractFactory(
         onCodex({ contractName: 'FiatTokenProxy', address: usdcCodexAsset.address })
+    )
+    const cronosUSDCProxy = await contractFactory(
+        onCronos({ contractName: 'FiatTokenProxy', address: usdcCronosAsset.address })
     )
     const degenUSDCProxy = await contractFactory(
         onDegen({ contractName: 'FiatTokenProxy', address: usdcDegenAsset.address })
@@ -174,6 +181,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const codexUSDC = onCodex({ ...fiatContract, address: codexUSDCProxy.contract.address })
     const codexStargateMultisig = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
+
+    const cronosUSDC = onCronos({ ...fiatContract, address: cronosUSDCProxy.contract.address })
+    const cronosStargateMultisig = getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET)
 
     const degenUSDC = onDegen({ ...fiatContract, address: degenUSDCProxy.contract.address })
     const degenStargateMultisig = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
@@ -248,6 +258,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, usdcAssets)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, usdcAssets)
     const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, usdcAssets)
+    const cronosAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, usdcAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, usdcAssets)
     const flowAssetAddresses = await getAssetAddresses(EndpointId.FLOW_V2_MAINNET, usdcAssets)
@@ -322,6 +333,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: codexStargateMultisig,
                     minters: {
                         [codexAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: cronosUSDC,
+                config: {
+                    owner: cronosStargateMultisig,
+                    masterMinter: cronosStargateMultisig,
+                    pauser: cronosStargateMultisig,
+                    rescuer: cronosStargateMultisig,
+                    blacklister: cronosStargateMultisig,
+                    minters: {
+                        [cronosAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

@@ -17,6 +17,7 @@ import {
     onBsc,
     onCodex,
     onCoredao,
+    onCronos,
     onDegen,
     onEbi,
     onEth,
@@ -72,6 +73,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
+    const cronosAdmin = getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET)
     const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
@@ -146,6 +148,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const coredaoAssetAddresses = await getAssetAddresses(EndpointId.COREDAO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const cronosAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
     ] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
@@ -405,6 +411,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [coredaoAssetAddresses.USDC]: true,
                         [coredaoAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onCronos(contract),
+                config: {
+                    owner: cronosAdmin,
+                    admin: cronosAdmin,
+                    assets: {
+                        [cronosAssetAddresses.ETH]: true,
+                        [cronosAssetAddresses.USDC]: true,
                     },
                 },
             },
