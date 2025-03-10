@@ -260,7 +260,7 @@ const networks: NetworksUserConfig = {
     },
     'cronos-mainnet': {
         eid: EndpointId.CRONOSEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://endpoints.omniatech.io/v1/cronos/mainnet/public',
+        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://evm.cronos.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -469,7 +469,7 @@ const networks: NetworksUserConfig = {
     },
     'plume-mainnet': {
         eid: EndpointId.PLUME_V2_MAINNET,
-        url: process.env.RPC_URL_PLUME_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -497,7 +497,7 @@ const networks: NetworksUserConfig = {
     },
     'scroll-mainnet': {
         eid: EndpointId.SCROLL_V2_MAINNET,
-        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.drpc.org',
+        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://rpc.ankr.com/scroll',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
