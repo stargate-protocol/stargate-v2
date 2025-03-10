@@ -497,7 +497,7 @@ const networks: NetworksUserConfig = {
     },
     'scroll-mainnet': {
         eid: EndpointId.SCROLL_V2_MAINNET,
-        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.drpc.org',
+        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://rpc.ankr.com/scroll',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
