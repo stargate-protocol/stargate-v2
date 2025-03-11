@@ -149,7 +149,7 @@ const networks: NetworksUserConfig = {
     },
     'odyssey-testnet': {
         eid: EndpointId.ODYSSEY_V2_TESTNET,
-        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://testnode.dioneprotocol.com/ext/bc/D/rpc',
         accounts: testnetAccounts,
     },
     'mantlesep-testnet': {
@@ -173,7 +173,7 @@ const networks: NetworksUserConfig = {
     //
     'abstract-mainnet': {
         eid: EndpointId.ABSTRACT_V2_MAINNET,
-        url: process.env.RPC_URL_ABSTRACT_MAINNET || '',
+        url: process.env.RPC_URL_ABSTRACT_MAINNET || 'https://api.mainnet.abs.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -225,7 +225,7 @@ const networks: NetworksUserConfig = {
     },
     'bera-mainnet': {
         eid: EndpointId.BERA_V2_MAINNET,
-        url: process.env.RPC_URL_BERA_MAINNET || '',
+        url: process.env.RPC_URL_BERA_MAINNET || 'https://rpc.berachain-apis.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -385,7 +385,7 @@ const networks: NetworksUserConfig = {
     },
     'kava-mainnet': {
         eid: EndpointId.KAVA_V2_MAINNET,
-        url: process.env.RPC_URL_KAVA_MAINNET || 'https://evm.kava.chainstacklabs.com',
+        url: process.env.RPC_URL_KAVA_MAINNET || 'https://kava-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KAVA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -490,7 +490,7 @@ const networks: NetworksUserConfig = {
     },
     'rootstock-mainnet': {
         eid: EndpointId.ROOTSTOCK_V2_MAINNET,
-        url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://rootstock.drpc.org',
+        url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://public-node.rsk.co',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
