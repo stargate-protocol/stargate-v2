@@ -173,7 +173,7 @@ const networks: NetworksUserConfig = {
     //
     'abstract-mainnet': {
         eid: EndpointId.ABSTRACT_V2_MAINNET,
-        url: process.env.RPC_URL_ABSTRACT_MAINNET || '',
+        url: process.env.RPC_URL_ABSTRACT_MAINNET || 'https://api.mainnet.abs.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
