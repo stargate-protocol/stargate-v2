@@ -225,7 +225,7 @@ const networks: NetworksUserConfig = {
     },
     'bera-mainnet': {
         eid: EndpointId.BERA_V2_MAINNET,
-        url: process.env.RPC_URL_BERA_MAINNET || '',
+        url: process.env.RPC_URL_BERA_MAINNET || 'https://rpc.berachain.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
