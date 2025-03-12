@@ -712,6 +712,7 @@ const hardhatNetworks: Pick<HardhatUserConfig, 'networks'> = {
             accounts: sandboxAccounts,
             blockGasLimit: 30_000_000,
             throwOnCallFailures: false,
+            allowUnlimitedContractSize: true,
         },
         ...networks,
     },
