@@ -55,7 +55,6 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
-    const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,
@@ -249,9 +248,6 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [degenAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [degenAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [degenAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
-        },
-        [EndpointId.EBI_V2_MAINNET]: {
-            [ebiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.ETHEREUM_V2_MAINNET]: {
             [ethAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

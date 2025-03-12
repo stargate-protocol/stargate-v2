@@ -19,7 +19,6 @@ import {
     onCoredao,
     onCronos,
     onDegen,
-    onEbi,
     onEth,
     onFlare,
     onFlow,
@@ -75,7 +74,6 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
     const cronosAdmin = getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET)
     const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
-    const ebiAdmin = getSafeAddress(EndpointId.EBI_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const flowAdmin = getSafeAddress(EndpointId.FLOW_V2_MAINNET)
@@ -158,7 +156,6 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
-    const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,
@@ -434,16 +431,6 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [degenAssetAddresses.ETH]: true,
                         [degenAssetAddresses.USDC]: true,
                         [degenAssetAddresses.USDT]: true,
-                    },
-                },
-            },
-            {
-                contract: onEbi(contract),
-                config: {
-                    owner: ebiAdmin,
-                    admin: ebiAdmin,
-                    assets: {
-                        [ebiAssetAddresses.USDT]: true,
                     },
                 },
             },

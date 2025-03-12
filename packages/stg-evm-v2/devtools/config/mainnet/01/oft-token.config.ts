@@ -12,7 +12,6 @@ import {
     onBera,
     onCronos,
     onDegen,
-    onEbi,
     onFlare,
     onFlow,
     onFuse,
@@ -42,7 +41,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
     // USDT contract pointers (for old method of deployment)
-    const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
     const iotaUSDT = onIota(usdtContractTemplate)
@@ -162,7 +160,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
-    const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -241,15 +238,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
                     minters: {
                         [degenAssetAddresses.ETH]: true,
-                    },
-                },
-            },
-            {
-                contract: ebiUSDT,
-                config: {
-                    owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
-                    minters: {
-                        [ebiAssetAddresses.USDT]: true,
                     },
                 },
             },
