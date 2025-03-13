@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateTokenMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onMonad, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'TokenMessaging' }
 
@@ -24,6 +24,8 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const bl3TokenMsging = onBL3(contract)
     const odysseyTokenMsging = onOdyssey(contract)
     const mantleTokenMsging = onMantle(contract)
+    const monadTokenMsging = onMonad(contract)
+
     const defaultNodeConfig: TokenMessagingNodeConfig = {
         planner: DEFAULT_PLANNER,
     }
@@ -40,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
+    const monadAssetAddresses = await getAssetAddresses(EndpointId.MONAD_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -138,6 +141,17 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                     },
                 },
             },
+            {
+                contract: monadTokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [monadAssetAddresses.USDT]: ASSETS.USDT.assetId,
+                        [monadAssetAddresses.USDC]: ASSETS.USDC.assetId,
+                        [monadAssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
         ],
         connections: generateTokenMessagingConfig([
             ethTokenMsging,
@@ -149,6 +163,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             bl3TokenMsging,
             odysseyTokenMsging,
             mantleTokenMsging,
+            monadTokenMsging,
         ]),
     }
 }

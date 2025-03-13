@@ -11,7 +11,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetLPTokenAddresses } from '../../../ts-src/utils/util'
 
-import { onArb, onAvalanche, onBsc, onEth, onMantle, onOpt } from './utils'
+import { onArb, onAvalanche, onBsc, onEth, onMantle, onMonad, onOpt } from './utils'
 
 const staking = { contractName: 'StargateStaking' }
 const rewarder = { contractName: 'StargateMultiRewarder' }
@@ -26,6 +26,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const arbStaking = onArb(staking)
     const avalancheStaking = onAvalanche(staking)
     const mantleStaking = onMantle(staking)
+    const monadStaking = onMonad(staking)
 
     // Get the rewarder contract
     const ethRewarder = await contractFactory(onEth(rewarder))
@@ -34,6 +35,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const arbRewarder = await contractFactory(onArb(rewarder))
     const avalancheRewarder = await contractFactory(onAvalanche(rewarder))
     const mantleRewarder = await contractFactory(onMantle(rewarder))
+    const monadRewarder = await contractFactory(onMonad(rewarder))
 
     // Template objects for pool configuration
     //
@@ -44,6 +46,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const arbPool = { rewarder: arbRewarder.contract.address }
     const avalanchePool = { rewarder: avalancheRewarder.contract.address }
     const mantlePool = { rewarder: mantleRewarder.contract.address }
+    const monadPool = { rewarder: monadRewarder.contract.address }
 
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
 
@@ -56,6 +59,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
         TokenName.USDT,
     ] as const)
     const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
+    const monadLPTokenAddresses = await getLPTokenAddresses(EndpointId.MONAD_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -153,6 +157,25 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...mantlePool,
                             token: mantleLPTokenAddresses.ETH,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: monadStaking,
+                config: {
+                    pools: [
+                        {
+                            ...monadPool,
+                            token: monadLPTokenAddresses.USDT,
+                        },
+                        {
+                            ...monadPool,
+                            token: monadLPTokenAddresses.USDC,
+                        },
+                        {
+                            ...monadPool,
+                            token: monadLPTokenAddresses.ETH,
                         },
                     ],
                 },

@@ -1,5 +1,24 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.0
+
+### Major Changes
+
+- ca93271: Ebi shutdown
+
+### Patch Changes
+
+- 8d34bce: Fixed sonic ownership config
+- 381ce82: cronos evm deployment
+- 15aeef1: Cronos evm mainnet config
+- da11e80: monad testnet config
+- Updated dependencies [381ce82]
+- Updated dependencies [ca93271]
+- Updated dependencies [15aeef1]
+- Updated dependencies [8ac1688]
+- Updated dependencies [da11e80]
+  - @stargatefinance/stg-definitions-v2@2.0.0
+
 ## 1.5.1
 
 ### Patch Changes

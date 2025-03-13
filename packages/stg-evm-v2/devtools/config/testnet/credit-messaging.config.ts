@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateCreditMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onMonad, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'CreditMessaging' }
 
@@ -25,6 +25,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const bl3CreditMsging = onBL3(contract)
     const odysseyCreditMsging = onOdyssey(contract)
     const mantleCreditMsging = onMantle(contract)
+    const monadCreditMsging = onMonad(contract)
 
     // Now we collect the address of the deployed assets
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
@@ -38,6 +39,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
+    const monadAssetAddresses = await getAssetAddresses(EndpointId.MONAD_V2_TESTNET, allAssets)
 
     return {
         contracts: [
@@ -136,6 +138,17 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                     },
                 },
             },
+            {
+                contract: monadCreditMsging,
+                config: {
+                    planner: DEFAULT_PLANNER,
+                    assets: {
+                        [monadAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+                        [monadAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+                        [monadAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+                    },
+                },
+            },
         ],
         connections: generateCreditMessagingConfig([
             ethCreditMsging,
@@ -146,6 +159,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
             bl3CreditMsging,
             odysseyCreditMsging,
             mantleCreditMsging,
+            monadCreditMsging,
         ]),
     }
 }
