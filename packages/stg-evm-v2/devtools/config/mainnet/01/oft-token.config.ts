@@ -10,7 +10,7 @@ import { getSafeAddress } from '../../utils'
 import {
     onApe,
     onBera,
-    onCronos,
+    onCronosevm,
     onDegen,
     onFlare,
     onFlow,
@@ -57,11 +57,11 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.BERA_V2_MAINNET, TokenName.ETH)
     )
     const beraETH = onBera({ contractName: beraETHContractName })
-    const cronosETHContractName = getTokenDeployName(
+    const cronosevmETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.CRONOSEVM_V2_MAINNET, TokenName.ETH)
     )
-    const cronosETH = onCronos({ contractName: cronosETHContractName })
+    const cronosevmETH = onCronosevm({ contractName: cronosevmETHContractName })
     const degenETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
@@ -152,7 +152,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [TokenName.ETH] as const)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [TokenName.ETH] as const)
-    const cronosAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+    const cronosevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
@@ -223,12 +223,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 },
             },
             {
-                contract: cronosETH,
+                contract: cronosevmETH,
                 config: {
                     owner: getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET),
                     minters: {
-                        [cronosAssetAddresses.ETH]: true,
-                        [cronosAssetAddresses.USDC]: true,
+                        [cronosevmAssetAddresses.ETH]: true,
+                        [cronosevmAssetAddresses.USDC]: true,
                     },
                 },
             },
