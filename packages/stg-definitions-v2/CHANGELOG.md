@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.1
+
+### Patch Changes
+
+- 831e204: bump versions
+
 ## 2.0.0
 
 ### Major Changes
