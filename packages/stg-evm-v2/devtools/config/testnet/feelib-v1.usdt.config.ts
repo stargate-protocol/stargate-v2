@@ -6,7 +6,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { getFeeLibV1DeployName } from '../../../ops/util'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 
 const tokenName = TokenName.USDT
 const contract = { contractName: getFeeLibV1DeployName(tokenName) }
@@ -16,6 +16,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const ethFeeLibV1 = onEth(contract)
     const optFeeLibV1 = onOpt(contract)
     const arbFeeLibV1 = onArb(contract)
+    const avalancheFeeLibV1 = onAvalanche(contract)
     const klaytnFeeLibV1 = onKlaytn(contract)
     const bl3FeeLibV1 = onBL3(contract)
     const odysseyFeeLibV1 = onOdyssey(contract)
@@ -41,6 +42,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: arbFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: avalancheFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

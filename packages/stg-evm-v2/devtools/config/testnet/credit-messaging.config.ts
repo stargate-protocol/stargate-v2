@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateCreditMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'CreditMessaging' }
 
@@ -20,6 +20,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const bscCreditMsging = onBsc(contract)
     const optCreditMsging = onOpt(contract)
     const arbCreditMsging = onArb(contract)
+    const avalancheCreditMsging = onAvalanche(contract)
     const klaytnCreditMsging = onKlaytn(contract)
     const bl3CreditMsging = onBL3(contract)
     const odysseyCreditMsging = onOdyssey(contract)
@@ -32,6 +33,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
+    const avalancheAssetAddresses = await getAssetAddresses(EndpointId.AVALANCHE_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
     const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
@@ -78,6 +80,15 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                         [arbAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
                         [arbAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
                         [arbAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+                    },
+                },
+            },
+            {
+                contract: avalancheCreditMsging,
+                config: {
+                    planner: DEFAULT_PLANNER,
+                    assets: {
+                        [avalancheAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
                     },
                 },
             },
