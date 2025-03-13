@@ -11,7 +11,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetLPTokenAddresses } from '../../../ts-src/utils/util'
 
-import { onArb, onBsc, onEth, onMantle, onOpt } from './utils'
+import { onArb, onAvalanche, onBsc, onEth, onMantle, onOpt } from './utils'
 
 const staking = { contractName: 'StargateStaking' }
 const rewarder = { contractName: 'StargateMultiRewarder' }
@@ -24,6 +24,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscStaking = onBsc(staking)
     const optStaking = onOpt(staking)
     const arbStaking = onArb(staking)
+    const avalancheStaking = onAvalanche(staking)
     const mantleStaking = onMantle(staking)
 
     // Get the rewarder contract
@@ -31,6 +32,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscRewarder = await contractFactory(onBsc(rewarder))
     const optRewarder = await contractFactory(onOpt(rewarder))
     const arbRewarder = await contractFactory(onArb(rewarder))
+    const avalancheRewarder = await contractFactory(onAvalanche(rewarder))
     const mantleRewarder = await contractFactory(onMantle(rewarder))
 
     // Template objects for pool configuration
@@ -40,6 +42,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscPool = { rewarder: bscRewarder.contract.address }
     const optPool = { rewarder: optRewarder.contract.address }
     const arbPool = { rewarder: arbRewarder.contract.address }
+    const avalanchePool = { rewarder: avalancheRewarder.contract.address }
     const mantlePool = { rewarder: mantleRewarder.contract.address }
 
     const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
@@ -49,6 +52,9 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
     const optLPTokenAddresses = await getLPTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
+    const avalancheLPTokenAddresses = await getLPTokenAddresses(EndpointId.AVALANCHE_V2_TESTNET, [
+        TokenName.USDT,
+    ] as const)
     const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
 
     return {
@@ -117,6 +123,17 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...arbPool,
                             token: arbLPTokenAddresses.ETH,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: avalancheStaking,
+                config: {
+                    pools: [
+                        {
+                            ...avalanchePool,
+                            token: avalancheLPTokenAddresses.USDT,
                         },
                     ],
                 },
