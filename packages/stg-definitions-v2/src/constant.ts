@@ -565,7 +565,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765',
                 type: StargateType.Pool,
             },
-            // todo the eid is not defined in the lz-definitions
             [EndpointId.AVALANCHE_V2_TESTNET]: {
                 address: '0x82dcec6aa3c8bfe2c96d40d8805ee0da15708643',
                 type: StargateType.Pool,
