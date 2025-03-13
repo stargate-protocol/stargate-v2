@@ -8,7 +8,7 @@ import { createGetAssetAddresses } from '../../../ts-src/utils/util'
 import { generateTokenMessagingConfig } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { onArb, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
+import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'TokenMessaging' }
 
@@ -19,11 +19,11 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const bscTokenMsging = onBsc(contract)
     const optTokenMsging = onOpt(contract)
     const arbTokenMsging = onArb(contract)
+    const avalancheTokenMsging = onAvalanche(contract)
     const klaytnTokenMsging = onKlaytn(contract)
     const bl3TokenMsging = onBL3(contract)
     const odysseyTokenMsging = onOdyssey(contract)
     const mantleTokenMsging = onMantle(contract)
-
     const defaultNodeConfig: TokenMessagingNodeConfig = {
         planner: DEFAULT_PLANNER,
     }
@@ -35,6 +35,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
+    const avalancheAssetAddresses = await getAssetAddresses(EndpointId.AVALANCHE_V2_TESTNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
     const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
@@ -81,6 +82,15 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
                         [arbAssetAddresses.USDT]: ASSETS.USDT.assetId,
                         [arbAssetAddresses.USDC]: ASSETS.USDC.assetId,
                         [arbAssetAddresses.ETH]: ASSETS.ETH.assetId,
+                    },
+                },
+            },
+            {
+                contract: avalancheTokenMsging,
+                config: {
+                    ...defaultNodeConfig,
+                    assets: {
+                        [avalancheAssetAddresses.USDT]: ASSETS.USDT.assetId,
                     },
                 },
             },
@@ -134,6 +144,7 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             bscTokenMsging,
             optTokenMsging,
             arbTokenMsging,
+            avalancheTokenMsging,
             klaytnTokenMsging,
             bl3TokenMsging,
             odysseyTokenMsging,
