@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.1
+
+### Patch Changes
+
+- 0f505e3: rename cronos chain to cronosevm
+
 ## 2.0.0
 
 ### Major Changes
