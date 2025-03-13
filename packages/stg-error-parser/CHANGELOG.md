@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.10
+
+### Patch Changes
+
+- 381ce82: cronos evm deployment
+
 ## 1.1.9
 
 ### Patch Changes
