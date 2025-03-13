@@ -1,5 +1,18 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 4.0.0
+
+### Patch Changes
+
+- 381ce82: cronos evm deployment
+- Updated dependencies [381ce82]
+- Updated dependencies [ca93271]
+- Updated dependencies [15aeef1]
+- Updated dependencies [8ac1688]
+- Updated dependencies [da11e80]
+  - @stargatefinance/stg-definitions-v2@2.0.0
+  - @stargatefinance/stg-devtools-v2@4.0.0
+
 ## 3.1.2
 
 ### Patch Changes
