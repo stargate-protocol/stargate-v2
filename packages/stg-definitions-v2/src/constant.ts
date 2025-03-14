@@ -572,7 +572,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.AVALANCHE_V2_TESTNET]: {
-                address: '0x82dcec6aa3c8bfe2c96d40d8805ee0da15708643',
                 type: StargateType.Pool,
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
