@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.2
+
+### Patch Changes
+
+- 831e204: bump versions
+- Updated dependencies [831e204]
+  - @stargatefinance/stg-definitions-v2@2.0.1
+
+## 2.0.1
+
+### Patch Changes
+
+- 0f505e3: rename cronos chain to cronosevm
+
 ## 2.0.0
 
 ### Major Changes
