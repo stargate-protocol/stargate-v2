@@ -36,7 +36,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
 /**
  * total mainnet chains supported 59
- * excluded chains 26
+ * excluded chains 27
  * valid chains 33
  */
 const excludedChains = new Set([
@@ -46,6 +46,7 @@ const excludedChains = new Set([
     'bera-mainnet',
     'blast-mainnet',
     'codex-mainnet',
+    'cronosevm-mainnet',
     'etherlink-mainnet',
     'fantom-mainnet',
     'fraxtal-mainnet',
