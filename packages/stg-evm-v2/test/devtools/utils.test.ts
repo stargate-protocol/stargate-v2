@@ -268,7 +268,7 @@ describe('devtools/utils', () => {
         })
     })
 
-    describe.only('setsDifference', () => {
+    describe('setsDifference', () => {
         const mockContractData = { contractName: 'MockContract' }
 
         it('should return empty set when sets are identical', () => {
