@@ -45,6 +45,10 @@ export function isValidTokenMessagingChain(chain: string): boolean {
     return validTokenMessagingChains.has(chain)
 }
 
+export function isValidChain(chain: string): boolean {
+    return allSupportedChains.has(chain)
+}
+
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
     return getContractsInChain(chains, contract, isValidChain, chainEids)
 }
