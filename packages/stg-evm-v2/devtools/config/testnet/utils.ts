@@ -11,6 +11,7 @@ export const onKlaytn = withEid(EndpointId.KLAYTN_V2_TESTNET)
 export const onBL3 = withEid(EndpointId.BL3_V2_TESTNET)
 export const onOdyssey = withEid(EndpointId.ODYSSEY_V2_TESTNET)
 export const onMantle = withEid(EndpointId.MANTLESEP_V2_TESTNET)
+export const onMonad = withEid(EndpointId.MONAD_V2_TESTNET)
 
 export const chainFunctions = {
     'arbsep-testnet': onArb,
@@ -18,6 +19,7 @@ export const chainFunctions = {
     'bsc-testnet': onBsc,
     'klaytn-testnet': onKlaytn,
     'mantle-testnet': onMantle,
+    'monad-testnet': onMonad,
     'odyssey-testnet': onOdyssey,
     'opt-testnet': onOpt,
     'sepolia-testnet': onEth,

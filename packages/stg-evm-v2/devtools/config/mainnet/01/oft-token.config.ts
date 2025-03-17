@@ -10,8 +10,8 @@ import { getSafeAddress } from '../../utils'
 import {
     onApe,
     onBera,
+    onCronosevm,
     onDegen,
-    onEbi,
     onFlare,
     onFlow,
     onFuse,
@@ -41,7 +41,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
     // USDT contract pointers (for old method of deployment)
-    const ebiUSDT = onEbi(usdtContractTemplate)
     const flareUSDT = onFlare(usdtContractTemplate)
     const gravityUSDT = onGravity(usdtContractTemplate)
     const iotaUSDT = onIota(usdtContractTemplate)
@@ -58,6 +57,11 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.BERA_V2_MAINNET, TokenName.ETH)
     )
     const beraETH = onBera({ contractName: beraETHContractName })
+    const cronosevmETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.CRONOSEVM_V2_MAINNET, TokenName.ETH)
+    )
+    const cronosevmETH = onCronosevm({ contractName: cronosevmETHContractName })
     const degenETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.DEGEN_V2_MAINNET, TokenName.ETH)
@@ -148,11 +152,14 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [TokenName.ETH] as const)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [TokenName.ETH] as const)
+    const cronosevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
-    const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const flareAssetAddresses = await getAssetAddresses(EndpointId.FLARE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
@@ -216,20 +223,21 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                 },
             },
             {
+                contract: cronosevmETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET),
+                    minters: {
+                        [cronosevmAssetAddresses.ETH]: true,
+                        [cronosevmAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
                 contract: degenETH,
                 config: {
                     owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
                     minters: {
                         [degenAssetAddresses.ETH]: true,
-                    },
-                },
-            },
-            {
-                contract: ebiUSDT,
-                config: {
-                    owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
-                    minters: {
-                        [ebiAssetAddresses.USDT]: true,
                     },
                 },
             },
