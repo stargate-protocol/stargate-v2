@@ -1,5 +1,24 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.1
+
+### Patch Changes
+
+- 831e204: bump versions
+
+## 2.0.0
+
+### Major Changes
+
+- ca93271: Ebi shutdown
+
+### Patch Changes
+
+- 381ce82: cronos evm deployment
+- 15aeef1: Cronos evm mainnet config
+- 8ac1688: safe url fix for ape
+- da11e80: monad testnet config
+
 ## 1.4.10
 
 ### Patch Changes

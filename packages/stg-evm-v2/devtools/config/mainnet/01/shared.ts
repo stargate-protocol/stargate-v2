@@ -46,12 +46,15 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const cronosevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
-    const ebiAssetAddresses = await getAssetAddresses(EndpointId.EBI_V2_MAINNET, [TokenName.USDT] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,
@@ -237,13 +240,14 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [coredaoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [coredaoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.CRONOSEVM_V2_MAINNET]: {
+            [cronosevmAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [cronosevmAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
         [EndpointId.DEGEN_V2_MAINNET]: {
             [degenAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [degenAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [degenAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
-        },
-        [EndpointId.EBI_V2_MAINNET]: {
-            [ebiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.ETHEREUM_V2_MAINNET]: {
             [ethAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

@@ -11,6 +11,7 @@ export const onKlaytn = withEid(EndpointId.KLAYTN_V2_TESTNET)
 export const onBL3 = withEid(EndpointId.BL3_V2_TESTNET)
 export const onOdyssey = withEid(EndpointId.ODYSSEY_V2_TESTNET)
 export const onMantle = withEid(EndpointId.MANTLESEP_V2_TESTNET)
+export const onMonad = withEid(EndpointId.MONAD_V2_TESTNET)
 
 export const chainEids = {
     'arbsep-testnet': EndpointId.ARBSEP_V2_TESTNET,
@@ -18,6 +19,7 @@ export const chainEids = {
     'bsc-testnet': EndpointId.BSC_V2_TESTNET,
     'klaytn-testnet': EndpointId.KLAYTN_V2_TESTNET,
     'mantle-testnet': EndpointId.MANTLESEP_V2_TESTNET,
+    'monad-testnet': EndpointId.MONAD_V2_TESTNET,
     'odyssey-testnet': EndpointId.ODYSSEY_V2_TESTNET,
     'opt-testnet': EndpointId.OPTSEP_V2_TESTNET,
     'sepolia-testnet': EndpointId.SEPOLIA_V2_TESTNET,
@@ -41,6 +43,10 @@ export function isValidCreditMessagingChain(chain: string): boolean {
 
 export function isValidTokenMessagingChain(chain: string): boolean {
     return validTokenMessagingChains.has(chain)
+}
+
+export function isValidChain(chain: string): boolean {
+    return allSupportedChains.has(chain)
 }
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
