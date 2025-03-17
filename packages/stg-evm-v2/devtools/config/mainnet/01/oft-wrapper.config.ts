@@ -16,8 +16,8 @@ import {
     onBlast,
     onBsc,
     onCodex,
+    onCronosevm,
     onDegen,
-    onEbi,
     onEth,
     onEtherLink,
     onFantom,
@@ -79,8 +79,8 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const blastOftWrapper = onBlast(contract)
     const bscOftWrapper = onBsc(contract)
     const codexOftWrapper = onCodex(contract)
+    const cronosevmOftWrapper = onCronosevm(contract)
     const degenOftWrapper = onDegen(contract)
-    const ebiOftWrapper = onEbi(contract)
     const ethOftWrapper = onEth(contract)
     const etherLinkOftWrapper = onEtherLink(contract)
     const fantomOftWrapper = onFantom(contract)
@@ -196,15 +196,15 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
                 },
             },
             {
-                contract: degenOftWrapper,
+                contract: cronosevmOftWrapper,
                 config: {
-                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
+                    owner: getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET),
                 },
             },
             {
-                contract: ebiOftWrapper,
+                contract: degenOftWrapper,
                 config: {
-                    owner: getSafeAddress(EndpointId.EBI_V2_MAINNET),
+                    owner: getSafeAddress(EndpointId.DEGEN_V2_MAINNET),
                 },
             },
             {
