@@ -30,7 +30,6 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     // all defined chains except excluded ones will be considered valid
     const validChains = setsDifference(chainsList, excludedChains)
 
-    console.log('validChains:', validChains)
     // Now we define all the contracts (from the valid chains set)
     const points = Array.from(validChains).map((chain) => getAssetPoint(chainEids[chain as keyof typeof chainEids]))
 
@@ -44,7 +43,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 }
 
 /**
- * total mainnet chains supported 60
+ * total mainnet chains supported 59
  * excluded chains 27
  * valid chains 33
  */

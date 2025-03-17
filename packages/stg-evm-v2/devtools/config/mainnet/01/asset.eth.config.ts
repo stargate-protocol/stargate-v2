@@ -45,7 +45,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 /**
  * total mainnet chains supported 59
  * excluded chains 28
- * valid chains 31
+ * valid chains 32
  */
 const excludedChains = new Set([
     'astar-mainnet',
