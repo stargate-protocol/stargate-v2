@@ -79,7 +79,7 @@ export const chainEids = {
     'coredao-mainnet': EndpointId.COREDAO_V2_MAINNET,
     'cronosevm-mainnet': EndpointId.CRONOSEVM_V2_MAINNET,
     'degen-mainnet': EndpointId.DEGEN_V2_MAINNET,
-    'ebi-mainnet': EndpointId.EBI_V2_MAINNET,
+    // 'ebi-mainnet': EndpointId.EBI_V2_MAINNET, // should be removed due to ebi shutdown
     'ethereum-mainnet': EndpointId.ETHEREUM_V2_MAINNET,
     'etherlink-mainnet': EndpointId.ETHERLINK_V2_MAINNET,
     'fantom-mainnet': EndpointId.FANTOM_V2_MAINNET,
@@ -172,6 +172,10 @@ export function isValidCreditMessagingChain(chain: string): boolean {
 
 export function isValidTokenMessagingChain(chain: string): boolean {
     return validTokenMessagingChains.has(chain)
+}
+
+export function isValidChain(chain: string): boolean {
+    return allSupportedChains.has(chain)
 }
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
