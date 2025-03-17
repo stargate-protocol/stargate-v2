@@ -19,9 +19,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 
     // all defined chains except excluded ones will be considered valid
     const validChains = setsDifference(allSupportedChains, excludedChains)
+    // if the evn variable is not defined, use the validChains
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : validChains
 
     // Now we define all the contracts (from the valid chains set)
-    const points = Array.from(validChains).map((chain) => getAssetPoint(chainEids[chain as keyof typeof chainEids]))
+    const points = Array.from(chainsList).map((chain) => getAssetPoint(chainEids[chain as keyof typeof chainEids]))
 
     // And all their nodes (from the valid chains set)
     const contracts = await Promise.all(points.map(async (point) => await getAssetNode(point)))
