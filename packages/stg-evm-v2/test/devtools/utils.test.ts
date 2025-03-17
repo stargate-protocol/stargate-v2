@@ -8,10 +8,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import {
     getContracts as getContractsMainnet,
-    getContracts as getContractsMainnet,
     isValidCreditMessagingChain as isValidCreditMessagingChainMainnet,
-    isValidCreditMessagingChain as isValidCreditMessagingChainMainnet,
-    validCreditMessagingChains as validCreditMessagingChainsMainnet,
     validCreditMessagingChains as validCreditMessagingChainsMainnet,
 } from '../../devtools/config/mainnet/utils'
 import {
