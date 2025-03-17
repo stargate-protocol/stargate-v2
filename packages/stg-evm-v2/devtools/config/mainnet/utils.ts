@@ -77,6 +77,7 @@ export const chainEids = {
     'bsc-mainnet': EndpointId.BSC_V2_MAINNET,
     'codex-mainnet': EndpointId.CODEX_V2_MAINNET,
     'coredao-mainnet': EndpointId.COREDAO_V2_MAINNET,
+    'cronosevm-mainnet': EndpointId.CRONOSEVM_V2_MAINNET,
     'degen-mainnet': EndpointId.DEGEN_V2_MAINNET,
     'ebi-mainnet': EndpointId.EBI_V2_MAINNET,
     'ethereum-mainnet': EndpointId.ETHEREUM_V2_MAINNET,
