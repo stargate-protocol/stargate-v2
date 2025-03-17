@@ -10,6 +10,7 @@ import {
     onArb,
     onBase,
     onBera,
+    onCronosevm,
     onDegen,
     onEth,
     onFlare,
@@ -53,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
     const arbFeeLibV1 = onArb(contract)
     const baseFeeLibV1 = onBase(contract)
     const beraFeeLibV1 = onBera(contract)
+    const cronosevmFeeLibV1 = onCronosevm(contract)
     const degenFeeLibV1 = onDegen(contract)
     const ethFeeLibV1 = onEth(contract)
     const flareFeeLibV1 = onFlare(contract)
@@ -97,6 +99,10 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
             },
             {
                 contract: beraFeeLibV1,
+                config: defaultNodeConfig,
+            },
+            {
+                contract: cronosevmFeeLibV1,
                 config: defaultNodeConfig,
             },
             {

@@ -167,6 +167,11 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
+    'monad-testnet': {
+        eid: EndpointId.MONAD_V2_TESTNET,
+        url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
+        accounts: testnetAccounts,
+    },
 
     //
     // Mainnet
@@ -256,6 +261,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'cronosevm-mainnet': {
+        eid: EndpointId.CRONOSEVM_V2_MAINNET,
+        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://evm.cronos.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'degen-mainnet': {
@@ -462,7 +474,7 @@ const networks: NetworksUserConfig = {
     },
     'plume-mainnet': {
         eid: EndpointId.PLUME_V2_MAINNET,
-        url: process.env.RPC_URL_PLUME_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -490,7 +502,7 @@ const networks: NetworksUserConfig = {
     },
     'scroll-mainnet': {
         eid: EndpointId.SCROLL_V2_MAINNET,
-        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.drpc.org',
+        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://rpc.ankr.com/scroll',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
