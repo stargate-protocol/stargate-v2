@@ -1,7 +1,9 @@
+import * as path from 'path'
+
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getContractsInChain, setsDifference } from '../utils'
+import { Config, getContractsInChain, loadChainsConfig, setsDifference } from '../utils'
 
 export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
 export const onApe = withEid(EndpointId.APE_V2_MAINNET)
@@ -180,4 +182,16 @@ export function isValidChain(chain: string): boolean {
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
     return getContractsInChain(chains, contract, isValidChain, chainEids)
+}
+
+export function getSupportedChains() {
+    const chainsConfig = getChainsConfig()
+
+    return chainsConfig.chains.map((chain) => chain.name)
+}
+
+export function getChainsConfig(): Config {
+    const configFilePath = path.join(__dirname, 'config.yml')
+
+    return loadChainsConfig(configFilePath)
 }
