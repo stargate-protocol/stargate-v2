@@ -1453,7 +1453,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.STG[EndpointId.CRONOSZKEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSZKEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('5').toBigInt(),
+            nativeDropAmount: parseEther('5').toBigInt(), // todo double check the drop amount
         },
         safeConfig: {
             safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
