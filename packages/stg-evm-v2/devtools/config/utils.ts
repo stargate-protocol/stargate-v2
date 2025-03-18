@@ -258,8 +258,9 @@ interface RewarderToken {
     allocation: Record<string, number>
 }
 
-interface Chain {
+export interface Chain {
     name: string
+    eid: any
     token_messaging: boolean
     credit_messaging: boolean
     tokens?: Record<string, Token>
@@ -275,15 +276,15 @@ interface Chain {
     usdc_admin?: boolean
 }
 
-export interface Config {
+interface Config {
     chains: Chain[]
 }
 
-export function loadChainsConfig(filePath: string): Config {
+export function loadChainsConfig(filePath: string): Chain[] {
     try {
         const fileContents = fs.readFileSync(filePath, 'utf8')
         const data = yaml.load(fileContents) as Config
-        return data
+        return data.chains
     } catch (e) {
         console.error('Error loading YAML file:', e)
         throw e

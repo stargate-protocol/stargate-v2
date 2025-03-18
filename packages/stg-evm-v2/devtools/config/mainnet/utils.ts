@@ -3,7 +3,7 @@ import * as path from 'path'
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { Config, getContractsInChain, loadChainsConfig, setsDifference } from '../utils'
+import { Chain, getContractsInChain, loadChainsConfig, setsDifference } from '../utils'
 
 export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
 export const onApe = withEid(EndpointId.APE_V2_MAINNET)
@@ -184,14 +184,26 @@ export function getContracts(chains: string[] | null, contract: any, isValidChai
     return getContractsInChain(chains, contract, isValidChain, chainEids)
 }
 
-export function getSupportedChains() {
+export function getSupportedChains(): Chain[] {
     const chainsConfig = getChainsConfig()
 
-    return chainsConfig.chains.map((chain) => chain.name)
+    return chainsConfig.map((chain) => chain)
 }
 
-export function getChainsConfig(): Config {
+export function getChainsConfig(): Chain[] {
     const configFilePath = path.join(__dirname, 'config.yml')
 
-    return loadChainsConfig(configFilePath)
+    // set the correct eid for the chains
+    const chainsConfig = loadChainsConfig(configFilePath).map((chain) => ({
+        ...chain,
+        eid: EndpointId[chain.eid as keyof typeof EndpointId],
+    }))
+
+    return chainsConfig
+}
+
+export function getChainsThatSupportToken(tokenName: string): Chain[] {
+    const chainsConfig = getChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
