@@ -188,7 +188,7 @@ export function getContracts(chains: string[] | null, contract: any, isValidChai
 }
 
 export function getAllChainsConfig(): Chain[] {
-    const configFilePath = path.join(__dirname, 'config.yml')
+    const configFilePath = path.join(__dirname, 'chains-config.yml')
 
     // set the correct eid for the chains
     const chainsConfig = loadChainsConfig(configFilePath).map((chain) => ({
