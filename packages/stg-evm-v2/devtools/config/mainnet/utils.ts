@@ -264,6 +264,12 @@ export function getChainsThatSupportUsdcAdmins(): Chain[] {
     return chainsConfig.filter((chain) => chain.usdc_admin === true)
 }
 
+export function getChainsThatSupportsUsdtExternalDeployments(): Chain[] {
+    const supportsOftUsdt = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Oft)
+
+    return supportsOftUsdt.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address !== undefined)
+}
+
 //  token Names
 export function getRewardTokenName(token: string): RewardTokenName {
     // return the name that match the entry
