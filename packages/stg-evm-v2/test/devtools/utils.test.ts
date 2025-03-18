@@ -7,9 +7,7 @@ import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import {
-    getChainsConfig,
     getContracts as getContractsMainnet,
-    getSupportedChains,
     isValidCreditMessagingChain as isValidCreditMessagingChainMainnet,
     validCreditMessagingChains as validCreditMessagingChainsMainnet,
 } from '../../devtools/config/mainnet/utils'
@@ -278,19 +276,6 @@ describe('devtools/utils', () => {
             const result = setsDifference(setA, setA)
 
             expect(result.size).to.equal(0)
-        })
-
-        it.only('lalalalal', async () => {
-            // const bla = await import('../../devtools/config/mainnet/01/usdt-token.config')
-
-            // const result = await bla.default()
-
-            const supportedChains = getSupportedChains()
-
-            const chainsConfig = getChainsConfig()
-
-            console.log(supportedChains.length)
-            console.log(chainsConfig)
         })
 
         it('should return all elements when sets are disjoint', () => {
