@@ -258,6 +258,12 @@ export function getChainsThatSupportTreasurer(): Chain[] {
     return chainsConfig.filter((chain) => chain.treasurer !== undefined)
 }
 
+export function getChainsThatSupportUsdcAdmins(): Chain[] {
+    const chainsConfig = getAllChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.usdc_admin === true)
+}
+
 //  token Names
 export function getRewardTokenName(token: string): RewardTokenName {
     // return the name that match the entry
