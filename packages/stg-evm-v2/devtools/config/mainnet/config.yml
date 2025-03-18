@@ -1,5 +1,6 @@
 chains:
   - name: abstract-mainnet
+    eid: ABSTRACT_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -23,6 +24,7 @@ chains:
         usdc: true
 
   - name: ape-mainnet
+    eid: APE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -39,6 +41,7 @@ chains:
         usdc: true
 
   - name: arbitrum-mainnet
+    eid: ARBITRUM_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -72,10 +75,12 @@ chains:
         usdc: true
 
   - name: astar-mainnet
+    eid: ASTAR_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: aurora-mainnet
+    eid: AURORA_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -94,6 +99,7 @@ chains:
         usdc: true
 
   - name: avalanche-mainnet
+    eid: AVALANCHE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -117,6 +123,7 @@ chains:
         usdc: true
 
   - name: base-mainnet
+    eid: BASE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -140,6 +147,7 @@ chains:
         usdc: true
 
   - name: bera-mainnet
+    eid: BERA_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -153,10 +161,12 @@ chains:
         usdc: true
 
   - name: blast-mainnet
+    eid: BLAST_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: bsc-mainnet
+    eid: BSC_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -180,6 +190,7 @@ chains:
         usdc: true
 
   - name: codex-mainnet
+    eid: CODEX_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -190,6 +201,7 @@ chains:
         usdc: true
 
   - name: coredao-mainnet
+    eid: COREDAO_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -213,6 +225,7 @@ chains:
         usdc: true
 
   - name: cronosevm-mainnet
+    eid: CRONOSEVM_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -226,6 +239,7 @@ chains:
         usdc: true
 
   - name: degen-mainnet
+    eid: DEGEN_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -241,7 +255,20 @@ chains:
         usdt: true
         usdc: true
 
+  # ! ebi is shutdown
+  # - name: ebi-mainnet
+  #   eid: EBI_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdt:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       usdt: true
+
   - name: ethereum-mainnet
+    eid: ETHEREUM_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -276,14 +303,17 @@ chains:
         usdc: true
 
   - name: etherlink-mainnet
+    eid: ETHERLINK_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: fantom-mainnet
+    eid: FANTOM_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: flare-mainnet
+    eid: FLARE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -301,6 +331,7 @@ chains:
     usdc_admin: true
 
   - name: flow-mainnet
+    eid: FLOW_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -317,10 +348,12 @@ chains:
         usdc: true
 
   - name: fraxtal-mainnet
+    eid: FRAXTAL_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: fuse-mainnet
+    eid: FUSE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -337,6 +370,7 @@ chains:
         usdc: true
 
   - name: glue-mainnet
+    eid: GLUE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -353,6 +387,7 @@ chains:
         usdc: true
 
   - name: gnosis-mainnet
+    eid: GNOSIS_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -366,6 +401,7 @@ chains:
         usdc: true
 
   - name: goat-mainnet
+    eid: GOAT_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -382,6 +418,7 @@ chains:
         usdc: true
 
   - name: gravity-mainnet
+    eid: GRAVITY_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -399,6 +436,7 @@ chains:
     usdc_admin: true
 
   - name: hemi-mainnet
+    eid: HEMI_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -423,6 +461,7 @@ chains:
         usdc: true
 
   - name: ink-mainnet
+    eid: INK_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -433,6 +472,7 @@ chains:
         usdc: true
 
   - name: iota-mainnet
+    eid: IOTA_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -450,6 +490,7 @@ chains:
     usdc_admin: true
 
   - name: islander-mainnet
+    eid: ISLANDER_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -466,6 +507,7 @@ chains:
         usdc: true
 
   - name: kava-mainnet
+    eid: KAVA_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -484,6 +526,7 @@ chains:
         usdt: true
 
   - name: klaytn-mainnet
+    eid: KLAYTN_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -501,6 +544,7 @@ chains:
     usdc_admin: true
 
   - name: lightlink-mainnet
+    eid: LIGHTLINK_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -526,10 +570,12 @@ chains:
     usdc_admin: true
 
   - name: manta-mainnet
+    eid: MANTA_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: mantle-mainnet
+    eid: MANTLE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -561,6 +607,7 @@ chains:
         usdc: true
 
   - name: metis-mainnet
+    eid: METIS_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -587,22 +634,27 @@ chains:
         usdc: true
 
   - name: mode-mainnet
+    eid: MODE_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: moonbeam-mainnet
+    eid: MOONBEAM_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: moonriver-mainnet
+    eid: MOONRIVER_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: opbnb-mainnet
+    eid: OPBNB_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: optimism-mainnet
+    eid: OPTIMISM_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -636,6 +688,7 @@ chains:
         usdc: true
 
   - name: peaq-mainnet
+    eid: PEAQ_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -653,6 +706,7 @@ chains:
     usdc_admin: true
 
   - name: plume-mainnet
+    eid: PLUME_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -666,6 +720,7 @@ chains:
         usdc: true
 
   - name: polygon-mainnet
+    eid: POLYGON_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -689,6 +744,7 @@ chains:
         usdc: true
 
   - name: rarible-mainnet
+    eid: RARIBLE_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -703,6 +759,7 @@ chains:
     usdc_admin: true
 
   - name: rootstock-mainnet
+    eid: ROOTSTOCK_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -719,6 +776,7 @@ chains:
         usdc: true
 
   - name: scroll-mainnet
+    eid: SCROLL_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -742,6 +800,7 @@ chains:
         usdc: true
 
   - name: sei-mainnet
+    eid: SEI_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -768,10 +827,12 @@ chains:
         usdc: true
 
   - name: shimmer-mainnet
+    eid: SHIMMER_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: soneium-mainnet
+    eid: SONEIUM_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -794,6 +855,7 @@ chains:
         usdc: true
 
   - name: sonic-mainnet
+    eid: SONIC_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -812,6 +874,7 @@ chains:
         usdc: true
 
   - name: story-mainnet
+    eid: STORY_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -828,6 +891,7 @@ chains:
         usdc: true
 
   - name: superposition-mainnet
+    eid: SUPERPOSITION_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -838,6 +902,7 @@ chains:
         usdc: true
 
   - name: taiko-mainnet
+    eid: TAIKO_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -852,6 +917,7 @@ chains:
     usdc_admin: true
 
   - name: telos-mainnet
+    eid: TELOS_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -868,6 +934,7 @@ chains:
         usdc: true
 
   - name: unichain-mainnet
+    eid: UNICHAIN_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -878,6 +945,7 @@ chains:
         eth: true
 
   - name: xchain-mainnet
+    eid: XCHAIN_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -889,10 +957,12 @@ chains:
     usdc_admin: true
 
   - name: zkatana-mainnet
+    eid: ZKATANA_V2_MAINNET
     token_messaging: false
     credit_messaging: false
 
   - name: zkconsensys-mainnet
+    eid: ZKCONSENSYS_V2_MAINNET
     token_messaging: true
     credit_messaging: true
     tokens:
@@ -911,5 +981,6 @@ chains:
         eth: true
 
   - name: zkpolygon-mainnet
+    eid: ZKPOLYGON_V2_MAINNET
     token_messaging: false
     credit_messaging: false
