@@ -18,12 +18,12 @@ chains:
   #           eth: 10
   #           usdc: 10
   #           usdt: 10
-  #   staking:  # list of tokens that support staking by the chain
+  #   staking:  # list of tokens that support staking in the chain
   #     tokens:
   #       eth: true
   #       usdc: true
   #       usdt: true
-  #   treasurer:  # list of tokens that support the treasurer by the chain
+  #   treasurer:  # list of tokens that support the treasurer in the chain
   #       eth: true
   #       usdt: true
   #       usdc: true
