@@ -515,7 +515,7 @@ chains:
         type: pool
     rewarder:
       tokens:
-        kava:
+        wkava:
           allocation:
             usdt: 10000
     staking:
