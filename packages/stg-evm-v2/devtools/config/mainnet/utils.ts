@@ -270,6 +270,10 @@ export function getChainsThatSupportsUsdtExternalDeployments(): Chain[] {
     return supportsOftUsdt.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address !== undefined)
 }
 
+export function isExternalDeployment(chain: Chain, tokenName: TokenName): boolean {
+    return getAssetNetworkConfig(chain.eid, tokenName).address !== undefined
+}
+
 //  token Names
 export function getRewardTokenName(token: string): RewardTokenName {
     // return the name that match the entry
