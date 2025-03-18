@@ -3,10 +3,10 @@ import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefin
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, generateTokenMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportMessaging, validateChains } from '../utils'
+import { getChainsThatSupportMessaging, getSupportedTokens, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { getMessagingAssetConfig } from './shared'
+import { getAssetsConfig } from './shared'
 
 const contract = { contractName: 'TokenMessaging' }
 
@@ -48,18 +48,21 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
 
     const getEnvironment = createGetHreByEid()
-    const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
-    return {
-        contracts: allContracts.map((contract) => ({
+    const contracts = await Promise.all(
+        allContracts.map(async (contract) => ({
             contract,
             config: {
                 owner: getSafeAddress(contract.eid),
                 delegate: getSafeAddress(contract.eid),
                 planner: DEFAULT_PLANNER,
-                assets: assetConfigs[contract.eid as keyof typeof assetConfigs],
+                assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokens(contract.eid)),
             },
-        })),
+        }))
+    )
+
+    return {
+        contracts,
         connections: filteredConnections,
     }
 }

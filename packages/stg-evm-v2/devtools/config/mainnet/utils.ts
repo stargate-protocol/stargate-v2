@@ -207,6 +207,13 @@ export function validateChains(chains: string[]) {
     })
 }
 
+export function getSupportedTokens(eid: EndpointId): TokenName[] {
+    const chain = getAllChainsConfig().find((chain) => chain.eid === eid)
+    const tokens = Object.keys(chain?.tokens ?? {}) as TokenName[]
+
+    return tokens.map((token) => getTokenName(token))
+}
+
 // supported chains
 export function getAllSupportedChains(): Chain[] {
     const chainsConfig = getAllChainsConfig()
