@@ -18,10 +18,6 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
             ? allSupportedChains.filter((chain) => chainsList.includes(chain.name))
             : allSupportedChains
 
-    console.log('validChains', validChains)
-    console.log('allSupportedChains', allSupportedChains.length)
-    console.log('chainsList', chainsList.length, chainsList)
-
     const oftWrappersContracts = validChains.map((chain) => {
         const oftWrapper = getContractWithEid(chain.eid, contract)
         return {
