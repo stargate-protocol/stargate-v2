@@ -231,6 +231,12 @@ export function getChainsThatSupportRewarder(): Chain[] {
     return chainsConfig.filter((chain) => chain.rewarder !== undefined)
 }
 
+export function getChainsThatSupportStaking(): Chain[] {
+    const chainsConfig = getAllChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.staking !== undefined)
+}
+
 export function getChainsThatSupportMessaging(): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
