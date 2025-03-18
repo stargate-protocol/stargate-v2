@@ -50,6 +50,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+
+    const cronoskzevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSZKEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -243,6 +248,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.CRONOSEVM_V2_MAINNET]: {
             [cronosevmAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [cronosevmAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.CRONOSZKEVM_V2_MAINNET]: {
+            [cronoskzevmAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [cronoskzevmAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.DEGEN_V2_MAINNET]: {
             [degenAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
