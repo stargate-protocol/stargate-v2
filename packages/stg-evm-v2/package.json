@@ -142,6 +142,7 @@
     "hardhat-deploy-ethers": "^0.3.0-beta.13",
     "hardhat-gas-reporter": "^1.0.9",
     "hardhat-spdx-license-identifier": "^2.1.0",
+    "js-yaml": "^4.1.0",
     "p-memoize": "~4.0.4",
     "prettier": "^3.1.1",
     "sinon": "~17.0.1",
