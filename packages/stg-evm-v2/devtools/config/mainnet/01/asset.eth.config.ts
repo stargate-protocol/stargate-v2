@@ -5,7 +5,7 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { generateAssetConfig } from '../../utils'
-import { getChainsThatSupportToken, isValidChain } from '../utils'
+import { getChainsThatSupportToken, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -18,16 +18,10 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // only use the chains defined in the env variable if it is set
-    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : ''
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     // check if all chains are valid
-    if (chainsList) {
-        chainsList.forEach((chain) => {
-            if (!isValidChain(chain)) {
-                throw new Error(`Invalid chain: ${chain}`)
-            }
-        })
-    }
+    validateChains(chainsList)
 
     // get valid chains in the chainsList
     const supportedChains = getChainsThatSupportToken(tokenName)

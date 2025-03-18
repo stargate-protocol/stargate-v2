@@ -207,3 +207,17 @@ export function getChainsThatSupportToken(tokenName: string): Chain[] {
 
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
+
+export function getChainsThatSupportMessaging(): Chain[] {
+    const chainsConfig = getChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.credit_messaging || chain.token_messaging)
+}
+
+export function validateChains(chains: string[]) {
+    chains.forEach((chain) => {
+        if (!isValidChain(chain)) {
+            throw new Error(`Invalid chain: ${chain}`)
+        }
+    })
+}
