@@ -20,10 +20,10 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
 
     // get valid chains in the chainsList
     const supportedChains = getChainsThatSupportMessaging()
-    const validFromChains = fromChains
-        ? supportedChains.filter((chain) => fromChains.includes(chain.name))
-        : supportedChains
-    const validToChains = toChains ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
+    const validFromChains =
+        fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
+    const validToChains =
+        toChains?.length != 0 ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
 
     console.log(
         'TOKEN_MESSAGING FROM_CHAINS:',

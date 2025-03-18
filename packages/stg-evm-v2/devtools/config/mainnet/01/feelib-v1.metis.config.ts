@@ -23,9 +23,8 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
     // get valid chains in the chainsList
     const supportedChains = getChainsThatSupportToken(tokenName)
-    const validChains = chainsList
-        ? supportedChains.filter((chain) => chainsList.includes(chain.name))
-        : supportedChains
+    const validChains =
+        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
 
     const contracts = Array.from(validChains).map((chain) => {
         return {

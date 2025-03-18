@@ -24,9 +24,8 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     // get valid chains in the chainsList
     const supportedChains = getChainsThatSupportToken(tokenName)
 
-    const validChains = chainsList
-        ? supportedChains.filter((chain) => chainsList.includes(chain.name))
-        : supportedChains
+    const validChains =
+        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
 
     // Now we define all the contracts (from the valid chains set)
     const points = Array.from(validChains).map((chain) => getAssetPoint(chain.eid))

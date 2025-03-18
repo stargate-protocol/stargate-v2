@@ -185,12 +185,12 @@ export function getContracts(chains: string[] | null, contract: any, isValidChai
 }
 
 export function getSupportedChains(): Chain[] {
-    const chainsConfig = getChainsConfig()
+    const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.map((chain) => chain)
 }
 
-export function getChainsConfig(): Chain[] {
+export function getAllChainsConfig(): Chain[] {
     const configFilePath = path.join(__dirname, 'config.yml')
 
     // set the correct eid for the chains
@@ -203,13 +203,13 @@ export function getChainsConfig(): Chain[] {
 }
 
 export function getChainsThatSupportToken(tokenName: string): Chain[] {
-    const chainsConfig = getChainsConfig()
+    const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
 
 export function getChainsThatSupportMessaging(): Chain[] {
-    const chainsConfig = getChainsConfig()
+    const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.filter((chain) => chain.credit_messaging || chain.token_messaging)
 }
