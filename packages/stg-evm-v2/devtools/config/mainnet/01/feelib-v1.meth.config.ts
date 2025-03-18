@@ -4,7 +4,8 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
-import { onEth, onMantle } from '../utils'
+import { getContractWithEid } from '../../utils'
+import { getChainsThatSupportToken, isValidChain } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -16,20 +17,33 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
         owner: DEFAULT_PLANNER,
     }
 
-    const ethFeeLibV1 = onEth(contract)
-    const mantleFeeLibV1 = onMantle(contract)
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : ''
+
+    // check if all chains are valid
+    if (chainsList) {
+        chainsList.forEach((chain) => {
+            if (!isValidChain(chain)) {
+                throw new Error(`Invalid chain: ${chain}`)
+            }
+        })
+    }
+
+    // get valid chains in the chainsList
+    const supportedChains = getChainsThatSupportToken(tokenName)
+    const validChains = chainsList
+        ? supportedChains.filter((chain) => chainsList.includes(chain.name))
+        : supportedChains
+
+    const contracts = Array.from(validChains).map((chain) => {
+        return {
+            contract: getContractWithEid(chain.eid, contract),
+            config: defaultNodeConfig,
+        }
+    })
 
     return {
-        contracts: [
-            {
-                contract: ethFeeLibV1,
-                config: defaultNodeConfig,
-            },
-            {
-                contract: mantleFeeLibV1,
-                config: defaultNodeConfig,
-            },
-        ],
+        contracts,
         connections: [],
     }
 }
