@@ -10,7 +10,7 @@ import {
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportRewarder } from '../utils'
+import { getChainsThatSupportStaking } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -22,20 +22,18 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment))
 
     const contracts = await Promise.all(
-        getChainsThatSupportRewarder().map(async (chain) => {
+        getChainsThatSupportStaking().map(async (chain) => {
             // pool for each lp token
-            const tokenAllocations = Object.entries(chain.rewarder?.tokens ?? {})[0][1].allocation ?? []
             const pools = await Promise.all(
-                Object.entries(tokenAllocations).map(async ([lpToken]) => {
-                    const lpTokenAddress = await getLPTokenAddress(
+                Object.entries(chain.staking?.tokens ?? {}).map(async ([stakingToken]) => {
+                    const tokenAddress = await getLPTokenAddress(
                         getEnvironment,
                         chain.eid as EndpointId,
-                        getTokenName(lpToken) as TokenName
+                        getTokenName(stakingToken) as TokenName
                     )
-                    // console.log('getTokenName(lpToken)', chain.name, getTokenName(lpToken), lpTokenAddress)
                     return {
                         rewarder: (await contractFactory(getContractWithEid(chain.eid, rewarder))).contract.address,
-                        token: lpTokenAddress,
+                        token: tokenAddress,
                     }
                 })
             )
