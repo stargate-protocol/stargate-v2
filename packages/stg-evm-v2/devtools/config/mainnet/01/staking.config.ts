@@ -10,7 +10,7 @@ import {
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportStaking } from '../utils'
+import { getChainsThatSupportStaking, getTokenName } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -49,15 +49,4 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     )
 
     return { contracts, connections: [] }
-}
-
-function getTokenName(token: string): TokenName {
-    // return the name that match the entry
-    const name = Object.entries(TokenName).find(([key, value]) => value.toLowerCase() === token)?.[0] as
-        | TokenName
-        | undefined
-    if (!name) {
-        throw new Error(`Token ${token} not found`)
-    }
-    return name
 }

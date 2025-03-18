@@ -1,4 +1,4 @@
-import { RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { RewarderNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportRewarder } from '../utils'
+import { getChainsThatSupportRewarder, getRewardTokenName, getTokenName } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -60,26 +60,4 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
         contracts,
         connections: [],
     }
-}
-
-function getRewardTokenName(token: string): RewardTokenName {
-    // return the name that match the entry
-    const name = Object.entries(RewardTokenName).find(([value]) => value.toLowerCase() === token)?.[0] as
-        | RewardTokenName
-        | undefined
-    if (!name) {
-        throw new Error(`Token ${token} not found`)
-    }
-    return name
-}
-
-function getTokenName(token: string): TokenName {
-    // return the name that match the entry
-    const name = Object.entries(TokenName).find(([key, value]) => value.toLowerCase() === token)?.[0] as
-        | TokenName
-        | undefined
-    if (!name) {
-        throw new Error(`Token ${token} not found`)
-    }
-    return name
 }
