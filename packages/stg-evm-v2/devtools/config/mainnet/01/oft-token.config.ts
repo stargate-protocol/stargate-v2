@@ -8,7 +8,7 @@ import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/
 import { getContractWithEid, getSafeAddress } from '../../utils'
 import { getChainsSupportUsdtOldMethod, getChainsThatSupportTokenWithType } from '../utils'
 
-// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
+// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployments
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
