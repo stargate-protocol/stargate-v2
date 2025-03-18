@@ -187,12 +187,6 @@ export function getContracts(chains: string[] | null, contract: any, isValidChai
     return getContractsInChain(chains, contract, isValidChain, chainEids)
 }
 
-export function getSupportedChains(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
-
-    return chainsConfig.map((chain) => chain)
-}
-
 export function getAllChainsConfig(): Chain[] {
     const configFilePath = path.join(__dirname, 'config.yml')
 
@@ -205,18 +199,33 @@ export function getAllChainsConfig(): Chain[] {
     return chainsConfig
 }
 
-export function getChainsSupportUsdtOldMethod(): Chain[] {
-    const supportUsdt = getChainsThatSupportToken(TokenName.USDT)
+export function validateChains(chains: string[]) {
+    chains.forEach((chain) => {
+        if (!isValidChain(chain)) {
+            throw new Error(`Invalid chain: ${chain}`)
+        }
+    })
+}
 
-    const supportUsdtOft = supportUsdt.filter((chain) => getAssetType(chain.eid, TokenName.USDT) === StargateType.Oft)
+// supported chains
+export function getAllSupportedChains(): Chain[] {
+    const chainsConfig = getAllChainsConfig()
 
-    return supportUsdtOft.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address === undefined)
+    return chainsConfig.map((chain) => chain)
 }
 
 export function getChainsThatSupportToken(tokenName: string): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
+}
+
+export function getChainsSupportUsdtOldMethod(): Chain[] {
+    const supportUsdt = getChainsThatSupportToken(TokenName.USDT)
+
+    const supportUsdtOft = supportUsdt.filter((chain) => getAssetType(chain.eid, TokenName.USDT) === StargateType.Oft)
+
+    return supportUsdtOft.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address === undefined)
 }
 
 export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType): Chain[] {
@@ -247,14 +256,6 @@ export function getChainsThatSupportTreasurer(): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.filter((chain) => chain.treasurer !== undefined)
-}
-
-export function validateChains(chains: string[]) {
-    chains.forEach((chain) => {
-        if (!isValidChain(chain)) {
-            throw new Error(`Invalid chain: ${chain}`)
-        }
-    })
 }
 
 //  token Names
