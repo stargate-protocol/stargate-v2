@@ -43,7 +43,7 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const contracts = await Promise.all(points.map(async (point) => await getAssetNode(point)))
 
     return {
-        contracts: contracts,
+        contracts,
         connections: generateAssetConfig(tokenName, points),
     }
 }
