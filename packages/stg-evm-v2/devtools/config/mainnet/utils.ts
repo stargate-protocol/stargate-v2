@@ -1,8 +1,11 @@
 import * as path from 'path'
 
+import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
+
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { getAssetNetworkConfig, getAssetType } from '../../../ts-src/utils/util'
 import { Chain, getContractsInChain, loadChainsConfig, setsDifference } from '../utils'
 
 export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
@@ -202,10 +205,24 @@ export function getAllChainsConfig(): Chain[] {
     return chainsConfig
 }
 
+export function getChainsSupportUsdtOldMethod(): Chain[] {
+    const supportUsdt = getChainsThatSupportToken(TokenName.USDT)
+
+    const supportUsdtOft = supportUsdt.filter((chain) => getAssetType(chain.eid, TokenName.USDT) === StargateType.Oft)
+
+    return supportUsdtOft.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address === undefined)
+}
+
 export function getChainsThatSupportToken(tokenName: string): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
+}
+
+export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType): Chain[] {
+    const chainsConfig = getAllChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase())
 }
 
 export function getChainsThatSupportMessaging(): Chain[] {
