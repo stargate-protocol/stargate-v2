@@ -225,6 +225,12 @@ export function getChainsThatSupportTokenWithType(tokenName: string, type: Starg
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase())
 }
 
+export function getChainsThatSupportRewarder(): Chain[] {
+    const chainsConfig = getAllChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.rewarder !== undefined)
+}
+
 export function getChainsThatSupportMessaging(): Chain[] {
     const chainsConfig = getAllChainsConfig()
 

@@ -566,3 +566,11 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         },
     } satisfies Partial<Record<EndpointId, Partial<Record<TokenName, string>>>>
 }
+
+export const getLPTokenAddress = async (
+    getEnvironment = createGetHreByEid(),
+    eid: EndpointId,
+    tokenName: TokenName
+) => {
+    return (await createGetLPTokenAddresses(getEnvironment)(eid, [tokenName] as const))[tokenName]
+}
