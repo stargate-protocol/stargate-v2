@@ -243,6 +243,12 @@ export function getChainsThatSupportMessaging(): Chain[] {
     return chainsConfig.filter((chain) => chain.credit_messaging || chain.token_messaging)
 }
 
+export function getChainsThatSupportTreasurer(): Chain[] {
+    const chainsConfig = getAllChainsConfig()
+
+    return chainsConfig.filter((chain) => chain.treasurer !== undefined)
+}
+
 export function validateChains(chains: string[]) {
     chains.forEach((chain) => {
         if (!isValidChain(chain)) {
