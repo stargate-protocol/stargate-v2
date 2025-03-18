@@ -630,8 +630,8 @@ chains:
     treasurer:
       tokens:
         eth: true
+        metis: true
         usdt: true
-        usdc: true
 
   - name: mode-mainnet
     eid: MODE_V2_MAINNET
