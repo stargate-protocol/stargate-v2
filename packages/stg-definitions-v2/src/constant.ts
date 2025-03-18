@@ -1453,24 +1453,23 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.STG[EndpointId.CRONOSZKEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSZKEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('5').toBigInt(), // todo double check the drop amount
+            nativeDropAmount: parseEther('2').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/cronoszkevm`,
-            // todo add the safe addresses
-            // contractNetworks: {
-            //     [25]: {
-            //         multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
-            //         multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
-            //         safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
-            //         safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
-            //         fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
-            //         createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
-            //         signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
-            //         simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
-            //     },
-            // },
+            contractNetworks: {
+                [388]: {
+                    multiSendAddress: '0x0dFcccB95225ffB03c6FBB2559B530C2B7C8A912',
+                    multiSendCallOnlyAddress: '0xf220D3b4DFb23C4ade8C88E526C1353AbAcbC38F',
+                    safeMasterCopyAddress: '0x1727c2c531cf966f902E5927b98490fDFb3b2b70',
+                    safeProxyFactoryAddress: '0xDAec33641865E4651fB43181C6DB6f7232Ee91c2',
+                    fallbackHandlerAddress: '0x2f870a80647BbC554F3a0EBD093f11B4d2a7492A',
+                    createCallAddress: '0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56',
+                    signMessageLibAddress: '0x357147caf9C0cCa67DfA0CF5369318d8193c8407',
+                    simulateTxAccessorAddress: '0x4191E2e12E8BC5002424CE0c51f9947b02675a44',
+                },
+            },
         },
     },
     [EndpointId.DEGEN_V2_MAINNET]: {
