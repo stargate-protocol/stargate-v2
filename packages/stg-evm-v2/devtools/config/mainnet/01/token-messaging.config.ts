@@ -2,8 +2,8 @@ import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefin
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from '../../utils'
-import { getContracts, isValidTokenMessagingChain, validTokenMessagingChains } from '../utils'
+import { filterConnections, generateTokenMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
+import { getChainsThatSupportMessaging, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getMessagingAssetConfig } from './shared'
@@ -11,21 +11,31 @@ import { getMessagingAssetConfig } from './shared'
 const contract = { contractName: 'TokenMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>> => {
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : [...validTokenMessagingChains]
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : [...validTokenMessagingChains]
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
-    console.log('TOKEN_MESSAGING FROM_CHAINS:', fromChains)
-    console.log('TOKEN_MESSAGING TO_CHAINS:', toChains)
+    // check if all chains are valid
+    validateChains(toChains)
+    validateChains(fromChains)
 
-    let fromContracts
-    let toContracts
-    try {
-        fromContracts = getContracts(fromChains, contract, isValidTokenMessagingChain)
-        toContracts = getContracts(toChains, contract, isValidTokenMessagingChain)
-    } catch (error) {
-        console.error('Error getting contracts: ', error)
-        throw error
-    }
+    // get valid chains in the chainsList
+    const supportedChains = getChainsThatSupportMessaging()
+    const validFromChains = fromChains
+        ? supportedChains.filter((chain) => fromChains.includes(chain.name))
+        : supportedChains
+    const validToChains = toChains ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
+
+    console.log(
+        'TOKEN_MESSAGING FROM_CHAINS:',
+        validFromChains.map((chain) => chain.name)
+    )
+    console.log(
+        'TOKEN_MESSAGING TO_CHAINS:',
+        validToChains.map((chain) => chain.name)
+    )
+
+    const fromContracts = validFromChains.map((chain) => getContractWithEid(chain.eid, contract))
+    const toContracts = validToChains.map((chain) => getContractWithEid(chain.eid, contract))
 
     const contractMap = new Map()
 

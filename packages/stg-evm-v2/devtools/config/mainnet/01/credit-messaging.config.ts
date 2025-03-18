@@ -3,7 +3,7 @@ import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatef
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, generateCreditMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportMessaging, isValidChain } from '../utils'
+import { getChainsThatSupportMessaging, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getMessagingAssetConfig } from './shared'
@@ -11,24 +11,12 @@ import { getMessagingAssetConfig } from './shared'
 const contract = { contractName: 'CreditMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, CreditMessagingEdgeConfig>> => {
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : ''
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : ''
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     // check if all chains are valid
-    if (toChains) {
-        toChains.forEach((chain) => {
-            if (!isValidChain(chain)) {
-                throw new Error(`Invalid chain: ${chain}`)
-            }
-        })
-    }
-    if (fromChains) {
-        fromChains.forEach((chain) => {
-            if (!isValidChain(chain)) {
-                throw new Error(`Invalid chain: ${chain}`)
-            }
-        })
-    }
+    validateChains(toChains)
+    validateChains(fromChains)
 
     // get valid chains in the chainsList
     const supportedChains = getChainsThatSupportMessaging()
