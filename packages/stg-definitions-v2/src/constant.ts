@@ -251,8 +251,8 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.CRONOSZKEVM_V2_MAINNET]: {
-                symbol: 'ETH',
-                name: 'ETH',
+                symbol: 'WETH',
+                name: 'WETH',
                 type: StargateType.Pool,
                 address: '0x898B3560AFFd6D955b1574D87EE09e46669c60eA',
             },
