@@ -110,7 +110,7 @@ export function getRewardTokenName(token: string): RewardTokenName {
         | RewardTokenName
         | undefined
     if (!name) {
-        throw new Error(` Reward Token ${token} not found`)
+        throw new Error(`Reward Token ${token} not found`)
     }
     return name
 }
