@@ -6,7 +6,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsSupportUsdtOldMethod, getChainsThatSupportTokenWithType } from '../utils'
+import { getChainsThatSupportTokenWithType, getChainsThatSupportsUsdtOftByDeployment } from '../utils'
 
 // Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployments
 
@@ -18,7 +18,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
-    const usdtOldDeploymentChains = getChainsSupportUsdtOldMethod()
+    const usdtOldDeploymentChains = getChainsThatSupportsUsdtOftByDeployment(false)
     const usdtOldDeploymentContracts = await Promise.all(
         usdtOldDeploymentChains.map(async (chain) => {
             return {

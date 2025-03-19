@@ -4,7 +4,7 @@ import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-d
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getAssetNetworkConfig, getAssetType } from '../../../ts-src/utils/util'
+import { getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { Chain, loadChainsConfig } from '../utils'
 
 export function isValidChain(chain: string): boolean {
@@ -46,14 +46,6 @@ export function getChainsThatSupportToken(tokenName: string): Chain[] {
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
 
-export function getChainsSupportUsdtOldMethod(): Chain[] {
-    const supportUsdt = getChainsThatSupportToken(TokenName.USDT)
-
-    const supportUsdtOft = supportUsdt.filter((chain) => getAssetType(chain.eid, TokenName.USDT) === StargateType.Oft)
-
-    return supportUsdtOft.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address === undefined)
-}
-
 export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
@@ -90,10 +82,14 @@ export function getChainsThatSupportUsdcAdmins(): Chain[] {
     return chainsConfig.filter((chain) => chain.usdc_admin === true)
 }
 
-export function getChainsThatSupportsUsdtExternalDeployments(): Chain[] {
+export function getChainsThatSupportsUsdtOftByDeployment(isExternal: boolean): Chain[] {
     const supportsOftUsdt = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Oft)
 
-    return supportsOftUsdt.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address !== undefined)
+    if (isExternal) {
+        return supportsOftUsdt.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address !== undefined)
+    }
+
+    return supportsOftUsdt.filter((chain) => getAssetNetworkConfig(chain.eid, TokenName.USDT).address === undefined)
 }
 
 export function getSupportedTokensByEid(eid: EndpointId): TokenName[] {

@@ -5,7 +5,7 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getContractWithEid } from '../../utils'
-import { getChainsThatSupportsUsdtExternalDeployments } from '../utils'
+import { getChainsThatSupportsUsdtOftByDeployment } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
@@ -18,7 +18,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
     // get the list of chains that supports usdt external deployments (oft usdt with external deployment)
-    const chains = getChainsThatSupportsUsdtExternalDeployments()
+    const chains = getChainsThatSupportsUsdtOftByDeployment(true)
     const contracts = await Promise.all(
         chains.map(async (chain) => {
             const usdtProxyAddress = await contractFactory(
