@@ -154,7 +154,7 @@ const networks: NetworksUserConfig = {
     },
     'odyssey-testnet': {
         eid: EndpointId.ODYSSEY_V2_TESTNET,
-        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://odyssey.storyrpc.io',
+        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://story-testnet-evm.itrocket.net',
         accounts: testnetAccounts,
     },
     'mantlesep-testnet': {
@@ -268,7 +268,7 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'cronos-mainnet': {
+    'cronosevm-mainnet': {
         eid: EndpointId.CRONOSEVM_V2_MAINNET,
         url: process.env.RPC_URL_CRONOS_MAINNET || 'https://evm.cronos.org',
         accounts: mainnetAccounts,

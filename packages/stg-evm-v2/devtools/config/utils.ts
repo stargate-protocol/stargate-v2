@@ -11,7 +11,7 @@ import {
 import { MSG_TYPE_BUS, MSG_TYPE_CREDIT_MESSAGING, MSG_TYPE_TAXI } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { AssetEdgeConfig, CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
 
-import { formatEid } from '@layerzerolabs/devtools'
+import { formatEid, withEid } from '@layerzerolabs/devtools'
 import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
@@ -203,3 +203,47 @@ export const getSafeAddress = (eid: EndpointId): string => getSafeConfig(eid).sa
  * Tiny helper around non-null assert
  */
 const assertAndReturn = <T>(value: T | null | undefined, message: string): T => (assert(value != null, message), value)
+
+export function getContractsInChain(
+    chains: string[] | null,
+    contract: any,
+    isValidChain: (chain: string) => boolean,
+    chainEids: any
+) {
+    if (!chains || chains.length === 0) {
+        // If chains is null or empty, include all valid contracts
+        return Object.keys(chainEids)
+            .filter(isValidChain)
+            .map((chain) => withEid(chainEids[chain as keyof typeof chainEids])(contract))
+    }
+
+    const invalidChains = chains.filter((chain) => !isValidChain(chain.trim()))
+    if (invalidChains.length > 0) {
+        throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
+    }
+
+    return chains.map((chain) => getContractWithEid(chainEids[chain.trim() as keyof typeof chainEids], contract))
+}
+
+export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
+    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
+    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
+
+    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
+        return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
+    })
+}
+
+export function getContractWithEid(eid: EndpointId, contract: any) {
+    return withEid(eid)(contract)
+}
+
+/**
+ * Returns the difference between two sets
+ * @param setA - The first set
+ * @param setB - The second set
+ * @returns A new set containing elements that are in setA but not in setB
+ */
+export function setsDifference(setA: Set<string>, setB: Set<string>): Set<string> {
+    return new Set<string>([...setA].filter((x) => !setB.has(x)))
+}

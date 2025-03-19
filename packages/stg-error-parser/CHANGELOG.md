@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.11
+
+### Patch Changes
+
+- 831e204: bump versions
+
 ## 1.1.10
 
 ### Patch Changes

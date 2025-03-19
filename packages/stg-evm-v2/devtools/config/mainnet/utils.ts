@@ -1,6 +1,8 @@
 import { withEid } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { getContractsInChain, setsDifference } from '../utils'
+
 export const onAbstract = withEid(EndpointId.ABSTRACT_V2_MAINNET)
 export const onApe = withEid(EndpointId.APE_V2_MAINNET)
 export const onArb = withEid(EndpointId.ARBITRUM_V2_MAINNET)
@@ -13,7 +15,7 @@ export const onBlast = withEid(EndpointId.BLAST_V2_MAINNET)
 export const onBsc = withEid(EndpointId.BSC_V2_MAINNET)
 export const onCodex = withEid(EndpointId.CODEX_V2_MAINNET)
 export const onCoredao = withEid(EndpointId.COREDAO_V2_MAINNET)
-export const onCronos = withEid(EndpointId.CRONOSEVM_V2_MAINNET)
+export const onCronosevm = withEid(EndpointId.CRONOSEVM_V2_MAINNET)
 export const onDegen = withEid(EndpointId.DEGEN_V2_MAINNET)
 export const onEth = withEid(EndpointId.ETHEREUM_V2_MAINNET)
 export const onEtherLink = withEid(EndpointId.ETHERLINK_V2_MAINNET)
@@ -62,167 +64,107 @@ export const onZkConsensys = withEid(EndpointId.ZKCONSENSYS_V2_MAINNET)
 export const onZkPolygon = withEid(EndpointId.ZKPOLYGON_V2_MAINNET)
 
 // NOTE: because we need to load these upfront, ensure all rpcs are good even if we are not wiring those chains
-export const chainFunctions = {
-    'abstract-mainnet': onAbstract,
-    'ape-mainnet': onApe,
-    'arbitrum-mainnet': onArb,
-    'astar-mainnet': onAstar,
-    'aurora-mainnet': onAurora,
-    'avalanche-mainnet': onAvax,
-    'base-mainnet': onBase,
-    'bera-mainnet': onBera,
-    'blast-mainnet': onBlast,
-    'bsc-mainnet': onBsc,
-    'codex-mainnet': onCodex,
-    'coredao-mainnet': onCoredao,
-    'cronos-mainnet': onCronos,
-    'degen-mainnet': onDegen,
-    'ethereum-mainnet': onEth,
-    'etherlink-mainnet': onEtherLink,
-    'fantom-mainnet': onFantom,
-    'flare-mainnet': onFlare,
-    'flow-mainnet': onFlow,
-    'fraxtal-mainnet': onFraxtal,
-    'fuse-mainnet': onFuse,
-    'glue-mainnet': onGlue,
-    'gnosis-mainnet': onGnosis,
-    'goat-mainnet': onGoat,
-    'gravity-mainnet': onGravity,
-    'hemi-mainnet': onHemi,
-    'ink-mainnet': onInk,
-    'iota-mainnet': onIota,
-    'islander-mainnet': onIslander,
-    'kava-mainnet': onKava,
-    'klaytn-mainnet': onKlaytn,
-    'lightlink-mainnet': onLightlink,
-    'manta-mainnet': onManta,
-    'mantle-mainnet': onMantle,
-    'metis-mainnet': onMetis,
-    'mode-mainnet': onMode,
-    'moonbeam-mainnet': onMoonbeam,
-    'moonriver-mainnet': onMoonRiver,
-    'opbnb-mainnet': onOpbnb,
-    'optimism-mainnet': onOpt,
-    'peaq-mainnet': onPeaq,
-    'plume-mainnet': onPlume,
-    'polygon-mainnet': onPolygon,
-    'rarible-mainnet': onRarible,
-    'rootstock-mainnet': onRootstock,
-    'scroll-mainnet': onScroll,
-    'sei-mainnet': onSei,
-    'shimmer-mainnet': onShimmer,
-    'soneium-mainnet': onSoneium,
-    'sonic-mainnet': onSonic,
-    'story-mainnet': onStory,
-    'superposition-mainnet': onSuperposition,
-    'taiko-mainnet': onTaiko,
-    'telos-mainnet': onTelos,
-    'unichain-mainnet': onUnichain,
-    'xchain-mainnet': onXchain,
-    'zkatana-mainnet': onZkatana,
-    'zkconsensys-mainnet': onZkConsensys,
-    'zkpolygon-mainnet': onZkPolygon,
+export const chainEids = {
+    'abstract-mainnet': EndpointId.ABSTRACT_V2_MAINNET,
+    'ape-mainnet': EndpointId.APE_V2_MAINNET,
+    'arbitrum-mainnet': EndpointId.ARBITRUM_V2_MAINNET,
+    'astar-mainnet': EndpointId.ASTAR_V2_MAINNET,
+    'aurora-mainnet': EndpointId.AURORA_V2_MAINNET,
+    'avalanche-mainnet': EndpointId.AVALANCHE_V2_MAINNET,
+    'base-mainnet': EndpointId.BASE_V2_MAINNET,
+    'bera-mainnet': EndpointId.BERA_V2_MAINNET,
+    'blast-mainnet': EndpointId.BLAST_V2_MAINNET,
+    'bsc-mainnet': EndpointId.BSC_V2_MAINNET,
+    'codex-mainnet': EndpointId.CODEX_V2_MAINNET,
+    'coredao-mainnet': EndpointId.COREDAO_V2_MAINNET,
+    'cronosevm-mainnet': EndpointId.CRONOSEVM_V2_MAINNET,
+    'degen-mainnet': EndpointId.DEGEN_V2_MAINNET,
+    // 'ebi-mainnet': EndpointId.EBI_V2_MAINNET, // should be removed due to ebi shutdown
+    'ethereum-mainnet': EndpointId.ETHEREUM_V2_MAINNET,
+    'etherlink-mainnet': EndpointId.ETHERLINK_V2_MAINNET,
+    'fantom-mainnet': EndpointId.FANTOM_V2_MAINNET,
+    'flare-mainnet': EndpointId.FLARE_V2_MAINNET,
+    'flow-mainnet': EndpointId.FLOW_V2_MAINNET,
+    'fraxtal-mainnet': EndpointId.FRAXTAL_V2_MAINNET,
+    'fuse-mainnet': EndpointId.FUSE_V2_MAINNET,
+    'glue-mainnet': EndpointId.GLUE_V2_MAINNET,
+    'gnosis-mainnet': EndpointId.GNOSIS_V2_MAINNET,
+    'goat-mainnet': EndpointId.GOAT_V2_MAINNET,
+    'gravity-mainnet': EndpointId.GRAVITY_V2_MAINNET,
+    'hemi-mainnet': EndpointId.HEMI_V2_MAINNET,
+    'ink-mainnet': EndpointId.INK_V2_MAINNET,
+    'iota-mainnet': EndpointId.IOTA_V2_MAINNET,
+    'islander-mainnet': EndpointId.ISLANDER_V2_MAINNET,
+    'kava-mainnet': EndpointId.KAVA_V2_MAINNET,
+    'klaytn-mainnet': EndpointId.KLAYTN_V2_MAINNET,
+    'lightlink-mainnet': EndpointId.LIGHTLINK_V2_MAINNET,
+    'manta-mainnet': EndpointId.MANTA_V2_MAINNET,
+    'mantle-mainnet': EndpointId.MANTLE_V2_MAINNET,
+    'metis-mainnet': EndpointId.METIS_V2_MAINNET,
+    'mode-mainnet': EndpointId.MODE_V2_MAINNET,
+    'moonbeam-mainnet': EndpointId.MOONBEAM_V2_MAINNET,
+    'moonriver-mainnet': EndpointId.MOONRIVER_V2_MAINNET,
+    'opbnb-mainnet': EndpointId.OPBNB_V2_MAINNET,
+    'optimism-mainnet': EndpointId.OPTIMISM_V2_MAINNET,
+    'peaq-mainnet': EndpointId.PEAQ_V2_MAINNET,
+    'plume-mainnet': EndpointId.PLUME_V2_MAINNET,
+    'polygon-mainnet': EndpointId.POLYGON_V2_MAINNET,
+    'rarible-mainnet': EndpointId.RARIBLE_V2_MAINNET,
+    'rootstock-mainnet': EndpointId.ROOTSTOCK_V2_MAINNET,
+    'scroll-mainnet': EndpointId.SCROLL_V2_MAINNET,
+    'sei-mainnet': EndpointId.SEI_V2_MAINNET,
+    'shimmer-mainnet': EndpointId.SHIMMER_V2_MAINNET,
+    'soneium-mainnet': EndpointId.SONEIUM_V2_MAINNET,
+    'sonic-mainnet': EndpointId.SONIC_V2_MAINNET,
+    'story-mainnet': EndpointId.STORY_V2_MAINNET,
+    'superposition-mainnet': EndpointId.SUPERPOSITION_V2_MAINNET,
+    'taiko-mainnet': EndpointId.TAIKO_V2_MAINNET,
+    'telos-mainnet': EndpointId.TELOS_V2_MAINNET,
+    'unichain-mainnet': EndpointId.UNICHAIN_V2_MAINNET,
+    'xchain-mainnet': EndpointId.XCHAIN_V2_MAINNET,
+    'zkatana-mainnet': EndpointId.ZKATANA_V2_MAINNET,
+    'zkconsensys-mainnet': EndpointId.ZKCONSENSYS_V2_MAINNET,
+    'zkpolygon-mainnet': EndpointId.ZKPOLYGON_V2_MAINNET,
 }
 
-export const validCreditMessagingChains = new Set([
-    'abstract-mainnet',
-    'ape-mainnet',
-    'arbitrum-mainnet',
-    'aurora-mainnet',
-    'avalanche-mainnet',
-    'base-mainnet',
-    'bera-mainnet',
-    'bsc-mainnet',
-    'codex-mainnet',
-    'coredao-mainnet',
-    'cronos-mainnet',
-    'degen-mainnet',
-    'ethereum-mainnet',
-    'flare-mainnet',
-    'flow-mainnet',
-    'fuse-mainnet',
-    'glue-mainnet',
-    'gnosis-mainnet',
-    'goat-mainnet',
-    'gravity-mainnet',
-    'hemi-mainnet',
-    'ink-mainnet',
-    'iota-mainnet',
-    'islander-mainnet',
-    'kava-mainnet',
-    'klaytn-mainnet',
-    'lightlink-mainnet',
-    'mantle-mainnet',
-    'metis-mainnet',
-    'optimism-mainnet',
-    'peaq-mainnet',
-    'plume-mainnet',
-    'polygon-mainnet',
-    'rarible-mainnet',
-    'rootstock-mainnet',
-    'scroll-mainnet',
-    'sei-mainnet',
-    'soneium-mainnet',
-    'sonic-mainnet',
-    'story-mainnet',
-    'superposition-mainnet',
-    'taiko-mainnet',
-    'telos-mainnet',
-    'unichain-mainnet',
-    'zkconsensys-mainnet',
-    'xchain-mainnet',
-    // Add other valid chains for credit messaging
+export const allSupportedChains = new Set(Object.keys(chainEids))
+
+const excludedCreditMessagingChains = new Set([
+    'astar-mainnet',
+    'blast-mainnet',
+    'etherlink-mainnet',
+    'fantom-mainnet',
+    'fraxtal-mainnet',
+    'manta-mainnet',
+    'mode-mainnet',
+    'moonbeam-mainnet',
+    'moonriver-mainnet',
+    'opbnb-mainnet',
+    'shimmer-mainnet',
+    'zkatana-mainnet',
+    'zkpolygon-mainnet',
+    // Add chains that should be excluded from credit messaging
 ])
 
-export const validTokenMessagingChains = new Set([
-    'abstract-mainnet',
-    'ape-mainnet',
-    'arbitrum-mainnet',
-    'aurora-mainnet',
-    'avalanche-mainnet',
-    'base-mainnet',
-    'bera-mainnet',
-    'bsc-mainnet',
-    'codex-mainnet',
-    'coredao-mainnet',
-    'cronos-mainnet',
-    'degen-mainnet',
-    'ethereum-mainnet',
-    'flare-mainnet',
-    'flow-mainnet',
-    'fuse-mainnet',
-    'glue-mainnet',
-    'gnosis-mainnet',
-    'goat-mainnet',
-    'gravity-mainnet',
-    'hemi-mainnet',
-    'ink-mainnet',
-    'iota-mainnet',
-    'islander-mainnet',
-    'kava-mainnet',
-    'klaytn-mainnet',
-    'lightlink-mainnet',
-    'mantle-mainnet',
-    'metis-mainnet',
-    'optimism-mainnet',
-    'peaq-mainnet',
-    'plume-mainnet',
-    'polygon-mainnet',
-    'rarible-mainnet',
-    'rootstock-mainnet',
-    'scroll-mainnet',
-    'sei-mainnet',
-    'soneium-mainnet',
-    'sonic-mainnet',
-    'story-mainnet',
-    'superposition-mainnet',
-    'taiko-mainnet',
-    'telos-mainnet',
-    'unichain-mainnet',
-    'zkconsensys-mainnet',
-    'xchain-mainnet',
-    // Add other valid chains for token messaging
+const excludedTokenMessagingChains = new Set([
+    'astar-mainnet',
+    'blast-mainnet',
+    'etherlink-mainnet',
+    'fantom-mainnet',
+    'fraxtal-mainnet',
+    'manta-mainnet',
+    'mode-mainnet',
+    'moonbeam-mainnet',
+    'moonriver-mainnet',
+    'opbnb-mainnet',
+    'shimmer-mainnet',
+    'zkatana-mainnet',
+    'zkpolygon-mainnet',
+    // Add chains that should be excluded from token messaging
 ])
+
+export const validCreditMessagingChains = setsDifference(allSupportedChains, excludedCreditMessagingChains)
+export const validTokenMessagingChains = setsDifference(allSupportedChains, excludedTokenMessagingChains)
 
 export function isValidCreditMessagingChain(chain: string): boolean {
     return validCreditMessagingChains.has(chain)
@@ -232,27 +174,10 @@ export function isValidTokenMessagingChain(chain: string): boolean {
     return validTokenMessagingChains.has(chain)
 }
 
-export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
-    if (!chains || chains.length === 0) {
-        // If chains is null or empty, include all valid contracts
-        return Object.keys(chainFunctions)
-            .filter(isValidChain)
-            .map((chain) => chainFunctions[chain as keyof typeof chainFunctions](contract))
-    }
-
-    const invalidChains = chains.filter((chain) => !isValidChain(chain.trim()))
-    if (invalidChains.length > 0) {
-        throw new Error(`Invalid chains found: ${invalidChains.join(', ')}`)
-    }
-
-    return chains.map((chain) => chainFunctions[chain.trim() as keyof typeof chainFunctions](contract))
+export function isValidChain(chain: string): boolean {
+    return allSupportedChains.has(chain)
 }
 
-export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
-    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
-    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
-
-    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
-        return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
-    })
+export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
+    return getContractsInChain(chains, contract, isValidChain, chainEids)
 }
