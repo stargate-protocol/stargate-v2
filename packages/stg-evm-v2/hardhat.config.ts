@@ -272,7 +272,7 @@ const networks: NetworksUserConfig = {
     },
     'cronoszkevm-mainnet': {
         eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'wss://cronos-zkevm.drpc.org',
+        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://cronos-zkevm.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
