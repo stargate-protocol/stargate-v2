@@ -3,7 +3,7 @@ import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatef
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, generateCreditMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportMessaging, getSupportedTokens, validateChains } from '../utils'
+import { getChainsThatSupportMessaging, getSupportedTokensByEid, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getAssetsConfig } from './shared'
@@ -55,7 +55,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
                 owner: getSafeAddress(contract.eid),
                 delegate: getSafeAddress(contract.eid),
                 planner: DEFAULT_PLANNER,
-                assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokens(contract.eid)),
+                assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },
         }))
     )
