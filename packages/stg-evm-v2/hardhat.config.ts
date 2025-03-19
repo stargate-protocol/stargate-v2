@@ -131,6 +131,11 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         useFeeData: true,
     },
+    'avalanche-testnet': {
+        eid: EndpointId.AVALANCHE_V2_TESTNET,
+        url: process.env.RPC_URL_AVALANCHE_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
+        accounts: testnetAccounts,
+    },
     'bl3-testnet': {
         eid: EndpointId.BL3_V2_TESTNET,
         url: process.env.RPC_URL_BL3_TESTNET || '',

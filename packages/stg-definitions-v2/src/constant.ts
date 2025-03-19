@@ -571,6 +571,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765',
                 type: StargateType.Pool,
             },
+            [EndpointId.AVALANCHE_V2_TESTNET]: {
+                type: StargateType.Pool,
+            },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 type: StargateType.Oft,
             },
@@ -958,6 +961,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         // TESTNET
         //
         [EndpointId.ARBSEP_V2_TESTNET]: {},
+        [EndpointId.AVALANCHE_V2_TESTNET]: {},
         [EndpointId.BL3_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
@@ -985,12 +989,13 @@ export const REWARDS: RewardsConfig = {
             //
             // We don't deploy the token on testnet since there are no farms
             //
-            [EndpointId.SEPOLIA_V2_TESTNET]: {},
+            [EndpointId.ARBSEP_V2_TESTNET]: {},
+            [EndpointId.AVALANCHE_V2_TESTNET]: {},
             [EndpointId.BSC_V2_TESTNET]: {},
             [EndpointId.OPTSEP_V2_TESTNET]: {},
-            [EndpointId.ARBSEP_V2_TESTNET]: {},
             [EndpointId.MANTLESEP_V2_TESTNET]: {},
             [EndpointId.MONAD_V2_TESTNET]: {},
+            [EndpointId.SEPOLIA_V2_TESTNET]: {},
 
             //
             // Sandbox
@@ -2459,6 +2464,10 @@ export const NETWORKS: NetworksConfig = {
     // TESTNET
     //
     [EndpointId.ARBSEP_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.AVALANCHE_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
