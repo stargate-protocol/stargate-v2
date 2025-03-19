@@ -18,7 +18,7 @@ import {
     onCodex,
     onCoredao,
     onCronosevm,
-    onCronoskzevm,
+    onCronoszkevm,
     onDegen,
     onEth,
     onFlare,
@@ -429,7 +429,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
-                contract: onCronoskzevm(contract),
+                contract: onCronoszkevm(contract),
                 config: {
                     owner: cronoskzevmAdmin,
                     admin: cronoskzevmAdmin,
