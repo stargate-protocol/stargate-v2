@@ -16,6 +16,7 @@ export const onBsc = withEid(EndpointId.BSC_V2_MAINNET)
 export const onCodex = withEid(EndpointId.CODEX_V2_MAINNET)
 export const onCoredao = withEid(EndpointId.COREDAO_V2_MAINNET)
 export const onCronosevm = withEid(EndpointId.CRONOSEVM_V2_MAINNET)
+export const onCronoszkevm = withEid(EndpointId.CRONOSZKEVM_V2_MAINNET)
 export const onDegen = withEid(EndpointId.DEGEN_V2_MAINNET)
 export const onEth = withEid(EndpointId.ETHEREUM_V2_MAINNET)
 export const onEtherLink = withEid(EndpointId.ETHERLINK_V2_MAINNET)
@@ -78,6 +79,7 @@ export const chainEids = {
     'codex-mainnet': EndpointId.CODEX_V2_MAINNET,
     'coredao-mainnet': EndpointId.COREDAO_V2_MAINNET,
     'cronosevm-mainnet': EndpointId.CRONOSEVM_V2_MAINNET,
+    'cronoskzevm-mainnet': EndpointId.CRONOSZKEVM_V2_MAINNET,
     'degen-mainnet': EndpointId.DEGEN_V2_MAINNET,
     // 'ebi-mainnet': EndpointId.EBI_V2_MAINNET, // should be removed due to ebi shutdown
     'ethereum-mainnet': EndpointId.ETHEREUM_V2_MAINNET,

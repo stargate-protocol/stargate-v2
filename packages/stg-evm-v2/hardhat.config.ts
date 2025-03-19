@@ -270,9 +270,16 @@ const networks: NetworksUserConfig = {
     },
     'cronosevm-mainnet': {
         eid: EndpointId.CRONOSEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://evm.cronos.org',
+        url: process.env.RPC_URL_CRONOSEVM_MAINNET || 'https://evm.cronos.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'cronoszkevm-mainnet': {
+        eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
+        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://cronos-zkevm.drpc.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'degen-mainnet': {
