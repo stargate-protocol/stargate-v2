@@ -544,7 +544,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo add when deployed
+                address: '0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd',
             },
             [EndpointId.RARIBLE_V2_MAINNET]: {
                 type: StargateType.Oft,
