@@ -544,7 +544,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo add
+                address: '0x0000000000000000000000000000000000000000', // todo add when deployed
             },
             [EndpointId.RARIBLE_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -756,7 +756,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo add
+                address: '0x0000000000000000000000000000000000000000', // todo add when deployed
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
@@ -2090,7 +2090,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.001').toBigInt(), // todo
         },
         safeConfig: {
-            safeAddress: '0x30b1Ca299577f70bc456Fa37C6822d9088069d31',
+            safeAddress: '0x0000000000000000000000000000000000000000', // todo add when deployed
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/plumephoenix`, // todo double check this
             // contractNetworks: {
             //     [98866]: {
