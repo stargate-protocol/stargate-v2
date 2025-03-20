@@ -160,7 +160,7 @@ const networks: NetworksUserConfig = {
     'mantlesep-testnet': {
         eid: EndpointId.MANTLESEP_V2_TESTNET,
         url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
-        accounts: mainnetAccounts,
+        accounts: testnetAccounts,
     },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
