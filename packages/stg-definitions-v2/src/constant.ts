@@ -1461,7 +1461,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('2').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
+            safeAddress: '0x3cC43e322FE7CCd49F0cc5dB3FE35e5Ee8359b06',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/cronoszkevm`,
             contractNetworks: {
                 [388]: {
