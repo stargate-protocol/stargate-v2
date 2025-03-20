@@ -228,6 +228,14 @@ describe('devtools/utils', () => {
             expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 }, data: 'B' })
         })
 
+        it.only('lalalaa', async () => {
+            const bla = await import('../../devtools/config/mainnet/01/oft-token.config')
+
+            const result = await bla.default()
+
+            console.log(JSON.stringify(result, null, 2))
+        })
+
         it('should handle overlapping from and to contracts', () => {
             const mockFromContracts = [{ eid: 1 }, { eid: 2 }, { eid: 3 }]
             const mockToContracts = [{ eid: 1 }, { eid: 2 }, { eid: 3 }]

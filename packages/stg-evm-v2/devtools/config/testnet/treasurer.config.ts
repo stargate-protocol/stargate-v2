@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses, getNamedAccount } from '../../../ts-src/utils/util'
 
-import { onArb, onAvalanche, onBL3, onBsc, onEth, onKlaytn, onMantle, onMonad, onOdyssey, onOpt } from './utils'
+import { onArb, onAvalanche, onBsc, onEth, onKlaytn, onMantle, onMonad, onOdyssey, onOpt } from './utils'
 
 const contract = { contractName: 'Treasurer' }
 const getDeployer = getNamedAccount('deployer')
@@ -20,7 +20,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const arb = await getEnvironment(EndpointId.ARBSEP_V2_TESTNET)
     const avalanche = await getEnvironment(EndpointId.AVALANCHE_V2_TESTNET)
     const klaytn = await getEnvironment(EndpointId.KLAYTN_V2_TESTNET)
-    const bl3 = await getEnvironment(EndpointId.BL3_V2_TESTNET)
+    // const bl3 = await getEnvironment(EndpointId.BL3_V2_TESTNET)
     const odyssey = await getEnvironment(EndpointId.ODYSSEY_V2_TESTNET)
     const mantle = await getEnvironment(EndpointId.MANTLESEP_V2_TESTNET)
     const monad = await getEnvironment(EndpointId.MONAD_V2_TESTNET)
@@ -32,7 +32,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const arbAdmin = await arb.getNamedAccounts().then(getDeployer)
     const avalancheAdmin = await avalanche.getNamedAccounts().then(getDeployer)
     const klaytnAdmin = await klaytn.getNamedAccounts().then(getDeployer)
-    const bl3Admin = await bl3.getNamedAccounts().then(getDeployer)
+    // const bl3Admin = await bl3.getNamedAccounts().then(getDeployer)
     const odysseyAdmin = await odyssey.getNamedAccounts().then(getDeployer)
     const mantleAdmin = await mantle.getNamedAccounts().then(getDeployer)
     const monadAdmin = await monad.getNamedAccounts().then(getDeployer)
@@ -46,7 +46,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const avalancheAssetAddresses = await getAssetAddresses(EndpointId.AVALANCHE_V2_TESTNET, [TokenName.USDT] as const)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
-    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
+    // const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, allAssets)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
     const monadAssetAddresses = await getAssetAddresses(EndpointId.MONAD_V2_TESTNET, allAssets)
@@ -115,17 +115,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     },
                 },
             },
-            {
-                contract: onBL3(contract),
-                config: {
-                    admin: bl3Admin,
-                    assets: {
-                        [bl3AssetAddresses.USDT]: true,
-                        [bl3AssetAddresses.USDC]: true,
-                        [bl3AssetAddresses.ETH]: true,
-                    },
-                },
-            },
+            // {
+            //     contract: onBL3(contract),
+            //     config: {
+            //         admin: bl3Admin,
+            //         assets: {
+            //             [bl3AssetAddresses.USDT]: true,
+            //             [bl3AssetAddresses.USDC]: true,
+            //             [bl3AssetAddresses.ETH]: true,
+            //         },
+            //     },
+            // },
             {
                 contract: onOdyssey(contract),
                 config: {
