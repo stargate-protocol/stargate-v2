@@ -46,6 +46,7 @@ export const onOpbnb = withEid(EndpointId.OPBNB_V2_MAINNET)
 export const onOpt = withEid(EndpointId.OPTIMISM_V2_MAINNET)
 export const onPeaq = withEid(EndpointId.PEAQ_V2_MAINNET)
 export const onPlume = withEid(EndpointId.PLUME_V2_MAINNET)
+export const onPlumephoenix = withEid(EndpointId.PLUMEPHOENIX_V2_MAINNET)
 export const onPolygon = withEid(EndpointId.POLYGON_V2_MAINNET)
 export const onRarible = withEid(EndpointId.RARIBLE_V2_MAINNET)
 export const onRootstock = withEid(EndpointId.ROOTSTOCK_V2_MAINNET)
@@ -110,6 +111,7 @@ export const chainEids = {
     'optimism-mainnet': EndpointId.OPTIMISM_V2_MAINNET,
     'peaq-mainnet': EndpointId.PEAQ_V2_MAINNET,
     'plume-mainnet': EndpointId.PLUME_V2_MAINNET,
+    'plumephoenix-mainnet': EndpointId.PLUMEPHOENIX_V2_MAINNET,
     'polygon-mainnet': EndpointId.POLYGON_V2_MAINNET,
     'rarible-mainnet': EndpointId.RARIBLE_V2_MAINNET,
     'rootstock-mainnet': EndpointId.ROOTSTOCK_V2_MAINNET,

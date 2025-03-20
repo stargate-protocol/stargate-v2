@@ -53,6 +53,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo add dvn
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
@@ -123,6 +124,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.PLUME_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo add dvn
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x2fa870cee4da57de84d1db36759d4716ad7e5038',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -180,6 +182,7 @@ export const EXECUTORS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.PLUME_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -337,6 +340,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.PEAQ_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -542,6 +550,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.PLUME_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xA849026cDA282eeeBC3C39Afcbe87a69424F16B4',
+            },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd',
             },
             [EndpointId.RARIBLE_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -759,6 +771,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x3938A812c54304fEffD266C7E2E70B48F9475aD6',
             },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x0000000000000000000000000000000000000000', // todo add when deployed
+            },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
                 type: StargateType.Pool,
@@ -900,6 +916,19 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
         },
     },
+    // todo should add this? which assetId?
+    // [TokenName.PLUME]: {
+    //     name: 'PLUME',
+    //     symbol: 'PLUME',
+    //     assetId: 22,
+    //     sharedDecimals: 6,
+    //     networks: {
+    //         //
+    //         // MAINNET
+    //         //
+
+    //     },
+    // },
 }
 
 export const OFT_WRAPPER: OftWrapperConfig = {
@@ -953,6 +982,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
         [EndpointId.PLUME_V2_MAINNET]: {},
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
@@ -2094,6 +2124,41 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
                 },
             },
+        },
+    },
+    [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+            nativeDropAmount: parseEther('0.001').toBigInt(), // todo
+        },
+        safeConfig: {
+            safeAddress: '0x0000000000000000000000000000000000000000', // todo add when deployed
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/plumephoenix`, // todo double check this
+            // contractNetworks: {
+            //     [98866]: {
+            //         multiSendAddress: '0x1E999A606771577f10AFee9111b6263cCF176a1D',
+            //         multiSendCallOnlyAddress: '0x3BE538f8E6a8809892a1a9618bda69C518a14a8a',
+            //         safeMasterCopyAddress: '0xB79F7E683E365E21B150812b86f1e0D60512D168',
+            //         safeProxyFactoryAddress: '0x73aFaC05744f1246Ac94d5Ee92d56be5a7298ecC',
+            //         fallbackHandlerAddress: '0x1B01E51e3ff9D83DD245D8320c5007b6a3dBF91c',
+            //         createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
+            //         signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
+            //         simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
+            //     },
+            // },
         },
     },
     [EndpointId.POLYGON_V2_MAINNET]: {

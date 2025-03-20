@@ -23,6 +23,7 @@ import {
     onKlaytn,
     onLightlink,
     onPeaq,
+    onPlumephoenix,
     onRarible,
     onRootstock,
     onSei,
@@ -121,6 +122,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
+    const plumephoenixETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.PLUMEPHOENIX_V2_MAINNET, TokenName.ETH)
+    )
+    const plumephoenixETH = onPlumephoenix({ contractName: plumephoenixETHContractName })
+
     const peaqETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.PEAQ_V2_MAINNET, TokenName.ETH)
@@ -186,6 +193,11 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     ] as const)
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
         TokenName.ETH,
+        TokenName.USDT,
+    ] as const)
+    const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
         TokenName.USDT,
     ] as const)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
@@ -364,6 +376,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
                     minters: {
                         [lightlinkAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: plumephoenixETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.PLUMEPHOENIX_V2_MAINNET),
+                    minters: {
+                        [plumephoenixAssetAddresses.ETH]: true,
                     },
                 },
             },
