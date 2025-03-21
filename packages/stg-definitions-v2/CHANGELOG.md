@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.2
+
+### Patch Changes
+
+- c8ddf14: deploy cronos zkevm mainnet
+- d61bc7c: Avalance fuji testnet config
+- 4598297: cronos zkevm mainnet config
+
 ## 2.0.1
 
 ### Patch Changes

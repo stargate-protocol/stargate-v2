@@ -1,5 +1,18 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.3
+
+### Patch Changes
+
+- c8ddf14: deploy cronos zkevm mainnet
+- d61bc7c: Avalance fuji testnet config
+- 4598297: cronos zkevm mainnet config
+- b61e0af: Monad testnet deployment
+- Updated dependencies [c8ddf14]
+- Updated dependencies [d61bc7c]
+- Updated dependencies [4598297]
+  - @stargatefinance/stg-definitions-v2@2.0.2
+
 ## 2.0.2
 
 ### Patch Changes
