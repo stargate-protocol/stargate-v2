@@ -79,7 +79,7 @@ export const chainEids = {
     'codex-mainnet': EndpointId.CODEX_V2_MAINNET,
     'coredao-mainnet': EndpointId.COREDAO_V2_MAINNET,
     'cronosevm-mainnet': EndpointId.CRONOSEVM_V2_MAINNET,
-    'cronoskzevm-mainnet': EndpointId.CRONOSZKEVM_V2_MAINNET,
+    'cronoszkevm-mainnet': EndpointId.CRONOSZKEVM_V2_MAINNET,
     'degen-mainnet': EndpointId.DEGEN_V2_MAINNET,
     // 'ebi-mainnet': EndpointId.EBI_V2_MAINNET, // should be removed due to ebi shutdown
     'ethereum-mainnet': EndpointId.ETHEREUM_V2_MAINNET,
