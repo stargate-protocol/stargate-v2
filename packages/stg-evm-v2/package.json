@@ -98,7 +98,7 @@
     "@ethersproject/providers": "~5.7.2",
     "@layerzerolabs/devtools": "~0.4.1",
     "@layerzerolabs/devtools-evm": "~0.4.2",
-    "@layerzerolabs/devtools-evm-hardhat": "^2.0.8",
+    "@layerzerolabs/devtools-evm-hardhat": "^2.0.9",
     "@layerzerolabs/export-deployments": "~0.0.14",
     "@layerzerolabs/io-devtools": "~0.1.13",
     "@layerzerolabs/lz-evm-sdk-v1": "~3.0.18",
