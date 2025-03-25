@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": patch
 ---
 
-Cronos evm mainnet config
+deploy cronos zkevm mainnet

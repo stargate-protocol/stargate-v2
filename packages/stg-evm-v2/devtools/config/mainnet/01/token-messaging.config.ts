@@ -2,8 +2,8 @@ import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefin
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { generateTokenMessagingConfig, getSafeAddress } from '../../utils'
-import { filterConnections, getContracts, isValidTokenMessagingChain, validTokenMessagingChains } from '../utils'
+import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from '../../utils'
+import { getContracts, isValidTokenMessagingChain, validTokenMessagingChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getMessagingAssetConfig } from './shared'

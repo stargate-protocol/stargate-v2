@@ -2,10 +2,10 @@ import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
-import { generateAssetConfig } from '../../utils'
+import { generateAssetConfig, setsDifference } from '../../utils'
+import { allSupportedChains, chainEids, isValidChain } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -17,146 +17,64 @@ const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: DEFAULT_P
 export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
-    // Now we define all the contracts
-    const abstractPoint = getAssetPoint(EndpointId.ABSTRACT_V2_MAINNET)
-    const apePoint = getAssetPoint(EndpointId.APE_V2_MAINNET)
-    const arbPoint = getAssetPoint(EndpointId.ARBITRUM_V2_MAINNET)
-    const avaxPoint = getAssetPoint(EndpointId.AVALANCHE_V2_MAINNET)
-    const bscPoint = getAssetPoint(EndpointId.BSC_V2_MAINNET)
-    const coredaoPoint = getAssetPoint(EndpointId.COREDAO_V2_MAINNET)
-    const degenPoint = getAssetPoint(EndpointId.DEGEN_V2_MAINNET)
-    const ebiPoint = getAssetPoint(EndpointId.EBI_V2_MAINNET)
-    const ethPoint = getAssetPoint(EndpointId.ETHEREUM_V2_MAINNET)
-    const flarePoint = getAssetPoint(EndpointId.FLARE_V2_MAINNET)
-    const flowPoint = getAssetPoint(EndpointId.FLOW_V2_MAINNET)
-    const fusePoint = getAssetPoint(EndpointId.FUSE_V2_MAINNET)
-    const gluePoint = getAssetPoint(EndpointId.GLUE_V2_MAINNET)
-    const goatPoint = getAssetPoint(EndpointId.GOAT_V2_MAINNET)
-    const gravityPoint = getAssetPoint(EndpointId.GRAVITY_V2_MAINNET)
-    const hemiPoint = getAssetPoint(EndpointId.HEMI_V2_MAINNET)
-    const iotaPoint = getAssetPoint(EndpointId.IOTA_V2_MAINNET)
-    const islanderPoint = getAssetPoint(EndpointId.ISLANDER_V2_MAINNET)
-    const kavaPoint = getAssetPoint(EndpointId.KAVA_V2_MAINNET)
-    const klaytnPoint = getAssetPoint(EndpointId.KLAYTN_V2_MAINNET)
-    const lightlinkPoint = getAssetPoint(EndpointId.LIGHTLINK_V2_MAINNET)
-    const mantlePoint = getAssetPoint(EndpointId.MANTLE_V2_MAINNET)
-    const metisPoint = getAssetPoint(EndpointId.METIS_V2_MAINNET)
-    const optPoint = getAssetPoint(EndpointId.OPTIMISM_V2_MAINNET)
-    const peaqPoint = getAssetPoint(EndpointId.PEAQ_V2_MAINNET)
-    const plumePoint = getAssetPoint(EndpointId.PLUME_V2_MAINNET)
-    const polygonPoint = getAssetPoint(EndpointId.POLYGON_V2_MAINNET)
-    const rariblePoint = getAssetPoint(EndpointId.RARIBLE_V2_MAINNET)
-    const rootstockPoint = getAssetPoint(EndpointId.ROOTSTOCK_V2_MAINNET)
-    const seiPoint = getAssetPoint(EndpointId.SEI_V2_MAINNET)
-    const storyPoint = getAssetPoint(EndpointId.STORY_V2_MAINNET)
-    const taikoPoint = getAssetPoint(EndpointId.TAIKO_V2_MAINNET)
-    const telosPoint = getAssetPoint(EndpointId.TELOS_V2_MAINNET)
+    // defined chains will be all supported chains or only the ones defined in the env vars
+    const chainsList = process.env.CHAINS_LIST ? new Set(process.env.CHAINS_LIST.split(',')) : allSupportedChains
 
-    // And all their nodes
-    const abstractContract = await getAssetNode(abstractPoint)
-    const apeContract = await getAssetNode(apePoint)
-    const arbContract = await getAssetNode(arbPoint)
-    const avaxContract = await getAssetNode(avaxPoint)
-    const bscContract = await getAssetNode(bscPoint)
-    const coredaoContract = await getAssetNode(coredaoPoint)
-    const degenContract = await getAssetNode(degenPoint)
-    const ebiContract = await getAssetNode(ebiPoint)
-    const ethContract = await getAssetNode(ethPoint)
-    const flareContract = await getAssetNode(flarePoint)
-    const flowContract = await getAssetNode(flowPoint)
-    const fuseContract = await getAssetNode(fusePoint)
-    const glueContract = await getAssetNode(gluePoint)
-    const goatContract = await getAssetNode(goatPoint)
-    const gravityContract = await getAssetNode(gravityPoint)
-    const hemiContract = await getAssetNode(hemiPoint)
-    const iotaContract = await getAssetNode(iotaPoint)
-    const islanderContract = await getAssetNode(islanderPoint)
-    const kavaContract = await getAssetNode(kavaPoint)
-    const klaytnContract = await getAssetNode(klaytnPoint)
-    const lightlinkContract = await getAssetNode(lightlinkPoint)
-    const mantleContract = await getAssetNode(mantlePoint)
-    const metisContract = await getAssetNode(metisPoint)
-    const optContract = await getAssetNode(optPoint)
-    const peaqContract = await getAssetNode(peaqPoint)
-    const plumeContract = await getAssetNode(plumePoint)
-    const polygonContract = await getAssetNode(polygonPoint)
-    const raribleContract = await getAssetNode(rariblePoint)
-    const rootstockContract = await getAssetNode(rootstockPoint)
-    const seiContract = await getAssetNode(seiPoint)
-    const storyContract = await getAssetNode(storyPoint)
-    const taikoContract = await getAssetNode(taikoPoint)
-    const telosContract = await getAssetNode(telosPoint)
+    // check if all chains are valid
+    chainsList.forEach((chain) => {
+        if (!isValidChain(chain)) {
+            throw new Error(`Invalid chain: ${chain}`)
+        }
+    })
+
+    // all defined chains except excluded ones will be considered valid
+    const validChains = setsDifference(chainsList, excludedChains)
+
+    // Now we define all the contracts (from the valid chains set)
+    const points = Array.from(validChains).map((chain) => getAssetPoint(chainEids[chain as keyof typeof chainEids]))
+
+    // And all their nodes (from the valid chains set)
+    const contracts = await Promise.all(points.map(async (point) => await getAssetNode(point)))
 
     return {
-        contracts: [
-            abstractContract,
-            apeContract,
-            arbContract,
-            avaxContract,
-            bscContract,
-            coredaoContract,
-            degenContract,
-            ebiContract,
-            ethContract,
-            flareContract,
-            flowContract,
-            fuseContract,
-            glueContract,
-            goatContract,
-            gravityContract,
-            hemiContract,
-            iotaContract,
-            islanderContract,
-            kavaContract,
-            klaytnContract,
-            lightlinkContract,
-            mantleContract,
-            metisContract,
-            optContract,
-            peaqContract,
-            plumeContract,
-            polygonContract,
-            raribleContract,
-            rootstockContract,
-            seiContract,
-            storyContract,
-            taikoContract,
-            telosContract,
-        ],
-        connections: generateAssetConfig(tokenName, [
-            abstractPoint,
-            apePoint,
-            arbPoint,
-            avaxPoint,
-            bscPoint,
-            coredaoPoint,
-            degenPoint,
-            ebiPoint,
-            ethPoint,
-            flarePoint,
-            flowPoint,
-            fusePoint,
-            gluePoint,
-            goatPoint,
-            gravityPoint,
-            hemiPoint,
-            iotaPoint,
-            islanderPoint,
-            kavaPoint,
-            klaytnPoint,
-            lightlinkPoint,
-            mantlePoint,
-            metisPoint,
-            optPoint,
-            peaqPoint,
-            plumePoint,
-            polygonPoint,
-            rariblePoint,
-            rootstockPoint,
-            seiPoint,
-            storyPoint,
-            taikoPoint,
-            telosPoint,
-        ]),
+        contracts,
+        connections: generateAssetConfig(tokenName, points),
     }
 }
+
+/**
+ * total mainnet chains supported 59
+ * excluded chains 27
+ * valid chains 33
+ */
+const excludedChains = new Set([
+    'astar-mainnet',
+    'aurora-mainnet',
+    'base-mainnet',
+    'bera-mainnet',
+    'blast-mainnet',
+    'codex-mainnet',
+    'cronosevm-mainnet',
+    'cronoszkevm-mainnet',
+    'etherlink-mainnet',
+    'fantom-mainnet',
+    'fraxtal-mainnet',
+    'gnosis-mainnet',
+    'ink-mainnet',
+    'manta-mainnet',
+    'mode-mainnet',
+    'moonbeam-mainnet',
+    'moonriver-mainnet',
+    'opbnb-mainnet',
+    'scroll-mainnet',
+    'shimmer-mainnet',
+    'soneium-mainnet',
+    'sonic-mainnet',
+    'superposition-mainnet',
+    'unichain-mainnet',
+    'xchain-mainnet',
+    'zkatana-mainnet',
+    'zkconsensys-mainnet',
+    'zkpolygon-mainnet',
+    // Add chains that should be excluded from usdt asset config
+])

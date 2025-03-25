@@ -131,6 +131,11 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         useFeeData: true,
     },
+    'avalanche-testnet': {
+        eid: EndpointId.AVALANCHE_V2_TESTNET,
+        url: process.env.RPC_URL_AVALANCHE_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
+        accounts: testnetAccounts,
+    },
     'bl3-testnet': {
         eid: EndpointId.BL3_V2_TESTNET,
         url: process.env.RPC_URL_BL3_TESTNET || '',
@@ -165,6 +170,11 @@ const networks: NetworksUserConfig = {
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
+        accounts: testnetAccounts,
+    },
+    'monad-testnet': {
+        eid: EndpointId.MONAD_V2_TESTNET,
+        url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
         accounts: testnetAccounts,
     },
 
@@ -258,12 +268,21 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'cronos-mainnet': {
+    'cronosevm-mainnet': {
         eid: EndpointId.CRONOSEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://evm.cronos.org',
+        url: process.env.RPC_URL_CRONOSEVM_MAINNET || 'https://evm.cronos.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'cronoszkevm-mainnet': {
+        eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
+        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://mainnet.zkevm.cronos.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        zksync: true,
+        ethNetwork: 'ethereum-mainnet',
     },
     'degen-mainnet': {
         eid: EndpointId.DEGEN_V2_MAINNET,
