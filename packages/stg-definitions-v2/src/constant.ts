@@ -899,19 +899,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
         },
     },
-    // todo should add this? which assetId?
-    // [TokenName.PLUME]: {
-    //     name: 'PLUME',
-    //     symbol: 'PLUME',
-    //     assetId: 22,
-    //     sharedDecimals: 6,
-    //     networks: {
-    //         //
-    //         // MAINNET
-    //         //
-
-    //     },
-    // },
 }
 
 export const OFT_WRAPPER: OftWrapperConfig = {
