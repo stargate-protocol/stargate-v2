@@ -30,7 +30,6 @@ export const chainEids = {
 export const allSupportedChains = new Set(Object.keys(chainEids))
 
 const excludedCreditMessagingChains = new Set([
-    'klaytn-testnet',
     // Add chains that should be excluded from credit messaging
 ])
 const excludedTokenMessagingChains = new Set([
