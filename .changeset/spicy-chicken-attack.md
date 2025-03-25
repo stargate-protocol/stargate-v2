@@ -4,4 +4,4 @@
 ---
 
 plume phoenix mainnet config
-bump lz-definisions version
+bump lz-definitions version
