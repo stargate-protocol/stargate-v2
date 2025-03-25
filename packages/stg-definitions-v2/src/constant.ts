@@ -2115,7 +2115,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(), // todo
+            nativeDropAmount: parseEther('0.05').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x4a43eCB40A35795545192875E2Bb6866F6f91da8',
