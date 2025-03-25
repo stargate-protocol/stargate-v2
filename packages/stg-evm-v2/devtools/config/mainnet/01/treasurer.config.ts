@@ -18,6 +18,7 @@ import {
     onCodex,
     onCoredao,
     onCronosevm,
+    onCronoszkevm,
     onDegen,
     onEth,
     onFlare,
@@ -73,6 +74,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
     const cronosevmAdmin = getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET)
+    const cronoszkevmAdmin = getSafeAddress(EndpointId.CRONOSZKEVM_V2_MAINNET)
     const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
@@ -148,6 +150,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const cronosevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
+    const cronoszkevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSZKEVM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
@@ -419,6 +425,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [cronosevmAssetAddresses.ETH]: true,
                         [cronosevmAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onCronoszkevm(contract),
+                config: {
+                    owner: cronoszkevmAdmin,
+                    admin: cronoszkevmAdmin,
+                    assets: {
+                        [cronoszkevmAssetAddresses.ETH]: true,
+                        [cronoszkevmAssetAddresses.USDC]: true,
                     },
                 },
             },
