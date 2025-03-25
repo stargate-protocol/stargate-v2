@@ -106,7 +106,7 @@
     "@layerzerolabs/protocol-devtools-evm": "~1.2.1",
     "@layerzerolabs/solidity-examples": "^1.1.0",
     "@layerzerolabs/test-devtools": "~0.2.9",
-    "@layerzerolabs/toolbox-foundry": "~0.1.7",
+    "@layerzerolabs/toolbox-foundry": "0.1.7",
     "@layerzerolabs/toolbox-hardhat": "^0.6.8",
     "@layerzerolabs/tsup-config-next": "~3.0.7",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
