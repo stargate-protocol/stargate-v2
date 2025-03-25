@@ -136,11 +136,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_AVALANCHE_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
         accounts: testnetAccounts,
     },
-    'bl3-testnet': {
-        eid: EndpointId.BL3_V2_TESTNET,
-        url: process.env.RPC_URL_BL3_TESTNET || '',
-        accounts: testnetAccounts,
-    },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
         url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
