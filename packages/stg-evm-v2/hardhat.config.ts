@@ -199,7 +199,7 @@ const networks: NetworksUserConfig = {
     },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
-        url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://rpc.ankr.com/arbitrum',
+        url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://arb1.arbitrum.io/rpc',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ARBITRUM_V2_MAINNET),
         useFeeData: true,
@@ -300,7 +300,7 @@ const networks: NetworksUserConfig = {
     },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
-        url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth',
+        url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://eth.llamarpc.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ETHEREUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -355,7 +355,7 @@ const networks: NetworksUserConfig = {
     },
     'gnosis-mainnet': {
         eid: EndpointId.GNOSIS_V2_MAINNET,
-        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://rpc.ankr.com/gnosis',
+        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://gnosis.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
