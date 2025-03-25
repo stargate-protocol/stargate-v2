@@ -45,10 +45,9 @@ env:
 
   # Add Auth Token for relevant RPCs
   AUTH_TOKEN_BERA_MAINNET: ${{ secrets.AUTH_TOKEN_BERA_MAINNET }}
-  
+
   # Testnet
   RPC_URL_OPTIMISM_TESTNET: ${{ secrets.RPC_URL_OPTIMISM_TESTNET }}
-  RPC_URL_BL3_TESTNET: ${{ secrets.RPC_URL_BL3_TESTNET }}
 
 jobs:
   deploy-sandbox:
