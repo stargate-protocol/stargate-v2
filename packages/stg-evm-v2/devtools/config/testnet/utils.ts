@@ -17,7 +17,7 @@ export const onMonad = withEid(EndpointId.MONAD_V2_TESTNET)
 export const chainEids = {
     'avalanche-testnet': EndpointId.AVALANCHE_V2_TESTNET,
     'arbsep-testnet': EndpointId.ARBSEP_V2_TESTNET,
-    // 'bl3-testnet': EndpointId.BL3_V2_TESTNET,
+    'bl3-testnet': EndpointId.BL3_V2_TESTNET,
     'bsc-testnet': EndpointId.BSC_V2_TESTNET,
     'klaytn-testnet': EndpointId.KLAYTN_V2_TESTNET,
     'mantle-testnet': EndpointId.MANTLESEP_V2_TESTNET,

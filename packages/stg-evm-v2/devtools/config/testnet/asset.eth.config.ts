@@ -43,6 +43,5 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 const excludedChains = new Set([
     'bsc-testnet',
     'avalanche-testnet',
-    'odyssey-testnet',
     // Add chains that should be excluded from eth asset config
 ])
