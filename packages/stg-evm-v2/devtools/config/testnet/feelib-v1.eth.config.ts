@@ -46,5 +46,6 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
 const excludedChains = new Set([
     'bsc-testnet',
+    'avalanche-testnet',
     // Add chains that should be excluded from eth feelib v1 config
 ])
