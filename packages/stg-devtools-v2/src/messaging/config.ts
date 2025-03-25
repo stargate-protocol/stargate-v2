@@ -15,7 +15,7 @@ import { IMessaging, MessagingOmniGraph } from './types'
 
 export type MessagingConfigurator = Configurator<MessagingOmniGraph, IMessaging>
 
-const createMessagingLogger = () => createModuleLogger('CreditMessaging')
+const createMessagingLogger = () => createModuleLogger('Messaging')
 const withAsyncLogger = createWithAsyncLogger(createMessagingLogger)
 
 export const configurePlanner: MessagingConfigurator = withAsyncLogger(
