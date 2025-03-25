@@ -12,7 +12,6 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
 
     const arbAssetAddresses = await getAssetAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
-    const bl3AssetAddresses = await getAssetAddresses(EndpointId.BL3_V2_TESTNET, allAssets)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.SEPOLIA_V2_TESTNET, allAssets)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, allAssets)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
@@ -27,11 +26,6 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         },
         [EndpointId.BSC_V2_TESTNET]: {
             [bscAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
-        },
-        [EndpointId.BL3_V2_TESTNET]: {
-            [bl3AssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
-            [bl3AssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
-            [bl3AssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.SEPOLIA_V2_TESTNET]: {
             [ethAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

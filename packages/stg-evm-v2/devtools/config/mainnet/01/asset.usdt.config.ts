@@ -6,7 +6,6 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { generateAssetConfig, setsDifference } from '../../utils'
 import { allSupportedChains, chainEids, isValidChain } from '../utils'
-
 import { DEFAULT_PLANNER } from './constants'
 
 const tokenName = TokenName.USDT
@@ -55,6 +54,7 @@ const excludedChains = new Set([
     'blast-mainnet',
     'codex-mainnet',
     'cronosevm-mainnet',
+    'cronoszkevm-mainnet',
     'etherlink-mainnet',
     'fantom-mainnet',
     'fraxtal-mainnet',
