@@ -19,6 +19,7 @@ import {
     onIslander,
     onPeaq,
     onPlume,
+    onPlumephoenix,
     onRootstock,
     onStory,
     onTelos,
@@ -59,6 +60,9 @@ assert(usdtIslanderAsset.address != null, `External USDT address not found for I
 
 const usdtPlumeAsset = getAssetNetworkConfig(EndpointId.PLUME_V2_MAINNET, TokenName.USDT)
 assert(usdtPlumeAsset.address != null, `External USDT address not found for PLUME`)
+
+const usdtPlumephoenixAsset = getAssetNetworkConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET, TokenName.USDT)
+assert(usdtPlumephoenixAsset.address != null, `External USDT address not found for PLUMEPHOENIX`)
 
 const usdtRootstockAsset = getAssetNetworkConfig(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.USDT)
 assert(usdtRootstockAsset.address != null, `External USDT address not found for ROOTSTOCK`)
@@ -118,6 +122,10 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onPlume({ contractName: 'TransparentUpgradeableProxy', address: usdtPlumeAsset.address })
     )
 
+    const plumephoenixUSDTProxy = await contractFactory(
+        onPlumephoenix({ contractName: 'TransparentUpgradeableProxy', address: usdtPlumephoenixAsset.address })
+    )
+
     const rootstockUSDTProxy = await contractFactory(
         onRootstock({ contractName: 'TransparentUpgradeableProxy', address: usdtRootstockAsset.address })
     )
@@ -141,6 +149,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const hemiUSDT = onHemi({ ...fiatContract, address: hemiUSDTProxy.contract.address })
     const islanderUSDT = onIslander({ ...fiatContract, address: islanderUSDTProxy.contract.address })
     const plumeUSDT = onPlume({ ...fiatContract, address: plumeUSDTProxy.contract.address })
+    const plumephoenixUSDT = onPlumephoenix({ ...fiatContract, address: plumephoenixUSDTProxy.contract.address })
     const rootstockUSDT = onRootstock({ ...fiatContract, address: rootstockUSDTProxy.contract.address })
     const storyUSDT = onStory({ ...fiatContract, address: storyUSDTProxy.contract.address })
     const telosUSDT = onTelos({ ...fiatContract, address: telosUSDTProxy.contract.address })
@@ -159,6 +168,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdtAssets)
     const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdtAssets)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdtAssets)
+    const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, usdtAssets)
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdtAssets)
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, usdtAssets)
     const telosAssetAddresses = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, usdtAssets)
@@ -229,6 +239,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: plumeUSDT,
                 config: {
                     owner: plumeAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: plumephoenixUSDT,
+                config: {
+                    owner: plumephoenixAssetAddresses.USDT,
                 },
             },
             {

@@ -39,6 +39,7 @@ import {
     onOpt,
     onPeaq,
     onPlume,
+    onPlumephoenix,
     onPolygon,
     onRarible,
     onRootstock,
@@ -94,6 +95,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqAdmin = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
     const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
+    const plumephoenixAdmin = getSafeAddress(EndpointId.PLUMEPHOENIX_V2_MAINNET)
     const polygonAdmin = getSafeAddress(EndpointId.POLYGON_V2_MAINNET)
     const raribleAdmin = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
     const rootStockAdmin = getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET)
@@ -246,6 +248,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, [
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+    const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, [
+        TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
@@ -668,6 +675,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     assets: {
                         [plumeAssetAddresses.USDC]: true,
                         [plumeAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onPlumephoenix(contract),
+                config: {
+                    owner: plumephoenixAdmin,
+                    admin: plumephoenixAdmin,
+                    assets: {
+                        [plumephoenixAssetAddresses.ETH]: true,
+                        [plumephoenixAssetAddresses.USDC]: true,
+                        [plumephoenixAssetAddresses.USDT]: true,
                     },
                 },
             },
