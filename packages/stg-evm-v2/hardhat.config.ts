@@ -300,7 +300,7 @@ const networks: NetworksUserConfig = {
     },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
-        url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://eth.llamarpc.com',
+        url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.payload.de',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ETHEREUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
