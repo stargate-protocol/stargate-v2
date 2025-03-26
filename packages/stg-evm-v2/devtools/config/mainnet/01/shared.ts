@@ -153,6 +153,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const polygonAssetAddresses = await getAssetAddresses(EndpointId.POLYGON_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -354,6 +359,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.PLUME_V2_MAINNET]: {
             [plumeAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [plumeAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+            [plumephoenixAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [plumephoenixAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [plumephoenixAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
         [EndpointId.POLYGON_V2_MAINNET]: {
             [polygonAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,

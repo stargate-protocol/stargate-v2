@@ -23,6 +23,7 @@ import {
     onKlaytn,
     onLightlink,
     onPeaq,
+    onPlumephoenix,
     onRarible,
     onRootstock,
     onSei,
@@ -31,7 +32,7 @@ import {
     onTelos,
 } from '../utils'
 
-// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
+// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployments
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -127,6 +128,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const peaqETH = onPeaq({ contractName: peaqETHContractName })
 
+    const plumephoenixETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.PLUMEPHOENIX_V2_MAINNET, TokenName.ETH)
+    )
+    const plumephoenixETH = onPlumephoenix({ contractName: plumephoenixETHContractName })
+
     const rootstockETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.ROOTSTOCK_V2_MAINNET, TokenName.ETH)
@@ -191,6 +198,9 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDT,
+    ] as const)
+    const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, [
+        TokenName.ETH,
     ] as const)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, [TokenName.USDT] as const)
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, [
@@ -373,6 +383,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.PEAQ_V2_MAINNET),
                     minters: {
                         [peaqAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: plumephoenixETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.PLUMEPHOENIX_V2_MAINNET),
+                    minters: {
+                        [plumephoenixAssetAddresses.ETH]: true,
                     },
                 },
             },
