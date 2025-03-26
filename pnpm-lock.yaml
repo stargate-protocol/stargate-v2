@@ -365,8 +365,8 @@ importers:
         specifier: ~0.2.9
         version: 0.2.9(@layerzerolabs/lz-definitions@3.0.82)(bs58@6.0.0)(fast-check@3.23.2)
       '@layerzerolabs/toolbox-foundry':
-        specifier: ~0.1.7
-        version: 0.1.12
+        specifier: 0.1.7
+        version: 0.1.7
       '@layerzerolabs/toolbox-hardhat':
         specifier: ^0.6.8
         version: 0.6.9(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/providers@5.7.2)(@nomicfoundation/hardhat-ethers@3.0.8)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.8.0)(hardhat-deploy@0.12.4)(hardhat@2.22.19)(solidity-bytes-utils@0.8.3)
@@ -3145,8 +3145,8 @@ packages:
       fast-check: 3.23.2
     dev: true
 
-  /@layerzerolabs/toolbox-foundry@0.1.12:
-    resolution: {integrity: sha512-sod5pk9yOSMTLR/qIdxJmH3i/X7CSK1g7F9S2u4Osv8k4YKKXe0IyChrYtQns/BKdv1ey5MiqnlS5afEO/OPlg==}
+  /@layerzerolabs/toolbox-foundry@0.1.7:
+    resolution: {integrity: sha512-vVFaOADxcXwHYSuHqQ+n7jpUzJAqUO9mH+S82EmDReiN13RKTt1rCj6JEu1JcHj3TlujbuyGtrX7fxZAmOC6Hg==}
     dev: true
 
   /@layerzerolabs/toolbox-hardhat@0.6.9(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/providers@5.7.2)(@nomicfoundation/hardhat-ethers@3.0.8)(@nomiclabs/hardhat-ethers@2.2.3)(ethers@5.8.0)(hardhat-deploy@0.12.4)(hardhat@2.22.19)(solidity-bytes-utils@0.8.3):
@@ -3475,7 +3475,7 @@ packages:
     dependencies:
       '@ledgerhq/cryptoassets': 5.53.0
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.26.0
+      '@ledgerhq/hw-transport': 5.51.1
       bignumber.js: 9.1.2
       rlp: 2.2.7
     dev: true
@@ -3498,7 +3498,7 @@ packages:
     dependencies:
       '@ledgerhq/devices': 5.51.1
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.26.0
+      '@ledgerhq/hw-transport': 5.51.1
       '@ledgerhq/hw-transport-node-hid-noevents': 5.51.1
       '@ledgerhq/logs': 5.50.0
       lodash: 4.17.21
@@ -3512,7 +3512,7 @@ packages:
     deprecated: '@ledgerhq/hw-transport-u2f is deprecated. Please use @ledgerhq/hw-transport-webusb or @ledgerhq/hw-transport-webhid. https://github.com/LedgerHQ/ledgerjs/blob/master/docs/migrate_webusb.md'
     dependencies:
       '@ledgerhq/errors': 5.50.0
-      '@ledgerhq/hw-transport': 5.26.0
+      '@ledgerhq/hw-transport': 5.51.1
       '@ledgerhq/logs': 5.50.0
       u2f-api: 0.2.7
     dev: true
@@ -3551,7 +3551,6 @@ packages:
       '@ledgerhq/errors': 5.50.0
       events: 3.3.0
     dev: true
-    optional: true
 
   /@ledgerhq/hw-transport@6.31.4:
     resolution: {integrity: sha512-6c1ir/cXWJm5dCWdq55NPgCJ3UuKuuxRvf//Xs36Bq9BwkV2YaRQhZITAkads83l07NAdR16hkTWqqpwFMaI6A==}
@@ -8088,6 +8087,7 @@ packages:
       is-hex-prefixed: 1.0.0
       strip-hex-prefix: 1.0.0
     dev: true
+    bundledDependencies: false
 
   /event-emitter@0.3.5:
     resolution: {integrity: sha512-D9rRn9y7kLPnJ+hMq7S/nhvoKwwvVJahBi2BPmx3bvbsEdK3W9ii8cBSGjP+72/LnM4n6fo3+dkCX5FeTQruXA==}
@@ -14653,7 +14653,7 @@ packages:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     requiresBuild: true
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: true
     optional: true
 
