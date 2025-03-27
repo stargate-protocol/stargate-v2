@@ -53,6 +53,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x882a1ee8891c7d22310dedf032ef9653785532b8',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
@@ -123,6 +124,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.PLUME_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x2fa870cee4da57de84d1db36759d4716ad7e5038',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -180,6 +182,7 @@ export const EXECUTORS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.PLUME_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -341,6 +344,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.ROOTSTOCK_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
@@ -379,11 +387,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Native,
-            },
-            [EndpointId.BL3_V2_TESTNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'WETH',
@@ -543,6 +546,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xA849026cDA282eeeBC3C39Afcbe87a69424F16B4',
             },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd',
+            },
             [EndpointId.RARIBLE_V2_MAINNET]: {
                 type: StargateType.Oft,
             },
@@ -571,10 +578,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 type: StargateType.Pool,
-            },
-            [EndpointId.BL3_V2_TESTNET]: {
-                type: StargateType.Oft,
-                address: '0x164A2dE1bc5dc56F329909F7c97Bae929CaE557B',
             },
             [EndpointId.BSC_V2_TESTNET]: {
                 address: '0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765',
@@ -759,6 +762,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x3938A812c54304fEffD266C7E2E70B48F9475aD6',
             },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x78adD880A697070c1e765Ac44D65323a0DcCE913',
+            },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
                 type: StargateType.Pool,
@@ -818,10 +825,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 address: '0x3253a335E7bFfB4790Aa4C25C4250d206E9b9773',
                 type: StargateType.Pool,
-            },
-            [EndpointId.BL3_V2_TESTNET]: {
-                type: StargateType.Oft,
-                address: '0x015fd589F4f1A33ce4487E12714e1B15129c9329',
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'USDC.e',
@@ -953,6 +956,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
         [EndpointId.PLUME_V2_MAINNET]: {},
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
@@ -977,7 +981,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         //
         [EndpointId.ARBSEP_V2_TESTNET]: {},
         [EndpointId.AVALANCHE_V2_TESTNET]: {},
-        [EndpointId.BL3_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
         [EndpointId.ODYSSEY_V2_TESTNET]: {},
@@ -2096,6 +2099,41 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+            nativeDropAmount: parseEther('0.05').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xb8ce2bE5c3c13712b4da61722EAd9d64bB57AbC9',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/plumephoenix`,
+            contractNetworks: {
+                [98866]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
+                },
+            },
+        },
+    },
     [EndpointId.POLYGON_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -2518,10 +2556,6 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.AVALANCHE_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.BL3_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
