@@ -476,7 +476,7 @@ const networks: NetworksUserConfig = {
     },
     'peaq-mainnet': {
         eid: EndpointId.PEAQ_V2_MAINNET,
-        url: process.env.RPC_URL_PEAQ_MAINNET || 'https://evm.peaq.network',
+        url: process.env.RPC_URL_PEAQ_MAINNET || 'https://peaq.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
