@@ -764,7 +764,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x60219c44e146baf36002ea73767820238ebc1db6',
+                address: '0x78adD880A697070c1e765Ac44D65323a0DcCE913',
             },
             [EndpointId.POLYGON_V2_MAINNET]: {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
@@ -2118,7 +2118,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.05').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x4a43eCB40A35795545192875E2Bb6866F6f91da8',
+            safeAddress: '0xb8ce2bE5c3c13712b4da61722EAd9d64bB57AbC9',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/plumephoenix`,
             contractNetworks: {
                 [98866]: {
