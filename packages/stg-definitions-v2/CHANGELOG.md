@@ -1,5 +1,18 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.2
+
+### Patch Changes
+
+- 3018c0e: plume phoenix mainnet config
+  bump lz-definitions version
+- c8ddf14: deploy cronos zkevm mainnet
+- d61bc7c: Avalance fuji testnet config
+- bc8f9c6: shutdown bl3 testnet
+- 4598297: cronos zkevm mainnet config
+- a58c9cf: bump gas
+- 7bf5388: bump packages
+
 ## 2.0.1
 
 ### Patch Changes
