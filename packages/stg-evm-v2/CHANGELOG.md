@@ -1,5 +1,31 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.3
+
+### Patch Changes
+
+- 3018c0e: plume phoenix mainnet config
+  bump lz-definitions version
+- c8ddf14: deploy cronos zkevm mainnet
+- d61bc7c: Avalance fuji testnet config
+- bc8f9c6: shutdown bl3 testnet
+- 4598297: cronos zkevm mainnet config
+- d419d3b: - bump @layerzerolabs/toolbox-hardhat version
+  - update broken rpc url for healthy ones
+- d659b6c: plume phoenix deployment
+- 7bf5388: bump packages
+- b61e0af: Monad testnet deployment
+- 2c50e2d: - avalanche fuji testnet deployment
+  - update logger tag in script used by Token messaging and Credit messaging
+- Updated dependencies [3018c0e]
+- Updated dependencies [c8ddf14]
+- Updated dependencies [d61bc7c]
+- Updated dependencies [bc8f9c6]
+- Updated dependencies [4598297]
+- Updated dependencies [a58c9cf]
+- Updated dependencies [7bf5388]
+  - @stargatefinance/stg-definitions-v2@2.0.2
+
 ## 2.0.2
 
 ### Patch Changes
