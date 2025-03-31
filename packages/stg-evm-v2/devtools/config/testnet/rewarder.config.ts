@@ -30,7 +30,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
     const optLPTokenAddresses = await getLPTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
     const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
-    const avalancheLPTokenAddresses = await getLPTokenAddresses(EndpointId.AVALANCHE_V2_TESTNET, allAssets)
+    const avalancheLPTokenAddresses = await getLPTokenAddresses(EndpointId.AVALANCHE_V2_TESTNET, [
+        TokenName.USDT,
+    ] as const)
     const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
     const monadLPTokenAddresses = await getLPTokenAddresses(EndpointId.MONAD_V2_TESTNET, allAssets)
 
@@ -94,7 +96,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     allocations: {
                         [avalancheRewardTokenAddresses.MOCK_A]: {
-                            [arbLPTokenAddresses.USDT]: 1,
+                            [avalancheLPTokenAddresses.USDT]: 1,
                         },
                     },
                 },
