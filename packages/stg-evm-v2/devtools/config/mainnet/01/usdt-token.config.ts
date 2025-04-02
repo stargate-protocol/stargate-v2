@@ -23,6 +23,7 @@ import {
     onRootstock,
     onStory,
     onTelos,
+    onXdc,
 } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
@@ -72,6 +73,9 @@ assert(usdtStoryAsset.address != null, `External USDT address not found for STOR
 
 const usdtTelosAsset = getAssetNetworkConfig(EndpointId.TELOS_V2_MAINNET, TokenName.USDT)
 assert(usdtTelosAsset.address != null, `External USDT address not found for TELOS`)
+
+const usdtXdcAsset = getAssetNetworkConfig(EndpointId.XDC_V2_MAINNET, TokenName.USDT)
+assert(usdtXdcAsset.address != null, `External USDT address not found for XDC`)
 
 export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -138,6 +142,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onTelos({ contractName: 'TransparentUpgradeableProxy', address: usdtTelosAsset.address })
     )
 
+    const xdcUSDTProxy = await contractFactory({
+        contractName: 'TransparentUpgradeableProxy',
+        address: usdtXdcAsset.address,
+        eid: EndpointId.XDC_V2_MAINNET,
+    })
+
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })
     const abstractUSDT = onAbstract({ ...fiatContract, address: abstractUSDTProxy.contract.address })
     const apeUSDT = onApe({ ...fiatContract, address: apeUSDTProxy.contract.address })
@@ -153,7 +163,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const rootstockUSDT = onRootstock({ ...fiatContract, address: rootstockUSDTProxy.contract.address })
     const storyUSDT = onStory({ ...fiatContract, address: storyUSDTProxy.contract.address })
     const telosUSDT = onTelos({ ...fiatContract, address: telosUSDTProxy.contract.address })
-
+    const xdcUSDT = onXdc({ ...fiatContract, address: xdcUSDTProxy.contract.address })
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
     const usdtAssets = [TokenName.USDT] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
@@ -172,6 +182,7 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdtAssets)
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, usdtAssets)
     const telosAssetAddresses = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, usdtAssets)
+    const xdcAssetAddresses = await getAssetAddresses(EndpointId.XDC_V2_MAINNET, usdtAssets)
 
     return {
         contracts: [
@@ -263,6 +274,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: telosUSDT,
                 config: {
                     owner: telosAssetAddresses.USDT,
+                },
+            },
+            {
+                contract: xdcUSDT,
+                config: {
+                    owner: xdcAssetAddresses.USDT,
                 },
             },
         ],
