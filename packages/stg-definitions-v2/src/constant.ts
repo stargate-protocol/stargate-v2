@@ -1963,6 +1963,17 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.MANTA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0001').toBigInt(), // todo define this
+        },
         safeConfig: {
             safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/manta`,
