@@ -30,6 +30,7 @@ import {
     onStory,
     onTaiko,
     onTelos,
+    onXdc,
 } from '../utils'
 
 // Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
@@ -155,6 +156,9 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const telosETH = onTelos({ contractName: telosETHContractName })
 
+    const xdcETHContractName = getTokenDeployName(TokenName.ETH, getAssetType(EndpointId.XDC_V2_MAINNET, TokenName.ETH))
+    const xdcETH = onXdc({ contractName: xdcETHContractName })
+
     // Now we collect the address of the deployed WETH assets(StargateOft.sol etc.)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [TokenName.ETH] as const)
@@ -214,6 +218,8 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [TokenName.USDT] as const)
     const telosAssetAddresses = await getAssetAddresses(EndpointId.TELOS_V2_MAINNET, [TokenName.ETH] as const)
 
+    const xdcAssetAddresses = await getAssetAddresses(EndpointId.XDC_V2_MAINNET, [TokenName.ETH] as const)
+
     return {
         contracts: [
             {
@@ -240,7 +246,6 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET),
                     minters: {
                         [cronosevmAssetAddresses.ETH]: true,
-                        [cronosevmAssetAddresses.USDC]: true,
                     },
                 },
             },
@@ -448,6 +453,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.TELOS_V2_MAINNET),
                     minters: {
                         [telosAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: xdcETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.XDC_V2_MAINNET),
+                    minters: {
+                        [xdcAssetAddresses.ETH]: true,
                     },
                 },
             },
