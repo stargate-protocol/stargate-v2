@@ -596,6 +596,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'xdc-mainnet': {
+        eid: EndpointId.XDC_V2_MAINNET,
+        url: process.env.RPC_URL_XDC_MAINNET || 'https://erpc.xinfin.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.XDC_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'zkatana-mainnet': {
         eid: EndpointId.ZKATANA_V2_MAINNET,
         url: process.env.ZKATANA_V2_MAINNET || 'https://rpc.startale.com/astar-zkevm',
