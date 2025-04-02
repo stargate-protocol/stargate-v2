@@ -128,6 +128,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const mantaAssetAddresses = await getAssetAddresses(EndpointId.MANTA_V2_MAINNET, [TokenName.ETH] as const)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.mETH,
@@ -335,6 +336,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [lightlinkAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [lightlinkAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.MANTA_V2_MAINNET]: {
+            [mantaAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
         [EndpointId.MANTLE_V2_MAINNET]: {
             [mantleAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [mantleAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -464,6 +468,7 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
     const lightlinkLPTokenAddresses = await getLPTokenAddresses(EndpointId.LIGHTLINK_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
+    const mantaLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTA_V2_MAINNET, [TokenName.ETH] as const)
     const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.mETH,
@@ -546,6 +551,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         },
         [EndpointId.LIGHTLINK_V2_MAINNET]: {
             [TokenName.ETH]: lightlinkLPTokenAddresses.ETH,
+        },
+        [EndpointId.MANTA_V2_MAINNET]: {
+            [TokenName.ETH]: mantaLPTokenAddresses.ETH,
         },
         [EndpointId.MANTLE_V2_MAINNET]: {
             [TokenName.ETH]: mantleLPTokenAddresses.ETH,
