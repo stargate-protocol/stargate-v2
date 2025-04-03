@@ -2574,7 +2574,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00004').toBigInt(), // todo: define this
+            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x0000000000000000000000000000000000000000', // todo: define this
