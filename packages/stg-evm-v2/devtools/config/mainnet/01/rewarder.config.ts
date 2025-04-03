@@ -252,7 +252,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.MANTA_V2_MAINNET),
                     allocations: {
                         [mantaRewardTokenAddresses.MANTA]: {
-                            [lpTokenAddresses[EndpointId.MANTA_V2_MAINNET].ETH]: 10000, // todo check this allocation
+                            [lpTokenAddresses[EndpointId.MANTA_V2_MAINNET].ETH]: 10000,
                         },
                     },
                 },
