@@ -328,10 +328,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.MANTA_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Pool,
-                address: '0x0Dc808adcE2099A9F62AA87D9670745AbA741746',
+                type: StargateType.Native,
             },
             [EndpointId.MANTLE_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -1180,6 +1177,16 @@ export const REWARDS: RewardsConfig = {
             // Mainnet
             [EndpointId.SONIC_V2_MAINNET]: {
                 address: '0x0000000000000000000000000000000000000000',
+            },
+        },
+    },
+    [RewardTokenName.MANTA]: {
+        name: 'MANTA',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.MANTA_V2_MAINNET]: {
+                address: '0x95CeF13441Be50d20cA4558CC0a27B601aC544E5',
             },
         },
     },
