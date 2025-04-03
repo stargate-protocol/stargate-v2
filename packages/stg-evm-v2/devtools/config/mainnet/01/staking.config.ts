@@ -21,6 +21,7 @@ import {
     onHemi,
     onKava,
     onLightlink,
+    onManta,
     onMantle,
     onMetis,
     onOpt,
@@ -53,6 +54,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const hemiRewarder = await contractFactory(onHemi(rewarder))
     const kavaRewarder = await contractFactory(onKava(rewarder))
     const lightlinkRewarder = await contractFactory(onLightlink(rewarder))
+    const mantaRewarder = await contractFactory(onManta(rewarder))
     const mantleRewarder = await contractFactory(onMantle(rewarder))
     const metisRewarder = await contractFactory(onMetis(rewarder))
     const optRewarder = await contractFactory(onOpt(rewarder))
@@ -75,6 +77,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const hemiStaking = onHemi(staking)
     const kavaStaking = onKava(staking)
     const lightlinkStaking = onLightlink(staking)
+    const mantaStaking = onManta(staking)
     const mantleStaking = onMantle(staking)
     const metisStaking = onMetis(staking)
     const optStaking = onOpt(staking)
@@ -99,6 +102,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const hemiPool = { rewarder: hemiRewarder.contract.address }
     const kavaPool = { rewarder: kavaRewarder.contract.address }
     const lightlinkPool = { rewarder: lightlinkRewarder.contract.address }
+    const mantaPool = { rewarder: mantaRewarder.contract.address }
     const mantlePool = { rewarder: mantleRewarder.contract.address }
     const metisPool = { rewarder: metisRewarder.contract.address }
     const optPool = { rewarder: optRewarder.contract.address }
@@ -274,6 +278,18 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...lightlinkPool,
                             token: lpTokenAddresses[EndpointId.LIGHTLINK_V2_MAINNET].ETH,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: mantaStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.MANTA_V2_MAINNET),
+                    pools: [
+                        {
+                            ...mantaPool,
+                            token: lpTokenAddresses[EndpointId.MANTA_V2_MAINNET].ETH,
                         },
                     ],
                 },
