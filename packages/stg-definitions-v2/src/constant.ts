@@ -331,10 +331,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.MANTA_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Pool,
-                address: '0x0Dc808adcE2099A9F62AA87D9670745AbA741746',
+                type: StargateType.Native,
             },
             [EndpointId.MANTLE_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -1201,6 +1198,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.MANTA]: {
+        name: 'MANTA',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.MANTA_V2_MAINNET]: {
+                address: '0x95CeF13441Be50d20cA4558CC0a27B601aC544E5',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
@@ -1990,7 +1997,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0001').toBigInt(), // todo define this
+            nativeDropAmount: parseEther('0.0001').toBigInt(),
         },
         safeConfig: {
             safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
