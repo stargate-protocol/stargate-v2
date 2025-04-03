@@ -142,11 +142,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onTelos({ contractName: 'TransparentUpgradeableProxy', address: usdtTelosAsset.address })
     )
 
-    const xdcUSDTProxy = await contractFactory({
-        contractName: 'TransparentUpgradeableProxy',
-        address: usdtXdcAsset.address,
-        eid: EndpointId.XDC_V2_MAINNET,
-    })
+    const xdcUSDTProxy = await contractFactory(
+        onXdc({
+            contractName: 'TransparentUpgradeableProxy',
+            address: usdtXdcAsset.address,
+        })
+    )
 
     const peaqUSDT = onPeaq({ ...fiatContract, address: peaqUSDTProxy.contract.address })
     const abstractUSDT = onAbstract({ ...fiatContract, address: abstractUSDTProxy.contract.address })
