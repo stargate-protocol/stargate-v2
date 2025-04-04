@@ -131,9 +131,9 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         useFeeData: true,
     },
-    'bl3-testnet': {
-        eid: EndpointId.BL3_V2_TESTNET,
-        url: process.env.RPC_URL_BL3_TESTNET || '',
+    'avalanche-testnet': {
+        eid: EndpointId.AVALANCHE_V2_TESTNET,
+        url: process.env.RPC_URL_AVALANCHE_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
         accounts: testnetAccounts,
     },
     'bsc-testnet': {
@@ -155,7 +155,7 @@ const networks: NetworksUserConfig = {
     'mantlesep-testnet': {
         eid: EndpointId.MANTLESEP_V2_TESTNET,
         url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
-        accounts: mainnetAccounts,
+        accounts: testnetAccounts,
     },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
@@ -178,7 +178,7 @@ const networks: NetworksUserConfig = {
     //
     'abstract-mainnet': {
         eid: EndpointId.ABSTRACT_V2_MAINNET,
-        url: process.env.RPC_URL_ABSTRACT_MAINNET || '',
+        url: process.env.RPC_URL_ABSTRACT_MAINNET || 'https://api.mainnet.abs.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -194,7 +194,7 @@ const networks: NetworksUserConfig = {
     },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
-        url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://rpc.ankr.com/arbitrum',
+        url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://arb1.arbitrum.io/rpc',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ARBITRUM_V2_MAINNET),
         useFeeData: true,
@@ -230,7 +230,7 @@ const networks: NetworksUserConfig = {
     },
     'bera-mainnet': {
         eid: EndpointId.BERA_V2_MAINNET,
-        url: process.env.RPC_URL_BERA_MAINNET || '',
+        url: process.env.RPC_URL_BERA_MAINNET || 'https://rpc.berachain-apis.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -265,10 +265,19 @@ const networks: NetworksUserConfig = {
     },
     'cronosevm-mainnet': {
         eid: EndpointId.CRONOSEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOS_MAINNET || 'https://evm.cronos.org',
+        url: process.env.RPC_URL_CRONOSEVM_MAINNET || 'https://evm.cronos.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'cronoszkevm-mainnet': {
+        eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
+        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://mainnet.zkevm.cronos.org',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        zksync: true,
+        ethNetwork: 'ethereum-mainnet',
     },
     'degen-mainnet': {
         eid: EndpointId.DEGEN_V2_MAINNET,
@@ -286,7 +295,7 @@ const networks: NetworksUserConfig = {
     },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
-        url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.ankr.com/eth',
+        url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.payload.de',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ETHEREUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -341,7 +350,7 @@ const networks: NetworksUserConfig = {
     },
     'gnosis-mainnet': {
         eid: EndpointId.GNOSIS_V2_MAINNET,
-        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://rpc.ankr.com/gnosis',
+        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://gnosis.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -390,7 +399,7 @@ const networks: NetworksUserConfig = {
     },
     'kava-mainnet': {
         eid: EndpointId.KAVA_V2_MAINNET,
-        url: process.env.RPC_URL_KAVA_MAINNET || 'https://evm.kava.chainstacklabs.com',
+        url: process.env.RPC_URL_KAVA_MAINNET || 'https://kava-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KAVA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -467,7 +476,7 @@ const networks: NetworksUserConfig = {
     },
     'peaq-mainnet': {
         eid: EndpointId.PEAQ_V2_MAINNET,
-        url: process.env.RPC_URL_PEAQ_MAINNET || 'https://evm.peaq.network',
+        url: process.env.RPC_URL_PEAQ_MAINNET || 'https://peaq.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -479,9 +488,16 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'plumephoenix-mainnet': {
+        eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
+        url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
-        url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.meowrpc.com',
+        url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.POLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -495,7 +511,7 @@ const networks: NetworksUserConfig = {
     },
     'rootstock-mainnet': {
         eid: EndpointId.ROOTSTOCK_V2_MAINNET,
-        url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://rootstock.drpc.org',
+        url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://public-node.rsk.co',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -717,6 +733,7 @@ const hardhatNetworks: Pick<HardhatUserConfig, 'networks'> = {
             accounts: sandboxAccounts,
             blockGasLimit: 30_000_000,
             throwOnCallFailures: false,
+            allowUnlimitedContractSize: true,
         },
         ...networks,
     },
