@@ -268,6 +268,20 @@ chains:
         eth: true
         usdc: true
 
+  - name: cronoszkevm-mainnet
+    eid: CRONOSZKEVM_V2_MAINNET
+    token_messaging: true
+    credit_messaging: true
+    tokens:
+      eth:
+        type: pool
+      usdc:
+        type: pool
+    treasurer:
+      tokens:
+        eth: true
+        usdc: true
+
   - name: degen-mainnet
     eid: DEGEN_V2_MAINNET
     token_messaging: true
@@ -601,8 +615,19 @@ chains:
 
   - name: manta-mainnet
     eid: MANTA_V2_MAINNET
-    token_messaging: false
-    credit_messaging: false
+    token_messaging: true
+    credit_messaging: true
+    tokens:
+      eth:
+        type: native
+    rewarder:
+      tokens:
+        manta:
+          allocation:
+            eth: 10000
+    staking:
+      tokens:
+        eth: true
 
   - name: mantle-mainnet
     eid: MANTLE_V2_MAINNET
@@ -749,6 +774,22 @@ chains:
         usdt: true
         usdc: true
 
+  - name: plumephoenix-mainnet
+    eid: PLUMEPHOENIX_V2_MAINNET
+    token_messaging: true
+    credit_messaging: true
+    tokens:
+      eth:
+        type: oft
+      usdc:
+        type: oft
+      usdt:
+        type: oft
+    treasurer:
+      tokens:
+        usdt: true
+        usdc: true
+
   - name: polygon-mainnet
     eid: POLYGON_V2_MAINNET
     token_messaging: true
@@ -884,24 +925,24 @@ chains:
         eth: true
         usdc: true
 
-  - name: sonic-mainnet
-    eid: SONIC_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      usdc:
-        type: pool
-    rewarder:
-      tokens:
-        s:
-          allocation:
-            usdc: 10000
-    staking:
-      tokens:
-        usdc: true
-    treasurer:
-      tokens:
-        usdc: true
+  # - name: sonic-mainnet
+  #   eid: SONIC_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdc:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       s:
+  #         allocation:
+  #           usdc: 10000
+  #   staking:
+  #     tokens:
+  #       usdc: true
+  #   treasurer:
+  #     tokens:
+  #       usdc: true
 
   - name: story-mainnet
     eid: STORY_V2_MAINNET
@@ -986,10 +1027,10 @@ chains:
         usdc: true
     usdc_admin: true
 
-  - name: zkatana-mainnet
-    eid: ZKATANA_V2_MAINNET
-    token_messaging: false
-    credit_messaging: false
+  # - name: zkatana-mainnet
+  #   eid: ZKATANA_V2_MAINNET
+  #   token_messaging: false
+  #   credit_messaging: false
 
   - name: zkconsensys-mainnet
     eid: ZKCONSENSYS_V2_MAINNET
