@@ -61,7 +61,6 @@ export const onTaiko = withEid(EndpointId.TAIKO_V2_MAINNET)
 export const onTelos = withEid(EndpointId.TELOS_V2_MAINNET)
 export const onUnichain = withEid(EndpointId.UNICHAIN_V2_MAINNET)
 export const onXchain = withEid(EndpointId.XCHAIN_V2_MAINNET)
-export const onZkatana = withEid(EndpointId.ZKATANA_V2_MAINNET)
 export const onZkConsensys = withEid(EndpointId.ZKCONSENSYS_V2_MAINNET)
 export const onZkPolygon = withEid(EndpointId.ZKPOLYGON_V2_MAINNET)
 
