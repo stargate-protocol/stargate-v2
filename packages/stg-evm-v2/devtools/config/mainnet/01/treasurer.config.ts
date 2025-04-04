@@ -35,6 +35,7 @@ import {
     onKava,
     onKlaytn,
     onLightlink,
+    onManta,
     onMantle,
     onMetis,
     onOpt,
@@ -92,6 +93,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const kavaAdmin = getSafeAddress(EndpointId.KAVA_V2_MAINNET)
     const klaytnAdmin = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
     const lightlinkAdmin = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
+    const mantaAdmin = getSafeAddress(EndpointId.MANTA_V2_MAINNET)
     const mantleAdmin = getSafeAddress(EndpointId.MANTLE_V2_MAINNET)
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
@@ -232,6 +234,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const mantaAssetAddresses = await getAssetAddresses(EndpointId.MANTA_V2_MAINNET, [TokenName.ETH] as const)
     const mantleAssetAddresses = await getAssetAddresses(EndpointId.MANTLE_V2_MAINNET, [
         TokenName.ETH,
         TokenName.mETH,
@@ -632,6 +635,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [lightlinkAssetAddresses.ETH]: true,
                         [lightlinkAssetAddresses.USDC]: true,
                         [lightlinkAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onManta(contract),
+                config: {
+                    owner: mantaAdmin,
+                    admin: mantaAdmin,
+                    assets: {
+                        [mantaAssetAddresses.ETH]: true,
                     },
                 },
             },

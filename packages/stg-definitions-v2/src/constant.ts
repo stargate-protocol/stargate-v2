@@ -48,6 +48,7 @@ export const DVNS = {
         [EndpointId.KAVA_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
+        [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
@@ -118,8 +119,9 @@ export const DVNS = {
         [EndpointId.ISLANDER_V2_MAINNET]: '0x9eeee79f5dbc4d99354b5cb547c138af432f937b',
         [EndpointId.KAVA_V2_MAINNET]: '0x9cbaf815ed62ef45c59e9f2cb05106babb4d31d3',
         [EndpointId.KLAYTN_V2_MAINNET]: '0x17720e3f361dcc2f70871a2ce3ac51b0eaa5c2e4',
-        [EndpointId.MANTLE_V2_MAINNET]: '0xfe809470016196573d64a8d17a745bebea4ecc41',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x0e95cf21ad9376a26997c97f326c5a0a267bb8ff',
+        [EndpointId.MANTA_V2_MAINNET]: '0xca848bcb059e33adb260d793ee360924b6aa8e86',
+        [EndpointId.MANTLE_V2_MAINNET]: '0xfe809470016196573d64a8d17a745bebea4ecc41',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
@@ -177,6 +179,7 @@ export const EXECUTORS = {
         [EndpointId.KAVA_V2_MAINNET]: '0x41ED8065dd9bC6c0caF21c39766eDCBA0F21851c',
         [EndpointId.KLAYTN_V2_MAINNET]: '0xe149187a987F129FD3d397ED04a60b0b89D1669f',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.MANTA_V2_MAINNET]: '0x8DD9197E51dC6082853aD71D35912C53339777A7',
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
@@ -322,6 +325,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.LIGHTLINK_V2_MAINNET]: {
+                type: StargateType.Native,
+            },
+            [EndpointId.MANTA_V2_MAINNET]: {
                 type: StargateType.Native,
             },
             [EndpointId.MANTLE_V2_MAINNET]: {
@@ -1174,6 +1180,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.MANTA]: {
+        name: 'MANTA',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.MANTA_V2_MAINNET]: {
+                address: '0x95CeF13441Be50d20cA4558CC0a27B601aC544E5',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {
@@ -1954,9 +1970,32 @@ export const NETWORKS: NetworksConfig = {
         },
     },
     [EndpointId.MANTA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0001').toBigInt(),
+        },
         safeConfig: {
             safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/manta`,
+            contractNetworks: {
+                [169]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
+                },
+            },
         },
     },
     [EndpointId.MANTLE_V2_MAINNET]: {

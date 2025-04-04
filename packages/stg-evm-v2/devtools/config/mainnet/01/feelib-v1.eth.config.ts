@@ -63,7 +63,6 @@ const excludedChains = new Set([
     'fraxtal-mainnet',
     'ink-mainnet',
     'kava-mainnet',
-    'manta-mainnet',
     'mode-mainnet',
     'moonbeam-mainnet',
     'moonriver-mainnet',

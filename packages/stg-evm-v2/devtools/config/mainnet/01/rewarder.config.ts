@@ -18,6 +18,7 @@ import {
     onHemi,
     onKava,
     onLightlink,
+    onManta,
     onMantle,
     onMetis,
     onOpt,
@@ -100,6 +101,10 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const zkConsensysRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         RewardTokenName.STG,
+    ] as const)
+
+    const mantaRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.MANTA_V2_MAINNET, [
+        RewardTokenName.MANTA,
     ] as const)
 
     // Step 2: Retrieve all the LP token addresses on the given chains
@@ -237,6 +242,17 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     allocations: {
                         [lightlinkRewardTokenAddresses.LLE]: {
                             [lpTokenAddresses[EndpointId.LIGHTLINK_V2_MAINNET].ETH]: 10000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onManta(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.MANTA_V2_MAINNET),
+                    allocations: {
+                        [mantaRewardTokenAddresses.MANTA]: {
+                            [lpTokenAddresses[EndpointId.MANTA_V2_MAINNET].ETH]: 10000,
                         },
                     },
                 },
