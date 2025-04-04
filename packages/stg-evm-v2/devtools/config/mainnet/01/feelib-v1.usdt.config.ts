@@ -75,7 +75,6 @@ const excludedChains = new Set([
     'superposition-mainnet',
     'unichain-mainnet',
     'xchain-mainnet',
-    'zkatana-mainnet',
     'zkconsensys-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from usdt feelib v1 config

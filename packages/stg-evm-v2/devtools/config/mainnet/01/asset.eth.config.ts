@@ -73,7 +73,6 @@ const excludedChains = new Set([
     'superposition-mainnet',
     'taiko-mainnet',
     'xchain-mainnet',
-    'zkatana-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from eth asset config
 ])
