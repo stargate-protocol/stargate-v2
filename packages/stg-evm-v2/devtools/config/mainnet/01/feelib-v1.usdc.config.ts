@@ -65,7 +65,6 @@ const excludedChains = new Set([
     'opbnb-mainnet',
     'shimmer-mainnet',
     'unichain-mainnet',
-    'zkatana-mainnet',
     'zkconsensys-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from usdc feelib v1 config

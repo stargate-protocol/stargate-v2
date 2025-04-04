@@ -126,7 +126,6 @@ export const chainEids = {
     'telos-mainnet': EndpointId.TELOS_V2_MAINNET,
     'unichain-mainnet': EndpointId.UNICHAIN_V2_MAINNET,
     'xchain-mainnet': EndpointId.XCHAIN_V2_MAINNET,
-    'zkatana-mainnet': EndpointId.ZKATANA_V2_MAINNET,
     'zkconsensys-mainnet': EndpointId.ZKCONSENSYS_V2_MAINNET,
     'zkpolygon-mainnet': EndpointId.ZKPOLYGON_V2_MAINNET,
 }
@@ -144,7 +143,6 @@ const excludedCreditMessagingChains = new Set([
     'moonriver-mainnet',
     'opbnb-mainnet',
     'shimmer-mainnet',
-    'zkatana-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from credit messaging
 ])
@@ -160,7 +158,6 @@ const excludedTokenMessagingChains = new Set([
     'moonriver-mainnet',
     'opbnb-mainnet',
     'shimmer-mainnet',
-    'zkatana-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from token messaging
 ])
