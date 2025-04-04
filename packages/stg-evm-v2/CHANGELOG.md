@@ -1,5 +1,14 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.4
+
+### Patch Changes
+
+- 8888925: manta pacific mainnet config
+- Updated dependencies [8888925]
+- Updated dependencies [f4ae7dc]
+  - @stargatefinance/stg-definitions-v2@2.0.3
+
 ## 2.0.3
 
 ### Patch Changes
