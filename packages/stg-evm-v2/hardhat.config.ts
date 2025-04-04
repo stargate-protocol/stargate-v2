@@ -251,7 +251,7 @@ const networks: NetworksUserConfig = {
     },
     'codex-mainnet': {
         eid: EndpointId.CODEX_V2_MAINNET,
-        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.is/',
+        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -427,7 +427,7 @@ const networks: NetworksUserConfig = {
     },
     'mantle-mainnet': {
         eid: EndpointId.MANTLE_V2_MAINNET,
-        url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle.drpc.org',
+        url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle-mainnet.public.blastapi.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MANTLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -546,13 +546,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'sonic-mainnet': {
-        eid: EndpointId.SONIC_V2_MAINNET,
-        url: process.env.RPC_URL_SONIC_MAINNET || 'https://rpc.soniclabs.com',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.SONIC_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
+    // 'sonic-mainnet': {
+    //     eid: EndpointId.SONIC_V2_MAINNET,
+    //     url: process.env.RPC_URL_SONIC_MAINNET || 'https://rpc.soniclabs.com',
+    //     accounts: mainnetAccounts,
+    //     safeConfig: getSafeConfig(EndpointId.SONIC_V2_MAINNET),
+    //     timeout: DEFAULT_NETWORK_TIMEOUT,
+    // },
     'story-mainnet': {
         eid: EndpointId.STORY_V2_MAINNET,
         url: process.env.RPC_URL_STORY_MAINNET || 'https://mainnet.storyrpc.io',
@@ -596,13 +596,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'zkatana-mainnet': {
-        eid: EndpointId.ZKATANA_V2_MAINNET,
-        url: process.env.ZKATANA_V2_MAINNET || 'https://rpc.startale.com/astar-zkevm',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ZKATANA_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
+    // 'zkatana-mainnet': {
+    //     eid: EndpointId.ZKATANA_V2_MAINNET,
+    //     url: process.env.ZKATANA_V2_MAINNET || 'https://rpc.startale.com/astar-zkevm',
+    //     accounts: mainnetAccounts,
+    //     safeConfig: getSafeConfig(EndpointId.ZKATANA_V2_MAINNET),
+    //     timeout: DEFAULT_NETWORK_TIMEOUT,
+    // },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
