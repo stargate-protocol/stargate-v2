@@ -109,195 +109,195 @@ chains:
     token_messaging: false
     credit_messaging: false
 
-  - name: aurora-mainnet
-    eid: AURORA_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      usdc:
-        type: pool
-    rewarder:
-      tokens:
-        aurora:
-          allocation:
-            usdc: 10000
-    staking:
-      tokens:
-        usdc: true
-    treasurer:
-      tokens:
-        usdc: true
+  # - name: aurora-mainnet
+  #   eid: AURORA_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdc:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       aurora:
+  #         allocation:
+  #           usdc: 10000
+  #   staking:
+  #     tokens:
+  #       usdc: true
+  #   treasurer:
+  #     tokens:
+  #       usdc: true
 
-  - name: avalanche-mainnet
-    eid: AVALANCHE_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      usdc:
-        type: pool
-      usdt:
-        type: pool
-    rewarder:
-      tokens:
-        stg:
-          allocation:
-            usdc: 5000
-            usdt: 5000
-    staking:
-      tokens:
-        usdc: true
-        usdt: true
-    treasurer:
-      tokens:
-        usdt: true
-        usdc: true
+  # - name: avalanche-mainnet
+  #   eid: AVALANCHE_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdc:
+  #       type: pool
+  #     usdt:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       stg:
+  #         allocation:
+  #           usdc: 5000
+  #           usdt: 5000
+  #   staking:
+  #     tokens:
+  #       usdc: true
+  #       usdt: true
+  #   treasurer:
+  #     tokens:
+  #       usdt: true
+  #       usdc: true
 
-  - name: base-mainnet
-    eid: BASE_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: native
-      usdc:
-        type: pool
-    rewarder:
-      tokens:
-        stg:
-          allocation:
-            eth: 6500
-            usdc: 3500
-    staking:
-      tokens:
-        eth: true
-        usdc: true
-    treasurer:
-      tokens:
-        eth: true
-        usdc: true
+  # - name: base-mainnet
+  #   eid: BASE_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: native
+  #     usdc:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       stg:
+  #         allocation:
+  #           eth: 6500
+  #           usdc: 3500
+  #   staking:
+  #     tokens:
+  #       eth: true
+  #       usdc: true
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdc: true
 
-  - name: bera-mainnet
-    eid: BERA_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: oft
-      usdc:
-        type: oft
-    treasurer:
-      tokens:
-        eth: true
-        usdc: true
+  # - name: bera-mainnet
+  #   eid: BERA_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: oft
+  #     usdc:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdc: true
 
-  - name: blast-mainnet
-    eid: BLAST_V2_MAINNET
-    token_messaging: false
-    credit_messaging: false
+  # - name: blast-mainnet
+  #   eid: BLAST_V2_MAINNET
+  #   token_messaging: false
+  #   credit_messaging: false
 
-  - name: bsc-mainnet
-    eid: BSC_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      usdc:
-        type: pool
-      usdt:
-        type: pool
-    rewarder:
-      tokens:
-        stg:
-          allocation:
-            usdc: 1000
-            usdt: 9000
-    staking:
-      tokens:
-        usdc: true
-        usdt: true
-    treasurer:
-      tokens:
-        usdt: true
-        usdc: true
+  # - name: bsc-mainnet
+  #   eid: BSC_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdc:
+  #       type: pool
+  #     usdt:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       stg:
+  #         allocation:
+  #           usdc: 1000
+  #           usdt: 9000
+  #   staking:
+  #     tokens:
+  #       usdc: true
+  #       usdt: true
+  #   treasurer:
+  #     tokens:
+  #       usdt: true
+  #       usdc: true
 
-  - name: codex-mainnet
-    eid: CODEX_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      usdc:
-        type: oft
-    treasurer:
-      tokens:
-        usdc: true
+  # - name: codex-mainnet
+  #   eid: CODEX_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdc:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       usdc: true
 
-  - name: coredao-mainnet
-    eid: COREDAO_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      usdc:
-        type: pool
-      usdt:
-        type: pool
-    rewarder:
-      tokens:
-        core:
-          allocation:
-            usdc: 5000
-            usdt: 5000
-    staking:
-      tokens:
-        usdc: true
-        usdt: true
-    treasurer:
-      tokens:
-        usdt: true
-        usdc: true
+  # - name: coredao-mainnet
+  #   eid: COREDAO_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     usdc:
+  #       type: pool
+  #     usdt:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       core:
+  #         allocation:
+  #           usdc: 5000
+  #           usdt: 5000
+  #   staking:
+  #     tokens:
+  #       usdc: true
+  #       usdt: true
+  #   treasurer:
+  #     tokens:
+  #       usdt: true
+  #       usdc: true
 
-  - name: cronosevm-mainnet
-    eid: CRONOSEVM_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: oft
-      usdc:
-        type: oft
-    treasurer:
-      tokens:
-        eth: true
-        usdc: true
+  # - name: cronosevm-mainnet
+  #   eid: CRONOSEVM_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: oft
+  #     usdc:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdc: true
 
-  - name: cronoszkevm-mainnet
-    eid: CRONOSZKEVM_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: pool
-      usdc:
-        type: pool
-    treasurer:
-      tokens:
-        eth: true
-        usdc: true
+  # - name: cronoszkevm-mainnet
+  #   eid: CRONOSZKEVM_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: pool
+  #     usdc:
+  #       type: pool
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdc: true
 
-  - name: degen-mainnet
-    eid: DEGEN_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: oft
-      usdc:
-        type: oft
-      usdt:
-        type: oft
-    treasurer:
-      tokens:
-        eth: true
-        usdt: true
-        usdc: true
+  # - name: degen-mainnet
+  #   eid: DEGEN_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: oft
+  #     usdc:
+  #       type: oft
+  #     usdt:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdt: true
+  #       usdc: true
 
   # ! ebi is shutdown
   # - name: ebi-mainnet
@@ -311,85 +311,85 @@ chains:
   #     tokens:
   #       usdt: true
 
-  - name: ethereum-mainnet
-    eid: ETHEREUM_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: native
-      meth:
-        type: pool
-      metis:
-        type: pool
-      usdc:
-        type: pool
-      usdt:
-        type: pool
-    rewarder:
-      tokens:
-        stg:
-          allocation:
-            eth: 4220
-            usdc: 3381
-            usdt: 2399
-    staking:
-      tokens:
-        eth: true
-        usdc: true
-        usdt: true
-    treasurer:
-      tokens:
-        eth: true
-        meth: true
-        metis: true
-        usdt: true
-        usdc: true
+  # - name: ethereum-mainnet
+  #   eid: ETHEREUM_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: native
+  #     meth:
+  #       type: pool
+  #     metis:
+  #       type: pool
+  #     usdc:
+  #       type: pool
+  #     usdt:
+  #       type: pool
+  #   rewarder:
+  #     tokens:
+  #       stg:
+  #         allocation:
+  #           eth: 4220
+  #           usdc: 3381
+  #           usdt: 2399
+  #   staking:
+  #     tokens:
+  #       eth: true
+  #       usdc: true
+  #       usdt: true
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       meth: true
+  #       metis: true
+  #       usdt: true
+  #       usdc: true
 
-  - name: etherlink-mainnet
-    eid: ETHERLINK_V2_MAINNET
-    token_messaging: false
-    credit_messaging: false
+  # - name: etherlink-mainnet
+  #   eid: ETHERLINK_V2_MAINNET
+  #   token_messaging: false
+  #   credit_messaging: false
 
-  - name: fantom-mainnet
-    eid: FANTOM_V2_MAINNET
-    token_messaging: false
-    credit_messaging: false
+  # - name: fantom-mainnet
+  #   eid: FANTOM_V2_MAINNET
+  #   token_messaging: false
+  #   credit_messaging: false
 
-  - name: flare-mainnet
-    eid: FLARE_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: oft
-      usdc:
-        type: oft
-      usdt:
-        type: oft
-    treasurer:
-      tokens:
-        eth: true
-        usdt: true
-        usdc: true
-    usdc_admin: true
+  # - name: flare-mainnet
+  #   eid: FLARE_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: oft
+  #     usdc:
+  #       type: oft
+  #     usdt:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdt: true
+  #       usdc: true
+  #   usdc_admin: true
 
-  - name: flow-mainnet
-    eid: FLOW_V2_MAINNET
-    token_messaging: true
-    credit_messaging: true
-    tokens:
-      eth:
-        type: oft
-      usdc:
-        type: oft
-      usdt:
-        type: oft
-    treasurer:
-      tokens:
-        eth: true
-        usdt: true
-        usdc: true
+  # - name: flow-mainnet
+  #   eid: FLOW_V2_MAINNET
+  #   token_messaging: true
+  #   credit_messaging: true
+  #   tokens:
+  #     eth:
+  #       type: oft
+  #     usdc:
+  #       type: oft
+  #     usdt:
+  #       type: oft
+  #   treasurer:
+  #     tokens:
+  #       eth: true
+  #       usdt: true
+  #       usdc: true
 
   # - name: fraxtal-mainnet
   #   eid: FRAXTAL_V2_MAINNET
