@@ -616,6 +616,7 @@ const networks: NetworksUserConfig = {
     //     accounts: mainnetAccounts,
     //     safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
     //     timeout: DEFAULT_NETWORK_TIMEOUT,
+
     // },
     'zksync-mainnet': {
         eid: EndpointId.ZKSYNC_V2_MAINNET,
