@@ -977,7 +977,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
-        [EndpointId.ZKATANA_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
         [EndpointId.ZKSYNC_V2_MAINNET]: {},
@@ -2544,12 +2543,6 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0xECeBABaaDe81E90524F64426FF76BBdD6683739C',
                 },
             },
-        },
-    },
-    [EndpointId.ZKATANA_V2_MAINNET]: {
-        safeConfig: {
-            safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zkatana`,
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
