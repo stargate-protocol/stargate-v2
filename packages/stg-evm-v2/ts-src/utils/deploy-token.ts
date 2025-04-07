@@ -97,5 +97,5 @@ const getContractName = (stargateType: StargateType, tokenName: TokenName): stri
     }
     assert(stargateType === StargateType.Oft, 'Unknown Stargate Type: ' + stargateType)
 
-    return 'OFTTokenERC20'
+    return 'src/utils/OFTTokenERC20'
 }
