@@ -589,7 +589,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
 
             [EndpointId.XDC_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '', // todo: define this
+                address: '0xcdA5b77E2E2268D9E09c874c1b9A4c3F07b37555',
             },
 
             //
@@ -839,7 +839,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.XDC_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '', // todo: define this
+                address: '0x60219C44E146BAf36002eA73767820238Ebc1db6',
             },
 
             //
@@ -2577,7 +2577,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x0000000000000000000000000000000000000000', // todo: define this
+            safeAddress: '0x9fe0a7def10a65b1d03e2d95a02ec17727aa4ebe',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/xchain`,
             contractNetworks: {
                 [50]: {
