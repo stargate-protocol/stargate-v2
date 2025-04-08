@@ -146,7 +146,6 @@ const excludedCreditMessagingChains = new Set([
     'moonriver-mainnet',
     'opbnb-mainnet',
     'shimmer-mainnet',
-    'zkatana-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from credit messaging
 ])
@@ -162,7 +161,6 @@ const excludedTokenMessagingChains = new Set([
     'moonriver-mainnet',
     'opbnb-mainnet',
     'shimmer-mainnet',
-    'zkatana-mainnet',
     'zkpolygon-mainnet',
     // Add chains that should be excluded from token messaging
 ])
