@@ -62,7 +62,6 @@ export const onTelos = withEid(EndpointId.TELOS_V2_MAINNET)
 export const onUnichain = withEid(EndpointId.UNICHAIN_V2_MAINNET)
 export const onXchain = withEid(EndpointId.XCHAIN_V2_MAINNET)
 export const onXdc = withEid(EndpointId.XDC_V2_MAINNET)
-export const onZkatana = withEid(EndpointId.ZKATANA_V2_MAINNET)
 export const onZkConsensys = withEid(EndpointId.ZKCONSENSYS_V2_MAINNET)
 export const onZkPolygon = withEid(EndpointId.ZKPOLYGON_V2_MAINNET)
 
@@ -128,7 +127,6 @@ export const chainEids = {
     'unichain-mainnet': EndpointId.UNICHAIN_V2_MAINNET,
     'xchain-mainnet': EndpointId.XCHAIN_V2_MAINNET,
     'xdc-mainnet': EndpointId.XDC_V2_MAINNET,
-    'zkatana-mainnet': EndpointId.ZKATANA_V2_MAINNET,
     'zkconsensys-mainnet': EndpointId.ZKCONSENSYS_V2_MAINNET,
     'zkpolygon-mainnet': EndpointId.ZKPOLYGON_V2_MAINNET,
 }

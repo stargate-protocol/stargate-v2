@@ -49,7 +49,6 @@ export const DVNS = {
         [EndpointId.KLAYTN_V2_MAINNET]: '0x6a4C9096F162f0ab3C0517B0a40dc1CE44785e16',
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
-        [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
@@ -996,7 +995,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
         [EndpointId.XDC_V2_MAINNET]: {},
-        [EndpointId.ZKATANA_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
         [EndpointId.ZKSYNC_V2_MAINNET]: {},
@@ -2592,13 +2590,6 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
                 },
             },
-        },
-    },
-
-    [EndpointId.ZKATANA_V2_MAINNET]: {
-        safeConfig: {
-            safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zkatana`,
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {

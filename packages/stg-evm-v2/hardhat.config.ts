@@ -603,13 +603,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.XDC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'zkatana-mainnet': {
-        eid: EndpointId.ZKATANA_V2_MAINNET,
-        url: process.env.ZKATANA_V2_MAINNET || 'https://rpc.startale.com/astar-zkevm',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ZKATANA_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
