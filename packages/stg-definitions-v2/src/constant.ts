@@ -839,7 +839,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.XDC_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x60219C44E146BAf36002eA73767820238Ebc1db6',
+                address: '0xCc0587aeBDa397146cc828b445dB130a94486e74',
             },
 
             //
