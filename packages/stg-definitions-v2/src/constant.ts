@@ -2577,7 +2577,7 @@ export const NETWORKS: NetworksConfig = {
         },
         safeConfig: {
             safeAddress: '0x9fe0a7def10a65b1d03e2d95a02ec17727aa4ebe',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/xchain`,
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/xdc`,
             contractNetworks: {
                 [50]: {
                     multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
