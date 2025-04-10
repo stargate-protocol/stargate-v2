@@ -208,6 +208,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
     ] as const)
     const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
+    const xdcAssetAddresses = await getAssetAddresses(EndpointId.XDC_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
 
     return {
         [EndpointId.ABSTRACT_V2_MAINNET]: {
@@ -424,6 +429,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.XCHAIN_V2_MAINNET]: {
             [xchainAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
+        [EndpointId.XDC_V2_MAINNET]: {
+            [xdcAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [xdcAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+            [xdcAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
     } satisfies Partial<Record<EndpointId, MessagingAssetConfig>>
 }
 
@@ -502,6 +512,11 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
     ] as const)
     const sonicLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
+    const xdcLPTokenAddresses = await getLPTokenAddresses(EndpointId.XDC_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -590,6 +605,11 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         },
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
             [TokenName.ETH]: zkConsensysLPTokenAddresses.ETH,
+        },
+        [EndpointId.XDC_V2_MAINNET]: {
+            [TokenName.ETH]: xdcLPTokenAddresses.ETH,
+            [TokenName.USDC]: xdcLPTokenAddresses.USDC,
+            [TokenName.USDT]: xdcLPTokenAddresses.USDT,
         },
     } satisfies Partial<Record<EndpointId, Partial<Record<TokenName, string>>>>
 }

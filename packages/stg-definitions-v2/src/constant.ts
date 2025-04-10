@@ -68,6 +68,7 @@ export const DVNS = {
         [EndpointId.TELOS_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x25e0e650a78e6304a3983fc4b7ffc6544b1beea6',
         [EndpointId.XCHAIN_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.XDC_V2_MAINNET]: '0x1294e3347ec64fd63e1d0594dc1294247cd237c7',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xDd7B5E1dB4AaFd5C8EC3b764eFB8ed265Aa5445B',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0xb183c2b91cf76cAd13602b32ADa2Fd273f19009C',
     } satisfies Partial<Record<EndpointId, string>>,
@@ -140,6 +141,7 @@ export const DVNS = {
         [EndpointId.TELOS_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x9885110b909e88bb94f7f767a68ec2558b2afa73',
         [EndpointId.XCHAIN_V2_MAINNET]: '0x56053a8f4db677e5774f8ee5bdd9d2dc270075f3',
+        [EndpointId.XDC_V2_MAINNET]: '0x4fe90e0f2a99e464d6e97b161d72101cd03c20fe',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xef269bbadb81de86e4b3278fa1dae1723545268b',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x62aa89bad332788021f6f4f4fb196d5fe59c27a6',
     } satisfies Partial<Record<EndpointId, string>>,
@@ -199,6 +201,7 @@ export const EXECUTORS = {
         [EndpointId.TELOS_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.XCHAIN_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.XDC_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x0408804C5dcD9796F22558464E6fE5bDdF16A7c7',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x664e390e672A811c12091db8426cBb7d68D5D8A6',
     } satisfies Partial<Record<EndpointId, string>>,
@@ -383,6 +386,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.UNICHAIN_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.XDC_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -577,6 +585,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.TELOS_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
+            },
+
+            [EndpointId.XDC_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xcdA5b77E2E2268D9E09c874c1b9A4c3F07b37555',
             },
 
             //
@@ -824,6 +837,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
             },
+            [EndpointId.XDC_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xCc0587aeBDa397146cc828b445dB130a94486e74',
+            },
 
             //
             // TESTNET
@@ -977,6 +994,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
+        [EndpointId.XDC_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
         [EndpointId.ZKSYNC_V2_MAINNET]: {},
@@ -2541,6 +2559,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xcaA28451125C3c355C8a5596C99B0360Cdd2F928',
                     signMessageLibAddress: '0x298E98C8DeCa852438b2Df6Bc4bD05BC18D6E7D3',
                     simulateTxAccessorAddress: '0xECeBABaaDe81E90524F64426FF76BBdD6683739C',
+                },
+            },
+        },
+    },
+    [EndpointId.XDC_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+            nativeDropAmount: parseEther('0.01').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/xdc`,
+            contractNetworks: {
+                [50]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
                 },
             },
         },

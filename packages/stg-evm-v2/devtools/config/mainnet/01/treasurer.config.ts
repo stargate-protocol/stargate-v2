@@ -55,6 +55,7 @@ import {
     onTelos,
     onUnichain,
     onXchain,
+    onXdc,
     onZkConsensys,
 } from '../utils'
 
@@ -112,8 +113,9 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const telosAdmin = getSafeAddress(EndpointId.TELOS_V2_MAINNET)
     const unichainAdmin = getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET)
-    const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
     const xchainAdmin = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
+    const xdcAdmin = getSafeAddress(EndpointId.XDC_V2_MAINNET)
+    const zkConsensysAdmin = getSafeAddress(EndpointId.ZKCONSENSYS_V2_MAINNET)
 
     // Now we collect the address of the deployed assets
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
@@ -310,11 +312,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDT,
     ] as const)
     const unichainAssetAddresses = await getAssetAddresses(EndpointId.UNICHAIN_V2_MAINNET, [TokenName.ETH] as const)
+    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
+    const xdcAssetAddresses = await getAssetAddresses(EndpointId.XDC_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+        TokenName.USDT,
+    ] as const)
+
     const zkConsensysAssetAddresses = await getAssetAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
-    const xchainAssetAddresses = await getAssetAddresses(EndpointId.XCHAIN_V2_MAINNET, [TokenName.USDC] as const)
-
     return {
         contracts: [
             {
@@ -854,22 +861,34 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
-                contract: onZkConsensys(contract),
-                config: {
-                    owner: zkConsensysAdmin,
-                    admin: zkConsensysAdmin,
-                    assets: {
-                        [zkConsensysAssetAddresses.ETH]: true,
-                    },
-                },
-            },
-            {
                 contract: onXchain(contract),
                 config: {
                     owner: xchainAdmin,
                     admin: xchainAdmin,
                     assets: {
                         [xchainAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onXdc(contract),
+                config: {
+                    owner: xdcAdmin,
+                    admin: xdcAdmin,
+                    assets: {
+                        [xdcAssetAddresses.ETH]: true,
+                        [xdcAssetAddresses.USDC]: true,
+                        [xdcAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onZkConsensys(contract),
+                config: {
+                    owner: zkConsensysAdmin,
+                    admin: zkConsensysAdmin,
+                    assets: {
+                        [zkConsensysAssetAddresses.ETH]: true,
                     },
                 },
             },
