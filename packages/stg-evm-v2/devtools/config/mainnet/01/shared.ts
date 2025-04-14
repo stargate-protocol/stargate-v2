@@ -140,6 +140,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.METIS,
         TokenName.USDT,
     ] as const)
+    const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+        TokenName.USDC,
+    ] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTIMISM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -354,6 +359,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [metisAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [metisAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [metisAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+        },
+        [EndpointId.NIBIRU_V2_MAINNET]: {
+            [nibiruAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [nibiruAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+            [nibiruAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.OPTIMISM_V2_MAINNET]: {
             [optAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,

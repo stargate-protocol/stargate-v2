@@ -42,6 +42,7 @@ export const onMetis = withEid(EndpointId.METIS_V2_MAINNET)
 export const onMode = withEid(EndpointId.MODE_V2_MAINNET)
 export const onMoonbeam = withEid(EndpointId.MOONBEAM_V2_MAINNET)
 export const onMoonRiver = withEid(EndpointId.MOONRIVER_V2_MAINNET)
+export const onNibiru = withEid(EndpointId.NIBIRU_V2_MAINNET)
 export const onOpbnb = withEid(EndpointId.OPBNB_V2_MAINNET)
 export const onOpt = withEid(EndpointId.OPTIMISM_V2_MAINNET)
 export const onPeaq = withEid(EndpointId.PEAQ_V2_MAINNET)
@@ -107,6 +108,7 @@ export const chainEids = {
     'mode-mainnet': EndpointId.MODE_V2_MAINNET,
     'moonbeam-mainnet': EndpointId.MOONBEAM_V2_MAINNET,
     'moonriver-mainnet': EndpointId.MOONRIVER_V2_MAINNET,
+    'nibiru-mainnet': EndpointId.NIBIRU_V2_MAINNET,
     'opbnb-mainnet': EndpointId.OPBNB_V2_MAINNET,
     'optimism-mainnet': EndpointId.OPTIMISM_V2_MAINNET,
     'peaq-mainnet': EndpointId.PEAQ_V2_MAINNET,

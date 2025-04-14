@@ -22,6 +22,7 @@ import {
     onIslander,
     onKlaytn,
     onLightlink,
+    onNibiru,
     onPeaq,
     onPlumephoenix,
     onRarible,
@@ -33,7 +34,7 @@ import {
     onXdc,
 } from '../utils'
 
-// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployents
+// Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployments
 
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
@@ -123,6 +124,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
     const klaytnETH = onKlaytn({ contractName: klaytnETHContractName })
 
+    const nibiruETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.NIBIRU_V2_MAINNET, TokenName.ETH)
+    )
+    const nibiruETH = onNibiru({ contractName: nibiruETHContractName })
+
     const plumephoenixETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.PLUMEPHOENIX_V2_MAINNET, TokenName.ETH)
@@ -199,6 +206,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         TokenName.ETH,
         TokenName.USDT,
     ] as const)
+    const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, [TokenName.ETH] as const)
     const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -381,6 +389,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET),
                     minters: {
                         [lightlinkAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: nibiruETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.NIBIRU_V2_MAINNET),
+                    minters: {
+                        [nibiruAssetAddresses.ETH]: true,
                     },
                 },
             },

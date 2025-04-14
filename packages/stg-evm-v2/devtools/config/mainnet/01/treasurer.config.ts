@@ -38,6 +38,7 @@ import {
     onManta,
     onMantle,
     onMetis,
+    onNibiru,
     onOpt,
     onPeaq,
     onPlume,
@@ -97,6 +98,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const mantaAdmin = getSafeAddress(EndpointId.MANTA_V2_MAINNET)
     const mantleAdmin = getSafeAddress(EndpointId.MANTLE_V2_MAINNET)
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
+    const nibiruAdmin = getSafeAddress(EndpointId.NIBIRU_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqAdmin = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
     const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
@@ -247,6 +249,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.METIS,
         TokenName.USDT,
+    ] as const)
+    const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+        TokenName.USDC,
     ] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTIMISM_V2_MAINNET, [
         TokenName.ETH,
@@ -677,6 +684,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [metisAssetAddresses.ETH]: true,
                         [metisAssetAddresses.METIS]: true,
                         [metisAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onNibiru(contract),
+                config: {
+                    owner: nibiruAdmin,
+                    admin: nibiruAdmin,
+                    assets: {
+                        [nibiruAssetAddresses.ETH]: true,
+                        [nibiruAssetAddresses.USDT]: true,
+                        [nibiruAssetAddresses.USDC]: true,
                     },
                 },
             },
