@@ -51,6 +51,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
@@ -124,6 +125,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0xca848bcb059e33adb260d793ee360924b6aa8e86',
         [EndpointId.MANTLE_V2_MAINNET]: '0xfe809470016196573d64a8d17a745bebea4ecc41',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0x06d99ffd7c09ea72e962a06b6e311e513d7c3d20',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.PLUME_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -184,6 +186,7 @@ export const EXECUTORS = {
         [EndpointId.MANTA_V2_MAINNET]: '0x8DD9197E51dC6082853aD71D35912C53339777A7',
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0x6A02D83e8d433304bba74EF1c427913958187142',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.PLUME_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -344,6 +347,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Pool,
                 address: '0x420000000000000000000000000000000000000a',
+            },
+            [EndpointId.NIBIRU_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -543,6 +551,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.METIS_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC',
+            },
+            [EndpointId.NIBIRU_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '', // todo
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -769,6 +781,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9',
                 type: StargateType.Pool,
             },
+            [EndpointId.NIBIRU_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '', // todo
+            },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
                 type: StargateType.Pool,
@@ -975,6 +991,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.MODE_V2_MAINNET]: {},
         [EndpointId.MOONBEAM_V2_MAINNET]: {},
         [EndpointId.MOONRIVER_V2_MAINNET]: {},
+        [EndpointId.NIBIRU_V2_MAINNET]: {},
         [EndpointId.OPBNB_V2_MAINNET]: {},
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
@@ -2066,6 +2083,37 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/moonriver`,
+        },
+    },
+    [EndpointId.NIBIRU_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+            nativeDropAmount: parseEther('0.00001').toBigInt(), // todo drop ammount
+            busGasLimit: 50000n,
+        },
+        safeConfig: {
+            safeAddress: '0xF9d173F325035b4A9654EA21a798b9C8b7a0B4fE',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/nibiru`,
+            // todo
+            // contractNetworks: {
+            //     [6900]: {
+            //         multiSendAddress: '0x0000000000',
+            //         multiSendCallOnlyAddress: '0x0000000000',
+            //         safeMasterCopyAddress: '0x0000000000',
+            //         safeProxyFactoryAddress: '0x0000000000',
+            //         fallbackHandlerAddress: '0x0000000000',
+            //         createCallAddress: '0x0000000000',
+            //         signMessageLibAddress: '0x0000000000',
+            //         simulateTxAccessorAddress: '0x0000000000',
+            //     },
+            // },
         },
     },
     [EndpointId.OPBNB_V2_MAINNET]: {
