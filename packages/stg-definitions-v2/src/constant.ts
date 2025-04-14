@@ -60,6 +60,7 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
+        [EndpointId.SOPHON_V2_MAINNET]: '', // todo
         [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -133,6 +134,7 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
         [EndpointId.SEI_V2_MAINNET]: '0xbd00c87850416db0995ef8030b104f875e1bdd15',
+        [EndpointId.SOPHON_V2_MAINNET]: '', // todo
         [EndpointId.SONEIUM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SONIC_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.STORY_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
@@ -193,6 +195,7 @@ export const EXECUTORS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
+        [EndpointId.SOPHON_V2_MAINNET]: '', // todo
         [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
@@ -367,6 +370,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.SEI_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+            [EndpointId.SOPHON_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -574,6 +582,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.SEI_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xB75D0B03c06A926e488e2659DF1A861F860bD3d1',
+            },
+            [EndpointId.SOPHON_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '', // todo
             },
             [EndpointId.STORY_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -807,6 +819,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1',
                 type: StargateType.Pool,
             },
+            [EndpointId.SOPHON_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '', // todo
+            },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 address: '0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369',
                 type: StargateType.Pool,
@@ -985,6 +1001,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
         [EndpointId.SEI_V2_MAINNET]: {},
+        [EndpointId.SOPHON_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
         [EndpointId.SONIC_V2_MAINNET]: {},
@@ -2349,6 +2366,38 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x3d4BA2E0884aa488718476ca2FB8Efc291A46199',
                 },
             },
+        },
+    },
+    [EndpointId.SOPHON_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0001').toBigInt(), // todo
+            busGasLimit: 60000n,
+            nativeDropGasLimit: 30000n,
+        },
+        safeConfig: {
+            safeAddress: '0.000', // todo
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/sophon`,
+            // todo
+            // contractNetworks: {
+            //     [50104]: {
+            //         multiSendAddress: '0x000000',
+            //         multiSendCallOnlyAddress: '0x000000',
+            //         safeMasterCopyAddress: '0x000000',
+            //         safeProxyFactoryAddress: '0x000000',
+            //         fallbackHandlerAddress: '0x000000',
+            //         createCallAddress: '0x000000',
+            //         signMessageLibAddress: '0x000000',
+            //         simulateTxAccessorAddress: '0x000000',
+            //     },
+            // },
         },
     },
     [EndpointId.SONEIUM_V2_MAINNET]: {
