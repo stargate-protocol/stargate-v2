@@ -286,13 +286,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'ebi-mainnet': {
-        eid: EndpointId.EBI_V2_MAINNET,
-        url: process.env.RPC_URL_EBI_MAINNET || 'https://rpc.ebi.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.EBI_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
         url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.payload.de',
