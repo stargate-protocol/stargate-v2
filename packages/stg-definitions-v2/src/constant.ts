@@ -554,7 +554,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.NIBIRU_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '', // todo
+                address: '0x43F2376D5D03553aE72F4A8093bbe9de4336EB08',
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -783,7 +783,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.NIBIRU_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '', // todo
+                address: '0x0829F361A05D993d5CEb035cA6DF3446b060970b',
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
