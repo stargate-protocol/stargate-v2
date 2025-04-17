@@ -2095,25 +2095,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00001').toBigInt(), // todo drop ammount
+            nativeDropAmount: parseEther('2').toBigInt(),
             busGasLimit: 50000n,
         },
         safeConfig: {
             safeAddress: '0xF9d173F325035b4A9654EA21a798b9C8b7a0B4fE',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/nibiru`,
-            // todo
-            // contractNetworks: {
-            //     [6900]: {
-            //         multiSendAddress: '0x0000000000',
-            //         multiSendCallOnlyAddress: '0x0000000000',
-            //         safeMasterCopyAddress: '0x0000000000',
-            //         safeProxyFactoryAddress: '0x0000000000',
-            //         fallbackHandlerAddress: '0x0000000000',
-            //         createCallAddress: '0x0000000000',
-            //         signMessageLibAddress: '0x0000000000',
-            //         simulateTxAccessorAddress: '0x0000000000',
-            //     },
-            // },
+            contractNetworks: {
+                [6900]: {
+                    multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
+                    multiSendCallOnlyAddress: '0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B',
+                    safeMasterCopyAddress: '0xfb1bffC9d739B8D520DaF37dF666da4C687191EA',
+                    safeProxyFactoryAddress: '0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC',
+                    fallbackHandlerAddress: '0x017062a1dE2FE6b99BE3d9d37841FeD19F573804',
+                    createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
+                    signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
+                    simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
+                },
+            },
         },
     },
     [EndpointId.OPBNB_V2_MAINNET]: {
