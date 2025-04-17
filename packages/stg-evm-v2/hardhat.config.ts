@@ -460,6 +460,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.MOONRIVER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'nibiru-mainnet': {
+        eid: EndpointId.NIBIRU_V2_MAINNET,
+        url: process.env.RPC_URL_NIBIRU_MAINNET || 'https://evm-rpc.nibiru.fi',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.NIBIRU_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'opbnb-mainnet': {
         eid: EndpointId.OPBNB_V2_MAINNET,
         url: process.env.RPC_URL_OPBNB_MAINNET || 'https://opbnb-mainnet-rpc.bnbchain.org',
