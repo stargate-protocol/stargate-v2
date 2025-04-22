@@ -1,5 +1,16 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.3
+
+### Patch Changes
+
+- 2ed591e: bump versions
+- c702833: Nibiru mainnet config
+- fb569b8: xdc mainnet config
+- 8888925: manta pacific mainnet config
+- 17b46a3: zkatana shutdown
+- f4ae7dc: Glue Gas
+
 ## 2.0.2
 
 ### Patch Changes
