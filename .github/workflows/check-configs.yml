@@ -8,7 +8,7 @@ on:
   #   branches: [main]
 
 jobs:
-  check-feelib-eth:
+  check-feelibs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,9 +20,9 @@ jobs:
           node-version: "18"
           cache: "pnpm"
       - run: pnpm install
-      - run: npx hardhat stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.eth.config.ts
+      - run: cd packages/stg-evm-v2 && make check-feelibs
 
-  check-feelib-meth:
+  check-assets:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,119 +34,7 @@ jobs:
           node-version: "18"
           cache: "pnpm"
       - run: pnpm install
-      - run: npx hardhat stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.meth.config.ts
-
-  check-feelib-metis:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.metis.config.ts
-
-  check-feelib-usdc:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.usdc.config.ts
-
-  check-feelib-usdt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.usdt.config.ts
-
-  check-asset-eth:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.eth.config.ts
-
-  check-asset-meth:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.meth.config.ts
-
-  check-asset-metis:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.metis.config.ts
-
-  check-asset-usdc:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.usdc.config.ts
-
-  check-asset-usdt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-      - run: pnpm install
-      - run: npx hardhat stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.usdt.config.ts
+      - run: cd packages/stg-evm-v2 && make check-assets
 
   check-staking:
     runs-on: ubuntu-latest
@@ -160,7 +48,7 @@ jobs:
           node-version: "18"
           cache: "pnpm"
       - run: pnpm install
-      - run: npx hardhat stg:check::staking --oapp-config ./devtools/config/mainnet/01/staking.config.ts
+      - run: cd packages/stg-evm-v2 && make check-staking
 
   check-token-messaging:
     runs-on: ubuntu-latest
@@ -174,7 +62,7 @@ jobs:
           node-version: "18"
           cache: "pnpm"
       - run: pnpm install
-      - run: npx hardhat stg:check::token-messaging --oapp-config ./devtools/config/mainnet/01/token-messaging.config.ts
+      - run: cd packages/stg-evm-v2 && make check-token-messaging
 
   check-credit-messaging:
     runs-on: ubuntu-latest
@@ -188,4 +76,4 @@ jobs:
           node-version: "18"
           cache: "pnpm"
       - run: pnpm install
-      - run: npx hardhat stg:check::credit-messaging --oapp-config ./devtools/config/mainnet/01/credit-messaging.config.ts
+      - run: cd packages/stg-evm-v2 && make check-credit-messaging

@@ -368,3 +368,27 @@ transfer-mainnet:
 # make transfer-mainnet
 # make configure-mainnet
 mainnet: deploy-mainnet preconfigure-mainnet transfer-mainnet configure-mainnet
+
+# Check configuration targets
+check-feelibs:
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.eth.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.meth.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.metis.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.usdc.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config ./devtools/config/mainnet/01/feelib-v1.usdt.config.ts
+
+check-assets:
+	$(HARDHAT) stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.eth.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.meth.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.metis.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.usdc.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config ./devtools/config/mainnet/01/asset.usdt.config.ts
+
+check-staking:
+	$(HARDHAT) stg:check::staking --oapp-config ./devtools/config/mainnet/01/staking.config.ts
+
+check-token-messaging:
+	$(HARDHAT) stg:check::token-messaging --oapp-config ./devtools/config/mainnet/01/token-messaging.config.ts
+
+check-credit-messaging:
+	$(HARDHAT) stg:check::credit-messaging --oapp-config ./devtools/config/mainnet/01/credit-messaging.config.ts
