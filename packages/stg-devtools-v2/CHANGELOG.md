@@ -1,5 +1,18 @@
 # @stargatefinance/stg-devtools-v2
 
+## 4.0.3
+
+### Patch Changes
+
+- 2ed591e: bump versions
+- Updated dependencies [2ed591e]
+- Updated dependencies [c702833]
+- Updated dependencies [fb569b8]
+- Updated dependencies [8888925]
+- Updated dependencies [17b46a3]
+- Updated dependencies [f4ae7dc]
+  - @stargatefinance/stg-definitions-v2@2.0.3
+
 ## 4.0.2
 
 ### Patch Changes
