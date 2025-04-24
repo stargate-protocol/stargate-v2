@@ -1,0 +1,127 @@
+name: Check Configurations
+
+on:
+  workflow_dispatch:
+
+# We'll default the NPM_TOKEN to an empty value since we use it
+# in .npmrc file and if undefined, the node setup would fail
+env:
+  NPM_TOKEN: ""
+  NUM_RETRIES: 100
+  RPC_URL: ${{ secrets.RPC_URL }}
+  LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
+
+# Add concurrency to prevent parallel runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-feelibs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Feelibs
+        run: make check-feelibs
+
+  check-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Assets
+        run: make check-assets
+
+  check-staking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Staking
+        run: make check-staking
+
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      chains: ${{ steps.set-matrix.outputs.chains }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Load Chains
+        id: set-matrix
+        run: |
+          CHAINS=$(node .github/workflows/scripts/load-chains.js)
+          echo "chains=$CHAINS" >> $GITHUB_OUTPUT
+
+  check-token-messaging:
+    continue-on-error: true
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chain: ${{ fromJson(needs.generate-matrix.outputs.chains) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Token Messaging for ${{ matrix.chain }}
+        run: make check-token-messaging
+        env:
+          FROM_CHAINS: ${{ matrix.chain }}
+
+  check-credit-messaging:
+    continue-on-error: true
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chain: ${{ fromJson(needs.generate-matrix.outputs.chains) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Credit Messaging for ${{ matrix.chain }}
+        run: make check-credit-messaging
+        env:
+          FROM_CHAINS: ${{ matrix.chain }}
