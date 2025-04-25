@@ -31,7 +31,10 @@ export function getAllChainsConfig(): Chain[] {
     const fs = require('fs')
 
     // Read all yml files from the chains directory
-    const chainFiles = fs.readdirSync(chainsDir).filter((file: string) => file.endsWith('.yml'))
+    let chainFiles = fs.readdirSync(chainsDir).filter((file: string) => file.endsWith('.yml'))
+
+    // remove template-chain.yml
+    chainFiles = chainFiles.filter((file: string) => file !== 'template-chain.yml')
 
     // Load and process each chain configuration
     const chainsConfig = chainFiles.map((file: string) => {
