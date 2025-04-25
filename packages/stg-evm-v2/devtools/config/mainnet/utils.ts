@@ -5,7 +5,7 @@ import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-d
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getAssetNetworkConfig } from '../../../ts-src/utils/util'
-import { Chain, loadChainsConfig } from '../utils'
+import { Chain, loadChainConfig } from '../utils'
 
 export function isValidChain(chain: string): boolean {
     const allSupportedChains = getAllSupportedChains()
@@ -27,13 +27,21 @@ export function validateChains(chains: string[], supportedChains: string[]) {
 
 // supported chains
 export function getAllChainsConfig(): Chain[] {
-    const configFilePath = path.join(__dirname, 'chains-config.yml')
+    const chainsDir = path.join(__dirname, '01/chainsConfig')
+    const fs = require('fs')
 
-    // set the correct eid for the chains
-    const chainsConfig = loadChainsConfig(configFilePath).map((chain) => ({
-        ...chain,
-        eid: EndpointId[chain.eid as keyof typeof EndpointId],
-    }))
+    // Read all yml files from the chains directory
+    const chainFiles = fs.readdirSync(chainsDir).filter((file: string) => file.endsWith('.yml'))
+
+    // Load and process each chain configuration
+    const chainsConfig = chainFiles.map((file: string) => {
+        const filePath = path.join(chainsDir, file)
+
+        const chainConfig = loadChainConfig(filePath) // Each file contains only one chain
+
+        chainConfig.eid = EndpointId[chainConfig.eid as keyof typeof EndpointId]
+        return chainConfig
+    })
 
     return chainsConfig
 }

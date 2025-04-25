@@ -276,15 +276,11 @@ export interface Chain {
     usdc_admin?: boolean
 }
 
-interface Config {
-    chains: Chain[]
-}
-
-export function loadChainsConfig(filePath: string): Chain[] {
+export function loadChainConfig(filePath: string): Chain {
     try {
         const fileContents = fs.readFileSync(filePath, 'utf8')
-        const data = yaml.load(fileContents) as Config
-        return data.chains
+        const chain = yaml.load(fileContents) as Chain
+        return chain
     } catch (e) {
         console.error('Error loading YAML file:', e)
         throw e
