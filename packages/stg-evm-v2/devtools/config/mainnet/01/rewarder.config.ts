@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportRewarder, getRewardTokenName, getTokenName } from '../utils'
+import { getChainsThatSupportRewarder, getRewardTokenName, getTokenName, validateChains } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -16,12 +16,20 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
 
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
     const supportedChains = getChainsThatSupportRewarder()
+    validateChains(
+        chainsList,
+        supportedChains.map((chain) => chain.name)
+    )
+
+    const validChains =
+        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
 
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
 
     const contracts = await Promise.all(
-        supportedChains.map(async (chain) => {
+        validChains.map(async (chain) => {
             // build the allocations object
             const allocations = await Promise.all(
                 Object.entries(chain.rewarder?.tokens ?? {}).map(async ([token, allocations]) => {
