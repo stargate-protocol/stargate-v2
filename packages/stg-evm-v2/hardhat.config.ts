@@ -252,6 +252,7 @@ const networks: NetworksUserConfig = {
     'codex-mainnet': {
         eid: EndpointId.CODEX_V2_MAINNET,
         url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
+        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -284,13 +285,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'ebi-mainnet': {
-        eid: EndpointId.EBI_V2_MAINNET,
-        url: process.env.RPC_URL_EBI_MAINNET || 'https://rpc.ebi.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.EBI_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ethereum-mainnet': {
@@ -460,6 +454,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.MOONRIVER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'nibiru-mainnet': {
+        eid: EndpointId.NIBIRU_V2_MAINNET,
+        url: process.env.RPC_URL_NIBIRU_MAINNET || 'https://evm-rpc.nibiru.fi',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.NIBIRU_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'opbnb-mainnet': {
         eid: EndpointId.OPBNB_V2_MAINNET,
         url: process.env.RPC_URL_OPBNB_MAINNET || 'https://opbnb-mainnet-rpc.bnbchain.org',
@@ -596,13 +597,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    // 'zkatana-mainnet': {
-    //     eid: EndpointId.ZKATANA_V2_MAINNET,
-    //     url: process.env.ZKATANA_V2_MAINNET || 'https://rpc.startale.com/astar-zkevm',
-    //     accounts: mainnetAccounts,
-    //     safeConfig: getSafeConfig(EndpointId.ZKATANA_V2_MAINNET),
-    //     timeout: DEFAULT_NETWORK_TIMEOUT,
-    // },
+    'xdc-mainnet': {
+        eid: EndpointId.XDC_V2_MAINNET,
+        url: process.env.RPC_URL_XDC_MAINNET || 'https://erpc.xinfin.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.XDC_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'zkconsensys-mainnet': {
         eid: EndpointId.ZKCONSENSYS_V2_MAINNET,
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',

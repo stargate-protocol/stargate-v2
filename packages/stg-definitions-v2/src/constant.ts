@@ -51,6 +51,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.PLUME_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
@@ -68,6 +69,7 @@ export const DVNS = {
         [EndpointId.TELOS_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x25e0e650a78e6304a3983fc4b7ffc6544b1beea6',
         [EndpointId.XCHAIN_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.XDC_V2_MAINNET]: '0x1294e3347ec64fd63e1d0594dc1294247cd237c7',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xDd7B5E1dB4AaFd5C8EC3b764eFB8ed265Aa5445B',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0xb183c2b91cf76cAd13602b32ADa2Fd273f19009C',
     } satisfies Partial<Record<EndpointId, string>>,
@@ -123,6 +125,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0xca848bcb059e33adb260d793ee360924b6aa8e86',
         [EndpointId.MANTLE_V2_MAINNET]: '0xfe809470016196573d64a8d17a745bebea4ecc41',
         [EndpointId.METIS_V2_MAINNET]: '0x61a1b61a1087be03abedc04900cfcc1c14187237',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0x06d99ffd7c09ea72e962a06b6e311e513d7c3d20',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.PLUME_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -140,6 +143,7 @@ export const DVNS = {
         [EndpointId.TELOS_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x9885110b909e88bb94f7f767a68ec2558b2afa73',
         [EndpointId.XCHAIN_V2_MAINNET]: '0x56053a8f4db677e5774f8ee5bdd9d2dc270075f3',
+        [EndpointId.XDC_V2_MAINNET]: '0x4fe90e0f2a99e464d6e97b161d72101cd03c20fe',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xef269bbadb81de86e4b3278fa1dae1723545268b',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x62aa89bad332788021f6f4f4fb196d5fe59c27a6',
     } satisfies Partial<Record<EndpointId, string>>,
@@ -182,6 +186,7 @@ export const EXECUTORS = {
         [EndpointId.MANTA_V2_MAINNET]: '0x8DD9197E51dC6082853aD71D35912C53339777A7',
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0x6A02D83e8d433304bba74EF1c427913958187142',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.PLUME_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -199,6 +204,7 @@ export const EXECUTORS = {
         [EndpointId.TELOS_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.XCHAIN_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.XDC_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x0408804C5dcD9796F22558464E6fE5bDdF16A7c7',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x664e390e672A811c12091db8426cBb7d68D5D8A6',
     } satisfies Partial<Record<EndpointId, string>>,
@@ -342,6 +348,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0x420000000000000000000000000000000000000a',
             },
+            [EndpointId.NIBIRU_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
@@ -383,6 +394,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.UNICHAIN_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.XDC_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -536,6 +552,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC',
             },
+            [EndpointId.NIBIRU_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x43F2376D5D03553aE72F4A8093bbe9de4336EB08',
+            },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0x94b008aa00579c1307b0ef2c499ad98a8ce58e58',
@@ -577,6 +597,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.TELOS_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
+            },
+
+            [EndpointId.XDC_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xcdA5b77E2E2268D9E09c874c1b9A4c3F07b37555',
             },
 
             //
@@ -756,6 +781,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9',
                 type: StargateType.Pool,
             },
+            [EndpointId.NIBIRU_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x0829F361A05D993d5CEb035cA6DF3446b060970b',
+            },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
                 type: StargateType.Pool,
@@ -823,6 +852,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
+            },
+            [EndpointId.XDC_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0xCc0587aeBDa397146cc828b445dB130a94486e74',
             },
 
             //
@@ -958,6 +991,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.MODE_V2_MAINNET]: {},
         [EndpointId.MOONBEAM_V2_MAINNET]: {},
         [EndpointId.MOONRIVER_V2_MAINNET]: {},
+        [EndpointId.NIBIRU_V2_MAINNET]: {},
         [EndpointId.OPBNB_V2_MAINNET]: {},
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
@@ -977,7 +1011,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XCHAIN_V2_MAINNET]: {},
-        [EndpointId.ZKATANA_V2_MAINNET]: {},
+        [EndpointId.XDC_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
         [EndpointId.ZKSYNC_V2_MAINNET]: {},
@@ -2051,6 +2085,36 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/moonriver`,
         },
     },
+    [EndpointId.NIBIRU_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+            nativeDropAmount: parseEther('2').toBigInt(),
+            busGasLimit: 50000n,
+        },
+        safeConfig: {
+            safeAddress: '0xF9d173F325035b4A9654EA21a798b9C8b7a0B4fE',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/nibiru`,
+            contractNetworks: {
+                [6900]: {
+                    multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
+                    multiSendCallOnlyAddress: '0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B',
+                    safeMasterCopyAddress: '0xfb1bffC9d739B8D520DaF37dF666da4C687191EA',
+                    safeProxyFactoryAddress: '0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC',
+                    fallbackHandlerAddress: '0x017062a1dE2FE6b99BE3d9d37841FeD19F573804',
+                    createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
+                    signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
+                    simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
+                },
+            },
+        },
+    },
     [EndpointId.OPBNB_V2_MAINNET]: {
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
@@ -2546,10 +2610,33 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
-    [EndpointId.ZKATANA_V2_MAINNET]: {
+    [EndpointId.XDC_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+            nativeDropAmount: parseEther('0.01').toBigInt(),
+        },
         safeConfig: {
-            safeAddress: '0x64a77dD82517cC8023a52D27f4c167439bDeF5B9',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zkatana`,
+            safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/xdc`,
+            contractNetworks: {
+                [50]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
+                },
+            },
         },
     },
     [EndpointId.ZKCONSENSYS_V2_MAINNET]: {

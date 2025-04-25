@@ -1,5 +1,26 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.4
+
+### Patch Changes
+
+- 257764b: manta pacific mainnet deployment
+- 2ed591e: bump versions
+- bb8474f: Nibiru deployment
+- c702833: Nibiru mainnet config
+- fb569b8: xdc mainnet config
+- 2ba3c5c: usdt config update
+- 8888925: manta pacific mainnet config
+- 17b46a3: zkatana shutdown
+- 605f2b6: Xdc mainnet deployment
+- Updated dependencies [2ed591e]
+- Updated dependencies [c702833]
+- Updated dependencies [fb569b8]
+- Updated dependencies [8888925]
+- Updated dependencies [17b46a3]
+- Updated dependencies [f4ae7dc]
+  - @stargatefinance/stg-definitions-v2@2.0.3
+
 ## 2.0.3
 
 ### Patch Changes
