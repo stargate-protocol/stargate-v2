@@ -2,17 +2,17 @@ name: manta-mainnet
 eid: MANTA_V2_MAINNET
 token_messaging: false
 credit_messaging: false
-# token_messaging: true
-# credit_messaging: true
-# tokens:
-#   eth:
-#     type: native
-# rewarder:
-#   tokens:
-#     manta:
-#       allocation:
-#         eth: 10000
-# staking:
-#   tokens:
-#     eth: true
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+rewarder:
+  tokens:
+    manta:
+      allocation:
+        eth: 10000
+staking:
+  tokens:
+    eth: true
 
