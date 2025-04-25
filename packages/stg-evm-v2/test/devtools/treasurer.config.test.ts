@@ -7,7 +7,7 @@ import treasurerConfig from '../../devtools/config/mainnet/01/treasurer.config'
 import { getAllSupportedChains, getChainsThatSupportTreasurer } from '../../devtools/config/mainnet/utils'
 import { getSafeAddress } from '../../devtools/config/utils'
 
-describe.only('treasurer.config', () => {
+describe('treasurer.config', () => {
     let originalEnv: NodeJS.ProcessEnv
     let originalPaths: any
 
