@@ -252,7 +252,6 @@ const networks: NetworksUserConfig = {
     'codex-mainnet': {
         eid: EndpointId.CODEX_V2_MAINNET,
         url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
-        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
