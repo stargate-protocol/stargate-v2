@@ -3,6 +3,9 @@ name: Check Configurations
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 # We'll default the NPM_TOKEN to an empty value since we use it
 # in .npmrc file and if undefined, the node setup would fail
 env:
