@@ -1,0 +1,22 @@
+name: soneium-mainnet
+eid: SONEIUM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  usdc:
+    type: pool
+rewarder:
+  tokens:
+    weth:
+      allocation:
+        eth: 10000
+staking:
+  tokens:
+    eth: true
+    usdc: true
+treasurer:
+  tokens:
+    eth: true
+    usdc: true
