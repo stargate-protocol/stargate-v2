@@ -15,11 +15,17 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     // check if all chains are valid
-    validateChains(toChains)
-    validateChains(fromChains)
+    const supportedChains = getChainsThatSupportMessaging()
+    validateChains(
+        toChains,
+        supportedChains.map((chain) => chain.name)
+    )
+    validateChains(
+        fromChains,
+        supportedChains.map((chain) => chain.name)
+    )
 
     // get valid chains in the chainsList
-    const supportedChains = getChainsThatSupportMessaging()
     const validFromChains =
         fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
     const validToChains =

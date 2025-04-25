@@ -22,11 +22,17 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     // Check if provided chains are valid
-    validateChains(toChains)
-    validateChains(fromChains)
-
-    // Get valid chains that support the token
     const supportedChains = getChainsThatSupportToken(tokenName)
+    validateChains(
+        toChains,
+        supportedChains.map((chain) => chain.name)
+    )
+    validateChains(
+        fromChains,
+        supportedChains.map((chain) => chain.name)
+    )
+
+    // Get the chain config for the chains in the fromChains and toChains
     const validFromChains =
         fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
     const validToChains =

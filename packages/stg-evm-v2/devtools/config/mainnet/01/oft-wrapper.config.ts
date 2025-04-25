@@ -9,10 +9,13 @@ const contract = { contractName: 'OFTWrapper' }
 
 export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>> => {
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
-    validateChains(chainsList)
+    const allSupportedChains = getAllChainsConfig()
+    validateChains(
+        chainsList,
+        allSupportedChains.map((chain) => chain.name)
+    )
 
     // get valid chains in the chainsList
-    const allSupportedChains = getAllChainsConfig()
     const validChains =
         chainsList?.length != 0
             ? allSupportedChains.filter((chain) => chainsList.includes(chain.name))

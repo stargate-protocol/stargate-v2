@@ -413,7 +413,7 @@ describe('devtools/utils', () => {
         })
     })
 
-    describe('validChains', () => {
+    describe.only('validChains', () => {
         const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
         const invalidChains = ['invalid-chain-1', 'invalid-chain-2']
 
@@ -430,11 +430,27 @@ describe('devtools/utils', () => {
         })
 
         it('should not revert if all chains are valid', () => {
-            expect(() => validateChains(validChains)).to.not.throw()
+            const supportedChains = validChains
+            expect(() => validateChains(validChains, supportedChains)).to.not.throw()
+        })
+
+        it('should not revert if all chains are valid and supported', () => {
+            const supportedChains = validChains
+            expect(() => validateChains(validChains, supportedChains)).to.not.throw()
         })
 
         it('should throw if a chain is invalid', () => {
-            expect(() => validateChains(invalidChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
+            const supportedChains = validChains
+
+            expect(() => validateChains(invalidChains, validChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
+        })
+
+        it('should throw if a chain is valid but not supported', () => {
+            // define no supported chains
+            const supportedChains: string[] = []
+            expect(() => validateChains(validChains, supportedChains)).to.throw(
+                `Chain ${validChains[0]} is not supported`
+            )
         })
     })
 

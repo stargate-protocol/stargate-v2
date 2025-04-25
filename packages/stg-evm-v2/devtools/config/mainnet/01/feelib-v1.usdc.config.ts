@@ -19,10 +19,13 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
     // only use the chains defined in the env variable if it is set
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
-    validateChains(chainsList)
+    const supportedChains = getChainsThatSupportToken(tokenName)
+    validateChains(
+        chainsList,
+        supportedChains.map((chain) => chain.name)
+    )
 
     // get valid chains in the chainsList
-    const supportedChains = getChainsThatSupportToken(tokenName)
     const validChains =
         chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
 
