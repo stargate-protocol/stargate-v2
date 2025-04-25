@@ -39,11 +39,11 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
         toChains?.length != 0 ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
 
     console.log(
-        'asset.eth FROM_CHAINS:',
+        'asset.usdt FROM_CHAINS:',
         validFromChains.map((chain) => chain.name)
     )
     console.log(
-        'asset.eth TO_CHAINS:',
+        'asset.usdt TO_CHAINS:',
         validToChains.map((chain) => chain.name)
     )
 
