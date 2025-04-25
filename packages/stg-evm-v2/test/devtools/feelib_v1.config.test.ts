@@ -3,6 +3,7 @@ import '@nomiclabs/hardhat-ethers'
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
+import hre from 'hardhat'
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
@@ -16,18 +17,28 @@ import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools
 
 describe('feelib_v1.config', () => {
     let originalEnv: NodeJS.ProcessEnv
+    let originalPaths: any
 
-    beforeEach(() => {
+    before(async () => {
+        // In the config creation the hre paths are being modified.
+        // Save original paths
+        originalPaths = { ...hre.config.paths }
+
         // Save original environment variables
         originalEnv = { ...process.env }
+    })
 
+    beforeEach(async () => {
         // clean env
         process.env = {}
     })
 
-    afterEach(() => {
-        // Restore original environment variables
-        process.env = { ...originalEnv }
+    after(async () => {
+        // restore original paths
+        hre.config.paths = originalPaths
+
+        // restore original environment variables
+        process.env = originalEnv
     })
 
     describe('ETH FeeLib Config', () => {

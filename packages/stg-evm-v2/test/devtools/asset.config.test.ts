@@ -3,6 +3,7 @@ import '@nomiclabs/hardhat-ethers'
 import { ASSETS, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
+import hre from 'hardhat'
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
@@ -17,20 +18,29 @@ import { filterConnections, generateAssetConfig } from '../../devtools/config/ut
 
 describe('asset.config', () => {
     let originalEnv: NodeJS.ProcessEnv
+    let originalPaths: any
 
-    beforeEach(() => {
+    before(async () => {
+        // In the config creation the hre paths are being modified.
+        // Save original paths
+        originalPaths = { ...hre.config.paths }
+
         // Save original environment variables
         originalEnv = { ...process.env }
+    })
 
+    beforeEach(async () => {
         // clean env
         process.env = {}
     })
 
-    afterEach(() => {
-        // Restore original environment variables
-        process.env = { ...originalEnv }
-    })
+    after(async () => {
+        // restore original paths
+        hre.config.paths = originalPaths
 
+        // restore original environment variables
+        process.env = originalEnv
+    })
     describe('ETH Asset Config', () => {
         testAssetConfig(TokenName.ETH, ASSETS.ETH.assetId, assetEthConfig)
     })

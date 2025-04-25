@@ -1,23 +1,36 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { expect } from 'chai'
+import hre from 'hardhat'
 
 import stakingConfig from '../../devtools/config/mainnet/01/staking.config'
 import { getAllSupportedChains, getChainsThatSupportStaking } from '../../devtools/config/mainnet/utils'
 import { getSafeAddress } from '../../devtools/config/utils'
 
-describe.only('staking.config', () => {
+describe('staking.config', () => {
     let originalEnv: NodeJS.ProcessEnv
+    let originalPaths: any
 
-    beforeEach(() => {
+    before(async () => {
+        // In the config creation the hre paths are being modified.
+        // Save original paths
+        originalPaths = { ...hre.config.paths }
+
         // Save original environment variables
         originalEnv = { ...process.env }
+    })
+
+    beforeEach(async () => {
+        // clean env
         process.env = {}
     })
 
-    afterEach(() => {
-        // Restore original environment variables
-        process.env = { ...originalEnv }
+    after(async () => {
+        // restore original paths
+        hre.config.paths = originalPaths
+
+        // restore original environment variables
+        process.env = originalEnv
     })
 
     it('should generate correct configuration for all chains (use all chains since no CHAINS_LIST is provided)', async () => {

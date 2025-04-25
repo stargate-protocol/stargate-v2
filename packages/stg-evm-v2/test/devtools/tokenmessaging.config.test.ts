@@ -1,6 +1,7 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { expect } from 'chai'
+import hre from 'hardhat'
 
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import tokenMessagingConfig from '../../devtools/config/mainnet/01/token-messaging.config'
@@ -13,18 +14,28 @@ import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from 
 
 describe('tokenMessaging.config', () => {
     let originalEnv: NodeJS.ProcessEnv
+    let originalPaths: any
 
-    beforeEach(() => {
+    before(async () => {
+        // In the config creation the hre paths are being modified.
+        // Save original paths
+        originalPaths = { ...hre.config.paths }
+
         // Save original environment variables
         originalEnv = { ...process.env }
+    })
 
+    beforeEach(async () => {
         // clean env
         process.env = {}
     })
 
-    afterEach(() => {
-        // Restore original environment variables
-        process.env = { ...originalEnv }
+    after(async () => {
+        // restore original paths
+        hre.config.paths = originalPaths
+
+        // restore original environment variables
+        process.env = originalEnv
     })
 
     it('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
