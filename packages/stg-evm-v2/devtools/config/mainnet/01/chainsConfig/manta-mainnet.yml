@@ -1,7 +1,5 @@
 name: manta-mainnet
 eid: MANTA_V2_MAINNET
-token_messaging: false
-credit_messaging: false
 token_messaging: true
 credit_messaging: true
 tokens:
@@ -15,4 +13,3 @@ rewarder:
 staking:
   tokens:
     eth: true
-
