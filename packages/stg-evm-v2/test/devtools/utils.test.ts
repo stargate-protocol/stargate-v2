@@ -413,7 +413,7 @@ describe('devtools/utils', () => {
         })
     })
 
-    describe.only('validChains', () => {
+    describe('validChains', () => {
         const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
         const invalidChains = ['invalid-chain-1', 'invalid-chain-2']
 
