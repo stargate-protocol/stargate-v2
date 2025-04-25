@@ -4,7 +4,7 @@ import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
-import { generateAssetConfig } from '../../utils'
+import { filterConnections, generateAssetConfig } from '../../utils'
 import { getChainsThatSupportToken, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -18,22 +18,56 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // only use the chains defined in the env variable if it is set
-    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
-    validateChains(chainsList)
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
-    // get valid chains in the chainsList
+    // Check if provided chains are valid
+    validateChains(toChains)
+    validateChains(fromChains)
+
+    // Get valid chains that support the token
     const supportedChains = getChainsThatSupportToken(tokenName)
-    const validChains =
-        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
+    const validFromChains =
+        fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
+    const validToChains =
+        toChains?.length != 0 ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
+
+    console.log(
+        'asset.eth FROM_CHAINS:',
+        validFromChains.map((chain) => chain.name)
+    )
+    console.log(
+        'asset.eth TO_CHAINS:',
+        validToChains.map((chain) => chain.name)
+    )
 
     // Now we define all the contracts (from the valid chains set)
-    const points = Array.from(validChains).map((chain) => getAssetPoint(chain.eid))
+    const fromPoints = Array.from(validFromChains).map((chain) => getAssetPoint(chain.eid))
+    const toPoints = Array.from(validToChains).map((chain) => getAssetPoint(chain.eid))
+
+    // Get all points based on eid, with no duplicates
+    const pointsMap = new Map()
+    fromPoints.forEach((point) => pointsMap.set(point.eid, point))
+    toPoints.forEach((point) => pointsMap.set(point.eid, point))
+    const allPoints = Array.from(pointsMap.values())
 
     // And all their nodes (from the valid chains set)
-    const contracts = await Promise.all(points.map(async (point) => await getAssetNode(point)))
+    const fromContracts = await Promise.all(fromPoints.map(async (point) => await getAssetNode(point)))
+    const toContracts = await Promise.all(toPoints.map(async (point) => await getAssetNode(point)))
+
+    const contractMap = new Map()
+    fromContracts.forEach((contract) => contractMap.set(contract.contract.eid, contract))
+    toContracts.forEach((contract) => contractMap.set(contract.contract.eid, contract))
+
+    const allConnections = generateAssetConfig(tokenName, allPoints)
+    const connections = filterConnections(
+        allConnections,
+        fromContracts.map((c) => c.contract),
+        toContracts.map((c) => c.contract)
+    )
 
     return {
-        contracts,
-        connections: generateAssetConfig(tokenName, points),
+        contracts: Array.from(contractMap.values()),
+        connections,
     }
 }
