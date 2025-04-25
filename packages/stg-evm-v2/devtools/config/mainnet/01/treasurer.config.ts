@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportTreasurer, getTokenName } from '../utils'
+import { getChainsThatSupportTreasurer, getTokenName, validateChains } from '../utils'
 
 const contract = { contractName: 'Treasurer' }
 
@@ -16,8 +16,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
 
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+    const supportedChains = getChainsThatSupportTreasurer()
+    validateChains(
+        chainsList,
+        supportedChains.map((chain) => chain.name)
+    )
+
+    const validChains =
+        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
+
     const contracts = await Promise.all(
-        getChainsThatSupportTreasurer().map(async (chain) => {
+        validChains.map(async (chain) => {
             // assets per chain
             const assets = await Promise.all(
                 Object.entries(chain.treasurer?.tokens ?? {}).map(async ([asset]) => {
