@@ -2,6 +2,15 @@ name: Check Configurations
 
 on:
   workflow_dispatch:
+    inputs:
+      network:
+        description: "Select network to run checks against"
+        required: true
+        default: "mainnet"
+        type: choice
+        options:
+          - mainnet
+          - testnet
 
 permissions:
   contents: read
@@ -34,7 +43,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Feelibs
-        run: make check-feelibs
+        run: make check-feelibs network=${{ github.event.inputs.network }}
 
   check-assets:
     runs-on: ubuntu-latest
@@ -50,7 +59,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Assets
-        run: make check-assets
+        run: make check-assets network=${{ github.event.inputs.network }}
 
   check-staking:
     runs-on: ubuntu-latest
@@ -66,7 +75,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Staking
-        run: make check-staking
+        run: make check-staking network=${{ github.event.inputs.network }}
 
   generate-matrix:
     runs-on: ubuntu-latest
@@ -102,7 +111,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Token Messaging for ${{ matrix.chain }}
-        run: make check-token-messaging
+        run: make check-token-messaging network=${{ github.event.inputs.network }}
         env:
           FROM_CHAINS: ${{ matrix.chain }}
 
@@ -125,6 +134,6 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Credit Messaging for ${{ matrix.chain }}
-        run: make check-credit-messaging
+        run: make check-credit-messaging network=${{ github.event.inputs.network }}
         env:
           FROM_CHAINS: ${{ matrix.chain }}
