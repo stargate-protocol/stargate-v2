@@ -1,4 +1,4 @@
-name: Check Configurations - ${{ github.event.inputs.network }}
+name: ${{ github.event_name == 'workflow_dispatch' && format('Check Configurations ({0})', github.event.inputs.network) || 'Check Configurations' }}
 
 on:
   workflow_dispatch:
