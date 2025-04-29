@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// todo instead of hardcode the chains, get them from a source of truth
 const mainnetChains = [
     'abstract-mainnet',
     'ape-mainnet',
