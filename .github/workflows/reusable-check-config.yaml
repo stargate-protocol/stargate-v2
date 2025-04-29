@@ -30,8 +30,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Assets
         run: make check-assets network=${{ inputs.network }}
 
@@ -40,8 +40,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Feelibs
         run: make check-feelibs network=${{ inputs.network }}
 
@@ -50,8 +50,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Treasurer
         run: make check-treasurer network=${{ inputs.network }}
 
@@ -60,8 +60,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Staking
         run: make check-staking network=${{ inputs.network }}
 
@@ -70,8 +70,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Rewarder
         run: make check-rewarder network=${{ inputs.network }}
 
@@ -80,8 +80,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check OFT Wrapper
         run: make check-oft-wrapper network=${{ inputs.network }}
 
@@ -91,7 +91,7 @@ jobs:
       chains: ${{ steps.set-matrix.outputs.chains }}
     steps:
       - uses: actions/checkout@v4
-        id: set-matrix
+      - id: set-matrix
         run: |
           CHAINS=$(NETWORK=${{ inputs.network }} node .github/workflows/scripts/load-chains.js)
           echo "chains=$CHAINS" >> $GITHUB_OUTPUT
@@ -106,8 +106,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Credit Messaging for ${{ matrix.chain }}
         run: make check-credit-messaging network=${{ inputs.network }}
         env:
@@ -123,8 +123,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - name: Build
-        uses: ./.github/workflows/actions/build
+      - uses: ./.github/workflows/actions/build
+        name: Build
       - name: Check Token Messaging for ${{ matrix.chain }}
         run: make check-token-messaging network=${{ inputs.network }}
         env:
