@@ -70,8 +70,8 @@ const mainnetAccounts: HDAccountsUserConfig = {
     mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
-const getRpcUrl = (chainName: string) => {
-    const url = process.env.RPC_URL
+const getRpcUrl = (chainName: string, isTestnet = false) => {
+    const url = isTestnet ? process.env.RPC_URL_TESTNET : process.env.RPC_URL_MAINNET
     if (!url) {
         return null
     }
@@ -134,49 +134,62 @@ const networks: NetworksUserConfig = {
     //
     'arbsep-testnet': {
         eid: EndpointId.ARBSEP_V2_TESTNET,
-        url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
+        url:
+            getRpcUrl('abstract', true) ||
+            process.env.RPC_URL_ARBITRUM_TESTNET ||
+            'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
         useFeeData: true,
     },
     'avalanche-testnet': {
         eid: EndpointId.AVALANCHE_V2_TESTNET,
-        url: process.env.RPC_URL_AVALANCHE_TESTNET || 'https://api.avax-test.network/ext/bc/C/rpc',
+        url:
+            getRpcUrl('avalanche', true) ||
+            process.env.RPC_URL_AVALANCHE_TESTNET ||
+            'https://api.avax-test.network/ext/bc/C/rpc',
         accounts: testnetAccounts,
     },
     'bsc-testnet': {
         eid: EndpointId.BSC_V2_TESTNET,
-        url: process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
+        url: getRpcUrl('bsc', true) || process.env.RPC_URL_BSC_TESTNET || 'https://bsc-testnet-rpc.publicnode.com',
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
+        url:
+            getRpcUrl('klaytn', true) ||
+            process.env.RPC_URL_KLAYTN_TESTNET ||
+            'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
     'odyssey-testnet': {
         eid: EndpointId.ODYSSEY_V2_TESTNET,
-        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://story-testnet-evm.itrocket.net',
+        url:
+            getRpcUrl('odyssey', true) ||
+            process.env.RPC_URL_ODYSSEY_TESTNET ||
+            'https://story-testnet-evm.itrocket.net',
         accounts: testnetAccounts,
     },
     'mantlesep-testnet': {
         eid: EndpointId.MANTLESEP_V2_TESTNET,
-        url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
+        url: getRpcUrl('mantlesep', true) || process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
         accounts: testnetAccounts,
     },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
-        url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
+        url: getRpcUrl('optsep', true) || process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
         accounts: testnetAccounts,
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
+        url:
+            getRpcUrl('sepolia', true) || process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
-        url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
+        url: getRpcUrl('monad', true) || process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
         accounts: testnetAccounts,
     },
 
