@@ -25,6 +25,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Assets
+        run: make check-assets network=${{ inputs.network }}
+
   check-feelibs:
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +53,7 @@ jobs:
       - name: Check Feelibs
         run: make check-feelibs network=${{ inputs.network }}
 
-  check-assets:
+  check-treasurer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -50,8 +64,8 @@ jobs:
           cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
-      - name: Check Assets
-        run: make check-assets network=${{ inputs.network }}
+      - name: Check Treasurer
+        run: make check-treasurer network=${{ inputs.network }}
 
   check-staking:
     runs-on: ubuntu-latest
@@ -67,6 +81,34 @@ jobs:
       - name: Check Staking
         run: make check-staking network=${{ inputs.network }}
 
+  check-rewarder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Rewarder
+        run: make check-rewarder network=${{ inputs.network }}
+
+  check-oft-wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check OFT Wrapper
+        run: make check-oft-wrapper network=${{ inputs.network }}
+
   generate-matrix:
     runs-on: ubuntu-latest
     outputs:
@@ -81,27 +123,6 @@ jobs:
         run: |
           CHAINS=$(NETWORK=${{ inputs.network }} node .github/workflows/scripts/load-chains.js)
           echo "chains=$CHAINS" >> $GITHUB_OUTPUT
-
-  check-token-messaging:
-    continue-on-error: true
-    needs: generate-matrix
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        chain: ${{ fromJson(needs.generate-matrix.outputs.chains) }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-      - name: Build
-        uses: ./.github/workflows/actions/build
-      - name: Check Token Messaging for ${{ matrix.chain }}
-        run: make check-token-messaging network=${{ inputs.network }}
-        env:
-          FROM_CHAINS: ${{ matrix.chain }}
 
   check-credit-messaging:
     continue-on-error: true
@@ -121,5 +142,26 @@ jobs:
         uses: ./.github/workflows/actions/build
       - name: Check Credit Messaging for ${{ matrix.chain }}
         run: make check-credit-messaging network=${{ inputs.network }}
+        env:
+          FROM_CHAINS: ${{ matrix.chain }}
+
+  check-token-messaging:
+    continue-on-error: true
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chain: ${{ fromJson(needs.generate-matrix.outputs.chains) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Build
+        uses: ./.github/workflows/actions/build
+      - name: Check Token Messaging for ${{ matrix.chain }}
+        run: make check-token-messaging network=${{ inputs.network }}
         env:
           FROM_CHAINS: ${{ matrix.chain }}
