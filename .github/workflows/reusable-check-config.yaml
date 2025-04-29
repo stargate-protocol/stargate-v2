@@ -1,16 +1,12 @@
-name: ${{ github.event_name == 'workflow_dispatch' && format('Check Configurations ({0})', github.event.inputs.network) || 'Check Configurations' }}
+name: Check Configurations
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       network:
         description: "Select network to run checks against"
         required: true
-        default: "mainnet"
-        type: choice
-        options:
-          - mainnet
-          - testnet
+        type: string
 
 permissions:
   contents: read
@@ -43,7 +39,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Feelibs
-        run: make check-feelibs network=${{ github.event.inputs.network }}
+        run: make check-feelibs network=${{ inputs.network }}
 
   check-assets:
     runs-on: ubuntu-latest
@@ -59,7 +55,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Assets
-        run: make check-assets network=${{ github.event.inputs.network }}
+        run: make check-assets network=${{ inputs.network }}
 
   check-staking:
     runs-on: ubuntu-latest
@@ -75,7 +71,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Staking
-        run: make check-staking network=${{ github.event.inputs.network }}
+        run: make check-staking network=${{ inputs.network }}
 
   generate-matrix:
     runs-on: ubuntu-latest
@@ -89,7 +85,7 @@ jobs:
       - name: Load Chains
         id: set-matrix
         run: |
-          CHAINS=$(NETWORK=${{ github.event.inputs.network }} node .github/workflows/scripts/load-chains.js)
+          CHAINS=$(NETWORK=${{ inputs.network }} node .github/workflows/scripts/load-chains.js)
           echo "chains=$CHAINS" >> $GITHUB_OUTPUT
 
   check-token-messaging:
@@ -111,7 +107,7 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Token Messaging for ${{ matrix.chain }}
-        run: make check-token-messaging network=${{ github.event.inputs.network }}
+        run: make check-token-messaging network=${{ inputs.network }}
         env:
           FROM_CHAINS: ${{ matrix.chain }}
 
@@ -134,6 +130,6 @@ jobs:
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Credit Messaging for ${{ matrix.chain }}
-        run: make check-credit-messaging network=${{ github.event.inputs.network }}
+        run: make check-credit-messaging network=${{ inputs.network }}
         env:
           FROM_CHAINS: ${{ matrix.chain }}
