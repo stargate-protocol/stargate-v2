@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-// todo update this to get the chains from the source of truth
-const chainList = [
+const mainnetChains = [
     'abstract-mainnet',
     'ape-mainnet',
     'arbitrum-mainnet',
@@ -54,5 +53,24 @@ const chainList = [
     'xdc-mainnet',
     'zkconsensys-mainnet',
 ];
+
+const testnetChains = [
+    'avalanche-testnet',
+    'arbsep-testnet',
+    'bsc-testnet',
+    'klaytn-testnet',
+    'mantle-testnet',
+    'monad-testnet',
+    'odyssey-testnet',
+    'opt-testnet',
+    'sepolia-testnet',
+];
+
+// Get the network from environment variable or default to mainnet
+const network = process.env.NETWORK || 'mainnet';
+
+// Select the appropriate chain list based on the network
+const chainList = network === 'mainnet' ? mainnetChains : testnetChains;
+
 // Return the list of strings
 console.log(JSON.stringify(chainList));

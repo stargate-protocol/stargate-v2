@@ -1,4 +1,4 @@
-name: Check Configurations
+name: Check Configurations - ${{ github.event.inputs.network }}
 
 on:
   workflow_dispatch:
@@ -89,7 +89,7 @@ jobs:
       - name: Load Chains
         id: set-matrix
         run: |
-          CHAINS=$(node .github/workflows/scripts/load-chains.js)
+          CHAINS=$(NETWORK=${{ github.event.inputs.network }} node .github/workflows/scripts/load-chains.js)
           echo "chains=$CHAINS" >> $GITHUB_OUTPUT
 
   check-token-messaging:
