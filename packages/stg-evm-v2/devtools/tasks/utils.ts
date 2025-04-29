@@ -1,14 +1,17 @@
 export function checkResult(result: any, config: string) {
     if (result.length === 3 && (result[0].length > 0 || result[1].length > 0 || result[2].length > 0)) {
+        printMessage(false, config)
         throw new Error(`There are still ${result[2].length} pending transactions to wire`)
     } else {
-        printSuccessMessage(config)
+        printMessage(true, config)
     }
     return result
 }
 
-function printSuccessMessage(config: string) {
-    const message = `✅ SUCCESS: ${config} is fully wired and configured!`
+function printMessage(success: boolean, config: string) {
+    const message = success
+        ? `✅ SUCCESS: ${config} is fully wired and configured!`
+        : `❌ ERROR: ${config} is not fully wired!`
     const padding = 3 // Padding on each side
     const width = message.length + padding * 2 + 1
 
