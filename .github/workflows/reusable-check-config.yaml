@@ -30,10 +30,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Assets
@@ -44,10 +40,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Feelibs
@@ -58,10 +50,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Treasurer
@@ -72,10 +60,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Staking
@@ -86,10 +70,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Rewarder
@@ -100,10 +80,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check OFT Wrapper
@@ -115,10 +91,6 @@ jobs:
       chains: ${{ steps.set-matrix.outputs.chains }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Load Chains
         id: set-matrix
         run: |
           CHAINS=$(NETWORK=${{ inputs.network }} node .github/workflows/scripts/load-chains.js)
@@ -134,10 +106,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Credit Messaging for ${{ matrix.chain }}
@@ -155,10 +123,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
       - name: Build
         uses: ./.github/workflows/actions/build
       - name: Check Token Messaging for ${{ matrix.chain }}
