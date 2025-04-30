@@ -11,5 +11,6 @@ tokens:
     type: oft
 treasurer:
   tokens:
+    eth: true
     usdt: true
     usdc: true
