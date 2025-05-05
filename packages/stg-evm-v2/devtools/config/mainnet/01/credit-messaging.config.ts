@@ -17,11 +17,7 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     // check if all chains are valid
     const supportedChains = getChainsThatSupportMessaging()
     validateChains(
-        toChains,
-        supportedChains.map((chain) => chain.name)
-    )
-    validateChains(
-        fromChains,
+        [...toChains, ...fromChains],
         supportedChains.map((chain) => chain.name)
     )
 

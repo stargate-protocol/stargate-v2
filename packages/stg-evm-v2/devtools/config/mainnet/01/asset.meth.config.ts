@@ -23,13 +23,8 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 
     // Check if provided chains are valid
     const supportedChains = getChainsThatSupportToken(tokenName)
-
     validateChains(
-        toChains,
-        supportedChains.map((chain) => chain.name)
-    )
-    validateChains(
-        fromChains,
+        [...toChains, ...fromChains],
         supportedChains.map((chain) => chain.name)
     )
 
