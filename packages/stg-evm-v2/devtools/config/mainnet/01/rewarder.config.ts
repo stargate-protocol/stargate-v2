@@ -206,9 +206,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     allocations: {
                         [ethRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 4267,
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 3600,
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 2133,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 4767,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 4100,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 1133,
                         },
                     },
                 },
