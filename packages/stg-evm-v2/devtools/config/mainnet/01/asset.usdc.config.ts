@@ -4,8 +4,8 @@ import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
-import { generateAssetConfig, setsDifference } from '../../utils'
-import { allSupportedChains, chainEids, isValidChain } from '../utils'
+import { filterConnections, generateAssetConfig } from '../../utils'
+import { getChainsThatSupportToken, validateChains } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -17,53 +17,59 @@ const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: DEFAULT_P
 export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
-    // defined chains will be all supported chains or only the ones defined in the env vars
-    const chainsList = process.env.CHAINS_LIST ? new Set(process.env.CHAINS_LIST.split(',')) : allSupportedChains
+    // only use the chains defined in the env variable if it is set
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
-    // check if all chains are valid
-    chainsList.forEach((chain) => {
-        if (!isValidChain(chain)) {
-            throw new Error(`Invalid chain: ${chain}`)
-        }
-    })
+    // Check if provided chains are valid
+    const supportedChains = getChainsThatSupportToken(tokenName)
+    validateChains(
+        [...toChains, ...fromChains],
+        supportedChains.map((chain) => chain.name)
+    )
 
-    // all defined chains except excluded ones will be considered valid
-    const validChains = setsDifference(chainsList, excludedChains)
+    // Get valid chains that support the token
+    const validFromChains =
+        fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
+    const validToChains =
+        toChains?.length != 0 ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
+
+    console.log(
+        'asset.usdc FROM_CHAINS:',
+        validFromChains.map((chain) => chain.name)
+    )
+    console.log(
+        'asset.usdc TO_CHAINS:',
+        validToChains.map((chain) => chain.name)
+    )
 
     // Now we define all the contracts (from the valid chains set)
-    const points = Array.from(validChains).map((chain) => getAssetPoint(chainEids[chain as keyof typeof chainEids]))
+    const fromPoints = Array.from(validFromChains).map((chain) => getAssetPoint(chain.eid))
+    const toPoints = Array.from(validToChains).map((chain) => getAssetPoint(chain.eid))
+
+    // Get all points based on eid, with no duplicates
+    const pointsMap = new Map()
+    fromPoints.forEach((point) => pointsMap.set(point.eid, point))
+    toPoints.forEach((point) => pointsMap.set(point.eid, point))
+    const allPoints = Array.from(pointsMap.values())
 
     // And all their nodes (from the valid chains set)
-    const contracts = await Promise.all(points.map(async (point) => await getAssetNode(point)))
+    const fromContracts = await Promise.all(fromPoints.map(async (point) => await getAssetNode(point)))
+    const toContracts = await Promise.all(toPoints.map(async (point) => await getAssetNode(point)))
+
+    const contractMap = new Map()
+    fromContracts.forEach((contract) => contractMap.set(contract.contract.eid, contract))
+    toContracts.forEach((contract) => contractMap.set(contract.contract.eid, contract))
+
+    const allConnections = generateAssetConfig(tokenName, allPoints)
+    const connections = filterConnections(
+        allConnections,
+        fromContracts.map((c) => c.contract),
+        toContracts.map((c) => c.contract)
+    )
 
     return {
-        contracts,
-        connections: generateAssetConfig(tokenName, points),
+        contracts: Array.from(contractMap.values()),
+        connections,
     }
 }
-
-/**
- * total mainnet chains supported 59
- * excluded chains 18
- * valid chains 42
- */
-const excludedChains = new Set([
-    'astar-mainnet',
-    'blast-mainnet',
-    'ebi-mainnet',
-    'etherlink-mainnet',
-    'fantom-mainnet',
-    'fraxtal-mainnet',
-    'kava-mainnet',
-    'manta-mainnet',
-    'metis-mainnet',
-    'mode-mainnet',
-    'moonbeam-mainnet',
-    'moonriver-mainnet',
-    'opbnb-mainnet',
-    'shimmer-mainnet',
-    'unichain-mainnet',
-    'zkconsensys-mainnet',
-    'zkpolygon-mainnet',
-    // Add chains that should be excluded from usdc asset config
-])

@@ -1,0 +1,13 @@
+name: cronosevm-mainnet
+eid: CRONOSEVM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: oft
+  usdc:
+    type: oft
+treasurer:
+  tokens:
+    eth: true
+    usdc: true
