@@ -539,6 +539,14 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'sophon-mainnet': {
+        eid: EndpointId.SOPHON_V2_MAINNET,
+        url: process.env.RPC_URL_SOPHON_MAINNET || 'https://rpc.testnet.sophon.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SOPHON_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        zksync: true,
+    },
     'soneium-mainnet': {
         eid: EndpointId.SONEIUM_V2_MAINNET,
         url: process.env.RPC_URL_SONEIUM_MAINNET || 'https://rpc.soneium.org',
