@@ -52,6 +52,7 @@ import {
     onSonic,
     onStory,
     onSuperposition,
+    onSwell,
     onTaiko,
     onTelos,
     onUnichain,
@@ -112,6 +113,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const sonicAdmin = getSafeAddress(EndpointId.SONIC_V2_MAINNET)
     const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
+    const swellAdmin = getSafeAddress(EndpointId.SWELL_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const telosAdmin = getSafeAddress(EndpointId.TELOS_V2_MAINNET)
     const unichainAdmin = getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET)
@@ -309,6 +311,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
     ] as const)
+    const swellAssetAddresses = await getAssetAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -843,6 +846,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     admin: superpositionAdmin,
                     assets: {
                         [superpositionAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onSwell(contract),
+                config: {
+                    owner: swellAdmin,
+                    admin: swellAdmin,
+                    assets: {
+                        [swellAssetAddresses.ETH]: true,
                     },
                 },
             },

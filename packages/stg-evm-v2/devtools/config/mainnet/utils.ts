@@ -58,6 +58,7 @@ export const onSoneium = withEid(EndpointId.SONEIUM_V2_MAINNET)
 export const onSonic = withEid(EndpointId.SONIC_V2_MAINNET)
 export const onStory = withEid(EndpointId.STORY_V2_MAINNET)
 export const onSuperposition = withEid(EndpointId.SUPERPOSITION_V2_MAINNET)
+export const onSwell = withEid(EndpointId.SWELL_V2_MAINNET)
 export const onTaiko = withEid(EndpointId.TAIKO_V2_MAINNET)
 export const onTelos = withEid(EndpointId.TELOS_V2_MAINNET)
 export const onUnichain = withEid(EndpointId.UNICHAIN_V2_MAINNET)
@@ -124,6 +125,7 @@ export const chainEids = {
     'sonic-mainnet': EndpointId.SONIC_V2_MAINNET,
     'story-mainnet': EndpointId.STORY_V2_MAINNET,
     'superposition-mainnet': EndpointId.SUPERPOSITION_V2_MAINNET,
+    'swell-mainnet': EndpointId.SWELL_V2_MAINNET,
     'taiko-mainnet': EndpointId.TAIKO_V2_MAINNET,
     'telos-mainnet': EndpointId.TELOS_V2_MAINNET,
     'unichain-mainnet': EndpointId.UNICHAIN_V2_MAINNET,
