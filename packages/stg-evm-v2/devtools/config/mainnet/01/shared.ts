@@ -526,6 +526,7 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
     ] as const)
     const sonicLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
+    const swellLPTokenAddresses = await getLPTokenAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -608,6 +609,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [TokenName.ETH]: soneiumLPTokenAddresses.ETH,
             [TokenName.USDC]: soneiumLPTokenAddresses.USDC,
+        },
+        [EndpointId.SWELL_V2_MAINNET]: {
+            [TokenName.ETH]: swellLPTokenAddresses.ETH,
         },
         [EndpointId.SONIC_V2_MAINNET]: {
             [TokenName.USDC]: sonicLPTokenAddresses.USDC,
