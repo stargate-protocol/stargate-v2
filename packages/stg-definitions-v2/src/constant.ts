@@ -1724,7 +1724,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
-            sendCreditGasLimit: 195000n,
+            sendCreditGasLimit: 255000n,
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
@@ -1732,9 +1732,9 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
             taxiGasLimit: 350000n,
-            busGasLimit: 160000n,
-            busRideGasLimit: 85000n,
-            nativeDropGasLimit: 45000n,
+            busGasLimit: 2200000n,
+            busRideGasLimit: 145000n,
+            nativeDropGasLimit: 145000n,
         },
         safeConfig: {
             safeAddress: '0x6C0d029292f48068f576515c79Fc6bCDec5F58DA',
