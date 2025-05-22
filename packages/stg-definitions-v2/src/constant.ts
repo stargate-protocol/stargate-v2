@@ -2227,6 +2227,7 @@ export const NETWORKS: NetworksConfig = {
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             nativeDropAmount: parseEther('0.05').toBigInt(),
+            taxiGasLimit: 230000n,
         },
         safeConfig: {
             safeAddress: '0xb8ce2bE5c3c13712b4da61722EAd9d64bB57AbC9',
