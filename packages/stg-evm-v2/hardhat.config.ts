@@ -567,6 +567,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'swell-mainnet': {
+        eid: EndpointId.SWELL_V2_MAINNET,
+        url: process.env.RPC_URL_SWELL_MAINNET || 'https://swell-mainnet.alt.technology',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SWELL_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'taiko-mainnet': {
         eid: EndpointId.TAIKO_V2_MAINNET,
         url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.mainnet.taiko.xyz',

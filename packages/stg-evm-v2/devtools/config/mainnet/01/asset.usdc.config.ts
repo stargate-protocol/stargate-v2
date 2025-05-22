@@ -62,6 +62,7 @@ const excludedChains = new Set([
     'moonriver-mainnet',
     'opbnb-mainnet',
     'shimmer-mainnet',
+    'swell-mainnet',
     'unichain-mainnet',
     'zkconsensys-mainnet',
     'zkpolygon-mainnet',

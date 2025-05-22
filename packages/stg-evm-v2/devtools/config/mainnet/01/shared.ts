@@ -199,6 +199,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
     ] as const)
+    const swellAssetAddresses = await getAssetAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -421,6 +422,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {
             [superpositionAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
+        [EndpointId.SWELL_V2_MAINNET]: {
+            [swellAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+        },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [taikoAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
@@ -522,6 +526,7 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
     ] as const)
     const sonicLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
+    const swellLPTokenAddresses = await getLPTokenAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -604,6 +609,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [TokenName.ETH]: soneiumLPTokenAddresses.ETH,
             [TokenName.USDC]: soneiumLPTokenAddresses.USDC,
+        },
+        [EndpointId.SWELL_V2_MAINNET]: {
+            [TokenName.ETH]: swellLPTokenAddresses.ETH,
         },
         [EndpointId.SONIC_V2_MAINNET]: {
             [TokenName.USDC]: sonicLPTokenAddresses.USDC,

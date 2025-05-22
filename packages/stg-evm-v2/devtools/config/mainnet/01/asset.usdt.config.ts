@@ -71,6 +71,7 @@ const excludedChains = new Set([
     'soneium-mainnet',
     'sonic-mainnet',
     'superposition-mainnet',
+    'swell-mainnet',
     'unichain-mainnet',
     'xchain-mainnet',
     'zkconsensys-mainnet',
