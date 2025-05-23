@@ -1,5 +1,14 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.4
+
+### Patch Changes
+
+- 391728d: bump credits
+- 332d944: swell mainnet configuration
+- 5605211: unichain bump
+- f3ae1c2: bump taxi plumephoenix
+
 ## 2.0.3
 
 ### Patch Changes
