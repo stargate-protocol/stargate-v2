@@ -10,7 +10,7 @@ import {
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportStaking, getTokenName, validateChains } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportStaking, getTokenName } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -22,13 +22,9 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment))
 
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
-    const supportedChains = getChainsThatSupportStaking()
-    validateChains(
-        chainsList,
-        supportedChains.map((chain) => chain.name)
-    )
-    const validChains =
-        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
+
+    // get valid chains config in the chainsList
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportStaking())
 
     const contracts = await Promise.all(
         validChains.map(async (chain) => {

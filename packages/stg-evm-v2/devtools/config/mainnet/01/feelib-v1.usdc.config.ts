@@ -5,7 +5,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import { getContractWithEid } from '../../utils'
-import { getChainsThatSupportToken, validateChains } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportToken } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -19,15 +19,9 @@ export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1Ed
 
     // only use the chains defined in the env variable if it is set
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
-    const supportedChains = getChainsThatSupportToken(tokenName)
-    validateChains(
-        chainsList,
-        supportedChains.map((chain) => chain.name)
-    )
 
-    // get valid chains in the chainsList
-    const validChains =
-        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
+    // get valid chains config in the chainsList
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportToken(tokenName))
 
     const contracts = Array.from(validChains).map((chain) => {
         return {

@@ -5,7 +5,7 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { filterConnections, generateAssetConfig } from '../../utils'
-import { getChainsThatSupportToken, validateChains } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportToken } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
@@ -23,16 +23,10 @@ export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConf
 
     // Check if provided chains are valid
     const supportedChains = getChainsThatSupportToken(tokenName)
-    validateChains(
-        [...toChains, ...fromChains],
-        supportedChains.map((chain) => chain.name)
-    )
 
-    // Get valid chains that support the token
-    const validFromChains =
-        fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
-    const validToChains =
-        toChains?.length != 0 ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
+    // Get valid chains config for the chains in the fromChains and toChains
+    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
+    const validToChains = filterValidProvidedChains(toChains, supportedChains)
 
     console.log(
         'asset.usdc FROM_CHAINS:',

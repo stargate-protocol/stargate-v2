@@ -3,7 +3,7 @@ import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatef
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, generateCreditMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportMessaging, getSupportedTokensByEid, validateChains } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getAssetsConfig } from './shared'
@@ -16,16 +16,10 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
 
     // check if all chains are valid
     const supportedChains = getChainsThatSupportMessaging()
-    validateChains(
-        [...toChains, ...fromChains],
-        supportedChains.map((chain) => chain.name)
-    )
 
-    // get valid chains in the chainsList
-    const validFromChains =
-        fromChains?.length != 0 ? supportedChains.filter((chain) => fromChains.includes(chain.name)) : supportedChains
-    const validToChains =
-        toChains?.length != 0 ? supportedChains.filter((chain) => toChains.includes(chain.name)) : supportedChains
+    // Get valid chains config for the chains in the fromChains and toChains
+    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
+    const validToChains = filterValidProvidedChains(toChains, supportedChains)
 
     console.log(
         'CREDIT_MESSAGING FROM_CHAINS:',

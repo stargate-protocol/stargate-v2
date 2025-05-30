@@ -25,6 +25,19 @@ export function validateChains(chains: string[], supportedChains: string[]) {
     })
 }
 
+export function filterValidProvidedChains(providedChains: string[], supportedChains: Chain[]): Chain[] {
+    // validate provided chains
+    validateChains(
+        providedChains,
+        supportedChains.map((chain) => chain.name)
+    )
+
+    // get valid chains in the provided chains list
+    return providedChains?.length != 0
+        ? supportedChains.filter((chain) => providedChains.includes(chain.name))
+        : supportedChains
+}
+
 // supported chains
 export function getAllChainsConfig(): Chain[] {
     const chainsDir = path.join(__dirname, '01/chainsConfig')

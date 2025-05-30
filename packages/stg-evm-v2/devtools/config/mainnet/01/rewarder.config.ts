@@ -6,7 +6,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportRewarder, getRewardTokenName, getTokenName, validateChains } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportRewarder, getRewardTokenName, getTokenName } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -17,14 +17,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     const getEnvironment = createGetHreByEid()
 
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
-    const supportedChains = getChainsThatSupportRewarder()
-    validateChains(
-        chainsList,
-        supportedChains.map((chain) => chain.name)
-    )
 
-    const validChains =
-        chainsList?.length != 0 ? supportedChains.filter((chain) => chainsList.includes(chain.name)) : supportedChains
+    // get valid chains config in the chainsList
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder())
 
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
 
