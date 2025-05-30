@@ -65,6 +65,7 @@ export const DVNS = {
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.SWELL_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TELOS_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x25e0e650a78e6304a3983fc4b7ffc6544b1beea6',
@@ -139,6 +140,7 @@ export const DVNS = {
         [EndpointId.SONIC_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.STORY_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.SWELL_V2_MAINNET]: '0x7976b969a8e9560c483229ffbb855e8440898c9d',
         [EndpointId.TAIKO_V2_MAINNET]: '0x37473676ff697f2eba29c8a3105309abf00ba013',
         [EndpointId.TELOS_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x9885110b909e88bb94f7f767a68ec2558b2afa73',
@@ -200,6 +202,7 @@ export const EXECUTORS = {
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
+        [EndpointId.SWELL_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TELOS_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
@@ -386,6 +389,9 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
+            },
+            [EndpointId.SWELL_V2_MAINNET]: {
+                type: StargateType.Native,
             },
             [EndpointId.TELOS_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -1007,6 +1013,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SONIC_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
+        [EndpointId.SWELL_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
         [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
@@ -1717,7 +1724,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
-            sendCreditGasLimit: 195000n,
+            sendCreditGasLimit: 255000n,
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
@@ -1725,9 +1732,9 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
             taxiGasLimit: 350000n,
-            busGasLimit: 160000n,
-            busRideGasLimit: 85000n,
-            nativeDropGasLimit: 45000n,
+            busGasLimit: 2200000n,
+            busRideGasLimit: 145000n,
+            nativeDropGasLimit: 145000n,
         },
         safeConfig: {
             safeAddress: '0x6C0d029292f48068f576515c79Fc6bCDec5F58DA',
@@ -2220,6 +2227,7 @@ export const NETWORKS: NetworksConfig = {
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             nativeDropAmount: parseEther('0.05').toBigInt(),
+            taxiGasLimit: 230000n,
         },
         safeConfig: {
             safeAddress: '0xb8ce2bE5c3c13712b4da61722EAd9d64bB57AbC9',
@@ -2494,6 +2502,35 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    [EndpointId.SWELL_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET], DVNS.STG[EndpointId.SWELL_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET], DVNS.STG[EndpointId.SWELL_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0003').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x4565E255dbA625fDf7bF1229ED6C280915740aA8',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/swell`,
+            contractNetworks: {
+                [1923]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
+                },
+            },
+        },
+    },
     [EndpointId.TAIKO_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -2563,6 +2600,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET], DVNS.STG[EndpointId.UNICHAIN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
             nativeDropAmount: parseEther('0.005').toBigInt(),
+            taxiGasLimit: 350000n,
         },
         safeConfig: {
             safeAddress: '0x60049009F2c54E50f93739Ffa2B1896b4594292B',

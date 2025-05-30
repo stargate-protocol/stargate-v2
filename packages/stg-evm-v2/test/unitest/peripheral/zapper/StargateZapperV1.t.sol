@@ -19,6 +19,8 @@ import { StargatePoolNative } from "../../../../src/StargatePoolNative.sol";
 
 contract StargateZapperV1Test is StargateBaseTest {
     using SafeERC20 for IERC20;
+    uint256 constant PRE_PECTRA_BLOCK_NUMBER = 22431084 - 1;
+
     StargateStaking staking;
     StargateZapperV1 zapper;
     IStargateV1Router routerV1 = IStargateV1Router(0x8731d54E9D02c286767d56ac03e8037C07e01e98);
@@ -47,7 +49,8 @@ contract StargateZapperV1Test is StargateBaseTest {
 
     function setUp() public override {
         super.setUp();
-        vm.createSelectFork(vm.rpcUrl("ethereum_mainnet"));
+        // forking before pectra update, because after it, EOAs might have code, and this test assumes that vm.addr(1) has no code
+        vm.createSelectFork(vm.rpcUrl("ethereum_mainnet"), PRE_PECTRA_BLOCK_NUMBER);
 
         token1 = new TestToken("Test1", "TST1", 0);
         token2 = new TestToken("Test2", "TST2", 0);
