@@ -2,30 +2,36 @@ import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefin
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from '../../utils'
-import { getContracts, isValidTokenMessagingChain, validTokenMessagingChains } from '../utils'
+import { filterConnections, generateTokenMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
+import { filterValidProvidedChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { getMessagingAssetConfig } from './shared'
+import { getAssetsConfig } from './shared'
 
 const contract = { contractName: 'TokenMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>> => {
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : [...validTokenMessagingChains]
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : [...validTokenMessagingChains]
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
-    console.log('TOKEN_MESSAGING FROM_CHAINS:', fromChains)
-    console.log('TOKEN_MESSAGING TO_CHAINS:', toChains)
+    // check if all chains are valid
+    const supportedChains = getChainsThatSupportMessaging()
 
-    let fromContracts
-    let toContracts
-    try {
-        fromContracts = getContracts(fromChains, contract, isValidTokenMessagingChain)
-        toContracts = getContracts(toChains, contract, isValidTokenMessagingChain)
-    } catch (error) {
-        console.error('Error getting contracts: ', error)
-        throw error
-    }
+    // Get valid chains config for the chains in the fromChains and toChains
+    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
+    const validToChains = filterValidProvidedChains(toChains, supportedChains)
+
+    console.log(
+        'TOKEN_MESSAGING FROM_CHAINS:',
+        validFromChains.map((chain) => chain.name)
+    )
+    console.log(
+        'TOKEN_MESSAGING TO_CHAINS:',
+        validToChains.map((chain) => chain.name)
+    )
+
+    const fromContracts = validFromChains.map((chain) => getContractWithEid(chain.eid, contract))
+    const toContracts = validToChains.map((chain) => getContractWithEid(chain.eid, contract))
 
     const contractMap = new Map()
 
@@ -38,18 +44,21 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
     const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
 
     const getEnvironment = createGetHreByEid()
-    const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
-    return {
-        contracts: allContracts.map((contract) => ({
+    const contracts = await Promise.all(
+        allContracts.map(async (contract) => ({
             contract,
             config: {
                 owner: getSafeAddress(contract.eid),
                 delegate: getSafeAddress(contract.eid),
                 planner: DEFAULT_PLANNER,
-                assets: assetConfigs[contract.eid as keyof typeof assetConfigs],
+                assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },
-        })),
+        }))
+    )
+
+    return {
+        contracts,
         connections: filteredConnections,
     }
 }

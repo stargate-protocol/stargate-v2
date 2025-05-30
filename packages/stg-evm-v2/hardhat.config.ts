@@ -420,7 +420,7 @@ const networks: NetworksUserConfig = {
     },
     'mantle-mainnet': {
         eid: EndpointId.MANTLE_V2_MAINNET,
-        url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle.drpc.org',
+        url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle-mainnet.public.blastapi.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MANTLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,

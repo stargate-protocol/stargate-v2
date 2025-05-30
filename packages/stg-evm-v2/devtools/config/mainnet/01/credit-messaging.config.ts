@@ -2,35 +2,40 @@ import { CreditMessagingEdgeConfig, CreditMessagingNodeConfig } from '@stargatef
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { filterConnections, generateCreditMessagingConfig, getSafeAddress } from '../../utils'
-import { getContracts, isValidCreditMessagingChain, validCreditMessagingChains } from '../utils'
+import { filterConnections, generateCreditMessagingConfig, getContractWithEid, getSafeAddress } from '../../utils'
+import { filterValidProvidedChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
-import { getMessagingAssetConfig } from './shared'
+import { getAssetsConfig } from './shared'
 
 const contract = { contractName: 'CreditMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, CreditMessagingEdgeConfig>> => {
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : [...validCreditMessagingChains]
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : [...validCreditMessagingChains]
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
-    console.log('CREDIT_MESSAGING FROM_CHAINS:', fromChains)
-    console.log('CREDIT_MESSAGING TO_CHAINS:', toChains)
+    // check if all chains are valid
+    const supportedChains = getChainsThatSupportMessaging()
 
-    let fromContracts
-    let toContracts
-    try {
-        fromContracts = getContracts(fromChains, contract, isValidCreditMessagingChain)
-        toContracts = getContracts(toChains, contract, isValidCreditMessagingChain)
-    } catch (error) {
-        console.error('Error getting contracts: ', error)
-        throw error
-    }
+    // Get valid chains config for the chains in the fromChains and toChains
+    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
+    const validToChains = filterValidProvidedChains(toChains, supportedChains)
+
+    console.log(
+        'CREDIT_MESSAGING FROM_CHAINS:',
+        validFromChains.map((chain) => chain.name)
+    )
+    console.log(
+        'CREDIT_MESSAGING TO_CHAINS:',
+        validToChains.map((chain) => chain.name)
+    )
+
+    const fromContracts = validFromChains.map((chain) => getContractWithEid(chain.eid, contract))
+    const toContracts = validToChains.map((chain) => getContractWithEid(chain.eid, contract))
 
     const contractMap = new Map()
 
     fromContracts.forEach((contract) => contractMap.set(contract.eid, contract))
-
     toContracts.forEach((contract) => contractMap.set(contract.eid, contract))
 
     const allContracts = Array.from(contractMap.values())
@@ -38,18 +43,21 @@ export default async (): Promise<OmniGraphHardhat<CreditMessagingNodeConfig, Cre
     const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
 
     const getEnvironment = createGetHreByEid()
-    const assetConfigs = await getMessagingAssetConfig(getEnvironment)
 
-    return {
-        contracts: allContracts.map((contract) => ({
+    const contracts = await Promise.all(
+        allContracts.map(async (contract) => ({
             contract,
             config: {
                 owner: getSafeAddress(contract.eid),
                 delegate: getSafeAddress(contract.eid),
                 planner: DEFAULT_PLANNER,
-                assets: assetConfigs[contract.eid as keyof typeof assetConfigs],
+                assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },
-        })),
+        }))
+    )
+
+    return {
+        contracts,
         connections: filteredConnections,
     }
 }

@@ -1,0 +1,13 @@
+name: gnosis-mainnet
+eid: GNOSIS_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: pool
+  usdc:
+    type: pool
+treasurer:
+  tokens:
+    eth: true
+    usdc: true
