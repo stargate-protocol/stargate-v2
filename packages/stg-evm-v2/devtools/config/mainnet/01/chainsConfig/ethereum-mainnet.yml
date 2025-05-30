@@ -17,9 +17,9 @@ rewarder:
   tokens:
     stg:
       allocation:
-        eth: 1
-        usdc: 1
-        usdt: 9998
+        eth: 4767
+        usdc: 4100
+        usdt: 1133
 staking:
   tokens:
     eth: true
