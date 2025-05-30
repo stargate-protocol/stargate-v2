@@ -1,0 +1,9 @@
+name: swell-mainnet
+eid: SWELL_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+treasurer:
+  eth: true
