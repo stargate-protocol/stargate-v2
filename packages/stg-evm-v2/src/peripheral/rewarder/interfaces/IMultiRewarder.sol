@@ -70,7 +70,7 @@ interface IMultiRewarder is IRewarder {
      *          been explicitly stopped.
      */
     event RewardRegistered(address indexed rewardToken);
-    /// @notice Emitted when the reward pool has been adjusted or intialized, with the new params.
+    /// @notice Emitted when the reward pool has been adjusted or initialized, with the new params.
     event RewardSet(
         address indexed rewardToken,
         uint256 amountAdded,
