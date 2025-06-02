@@ -55,20 +55,19 @@ const v1Deployments = join(dirname(require.resolve('@stargatefinance/stg-evm-v1/
  */
 const DEFAULT_NETWORK_TIMEOUT = 600_000
 
+const TEST_MNEMONIC = 'test test test test test test test test test test test junk'
+
 const sandboxAccounts: HDAccountsUserConfig = {
-    mnemonic:
-        process.env.MNEMONIC_SANDBOX ||
-        process.env.MNEMONIC ||
-        'test test test test test test test test test test test junk',
+    mnemonic: process.env.MNEMONIC_SANDBOX || process.env.MNEMONIC || TEST_MNEMONIC,
     count: 300,
 }
 
 const testnetAccounts: HDAccountsUserConfig = {
-    mnemonic: process.env.MNEMONIC_TESTNET || process.env.MNEMONIC || '',
+    mnemonic: process.env.MNEMONIC_TESTNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
 const mainnetAccounts: HDAccountsUserConfig = {
-    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || '',
+    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
 const hardhatNamedAccounts: HardhatUserConfig = {
