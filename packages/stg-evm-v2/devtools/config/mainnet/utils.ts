@@ -38,6 +38,17 @@ export function filterValidProvidedChains(providedChains: string[], supportedCha
         : supportedChains
 }
 
+export function filterFromAndToChains(
+    fromChains: string[],
+    toChains: string[],
+    supportedChains: Chain[]
+): { validFromChains: Chain[]; validToChains: Chain[] } {
+    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
+    const validToChains = filterValidProvidedChains(toChains, supportedChains)
+
+    return { validFromChains, validToChains }
+}
+
 // supported chains
 export function getAllChainsConfig(): Chain[] {
     const chainsDir = path.join(__dirname, '01/chainsConfig')

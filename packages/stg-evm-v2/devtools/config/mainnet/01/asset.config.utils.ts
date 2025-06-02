@@ -8,7 +8,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetNode } from '../../../utils'
 import { filterConnections, generateAssetConfig } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportToken } from '../utils'
+import { filterFromAndToChains, getChainsThatSupportToken } from '../utils'
 
 export default async function buildAssetDeploymentGraph(
     tokenName: TokenName,
@@ -23,8 +23,7 @@ export default async function buildAssetDeploymentGraph(
     const supportedChains = getChainsThatSupportToken(tokenName)
 
     // Get valid chains config for the chains in the fromChains and toChains
-    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
-    const validToChains = filterValidProvidedChains(toChains, supportedChains)
+    const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
 
     console.log(
         'asset.eth FROM_CHAINS:',

@@ -13,7 +13,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, getContractWithEid, getSafeAddress } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
+import { filterFromAndToChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getAssetsConfig } from './shared'
@@ -36,8 +36,7 @@ export default async function buildMessagingGraph(
     const supportedChains = getChainsThatSupportMessaging()
 
     // Get valid chains config for the chains in the fromChains and toChains
-    const validFromChains = filterValidProvidedChains(fromChains, supportedChains)
-    const validToChains = filterValidProvidedChains(toChains, supportedChains)
+    const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
 
     console.log(
         messagingType + ' FROM_CHAINS:',
