@@ -166,8 +166,6 @@ describe('tokenMessaging.config', () => {
     })
 
     it('should use the correct safe address for owner and delegate', async () => {
-        getChainsThatSupportMessaging()
-
         // Get token messaging config
         const config = await tokenMessagingConfig()
 
