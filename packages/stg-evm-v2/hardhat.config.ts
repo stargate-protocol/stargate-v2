@@ -385,7 +385,7 @@ const networks: NetworksUserConfig = {
     },
     'islander-mainnet': {
         eid: EndpointId.ISLANDER_V2_MAINNET,
-        url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://rpc.islander.vana.org',
+        url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://evm-rpc-vana.josephtran.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ISLANDER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
