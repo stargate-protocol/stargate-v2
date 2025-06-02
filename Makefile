@@ -368,3 +368,44 @@ transfer-mainnet:
 # make transfer-mainnet
 # make configure-mainnet
 mainnet: deploy-mainnet preconfigure-mainnet transfer-mainnet configure-mainnet
+
+
+# Check configuration targets
+network ?= mainnet
+ifeq ($(network),mainnet)
+    CONFIG_BASE_PATH=./devtools/config/mainnet/01
+else
+    CONFIG_BASE_PATH=./devtools/config/testnet
+endif
+
+check-assets:
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.meth.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts
+
+check-feelibs:
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.meth.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts
+
+check-treasurer:
+	$(HARDHAT) stg:check::treasurer --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts
+
+check-staking:
+	$(HARDHAT) stg:check::staking --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts
+
+check-rewarder:
+	$(HARDHAT) stg:check::rewarder --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts
+
+check-oft-wrapper:
+	$(HARDHAT) stg:check::oft-wrapper --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts
+
+check-token-messaging:
+	$(HARDHAT) stg:check::token-messaging --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts
+
+check-credit-messaging:
+	$(HARDHAT) stg:check::credit-messaging --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts

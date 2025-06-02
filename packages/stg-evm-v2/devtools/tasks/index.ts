@@ -68,7 +68,7 @@ import {
     initializeBusQueueStorage,
     initializeMinters,
 } from '@stargatefinance/stg-devtools-v2'
-import { subtask } from 'hardhat/config'
+import { subtask, task } from 'hardhat/config'
 
 import { createConnectedContractFactory, inheritTask } from '@layerzerolabs/devtools-evm-hardhat'
 import {
@@ -81,6 +81,14 @@ import {
 
 import {
     TASK_STG_ADD_LIQUIDITY,
+    TASK_STG_CHECK_ASSET,
+    TASK_STG_CHECK_CREDIT_MESSAGING,
+    TASK_STG_CHECK_FEELIB_V1,
+    TASK_STG_CHECK_OFT_WRAPPER,
+    TASK_STG_CHECK_REWARDER,
+    TASK_STG_CHECK_STAKING,
+    TASK_STG_CHECK_TOKEN_MESSAGING,
+    TASK_STG_CHECK_TREASURER,
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
     TASK_STG_WIRE_ASSET,
@@ -97,6 +105,7 @@ import {
     TASK_STG_WIRE_USDC_INITIALIZE_MINTER,
     TASK_STG_WIRE_USDC_SET_ADMIN,
 } from './constants'
+import { checkResult } from './utils'
 
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 
@@ -599,3 +608,123 @@ wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
+
+/**
+ * Task for checking assets are fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_ASSET, 'Check asset')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_ASSET, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking feelibs are fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_FEELIB_V1, 'Check feelib')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_FEELIB_V1, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking treasurer is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_TREASURER, 'Check treasurer')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_TREASURER, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking staking is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_STAKING, 'Check staking')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_STAKING, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking rewarder is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_REWARDER, 'Check rewarder')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_REWARDER, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking oft wrapper is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_OFT_WRAPPER, 'Check OFT Wrapper')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_OFT_WRAPPER, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking oft credit messaging is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_CREDIT_MESSAGING, 'Check Credit Messaging')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_CREDIT_MESSAGING, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking oft token messaging is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_TOKEN_MESSAGING, 'Check Token Messaging')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_TOKEN_MESSAGING, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })

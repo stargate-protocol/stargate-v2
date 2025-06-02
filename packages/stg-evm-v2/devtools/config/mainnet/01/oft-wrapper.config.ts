@@ -15,6 +15,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
             contract: oftWrapper,
             config: {
                 owner: getSafeAddress(eid),
+                oftBps: {}, //! adding this to fix the error I'm having when wiring the oft wrapper
             },
         }
     })
