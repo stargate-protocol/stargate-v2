@@ -1,0 +1,34 @@
+name: ethereum-mainnet
+eid: ETHEREUM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  meth:
+    type: pool
+  metis:
+    type: pool
+  usdc:
+    type: pool
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    stg:
+      allocation:
+        eth: 4767
+        usdc: 4100
+        usdt: 1133
+staking:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    eth: true
+    meth: true
+    metis: true
+    usdt: true
+    usdc: true
