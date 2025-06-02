@@ -69,8 +69,6 @@ function testAssetConfig(
 ) {
     it('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
         const supportedChains = getChainsThatSupportToken(tokenName)
-        console.log(tokenName, assetId)
-
         // Get ETH asset config
         const config = await assetConfig()
 

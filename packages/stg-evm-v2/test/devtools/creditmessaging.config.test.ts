@@ -145,8 +145,6 @@ describe('creditMessaging.config', () => {
     })
 
     it('should generate correct assets configuration for each contract', async () => {
-        getChainsThatSupportMessaging()
-
         // Get credit messaging config
         const config = await creditMessagingConfig()
 
