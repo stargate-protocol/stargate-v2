@@ -731,6 +731,39 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
     },
 }
 
+const getRpcUrl = (chainName: string): string | null => {
+    const [chainRawName, chainType] = chainName.split('-', 2)
+    if (!chainType || !chainRawName) return null
+
+    let templateUrl
+
+    switch (chainType) {
+        case 'testnet':
+            templateUrl = process.env.RPC_URL_TESTNET
+            break
+        case 'mainnet':
+            templateUrl = process.env.RPC_URL_MAINNET
+            break
+        default:
+            return null
+    }
+
+    const url = templateUrl?.replace('CHAIN', chainRawName) ?? null
+    return url
+}
+
+const updateNetworkRpcUrls = (networks: NetworksUserConfig): NetworksUserConfig => {
+    return Object.fromEntries(
+        Object.entries(networks).map(([networkName, networkConfig]) => {
+            if (networkConfig && 'url' in networkConfig) {
+                const dynamicUrl = getRpcUrl(networkName)
+                return [networkName, { ...networkConfig, url: dynamicUrl ?? networkConfig.url }]
+            }
+            return [networkName, networkConfig]
+        })
+    )
+}
+
 const hardhatNetworks: Pick<HardhatUserConfig, 'networks'> = {
     networks: {
         localhost: {
@@ -742,7 +775,7 @@ const hardhatNetworks: Pick<HardhatUserConfig, 'networks'> = {
             throwOnCallFailures: false,
             allowUnlimitedContractSize: true,
         },
-        ...networks,
+        ...updateNetworkRpcUrls(networks),
     },
 }
 
