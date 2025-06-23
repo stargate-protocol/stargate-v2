@@ -13,6 +13,7 @@ import {
     onAbstract,
     onApe,
     onBera,
+    onBotanix,
     onCodex,
     onCronosevm,
     onDegen,
@@ -57,6 +58,9 @@ assert(usdcApeAsset.address != null, `External USDC address not found for APE`)
 
 const usdcBeraAsset = getAssetNetworkConfig(EndpointId.BERA_V2_MAINNET, TokenName.USDC)
 assert(usdcBeraAsset.address != null, `External USDC address not found for BERA`)
+
+const usdcBotanixAsset = getAssetNetworkConfig(EndpointId.BOTANIX_V2_MAINNET, TokenName.USDC)
+assert(usdcBotanixAsset.address != null, `External USDC address not found for BOTANIX`)
 
 const usdcCodexAsset = getAssetNetworkConfig(EndpointId.CODEX_V2_MAINNET, TokenName.USDC)
 assert(usdcCodexAsset.address != null, `External USDC address not found for CODEX`)
@@ -125,6 +129,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const apeUSDCProxy = await contractFactory(onApe({ contractName: 'FiatTokenProxy', address: usdcApeAsset.address }))
     const beraUSDCProxy = await contractFactory(
         onBera({ contractName: 'FiatTokenProxy', address: usdcBeraAsset.address })
+    )
+    const botanixUSDCProxy = await contractFactory(
+        onBotanix({ contractName: 'FiatTokenProxy', address: usdcBotanixAsset.address })
     )
     const codexUSDCProxy = await contractFactory(
         onCodex({ contractName: 'FiatTokenProxy', address: usdcCodexAsset.address })
@@ -202,6 +209,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
 
     const beraUSDC = onBera({ ...fiatContract, address: beraUSDCProxy.contract.address })
     const beraStargateMultisig = getSafeAddress(EndpointId.BERA_V2_MAINNET)
+
+    const botanixUSDC = onBotanix({ ...fiatContract, address: botanixUSDCProxy.contract.address })
+    const botanixStargateMultisig = getSafeAddress(EndpointId.BOTANIX_V2_MAINNET)
 
     const codexUSDC = onCodex({ ...fiatContract, address: codexUSDCProxy.contract.address })
     const codexStargateMultisig = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
@@ -290,6 +300,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const abstractAssetAddresses = await getAssetAddresses(EndpointId.ABSTRACT_V2_MAINNET, usdcAssets)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, usdcAssets)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, usdcAssets)
+    const botanixAssetAddresses = await getAssetAddresses(EndpointId.BOTANIX_V2_MAINNET, usdcAssets)
     const codexAssetAddresses = await getAssetAddresses(EndpointId.CODEX_V2_MAINNET, usdcAssets)
     const cronosevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, usdcAssets)
     const degenAssetAddresses = await getAssetAddresses(EndpointId.DEGEN_V2_MAINNET, usdcAssets)
@@ -356,6 +367,19 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: beraStargateMultisig,
                     minters: {
                         [beraAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
+            {
+                contract: botanixUSDC,
+                config: {
+                    owner: botanixStargateMultisig,
+                    masterMinter: botanixStargateMultisig,
+                    pauser: botanixStargateMultisig,
+                    rescuer: botanixStargateMultisig,
+                    blacklister: botanixStargateMultisig,
+                    minters: {
+                        [botanixAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

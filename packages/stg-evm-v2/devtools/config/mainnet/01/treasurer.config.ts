@@ -14,6 +14,7 @@ import {
     onAvax,
     onBase,
     onBera,
+    onBotanix,
     onBsc,
     onCodex,
     onCoredao,
@@ -75,6 +76,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const beraAdmin = getSafeAddress(EndpointId.BERA_V2_MAINNET)
+    const botanixAdmin = getSafeAddress(EndpointId.BOTANIX_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
@@ -147,6 +149,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
     ] as const)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
+    const botanixAssetAddresses = await getAssetAddresses(EndpointId.BOTANIX_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
@@ -412,6 +418,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     },
                 },
             },
+            {
+                contract: onBotanix(contract),
+                config: {
+                    owner: botanixAdmin,
+                    admin: botanixAdmin,
+                    assets: {
+                        [botanixAssetAddresses.ETH]: true,
+                        [botanixAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+
             {
                 contract: onBsc(contract),
                 config: {

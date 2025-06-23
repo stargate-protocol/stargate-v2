@@ -37,6 +37,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const botanixAssetAddresses = await getAssetAddresses(EndpointId.BOTANIX_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -250,6 +254,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.BERA_V2_MAINNET]: {
             [beraAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [beraAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.BOTANIX_V2_MAINNET]: {
+            [botanixAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [botanixAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.BSC_V2_MAINNET]: {
             [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,

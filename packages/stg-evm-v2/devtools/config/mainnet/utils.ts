@@ -12,6 +12,7 @@ export const onAvax = withEid(EndpointId.AVALANCHE_V2_MAINNET)
 export const onBase = withEid(EndpointId.BASE_V2_MAINNET)
 export const onBera = withEid(EndpointId.BERA_V2_MAINNET)
 export const onBlast = withEid(EndpointId.BLAST_V2_MAINNET)
+export const onBotanix = withEid(EndpointId.BOTANIX_V2_MAINNET)
 export const onBsc = withEid(EndpointId.BSC_V2_MAINNET)
 export const onCodex = withEid(EndpointId.CODEX_V2_MAINNET)
 export const onCoredao = withEid(EndpointId.COREDAO_V2_MAINNET)
@@ -78,6 +79,7 @@ export const chainEids = {
     'base-mainnet': EndpointId.BASE_V2_MAINNET,
     'bera-mainnet': EndpointId.BERA_V2_MAINNET,
     'blast-mainnet': EndpointId.BLAST_V2_MAINNET,
+    'botanix-mainnet': EndpointId.BOTANIX_V2_MAINNET,
     'bsc-mainnet': EndpointId.BSC_V2_MAINNET,
     'codex-mainnet': EndpointId.CODEX_V2_MAINNET,
     'coredao-mainnet': EndpointId.COREDAO_V2_MAINNET,
