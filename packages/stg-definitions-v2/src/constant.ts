@@ -707,7 +707,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.BOTANIX_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x29ee6138dd4c9815f46d34a4a1ed48f46758a402',
             },
             [EndpointId.BSC_V2_MAINNET]: {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
