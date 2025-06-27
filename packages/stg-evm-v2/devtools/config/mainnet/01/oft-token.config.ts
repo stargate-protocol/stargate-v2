@@ -10,6 +10,7 @@ import { getSafeAddress } from '../../utils'
 import {
     onApe,
     onBera,
+    onBotanix,
     onCronosevm,
     onDegen,
     onFlare,
@@ -60,6 +61,11 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         getAssetType(EndpointId.BERA_V2_MAINNET, TokenName.ETH)
     )
     const beraETH = onBera({ contractName: beraETHContractName })
+    const botanixETHContractName = getTokenDeployName(
+        TokenName.ETH,
+        getAssetType(EndpointId.BOTANIX_V2_MAINNET, TokenName.ETH)
+    )
+    const botanixETH = onBotanix({ contractName: botanixETHContractName })
     const cronosevmETHContractName = getTokenDeployName(
         TokenName.ETH,
         getAssetType(EndpointId.CRONOSEVM_V2_MAINNET, TokenName.ETH)
@@ -170,6 +176,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const apeAssetAddresses = await getAssetAddresses(EndpointId.APE_V2_MAINNET, [TokenName.ETH] as const)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [TokenName.ETH] as const)
+    const botanixAssetAddresses = await getAssetAddresses(EndpointId.BOTANIX_V2_MAINNET, [TokenName.ETH] as const)
     const cronosevmAssetAddresses = await getAssetAddresses(EndpointId.CRONOSEVM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -245,6 +252,15 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.BERA_V2_MAINNET),
                     minters: {
                         [beraAssetAddresses.ETH]: true,
+                    },
+                },
+            },
+            {
+                contract: botanixETH,
+                config: {
+                    owner: getSafeAddress(EndpointId.BOTANIX_V2_MAINNET),
+                    minters: {
+                        [botanixAssetAddresses.ETH]: true,
                     },
                 },
             },
