@@ -24,3 +24,12 @@ export const TASK_STG_ADD_LIQUIDITY = `stg:add::liquidity`
 export const TASK_STG_WIRE_STAKING = `stg:wire::staking`
 
 export const TASK_STG_WIRE_OFT_WRAPPER = `stg:wire::oft-wrapper`
+
+export const TASK_STG_CHECK_CREDIT_MESSAGING = `stg:check::credit-messaging`
+export const TASK_STG_CHECK_TOKEN_MESSAGING = `stg:check::token-messaging`
+export const TASK_STG_CHECK_ASSET = `stg:check::asset`
+export const TASK_STG_CHECK_FEELIB_V1 = `stg:check::feelib-v1`
+export const TASK_STG_CHECK_STAKING = `stg:check::staking`
+export const TASK_STG_CHECK_TREASURER = `stg:check::treasurer`
+export const TASK_STG_CHECK_REWARDER = `stg:check::rewarder`
+export const TASK_STG_CHECK_OFT_WRAPPER = `stg:check::oft-wrapper`

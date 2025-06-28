@@ -1,0 +1,14 @@
+name: Check Configurations Mainnet
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-config:
+    uses: ./.github/workflows/reusable-check-config.yaml
+    with:
+      network: mainnet
+    secrets: inherit
