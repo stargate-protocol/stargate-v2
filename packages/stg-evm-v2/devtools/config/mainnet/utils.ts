@@ -47,7 +47,6 @@ export const onNibiru = withEid(EndpointId.NIBIRU_V2_MAINNET)
 export const onOpbnb = withEid(EndpointId.OPBNB_V2_MAINNET)
 export const onOpt = withEid(EndpointId.OPTIMISM_V2_MAINNET)
 export const onPeaq = withEid(EndpointId.PEAQ_V2_MAINNET)
-export const onPlume = withEid(EndpointId.PLUME_V2_MAINNET)
 export const onPlumephoenix = withEid(EndpointId.PLUMEPHOENIX_V2_MAINNET)
 export const onPolygon = withEid(EndpointId.POLYGON_V2_MAINNET)
 export const onRarible = withEid(EndpointId.RARIBLE_V2_MAINNET)
@@ -86,7 +85,6 @@ export const chainEids = {
     'cronosevm-mainnet': EndpointId.CRONOSEVM_V2_MAINNET,
     'cronoszkevm-mainnet': EndpointId.CRONOSZKEVM_V2_MAINNET,
     'degen-mainnet': EndpointId.DEGEN_V2_MAINNET,
-    // 'ebi-mainnet': EndpointId.EBI_V2_MAINNET, // should be removed due to ebi shutdown
     'ethereum-mainnet': EndpointId.ETHEREUM_V2_MAINNET,
     'etherlink-mainnet': EndpointId.ETHERLINK_V2_MAINNET,
     'fantom-mainnet': EndpointId.FANTOM_V2_MAINNET,
@@ -115,7 +113,6 @@ export const chainEids = {
     'opbnb-mainnet': EndpointId.OPBNB_V2_MAINNET,
     'optimism-mainnet': EndpointId.OPTIMISM_V2_MAINNET,
     'peaq-mainnet': EndpointId.PEAQ_V2_MAINNET,
-    'plume-mainnet': EndpointId.PLUME_V2_MAINNET,
     'plumephoenix-mainnet': EndpointId.PLUMEPHOENIX_V2_MAINNET,
     'polygon-mainnet': EndpointId.POLYGON_V2_MAINNET,
     'rarible-mainnet': EndpointId.RARIBLE_V2_MAINNET,
