@@ -31,7 +31,6 @@ import {
     onLightlink,
     onNibiru,
     onPeaq,
-    onPlume,
     onPlumephoenix,
     onRarible,
     onRootstock,
@@ -94,9 +93,6 @@ assert(usdcIslanderAsset.address != null, `External USDC address not found for I
 
 const usdcNibiruAsset = getAssetNetworkConfig(EndpointId.NIBIRU_V2_MAINNET, TokenName.USDC)
 assert(usdcNibiruAsset.address != null, `External USDC address not found for NIBIRU`)
-
-const usdcPlumeAsset = getAssetNetworkConfig(EndpointId.PLUME_V2_MAINNET, TokenName.USDC)
-assert(usdcPlumeAsset.address != null, `External USDC address not found for PLUME`)
 
 const usdcPlumephoenixAsset = getAssetNetworkConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET, TokenName.USDC)
 assert(usdcPlumephoenixAsset.address != null, `External USDC address not found for PLUMEPHOENIX`)
@@ -171,9 +167,6 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     )
     const peaqUSDCProxy = await contractFactory(
         onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
-    )
-    const plumeUSDCProxy = await contractFactory(
-        onPlume({ contractName: 'FiatTokenProxy', address: usdcPlumeAsset.address })
     )
     const plumephoenixUSDCProxy = await contractFactory(
         onPlumephoenix({ contractName: 'FiatTokenProxy', address: usdcPlumephoenixAsset.address })
@@ -264,9 +257,6 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const peaqUSDC = onPeaq({ ...fiatContract, address: peaqUSDCProxy.contract.address })
     const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
 
-    const plumeUSDC = onPlume({ ...fiatContract, address: plumeUSDCProxy.contract.address })
-    const plumeStargateMultisig = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
-
     const plumephoenixUSDC = onPlumephoenix({ ...fiatContract, address: plumephoenixUSDCProxy.contract.address })
     const plumephoenixStargateMultisig = getSafeAddress(EndpointId.PLUMEPHOENIX_V2_MAINNET)
 
@@ -318,7 +308,6 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const lightlinkAssetAddresses = await getAssetAddresses(EndpointId.LIGHTLINK_V2_MAINNET, usdcAssets)
     const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, usdcAssets)
     const peaqAssetAddresses = await getAssetAddresses(EndpointId.PEAQ_V2_MAINNET, usdcAssets)
-    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdcAssets)
     const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, usdcAssets)
     const raribleAssetAddresses = await getAssetAddresses(EndpointId.RARIBLE_V2_MAINNET, usdcAssets)
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdcAssets)
@@ -601,19 +590,6 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     blacklister: peaqStargateMultisig,
                     minters: {
                         [peaqAssetAddresses.USDC]: 2n ** 256n - 1n,
-                    },
-                },
-            },
-            {
-                contract: plumeUSDC,
-                config: {
-                    owner: plumeStargateMultisig,
-                    masterMinter: plumeStargateMultisig,
-                    pauser: plumeStargateMultisig,
-                    rescuer: plumeStargateMultisig,
-                    blacklister: plumeStargateMultisig,
-                    minters: {
-                        [plumeAssetAddresses.USDC]: 2n ** 256n - 1n,
                     },
                 },
             },

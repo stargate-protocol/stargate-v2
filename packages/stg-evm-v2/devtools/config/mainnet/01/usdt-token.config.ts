@@ -19,7 +19,6 @@ import {
     onIslander,
     onNibiru,
     onPeaq,
-    onPlume,
     onPlumephoenix,
     onRootstock,
     onStory,
@@ -62,9 +61,6 @@ assert(usdtIslanderAsset.address != null, `External USDT address not found for I
 
 const usdtNibiruAsset = getAssetNetworkConfig(EndpointId.NIBIRU_V2_MAINNET, TokenName.USDT)
 assert(usdtNibiruAsset.address != null, `External USDT address not found for NIBIRU`)
-
-const usdtPlumeAsset = getAssetNetworkConfig(EndpointId.PLUME_V2_MAINNET, TokenName.USDT)
-assert(usdtPlumeAsset.address != null, `External USDT address not found for PLUME`)
 
 const usdtPlumephoenixAsset = getAssetNetworkConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET, TokenName.USDT)
 assert(usdtPlumephoenixAsset.address != null, `External USDT address not found for PLUMEPHOENIX`)
@@ -130,10 +126,6 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
         onNibiru({ contractName: 'FiatTokenProxy', address: usdtNibiruAsset.address })
     )
 
-    const plumeUSDTProxy = await contractFactory(
-        onPlume({ contractName: 'TransparentUpgradeableProxy', address: usdtPlumeAsset.address })
-    )
-
     const plumephoenixUSDTProxy = await contractFactory(
         onPlumephoenix({ contractName: 'TransparentUpgradeableProxy', address: usdtPlumephoenixAsset.address })
     )
@@ -168,7 +160,6 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const hemiUSDT = onHemi({ ...fiatContract, address: hemiUSDTProxy.contract.address })
     const islanderUSDT = onIslander({ ...fiatContract, address: islanderUSDTProxy.contract.address })
     const nibiruUSDT = onNibiru({ ...fiatContract, address: nibiruUSDTProxy.contract.address })
-    const plumeUSDT = onPlume({ ...fiatContract, address: plumeUSDTProxy.contract.address })
     const plumephoenixUSDT = onPlumephoenix({ ...fiatContract, address: plumephoenixUSDTProxy.contract.address })
     const rootstockUSDT = onRootstock({ ...fiatContract, address: rootstockUSDTProxy.contract.address })
     const storyUSDT = onStory({ ...fiatContract, address: storyUSDTProxy.contract.address })
@@ -188,7 +179,6 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     const hemiAssetAddresses = await getAssetAddresses(EndpointId.HEMI_V2_MAINNET, usdtAssets)
     const islanderAssetAddresses = await getAssetAddresses(EndpointId.ISLANDER_V2_MAINNET, usdtAssets)
     const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, usdtAssets)
-    const plumeAssetAddresses = await getAssetAddresses(EndpointId.PLUME_V2_MAINNET, usdtAssets)
     const plumephoenixAssetAddresses = await getAssetAddresses(EndpointId.PLUMEPHOENIX_V2_MAINNET, usdtAssets)
     const rootstockAssetAddresses = await getAssetAddresses(EndpointId.ROOTSTOCK_V2_MAINNET, usdtAssets)
     const storyAssetAddresses = await getAssetAddresses(EndpointId.STORY_V2_MAINNET, usdtAssets)
@@ -261,12 +251,6 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
                 contract: nibiruUSDT,
                 config: {
                     owner: nibiruAssetAddresses.USDT,
-                },
-            },
-            {
-                contract: plumeUSDT,
-                config: {
-                    owner: plumeAssetAddresses.USDT,
                 },
             },
             {
