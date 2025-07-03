@@ -1,5 +1,22 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.5
+
+### Patch Changes
+
+- 18179f7: Botanix mainnet configuration
+- 332d944: swell mainnet configuration
+- fb17003: bump versions
+- 52c2a41: update eth rewards
+- b9cfa27: Deploy on swell mainnet
+- Updated dependencies [391728d]
+- Updated dependencies [18179f7]
+- Updated dependencies [332d944]
+- Updated dependencies [5605211]
+- Updated dependencies [fb17003]
+- Updated dependencies [f3ae1c2]
+  - @stargatefinance/stg-definitions-v2@2.0.4
+
 ## 2.0.4
 
 ### Patch Changes

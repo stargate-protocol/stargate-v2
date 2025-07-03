@@ -1,5 +1,19 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 4.0.4
+
+### Patch Changes
+
+- fb17003: bump versions
+- Updated dependencies [391728d]
+- Updated dependencies [18179f7]
+- Updated dependencies [332d944]
+- Updated dependencies [5605211]
+- Updated dependencies [fb17003]
+- Updated dependencies [f3ae1c2]
+  - @stargatefinance/stg-definitions-v2@2.0.4
+  - @stargatefinance/stg-devtools-v2@4.0.4
+
 ## 4.0.3
 
 ### Patch Changes
