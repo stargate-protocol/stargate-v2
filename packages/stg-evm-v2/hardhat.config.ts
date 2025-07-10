@@ -755,6 +755,7 @@ const getRpcUrl = (chainName: string): string | null => {
     }
 
     const url = templateUrl?.replace('CHAIN', chainRawName) ?? null
+    console.log('url---------------->', url)
     return url
 }
 
