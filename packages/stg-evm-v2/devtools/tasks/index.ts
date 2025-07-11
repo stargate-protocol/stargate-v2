@@ -641,7 +641,9 @@ task('getConfig', 'get config for a token').setAction(async (args, hre) => {
                     .forEach((item: any) => {
                         if (item.config.assets) {
                             item.config.assets = Object.fromEntries(
-                                Object.entries(item.config.assets).sort(([, a], [, b]) => a - b)
+                                Object.entries(item.config.assets).sort(([keyA, valA], [keyB, valB]) =>
+                                    valA !== valB ? valA - valB : keyA.localeCompare(keyB)
+                                )
                             )
                         }
                     })
