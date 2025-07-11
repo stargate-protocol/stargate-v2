@@ -9,14 +9,7 @@ import buildMessagingGraph from './messaging.config.helper'
 const contract = { contractName: 'TokenMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>> => {
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
-
-    return buildMessagingGraph(
-        contract,
-        'TOKEN_MESSAGING',
-        fromChains,
-        toChains,
-        generateTokenMessagingConfig
-    ) as Promise<OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>>
+    return buildMessagingGraph(contract, 'TOKEN_MESSAGING', generateTokenMessagingConfig) as Promise<
+        OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>
+    >
 }

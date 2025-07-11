@@ -21,8 +21,6 @@ import { getAssetsConfig } from './shared'
 export default async function buildMessagingGraph(
     contract: { contractName: string },
     messagingType: string,
-    fromChains: string[],
-    toChains: string[],
     generateMessagingConfig: (
         points: OmniPointHardhat[]
     ) => OmniEdgeHardhat<TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>[]
@@ -32,6 +30,9 @@ export default async function buildMessagingGraph(
         TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
     >
 > {
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
+
     // check if all chains are valid
     const supportedChains = getChainsThatSupportMessaging()
 
