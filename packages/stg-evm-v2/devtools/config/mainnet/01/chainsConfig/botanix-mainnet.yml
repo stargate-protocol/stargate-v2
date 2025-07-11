@@ -8,5 +8,6 @@ tokens:
   usdc:
     type: oft
 treasurer:
-  eth: true
-  usdc: true
+  tokens:
+    eth: true
+    usdc: true

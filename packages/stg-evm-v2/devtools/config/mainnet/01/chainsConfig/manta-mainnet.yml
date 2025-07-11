@@ -13,3 +13,6 @@ rewarder:
 staking:
   tokens:
     eth: true
+treasurer:
+  tokens:
+    eth: true

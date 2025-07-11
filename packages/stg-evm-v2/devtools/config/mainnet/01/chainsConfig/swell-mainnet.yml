@@ -6,4 +6,5 @@ tokens:
   eth:
     type: native
 treasurer:
-  eth: true
+  tokens:
+    eth: true
