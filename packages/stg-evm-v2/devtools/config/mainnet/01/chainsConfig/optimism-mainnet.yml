@@ -1,0 +1,33 @@
+name: optimism-mainnet
+eid: OPTIMISM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  usdc:
+    type: pool
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    op:
+      allocation:
+        eth: 6000
+        usdc: 1500
+        usdt: 2500
+    stg:
+      allocation:
+        eth: 6000
+        usdc: 1500
+        usdt: 2500
+staking:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true
