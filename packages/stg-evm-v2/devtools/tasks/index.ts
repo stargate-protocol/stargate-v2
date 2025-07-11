@@ -611,9 +611,6 @@ interface ConfigFile {
 
 task('getConfig', 'get config for a token').setAction(async (args, hre) => {
     const directoryPath: string = path.join(__dirname, '..', 'config', 'mainnet', '01')
-    console.log('args', args)
-    console.log('hre', hre)
-
     try {
         // Read all files in the directory
         const files = fs.readdirSync(directoryPath)
@@ -670,10 +667,6 @@ task('getConfig', 'get config for a token').setAction(async (args, hre) => {
                     }
                 })
 
-                // Generate output filename by replacing .config.ts with .config.json
-                const outputFileName = file.replace('.config.ts', '.config.json')
-                const outputPath = path.join(directoryPath, 'json', outputFileName)
-
                 // Custom replacer function to handle BigInt serialization
                 const replacer = (key: string, value: any) => {
                     if (typeof value === 'bigint') {
@@ -682,11 +675,15 @@ task('getConfig', 'get config for a token').setAction(async (args, hre) => {
                     return value
                 }
 
-                // Write config to JSON file with BigInt handling
-                await fs.promises.writeFile(outputPath, JSON.stringify(config, replacer, 2), 'utf8')
-                console.log(`Config written to: ${outputPath}`)
+                // ! uncomment this to write the config to a json file to compare the contents
+                // Generate output filename by replacing .config.ts with .config.json
+                // const outputFileName = file.replace('.config.ts', '.config.json')
+                // const outputPath = path.join(directoryPath, 'json', outputFileName)
 
-                // todo the hash will not match because the json order can be different
+                // Write config to JSON file with BigInt handling
+                // await fs.promises.writeFile(outputPath, JSON.stringify(config, replacer, 2), 'utf8')
+                // console.log(`Config written to: ${outputPath}`)
+
                 const hash = createHash('sha256')
                     .update(JSON.stringify(config, replacer, 2))
                     .digest('hex')
