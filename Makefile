@@ -271,9 +271,6 @@ preconfigure-mainnet:
 # This target will configure the mainnet contracts
 # 
 
-tt:
-		$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config ./devtools/config/mainnet/01/treasurer.config.ts --signer deployer
-
 configure-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 configure-mainnet:
 	# Validate RPCs
