@@ -648,6 +648,19 @@ task('getConfig', 'get config for a token').setAction(async (args, hre) => {
                         }
                     })
 
+                // order pools by rewarder, then by token
+                config.contracts.forEach((item: any) => {
+                    if (item.config.pools) {
+                        item.config.pools = Object.entries(item.config.pools)
+                            .sort(([, a], [, b]) => {
+                                const rewarderCompare = (a as any).rewarder.localeCompare((b as any).rewarder)
+                                if (rewarderCompare !== 0) return rewarderCompare
+                                return (a as any).token.localeCompare((b as any).token)
+                            })
+                            .map(([, value]) => value)
+                    }
+                })
+
                 // order connections by from.eid and then to.eid
                 config.connections.sort((a: any, b: any) => {
                     if (a.from.eid !== b.from.eid) {
