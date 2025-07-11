@@ -1,22 +1,22 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
-import { AddressConfig, AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
-import { HardhatRuntimeEnvironment } from 'hardhat/types'
+import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
-import { OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetNode } from '../../../utils'
+import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { filterConnections, generateAssetConfig } from '../../utils'
 import { filterFromAndToChains, getChainsThatSupportToken } from '../utils'
 
+import { DEFAULT_PLANNER } from './constants'
+
 export default async function buildAssetDeploymentGraph(
     tokenName: TokenName,
-    getAssetPoint: (eid: EndpointId) => OmniPointHardhat,
-    getAddressConfig: (eid: HardhatRuntimeEnvironment) => Promise<AddressConfig>,
     fromChains: string[],
     toChains: string[]
 ): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> {
+    const getAssetPoint = createGetAssetOmniPoint(tokenName)
+    const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: DEFAULT_PLANNER })
+
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // Check if provided chains are valid
