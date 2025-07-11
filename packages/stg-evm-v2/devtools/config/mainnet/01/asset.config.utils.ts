@@ -10,12 +10,13 @@ import { filterFromAndToChains, getChainsThatSupportToken } from '../utils'
 import { DEFAULT_PLANNER } from './constants'
 
 export default async function buildAssetDeploymentGraph(
-    tokenName: TokenName,
-    fromChains: string[],
-    toChains: string[]
+    tokenName: TokenName
 ): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> {
     const getAssetPoint = createGetAssetOmniPoint(tokenName)
     const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: DEFAULT_PLANNER })
+
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
@@ -26,11 +27,11 @@ export default async function buildAssetDeploymentGraph(
     const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
 
     console.log(
-        'asset.eth FROM_CHAINS:',
+        `asset.${tokenName} FROM_CHAINS:`,
         validFromChains.map((chain) => chain.name)
     )
     console.log(
-        'asset.eth TO_CHAINS:',
+        `asset.${tokenName} TO_CHAINS:`,
         validToChains.map((chain) => chain.name)
     )
 
