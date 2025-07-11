@@ -3,16 +3,20 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
+import { getFeeLibV1DeployName } from '../../../../ops/util'
 import { getContractWithEid } from '../../utils'
 import { filterValidProvidedChains, getChainsThatSupportToken } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
 export default async function buildFeeLibV1DeploymentGraph(
-    tokenName: TokenName,
-    contract: { contractName: string },
-    chainsList: string[]
+    tokenName: TokenName
 ): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1EdgeConfig>> {
+    const contract = { contractName: getFeeLibV1DeployName(tokenName) }
+
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+
     const defaultNodeConfig = {
         owner: DEFAULT_PLANNER,
     }
