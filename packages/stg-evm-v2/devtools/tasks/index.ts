@@ -633,8 +633,18 @@ task('getConfig', 'get config for a token').setAction(async (args, hre) => {
                 // Call the default export function to get the config
                 const config = await configModule.default()
 
-                // order contracts by eid
-                config.contracts.sort((a: any, b: any) => a.contract.eid - b.contract.eid)
+                // order contracts
+                config.contracts
+                    // Step 1: Sort the outer array by contract.eid
+                    .sort((a: any, b: any) => a.contract.eid - b.contract.eid)
+                    // Step 2: Sort the assets object inside each item (by key)
+                    .forEach((item: any) => {
+                        if (item.config.assets) {
+                            item.config.assets = Object.fromEntries(
+                                Object.entries(item.config.assets).sort(([, a], [, b]) => a - b)
+                            )
+                        }
+                    })
 
                 // order connections by from.eid and then to.eid
                 config.connections.sort((a: any, b: any) => {
