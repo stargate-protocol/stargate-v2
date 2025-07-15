@@ -11,11 +11,11 @@ export const getAssetsConfig = async (
     tokenNames: TokenName[]
 ) => {
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
-    const assetAddresses = await getAssetAddresses(eid, tokensNames)
+    const assetAddresses = await getAssetAddresses(eid, tokenNames)
 
     return Object.assign(
         {},
-        ...tokensNames.map((tokenName) => {
+        ...tokenNames.map((tokenName) => {
             const assetAddress = assetAddresses[tokenName]
             return { [assetAddress]: ASSETS[tokenName].assetId }
         })
