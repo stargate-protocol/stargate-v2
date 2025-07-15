@@ -21,6 +21,7 @@ import {
     onCronosevm,
     onCronoszkevm,
     onDegen,
+    onEdu,
     onEth,
     onFlare,
     onFlow,
@@ -84,6 +85,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const cronosevmAdmin = getSafeAddress(EndpointId.CRONOSEVM_V2_MAINNET)
     const cronoszkevmAdmin = getSafeAddress(EndpointId.CRONOSZKEVM_V2_MAINNET)
     const degenAdmin = getSafeAddress(EndpointId.DEGEN_V2_MAINNET)
+    const eduAdmin = getSafeAddress(EndpointId.EDU_V2_MAINNET)
     const ethAdmin = getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET)
     const flareAdmin = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
     const flowAdmin = getSafeAddress(EndpointId.FLOW_V2_MAINNET)
@@ -180,6 +182,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const eduAssetAddresses = await getAssetAddresses(EndpointId.EDU_V2_MAINNET, [TokenName.USDC] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,
@@ -499,6 +502,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [degenAssetAddresses.ETH]: true,
                         [degenAssetAddresses.USDC]: true,
                         [degenAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onEdu(contract),
+                config: {
+                    owner: eduAdmin,
+                    admin: eduAdmin,
+                    assets: {
+                        [eduAssetAddresses.USDC]: true,
                     },
                 },
             },

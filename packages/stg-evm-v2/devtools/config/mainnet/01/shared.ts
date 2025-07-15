@@ -64,6 +64,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const eduAssetAddresses = await getAssetAddresses(EndpointId.EDU_V2_MAINNET, [TokenName.USDC] as const)
     const ethAssetAddresses = await getAssetAddresses(EndpointId.ETHEREUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.METIS,

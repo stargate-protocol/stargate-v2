@@ -57,6 +57,7 @@ const excludedChains = new Set([
     'codex-mainnet',
     'cronosevm-mainnet',
     'cronoszkevm-mainnet',
+    'edu-mainnet',
     'etherlink-mainnet',
     'fantom-mainnet',
     'fraxtal-mainnet',
