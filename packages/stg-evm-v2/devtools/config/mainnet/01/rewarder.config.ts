@@ -27,6 +27,7 @@ import {
     onSei,
     onSoneium,
     onSonic,
+    onSophon,
     onZkConsensys,
 } from '../utils'
 
@@ -92,6 +93,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
     ] as const)
     const seiRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SEI_V2_MAINNET, [
         RewardTokenName.SEI,
+    ] as const)
+    const sophonRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SOPHON_V2_MAINNET, [
+        RewardTokenName.WETH,
     ] as const)
     const soneiumRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         RewardTokenName.WETH,
@@ -332,6 +336,19 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                         [seiRewardTokenAddresses.SEI]: {
                             [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDC]: 5000,
                             [lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT]: 5000,
+                        },
+                    },
+                },
+            },
+            {
+                contract: onSophon(contract),
+                config: {
+                    owner: getSafeAddress(EndpointId.SOPHON_V2_MAINNET),
+                    allocations: {
+                        [sophonRewardTokenAddresses.WETH]: {
+                            // todo in the scoping doc it says the reward token is USDC but it is not defined as reward token, should be added?
+                            [lpTokenAddresses[EndpointId.SOPHON_V2_MAINNET].ETH]: 10000,
+                            [lpTokenAddresses[EndpointId.SOPHON_V2_MAINNET].USDC]: 10000,
                         },
                     },
                 },

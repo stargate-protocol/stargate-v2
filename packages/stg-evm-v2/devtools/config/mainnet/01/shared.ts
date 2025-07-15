@@ -181,6 +181,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const sophonAssetAddresses = await getAssetAddresses(EndpointId.SOPHON_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const soneiumAssetAddresses = await getAssetAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -396,6 +400,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [seiAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
             [seiAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.SOPHON_V2_MAINNET]: {
+            [sophonAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [sophonAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [soneiumAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [soneiumAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -507,6 +515,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
         TokenName.USDT,
     ] as const)
+    const sophonLPTokenAddresses = await getLPTokenAddresses(EndpointId.SOPHON_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const soneiumLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -590,6 +602,10 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SEI_V2_MAINNET]: {
             [TokenName.USDC]: seiLPTokenAddresses.USDC,
             [TokenName.USDT]: seiLPTokenAddresses.USDT,
+        },
+        [EndpointId.SOPHON_V2_MAINNET]: {
+            [TokenName.ETH]: sophonLPTokenAddresses.ETH,
+            [TokenName.USDC]: sophonLPTokenAddresses.USDC,
         },
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [TokenName.ETH]: soneiumLPTokenAddresses.ETH,

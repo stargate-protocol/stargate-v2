@@ -49,6 +49,7 @@ import {
     onSei,
     onSoneium,
     onSonic,
+    onSophon,
     onStory,
     onSuperposition,
     onTaiko,
@@ -106,6 +107,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const rootStockAdmin = getSafeAddress(EndpointId.ROOTSTOCK_V2_MAINNET)
     const scrollAdmin = getSafeAddress(EndpointId.SCROLL_V2_MAINNET)
     const seiAdmin = getSafeAddress(EndpointId.SEI_V2_MAINNET)
+    const sophonAdmin = getSafeAddress(EndpointId.SOPHON_V2_MAINNET)
     const soneiumAdmin = getSafeAddress(EndpointId.SONEIUM_V2_MAINNET)
     const sonicAdmin = getSafeAddress(EndpointId.SONIC_V2_MAINNET)
     const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
@@ -288,6 +290,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.ETH,
         TokenName.USDC,
         TokenName.USDT,
+    ] as const)
+    const sophonAssetAddresses = await getAssetAddresses(EndpointId.SOPHON_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
     ] as const)
     const soneiumAssetAddresses = await getAssetAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         TokenName.ETH,
@@ -781,6 +787,17 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                         [seiAssetAddresses.ETH]: true,
                         [seiAssetAddresses.USDC]: true,
                         [seiAssetAddresses.USDT]: true,
+                    },
+                },
+            },
+            {
+                contract: onSophon(contract),
+                config: {
+                    owner: sophonAdmin,
+                    admin: sophonAdmin,
+                    assets: {
+                        [sophonAssetAddresses.ETH]: true,
+                        [sophonAssetAddresses.USDC]: true,
                     },
                 },
             },

@@ -70,6 +70,7 @@ const excludedChains = new Set([
     'opbnb-mainnet',
     'scroll-mainnet',
     'shimmer-mainnet',
+    'sophon-mainnet',
     'soneium-mainnet',
     'sonic-mainnet',
     'superposition-mainnet',

@@ -30,6 +30,7 @@ import {
     onSei,
     onSoneium,
     onSonic,
+    onSophon,
     onZkConsensys,
 } from '../utils'
 
@@ -61,6 +62,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const polygonRewarder = await contractFactory(onPolygon(rewarder))
     const scrollRewarder = await contractFactory(onScroll(rewarder))
     const seiRewarder = await contractFactory(onSei(rewarder))
+    const sophonRewarder = await contractFactory(onSophon(rewarder))
     const soneiumRewarder = await contractFactory(onSoneium(rewarder))
     const sonicRewarder = await contractFactory(onSonic(rewarder))
     const zkConsensysRewarder = await contractFactory(onZkConsensys(rewarder))
@@ -84,6 +86,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const polygonStaking = onPolygon(staking)
     const scrollStaking = onScroll(staking)
     const seiStaking = onSei(staking)
+    const sophonStaking = onSophon(staking)
     const soneiumStaking = onSoneium(staking)
     const sonicStaking = onSonic(staking)
     const zkConsensysStaking = onZkConsensys(staking)
@@ -109,6 +112,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
     const polygonPool = { rewarder: polygonRewarder.contract.address }
     const scrollPool = { rewarder: scrollRewarder.contract.address }
     const seiPool = { rewarder: seiRewarder.contract.address }
+    const sophonPool = { rewarder: sophonRewarder.contract.address }
     const soneiumPool = { rewarder: soneiumRewarder.contract.address }
     const sonicPool = { rewarder: sonicRewarder.contract.address }
     const zkConsensysPool = { rewarder: zkConsensysRewarder.contract.address }
@@ -394,6 +398,22 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
                         {
                             ...seiPool,
                             token: lpTokenAddresses[EndpointId.SEI_V2_MAINNET].USDT,
+                        },
+                    ],
+                },
+            },
+            {
+                contract: sophonStaking,
+                config: {
+                    owner: getSafeAddress(EndpointId.SOPHON_V2_MAINNET),
+                    pools: [
+                        {
+                            ...sophonPool,
+                            token: lpTokenAddresses[EndpointId.SOPHON_V2_MAINNET].ETH,
+                        },
+                        {
+                            ...sophonPool,
+                            token: lpTokenAddresses[EndpointId.SOPHON_V2_MAINNET].USDC,
                         },
                     ],
                 },

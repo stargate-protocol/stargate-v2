@@ -53,6 +53,7 @@ export const onRootstock = withEid(EndpointId.ROOTSTOCK_V2_MAINNET)
 export const onScroll = withEid(EndpointId.SCROLL_V2_MAINNET)
 export const onSei = withEid(EndpointId.SEI_V2_MAINNET)
 export const onShimmer = withEid(EndpointId.SHIMMER_V2_MAINNET)
+export const onSophon = withEid(EndpointId.SOPHON_V2_MAINNET)
 export const onSoneium = withEid(EndpointId.SONEIUM_V2_MAINNET)
 export const onSonic = withEid(EndpointId.SONIC_V2_MAINNET)
 export const onStory = withEid(EndpointId.STORY_V2_MAINNET)
@@ -118,6 +119,7 @@ export const chainEids = {
     'scroll-mainnet': EndpointId.SCROLL_V2_MAINNET,
     'sei-mainnet': EndpointId.SEI_V2_MAINNET,
     'shimmer-mainnet': EndpointId.SHIMMER_V2_MAINNET,
+    'sophon-mainnet': EndpointId.SOPHON_V2_MAINNET,
     'soneium-mainnet': EndpointId.SONEIUM_V2_MAINNET,
     'sonic-mainnet': EndpointId.SONIC_V2_MAINNET,
     'story-mainnet': EndpointId.STORY_V2_MAINNET,
