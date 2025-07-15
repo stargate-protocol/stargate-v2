@@ -8,7 +8,7 @@ import { createGetAssetAddresses, createGetLPTokenAddresses } from '../../../../
 export const getAssetsConfig = async (
     getEnvironment = createGetHreByEid(),
     eid: EndpointId,
-    tokensNames: TokenName[]
+    tokenNames: TokenName[]
 ) => {
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const assetAddresses = await getAssetAddresses(eid, tokensNames)
