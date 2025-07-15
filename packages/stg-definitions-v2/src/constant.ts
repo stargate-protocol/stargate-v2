@@ -375,9 +375,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.SOPHON_V2_MAINNET]: {
-                symbol: 'WETH',
+                symbol: 'WETH', // todo check the name and symbol set in the contract, I'm not being able to but it seems like is ETH
                 name: 'WETH',
-                type: StargateType.Oft,
+                type: StargateType.Pool,
+                address: '0x72af9F169B619D85A47Dfa8fefbCD39dE55c567D',
             },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -583,10 +584,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0xB75D0B03c06A926e488e2659DF1A861F860bD3d1',
             },
-            [EndpointId.SOPHON_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '', // todo
-            },
             [EndpointId.STORY_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8',
@@ -711,7 +708,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0xaa5b845F8C9c047779bEDf64829601d8B264076c',
             },
-
             [EndpointId.DEGEN_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
@@ -820,8 +816,8 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.SOPHON_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '', // todo
+                type: StargateType.Pool,
+                address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
             },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 address: '0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369',
@@ -1001,8 +997,8 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
         [EndpointId.SEI_V2_MAINNET]: {},
-        [EndpointId.SOPHON_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
+        [EndpointId.SOPHON_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
         [EndpointId.SONIC_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
@@ -2378,26 +2374,25 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0001').toBigInt(), // todo
+            nativeDropAmount: parseEther('3').toBigInt(),
             busGasLimit: 60000n,
             nativeDropGasLimit: 30000n,
         },
         safeConfig: {
-            safeAddress: '0.000', // todo
+            safeAddress: '0x676e341775964245f414149D1d343F75E9b5B887',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/sophon`,
-            // todo
-            // contractNetworks: {
-            //     [50104]: {
-            //         multiSendAddress: '0x000000',
-            //         multiSendCallOnlyAddress: '0x000000',
-            //         safeMasterCopyAddress: '0x000000',
-            //         safeProxyFactoryAddress: '0x000000',
-            //         fallbackHandlerAddress: '0x000000',
-            //         createCallAddress: '0x000000',
-            //         signMessageLibAddress: '0x000000',
-            //         simulateTxAccessorAddress: '0x000000',
-            //     },
-            // },
+            contractNetworks: {
+                [50104]: {
+                    multiSendAddress: '0x0dFcccB95225ffB03c6FBB2559B530C2B7C8A912',
+                    multiSendCallOnlyAddress: '0xf220D3b4DFb23C4ade8C88E526C1353AbAcbC38F',
+                    safeMasterCopyAddress: '0x1727c2c531cf966f902E5927b98490fDFb3b2b70',
+                    safeProxyFactoryAddress: '0xDAec33641865E4651fB43181C6DB6f7232Ee91c2',
+                    fallbackHandlerAddress: '0x2f870a80647BbC554F3a0EBD093f11B4d2a7492A',
+                    createCallAddress: '0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56',
+                    signMessageLibAddress: '0x357147caf9C0cCa67DfA0CF5369318d8193c8407',
+                    simulateTxAccessorAddress: '0x4191E2e12E8BC5002424CE0c51f9947b02675a44',
+                },
+            },
         },
     },
     [EndpointId.SONEIUM_V2_MAINNET]: {
