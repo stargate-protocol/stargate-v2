@@ -615,6 +615,15 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
     .setAction(async (args, hre) => {
         const directoryPath: string = path.join(__dirname, '..', 'config', 'mainnet', '01')
         const directoryPathJson: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'json')
+        const directoryPathJsonHashes: string = path.join(
+            __dirname,
+            '..',
+            'config',
+            'mainnet',
+            '01',
+            'hashes',
+            'hashes.json'
+        )
         try {
             // Read all files in the directory
             const files = fs.readdirSync(directoryPath)
@@ -703,8 +712,15 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
                 })
             )
 
+            // create folder if it doesn't exist
+            if (!fs.existsSync(directoryPathJsonHashes)) {
+                fs.mkdirSync(directoryPathJsonHashes, { recursive: true })
+            }
             // store all the hashes in a file
-            await fs.promises.writeFile(path.join(directoryPath, 'hashes.json'), JSON.stringify(output, null, 2))
+            await fs.promises.writeFile(
+                path.join(directoryPathJsonHashes, 'hashes.json'),
+                JSON.stringify(output, null, 2)
+            )
             return output
         } catch (error) {
             console.error('Error reading directory:', error)
