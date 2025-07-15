@@ -7,31 +7,11 @@ import rewarderConfig from '../../devtools/config/mainnet/01/rewarder.config'
 import { getAllSupportedChains, getChainsThatSupportRewarder } from '../../devtools/config/mainnet/utils'
 import { getSafeAddress } from '../../devtools/config/utils'
 
+import { setupConfigTestEnvironment } from './utils'
+
 describe('rewarder.config', () => {
-    let originalEnv: NodeJS.ProcessEnv
-    let originalPaths: any
+    setupConfigTestEnvironment(hre)
 
-    before(async () => {
-        // In the config creation the hre paths are being modified.
-        // Save original paths
-        originalPaths = { ...hre.config.paths }
-
-        // Save original environment variables
-        originalEnv = { ...process.env }
-    })
-
-    beforeEach(async () => {
-        // clean env
-        process.env = {}
-    })
-
-    after(async () => {
-        // restore original paths
-        hre.config.paths = originalPaths
-
-        // restore original environment variables
-        process.env = originalEnv
-    })
     it('should generate correct configuration for all chains (use all chains since no CHAINS_LIST is provided)', async () => {
         const supportedChains = getChainsThatSupportRewarder()
 

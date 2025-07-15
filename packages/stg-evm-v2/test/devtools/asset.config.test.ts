@@ -16,31 +16,11 @@ import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/mainnet/utils'
 import { filterConnections, generateAssetConfig } from '../../devtools/config/utils'
 
+import { setupConfigTestEnvironment } from './utils'
+
 describe('asset.config', () => {
-    let originalEnv: NodeJS.ProcessEnv
-    let originalPaths: any
+    setupConfigTestEnvironment(hre)
 
-    before(async () => {
-        // In the config creation the hre paths are being modified.
-        // Save original paths
-        originalPaths = { ...hre.config.paths }
-
-        // Save original environment variables
-        originalEnv = { ...process.env }
-    })
-
-    beforeEach(async () => {
-        // clean env
-        process.env = {}
-    })
-
-    after(async () => {
-        // restore original paths
-        hre.config.paths = originalPaths
-
-        // restore original environment variables
-        process.env = originalEnv
-    })
     describe('ETH Asset Config', () => {
         testAssetConfig(TokenName.ETH, ASSETS.ETH.assetId, assetEthConfig)
     })

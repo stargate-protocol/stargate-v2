@@ -12,31 +12,10 @@ import {
 } from '../../devtools/config/mainnet/utils'
 import { filterConnections, generateCreditMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
 
+import { setupConfigTestEnvironment } from './utils'
+
 describe('creditMessaging.config', () => {
-    let originalEnv: NodeJS.ProcessEnv
-    let originalPaths: any
-
-    before(async () => {
-        // In the config creation the hre paths are being modified.
-        // Save original paths
-        originalPaths = { ...hre.config.paths }
-
-        // Save original environment variables
-        originalEnv = { ...process.env }
-    })
-
-    beforeEach(async () => {
-        // clean env
-        process.env = {}
-    })
-
-    after(async () => {
-        // restore original paths
-        hre.config.paths = originalPaths
-
-        // restore original environment variables
-        process.env = originalEnv
-    })
+    setupConfigTestEnvironment(hre)
 
     it('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
         const supportedChains = getChainsThatSupportMessaging()
