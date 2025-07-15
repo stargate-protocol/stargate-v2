@@ -1,3 +1,4 @@
+import fs from 'fs'
 import * as path from 'path'
 
 import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
@@ -58,7 +59,6 @@ export function getAllChainsConfig(): Chain[] {
     }
 
     const chainsDir = path.join(__dirname, '01/chainsConfig')
-    const fs = require('fs')
 
     // Read all yml files from the chains directory
     let chainFiles = fs.readdirSync(chainsDir).filter((file: string) => file.endsWith('.yml'))
