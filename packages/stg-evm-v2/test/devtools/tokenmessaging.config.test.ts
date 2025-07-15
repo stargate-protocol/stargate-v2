@@ -124,8 +124,6 @@ describe('tokenMessaging.config', () => {
     })
 
     it('should generate correct assets configuration for each contract', async () => {
-        getChainsThatSupportMessaging()
-
         // Get token messaging config
         const config = await tokenMessagingConfig()
 

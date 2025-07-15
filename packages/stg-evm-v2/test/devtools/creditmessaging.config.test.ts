@@ -143,8 +143,6 @@ describe('creditMessaging.config', () => {
     })
 
     it('should use the correct safe address for owner and delegate', async () => {
-        getChainsThatSupportMessaging()
-
         // Get credit messaging config
         const config = await creditMessagingConfig()
 
