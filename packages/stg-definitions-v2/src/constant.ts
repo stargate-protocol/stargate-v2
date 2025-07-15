@@ -2482,8 +2482,6 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
             nativeDropAmount: parseEther('3').toBigInt(),
-            busGasLimit: 60000n,
-            nativeDropGasLimit: 30000n,
         },
         safeConfig: {
             safeAddress: '0x676e341775964245f414149D1d343F75E9b5B887',
