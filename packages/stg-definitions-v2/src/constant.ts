@@ -1220,6 +1220,16 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+    [RewardTokenName.USDC]: {
+        name: 'USDC',
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.SOPHON_V2_MAINNET]: {
+                address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
+            },
+        },
+    },
 }
 
 export const NETWORKS: NetworksConfig = {

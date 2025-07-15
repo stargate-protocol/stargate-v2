@@ -95,7 +95,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
         RewardTokenName.SEI,
     ] as const)
     const sophonRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SOPHON_V2_MAINNET, [
-        RewardTokenName.WETH,
+        RewardTokenName.USDC,
     ] as const)
     const soneiumRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SONEIUM_V2_MAINNET, [
         RewardTokenName.WETH,
@@ -345,8 +345,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     owner: getSafeAddress(EndpointId.SOPHON_V2_MAINNET),
                     allocations: {
-                        [sophonRewardTokenAddresses.WETH]: {
-                            // todo in the scoping doc it says the reward token is USDC but it is not defined as reward token, should be added?
+                        [sophonRewardTokenAddresses.USDC]: {
                             [lpTokenAddresses[EndpointId.SOPHON_V2_MAINNET].ETH]: 10000,
                             [lpTokenAddresses[EndpointId.SOPHON_V2_MAINNET].USDC]: 10000,
                         },
