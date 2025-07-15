@@ -37,6 +37,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
+    const botanixAssetAddresses = await getAssetAddresses(EndpointId.BOTANIX_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
     const bscAssetAddresses = await getAssetAddresses(EndpointId.BSC_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -140,6 +144,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         TokenName.METIS,
         TokenName.USDT,
     ] as const)
+    const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+        TokenName.USDC,
+    ] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTIMISM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -198,6 +207,7 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
     ] as const)
+    const swellAssetAddresses = await getAssetAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -248,6 +258,10 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         [EndpointId.BERA_V2_MAINNET]: {
             [beraAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [beraAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.BOTANIX_V2_MAINNET]: {
+            [botanixAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [botanixAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
         },
         [EndpointId.BSC_V2_MAINNET]: {
             [bscAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -359,6 +373,11 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [metisAssetAddresses.METIS]: ASSETS[TokenName.METIS].assetId,
             [metisAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
+        [EndpointId.NIBIRU_V2_MAINNET]: {
+            [nibiruAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
+            [nibiruAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
+            [nibiruAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
         [EndpointId.OPTIMISM_V2_MAINNET]: {
             [optAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
             [optAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -418,6 +437,9 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
         },
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {
             [superpositionAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
+        },
+        [EndpointId.SWELL_V2_MAINNET]: {
+            [swellAssetAddresses.ETH]: ASSETS[TokenName.ETH].assetId,
         },
         [EndpointId.TAIKO_V2_MAINNET]: {
             [taikoAssetAddresses.USDC]: ASSETS[TokenName.USDC].assetId,
@@ -524,6 +546,7 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         TokenName.USDC,
     ] as const)
     const sonicLPTokenAddresses = await getLPTokenAddresses(EndpointId.SONIC_V2_MAINNET, [TokenName.USDC] as const)
+    const swellLPTokenAddresses = await getLPTokenAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const zkConsensysLPTokenAddresses = await getLPTokenAddresses(EndpointId.ZKCONSENSYS_V2_MAINNET, [
         TokenName.ETH,
     ] as const)
@@ -610,6 +633,9 @@ export const getLPTokenAddresses = async (getEnvironment = createGetHreByEid()) 
         [EndpointId.SONEIUM_V2_MAINNET]: {
             [TokenName.ETH]: soneiumLPTokenAddresses.ETH,
             [TokenName.USDC]: soneiumLPTokenAddresses.USDC,
+        },
+        [EndpointId.SWELL_V2_MAINNET]: {
+            [TokenName.ETH]: swellLPTokenAddresses.ETH,
         },
         [EndpointId.SONIC_V2_MAINNET]: {
             [TokenName.USDC]: sonicLPTokenAddresses.USDC,

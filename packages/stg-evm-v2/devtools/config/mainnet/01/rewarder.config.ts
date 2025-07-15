@@ -138,9 +138,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                             [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 1500,
                         },
                         [arbRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].ETH]: 6000,
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDC]: 2500,
-                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 1500,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].ETH]: 1,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDC]: 1,
+                            [lpTokenAddresses[EndpointId.ARBITRUM_V2_MAINNET].USDT]: 9998,
                         },
                     },
                 },
@@ -210,9 +210,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                     owner: getSafeAddress(EndpointId.ETHEREUM_V2_MAINNET),
                     allocations: {
                         [ethRewardTokenAddresses.STG]: {
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 4220,
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 3381,
-                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 2399,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].ETH]: 4767,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDC]: 4100,
+                            [lpTokenAddresses[EndpointId.ETHEREUM_V2_MAINNET].USDT]: 1133,
                         },
                     },
                 },

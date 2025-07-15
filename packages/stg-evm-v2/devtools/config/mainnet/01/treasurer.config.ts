@@ -14,6 +14,7 @@ import {
     onAvax,
     onBase,
     onBera,
+    onBotanix,
     onBsc,
     onCodex,
     onCoredao,
@@ -38,6 +39,7 @@ import {
     onManta,
     onMantle,
     onMetis,
+    onNibiru,
     onOpt,
     onPeaq,
     onPlume,
@@ -52,6 +54,7 @@ import {
     onSophon,
     onStory,
     onSuperposition,
+    onSwell,
     onTaiko,
     onTelos,
     onUnichain,
@@ -74,6 +77,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const avaxAdmin = getSafeAddress(EndpointId.AVALANCHE_V2_MAINNET)
     const baseAdmin = getSafeAddress(EndpointId.BASE_V2_MAINNET)
     const beraAdmin = getSafeAddress(EndpointId.BERA_V2_MAINNET)
+    const botanixAdmin = getSafeAddress(EndpointId.BOTANIX_V2_MAINNET)
     const bscAdmin = getSafeAddress(EndpointId.BSC_V2_MAINNET)
     const codexAdmin = getSafeAddress(EndpointId.CODEX_V2_MAINNET)
     const coredaoAdmin = getSafeAddress(EndpointId.COREDAO_V2_MAINNET)
@@ -98,6 +102,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const mantaAdmin = getSafeAddress(EndpointId.MANTA_V2_MAINNET)
     const mantleAdmin = getSafeAddress(EndpointId.MANTLE_V2_MAINNET)
     const metisAdmin = getSafeAddress(EndpointId.METIS_V2_MAINNET)
+    const nibiruAdmin = getSafeAddress(EndpointId.NIBIRU_V2_MAINNET)
     const optAdmin = getSafeAddress(EndpointId.OPTIMISM_V2_MAINNET)
     const peaqAdmin = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
     const plumeAdmin = getSafeAddress(EndpointId.PLUME_V2_MAINNET)
@@ -112,6 +117,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const sonicAdmin = getSafeAddress(EndpointId.SONIC_V2_MAINNET)
     const storyAdmin = getSafeAddress(EndpointId.STORY_V2_MAINNET)
     const superpositionAdmin = getSafeAddress(EndpointId.SUPERPOSITION_V2_MAINNET)
+    const swellAdmin = getSafeAddress(EndpointId.SWELL_V2_MAINNET)
     const taikoAdmin = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
     const telosAdmin = getSafeAddress(EndpointId.TELOS_V2_MAINNET)
     const unichainAdmin = getSafeAddress(EndpointId.UNICHAIN_V2_MAINNET)
@@ -145,6 +151,10 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.USDC,
     ] as const)
     const beraAssetAddresses = await getAssetAddresses(EndpointId.BERA_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDC,
+    ] as const)
+    const botanixAssetAddresses = await getAssetAddresses(EndpointId.BOTANIX_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
     ] as const)
@@ -250,6 +260,11 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
         TokenName.METIS,
         TokenName.USDT,
     ] as const)
+    const nibiruAssetAddresses = await getAssetAddresses(EndpointId.NIBIRU_V2_MAINNET, [
+        TokenName.ETH,
+        TokenName.USDT,
+        TokenName.USDC,
+    ] as const)
     const optAssetAddresses = await getAssetAddresses(EndpointId.OPTIMISM_V2_MAINNET, [
         TokenName.ETH,
         TokenName.USDC,
@@ -308,6 +323,7 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
     const superpositionAssetAddresses = await getAssetAddresses(EndpointId.SUPERPOSITION_V2_MAINNET, [
         TokenName.USDC,
     ] as const)
+    const swellAssetAddresses = await getAssetAddresses(EndpointId.SWELL_V2_MAINNET, [TokenName.ETH] as const)
     const taikoAssetAddresses = await getAssetAddresses(EndpointId.TAIKO_V2_MAINNET, [
         TokenName.USDC,
         TokenName.USDT,
@@ -408,6 +424,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     },
                 },
             },
+            {
+                contract: onBotanix(contract),
+                config: {
+                    owner: botanixAdmin,
+                    admin: botanixAdmin,
+                    assets: {
+                        [botanixAssetAddresses.ETH]: true,
+                        [botanixAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+
             {
                 contract: onBsc(contract),
                 config: {
@@ -687,6 +715,18 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                 },
             },
             {
+                contract: onNibiru(contract),
+                config: {
+                    owner: nibiruAdmin,
+                    admin: nibiruAdmin,
+                    assets: {
+                        [nibiruAssetAddresses.ETH]: true,
+                        [nibiruAssetAddresses.USDT]: true,
+                        [nibiruAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
                 contract: onOpt(contract),
                 config: {
                     owner: optAdmin,
@@ -841,6 +881,16 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
                     admin: superpositionAdmin,
                     assets: {
                         [superpositionAssetAddresses.USDC]: true,
+                    },
+                },
+            },
+            {
+                contract: onSwell(contract),
+                config: {
+                    owner: swellAdmin,
+                    admin: swellAdmin,
+                    assets: {
+                        [swellAssetAddresses.ETH]: true,
                     },
                 },
             },
