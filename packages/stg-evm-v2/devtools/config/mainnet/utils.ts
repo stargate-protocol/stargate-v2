@@ -49,8 +49,14 @@ export function filterFromAndToChains(
     return { validFromChains, validToChains }
 }
 
+let _supportedChains: Chain[] | undefined
+
 // supported chains
 export function getAllChainsConfig(): Chain[] {
+    if (_supportedChains !== undefined) {
+        return _supportedChains
+    }
+
     const chainsDir = path.join(__dirname, '01/chainsConfig')
     const fs = require('fs')
 
@@ -61,7 +67,7 @@ export function getAllChainsConfig(): Chain[] {
     chainFiles = chainFiles.filter((file: string) => file !== '0-template-chain.yml')
 
     // Load and process each chain configuration
-    const chainsConfig = chainFiles.map((file: string) => {
+    _supportedChains = chainFiles.map((file: string) => {
         const filePath = path.join(chainsDir, file)
 
         const chainConfig = loadChainConfig(filePath) // Each file contains only one chain
@@ -70,7 +76,7 @@ export function getAllChainsConfig(): Chain[] {
         return chainConfig
     })
 
-    return chainsConfig
+    return _supportedChains!
 }
 
 export function getAllSupportedChains(): string[] {
