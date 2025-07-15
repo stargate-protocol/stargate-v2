@@ -615,15 +615,7 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
     .setAction(async (args, hre) => {
         const directoryPath: string = path.join(__dirname, '..', 'config', 'mainnet', '01')
         const directoryPathJson: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'json')
-        const directoryPathJsonHashes: string = path.join(
-            __dirname,
-            '..',
-            'config',
-            'mainnet',
-            '01',
-            'hashes',
-            'hashes.json'
-        )
+        const directoryPathJsonHashes: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'hashes')
         try {
             // Read all files in the directory
             const files = fs.readdirSync(directoryPath)
