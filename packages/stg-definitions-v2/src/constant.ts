@@ -394,7 +394,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.SOPHON_V2_MAINNET]: {
-                symbol: 'WETH', // todo check the name and symbol set in the contract, I'm not being able to but it seems like is ETH
+                symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Pool,
                 address: '0x72af9F169B619D85A47Dfa8fefbCD39dE55c567D',
