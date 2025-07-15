@@ -67,7 +67,7 @@ const testnetAccounts: HDAccountsUserConfig = {
 }
 
 const mainnetAccounts: HDAccountsUserConfig = {
-    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
+    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || '',
 }
 
 const hardhatNamedAccounts: HardhatUserConfig = {
@@ -755,7 +755,6 @@ const getRpcUrl = (chainName: string): string | null => {
     }
 
     const url = templateUrl?.replace('CHAIN', chainRawName) ?? null
-    console.log('url---------------->', url)
     return url
 }
 
