@@ -548,11 +548,12 @@ const networks: NetworksUserConfig = {
     },
     'sophon-mainnet': {
         eid: EndpointId.SOPHON_V2_MAINNET,
-        url: process.env.RPC_URL_SOPHON_MAINNET || 'https://rpc.testnet.sophon.xyz',
+        url: process.env.RPC_URL_SOPHON_MAINNET || 'https://rpc.sophon.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SOPHON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
+        ethNetwork: 'ethereum-mainnet',
     },
     'soneium-mainnet': {
         eid: EndpointId.SONEIUM_V2_MAINNET,
