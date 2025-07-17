@@ -23,7 +23,8 @@ staking: # list of tokens that support staking in the chain
     usdc: true
     usdt: true
 treasurer: # list of tokens that support the treasurer in the chain
-  eth: true
-  usdt: true
-  usdc: true
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true
 usdc_admin: true # if the chain should configure usdc admin
