@@ -223,7 +223,7 @@ const networks: NetworksUserConfig = {
     },
     'base-mainnet': {
         eid: EndpointId.BASE_V2_MAINNET,
-        url: process.env.RPC_URL_BASE_MAINNET || 'https://base.drpc.org',
+        url: process.env.RPC_URL_BASE_MAINNET || 'https://base-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BASE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -621,7 +621,7 @@ const networks: NetworksUserConfig = {
     },
     'xdc-mainnet': {
         eid: EndpointId.XDC_V2_MAINNET,
-        url: process.env.RPC_URL_XDC_MAINNET || 'https://erpc.xinfin.network',
+        url: process.env.RPC_URL_XDC_MAINNET || 'https://rpc.xdc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.XDC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
