@@ -19,5 +19,5 @@ staking:
     usdc: true
 treasurer:
   tokens:
-  eth: true
-  usdc: true
+    eth: true
+    usdc: true
