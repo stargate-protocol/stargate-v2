@@ -1,4 +1,5 @@
 import assert from 'assert'
+import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
@@ -10,6 +11,7 @@ import {
 } from '@stargatefinance/stg-definitions-v2'
 import { MSG_TYPE_BUS, MSG_TYPE_CREDIT_MESSAGING, MSG_TYPE_TAXI } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { AssetEdgeConfig, CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
+import * as yaml from 'js-yaml'
 
 import { formatEid, withEid } from '@layerzerolabs/devtools'
 import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
@@ -246,4 +248,41 @@ export function getContractWithEid(eid: EndpointId, contract: any) {
  */
 export function setsDifference(setA: Set<string>, setB: Set<string>): Set<string> {
     return new Set<string>([...setA].filter((x) => !setB.has(x)))
+}
+
+interface Token {
+    type: string
+}
+
+interface RewarderToken {
+    allocation: Record<string, number>
+}
+
+export interface Chain {
+    name: string
+    eid: any
+    token_messaging: boolean
+    credit_messaging: boolean
+    tokens?: Record<string, Token>
+    rewarder?: {
+        tokens: Record<string, RewarderToken>
+    }
+    staking?: {
+        tokens: Record<string, boolean>
+    }
+    treasurer?: {
+        tokens: Record<string, boolean>
+    }
+    usdc_admin?: boolean
+}
+
+export function loadChainConfig(filePath: string): Chain {
+    try {
+        const fileContents = fs.readFileSync(filePath, 'utf8')
+        const chain = yaml.load(fileContents) as Chain
+        return chain
+    } catch (e) {
+        console.error('Error loading YAML file:', e)
+        throw e
+    }
 }

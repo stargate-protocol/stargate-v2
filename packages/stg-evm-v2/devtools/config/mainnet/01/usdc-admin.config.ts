@@ -8,8 +8,8 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { getSafeAddress } from '../../utils'
-import { onFlare, onGravity, onIota, onKlaytn, onLightlink, onPeaq, onRarible, onTaiko, onXchain } from '../utils'
+import { getContractWithEid, getSafeAddress } from '../../utils'
+import { getChainsThatSupportUsdcAdmins } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 
@@ -18,84 +18,31 @@ const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, TokenNam
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
-    // Get the corresponding underlying USDC contract
-    const flareUSDC = onFlare(proxyContract)
-    const gravityUSDC = onGravity(proxyContract)
-    const iotaUSDC = onIota(proxyContract)
-    const klaytnUSDC = onKlaytn(proxyContract)
-    const lightlinkUSDC = onLightlink(proxyContract)
-    const peaqUSDC = onPeaq({ contractName: 'FiatTokenProxy', address: usdcPeaqAsset.address })
-    const raribleUSDC = onRarible(proxyContract)
-    const taikoUSDC = onTaiko(proxyContract)
-    const xchainUSDC = onXchain(proxyContract)
+    const chains = getChainsThatSupportUsdcAdmins()
 
-    const flareStargateMultisig = getSafeAddress(EndpointId.FLARE_V2_MAINNET)
-    const gravityStargateMultisig = getSafeAddress(EndpointId.GRAVITY_V2_MAINNET)
-    const iotaStargateMultisig = getSafeAddress(EndpointId.IOTA_V2_MAINNET)
-    const klaytnStargateMultisig = getSafeAddress(EndpointId.KLAYTN_V2_MAINNET)
-    const lightlinkStargateMultisig = getSafeAddress(EndpointId.LIGHTLINK_V2_MAINNET)
-    const peaqStargateMultisig = getSafeAddress(EndpointId.PEAQ_V2_MAINNET)
-    const raribleStargateMultisig = getSafeAddress(EndpointId.RARIBLE_V2_MAINNET)
-    const taikoStargateMultisig = getSafeAddress(EndpointId.TAIKO_V2_MAINNET)
-    const xchainStargateMultisig = getSafeAddress(EndpointId.XCHAIN_V2_MAINNET)
+    const contracts = chains.map((chain) => {
+        if (chain.eid === EndpointId.PEAQ_V2_MAINNET) {
+            return {
+                contract: getContractWithEid(chain.eid, {
+                    contractName: 'FiatTokenProxy',
+                    address: usdcPeaqAsset.address,
+                }),
+                config: {
+                    admin: getSafeAddress(chain.eid),
+                },
+            }
+        }
+
+        return {
+            contract: getContractWithEid(chain.eid, proxyContract),
+            config: {
+                admin: getSafeAddress(chain.eid),
+            },
+        }
+    })
 
     return {
-        contracts: [
-            {
-                contract: flareUSDC,
-                config: {
-                    admin: flareStargateMultisig,
-                },
-            },
-            {
-                contract: gravityUSDC,
-                config: {
-                    admin: gravityStargateMultisig,
-                },
-            },
-            {
-                contract: iotaUSDC,
-                config: {
-                    admin: iotaStargateMultisig,
-                },
-            },
-            {
-                contract: klaytnUSDC,
-                config: {
-                    admin: klaytnStargateMultisig,
-                },
-            },
-            {
-                contract: lightlinkUSDC,
-                config: {
-                    admin: lightlinkStargateMultisig,
-                },
-            },
-            {
-                contract: peaqUSDC,
-                config: {
-                    admin: peaqStargateMultisig,
-                },
-            },
-            {
-                contract: raribleUSDC,
-                config: {
-                    admin: raribleStargateMultisig,
-                },
-            },
-            {
-                contract: taikoUSDC,
-                config: {
-                    admin: taikoStargateMultisig,
-                },
-            },
-            {
-                contract: xchainUSDC,
-                config: {
-                    admin: xchainStargateMultisig,
-                },
-            },
-        ],
+        contracts,
         connections: [],
     }
 }
