@@ -1652,7 +1652,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.5').toBigInt(),
         },
         safeConfig: {
-            safeAddress: '0x0000000000000000000000000000000000000000', // todo
+            safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/edu`,
             contractNetworks: {
                 [41923]: {
