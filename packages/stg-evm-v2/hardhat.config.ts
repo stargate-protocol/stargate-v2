@@ -67,7 +67,8 @@ const testnetAccounts: HDAccountsUserConfig = {
 }
 
 const mainnetAccounts: HDAccountsUserConfig = {
-    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || '',
+    // using Test mnemonic for mainnet to use it in the tests, in case they are not set in the env variable
+    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
 const hardhatNamedAccounts: HardhatUserConfig = {
