@@ -1,0 +1,24 @@
+name: hemi-mainnet
+eid: HEMI_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  usdc:
+    type: oft
+  usdt:
+    type: oft
+rewarder:
+  tokens:
+    weth:
+      allocation:
+        eth: 10000
+staking:
+  tokens:
+    eth: true
+treasurer:
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true

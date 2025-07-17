@@ -1,0 +1,23 @@
+name: coredao-mainnet
+eid: COREDAO_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdc:
+    type: pool
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    core:
+      allocation:
+        usdc: 5000
+        usdt: 5000
+staking:
+  tokens:
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    usdt: true
+    usdc: true
