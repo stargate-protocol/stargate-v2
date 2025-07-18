@@ -42,6 +42,7 @@ export const DVNS = {
         [EndpointId.GNOSIS_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.GOAT_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
+        [EndpointId.HEDERA_V2_MAINNET]: '0xecc3dc1cc45b1934ce713f8fb0d3d3852c01a5c1',
         [EndpointId.HEMI_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.INK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -119,6 +120,7 @@ export const DVNS = {
         [EndpointId.GNOSIS_V2_MAINNET]: '0xfcea5cef8b1ae3a454577c9444cdd95c1284b0cf',
         [EndpointId.GOAT_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
+        [EndpointId.HEDERA_V2_MAINNET]: '0x178d9517fc35633afda67b8c236e568997a3ae03',
         [EndpointId.HEMI_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.INK_V2_MAINNET]: '0xe900e073badafdc6f72541f34e6b701bde835487',
         [EndpointId.IOTA_V2_MAINNET]: '0xf18a7d86917653725afb7c215e47a24f9d784718',
@@ -183,6 +185,7 @@ export const EXECUTORS = {
         [EndpointId.GNOSIS_V2_MAINNET]: '0x38340337f9ADF5D76029Ab3A667d34E5a032F7BA',
         [EndpointId.GOAT_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.HEDERA_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.HEMI_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.INK_V2_MAINNET]: '0xFEbCF17b11376C724AB5a5229803C6e838b6eAe5',
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
@@ -322,6 +325,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.GRAVITY_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+            [EndpointId.HEDERA_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -1009,6 +1017,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.GNOSIS_V2_MAINNET]: {},
         [EndpointId.GOAT_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
+        [EndpointId.HEDERA_V2_MAINNET]: {},
         [EndpointId.HEMI_V2_MAINNET]: {},
         [EndpointId.INK_V2_MAINNET]: {},
         [EndpointId.IOTA_V2_MAINNET]: {},
@@ -1889,6 +1898,36 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xBF070E3aE1a137f3024b57DD81fc74C9DC99773F',
                     signMessageLibAddress: '0x3E0D5EEF8D229bE5D18368AC0a2c7C1a33eE3CDa',
                     simulateTxAccessorAddress: '0x355aF9BC540bec4586f5D7587b5a6EfD0296A540',
+                },
+            },
+        },
+    },
+    [EndpointId.HEDERA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET], DVNS.STG[EndpointId.HEDERA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET], DVNS.STG[EndpointId.HEDERA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.5').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0x0000000000000000000000000000000000000000', // todo
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/hedera`,
+            contractNetworks: {
+                // todo it is not in the safe-deployments repo
+                [295]: {
+                    multiSendAddress: '0x0000000000000000000000000000000000000000',
+                    multiSendCallOnlyAddress: '0x0000000000000000000000000000000000000000',
+                    safeMasterCopyAddress: '0x0000000000000000000000000000000000000000',
+                    safeProxyFactoryAddress: '0x0000000000000000000000000000000000000000',
+                    fallbackHandlerAddress: '0x0000000000000000000000000000000000000000',
+                    createCallAddress: '0x0000000000000000000000000000000000000000',
+                    signMessageLibAddress: '0x0000000000000000000000000000000000000000',
+                    simulateTxAccessorAddress: '0x0000000000000000000000000000000000000000',
                 },
             },
         },
