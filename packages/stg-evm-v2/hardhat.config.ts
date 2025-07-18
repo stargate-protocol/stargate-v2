@@ -371,7 +371,7 @@ const networks: NetworksUserConfig = {
     },
     'hedera-mainnet': {
         eid: EndpointId.HEDERA_V2_MAINNET,
-        url: process.env.RPC_URL_HEDERA_MAINNET || 'https://hedera.linkpool.pro',
+        url: process.env.RPC_URL_HEDERA_MAINNET || 'https://mainnet.hashio.io/api',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.HEDERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -778,6 +778,9 @@ const getRpcUrl = (chainName: string): string | null => {
 const updateNetworkRpcUrls = (networks: NetworksUserConfig): NetworksUserConfig => {
     return Object.fromEntries(
         Object.entries(networks).map(([networkName, networkConfig]) => {
+            if (networkName === 'hedera-mainnet') {
+                return [networkName, { ...networkConfig, url: 'http://localhost:8545' }]
+            }
             if (networkConfig && 'url' in networkConfig) {
                 const dynamicUrl = getRpcUrl(networkName)
                 return [networkName, { ...networkConfig, url: dynamicUrl ?? networkConfig.url }]
