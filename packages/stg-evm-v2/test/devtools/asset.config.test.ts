@@ -180,7 +180,7 @@ function testAssetConfig(
         }
     })
 
-    it('should throw an error when valid chains are provided but they are not supported', async () => {
+    it('should remove the invalid chains when they are provided and are not supported', async () => {
         // Get chains that do not support the token
         const allValidChains = getAllSupportedChains()
         const supportedChains = getChainsThatSupportToken(tokenName)
@@ -189,12 +189,15 @@ function testAssetConfig(
 
         process.env.FROM_CHAINS = unsupportedChains.join(',')
 
-        // Check that the error is thrown
-        try {
-            await assetConfig()
-            expect.fail('Expected an error to be thrown')
-        } catch (error: any) {
-            expect(error.message).to.include(`Chain ${unsupportedChains[0]} is not supported`)
+        const config = await assetConfig()
+
+        // from chains should be empty so will use all chains
+        const fromChainEids = supportedChains.map((chain) => chain.eid)
+        const toChainEids = supportedChains.map((chain) => chain.eid)
+
+        // check the config has no contracts for the unsupported chains
+        for (const contract of config.contracts) {
+            expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
     })
 }
