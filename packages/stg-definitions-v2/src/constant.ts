@@ -396,12 +396,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
-            [EndpointId.SOPHON_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Pool,
-                address: '0x72af9F169B619D85A47Dfa8fefbCD39dE55c567D',
-            },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 type: StargateType.Native,
             },

@@ -55,20 +55,20 @@ const v1Deployments = join(dirname(require.resolve('@stargatefinance/stg-evm-v1/
  */
 const DEFAULT_NETWORK_TIMEOUT = 600_000
 
+const TEST_MNEMONIC = 'test test test test test test test test test test test junk'
+
 const sandboxAccounts: HDAccountsUserConfig = {
-    mnemonic:
-        process.env.MNEMONIC_SANDBOX ||
-        process.env.MNEMONIC ||
-        'test test test test test test test test test test test junk',
+    mnemonic: process.env.MNEMONIC_SANDBOX || process.env.MNEMONIC || TEST_MNEMONIC,
     count: 300,
 }
 
 const testnetAccounts: HDAccountsUserConfig = {
-    mnemonic: process.env.MNEMONIC_TESTNET || process.env.MNEMONIC || '',
+    mnemonic: process.env.MNEMONIC_TESTNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
 const mainnetAccounts: HDAccountsUserConfig = {
-    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || '',
+    // using Test mnemonic for mainnet to use it in the tests, in case they are not set in the env variable
+    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
 const hardhatNamedAccounts: HardhatUserConfig = {
@@ -223,7 +223,7 @@ const networks: NetworksUserConfig = {
     },
     'base-mainnet': {
         eid: EndpointId.BASE_V2_MAINNET,
-        url: process.env.RPC_URL_BASE_MAINNET || 'https://base.drpc.org',
+        url: process.env.RPC_URL_BASE_MAINNET || 'https://base-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BASE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -399,7 +399,7 @@ const networks: NetworksUserConfig = {
     },
     'islander-mainnet': {
         eid: EndpointId.ISLANDER_V2_MAINNET,
-        url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://rpc.islander.vana.org',
+        url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://evm-rpc-vana.josephtran.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ISLANDER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -434,7 +434,7 @@ const networks: NetworksUserConfig = {
     },
     'mantle-mainnet': {
         eid: EndpointId.MANTLE_V2_MAINNET,
-        url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle.drpc.org',
+        url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle-mainnet.public.blastapi.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MANTLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -532,7 +532,7 @@ const networks: NetworksUserConfig = {
     },
     'scroll-mainnet': {
         eid: EndpointId.SCROLL_V2_MAINNET,
-        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://rpc.ankr.com/scroll',
+        url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -628,7 +628,7 @@ const networks: NetworksUserConfig = {
     },
     'xdc-mainnet': {
         eid: EndpointId.XDC_V2_MAINNET,
-        url: process.env.RPC_URL_XDC_MAINNET || 'https://erpc.xinfin.network',
+        url: process.env.RPC_URL_XDC_MAINNET || 'https://rpc.xdc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.XDC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
