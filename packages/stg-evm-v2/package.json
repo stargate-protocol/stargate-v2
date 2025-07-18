@@ -96,7 +96,7 @@
     "@ethersproject/contracts": "~5.7.0",
     "@ethersproject/hash": "~5.7.0",
     "@ethersproject/providers": "~5.7.2",
-    "@layerzerolabs/devtools": "~0.4.1",
+    "@layerzerolabs/devtools": "~1.0.1",
     "@layerzerolabs/devtools-evm": "~0.4.2",
     "@layerzerolabs/devtools-evm-hardhat": "^2.0.9",
     "@layerzerolabs/export-deployments": "~0.0.14",
