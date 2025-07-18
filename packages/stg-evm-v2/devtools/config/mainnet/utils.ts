@@ -18,10 +18,6 @@ export function validateChains(chains: string[], supportedChains: string[]) {
     chains.forEach((chain) => {
         if (!isValidChain(chain)) {
             throw new Error(`Invalid chain: ${chain}`)
-        } else {
-            if (!supportedChains.includes(chain)) {
-                throw new Error(`Chain ${chain} is not supported`)
-            }
         }
     })
 }
