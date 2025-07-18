@@ -76,7 +76,9 @@ export function getAllChainsConfig(): Chain[] {
         return chainConfig
     })
 
-    return _supportedChains!
+    // check that all chains have a deployment folder
+    _supportedChains = _filterChainsWithDeployments(_supportedChains!)
+    return _supportedChains
 }
 
 export function getAllSupportedChains(): string[] {
@@ -169,4 +171,15 @@ export function getTokenName(token: string): TokenName {
         throw new Error(`Token ${token} not found`)
     }
     return name
+}
+
+function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
+    const deploymentsPath = path.join(__dirname, '../../../deployments')
+    const deploymentDirs = fs
+        .readdirSync(deploymentsPath, { withFileTypes: true })
+        // check the directory is not empty
+        .filter((dirent) => dirent.isDirectory() && dirent.name !== '.git')
+        .map((dirent) => dirent.name)
+
+    return chains.filter((chain) => deploymentDirs.includes(chain.name))
 }
