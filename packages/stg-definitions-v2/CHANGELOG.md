@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.5
+
+### Patch Changes
+
+- ba6a4b6: Sophon mainnet config
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+
 ## 2.0.4
 
 ### Patch Changes
