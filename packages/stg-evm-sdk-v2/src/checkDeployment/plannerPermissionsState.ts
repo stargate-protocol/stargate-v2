@@ -1,10 +1,7 @@
+import { DEFAULT_PLANNER } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/01/constants'
 import { backOff } from 'exponential-backoff'
 
-import {
-    getBootstrapChainConfigWithUlnFromArgs,
-    getLocalStargatePoolConfigGetterFromArgs,
-    getResolvedWalletRegistryFromArgs,
-} from '../bootstrap-config'
+import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import {
     FeeLibV1__factory,
     connectStargateV2Contract,
@@ -12,7 +9,6 @@ import {
     getStargateV2TokenMessagingContract,
     isStargateV2SupportedChainName,
 } from '../stargate-contracts'
-import { StaticChainConfigs } from '../stargate-contracts/utils'
 
 import { ByAssetConfig, StargateVersion, printByAssetFlattenConfig, processPromises } from './utils'
 
@@ -33,12 +29,6 @@ export const getPlannerPermissionsState = async (args: { environment: string; on
         },
         isStargateV2SupportedChainName
     )
-
-    const resolvedWalletRegistry = await getResolvedWalletRegistryFromArgs(service, {
-        noFork: true,
-        environment,
-        mnemonicConfig: 'local',
-    })
 
     const stargatePoolConfigGetter = await getLocalStargatePoolConfigGetterFromArgs(environment)
 
@@ -63,21 +53,6 @@ export const getPlannerPermissionsState = async (args: { environment: string; on
                 permissionsState[assetId][srcChainName] ??= {}
 
                 return async () => {
-                    // Get stargate planner wallet address
-                    const plannerWalletName = resolvedWalletRegistry.serviceWalletMapping.planner
-                    const plannerWalletDefinition = resolvedWalletRegistry.walletDefinitions.find(
-                        (wallet) => wallet.name === plannerWalletName
-                    )
-
-                    const chainType = StaticChainConfigs.getChainType(srcChainName)
-
-                    const plannerWalletAddress = plannerWalletDefinition?.byChainType[chainType].address
-                    if (!plannerWalletAddress) {
-                        throw new Error(
-                            `Couldn't determine the Planner wallet address for chain type: ${chainType}, name: ${plannerWalletName}`
-                        )
-                    }
-
                     const tokenMessagingContract = getStargateV2TokenMessagingContract(
                         srcChainName,
                         environment,
@@ -95,13 +70,13 @@ export const getPlannerPermissionsState = async (args: { environment: string; on
 
                     // Verify that the planner wallet has the 'planner' role for messaging contracts
                     const tokenMessagingPlannerError =
-                        tokenMessagingPlannerAddress === plannerWalletAddress
+                        tokenMessagingPlannerAddress === DEFAULT_PLANNER
                             ? ''
-                            : `error: expected TokenMessaging planner ${plannerWalletAddress} but is currently ${tokenMessagingPlannerAddress}`
+                            : `error: expected TokenMessaging planner ${DEFAULT_PLANNER} but is currently ${tokenMessagingPlannerAddress}`
                     const creditMessagingPlannerError =
-                        creditMessagingPlannerAddress === plannerWalletAddress
+                        creditMessagingPlannerAddress === DEFAULT_PLANNER
                             ? ''
-                            : `error: expected CreditMessaging planner ${plannerWalletAddress} but is currently ${creditMessagingPlannerAddress}`
+                            : `error: expected CreditMessaging planner ${DEFAULT_PLANNER} but is currently ${creditMessagingPlannerAddress}`
 
                     // Verify that the planner wallet is the owner of the FeeLib contracts
                     const { stargateType, address } = config.poolInfo[srcChainName]
@@ -126,9 +101,9 @@ export const getPlannerPermissionsState = async (args: { environment: string; on
                     const feeLibOwnerAddress = await feeLibContract.owner()
 
                     const feeLibOwnerError =
-                        feeLibOwnerAddress === plannerWalletAddress
+                        feeLibOwnerAddress === DEFAULT_PLANNER
                             ? ''
-                            : `error: expected FeeLib owner ${plannerWalletAddress} but is currently ${feeLibOwnerAddress}`
+                            : `error: expected FeeLib owner ${DEFAULT_PLANNER} but is currently ${feeLibOwnerAddress}`
 
                     // Populate result state
                     permissionsState[assetId][srcChainName] = {

@@ -28,6 +28,7 @@
       "import": "./dist/*.mjs",
       "require": "./dist/*.cjs"
     },
+    "./devtools/config/mainnet/01/constants": "./devtools/config/mainnet/01/constants.ts",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
