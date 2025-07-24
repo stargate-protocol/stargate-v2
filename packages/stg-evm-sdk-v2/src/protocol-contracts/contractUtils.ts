@@ -1,90 +1,7 @@
-import { mainnetDeploymentAddresses } from '../configs/deployment/mainnet/deploymentConfig'
-import { testnetDeploymentAddresses } from '../configs/deployment/testnet/deploymentConfig'
-import { getContractDeploymentInfo } from '../stargate-contracts/contractUtils'
+import { getContractDeploymentInfo } from '../stargate-contracts/contractUtils' // TODO this should be in a common-utils file
 
 import type { Provider } from '@ethersproject/providers'
 import type { Signer } from 'ethers'
-
-const deploymentConfigs: {
-    [environment: string]: {
-        [chainName: string]: {
-            [contractName: string]: string
-        }
-    }
-} = {
-    mainnet: mainnetDeploymentAddresses,
-    testnet: testnetDeploymentAddresses,
-    sandbox: testnetDeploymentAddresses,
-    localnet: testnetDeploymentAddresses,
-}
-
-export const npmPackageToContractNameMapping: Record<string, string[]> = {
-    '@layerzerolabs/lz-evm-sdk-v2': [
-        'ReadLib1002',
-        'ReadLib1002View',
-        'DVN',
-        'DVNFeeLib',
-        'DVNFeeLibGCDA',
-        'DVNGCDA',
-        'DefaultProxyAdmin',
-        'EndpointV2',
-        'EndpointV2View',
-        'Executor',
-        'ExecutorFeeLib',
-        'ExecutorProxyAdmin',
-        'Executor_Proxy',
-        'LzExecutor',
-        'OmniCounter',
-        'PriceFeed',
-        'PriceFeedProxyAdmin',
-        'ProxyAdmin',
-        'ReceiveUln301',
-        'ReceiveUln301View',
-        'ReceiveUln302',
-        'ReceiveUln302View',
-        'SendLibBaseE1',
-        'SendUln301',
-        'SendUln302',
-        'SimpleMessageLib',
-        'Treasury',
-        'AxelarDVNAdapter',
-        'AxelarDVNAdapterFeeLib_Implementation',
-        'AxelarDVNAdapterFeeLib_Proxy',
-        'AxelarDVNAdapterFeeLib',
-    ],
-    '@layerzerolabs/lz-evm-sdk-v1': [
-        'Endpoint',
-        'NonceContract',
-        'Relayer',
-        'RelayerV2',
-        'UltraLightNode',
-        'UltraLightNodeV2',
-        'TreasuryV2',
-    ],
-    '@layerzerolabs/multisig-oracle-contracts-evm': ['MultiSigOracle', 'MultiSigOracleGCDA', 'OracleFeeLibGCDA'],
-    '@layerzerolabs/lz-ton-sdk-v2': [
-        'AllStorages',
-        'Controller',
-        'Counter',
-        'SimpleMsglib',
-        'SmlManager',
-        'SmlConnection',
-        'Channel',
-        'Endpoint',
-        'UlnManager',
-        'PriceFeedCache',
-        'Executor',
-        'ExecutorProxy',
-        'Dvn',
-        'DvnProxy',
-        'Uln',
-        'UlnConnection',
-        'DvnFeeLib',
-        'ExecutorFeeLib',
-        'PriceFeedFeeLib',
-        'Connection',
-    ],
-}
 
 export const getLZContractAddress = (
     contractName: string,
@@ -92,16 +9,9 @@ export const getLZContractAddress = (
     environment: string,
     resolvePackagePath: (address: string) => { address: string }
 ): string => {
-    const addressFromConfig = deploymentConfigs[environment]?.[chainName]?.[contractName]
-
-    if (addressFromConfig) {
-        return addressFromConfig
-    } else {
-        // This is just a temporary check to make sure we do not miss any contract during migration
-        const npmPackage = Object.keys(npmPackageToContractNameMapping).find((packageName) =>
-            npmPackageToContractNameMapping[packageName].includes(contractName)
-        )!
-
+    // Only support Executor contract - get address directly from LayerZero SDK
+    if (contractName === 'Executor') {
+        const npmPackage = '@layerzerolabs/lz-evm-sdk-v2'
         const addressFromArtifact = getContractDeploymentInfo(
             npmPackage,
             contractName,
@@ -110,11 +20,13 @@ export const getLZContractAddress = (
             resolvePackagePath
         ).address
 
-        console.log(
-            `CONTRACT_ADDRESS_MISSING_IN_CONFIG id: ${chainName}-${environment}:${contractName} package: ${npmPackage} addressFromArtifact: ${addressFromArtifact} addressFromConfig: ${addressFromConfig}`
-        )
         return addressFromArtifact
     }
+
+    // Throw error for any other contract name
+    throw new Error(
+        `Contract "${contractName}" is not supported. Only "Executor" contract is supported by this refactored implementation.`
+    )
 }
 
 export const createLZContractAddressGetter = (
