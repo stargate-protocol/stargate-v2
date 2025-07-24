@@ -46,3 +46,10 @@ The SDK includes deployment information for each supported chain, stored in the 
 ## Error Handling
 The SDK also provides an `errors.json` file generated during the `build` phase to support parsing and handling errors returned by Stargate contracts.
 
+## To run checker
+
+1. Ensure typechain is generated. Run `node typechainConfig.js` in `src/stargate-contracts` and run it in `src/protocol-contracts`
+2. To run all checks, run `ts-node src/checkDeployment/index.ts -e mainnet` from the root of the package
+3. To run individual checks, run `ts-node src/checkDeployment/<name of file>.ts -e mainnet`, eg `ts-node src/checkDeployment/busNativeDropsState.ts -e mainnet`
+
+Note that you can specify individual chains to check using the `-t` flag, eg. `ts-node src/checkDeployment/index.ts -e mainnet -t mantle`
