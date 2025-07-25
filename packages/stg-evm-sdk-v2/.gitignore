@@ -2,3 +2,5 @@ artifacts
 deployments
 dist
 src/errors.json
+
+.env
