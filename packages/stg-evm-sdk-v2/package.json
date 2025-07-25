@@ -47,6 +47,7 @@
     "@stargatefinance/stg-evm-v2": "~2.0.6",
     "@typechain/ethers-v5": "^10.2.0",
     "@types/node": "^18.15.11",
+    "dotenv": "^16.4.5",
     "esbuild-plugin-clean": "~1.0.1",
     "esbuild-plugin-copy": "~2.1.1",
     "ts-command-line-args": "^2.4.2",

@@ -1,7 +1,19 @@
 import { promises as fs } from 'fs'
+import * as fsSync from 'fs'
 import * as path from 'path'
 
 import { JsonRpcProvider } from '@ethersproject/providers'
+
+// Load environment variables from .env files in this package
+try {
+    const { configDotenv } = require('dotenv')
+    configDotenv({
+        path: ['.env.local', '.env'],
+    })
+} catch (error) {
+    // dotenv not available, environment variables should be set manually
+    console.warn('dotenv not available, ensure environment variables are set manually')
+}
 
 import { StargateVersion } from './checkDeployment/utils'
 
@@ -374,190 +386,99 @@ class LocalProviderConfigGetter implements ProviderConfigGetter {
 }
 
 /**
- * A custom provider wrapper that implements sequential fallback logic
- */
-class SequentialFallbackProvider {
-    private providers: JsonRpcProvider[]
-    private uris: string[]
-    private chainName: string
-    private currentProviderIndex = 0
-    private networkPromise: Promise<any> | null = null
-
-    constructor(uris: string[], chainName: string) {
-        this.uris = uris
-        this.chainName = chainName
-        this.providers = uris.map((uri) => new JsonRpcProvider(uri))
-    }
-
-    private async tryNextProvider(): Promise<JsonRpcProvider> {
-        while (this.currentProviderIndex < this.providers.length) {
-            const provider = this.providers[this.currentProviderIndex]
-            try {
-                // Test the provider with a simple call
-                await provider.getNetwork()
-                return provider
-            } catch (error: any) {
-                const rpcUrl = this.uris[this.currentProviderIndex]
-                console.warn(
-                    `[${this.chainName}] RPC provider failed network detection: ${rpcUrl} - ${error?.message || error}`
-                )
-                this.currentProviderIndex++
-            }
-        }
-        throw new Error('All providers failed network detection')
-    }
-
-    private async getCurrentProvider(): Promise<JsonRpcProvider> {
-        if (!this.networkPromise) {
-            this.networkPromise = this.tryNextProvider()
-        }
-        return this.networkPromise
-    }
-
-    // Proxy all Provider methods to the current working provider
-    async getNetwork() {
-        const provider = await this.getCurrentProvider()
-        return provider.getNetwork()
-    }
-
-    async getBlockNumber() {
-        const provider = await this.getCurrentProvider()
-        return provider.getBlockNumber()
-    }
-
-    async getBalance(addressOrName: string, blockTag?: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.getBalance(addressOrName, blockTag)
-    }
-
-    async getTransactionCount(addressOrName: string, blockTag?: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.getTransactionCount(addressOrName, blockTag)
-    }
-
-    async getCode(addressOrName: string, blockTag?: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.getCode(addressOrName, blockTag)
-    }
-
-    async getStorageAt(addressOrName: string, position: any, blockTag?: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.getStorageAt(addressOrName, position, blockTag)
-    }
-
-    async sendTransaction(signedTransaction: string) {
-        const provider = await this.getCurrentProvider()
-        return provider.sendTransaction(signedTransaction)
-    }
-
-    async call(transaction: any, blockTag?: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.call(transaction, blockTag)
-    }
-
-    async estimateGas(transaction: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.estimateGas(transaction)
-    }
-
-    async getBlock(blockHashOrBlockTag: any, includeTransactions?: boolean) {
-        const provider = await this.getCurrentProvider()
-        if (includeTransactions !== undefined) {
-            // If includeTransactions is specified, we need to handle it differently
-            // For now, just ignore the parameter as it's not supported in this ethers version
-            return provider.getBlock(blockHashOrBlockTag)
-        }
-        return provider.getBlock(blockHashOrBlockTag)
-    }
-
-    async getTransaction(transactionHash: string) {
-        const provider = await this.getCurrentProvider()
-        return provider.getTransaction(transactionHash)
-    }
-
-    async getTransactionReceipt(transactionHash: string) {
-        const provider = await this.getCurrentProvider()
-        return provider.getTransactionReceipt(transactionHash)
-    }
-
-    async getLogs(filter: any) {
-        const provider = await this.getCurrentProvider()
-        return provider.getLogs(filter)
-    }
-
-    async resolveName(name: string) {
-        const provider = await this.getCurrentProvider()
-        return provider.resolveName(name)
-    }
-
-    async lookupAddress(address: string) {
-        const provider = await this.getCurrentProvider()
-        return provider.lookupAddress(address)
-    }
-
-    async waitForTransaction(transactionHash: string, confirmations?: number, timeout?: number) {
-        const provider = await this.getCurrentProvider()
-        return provider.waitForTransaction(transactionHash, confirmations, timeout)
-    }
-
-    // Add other necessary methods as needed
-    on(eventName: any, listener: any) {
-        // For events, we'll need to handle this differently
-        // For now, delegate to the first provider
-        return this.providers[0].on(eventName, listener)
-    }
-
-    off(eventName: any, listener?: any) {
-        return this.providers[0].off(eventName)
-    }
-
-    removeAllListeners(eventName?: any) {
-        return this.providers[0].removeAllListeners(eventName)
-    }
-
-    // Make it compatible with ethers Provider interface
-    get connection() {
-        return this.providers[this.currentProviderIndex]?.connection
-    }
-
-    get _isProvider() {
-        return true
-    }
-}
-
-/**
  * Converts a ProviderConfig object to an actual ethers Provider instance
  */
 export const createProviderFromConfig = (config: ProviderConfig, chainName: string): Provider => {
-    // Handle UriWithHeaders type
-    const uris = config.uris.map((uri) => {
-        if (typeof uri === 'string') {
-            return uri
-        } else {
-            // For UriWithHeaders, we'll use the uri directly
-            // Note: ethers doesn't directly support custom headers in JsonRpcProvider
-            // You might need to implement custom logic if headers are required
-            return uri.uri
-        }
-    })
-
-    // If only one URI, create a simple JsonRpcProvider
-    if (uris.length === 1) {
-        return new JsonRpcProvider(uris[0])
+    // Check if there are any URIs available
+    if (config.uris.length === 0) {
+        throw new Error(`No RPC URLs available for chain: ${chainName}`)
     }
 
-    // If multiple URIs, create our custom SequentialFallbackProvider
-    return new SequentialFallbackProvider(uris, chainName) as any
+    // Since the RPC URL already handles fallback internally, we only need a simple JsonRpcProvider
+    // Get the first URI (we only generate one URI per chain from environment variables)
+    const uri = typeof config.uris[0] === 'string' ? config.uris[0] : config.uris[0].uri
+    return new JsonRpcProvider(uri)
 }
 
-// Helper function to load provider configurations from file
-const loadProviderConfigs = async (environment: string): Promise<ProviderConfigs> => {
+// Helper function to get RPC URL from environment variables (similar to hardhat.config.ts)
+const getRpcUrl = (chainName: string): string | null => {
+    const [chainRawName, chainType] = chainName.split('-', 2)
+    if (!chainType || !chainRawName) return null
+
+    let templateUrl
+
+    switch (chainType) {
+        case 'testnet':
+            templateUrl = process.env.RPC_URL_TESTNET
+            break
+        case 'mainnet':
+            templateUrl = process.env.RPC_URL_MAINNET
+            break
+        default:
+            return null
+    }
+
+    const url = templateUrl?.replace('CHAIN', chainRawName) ?? null
+    return url
+}
+
+// Helper function to get available chain names from deployment directories
+const getAvailableChainNamesFromDeployments = (environment: string): string[] => {
     try {
-        const providersPath = path.join(__dirname, 'configs', 'providers', environment, 'providers.json')
-        const providerData = await fs.readFile(providersPath, 'utf-8')
-        return JSON.parse(providerData) as ProviderConfigs
+        // Get deployment directories from the current package
+        const deploymentsPath = path.join(__dirname, '..', 'deployments')
+        const deploymentDirs = fsSync
+            .readdirSync(deploymentsPath, { withFileTypes: true })
+            .filter((dirent: fsSync.Dirent) => dirent.isDirectory())
+            .map((dirent: fsSync.Dirent) => dirent.name)
+
+        // Filter by environment if specified
+        if (environment === 'mainnet') {
+            return deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
+        } else if (environment === 'testnet') {
+            return deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
+        }
+
+        return deploymentDirs
     } catch (error) {
-        throw new Error(`Failed to load provider configs for environment ${environment}: ${error}`)
+        console.warn(`Failed to read deployment directories: ${error}`)
+        return []
+    }
+}
+
+// Helper function to generate provider configurations from environment variables
+const loadProviderConfigs = async (environment: string, chainNames?: string[]): Promise<ProviderConfigs> => {
+    try {
+        // If no chain names provided, get them from deployment directories
+        const availableChainNames = chainNames || getAvailableChainNamesFromDeployments(environment)
+
+        if (availableChainNames.length === 0) {
+            throw new Error('No chain names available from deployment directories')
+        }
+
+        const providerConfigs: ProviderConfigs = {}
+
+        for (const chainName of availableChainNames) {
+            const rpcUrl = getRpcUrl(chainName)
+            if (rpcUrl) {
+                providerConfigs[chainName] = {
+                    uris: [rpcUrl],
+                    quorum: 1,
+                }
+            } else {
+                // Still include the chain in provider configs but with empty uris
+                // This allows filtering logic to work while preventing provider creation
+                providerConfigs[chainName] = {
+                    uris: [],
+                    quorum: 1,
+                }
+                console.warn(`No RPC URL found for chain: ${chainName}`)
+            }
+        }
+
+        return providerConfigs
+    } catch (error) {
+        throw new Error(`Failed to generate provider configs for environment ${environment}: ${error}`)
     }
 }
 
@@ -633,7 +554,11 @@ export const getBootstrapChainConfigFromArgs = async (
 
     // Apply additional chain filtering if provided
     const chainNames = isSupportedChainName
-        ? filteredChainNames.filter((chainName) => isSupportedChainName(chainName, args.environment))
+        ? filteredChainNames.filter((chainName) => {
+              // Extract chain raw name (remove -mainnet/-testnet suffix) for the support check
+              const [chainRawName] = chainName.split('-', 2)
+              return isSupportedChainName(chainRawName, args.environment)
+          })
         : filteredChainNames
 
     if (!chainNames.length) {
@@ -642,8 +567,20 @@ export const getBootstrapChainConfigFromArgs = async (
 
     // Create providers object with actual ethers Provider instances
     const providers: { [chainName: string]: Provider } = {}
+    const validChainNames: string[] = []
+
     for (const chainName of chainNames) {
-        providers[chainName] = createProviderFromConfig(providerConfigs[chainName], chainName)
+        try {
+            providers[chainName] = createProviderFromConfig(providerConfigs[chainName], chainName)
+            validChainNames.push(chainName)
+        } catch (error) {
+            // Skip chains that don't have valid RPC URLs
+            console.warn(`Skipping chain ${chainName}: ${error instanceof Error ? error.message : error}`)
+        }
+    }
+
+    if (!validChainNames.length) {
+        throw new Error('No chains with valid RPC URLs found after applying filters')
     }
 
     // Create provider config getter
@@ -653,7 +590,7 @@ export const getBootstrapChainConfigFromArgs = async (
         providers,
         providerConfigGetter,
         environment: args.environment,
-        chainNames,
+        chainNames: validChainNames,
         initialTokensOverrides,
         isOnForkedChains: !args.noFork && args.environment !== 'localnet', // localnet is never forked
     }
