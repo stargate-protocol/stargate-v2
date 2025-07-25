@@ -2,5 +2,6 @@ artifacts
 deployments
 dist
 src/errors.json
+src/*/typechain/
 
 .env
