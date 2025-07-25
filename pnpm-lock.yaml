@@ -281,6 +281,9 @@ importers:
       typescript:
         specifier: ~5.6.3
         version: 5.6.3
+      winston:
+        specifier: ^3.13.0
+        version: 3.15.0
 
   packages/stg-evm-v2:
     dependencies:
