@@ -257,6 +257,9 @@ importers:
       '@types/node':
         specifier: ^18.15.11
         version: 18.19.31
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       esbuild-plugin-clean:
         specifier: ~1.0.1
         version: 1.0.1(esbuild@0.24.0)

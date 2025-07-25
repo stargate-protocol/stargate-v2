@@ -344,3 +344,28 @@ export enum StargateVersion {
     V1 = 'v1',
     V2 = 'v2',
 }
+
+/**
+ * Processes bootstrap chain names to extract raw chain names and create deployment mapping
+ * @param bootstrapChainNames Array of bootstrap chain names (e.g., ['ethereum-mainnet', 'polygon-mainnet'])
+ * @returns Object containing raw chain names array and raw-to-deployment mapping
+ */
+export const processBootstrapChainNames = (bootstrapChainNames: string[]) => {
+    // Convert bootstrap chain names to raw chain names for comparison with pool config
+    const bootstrapRawChainNames = bootstrapChainNames.map((chainName) => {
+        const [chainRawName] = chainName.split('-', 2)
+        return chainRawName
+    })
+
+    // Create mapping from raw chain names back to deployment names for provider lookup
+    const rawToDeploymentMap: { [rawName: string]: string } = {}
+    bootstrapChainNames.forEach((deploymentName) => {
+        const [chainRawName] = deploymentName.split('-', 2)
+        rawToDeploymentMap[chainRawName] = deploymentName
+    })
+
+    return {
+        bootstrapRawChainNames,
+        rawToDeploymentMap,
+    }
+}
