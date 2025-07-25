@@ -29,11 +29,16 @@ import {
     getStargateV2StargateStakingContract,
     getStargateV2TokenMessagingContract,
 } from '../stargate-contracts'
-import { StaticChainConfigs } from '../stargate-contracts/utils'
 
 import { ContractMetadata, StargateV2OFTSentEvent, StargateV2Sdk } from './model'
-import { staticConfig } from './staticConfig'
-import { convertLogToEvent, extractOFTSentEvent, isOfEventType } from './utils'
+import {
+    convertLogToEvent,
+    extractOFTSentEvent,
+    getNativeCurrencyDecimals,
+    getNativeCurrencyInfo,
+    getNativeCurrencySymbol,
+    isOfEventType,
+} from './utils'
 
 import type { Logger } from 'winston'
 
@@ -188,7 +193,7 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
         }
 
         if (token === constants.AddressZero) {
-            const { decimals, symbol } = staticConfig[this.options.chainName]
+            const { decimals, symbol } = getNativeCurrencyInfo(this.options.chainName)
 
             if (decimals == undefined) {
                 throw new Error(`decimals of native token not set in static config for chain ${this.options.chainName}`)
@@ -276,8 +281,8 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
                             if (token === constants.AddressZero) {
                                 return {
                                     address: token,
-                                    decimals: StaticChainConfigs.getDecimals(chainName),
-                                    symbol: StaticChainConfigs.getSymbol(chainName),
+                                    decimals: getNativeCurrencyDecimals(chainName),
+                                    symbol: getNativeCurrencySymbol(chainName),
                                 }
                             }
                             const erc20 = ERC20__factory.connect(token, provider)
