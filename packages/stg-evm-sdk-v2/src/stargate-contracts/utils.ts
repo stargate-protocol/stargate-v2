@@ -1,5 +1,7 @@
 import { Chain } from '@layerzerolabs/lz-definitions'
 
+import { staticConfig } from '../stargate-sdks/staticConfig'
+
 export enum ChainStatus {
     //The chain has been fully removed from LayerZero and is not supported in any way
     DEPRECATED = 'DEPRECATED',
@@ -31,6 +33,14 @@ export class StaticChainConfigs {
         // For now, all chains in this repo are EVM-based
         // This can be extended if other chain types are added
         return ChainType.EVM
+    }
+
+    static getSymbol(chainName: string): string {
+        return staticConfig[chainName].symbol
+    }
+
+    static getDecimals(chainName: string): number {
+        return staticConfig[chainName].decimals
     }
 }
 

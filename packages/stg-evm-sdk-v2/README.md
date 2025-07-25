@@ -46,10 +46,33 @@ The SDK includes deployment information for each supported chain, stored in the 
 ## Error Handling
 The SDK also provides an `errors.json` file generated during the `build` phase to support parsing and handling errors returned by Stargate contracts.
 
-## To run checker
+## To run stargate deployment and configuration checker
 
-1. Ensure typechain is generated. Run `node typechainConfig.js` in `src/stargate-contracts` and run it in `src/protocol-contracts`
-2. To run all checks, run `ts-node src/checkDeployment/index.ts -e mainnet` from the root of the package
-3. To run individual checks, run `ts-node src/checkDeployment/<name of file>.ts -e mainnet`, eg `ts-node src/checkDeployment/busNativeDropsState.ts -e mainnet`
+1. Add `RPC_URL_MAINNET` to `.env` file and set it to be the LZ proxy RPC URL
+2. Generate typechain
+    - Navigate to `src/stargate-contracts` and run `node typechainConfig.js`. Then navigate to `src/protocol-contracts` and run the same command. Then navigate to `src/openzeppelin-contracts` and run the same command.
+3. If adding a new chain to the configuration checker:
 
-Note that you can specify individual chains to check using the `-t` flag, eg. `ts-node src/checkDeployment/index.ts -e mainnet -t mantle`
+        a. Ensure new deployment files for that chain exist in `deployments/`
+        
+        b. Update `stargateV2ChainNamesPerEnvironment` in `src/stargate-contracts/supportedChains.ts` to include the new chain
+4. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet` in the root of this package. Note that this script takes about 10 minutes to finish running. Use the `--verbose` flag to see the script progress as it runs. 
+    - If the file is not updated after running this, it is probably because the tokenMessagingContract wasn't updated with the address for the asset.
+5. You are now ready to run the checker.
+    - To run all checks, run the following command from the root of this package:
+        - `ts-node src/checkDeployment/index.ts -e mainnet`
+            - One common issue is that the busMaxNumPassengers * nativeDropAmounts > executor.nativeCap, which will cause the bus quotes to revert.
+    - To run individual checks, run the following command from the root of this package:
+        - `ts-node src/checkDeployment/<name of file>.ts -e mainnet`
+        - For example, `ts-node src/checkDeployment/feeConfigsState.ts -e mainnet`
+    - To run the above checks for a specific chain or chains, use the `-t` flag
+        - For example, `ts-node src/checkDeployment/index.ts -e mainnet -t mantle,hemi`
+
+// TODO
+- TODO clean up TODO comments, like moving things to common-utils
+- TODO clean up README to be more clear as to how to run checker and the prep work needed
+- Test everything
+- Compare all config files to offchain
+- TODO targets should trim whitespace from command line
+- TODO scour codebase for any unrelated/unneccessary logic
+- TODO figure out if staticConfigs can be avoided when generating pool configs

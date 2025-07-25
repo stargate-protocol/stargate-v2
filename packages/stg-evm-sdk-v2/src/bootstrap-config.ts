@@ -3,6 +3,11 @@ import * as fsSync from 'fs'
 import * as path from 'path'
 
 import { JsonRpcProvider } from '@ethersproject/providers'
+import { LoggerOptions, format, transports } from 'winston'
+
+import { StargateVersion } from './checkDeployment/utils'
+
+import type { Provider } from '@ethersproject/providers'
 
 try {
     const { configDotenv } = require('dotenv')
@@ -12,10 +17,6 @@ try {
 } catch (error) {
     console.warn('dotenv not available, ensure environment variables are set manually')
 }
-
-import { StargateVersion } from './checkDeployment/utils'
-
-import type { Provider } from '@ethersproject/providers'
 
 export interface IToken {
     address: string
@@ -294,7 +295,36 @@ const getStargateDynamicConfigPath = (configName: string, environment: string): 
 export const getLocalStargatePoolConfigGetterFromArgs = async (
     environment: string
 ): Promise<StargatePoolConfigGetter> => {
-    return await LocalStargatePoolConfigGetter.create(getStargateDynamicConfigPath('stargatePoolConfig', environment))
+    const configPath = getStargateDynamicConfigPath('stargatePoolConfig', environment)
+    const fileContent = (await fs.readFile(configPath)).toString('utf-8').trim()
+
+    if (fileContent === '') {
+        // Create a temporary file with empty config structure for empty files
+        const emptyConfig = {
+            [StargateVersion.V2]: {},
+        }
+
+        // Write temporary config and use existing create method
+        const tempConfigPath = configPath + '.tmp'
+        await fs.writeFile(tempConfigPath, JSON.stringify(emptyConfig, null, 2))
+
+        try {
+            const result = await LocalStargatePoolConfigGetter.create(tempConfigPath)
+            // Clean up temp file
+            await fs.unlink(tempConfigPath)
+            return result
+        } catch (error) {
+            // Clean up temp file on error
+            try {
+                await fs.unlink(tempConfigPath)
+            } catch (cleanupError) {
+                // Ignore cleanup errors
+            }
+            throw error
+        }
+    }
+
+    return await LocalStargatePoolConfigGetter.create(configPath)
 }
 
 export enum UlnVersion {
@@ -571,4 +601,62 @@ export const getBootstrapChainConfigWithUlnFromArgs = async (
         ...(await getBootstrapChainConfigFromArgs(service, args, isSupportedChainName)),
         supportedUlnVersions: [UlnVersion.V2],
     }
+}
+
+// TODO see if this can be refactored with getAvailableChainNamesFromDeployments
+export const getAvailableChainNamesByEnvironment = (environment: string): string[] => {
+    try {
+        const deploymentsPath = path.join(__dirname, '..', 'deployments')
+
+        if (!fsSync.existsSync(deploymentsPath)) {
+            console.warn(`Deployments directory not found: ${deploymentsPath}`)
+            return []
+        }
+
+        const deploymentDirs = fsSync
+            .readdirSync(deploymentsPath, { withFileTypes: true })
+            .filter((dirent: fsSync.Dirent) => dirent.isDirectory())
+            .map((dirent: fsSync.Dirent) => dirent.name)
+
+        let filteredDirs: string[]
+
+        if (environment === 'mainnet') {
+            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
+        } else if (environment === 'testnet') {
+            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
+        } else if (environment === 'localnet' || environment === 'sandbox') {
+            // Handle local environments - look for sandbox-local directories
+            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-sandbox-local'))
+        } else {
+            console.warn(`Unsupported environment: ${environment}. Returning all deployment directories.`)
+            filteredDirs = deploymentDirs
+        }
+
+        // Extract raw chain names by removing the environment suffix
+        const chainNames = filteredDirs
+            .map((dir: string) => {
+                if (dir.endsWith('-mainnet')) {
+                    return dir.replace(/-mainnet$/, '')
+                } else if (dir.endsWith('-testnet')) {
+                    return dir.replace(/-testnet$/, '')
+                } else if (dir.endsWith('-sandbox-local')) {
+                    return dir.replace(/-sandbox-local$/, '')
+                } else {
+                    return dir
+                }
+            })
+            .filter((name: string) => name.length > 0)
+
+        // Return unique chain names
+        return Array.from(new Set(chainNames)).sort()
+    } catch (error) {
+        console.warn(`Failed to read deployment directories for environment ${environment}: ${error}`)
+        return []
+    }
+}
+
+export const bootstrapLoggerConfigFromArgs: LoggerOptions = {
+    level: 'debug',
+    format: format.combine(format.prettyPrint(), format.colorize({ all: true })),
+    transports: [new transports.Console()],
 }
