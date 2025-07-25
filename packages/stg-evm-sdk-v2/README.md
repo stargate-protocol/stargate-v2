@@ -75,12 +75,8 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
     - Note that similar to the `generatePoolConfig` script, you can use the `--numRetries` flag to indicate how many times an rpc should be re-tried if it failes before giving up and terminating the script run.
 
 // TODO
-- Test everything
 - TODO clean up TODO comments, like moving things to common-utils
-- TODO targets should trim whitespace from command line
 - TODO scour codebase for any unrelated/unneccessary logic
-- Test everything
 - Compare all config files to offchain
 - TODO clean up README to be more clear as to how to run checker and the prep work needed
-- See what happens if you generatePoolConfigs if they are already generated
 - Test everything
