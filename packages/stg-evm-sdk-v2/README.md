@@ -58,6 +58,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
         b. Update `stargateV2ChainNamesPerEnvironment` in `src/stargate-contracts/supportedChains.ts` to include the new chain
 4. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet` in the root of this package. Note that this script takes about 10 minutes to finish running. Use the `--verbose` flag to see the script progress as it runs. 
     - If the file is not updated after running this, it is probably because the tokenMessagingContract wasn't updated with the address for the asset.
+5. Generate the `nativeCurrencyConfigs.json` by running `ts-node src/generateNativeCurrencyConfig.ts` in the root of this package.
 5. You are now ready to run the checker.
     - To run all checks, run the following command from the root of this package:
         - `ts-node src/checkDeployment/index.ts -e mainnet`

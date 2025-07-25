@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 import { EndpointVersion, getNetworkForChainId } from '@layerzerolabs/lz-definitions'
 
 import { getChainIdForEndpointVersion } from '../checkDeployment/utils'
+import nativeCurrencyConfigs from '../configs/nativeCurrencyConfigs.json'
 import { OFTSentEvent } from '../stargate-contracts'
 
 import { StargateV2OFTSentEvent } from './model'
@@ -72,4 +73,25 @@ export const getQueryFilter = <
         etherFilter: contract.filters[eventName](),
         etherFragment: contract.interface.getEvent(eventName),
     }
+}
+
+export function getNativeCurrencyInfo(chainName: string): { decimals: number; symbol: string } {
+    const config = nativeCurrencyConfigs[chainName as keyof typeof nativeCurrencyConfigs]
+
+    if (!config || typeof config === 'string' || typeof config === 'number') {
+        throw new Error(`Native currency configuration not found for chain: ${chainName}`)
+    }
+
+    return {
+        decimals: config.decimals,
+        symbol: config.symbol,
+    }
+}
+
+export function getNativeCurrencyDecimals(chainName: string): number {
+    return getNativeCurrencyInfo(chainName).decimals
+}
+
+export function getNativeCurrencySymbol(chainName: string): string {
+    return getNativeCurrencyInfo(chainName).symbol
 }
