@@ -60,7 +60,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
 5. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet` in the root of this package. 
     - Note that this script takes about 10 minutes to finish running. 
     - Use the `--verbose` flag to see the script progress as it runs.
-    - You can also use `--numRetries` to indicate how many times an rpc should be re-tried if it fails before giving up and termintating the script run.
+    - You can also use `--numRetries` to indicate how many times an rpc should be re-tried if it fails before giving up and terminating the script run.
     - If the file is not updated after running this, it is probably because the tokenMessagingContract wasn't updated with the address for the asset.
 
 6. You are now ready to run the checker.
@@ -72,6 +72,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
         - For example, `ts-node src/checkDeployment/feeConfigsState.ts -e mainnet`
     - To run the above checks for a specific chain or chains, use the `-t` flag
         - For example, `ts-node src/checkDeployment/index.ts -e mainnet -t mantle,hemi`
+    - Note that similar to the `generatePoolConfig` script, you can use the `--numRetries` flag to indicate how many times an rpc should be re-tried if it failes before giving up and terminating the script run.
 
 // TODO
 - Test everything

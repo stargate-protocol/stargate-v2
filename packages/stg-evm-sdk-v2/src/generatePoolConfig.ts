@@ -16,50 +16,13 @@ import {
 import { StargateVersion } from './checkDeployment/utils'
 import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './stargate-contracts'
 import { StargateV2SdkFactory } from './stargate-sdks/factory'
+import { retryWithBackoff } from './utils/retry'
 
 const sortPoolInfo = (version: StargatePoolsConfig<StargateVersion>) => {
     for (const configs of Object.values(version)) {
         const sortedObj = Object.fromEntries(Object.entries(configs.poolInfo).sort((a, b) => a[0].localeCompare(b[0])))
         configs.poolInfo = sortedObj
     }
-}
-
-const retryWithBackoff = async <T>(
-    operation: () => Promise<T>,
-    maxRetries: number,
-    chainName: string,
-    operationName: string,
-    logger: any
-): Promise<T> => {
-    let lastError: Error
-
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-        try {
-            return await operation()
-        } catch (error) {
-            lastError = error as Error
-
-            if (attempt === maxRetries) {
-                logger.error(
-                    `❌ Final attempt failed for ${operationName} on ${chainName} after ${maxRetries} retries:`,
-                    error
-                )
-                throw error
-            }
-
-            const delay = Math.pow(2, attempt - 1) * 1000 // Exponential backoff: 1s, 2s, 4s, etc.
-            logger.warn(
-                `⚠️  Attempt ${attempt}/${maxRetries} failed for ${operationName} on ${chainName}, retrying in ${delay}ms...`,
-                {
-                    error: error instanceof Error ? error.message : String(error),
-                }
-            )
-
-            await new Promise((resolve) => setTimeout(resolve, delay))
-        }
-    }
-
-    throw lastError!
 }
 
 const generatePoolConfig = async (params: { environment: string; verbose?: boolean; numRetries?: number }) => {

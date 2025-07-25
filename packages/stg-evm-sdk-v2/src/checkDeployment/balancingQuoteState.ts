@@ -2,6 +2,7 @@ import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { getStargateV2CreditMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
+import { retryWithBackoff } from '../utils/retry'
 
 import {
     ByAssetPathConfig,
@@ -14,8 +15,13 @@ import {
     valueOrTimeout,
 } from './utils'
 
-export const getBalancingQuoteState = async (args: { environment: string; only: string; targets: string }) => {
-    const { environment, only, targets: targetsString } = args
+export const getBalancingQuoteState = async (args: {
+    environment: string
+    only: string
+    targets: string
+    numRetries?: number
+}) => {
+    const { environment, only, targets: targetsString, numRetries = 3 } = args
     const targets = targetsString.split(',')
     const service = 'stargate'
 
@@ -72,7 +78,13 @@ export const getBalancingQuoteState = async (args: { environment: string; only: 
                                     bootstrapChainConfig.providers[fromChainName]
                                 )
 
-                                const gasLimit = await creditMessagingContract.gasLimits(dstEid)
+                                const gasLimit = await retryWithBackoff(
+                                    () => creditMessagingContract.gasLimits(dstEid),
+                                    numRetries,
+                                    fromChainName,
+                                    `gasLimits(${dstEid})`
+                                )
+
                                 if (gasLimit.isZero()) {
                                     quotesState[assetId][fromChainName][toChainName] = {
                                         nativeFee: `error: gas limit for ${fromChainName}->${toChainName} is zero`,
@@ -82,7 +94,13 @@ export const getBalancingQuoteState = async (args: { environment: string; only: 
                                 }
 
                                 const quote = await valueOrTimeout(
-                                    () => creditMessagingContract.quoteSendCredits(dstEid, []),
+                                    () =>
+                                        retryWithBackoff(
+                                            () => creditMessagingContract.quoteSendCredits(dstEid, []),
+                                            numRetries,
+                                            fromChainName,
+                                            `quoteSendCredits(${dstEid})`
+                                        ),
                                     {
                                         nativeFee: errorString,
                                         lzTokenFee: errorString,
@@ -132,6 +150,12 @@ if (require.main === module) {
                     type: String,
                     defaultValue: '',
                     description: 'new chain names to check against',
+                },
+                numRetries: {
+                    alias: 'r',
+                    type: Number,
+                    defaultValue: 3,
+                    description: 'Number of retries for RPC calls before giving up',
                 },
             },
         })

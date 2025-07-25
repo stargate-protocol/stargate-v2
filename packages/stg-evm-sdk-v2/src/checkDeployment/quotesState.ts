@@ -2,6 +2,7 @@ import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { getStargateV2TokenMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
+import { retryWithBackoff } from '../utils/retry'
 
 import {
     ByAssetPathConfig,
@@ -14,8 +15,13 @@ import {
     valueOrTimeout,
 } from './utils'
 
-export const getQuotesState = async (args: { environment: string; only: string; targets: string }) => {
-    const { environment, only, targets: targetsString } = args
+export const getQuotesState = async (args: {
+    environment: string
+    only: string
+    targets: string
+    numRetries?: number
+}) => {
+    const { environment, only, targets: targetsString, numRetries = 3 } = args
     const targets = targetsString.split(',')
     const service = 'stargate'
 
@@ -73,11 +79,22 @@ export const getQuotesState = async (args: { environment: string; only: string; 
                                 )
 
                                 // Try to quote with the maxNumPassengers to make sure it succeeds
-                                const maxNumPassengers: number = (await tokenMessagingContract.busQueues(toChainId))
-                                    .maxNumPassengers
+                                const busQueue = await retryWithBackoff(
+                                    () => tokenMessagingContract.busQueues(toChainId),
+                                    numRetries,
+                                    fromChainName,
+                                    `busQueues(${toChainId})`
+                                )
+                                const maxNumPassengers: number = busQueue.maxNumPassengers
 
                                 const [busFare, busFareWithNativeDrop] = await valueOrTimeout(
-                                    () => tokenMessagingContract.quoteFares(toChainId, maxNumPassengers),
+                                    () =>
+                                        retryWithBackoff(
+                                            () => tokenMessagingContract.quoteFares(toChainId, maxNumPassengers),
+                                            numRetries,
+                                            fromChainName,
+                                            `quoteFares(${toChainId}, ${maxNumPassengers})`
+                                        ),
                                     [errorString, errorString],
                                     [timeoutString, timeoutString]
                                 )
@@ -121,6 +138,12 @@ if (require.main === module) {
                     type: String,
                     defaultValue: '',
                     description: 'new chain names to check against',
+                },
+                numRetries: {
+                    alias: 'r',
+                    type: Number,
+                    defaultValue: 3,
+                    description: 'Number of retries for RPC calls before giving up',
                 },
             },
         })

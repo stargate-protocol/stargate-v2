@@ -37,6 +37,12 @@ const args = parse({
             defaultValue: true,
             description: 'run checks to verify that the offchain configuration is correct',
         },
+        numRetries: {
+            alias: 'r',
+            type: Number,
+            defaultValue: 3,
+            description: 'Number of retries for RPC calls before giving up',
+        },
     },
 })
 
