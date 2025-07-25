@@ -1,5 +1,4 @@
 import { DEFAULT_PLANNER } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/01/constants'
-import { backOff } from 'exponential-backoff'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import {
@@ -9,14 +8,20 @@ import {
     getStargateV2TokenMessagingContract,
     isStargateV2SupportedChainName,
 } from '../stargate-contracts'
+import { retryWithBackoff } from '../utils/retry'
 
 import { ByAssetConfig, StargateVersion, printByAssetFlattenConfig, processPromises } from './utils'
 
 /**
  * Check that the planner wallet has the correct permissions for the messaging contracts and the FeeLib contracts
  */
-export const getPlannerPermissionsState = async (args: { environment: string; only: string; targets: string }) => {
-    const { environment, only, targets: targetsString } = args
+export const getPlannerPermissionsState = async (args: {
+    environment: string
+    only: string
+    targets: string
+    numRetries?: number
+}) => {
+    const { environment, only, targets: targetsString, numRetries = 3 } = args
     const targets = targetsString.split(',')
     const service = 'stargate'
 
@@ -65,8 +70,18 @@ export const getPlannerPermissionsState = async (args: { environment: string; on
                         bootstrapChainConfig.providers[srcChainName]
                     )
 
-                    const tokenMessagingPlannerAddress = await tokenMessagingContract.planner()
-                    const creditMessagingPlannerAddress = await creditMessagingContract.planner()
+                    const tokenMessagingPlannerAddress = await retryWithBackoff(
+                        () => tokenMessagingContract.planner(),
+                        numRetries,
+                        srcChainName,
+                        'tokenMessaging.planner()'
+                    )
+                    const creditMessagingPlannerAddress = await retryWithBackoff(
+                        () => creditMessagingContract.planner(),
+                        numRetries,
+                        srcChainName,
+                        'creditMessaging.planner()'
+                    )
 
                     // Verify that the planner wallet has the 'planner' role for messaging contracts
                     const tokenMessagingPlannerError =
@@ -86,19 +101,23 @@ export const getPlannerPermissionsState = async (args: { environment: string; on
                         stargateType,
                         address
                     )
-                    const { feeLib } = await backOff(() => stargateContract.getAddressConfig(), {
-                        delayFirstAttempt: false,
-                        jitter: 'full',
-                        numOfAttempts: 3,
-                        startingDelay: 5000,
-                        timeMultiple: 3,
-                    })
+                    const { feeLib } = await retryWithBackoff(
+                        () => stargateContract.getAddressConfig(),
+                        numRetries,
+                        srcChainName,
+                        `getAddressConfig(${assetId})`
+                    )
 
                     const feeLibContract = FeeLibV1__factory.connect(
                         feeLib,
                         bootstrapChainConfig.providers[srcChainName]
                     )
-                    const feeLibOwnerAddress = await feeLibContract.owner()
+                    const feeLibOwnerAddress = await retryWithBackoff(
+                        () => feeLibContract.owner(),
+                        numRetries,
+                        srcChainName,
+                        'feeLibContract.owner()'
+                    )
 
                     const feeLibOwnerError =
                         feeLibOwnerAddress === DEFAULT_PLANNER
@@ -143,6 +162,12 @@ if (require.main === module) {
                     type: String,
                     defaultValue: '',
                     description: 'new chain names to check against',
+                },
+                numRetries: {
+                    alias: 'r',
+                    type: Number,
+                    defaultValue: 3,
+                    description: 'Number of retries for RPC calls before giving up',
                 },
                 onlyError: {
                     type: Boolean,

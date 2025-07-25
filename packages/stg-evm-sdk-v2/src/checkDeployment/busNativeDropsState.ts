@@ -5,6 +5,7 @@ import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { getExecutorContract } from '../protocol-contracts'
 import { getStargateV2TokenMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
+import { retryWithBackoff } from '../utils/retry'
 
 import {
     ByAssetPathConfig,
@@ -23,8 +24,9 @@ export const getBusNativeDropsState = async (args: {
     only: string
     targets: string
     onlyError?: boolean
+    numRetries?: number
 }) => {
-    const { environment, only, targets: targetsString } = args
+    const { environment, only, targets: targetsString, numRetries = 3 } = args
     const targets = targetsString.split(',')
     const service = 'stargate'
 
@@ -80,13 +82,29 @@ export const getBusNativeDropsState = async (args: {
 
                             // Ensure that maxNumPassengers * maxNativeDropPerPassenger <= executor nativeCap
                             // Otherwise, the quote will fail on the TokenMessaging contract
-                            const maxNumPassengers: number = (await tokenMessagingContract.busQueues(toChainId))
-                                .maxNumPassengers
-                            const maxNativeDropPerPassenger: BigNumber =
-                                await tokenMessagingContract.nativeDropAmounts(toChainId)
+                            const busQueue = await retryWithBackoff(
+                                () => tokenMessagingContract.busQueues(toChainId),
+                                numRetries,
+                                fromChainName,
+                                `busQueues(${toChainId})`
+                            )
+                            const maxNumPassengers: number = busQueue.maxNumPassengers
+
+                            const maxNativeDropPerPassenger: BigNumber = await retryWithBackoff(
+                                () => tokenMessagingContract.nativeDropAmounts(toChainId),
+                                numRetries,
+                                fromChainName,
+                                `nativeDropAmounts(${toChainId})`
+                            )
                             const maxBusNativeDropAmount = maxNativeDropPerPassenger.mul(maxNumPassengers)
 
-                            const executorNativeCap = (await executorContract.dstConfig(toChainId)).nativeCap
+                            const dstConfig = await retryWithBackoff(
+                                () => executorContract.dstConfig(toChainId),
+                                numRetries,
+                                fromChainName,
+                                `dstConfig(${toChainId})`
+                            )
+                            const executorNativeCap = dstConfig.nativeCap
 
                             const error = maxBusNativeDropAmount.gt(executorNativeCap)
                                 ? `error: maxBusNativeDropAmount(${utils.formatEther(
@@ -138,6 +156,12 @@ if (require.main === module) {
                     type: Boolean,
                     defaultValue: false,
                     description: 'only print rows with errors',
+                },
+                numRetries: {
+                    alias: 'r',
+                    type: Number,
+                    defaultValue: 3,
+                    description: 'Number of retries for RPC calls before giving up',
                 },
             },
         })
