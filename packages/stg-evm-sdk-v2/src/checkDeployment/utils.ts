@@ -342,3 +342,19 @@ export enum StargateVersion {
     V1 = 'v1',
     V2 = 'v2',
 }
+
+/**
+ * Parses a comma-separated string of targets, trimming whitespace from each target.
+ * Handles cases where spaces appear after commas (e.g., "mantle, hemi" -> ["mantle", "hemi"])
+ * @param targetsString - The comma-separated string of targets
+ * @returns An array of trimmed target strings, or empty array if input is empty
+ */
+export const parseTargets = (targetsString: string): string[] => {
+    if (!targetsString || targetsString.trim() === '') {
+        return []
+    }
+    return targetsString
+        .split(',')
+        .map((target) => target.trim())
+        .filter((target) => target.length > 0)
+}
