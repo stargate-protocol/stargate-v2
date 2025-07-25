@@ -1,5 +1,5 @@
-import { writeFileSync } from 'fs'
-import { join } from 'path'
+import { mkdirSync, writeFileSync } from 'fs'
+import { dirname, join } from 'path'
 
 interface NativeCurrency {
     symbol: string
@@ -70,12 +70,17 @@ function generateNativeCurrencyConfig(metadata: LayerZeroApiResponse): NativeCur
                 continue
             }
 
-            config[chainName] = {
+            // Map "linea" to "zkconsensys" in the output
+            const outputChainName = chainName === 'linea' ? 'zkconsensys' : chainName
+
+            config[outputChainName] = {
                 decimals: nativeCurrency.decimals,
                 symbol: nativeCurrency.symbol,
             }
 
-            console.log(`✅ ${chainName}: ${nativeCurrency.symbol} (${nativeCurrency.decimals} decimals)`)
+            console.log(
+                `✅ ${chainName}${chainName === 'linea' ? ' → zkconsensys' : ''}: ${nativeCurrency.symbol} (${nativeCurrency.decimals} decimals)`
+            )
         } catch (error) {
             console.error(`❌ Error processing ${chainName}:`, error)
         }
@@ -86,6 +91,10 @@ function generateNativeCurrencyConfig(metadata: LayerZeroApiResponse): NativeCur
 
 function writeConfigToFile(config: NativeCurrencyConfig, outputPath: string): void {
     console.log(`Writing configuration to ${outputPath}...`)
+
+    // Create the directory if it doesn't exist
+    const dirPath = dirname(outputPath)
+    mkdirSync(dirPath, { recursive: true })
 
     // Add metadata to the output
     const configWithMetadata = {

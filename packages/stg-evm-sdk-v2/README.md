@@ -56,10 +56,14 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
         a. Ensure new deployment files for that chain exist in `deployments/`
         
         b. Update `stargateV2ChainNamesPerEnvironment` in `src/stargate-contracts/supportedChains.ts` to include the new chain
-4. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet` in the root of this package. Note that this script takes about 10 minutes to finish running. Use the `--verbose` flag to see the script progress as it runs. 
+4. Generate the `nativeCurrencyConfigs.json` by running `ts-node src/generateNativeCurrencyConfig.ts` in the root of this package.
+5. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet` in the root of this package. 
+    - Note that this script takes about 10 minutes to finish running. 
+    - Use the `--verbose` flag to see the script progress as it runs.
+    - You can also use `--numRetries` to indicate how many times an rpc should be re-tried if it fails before giving up and termintating the script run.
     - If the file is not updated after running this, it is probably because the tokenMessagingContract wasn't updated with the address for the asset.
-5. Generate the `nativeCurrencyConfigs.json` by running `ts-node src/generateNativeCurrencyConfig.ts` in the root of this package.
-5. You are now ready to run the checker.
+
+6. You are now ready to run the checker.
     - To run all checks, run the following command from the root of this package:
         - `ts-node src/checkDeployment/index.ts -e mainnet`
             - One common issue is that the busMaxNumPassengers * nativeDropAmounts > executor.nativeCap, which will cause the bus quotes to revert.
@@ -70,10 +74,11 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
         - For example, `ts-node src/checkDeployment/index.ts -e mainnet -t mantle,hemi`
 
 // TODO
-- TODO clean up TODO comments, like moving things to common-utils
-- TODO clean up README to be more clear as to how to run checker and the prep work needed
 - Test everything
-- Compare all config files to offchain
+- TODO clean up TODO comments, like moving things to common-utils
 - TODO targets should trim whitespace from command line
 - TODO scour codebase for any unrelated/unneccessary logic
-- TODO figure out if staticConfigs can be avoided when generating pool configs
+- Test everything
+- Compare all config files to offchain
+- TODO clean up README to be more clear as to how to run checker and the prep work needed
+- See what happens if you generatePoolConfigs if they are already generated

@@ -24,8 +24,46 @@ const sortPoolInfo = (version: StargatePoolsConfig<StargateVersion>) => {
     }
 }
 
-const generatePoolConfig = async (params: { environment: string; verbose?: boolean }) => {
-    const { environment, verbose = false } = params
+const retryWithBackoff = async <T>(
+    operation: () => Promise<T>,
+    maxRetries: number,
+    chainName: string,
+    operationName: string,
+    logger: any
+): Promise<T> => {
+    let lastError: Error
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            return await operation()
+        } catch (error) {
+            lastError = error as Error
+
+            if (attempt === maxRetries) {
+                logger.error(
+                    `❌ Final attempt failed for ${operationName} on ${chainName} after ${maxRetries} retries:`,
+                    error
+                )
+                throw error
+            }
+
+            const delay = Math.pow(2, attempt - 1) * 1000 // Exponential backoff: 1s, 2s, 4s, etc.
+            logger.warn(
+                `⚠️  Attempt ${attempt}/${maxRetries} failed for ${operationName} on ${chainName}, retrying in ${delay}ms...`,
+                {
+                    error: error instanceof Error ? error.message : String(error),
+                }
+            )
+
+            await new Promise((resolve) => setTimeout(resolve, delay))
+        }
+    }
+
+    throw lastError!
+}
+
+const generatePoolConfig = async (params: { environment: string; verbose?: boolean; numRetries?: number }) => {
+    const { environment, verbose = false, numRetries = 3 } = params
 
     // Create logger with appropriate level based on verbose flag
     const loggerConfig = {
@@ -85,11 +123,23 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
                 logger.debug(`📦 SDK instance created for ${chainName}`)
 
                 logger.debug(`🚜 Fetching farm metadata for ${chainName}...`)
-                const farmMetadata = await sdk.farmMetadata()
+                const farmMetadata = await retryWithBackoff(
+                    () => sdk.farmMetadata(),
+                    numRetries,
+                    chainName,
+                    'farmMetadata',
+                    logger
+                )
                 logger.debug(`✅ Farm metadata fetched: ${farmMetadata.length} farms found`)
 
                 logger.debug(`🏊 Fetching pools for ${chainName}...`)
-                const { stargateImpls } = await sdk.fetchPools()
+                const { stargateImpls } = await retryWithBackoff(
+                    () => sdk.fetchPools(),
+                    numRetries,
+                    chainName,
+                    'fetchPools',
+                    logger
+                )
                 const poolCount = Object.keys(stargateImpls).length
                 logger.info(`📊 Found ${poolCount} pools on ${chainName}: ${Object.keys(stargateImpls).join(', ')}`)
 
@@ -102,7 +152,13 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
                     }
 
                     logger.debug(`📋 Fetching contract metadata for ${address}...`)
-                    const { token, stargateType, sharedDecimals, lpToken } = await sdk.contractMetadata(address)
+                    const { token, stargateType, sharedDecimals, lpToken } = await retryWithBackoff(
+                        () => sdk.contractMetadata(address),
+                        numRetries,
+                        chainName,
+                        `contractMetadata(${assetId})`,
+                        logger
+                    )
                     logger.debug(
                         `✅ Contract metadata: token=${token.symbol}, type=${stargateType}, decimals=${sharedDecimals}`
                     )
@@ -172,8 +228,8 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
     logger.info(`✅ Successfully wrote pool config file`)
 }
 
-export const generatePoolConfigs = async (params: { environments: string; verbose?: boolean }) => {
-    const { environments: environmentString, verbose = false } = params
+export const generatePoolConfigs = async (params: { environments: string; verbose?: boolean; numRetries?: number }) => {
+    const { environments: environmentString, verbose = false, numRetries = 3 } = params
 
     const environments = environmentString.split(',')
     const logger = createLogger({
@@ -184,8 +240,9 @@ export const generatePoolConfigs = async (params: { environments: string; verbos
     logger.info(
         `🎯 Starting pool config generation for ${environments.length} environment(s): ${environments.join(', ')}`
     )
+    logger.info(`🔄 Using ${numRetries} retries for RPC calls`)
 
-    await Promise.all(environments.map((environment) => generatePoolConfig({ environment, verbose })))
+    await Promise.all(environments.map((environment) => generatePoolConfig({ environment, verbose, numRetries })))
 
     logger.info(`🎉 Completed pool config generation for all environments`)
 }
@@ -209,6 +266,12 @@ if (require.main === module) {
                     type: Boolean,
                     defaultValue: false,
                     description: 'Enable verbose debug logging',
+                },
+                numRetries: {
+                    alias: 'r',
+                    type: Number,
+                    defaultValue: 3,
+                    description: 'Number of retries for RPC calls before giving up',
                 },
             },
         })
