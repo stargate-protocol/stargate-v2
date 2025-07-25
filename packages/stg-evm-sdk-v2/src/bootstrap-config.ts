@@ -296,10 +296,21 @@ export const getLocalStargatePoolConfigGetterFromArgs = async (
     environment: string
 ): Promise<StargatePoolConfigGetter> => {
     const configPath = getStargateDynamicConfigPath('stargatePoolConfig', environment)
-    const fileContent = (await fs.readFile(configPath)).toString('utf-8').trim()
+
+    let fileContent: string
+    try {
+        fileContent = (await fs.readFile(configPath)).toString('utf-8').trim()
+    } catch (error: any) {
+        // If file doesn't exist, treat it as empty
+        if (error.code === 'ENOENT') {
+            fileContent = ''
+        } else {
+            throw error
+        }
+    }
 
     if (fileContent === '') {
-        // Create a temporary file with empty config structure for empty files
+        // Create a temporary file with empty config structure for empty/missing files
         const emptyConfig = {
             [StargateVersion.V2]: {},
         }
