@@ -11,6 +11,7 @@ import {
     ByAssetPathConfig,
     StargateVersion,
     getChainIdForEndpointVersion,
+    parseTargets,
     printByPathAndAssetFlattenConfig,
     processPromises,
 } from './utils'
@@ -27,7 +28,7 @@ export const getBusNativeDropsState = async (args: {
     numRetries?: number
 }) => {
     const { environment, only, targets: targetsString, numRetries = 3 } = args
-    const targets = targetsString.split(',')
+    const targets = parseTargets(targetsString)
     const service = 'stargate'
 
     const bootstrapChainConfig = await getBootstrapChainConfigWithUlnFromArgs(

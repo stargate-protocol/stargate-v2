@@ -9,6 +9,7 @@ import {
     StargateVersion,
     errorString,
     getChainIdForEndpointVersion,
+    parseTargets,
     printByPathAndAssetFlattenConfig,
     processPromises,
     timeoutString,
@@ -22,7 +23,7 @@ export const getBalancingQuoteState = async (args: {
     numRetries?: number
 }) => {
     const { environment, only, targets: targetsString, numRetries = 3 } = args
-    const targets = targetsString.split(',')
+    const targets = parseTargets(targetsString)
     const service = 'stargate'
 
     const bootstrapChainConfig = await getBootstrapChainConfigWithUlnFromArgs(

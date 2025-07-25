@@ -71,7 +71,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
         - `ts-node src/checkDeployment/<name of file>.ts -e mainnet`
         - For example, `ts-node src/checkDeployment/feeConfigsState.ts -e mainnet`
     - To run the above checks for a specific chain or chains, use the `-t` flag
-        - For example, `ts-node src/checkDeployment/index.ts -e mainnet -t mantle,hemi`
+        - For example, `ts-node src/checkDeployment/index.ts -e mainnet -t "mantle,hemi"`
     - Note that similar to the `generatePoolConfig` script, you can use the `--numRetries` flag to indicate how many times an rpc should be re-tried if it failes before giving up and terminating the script run.
 
 // TODO
@@ -83,3 +83,4 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
 - Compare all config files to offchain
 - TODO clean up README to be more clear as to how to run checker and the prep work needed
 - See what happens if you generatePoolConfigs if they are already generated
+- Test everything

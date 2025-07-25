@@ -10,7 +10,7 @@ import {
 } from '../stargate-contracts'
 import { retryWithBackoff } from '../utils/retry'
 
-import { ByAssetConfig, StargateVersion, printByAssetFlattenConfig, processPromises } from './utils'
+import { ByAssetConfig, StargateVersion, parseTargets, printByAssetFlattenConfig, processPromises } from './utils'
 
 /**
  * Check that the planner wallet has the correct permissions for the messaging contracts and the FeeLib contracts
@@ -22,7 +22,7 @@ export const getPlannerPermissionsState = async (args: {
     numRetries?: number
 }) => {
     const { environment, only, targets: targetsString, numRetries = 3 } = args
-    const targets = targetsString.split(',')
+    const targets = parseTargets(targetsString)
     const service = 'stargate'
 
     const bootstrapChainConfig = await getBootstrapChainConfigWithUlnFromArgs(
