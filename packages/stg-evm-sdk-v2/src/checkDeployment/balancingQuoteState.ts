@@ -9,7 +9,6 @@ import {
     errorString,
     getChainIdForEndpointVersion,
     printByPathAndAssetFlattenConfig,
-    processBootstrapChainNames,
     processPromises,
     timeoutString,
     valueOrTimeout,
@@ -39,12 +38,8 @@ export const getBalancingQuoteState = async (args: { environment: string; only: 
     await processPromises(
         'BALANCING QUOTES STATE',
         Object.entries(poolsConfig).flatMap(([assetId, config]) => {
-            const { bootstrapRawChainNames, rawToDeploymentMap } = processBootstrapChainNames(
-                bootstrapChainConfig.chainNames
-            )
-
             const chainNames = Object.keys(config.poolInfo).filter((chainName) =>
-                bootstrapRawChainNames.includes(chainName)
+                bootstrapChainConfig.chainNames.includes(chainName)
             )
 
             quotesState[assetId] ??= {}
@@ -74,7 +69,7 @@ export const getBalancingQuoteState = async (args: { environment: string; only: 
                                 const creditMessagingContract = getStargateV2CreditMessagingContract(
                                     fromChainName,
                                     environment,
-                                    bootstrapChainConfig.providers[rawToDeploymentMap[fromChainName]]
+                                    bootstrapChainConfig.providers[fromChainName]
                                 )
 
                                 const gasLimit = await creditMessagingContract.gasLimits(dstEid)

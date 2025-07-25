@@ -9,7 +9,6 @@ import {
     errorString,
     getChainIdForEndpointVersion,
     printByPathAndAssetFlattenConfig,
-    processBootstrapChainNames,
     processPromises,
     timeoutString,
     valueOrTimeout,
@@ -39,12 +38,8 @@ export const getQuotesState = async (args: { environment: string; only: string; 
     await processPromises(
         'QUOTES STATE',
         Object.entries(poolsConfig).flatMap(([assetId, config]) => {
-            const { bootstrapRawChainNames, rawToDeploymentMap } = processBootstrapChainNames(
-                bootstrapChainConfig.chainNames
-            )
-
             const chainNames = Object.keys(config.poolInfo).filter((chainName) =>
-                bootstrapRawChainNames.includes(chainName)
+                bootstrapChainConfig.chainNames.includes(chainName)
             )
 
             quotesState[assetId] ??= {}
@@ -74,7 +69,7 @@ export const getQuotesState = async (args: { environment: string; only: string; 
                                 const tokenMessagingContract = getStargateV2TokenMessagingContract(
                                     fromChainName,
                                     environment,
-                                    bootstrapChainConfig.providers[rawToDeploymentMap[fromChainName]]
+                                    bootstrapChainConfig.providers[fromChainName]
                                 )
 
                                 // Try to quote with the maxNumPassengers to make sure it succeeds

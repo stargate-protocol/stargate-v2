@@ -11,7 +11,6 @@ import {
     errorString,
     getChainIdForEndpointVersion,
     printByPathAndAssetFlattenConfig,
-    processBootstrapChainNames,
     processPromises,
     timeoutString,
     valueOrTimeout,
@@ -41,12 +40,8 @@ export const getFeeConfigsState = async (args: { environment: string; only: stri
     await processPromises(
         'FEE CONFIGS STATE',
         Object.entries(poolsConfig).flatMap(([assetId, config]) => {
-            const { bootstrapRawChainNames, rawToDeploymentMap } = processBootstrapChainNames(
-                bootstrapChainConfig.chainNames
-            )
-
             const chainNames = Object.keys(config.poolInfo).filter((chainName) =>
-                bootstrapRawChainNames.includes(chainName)
+                bootstrapChainConfig.chainNames.includes(chainName)
             )
 
             feesConfigs[assetId] ??= {}
@@ -64,7 +59,7 @@ export const getFeeConfigsState = async (args: { environment: string; only: stri
                             const { stargateType, address } = config.poolInfo[srcChainName]
 
                             const stargateContract = connectStargateV2Contract(
-                                bootstrapChainConfig.providers[rawToDeploymentMap[srcChainName]],
+                                bootstrapChainConfig.providers[srcChainName],
                                 stargateType,
                                 address
                             )
@@ -78,7 +73,7 @@ export const getFeeConfigsState = async (args: { environment: string; only: stri
 
                             const feeLibContract = FeeLibV1__factory.connect(
                                 feeLib,
-                                bootstrapChainConfig.providers[rawToDeploymentMap[srcChainName]]
+                                bootstrapChainConfig.providers[srcChainName]
                             )
 
                             const { zone1FeeMillionth, zone2FeeMillionth, zone3FeeMillionth, rewardMillionth } =

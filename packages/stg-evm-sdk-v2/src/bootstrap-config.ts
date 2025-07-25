@@ -4,14 +4,12 @@ import * as path from 'path'
 
 import { JsonRpcProvider } from '@ethersproject/providers'
 
-// Load environment variables from .env files in this package
 try {
     const { configDotenv } = require('dotenv')
     configDotenv({
         path: ['.env.local', '.env'],
     })
 } catch (error) {
-    // dotenv not available, environment variables should be set manually
     console.warn('dotenv not available, ensure environment variables are set manually')
 }
 
@@ -19,7 +17,6 @@ import { StargateVersion } from './checkDeployment/utils'
 
 import type { Provider } from '@ethersproject/providers'
 
-// Adapted types from external packages
 export interface IToken {
     address: string
     decimals: number
@@ -108,7 +105,6 @@ export interface StargatePoolConfigGetter {
     isHiddenPool(version: StargateVersion, assetId: string, chainName: string): boolean
 }
 
-// Custom error classes
 export class StargateConfigError extends Error {
     constructor(message: string) {
         super(message)
@@ -123,7 +119,6 @@ export class NotFoundError extends Error {
     }
 }
 
-// Simple deep clone utility
 function cloneDeep<T>(obj: T): T {
     if (obj === null || typeof obj !== 'object') return obj
     if (obj instanceof Date) return new Date(obj.getTime()) as unknown as T
@@ -140,7 +135,6 @@ function cloneDeep<T>(obj: T): T {
     return obj
 }
 
-// Base config class
 abstract class BaseConfig<T> {
     protected config!: T
 
@@ -149,7 +143,6 @@ abstract class BaseConfig<T> {
     }
 }
 
-// Hidden pools configuration - can be extended as needed
 const hiddenPools: Record<StargateVersion, Record<string, string[]>> = {
     [StargateVersion.V1]: {},
     [StargateVersion.V2]: {},
@@ -170,7 +163,7 @@ class BaseStargatePoolConfigGetter extends BaseConfig<AllStargatePoolsConfig> im
             return this.filteredPoolsConfigs
         }
         this.configRef = poolsConfigs
-        // need to deep clone to avoid modifying the actual config object
+
         this.filteredPoolsConfigs = cloneDeep(poolsConfigs)
         for (const [version, assets] of Object.entries(hiddenPools)) {
             for (const [asset, chains] of Object.entries(assets)) {
@@ -286,7 +279,6 @@ export class LocalStargatePoolConfigGetter extends BaseStargatePoolConfigGetter 
     }
 }
 
-// Helper function to get the correct config path based on environment
 const getStargateDynamicConfigPath = (configName: string, environment: string): string => {
     const baseDir = path.join(__dirname, 'configs', configName)
 
@@ -299,14 +291,12 @@ const getStargateDynamicConfigPath = (configName: string, environment: string): 
     }
 }
 
-// Main export function that matches the original interface
 export const getLocalStargatePoolConfigGetterFromArgs = async (
     environment: string
 ): Promise<StargatePoolConfigGetter> => {
     return await LocalStargatePoolConfigGetter.create(getStargateDynamicConfigPath('stargatePoolConfig', environment))
 }
 
-// Bootstrap Chain Configuration Types and Functions
 export enum UlnVersion {
     V1 = 'V1',
     V2 = 'V2',
@@ -321,24 +311,15 @@ export interface UriWithHeaders {
     headers?: { [header: string]: string }
 }
 
-/**
- * ProviderConfig is the data-only interface used to serialize/deserialize ProviderConfig for a given chainName.
- */
 export interface ProviderConfig {
     uris: string[] | UriWithHeaders[]
     quorum?: number
 }
 
-/**
- * ProviderConfigs is the data-only interface used to map a chainName to its corresponding ProviderConfig.
- */
 export interface ProviderConfigs {
     [chainName: string]: ProviderConfig
 }
 
-/**
- * ProviderConfigGetter provides the ability to extract a ProviderConfig for a given chainName.
- */
 export interface ProviderConfigGetter {
     getProviderConfig(chainName: string): ProviderConfig
     getProviderConfigs(): ProviderConfigs
@@ -355,7 +336,6 @@ export interface BootstrapChainConfig {
         [chainName: string]: string | { [key: string]: string }
     }
     chainNamesAutoWithdrawFromULN?: string[]
-    // can filter for specific chains for chain sdks when generating activities
     supportedChainNames?: string[]
     providerConfigGetter: ProviderConfigGetter
 }
@@ -364,7 +344,6 @@ export interface BootstrapChainConfigWithUln extends BootstrapChainConfig {
     supportedUlnVersions: UlnVersion[]
 }
 
-// Provider Config Implementation
 class LocalProviderConfigGetter implements ProviderConfigGetter {
     private providerConfigs: ProviderConfigs
 
@@ -385,29 +364,22 @@ class LocalProviderConfigGetter implements ProviderConfigGetter {
     }
 }
 
-/**
- * Converts a ProviderConfig object to an actual ethers Provider instance
- */
 export const createProviderFromConfig = (config: ProviderConfig, chainName: string): Provider => {
-    // Check if there are any URIs available
     if (config.uris.length === 0) {
         throw new Error(`No RPC URLs available for chain: ${chainName}`)
     }
 
     // Since the RPC URL already handles fallback internally, we only need a simple JsonRpcProvider
-    // Get the first URI (we only generate one URI per chain from environment variables)
     const uri = typeof config.uris[0] === 'string' ? config.uris[0] : config.uris[0].uri
     return new JsonRpcProvider(uri)
 }
 
-// Helper function to get RPC URL from environment variables (similar to hardhat.config.ts)
-const getRpcUrl = (chainName: string): string | null => {
-    const [chainRawName, chainType] = chainName.split('-', 2)
-    if (!chainType || !chainRawName) return null
+const getRpcUrl = (chainRawName: string, environment: string): string | null => {
+    if (!chainRawName || !environment) return null
 
     let templateUrl
 
-    switch (chainType) {
+    switch (environment) {
         case 'testnet':
             templateUrl = process.env.RPC_URL_TESTNET
             break
@@ -422,34 +394,37 @@ const getRpcUrl = (chainName: string): string | null => {
     return url
 }
 
-// Helper function to get available chain names from deployment directories
 const getAvailableChainNamesFromDeployments = (environment: string): string[] => {
     try {
-        // Get deployment directories from the current package
         const deploymentsPath = path.join(__dirname, '..', 'deployments')
         const deploymentDirs = fsSync
             .readdirSync(deploymentsPath, { withFileTypes: true })
             .filter((dirent: fsSync.Dirent) => dirent.isDirectory())
             .map((dirent: fsSync.Dirent) => dirent.name)
 
-        // Filter by environment if specified
+        let filteredDirs: string[]
+
         if (environment === 'mainnet') {
-            return deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
+            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
         } else if (environment === 'testnet') {
-            return deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
+            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
+        } else {
+            filteredDirs = deploymentDirs
         }
 
-        return deploymentDirs
+        const chainNames = filteredDirs
+            .map((dir: string) => dir.replace(/-mainnet$|-testnet$/, ''))
+            .filter((name: string) => name.length > 0)
+
+        return Array.from(new Set(chainNames))
     } catch (error) {
         console.warn(`Failed to read deployment directories: ${error}`)
         return []
     }
 }
 
-// Helper function to generate provider configurations from environment variables
 const loadProviderConfigs = async (environment: string, chainNames?: string[]): Promise<ProviderConfigs> => {
     try {
-        // If no chain names provided, get them from deployment directories
         const availableChainNames = chainNames || getAvailableChainNamesFromDeployments(environment)
 
         if (availableChainNames.length === 0) {
@@ -459,15 +434,13 @@ const loadProviderConfigs = async (environment: string, chainNames?: string[]): 
         const providerConfigs: ProviderConfigs = {}
 
         for (const chainName of availableChainNames) {
-            const rpcUrl = getRpcUrl(chainName)
+            const rpcUrl = getRpcUrl(chainName, environment)
             if (rpcUrl) {
                 providerConfigs[chainName] = {
                     uris: [rpcUrl],
                     quorum: 1,
                 }
             } else {
-                // Still include the chain in provider configs but with empty uris
-                // This allows filtering logic to work while preventing provider creation
                 providerConfigs[chainName] = {
                     uris: [],
                     quorum: 1,
@@ -482,12 +455,10 @@ const loadProviderConfigs = async (environment: string, chainNames?: string[]): 
     }
 }
 
-// Helper function to get available chain names from providers config
 const getAvailableChainNames = (providerConfigs: ProviderConfigs): string[] => {
     return Object.keys(providerConfigs)
 }
 
-// Helper function to filter chains based on 'only' parameter
 const getAvailableChainsFromArgs = (
     args: {
         only: string | undefined
@@ -515,7 +486,6 @@ const getAvailableChainsFromArgs = (
                     chainNames.push(chainName)
                     if (o.split(':')[1]) {
                         const currentToken = override && o.split(':')[1]
-                        // For EVM chains, just use the token override directly
                         acc[chainName] = currentToken
                     }
                 }
@@ -531,7 +501,6 @@ const getAvailableChainsFromArgs = (
     return { chainNames: availableChainNames, initialTokensOverrides: {} }
 }
 
-// Main bootstrap chain config function
 export const getBootstrapChainConfigFromArgs = async (
     service: string,
     args: {
@@ -542,20 +511,16 @@ export const getBootstrapChainConfigFromArgs = async (
     },
     isSupportedChainName?: (chainName: string, environment: string) => boolean
 ): Promise<BootstrapChainConfig> => {
-    // Load provider configurations
     const providerConfigs = await loadProviderConfigs(args.environment)
     const availableChainNames = getAvailableChainNames(providerConfigs)
 
-    // Filter chains based on 'only' parameter
     const { chainNames: filteredChainNames, initialTokensOverrides } = getAvailableChainsFromArgs(
         args,
         availableChainNames
     )
 
-    // Apply additional chain filtering if provided
     const chainNames = isSupportedChainName
         ? filteredChainNames.filter((chainName) => {
-              // Extract chain raw name (remove -mainnet/-testnet suffix) for the support check
               const [chainRawName] = chainName.split('-', 2)
               return isSupportedChainName(chainRawName, args.environment)
           })
@@ -565,7 +530,6 @@ export const getBootstrapChainConfigFromArgs = async (
         throw new Error('No chainNames after applying filters')
     }
 
-    // Create providers object with actual ethers Provider instances
     const providers: { [chainName: string]: Provider } = {}
     const validChainNames: string[] = []
 
@@ -574,7 +538,6 @@ export const getBootstrapChainConfigFromArgs = async (
             providers[chainName] = createProviderFromConfig(providerConfigs[chainName], chainName)
             validChainNames.push(chainName)
         } catch (error) {
-            // Skip chains that don't have valid RPC URLs
             console.warn(`Skipping chain ${chainName}: ${error instanceof Error ? error.message : error}`)
         }
     }
@@ -583,7 +546,6 @@ export const getBootstrapChainConfigFromArgs = async (
         throw new Error('No chains with valid RPC URLs found after applying filters')
     }
 
-    // Create provider config getter
     const providerConfigGetter = new LocalProviderConfigGetter(providerConfigs)
 
     return {
@@ -596,7 +558,6 @@ export const getBootstrapChainConfigFromArgs = async (
     }
 }
 
-// Main export function that adds ULN support
 export const getBootstrapChainConfigWithUlnFromArgs = async (
     service: string,
     args: {

@@ -11,7 +11,6 @@ import {
     StargateVersion,
     getChainIdForEndpointVersion,
     printByPathAndAssetFlattenConfig,
-    processBootstrapChainNames,
     processPromises,
 } from './utils'
 
@@ -48,13 +47,8 @@ export const getBusNativeDropsState = async (args: {
     await processPromises(
         'BUS NATIVE DROPS STATE',
         Object.entries(poolsConfig).flatMap(([assetId, config]) => {
-            const { bootstrapRawChainNames, rawToDeploymentMap } = processBootstrapChainNames(
-                bootstrapChainConfig.chainNames
-            )
-
-            // Get chain names
             const chainNames = Object.keys(config.poolInfo).filter((chainName) =>
-                bootstrapRawChainNames.includes(chainName)
+                bootstrapChainConfig.chainNames.includes(chainName)
             )
 
             busNativeDropsState[assetId] ??= {}
@@ -74,12 +68,12 @@ export const getBusNativeDropsState = async (args: {
                             const tokenMessagingContract = getStargateV2TokenMessagingContract(
                                 fromChainName,
                                 environment,
-                                bootstrapChainConfig.providers[rawToDeploymentMap[fromChainName]]
+                                bootstrapChainConfig.providers[fromChainName]
                             )
                             const executorContract = getExecutorContract(
                                 fromChainName,
                                 environment,
-                                bootstrapChainConfig.providers[rawToDeploymentMap[fromChainName]]
+                                bootstrapChainConfig.providers[fromChainName]
                             )
 
                             const toChainId = getChainIdForEndpointVersion(toChainName, environment, EndpointVersion.V2)
