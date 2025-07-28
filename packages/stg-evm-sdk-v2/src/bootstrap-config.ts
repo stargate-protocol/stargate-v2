@@ -339,9 +339,6 @@ const getAvailableChainNamesFromDeployments = (environment: string, sorted = fal
             filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
         } else if (environment === 'testnet') {
             filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
-        } else if (environment === 'localnet' || environment === 'sandbox') {
-            // Handle local environments - look for sandbox-local directories
-            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-sandbox-local'))
         } else {
             console.warn(`Unsupported environment: ${environment}. Returning all deployment directories.`)
             filteredDirs = deploymentDirs
@@ -354,8 +351,6 @@ const getAvailableChainNamesFromDeployments = (environment: string, sorted = fal
                     return dir.replace(/-mainnet$/, '')
                 } else if (dir.endsWith('-testnet')) {
                     return dir.replace(/-testnet$/, '')
-                } else if (dir.endsWith('-sandbox-local')) {
-                    return dir.replace(/-sandbox-local$/, '')
                 } else {
                     return dir
                 }
@@ -502,7 +497,7 @@ export const getBootstrapChainConfigFromArgs = async (
         environment: args.environment,
         chainNames: validChainNames,
         initialTokensOverrides,
-        isOnForkedChains: !args.noFork && args.environment !== 'localnet', // localnet is never forked
+        isOnForkedChains: !args.noFork,
     }
 }
 

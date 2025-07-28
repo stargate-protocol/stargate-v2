@@ -48,9 +48,6 @@ import type { Provider } from '@ethersproject/providers'
 import type { Signer } from 'ethers'
 
 const getDeploymentFolderName = (chainName: string, environment: string): string => {
-    if (['localnet', 'sandbox'].includes(environment)) {
-        return chainName + '-sandbox-local'
-    }
     return `${chainName}-${environment}`
 }
 

@@ -322,10 +322,6 @@ export const getChainIdForEndpointVersion = (
     version: EndpointVersion
 ): string => {
     // TODO: This is essentially 'getChainIdForNetwork' but skipping the UlnVersion -> EndpointVersion step, refactor monorepo to export this function
-    if (environment === 'localnet') {
-        environment = 'sandbox'
-    }
-
     return chainAndStageToEndpointId(chainName as Chain, environment as Stage, version).toString()
 }
 
@@ -335,9 +331,6 @@ export const environmentToStage = (environment: string): Stage => {
             return Stage.MAINNET
         case 'testnet':
             return Stage.TESTNET
-        case 'localnet':
-        case 'sandbox':
-            return Stage.SANDBOX
         default:
             throw new Error(`unrecognized environment ${environment}`)
     }
