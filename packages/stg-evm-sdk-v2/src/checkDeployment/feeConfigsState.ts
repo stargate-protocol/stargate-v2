@@ -6,7 +6,6 @@ import { retryWithBackoff } from '../utils/retry'
 
 import {
     ByAssetPathConfig,
-    StargateVersion,
     errorString,
     getChainIdForEndpointVersion,
     parseTargets,
@@ -38,7 +37,7 @@ export const getFeeConfigsState = async (args: {
 
     const stargatePoolConfigGetter = await getLocalStargatePoolConfigGetterFromArgs(environment)
 
-    const poolsConfig = stargatePoolConfigGetter.getPoolsConfig()[StargateVersion.V2]
+    const poolsConfig = stargatePoolConfigGetter.getPoolsConfig()
 
     const feesConfigs: ByAssetPathConfig = {}
 

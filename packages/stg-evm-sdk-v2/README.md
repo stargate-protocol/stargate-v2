@@ -79,4 +79,5 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
 - TODO scour codebase for any unrelated/unneccessary logic
 - Compare all config files to offchain
 - TODO clean up README to be more clear as to how to run checker and the prep work needed
+- Clean up comments
 - Test everything

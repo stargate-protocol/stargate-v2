@@ -206,9 +206,14 @@ export const printByPathAndAssetFlattenConfig = (title: string, config: ByAssetP
           )
         : flattenedData
 
-    // Sort the data alphabetically by srcChainName, then by chainName
+    // Sort the data alphabetically by assetId, then srcChainName, then chainName
     const dataToDisplay = filteredData.sort((a, b) => {
-        // First sort by srcChainName
+        // First sort by assetId
+        const assetIdComparison = a.assetId.localeCompare(b.assetId)
+        if (assetIdComparison !== 0) {
+            return assetIdComparison
+        }
+        // If assetId is the same, sort by srcChainName
         const srcChainComparison = a.srcChainName.localeCompare(b.srcChainName)
         if (srcChainComparison !== 0) {
             return srcChainComparison

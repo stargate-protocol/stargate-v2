@@ -2,7 +2,7 @@ import { JsonRpcProvider } from '@ethersproject/providers'
 import { constants } from 'ethers'
 
 import { IToken, StargatePoolConfigGetter } from '../bootstrap-config'
-import { StargateVersion, parallelProcess } from '../checkDeployment/utils'
+import { parallelProcess } from '../checkDeployment/utils'
 import { ERC20__factory } from '../openzeppelin-contracts'
 import {
     CreditMessaging,
@@ -78,13 +78,9 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
             options.provider
         )
 
-        for (const assetId of this.options.stargatePoolConfigGetter.getAssetIds(StargateVersion.V2)) {
+        for (const assetId of this.options.stargatePoolConfigGetter.getAssetIds()) {
             try {
-                const poolConfig = this.options.stargatePoolConfigGetter.getPoolInfo(
-                    assetId,
-                    this.options.chainName,
-                    StargateVersion.V2
-                )
+                const poolConfig = this.options.stargatePoolConfigGetter.getPoolInfo(assetId, this.options.chainName)
 
                 this.addressToContract[poolConfig.address] = connectStargateV2Contract(
                     this.options.provider,
@@ -99,11 +95,7 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
 
     // FIXME TON-POST-LAUNCH: Extract in a utility class
     public getStargateType(args: { assetId: string }): StargateTypes {
-        return this.options.stargatePoolConfigGetter.getPoolInfo(
-            args.assetId,
-            this.options.chainName,
-            StargateVersion.V2
-        ).stargateType
+        return this.options.stargatePoolConfigGetter.getPoolInfo(args.assetId, this.options.chainName).stargateType
     }
 
     protected async fetchTokenAddress(args: { assetId: string }): Promise<string> {
@@ -120,8 +112,8 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
         const assetId = args.assetId
 
         if (
-            this.options.stargatePoolConfigGetter.getPoolInfo(args.assetId, this.options.chainName, StargateVersion.V2)
-                .stargateType === StargateTypes.NATIVE
+            this.options.stargatePoolConfigGetter.getPoolInfo(args.assetId, this.options.chainName).stargateType ===
+            StargateTypes.NATIVE
         ) {
             throw new Error('Native stargate does not have a token contract')
         }
@@ -168,11 +160,7 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
     }
 
     public getStargateContractByAssetId<T extends StargateContract>(assetId: string): T {
-        const info = this.options.stargatePoolConfigGetter.getPoolInfo(
-            assetId,
-            this.options.chainName,
-            StargateVersion.V2
-        )
+        const info = this.options.stargatePoolConfigGetter.getPoolInfo(assetId, this.options.chainName)
         return this.getStargateContractByAddress<T>(info.address)
     }
 
@@ -345,8 +333,7 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
         // if the pool is an oft it has no value locked
         const { stargateType } = this.options.stargatePoolConfigGetter.getPoolInfoByAddress(
             pool,
-            this.options.chainName,
-            StargateVersion.V2
+            this.options.chainName
         )
         if (stargateType === StargateTypes.OFT) return '0'
         const contract = this.getStargateContractByAddress<StargatePool>(pool)
@@ -361,8 +348,7 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
     }> {
         const { stargateType } = this.options.stargatePoolConfigGetter.getPoolInfoByAddress(
             pool,
-            this.options.chainName,
-            StargateVersion.V2
+            this.options.chainName
         )
         const [tvlOrSupply, blockNumber] = await Promise.all([
             stargateType === StargateTypes.OFT ? this.totalSupply(pool) : this.tvl(pool),
@@ -380,8 +366,7 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
     async totalSupply(oft: string): Promise<string> {
         const { stargateType, token } = this.options.stargatePoolConfigGetter.getPoolInfoByAddress(
             oft,
-            this.options.chainName,
-            StargateVersion.V2
+            this.options.chainName
         )
         if (stargateType !== StargateTypes.OFT) {
             throw new Error('only the underlying erc20 of a stargate OFT has a totalSupply to query')

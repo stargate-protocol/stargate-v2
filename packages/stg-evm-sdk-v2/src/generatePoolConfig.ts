@@ -13,13 +13,12 @@ import {
     getBootstrapChainConfigWithUlnFromArgs,
     getLocalStargatePoolConfigGetterFromArgs,
 } from './bootstrap-config'
-import { StargateVersion } from './checkDeployment/utils'
 import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './stargate-contracts'
 import { StargateV2SdkFactory } from './stargate-sdks/factory'
 import { retryWithBackoff } from './utils/retry'
 
-const sortPoolInfo = (version: StargatePoolsConfig<StargateVersion>) => {
-    for (const configs of Object.values(version)) {
+const sortPoolInfo = (poolsConfig: StargatePoolsConfig) => {
+    for (const configs of Object.values(poolsConfig)) {
         const sortedObj = Object.fromEntries(Object.entries(configs.poolInfo).sort((a, b) => a[0].localeCompare(b[0])))
         configs.poolInfo = sortedObj
     }
@@ -50,7 +49,7 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
     await fs.mkdir(path.dirname(filepath), { recursive: true })
     logger.debug(`📁 Created directory structure`)
 
-    const stargatePoolsConfig: StargatePoolsConfig<StargateVersion.V2> = {}
+    const stargatePoolsConfig: StargatePoolsConfig = {}
 
     const chainNames = filterStargateV2SupportedChainNames(
         getAvailableChainNamesByEnvironment(environment),
@@ -110,7 +109,7 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
                     logger.debug(`🔍 Processing asset ${assetId} at address ${address} on ${chainName}`)
 
                     if (!stargatePoolsConfig[assetId]) {
-                        stargatePoolsConfig[assetId] = {} as StargatePoolConfig<StargateVersion.V2>
+                        stargatePoolsConfig[assetId] = {} as StargatePoolConfig
                         logger.debug(`📝 Created new config entry for asset ${assetId}`)
                     }
 
@@ -176,13 +175,7 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
     logger.info(`🔄 Sorting pool info...`)
     sortPoolInfo(stargatePoolsConfig)
 
-    const stargatePoolsConfigString = JSON.stringify(
-        {
-            [StargateVersion.V2]: stargatePoolsConfig,
-        },
-        null,
-        4
-    )
+    const stargatePoolsConfigString = JSON.stringify(stargatePoolsConfig, null, 4)
 
     logger.info(`💾 Writing config to file: ${filepath}`)
     logger.debug(`📄 Config content preview:\n${stargatePoolsConfigString.substring(0, 500)}...`)

@@ -5,8 +5,6 @@ import * as path from 'path'
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { LoggerOptions, format, transports } from 'winston'
 
-import { StargateVersion } from './checkDeployment/utils'
-
 import type { Provider } from '@ethersproject/providers'
 
 try {
@@ -61,49 +59,33 @@ export type Farms = {
     [Type in FarmType]?: FarmDefinition[Type]
 }
 
-export interface StargatePoolInfo {
-    [StargateVersion.V1]: CommonStargatePoolInfo & {
-        lpToken: IToken
-        farm?: Farms
-    }
-    [StargateVersion.V2]: CommonStargatePoolInfo & {
-        lpToken?: IToken
-        farm?: Farms
-    }
+export interface StargatePoolInfo extends CommonStargatePoolInfo {
+    lpToken?: IToken
+    farm?: Farms
 }
 
-export type StargatePoolInfoList<Version extends StargateVersion> = {
-    [chainName: string]: StargatePoolInfo[Version]
+export type StargatePoolInfoList = {
+    [chainName: string]: StargatePoolInfo
 }
 
-export type StargatePoolConfig<Version extends StargateVersion> = {
+export type StargatePoolConfig = {
     sharedDecimals: number
-    poolInfo: StargatePoolInfoList<Version>
+    poolInfo: StargatePoolInfoList
 }
 
-export type StargatePoolsConfig<Version extends StargateVersion> = {
-    [assetId: string]: StargatePoolConfig<Version>
+export type StargatePoolsConfig = {
+    [assetId: string]: StargatePoolConfig
 }
 
-export type AllStargatePoolsConfig = {
-    [Version in StargateVersion]: StargatePoolsConfig<Version>
-}
+export type AllStargatePoolsConfig = StargatePoolsConfig
 
 export interface StargatePoolConfigGetter {
-    getPoolsConfig(filterHiddenPools?: boolean): AllStargatePoolsConfig
-    getPoolConfig<T extends StargateVersion>(assetId: string, version: T): StargatePoolConfig<T>
-    getPoolInfo(assetId: string, chainName: string, version: StargateVersion): StargatePoolInfo[typeof version]
-    getPoolInfoByAddress(address: string, chainName: string, version: StargateVersion): StargatePoolInfo[typeof version]
-    getAssetIds(version: StargateVersion): string[]
-
-    getAssetIdsForChainName(chainName: string, version: StargateVersion): string[]
-
-    getAssetIdFromAddress(chainName: string, address: string): { assetId: string; version: StargateVersion }
-    getAssetIdFromSymbol(symbol: string): string
+    getPoolsConfig(): AllStargatePoolsConfig
+    getPoolInfo(assetId: string, chainName: string): StargatePoolInfo
+    getPoolInfoByAddress(address: string, chainName: string): StargatePoolInfo
+    getAssetIds(): string[]
 
     getStargateTypeByAddress(chainName: string, address: string): StargateTypes
-
-    isHiddenPool(version: StargateVersion, assetId: string, chainName: string): boolean
 }
 
 export class StargateConfigError extends Error {
@@ -120,33 +102,12 @@ export class NotFoundError extends Error {
     }
 }
 
-function cloneDeep<T>(obj: T): T {
-    if (obj === null || typeof obj !== 'object') return obj
-    if (obj instanceof Date) return new Date(obj.getTime()) as unknown as T
-    if (obj instanceof Array) return obj.map((item) => cloneDeep(item)) as unknown as T
-    if (typeof obj === 'object') {
-        const clonedObj = {} as T
-        for (const key in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                clonedObj[key] = cloneDeep(obj[key])
-            }
-        }
-        return clonedObj
-    }
-    return obj
-}
-
 abstract class BaseConfig<T> {
     protected config!: T
 
     protected getConfig(): T {
         return this.config
     }
-}
-
-const hiddenPools: Record<StargateVersion, Record<string, string[]>> = {
-    [StargateVersion.V1]: {},
-    [StargateVersion.V2]: {},
 }
 
 class BaseStargatePoolConfigGetter extends BaseConfig<AllStargatePoolsConfig> implements StargatePoolConfigGetter {
@@ -157,125 +118,50 @@ class BaseStargatePoolConfigGetter extends BaseConfig<AllStargatePoolsConfig> im
         super()
     }
 
-    public getPoolsConfig(filterHiddenPools = false): AllStargatePoolsConfig {
-        const poolsConfigs = this.getConfig()
-        if (!filterHiddenPools) return poolsConfigs
-        if (this.filteredPoolsConfigs && poolsConfigs === this.configRef) {
-            return this.filteredPoolsConfigs
-        }
-        this.configRef = poolsConfigs
-
-        this.filteredPoolsConfigs = cloneDeep(poolsConfigs)
-        for (const [version, assets] of Object.entries(hiddenPools)) {
-            for (const [asset, chains] of Object.entries(assets)) {
-                for (const chain of chains) {
-                    delete this.filteredPoolsConfigs[version as StargateVersion][asset]?.poolInfo?.[chain]
-                }
-            }
-        }
-        return this.filteredPoolsConfigs
+    public getPoolsConfig(): AllStargatePoolsConfig {
+        return this.getConfig()
     }
 
-    public getPoolConfig<T extends StargateVersion>(assetId: string, version: T): StargatePoolConfig<T> {
-        const info = this.config[version][assetId]
+    public getPoolInfo(assetId: string, chainName: string): StargatePoolInfo {
+        const info = this.config[assetId]?.poolInfo[chainName]
         if (info == undefined) {
-            throw new StargateConfigError(`pool config not found for assetId ${assetId} stargate version ${version}`)
+            throw new StargateConfigError(`pool info not found for assetId ${assetId} on chain ${chainName}`)
         }
         return info
     }
 
-    public getPoolInfo(assetId: string, chainName: string, version: StargateVersion): StargatePoolInfo[typeof version] {
-        const info = this.config[version][assetId]?.poolInfo[chainName]
-        if (info == undefined) {
-            throw new StargateConfigError(
-                `pool info not found for assetId ${assetId} on chain ${chainName} for stargate version ${version}`
-            )
-        }
-        return info
-    }
-
-    public getPoolInfoByAddress(
-        address: string,
-        chainName: string,
-        version: StargateVersion
-    ): StargatePoolInfo[typeof version] {
-        for (const [, data] of Object.entries(this.config[version])) {
+    public getPoolInfoByAddress(address: string, chainName: string): StargatePoolInfo {
+        for (const [assetId, data] of Object.entries(this.config)) {
             if (data.poolInfo[chainName]?.address?.toLowerCase() === address.toLowerCase()) {
-                return {
-                    ...data.poolInfo[chainName],
-                    symbol: data.symbol,
-                    sharedDecimals: data.sharedDecimals,
-                } as StargatePoolInfo[typeof version]
+                return data.poolInfo[chainName]
             }
         }
         throw new Error(`pool config not found for chain ${chainName} pool ${address}`)
     }
 
-    public getAssetIds(version: StargateVersion): string[] {
-        return Object.keys(this.config[version])
-    }
-
-    public getAssetIdsForChainName(chainName: string, version: StargateVersion): string[] {
-        return Object.entries(this.config[version])
-            .filter(([, poolConfig]) => poolConfig && chainName in poolConfig.poolInfo)
-            .map(([assetId]) => assetId)
-    }
-
-    public getAssetIdFromAddress(chainName: string, address: string): { assetId: string; version: StargateVersion } {
-        for (const version of Object.values(StargateVersion)) {
-            const found = Object.entries(this.config[version]).find(
-                ([, configs]) => address.toLowerCase() === configs?.poolInfo[chainName]?.address?.toLowerCase()
-            )
-            if (found) return { assetId: found[0], version }
-        }
-        throw new NotFoundError(`assetId not found for pool ${address} on chain ${chainName}`)
-    }
-
-    public getAssetIdFromSymbol(symbol: string): string {
-        const assets = new Set<string>()
-        for (const [version, configs] of Object.entries(this.config)) {
-            for (const [assetId, config] of Object.entries(configs)) {
-                for (const poolConfig of Object.values((config as StargatePoolConfig<StargateVersion>).poolInfo)) {
-                    if (poolConfig && poolConfig.token.symbol === symbol) assets.add(assetId)
-                }
-            }
-        }
-        if (assets.size == 1) return Array.from(assets)[0]
-        if (assets.size > 1) {
-            throw new StargateConfigError(`duplicate assetIds found for symbol ${symbol}: ${Array.from(assets)}`)
-        }
-        throw new NotFoundError(`assetId not found for symbol ${symbol}`)
+    public getAssetIds(): string[] {
+        return Object.keys(this.config)
     }
 
     public getStargateTypeByAddress(chainName: string, address: string): StargateTypes {
-        for (const version of Object.values(StargateVersion)) {
-            for (const configs of Object.values(this.config[version])) {
-                const info = configs?.poolInfo[chainName]
-                if (info?.address?.toLowerCase() === address.toLowerCase()) {
-                    return info.stargateType
-                }
+        for (const assetId of Object.keys(this.config)) {
+            const info = this.config[assetId]?.poolInfo[chainName]
+            if (info?.address?.toLowerCase() === address.toLowerCase()) {
+                return info.stargateType
             }
         }
         throw new NotFoundError(`No StargateType found for address: ${address}`)
     }
-
-    public isHiddenPool(version: StargateVersion, assetId: string, chainName: string): boolean {
-        return !!hiddenPools[version]?.[assetId]?.includes(chainName)
-    }
 }
 
 export class LocalStargatePoolConfigGetter extends BaseStargatePoolConfigGetter {
-    protected constructor(configs: {
-        [Version in StargateVersion]: StargatePoolsConfig<Version>
-    }) {
+    protected constructor(configs: StargatePoolsConfig) {
         super()
         this.config = configs
     }
 
     public static async create(filePath: string): Promise<StargatePoolConfigGetter> {
-        const config = JSON.parse((await fs.readFile(filePath)).toString('utf-8')) as {
-            [Version in StargateVersion]: StargatePoolsConfig<Version>
-        }
+        const config = JSON.parse((await fs.readFile(filePath)).toString('utf-8')) as StargatePoolsConfig
         return new LocalStargatePoolConfigGetter(config)
     }
 }
@@ -311,9 +197,7 @@ export const getLocalStargatePoolConfigGetterFromArgs = async (
 
     if (fileContent === '') {
         // Create a temporary file with empty config structure for empty/missing files
-        const emptyConfig = {
-            [StargateVersion.V2]: {},
-        }
+        const emptyConfig: StargatePoolsConfig = {}
 
         // Write temporary config and use existing create method
         const tempConfigPath = configPath + '.tmp'
