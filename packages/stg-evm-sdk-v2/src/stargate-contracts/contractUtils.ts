@@ -42,7 +42,7 @@
  * ```
  */
 
-import { throwError } from '../common-utils'
+import { getContractDeploymentInfo, throwError } from '../common-utils'
 
 import { StaticChainConfigs } from './utils'
 
@@ -149,17 +149,6 @@ export const getEvmContractArtifact = (
         abi: deploymentInfo?.abi ?? artifact?.abi ?? throwError('ABI not found'),
         bytecode: deploymentInfo?.bytecode ?? artifact?.bytecode ?? throwError('Bytecode not found'),
     }
-}
-
-export const getContractDeploymentInfo = (
-    npmPackage: string,
-    contractName: string,
-    chainName: string,
-    environment: string,
-    resolvePackagePath: (path: string) => { address: string }
-): { address: string } => {
-    const deploymentFolderName = getDeploymentFolderName(chainName, environment)
-    return resolvePackagePath(`${npmPackage}/deployments/${deploymentFolderName}/${contractName}.json`)
 }
 
 export const getEvmContractDeploymentAndArtifact = (
