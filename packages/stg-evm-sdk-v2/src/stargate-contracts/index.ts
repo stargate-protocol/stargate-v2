@@ -1,10 +1,8 @@
 import { Signer } from 'ethers'
 
-import { createContractAddressGetter, createContractGetter } from './contractUtils'
-import { isStargateV2SupportedChainName } from './supportedChains'
+import { createContractGetter } from './contractUtils'
 import {
     CreditMessaging__factory,
-    StargateMultiRewarder__factory,
     StargateOFT,
     StargateOFT__factory,
     StargatePool,
@@ -46,13 +44,6 @@ export const getStargateV2TokenMessagingContract = createContractGetter(
     resolvePackagePath
 )
 
-export const getStargateV2TokenMessagingContractAddress = createContractAddressGetter(
-    PACKAGE_NAME,
-    'TokenMessaging',
-    resolvePackagePath,
-    isStargateV2SupportedChainName
-)
-
 export const getStargateV2CreditMessagingContract = (
     chainName: string,
     environment: string,
@@ -67,24 +58,10 @@ export const getStargateV2CreditMessagingContract = (
     return contractGetter(chainName, environment, provider)
 }
 
-export const getStargateV2CreditMessagingContractAddress = createContractAddressGetter(
-    PACKAGE_NAME,
-    'CreditMessaging',
-    resolvePackagePath,
-    isStargateV2SupportedChainName
-)
-
 export const getStargateV2StargateStakingContract = createContractGetter(
     StargateStaking__factory,
     PACKAGE_NAME,
     'StargateStaking',
-    resolvePackagePath
-)
-
-export const getStargateMultiRewarderContract = createContractGetter(
-    StargateMultiRewarder__factory,
-    PACKAGE_NAME,
-    'StargateMultiRewarder',
     resolvePackagePath
 )
 
@@ -106,8 +83,7 @@ export * from './typechain'
 export * from './contractUtils'
 
 export type { CreditsSentEvent } from './typechain/StargateBase'
-export type { PlannerFeeWithdrawnEvent } from './typechain/StargateBase'
 
-export type { BusRodeEvent, BusDrivenEvent } from './typechain/messaging/TokenMessaging'
+export type { BusRodeEvent } from './typechain/messaging/TokenMessaging'
 
 export type { OFTSentEvent } from './typechain/StargateOFT'

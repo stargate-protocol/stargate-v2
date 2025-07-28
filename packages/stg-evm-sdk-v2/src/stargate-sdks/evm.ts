@@ -7,16 +7,12 @@ import { ERC20__factory } from '../openzeppelin-contracts'
 import {
     CreditMessaging,
     ERC20Token,
-    ERC20Token__factory,
     FeeLibV1,
-    FeeLibV1__factory,
     LPToken__factory,
-    OFTSentEvent,
     StargateBase__factory,
     StargateContract,
     StargateContractType,
     StargateMultiRewarder__factory,
-    StargateOFT,
     StargatePool,
     StargatePoolNative,
     StargatePoolNative__factory,
@@ -30,15 +26,8 @@ import {
     getStargateV2TokenMessagingContract,
 } from '../stargate-contracts'
 
-import { ContractMetadata, StargateV2OFTSentEvent, StargateV2Sdk } from './model'
-import {
-    convertLogToEvent,
-    extractOFTSentEvent,
-    getNativeCurrencyDecimals,
-    getNativeCurrencyInfo,
-    getNativeCurrencySymbol,
-    isOfEventType,
-} from './utils'
+import { ContractMetadata, StargateV2Sdk } from './model'
+import { getNativeCurrencyDecimals, getNativeCurrencyInfo, getNativeCurrencySymbol } from './utils'
 
 import type { Logger } from 'winston'
 
@@ -91,59 +80,6 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
                 /* empty */
             }
         }
-    }
-
-    // FIXME TON-POST-LAUNCH: Extract in a utility class
-    public getStargateType(args: { assetId: string }): StargateTypes {
-        return this.options.stargatePoolConfigGetter.getPoolInfo(args.assetId, this.options.chainName).stargateType
-    }
-
-    protected async fetchTokenAddress(args: { assetId: string }): Promise<string> {
-        const { assetId } = args
-
-        const stargate = this.getStargateContractByAssetId(assetId)
-        const tokenAddress = await stargate.token()
-
-        return tokenAddress
-    }
-
-    // FIXME TON-POST-LAUNCH: Extract in a utility class
-    public async getTokenContract(args: { assetId: string }): Promise<ERC20Token> {
-        const assetId = args.assetId
-
-        if (
-            this.options.stargatePoolConfigGetter.getPoolInfo(args.assetId, this.options.chainName).stargateType ===
-            StargateTypes.NATIVE
-        ) {
-            throw new Error('Native stargate does not have a token contract')
-        }
-
-        if (!this.tokenContracts[assetId]) {
-            const tokenAddress = await this.fetchTokenAddress(args)
-
-            this.tokenContracts[assetId] = ERC20Token__factory.connect(tokenAddress, this.options.provider)
-        }
-
-        return this.tokenContracts[assetId]
-    }
-
-    protected async fetchFeeLibAddress(args: { assetId: string }) {
-        const { assetId } = args
-        const stargate = this.getStargateContractByAssetId(assetId)
-        const { feeLib } = await stargate.getAddressConfig()
-        return feeLib
-    }
-
-    protected async getFeeLibContract(args: { assetId: string }): Promise<FeeLibV1> {
-        const { assetId } = args
-
-        if (!this.feeLibContracts[assetId]) {
-            const feeLibAddress = await this.fetchFeeLibAddress(args)
-
-            this.feeLibContracts[assetId] = FeeLibV1__factory.connect(feeLibAddress, this.options.provider)
-        }
-
-        return this.feeLibContracts[assetId]
     }
 
     protected getStargateContractByAddress<T extends StargateContract>(address: string) {
@@ -322,95 +258,5 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
         await parallelProcess(callbacks, 10)
 
         return { assetIds, stargateImpls }
-    }
-
-    /**
-     * Retrieves the total value locked (TVL) for a given Stargate pool address.
-     * @param pool The address of the Stargate pool as a string.
-     * @returns The TVL.
-     */
-    async tvl(pool: string): Promise<string> {
-        // if the pool is an oft it has no value locked
-        const { stargateType } = this.options.stargatePoolConfigGetter.getPoolInfoByAddress(
-            pool,
-            this.options.chainName
-        )
-        if (stargateType === StargateTypes.OFT) return '0'
-        const contract = this.getStargateContractByAddress<StargatePool>(pool)
-        const tvl = await contract.tvl()
-        return tvl.toString()
-    }
-
-    async tvlOrSupply(pool: string): Promise<{
-        tvlOrSupply: string
-        blockNumber: number
-        blockTimestamp: number
-    }> {
-        const { stargateType } = this.options.stargatePoolConfigGetter.getPoolInfoByAddress(
-            pool,
-            this.options.chainName
-        )
-        const [tvlOrSupply, blockNumber] = await Promise.all([
-            stargateType === StargateTypes.OFT ? this.totalSupply(pool) : this.tvl(pool),
-            this.options.provider.getBlockNumber(),
-        ])
-        const { timestamp } = await this.options.provider.getBlock(blockNumber)
-        return { tvlOrSupply, blockNumber, blockTimestamp: timestamp }
-    }
-
-    /**
-     * Retrieves the total liquidity for a given Stargate OFT address.
-     * @param oft The address of the Stargate pool as a string.
-     * @returns The total liquidity.
-     */
-    async totalSupply(oft: string): Promise<string> {
-        const { stargateType, token } = this.options.stargatePoolConfigGetter.getPoolInfoByAddress(
-            oft,
-            this.options.chainName
-        )
-        if (stargateType !== StargateTypes.OFT) {
-            throw new Error('only the underlying erc20 of a stargate OFT has a totalSupply to query')
-        }
-        const contract = ERC20Token__factory.connect(token.address, this.options.provider)
-        const totalSupply = await contract.totalSupply()
-        return totalSupply.toString()
-    }
-
-    /**
-     * Retrieves the single OFTSent event for a specific passenger corresponding to the provided txHash.
-     * @param assetId The asset id related to the OFTContract
-     * @param txHash The txHash for the passenger
-     */
-    public async getPassengerOFTSentEvent(args: {
-        assetId: string
-        txHash: string
-        dstEid: number
-        ticketId: string
-    }): Promise<StargateV2OFTSentEvent> {
-        const transactionLogs = (await this.options.provider.getTransactionReceipt(args.txHash)).logs
-
-        const oftContract: StargateOFT = this.getStargateContractByAssetId<StargateOFT>(args.assetId)
-
-        let busRodeEventFound = false
-        for (const log of transactionLogs) {
-            if (!busRodeEventFound && isOfEventType(this.tokenMessagingContract.filters.BusRode(), log)) {
-                const event = convertLogToEvent(log, this.tokenMessagingContract.interface)
-                if (event.args!.ticketId.toString() === args.ticketId) {
-                    busRodeEventFound = true
-                }
-            } else if (busRodeEventFound && isOfEventType(oftContract.filters.OFTSent(), log)) {
-                const event = convertLogToEvent(log, oftContract.interface)
-                const oftSentEvent = extractOFTSentEvent(
-                    this.options.chainName,
-                    this.options.environment,
-                    event as OFTSentEvent,
-                    args.assetId
-                )
-                return oftSentEvent
-            }
-        }
-        throw new Error(
-            `OFTSent event not found for BusRodeEvent related on srcChainName: ${this.options.chainName} with args: ${args}`
-        )
     }
 }
