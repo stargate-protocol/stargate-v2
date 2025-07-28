@@ -319,9 +319,15 @@ const getRpcUrl = (chainRawName: string, environment: string): string | null => 
     return url
 }
 
-const getAvailableChainNamesFromDeployments = (environment: string): string[] => {
+const getAvailableChainNamesFromDeployments = (environment: string, sorted = false): string[] => {
     try {
         const deploymentsPath = path.join(__dirname, '..', 'deployments')
+
+        if (!fsSync.existsSync(deploymentsPath)) {
+            console.warn(`Deployments directory not found: ${deploymentsPath}`)
+            return []
+        }
+
         const deploymentDirs = fsSync
             .readdirSync(deploymentsPath, { withFileTypes: true })
             .filter((dirent: fsSync.Dirent) => dirent.isDirectory())
@@ -333,17 +339,34 @@ const getAvailableChainNamesFromDeployments = (environment: string): string[] =>
             filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
         } else if (environment === 'testnet') {
             filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
+        } else if (environment === 'localnet' || environment === 'sandbox') {
+            // Handle local environments - look for sandbox-local directories
+            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-sandbox-local'))
         } else {
+            console.warn(`Unsupported environment: ${environment}. Returning all deployment directories.`)
             filteredDirs = deploymentDirs
         }
 
+        // Extract raw chain names by removing the environment suffix
         const chainNames = filteredDirs
-            .map((dir: string) => dir.replace(/-mainnet$|-testnet$/, ''))
+            .map((dir: string) => {
+                if (dir.endsWith('-mainnet')) {
+                    return dir.replace(/-mainnet$/, '')
+                } else if (dir.endsWith('-testnet')) {
+                    return dir.replace(/-testnet$/, '')
+                } else if (dir.endsWith('-sandbox-local')) {
+                    return dir.replace(/-sandbox-local$/, '')
+                } else {
+                    return dir
+                }
+            })
             .filter((name: string) => name.length > 0)
 
-        return Array.from(new Set(chainNames))
+        // Return unique chain names, sorted if requested
+        const uniqueChainNames = Array.from(new Set(chainNames))
+        return sorted ? uniqueChainNames.sort() : uniqueChainNames
     } catch (error) {
-        console.warn(`Failed to read deployment directories: ${error}`)
+        console.warn(`Failed to read deployment directories for environment ${environment}: ${error}`)
         return []
     }
 }
@@ -498,56 +521,8 @@ export const getBootstrapChainConfigWithUlnFromArgs = async (
     }
 }
 
-// TODO see if this can be refactored with getAvailableChainNamesFromDeployments
 export const getAvailableChainNamesByEnvironment = (environment: string): string[] => {
-    try {
-        const deploymentsPath = path.join(__dirname, '..', 'deployments')
-
-        if (!fsSync.existsSync(deploymentsPath)) {
-            console.warn(`Deployments directory not found: ${deploymentsPath}`)
-            return []
-        }
-
-        const deploymentDirs = fsSync
-            .readdirSync(deploymentsPath, { withFileTypes: true })
-            .filter((dirent: fsSync.Dirent) => dirent.isDirectory())
-            .map((dirent: fsSync.Dirent) => dirent.name)
-
-        let filteredDirs: string[]
-
-        if (environment === 'mainnet') {
-            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-mainnet'))
-        } else if (environment === 'testnet') {
-            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-testnet'))
-        } else if (environment === 'localnet' || environment === 'sandbox') {
-            // Handle local environments - look for sandbox-local directories
-            filteredDirs = deploymentDirs.filter((dir: string) => dir.endsWith('-sandbox-local'))
-        } else {
-            console.warn(`Unsupported environment: ${environment}. Returning all deployment directories.`)
-            filteredDirs = deploymentDirs
-        }
-
-        // Extract raw chain names by removing the environment suffix
-        const chainNames = filteredDirs
-            .map((dir: string) => {
-                if (dir.endsWith('-mainnet')) {
-                    return dir.replace(/-mainnet$/, '')
-                } else if (dir.endsWith('-testnet')) {
-                    return dir.replace(/-testnet$/, '')
-                } else if (dir.endsWith('-sandbox-local')) {
-                    return dir.replace(/-sandbox-local$/, '')
-                } else {
-                    return dir
-                }
-            })
-            .filter((name: string) => name.length > 0)
-
-        // Return unique chain names
-        return Array.from(new Set(chainNames)).sort()
-    } catch (error) {
-        console.warn(`Failed to read deployment directories for environment ${environment}: ${error}`)
-        return []
-    }
+    return getAvailableChainNamesFromDeployments(environment, true)
 }
 
 export const bootstrapLoggerConfigFromArgs: LoggerOptions = {
