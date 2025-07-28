@@ -9,7 +9,6 @@ import { retryWithBackoff } from '../utils/retry'
 
 import {
     ByAssetPathConfig,
-    StargateVersion,
     getChainIdForEndpointVersion,
     parseTargets,
     printByPathAndAssetFlattenConfig,
@@ -43,7 +42,7 @@ export const getBusNativeDropsState = async (args: {
 
     const stargatePoolConfigGetter = await getLocalStargatePoolConfigGetterFromArgs(environment)
 
-    const poolsConfig = stargatePoolConfigGetter.getPoolsConfig()[StargateVersion.V2]
+    const poolsConfig = stargatePoolConfigGetter.getPoolsConfig()
 
     const busNativeDropsState: ByAssetPathConfig = {}
 

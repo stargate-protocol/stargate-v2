@@ -10,7 +10,7 @@ import {
 } from '../stargate-contracts'
 import { retryWithBackoff } from '../utils/retry'
 
-import { ByAssetConfig, StargateVersion, parseTargets, printByAssetFlattenConfig, processPromises } from './utils'
+import { ByAssetConfig, parseTargets, printByAssetFlattenConfig, processPromises } from './utils'
 
 /**
  * Check that the planner wallet has the correct permissions for the messaging contracts and the FeeLib contracts
@@ -37,7 +37,7 @@ export const getPlannerPermissionsState = async (args: {
 
     const stargatePoolConfigGetter = await getLocalStargatePoolConfigGetterFromArgs(environment)
 
-    const poolsConfig = stargatePoolConfigGetter.getPoolsConfig()[StargateVersion.V2]
+    const poolsConfig = stargatePoolConfigGetter.getPoolsConfig()
 
     const permissionsState: ByAssetConfig = {}
 
