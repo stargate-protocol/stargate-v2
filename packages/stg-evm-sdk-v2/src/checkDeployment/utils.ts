@@ -78,29 +78,6 @@ export type ByAssetConfig = {
     }
 }
 
-export type ByChainConfig = {
-    [chainName: string]: Record<string, string | number>
-}
-
-export const printByChainConfig = (title: string, config: ByChainConfig, onlyError = false) => {
-    console.log(`\n###################### ${title} ######################`)
-
-    const flattenedData = Object.entries(config).flatMap(([chainName, results]) => {
-        return {
-            chainName,
-            ...results,
-        }
-    })
-    // Filter the data if onlyError is true
-    const dataToDisplay = onlyError
-        ? flattenedData.filter((item) =>
-              Object.values(item).some((val) => typeof val === 'string' && val.startsWith('error'))
-          )
-        : flattenedData
-
-    console.table(dataToDisplay)
-}
-
 export const printByAssetFlattenConfig = (title: string, config: ByAssetConfig, onlyError = false) => {
     console.log(`\n###################### ${title} ######################`)
 
@@ -160,47 +137,6 @@ export const printByPathAndAssetFlattenConfig = (title: string, config: ByAssetP
     console.table(dataToDisplay)
 }
 
-export const printByPathAndAssetConfig = (title: string, config: ByAssetPathConfig) => {
-    console.log(`\n###################### ${title} ######################`)
-    console.table(
-        Object.entries(config).flatMap(([assetId, assetVal]) =>
-            Object.entries(assetVal).flatMap(([srcChainName, srcChainVal]) => {
-                return {
-                    assetId,
-                    srcChainName,
-                    ...Object.fromEntries(
-                        Object.entries(srcChainVal).flatMap(([chainName, chainNameVal]) =>
-                            Object.entries(chainNameVal).map(([k, v]) => [`${chainName}_${k}`, v])
-                        )
-                    ),
-                }
-            })
-        )
-    )
-}
-
-export const printByPathConfig = (
-    title: string,
-    config: {
-        [fromChainName: string]: {
-            [toChainName: string]: Record<string, string | number>
-        }
-    }
-) => {
-    console.log(`\n###################### ${title} ######################`)
-    console.table(
-        Object.entries(config).flatMap(([fromChainName, fromChainVal]) =>
-            Object.entries(fromChainVal).flatMap(([toChainName, toChainVal]) => {
-                return {
-                    fromChainName,
-                    toChainName,
-                    ...toChainVal,
-                }
-            })
-        )
-    )
-}
-
 export const valueOrTimeout = async <T, Y>(
     getter: () => Promise<T>,
     errorValue: Y,
@@ -229,12 +165,6 @@ export const valueOrTimeout = async <T, Y>(
     ])
 }
 
-/**
- * Parses a comma-separated string of targets, trimming whitespace from each target.
- * Handles cases where spaces appear after commas (e.g., "mantle, hemi" -> ["mantle", "hemi"])
- * @param targetsString - The comma-separated string of targets
- * @returns An array of trimmed target strings, or empty array if input is empty
- */
 export const parseTargets = (targetsString: string): string[] => {
     if (!targetsString || targetsString.trim() === '') {
         return []
