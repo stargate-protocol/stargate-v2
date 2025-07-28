@@ -3,9 +3,9 @@ import { ethers } from 'ethers'
 
 import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 
+import { getChainIdForEndpointVersion, getChainName } from '../common-utils'
 import nativeCurrencyConfigs from '../configs/nativeCurrencyConfigs.json'
 import { OFTSentEvent } from '../stargate-contracts'
-import { getChainIdForEndpointVersion, getChainName } from '../utils'
 
 import { StargateV2OFTSentEvent } from './model'
 

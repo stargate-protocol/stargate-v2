@@ -42,7 +42,7 @@
  * ```
  */
 
-import { throwError } from '../utils'
+import { throwError } from '../common-utils'
 
 import { StaticChainConfigs } from './utils'
 

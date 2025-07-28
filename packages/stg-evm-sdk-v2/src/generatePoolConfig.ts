@@ -13,9 +13,9 @@ import {
     getBootstrapChainConfigWithUlnFromArgs,
     getLocalStargatePoolConfigGetterFromArgs,
 } from './bootstrap-config'
+import { retryWithBackoff } from './common-utils/retry'
 import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './stargate-contracts'
 import { StargateV2SdkFactory } from './stargate-sdks/factory'
-import { retryWithBackoff } from './utils/retry'
 
 const sortPoolInfo = (poolsConfig: StargatePoolsConfig) => {
     for (const configs of Object.values(poolsConfig)) {
