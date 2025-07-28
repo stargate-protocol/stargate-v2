@@ -8,11 +8,14 @@
 // Chain utilities
 export { getChainName, getChainIdForEndpointVersion, environmentToStage } from './chainUtils'
 
+// Contract utilities
+export { getContractDeploymentInfo } from './contractUtils'
+
 // Error utilities
 export { throwError } from './errorUtils'
 
 // Parallel processing utilities
 export { parallelProcess, processPromises } from './parallelProcessing'
 
-// Retry utilities (already existing)
+// Retry utilities
 export { retryWithBackoff } from './retry'

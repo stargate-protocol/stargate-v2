@@ -1,4 +1,4 @@
-import { getContractDeploymentInfo } from '../stargate-contracts/contractUtils' // TODO this should be in a common-utils file
+import { getContractDeploymentInfo } from '../common-utils'
 
 import type { Provider } from '@ethersproject/providers'
 import type { Signer } from 'ethers'
