@@ -343,11 +343,6 @@ export const environmentToStage = (environment: string): Stage => {
     }
 }
 
-export enum StargateVersion {
-    V1 = 'v1',
-    V2 = 'v2',
-}
-
 /**
  * Parses a comma-separated string of targets, trimming whitespace from each target.
  * Handles cases where spaces appear after commas (e.g., "mantle, hemi" -> ["mantle", "hemi"])
