@@ -1,4 +1,11 @@
-import { ChainStatus } from './utils'
+enum ChainStatus {
+    //The chain has been fully removed from LayerZero and is not supported in any way
+    DEPRECATED = 'DEPRECATED',
+    //This currently is the same as active
+    INACTIVE = 'INACTIVE',
+    //The chain is fully supported
+    ACTIVE = 'ACTIVE',
+}
 
 //setting a chain to INACTIVE causes balancing to not run on that chain
 //setting a chain to DEPRECATED causes all stargate services to not run on that chain
