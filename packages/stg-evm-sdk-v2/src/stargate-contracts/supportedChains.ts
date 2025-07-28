@@ -5,16 +5,6 @@ import { ChainStatus } from './utils'
 export const stargateV2ChainNamesPerEnvironment: {
     [environment: string]: { [chainName: string]: ChainStatus }
 } = {
-    localnet: {
-        ethereum: ChainStatus.ACTIVE,
-        polygon: ChainStatus.ACTIVE,
-        bsc: ChainStatus.ACTIVE,
-    },
-    sandbox: {
-        ethereum: ChainStatus.ACTIVE,
-        polygon: ChainStatus.ACTIVE,
-        bsc: ChainStatus.ACTIVE,
-    },
     testnet: {
         bsc: ChainStatus.ACTIVE,
         sepolia: ChainStatus.ACTIVE,
