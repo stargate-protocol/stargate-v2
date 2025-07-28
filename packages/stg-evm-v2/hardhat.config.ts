@@ -778,9 +778,6 @@ const getRpcUrl = (chainName: string): string | null => {
 const updateNetworkRpcUrls = (networks: NetworksUserConfig): NetworksUserConfig => {
     return Object.fromEntries(
         Object.entries(networks).map(([networkName, networkConfig]) => {
-            if (networkName === 'hedera-mainnet') {
-                return [networkName, { ...networkConfig, url: 'http://localhost:8545' }]
-            }
             if (networkConfig && 'url' in networkConfig) {
                 const dynamicUrl = getRpcUrl(networkName)
                 return [networkName, { ...networkConfig, url: dynamicUrl ?? networkConfig.url }]
