@@ -42,7 +42,9 @@
  * ```
  */
 
-import { StaticChainConfigs, throwError } from './utils'
+import { throwError } from '../utils'
+
+import { StaticChainConfigs } from './utils'
 
 import type { Provider } from '@ethersproject/providers'
 import type { Signer } from 'ethers'

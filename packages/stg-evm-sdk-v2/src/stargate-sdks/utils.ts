@@ -1,17 +1,13 @@
 import { deepCopy } from '@ethersproject/properties'
 import { ethers } from 'ethers'
 
-import { EndpointVersion, getNetworkForChainId } from '@layerzerolabs/lz-definitions'
+import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 
-import { getChainIdForEndpointVersion } from '../checkDeployment/utils'
 import nativeCurrencyConfigs from '../configs/nativeCurrencyConfigs.json'
 import { OFTSentEvent } from '../stargate-contracts'
+import { getChainIdForEndpointVersion, getChainName } from '../utils'
 
 import { StargateV2OFTSentEvent } from './model'
-
-export const getChainName = (chainId: string | number | bigint): string => {
-    return getNetworkForChainId(parseInt(chainId.toString()))?.chainName!
-}
 
 export const extractOFTSentEvent = (
     chainName: string,

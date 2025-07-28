@@ -1,9 +1,11 @@
+import { parallelProcess } from '../utils'
+
 import { getBalancingQuoteState } from './balancingQuoteState'
 import { getBusNativeDropsState } from './busNativeDropsState'
 import { getFeeConfigsState } from './feeConfigsState'
 import { getPlannerPermissionsState } from './plannerPermissionsState'
 import { getQuotesState } from './quotesState'
-import { errorString, parallelProcess, parse, timeoutString } from './utils'
+import { errorString, parse, timeoutString } from './utils'
 
 const args = parse({
     header: 'Check Deployment State',

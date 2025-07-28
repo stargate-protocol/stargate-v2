@@ -8,9 +8,9 @@ import {
     getStargateV2TokenMessagingContract,
     isStargateV2SupportedChainName,
 } from '../stargate-contracts'
-import { retryWithBackoff } from '../utils/retry'
+import { processPromises, retryWithBackoff } from '../utils'
 
-import { ByAssetConfig, parseTargets, printByAssetFlattenConfig, processPromises } from './utils'
+import { ByAssetConfig, parseTargets, printByAssetFlattenConfig } from './utils'
 
 /**
  * Check that the planner wallet has the correct permissions for the messaging contracts and the FeeLib contracts
