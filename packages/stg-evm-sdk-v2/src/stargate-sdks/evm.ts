@@ -82,24 +82,6 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
         }
     }
 
-    protected getStargateContractByAddress<T extends StargateContract>(address: string) {
-        if (!this.addressToContract[address]) {
-            const stargateType = this.options.stargatePoolConfigGetter.getStargateTypeByAddress(
-                this.options.chainName,
-                address
-            )
-
-            this.addressToContract[address] = connectStargateV2Contract(this.options.provider, stargateType, address)
-        }
-
-        return this.addressToContract[address] as T
-    }
-
-    public getStargateContractByAssetId<T extends StargateContract>(assetId: string): T {
-        const info = this.options.stargatePoolConfigGetter.getPoolInfo(assetId, this.options.chainName)
-        return this.getStargateContractByAddress<T>(info.address)
-    }
-
     /**
      * Retrieves metadata for a specified contract address.
      * @param address The contract address to retrieve metadata for.
