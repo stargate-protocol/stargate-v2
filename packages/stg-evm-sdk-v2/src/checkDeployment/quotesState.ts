@@ -2,15 +2,13 @@ import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { getStargateV2TokenMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
-import { retryWithBackoff } from '../utils/retry'
+import { getChainIdForEndpointVersion, processPromises, retryWithBackoff } from '../utils'
 
 import {
     ByAssetPathConfig,
     errorString,
-    getChainIdForEndpointVersion,
     parseTargets,
     printByPathAndAssetFlattenConfig,
-    processPromises,
     timeoutString,
     valueOrTimeout,
 } from './utils'

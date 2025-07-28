@@ -5,15 +5,9 @@ import { EndpointVersion } from '@layerzerolabs/lz-definitions'
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { getExecutorContract } from '../protocol-contracts'
 import { getStargateV2TokenMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
-import { retryWithBackoff } from '../utils/retry'
+import { getChainIdForEndpointVersion, processPromises, retryWithBackoff } from '../utils'
 
-import {
-    ByAssetPathConfig,
-    getChainIdForEndpointVersion,
-    parseTargets,
-    printByPathAndAssetFlattenConfig,
-    processPromises,
-} from './utils'
+import { ByAssetPathConfig, parseTargets, printByPathAndAssetFlattenConfig } from './utils'
 
 /**
  * Checks all pathways for all assets to ensure that maxBusNativeDropAmount <= executor nativeCap
