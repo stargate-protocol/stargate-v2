@@ -83,22 +83,10 @@ export const stargateV2SupportedChainNamesPerEnvironment: {
     ])
 )
 
-export const isStargateV2SupportedEnvironment = (environment: string): boolean => {
-    return stargateV2SupportedChainNamesPerEnvironment[environment].length > 0
-}
-
 export const isStargateV2SupportedChainName = (chainName: string, environment: string): boolean => {
     return stargateV2SupportedChainNamesPerEnvironment[environment].includes(chainName)
 }
 
 export const filterStargateV2SupportedChainNames = (chainNames: string[], environment: string): string[] => {
     return chainNames.filter((chainName) => isStargateV2SupportedChainName(chainName, environment))
-}
-
-export const isStargateV2ActiveChainName = (chainName: string, environment: string): boolean => {
-    return stargateV2ChainNamesPerEnvironment[environment][chainName] === ChainStatus.ACTIVE
-}
-
-export const filterStargateV2ActiveChainNames = (chainNames: string[], environment: string): string[] => {
-    return chainNames.filter((chainName) => isStargateV2ActiveChainName(chainName, environment))
 }

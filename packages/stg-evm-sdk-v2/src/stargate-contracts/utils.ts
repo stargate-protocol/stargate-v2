@@ -1,4 +1,4 @@
-import { Chain } from '@layerzerolabs/lz-definitions'
+import { Chain, ChainType } from '@layerzerolabs/lz-definitions'
 
 export enum ChainStatus {
     //The chain has been fully removed from LayerZero and is not supported in any way
@@ -7,10 +7,6 @@ export enum ChainStatus {
     INACTIVE = 'INACTIVE',
     //The chain is fully supported
     ACTIVE = 'ACTIVE',
-}
-
-export enum ChainType {
-    EVM = 'EVM',
 }
 
 export class StaticChainConfigs {
