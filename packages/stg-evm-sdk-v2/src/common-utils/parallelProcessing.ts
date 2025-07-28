@@ -1,11 +1,4 @@
 /**
- * Parallel Processing Utilities
- *
- * This module provides utilities for managing concurrent execution with controlled
- * concurrency limits using semaphores and batch processing.
- */
-
-/**
  * Semaphore class for controlling access to a resource by multiple processes.
  * It maintains a counter and a queue for managing access.
  */
