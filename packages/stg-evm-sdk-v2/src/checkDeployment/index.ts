@@ -1,4 +1,4 @@
-import { parallelProcess } from '../utils'
+import { parallelProcess } from '../common-utils'
 
 import { getBalancingQuoteState } from './balancingQuoteState'
 import { getBusNativeDropsState } from './busNativeDropsState'
