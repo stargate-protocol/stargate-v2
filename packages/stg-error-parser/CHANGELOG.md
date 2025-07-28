@@ -1,5 +1,12 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.15
+
+### Patch Changes
+
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+
 ## 1.1.14
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 4.0.5
+
+### Patch Changes
+
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+- Updated dependencies [ba6a4b6]
+- Updated dependencies [131aee8]
+  - @stargatefinance/stg-definitions-v2@2.0.5
+  - @stargatefinance/stg-devtools-v2@4.0.5
+
 ## 4.0.4
 
 ### Patch Changes

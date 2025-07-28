@@ -444,14 +444,6 @@ describe('devtools/utils', () => {
 
             expect(() => validateChains(invalidChains, validChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
         })
-
-        it('should throw if a chain is valid but not supported', () => {
-            // define no supported chains
-            const supportedChains: string[] = []
-            expect(() => validateChains(validChains, supportedChains)).to.throw(
-                `Chain ${validChains[0]} is not supported`
-            )
-        })
     })
 
     describe('tokenNames', () => {

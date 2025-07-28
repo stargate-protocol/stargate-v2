@@ -104,7 +104,7 @@ describe('treasurer.config', () => {
         }
     })
 
-    it('should throw an error when valid chains are provided but they are not supported', async () => {
+    it('should remove the invalid chains when they are provided and are not supported', async () => {
         // Get chains that do not support treasurer
         const allValidChains = getAllSupportedChains()
         const supportedChains = getChainsThatSupportTreasurer()
@@ -113,12 +113,15 @@ describe('treasurer.config', () => {
 
         process.env.CHAINS_LIST = unsupportedChains.join(',')
 
-        // Check that the error is thrown
-        try {
-            await treasurerConfig()
-            expect.fail('Expected an error to be thrown')
-        } catch (error: any) {
-            expect(error.message).to.include(`Chain ${unsupportedChains[0]} is not supported`)
+        const config = await treasurerConfig()
+
+        // from chains should be empty so will use all chains
+        const fromChainEids = supportedChains.map((chain) => chain.eid)
+        const toChainEids = supportedChains.map((chain) => chain.eid)
+
+        // check the config has no contracts for the unsupported chains
+        for (const contract of config.contracts) {
+            expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
     })
 })
