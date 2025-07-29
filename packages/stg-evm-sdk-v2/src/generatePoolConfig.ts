@@ -13,8 +13,8 @@ import {
     getBootstrapChainConfigWithUlnFromArgs,
     getLocalStargatePoolConfigGetterFromArgs,
 } from './bootstrap-config'
+import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './common-utils'
 import { retryWithBackoff } from './common-utils/retry'
-import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './stargate-contracts'
 import { StargateV2SdkFactory } from './stargate-sdks/factory'
 
 const sortPoolInfo = (poolsConfig: StargatePoolsConfig) => {
@@ -205,7 +205,7 @@ export const generatePoolConfigs = async (params: { environments: string; verbos
 
 if (require.main === module) {
     const main = async () => {
-        const { parse } = await import('./checkDeployment/utils')
+        const { parse } = await import('./common-utils')
 
         const args = parse({
             header: 'Update Pool Config for StargateV2',

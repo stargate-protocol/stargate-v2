@@ -15,8 +15,6 @@ import { createContractGetter } from './utils'
 
 import type { Provider } from '@ethersproject/providers'
 
-export * from './supportedChains'
-
 const PACKAGE_NAME = '@stargatefinance/stg-evm-sdk-v2'
 
 const resolvePackagePath = (address: string): { address: string } => {

@@ -1,13 +1,12 @@
 import { DEFAULT_PLANNER } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/01/constants'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
-import { processPromises, retryWithBackoff } from '../common-utils'
+import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
 import {
     FeeLibV1__factory,
     connectStargateV2Contract,
     getStargateV2CreditMessagingContract,
     getStargateV2TokenMessagingContract,
-    isStargateV2SupportedChainName,
 } from '../stargate-contracts'
 
 import { ByAssetConfig, parseTargets, printByAssetFlattenConfig } from './utils'
@@ -139,7 +138,7 @@ export const getPlannerPermissionsState = async (args: {
 
 if (require.main === module) {
     const main = async () => {
-        const { parse } = await import('./utils')
+        const { parse } = await import('../common-utils')
 
         const args = parse({
             header: 'Check Permissions State',

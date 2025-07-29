@@ -1,8 +1,8 @@
 import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
-import { processPromises, retryWithBackoff } from '../common-utils'
-import { getStargateV2CreditMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
+import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
+import { getStargateV2CreditMessagingContract } from '../stargate-contracts'
 
 import {
     ByAssetPathConfig,
@@ -125,7 +125,7 @@ export const getBalancingQuoteState = async (args: {
 
 if (require.main === module) {
     const main = async () => {
-        const { parse } = await import('./utils')
+        const { parse } = await import('../common-utils')
 
         const args = parse({
             header: 'Check Balancing Quotes State',
