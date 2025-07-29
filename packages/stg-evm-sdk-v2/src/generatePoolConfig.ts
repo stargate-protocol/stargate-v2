@@ -4,6 +4,8 @@ import path from 'path'
 
 import { createLogger } from 'winston'
 
+import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './common-utils'
+import { retryWithBackoff } from './common-utils/retry'
 import {
     FarmType,
     StargatePoolConfig,
@@ -12,9 +14,7 @@ import {
     getAvailableChainNamesByEnvironment,
     getBootstrapChainConfigWithUlnFromArgs,
     getLocalStargatePoolConfigGetterFromArgs,
-} from './bootstrap-config'
-import { filterStargateV2SupportedChainNames, isStargateV2SupportedChainName } from './common-utils'
-import { retryWithBackoff } from './common-utils/retry'
+} from './config'
 import { StargateV2SdkFactory } from './stargate-sdks/factory'
 
 const sortPoolInfo = (poolsConfig: StargatePoolsConfig) => {
@@ -39,7 +39,7 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
     const filepath = path.join(
         path.dirname(require.resolve('../package.json')),
         'src',
-        'configs',
+        'generated-configs',
         'stargatePoolConfig',
         environment,
         'stargatePoolConfig.json'

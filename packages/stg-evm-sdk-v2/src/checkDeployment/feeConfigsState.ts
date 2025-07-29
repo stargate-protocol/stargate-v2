@@ -1,7 +1,7 @@
 import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
+import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
 import { FeeLibV1__factory, connectStargateV2Contract } from '../stargate-contracts'
 
 import {

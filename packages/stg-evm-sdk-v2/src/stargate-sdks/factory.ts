@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 
-import { StargatePoolConfigGetter } from '../bootstrap-config'
+import { StargatePoolConfigGetter } from '../config'
 
 import { StargateV2EvmSdk } from './evm'
 import { StargateV2Sdk } from './model'

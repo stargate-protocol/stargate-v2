@@ -3,6 +3,6 @@ deployments
 dist
 src/errors.json
 src/*/typechain/
-src/configs/
+src/generated-configs/
 
 .env

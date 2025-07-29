@@ -2,8 +2,8 @@ import { BigNumber, utils } from 'ethers'
 
 import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
+import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
 import { getExecutorContract } from '../protocol-contracts'
 import { getStargateV2TokenMessagingContract } from '../stargate-contracts'
 
