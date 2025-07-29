@@ -32,7 +32,6 @@ export const printByAssetFlattenConfig = (title: string, config: ByAssetConfig, 
         })
     )
 
-    // Filter the data if onlyError is true
     const dataToDisplay = onlyError ? flattenedData.filter((item) => 'error' in item) : flattenedData
 
     console.table(dataToDisplay)
@@ -52,7 +51,6 @@ export const printByPathAndAssetFlattenConfig = (title: string, config: ByAssetP
         })
     )
 
-    // Filter the data if onlyError is true
     const filteredData = onlyError
         ? flattenedData.filter((item) =>
               Object.values(item).some((val) => typeof val === 'string' && val.startsWith('error'))

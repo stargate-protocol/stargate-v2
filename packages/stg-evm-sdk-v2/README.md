@@ -57,7 +57,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
         
         b. Update `stargateV2ChainNamesPerEnvironment` in `src/stargate-contracts/supportedChains.ts` to include the new chain
 4. Generate the `nativeCurrencyConfigs.json` by running `ts-node src/generateNativeCurrencyConfig.ts` in the root of this package.
-5. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet` in the root of this package. 
+5. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet --numRetries 10` in the root of this package. 
     - Note that this script takes about 10 minutes to finish running. 
     - Use the `--verbose` flag to see the script progress as it runs.
     - You can also use `--numRetries` to indicate how many times an rpc should be re-tried if it fails before giving up and terminating the script run.
@@ -65,7 +65,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
 
 6. You are now ready to run the checker.
     - To run all checks, run the following command from the root of this package:
-        - `ts-node src/checkDeployment/index.ts -e mainnet`
+        - `ts-node src/checkDeployment/index.ts -e mainnet --numRetries 10`
             - One common issue is that the busMaxNumPassengers * nativeDropAmounts > executor.nativeCap, which will cause the bus quotes to revert.
     - To run individual checks, run the following command from the root of this package:
         - `ts-node src/checkDeployment/<name of file>.ts -e mainnet`
@@ -73,12 +73,3 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
     - To run the above checks for a specific chain or chains, use the `-t` flag
         - For example, `ts-node src/checkDeployment/index.ts -e mainnet -t "mantle,hemi"`
     - Note that similar to the `generatePoolConfig` script, you can use the `--numRetries` flag to indicate how many times an rpc should be re-tried if it failes before giving up and terminating the script run.
-
-// TODO
-- TODO clean up TODO comments, like moving things to common-utils
-- TODO scour codebase for any unrelated/unneccessary logic
-- Compare all config files to offchain
-- TODO clean up README to be more clear as to how to run checker and the prep work needed
-- Clean up comments
-- don't export things that are not used in other files
-- Test everything

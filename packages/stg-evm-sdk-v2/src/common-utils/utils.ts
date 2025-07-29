@@ -41,7 +41,7 @@ export const parse = <T extends { [name: string]: any }>(options: {
         })
     })
 
-    // If comming from VSCode debugger, flatening the args
+    // If coming from VSCode debugger, flatening the args
     // If using Javascript Debug Terminal, they will already be flatened
     if (process.env.VSCODE_INSPECTOR_OPTIONS && process.argv.length === 3) {
         process.argv = [process.argv[0], process.argv[1], ...process.argv[2].split(' ').filter((a) => a)]

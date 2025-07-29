@@ -207,7 +207,6 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
         const stargateImpls: { [asset: number]: string } = {}
         const limit = await this.tokenMessagingContract.maxAssetId()
 
-        // sanity check
         if (limit > 200) {
             this.logger.warn(
                 `maxAssetId in stargate token messaging contract ${this.tokenMessagingContract.address} on chain ${this.options.chainName} is set to ${limit}, too high a value`
