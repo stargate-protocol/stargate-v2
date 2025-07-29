@@ -165,7 +165,6 @@ export const getLocalStargatePoolConfigGetterFromArgs = async (
         // Create a temporary file with empty config structure for empty/missing files
         const emptyConfig: StargatePoolsConfig = {}
 
-        // Write temporary config and use existing create method
         const tempConfigPath = configPath + '.tmp'
         await fs.writeFile(tempConfigPath, JSON.stringify(emptyConfig, null, 2))
 
@@ -231,7 +230,6 @@ const createProviderFromConfig = (config: ProviderConfig, chainName: string): Pr
         throw new Error(`No RPC URLs available for chain: ${chainName}`)
     }
 
-    // Since the RPC URL already handles fallback internally, we only need a simple JsonRpcProvider
     const uri = typeof config.uris[0] === 'string' ? config.uris[0] : config.uris[0].uri
     return new JsonRpcProvider(uri)
 }

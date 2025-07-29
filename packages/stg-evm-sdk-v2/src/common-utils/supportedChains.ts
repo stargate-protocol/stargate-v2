@@ -1,9 +1,6 @@
 enum ChainStatus {
-    //The chain has been fully removed from LayerZero and is not supported in any way
     DEPRECATED = 'DEPRECATED',
-    //This currently is the same as active
     INACTIVE = 'INACTIVE',
-    //The chain is fully supported
     ACTIVE = 'ACTIVE',
 }
 
