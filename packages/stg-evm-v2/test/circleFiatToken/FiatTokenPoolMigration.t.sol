@@ -3,37 +3,50 @@
 pragma solidity ^0.8.0;
 
 import { Test, console } from "forge-std/Test.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 import { PoolToken } from "../../src/mocks/PoolToken.sol";
+import { StargateOFT } from "../../src/StargateOFT.sol";
+import { StargateOFTEURC } from "../../src/eurc/StargateOFTEURC.sol";
 import { StargateOFTUSDC } from "../../src/usdc/StargateOFTUSDC.sol";
-import { StargatePoolUSDC } from "../../src/usdc/StargatePoolUSDC.sol";
 import { StargatePool } from "../../src/StargatePool.sol";
+import { StargatePoolEURC } from "../../src/eurc/StargatePoolEURC.sol";
+import { StargatePoolUSDC } from "../../src/usdc/StargatePoolUSDC.sol";
 import { StargateBase } from "../../src/StargateBase.sol";
 import { FeeLibV1, FeeConfig } from "../../src/feelibs/FeeLibV1.sol";
-import { USDC } from "../../src/mocks/USDC.sol";
+import { CircleFiatToken } from "../../src/mocks/CircleFiatToken.sol";
 import { TokenMessaging } from "../../src/messaging/TokenMessaging.sol";
 import { CreditMessaging } from "../../src/messaging/CreditMessaging.sol";
-import { StargateType, IStargate } from "../../src/interfaces/IStargate.sol";
+import { StargateType } from "../../src/interfaces/IStargate.sol";
 import { ComposerMock } from "../mocks/ComposerMock.sol";
 import { LzFixture } from "../layerzero/LzTestHelper.sol";
 import { StargateFixture, StargateTestHelper } from "../StargateTestHelper.sol";
 
-contract USDCPoolMigrationTest is Test, StargateTestHelper {
+abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
     uint16 private constant ASSET_ID = 1;
     uint8 private constant NUM_CHAINS = 2;
+
+    bool internal isEURC;
+
+    string internal tokenName;
+    string internal tokenSymbol;
+    string internal poolName;
+    string internal poolSymbol;
+    string internal newPoolName;
+    string internal newPoolSymbol;
 
     address private ALICE = makeAddr("alice");
     address private BOB = makeAddr("bob");
     address private DRIVER = makeAddr("driver");
     address private PLANNER = makeAddr("planner");
 
-    // Setup an initial USDC pool and a USDC OFT contracts and wire them.
-    function setUp() public {
+    // Setup an initial EURC/USDC pool and a EURC/USDC OFT contracts and wire them.
+    function setUp() public virtual {
         // create two chains
         LzFixture[] memory lzFixtures = setUpEndpoints(NUM_CHAINS);
 
         {
-            // Set up an initial USDC pool
+            // Set up an initial EURC/USDC pool
             uint32 eid = lzFixtures[0].eid;
             TokenMessaging tokenMessaging = new TokenMessaging(
                 address(lzFixtures[0].endpoint),
@@ -47,22 +60,14 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
             creditMessagingList.push(creditMessaging);
             creditMessagingByEid[eid] = creditMessaging;
 
-            address tokenAddress;
             address lpAddress;
             StargateType stargateType = StargateType.Pool;
             address sgAddress;
 
-            USDC token = new USDC("USDC", "USDC");
-            tokenAddress = address(token);
-            StargatePoolUSDC sg = new StargatePoolUSDC(
-                "StargatePoolUSDC",
-                "USDCP",
-                tokenAddress,
-                token.decimals(),
-                6,
-                address(lzFixtures[0].endpoint),
-                address(this)
-            );
+            CircleFiatToken token = new CircleFiatToken(tokenName, tokenSymbol);
+
+            StargatePool sg = _createFiatTokenPool(isEURC, token, address(lzFixtures[0].endpoint), false);
+
             lpAddress = sg.lpToken();
             stargateType = StargateType.Pool;
             sgAddress = address(sg);
@@ -85,7 +90,7 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
                 lz: lzFixtures[0],
                 tokenMessaging: tokenMessaging,
                 creditMessaging: creditMessaging,
-                token: tokenAddress,
+                token: address(token),
                 lp: lpAddress,
                 stargate: sgAddress,
                 feeLib: FeeLibV1(feeLib),
@@ -99,7 +104,7 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
         }
 
         {
-            // Set up an initial USDC OFT
+            // Set up an initial EURC/USDC OFT
             uint32 eid = lzFixtures[1].eid;
             TokenMessaging tokenMessaging = new TokenMessaging(
                 address(lzFixtures[1].endpoint),
@@ -113,14 +118,14 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
             creditMessagingList.push(creditMessaging);
             creditMessagingByEid[eid] = creditMessaging;
 
-            address tokenAddress;
             address lpAddress;
             StargateType stargateType = StargateType.Pool;
             address sgAddress;
 
-            USDC token = new USDC("USDC", "USDC");
-            tokenAddress = address(token);
-            StargateOFTUSDC sg = new StargateOFTUSDC(tokenAddress, 6, address(lzFixtures[1].endpoint), address(this));
+            CircleFiatToken token = new CircleFiatToken(tokenName, tokenSymbol);
+
+            StargateOFT sg = _createFiatTokenOFT(isEURC, token, address(lzFixtures[1].endpoint));
+
             stargateType = StargateType.OFT;
             sgAddress = address(sg);
             // transfer ownership to stargate so it can mint tokens
@@ -144,7 +149,7 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
                 lz: lzFixtures[1],
                 tokenMessaging: tokenMessaging,
                 creditMessaging: creditMessaging,
-                token: tokenAddress,
+                token: address(token),
                 lp: lpAddress,
                 stargate: sgAddress,
                 feeLib: FeeLibV1(feeLib),
@@ -300,25 +305,30 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
         // ----------- Migration stage 2: Transfer
 
         // 2.a Revoke the minter role from StargateOFT by master minter contract
-        // NOTE: In the real USDC bridged contract, there is a facility to revoke minting privileges. We simulate this transferring ownership
+        // NOTE: In the real EURC/USDC bridged contract, there is a facility to revoke minting privileges. We simulate this transferring ownership
         vm.prank(fixtureOFT.stargate);
-        USDC(fixtureOFT.token).transferOwnership(address(this));
+        CircleFiatToken(fixtureOFT.token).transferOwnership(address(this));
 
-        // 2.b Coordinate with Circle to burn X out from global stargate USDC pools.
-        // give usdc.owner() at the pool contract to remove some allocated credits and asset out by calling stargate.burnCredit().
+        // 2.b Coordinate with Circle to burn X out from global stargate EURC/USDC pools.
+        // give token.owner() at the pool contract to remove some allocated credits and asset out by calling stargate.burnCredit().
 
         // When sending to an OFT contract, no credit is burned because there is no loss of liquidity on the OFT contract (since it can mint,
         // it has infinite liquidity). This also means that we have excess asset, but it is ok since the excess is in the Stargate contract.
         //  When switching to a Pool contract, we must "retroactively" burn the credit in the amount that has been
         // transferred to this OFT contract, as well as burn the excess asset. That amount is exactly the total supply of tokens.
-        // StargatePoolUSDC implements burnCredit which burns both credit and asset.
+        // StargatePoolEURC/StargatePoolUSDC implements burnCredit which burns both credit and asset.
+
         StargatePoolUSDC(fixturePool.stargate).allowBurn(
             address(this),
             ldToSd(PoolToken(fixtureOFT.token).totalSupply())
         );
         uint256 expectedBalanceLd = StargatePoolUSDC(fixturePool.stargate).poolBalance() -
             sdToLd(StargatePoolUSDC(fixturePool.stargate).burnAllowanceSD());
-        StargatePoolUSDC(fixturePool.stargate).burnLockedUSDC();
+        if (isEURC) {
+            StargatePoolEURC(fixturePool.stargate).burnLockedEURC();
+        } else {
+            StargatePoolUSDC(fixturePool.stargate).burnLockedUSDC();
+        }
         assertEq(StargatePoolUSDC(fixturePool.stargate).burnAllowanceSD(), 0);
         assertEq(StargatePoolUSDC(fixturePool.stargate).poolBalance(), expectedBalanceLd);
         assertCredit(fixturePool.stargate, fixturePool.eid, 10 * amount);
@@ -327,18 +337,11 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
         assertBalance(fixtureOFT, 0);
 
         // ----------- Migration stage 3: reconnect
-        USDC tokenOFT = USDC(fixtureOFT.token);
+        CircleFiatToken tokenOFT = CircleFiatToken(fixtureOFT.token);
 
         // 3.a Deploy StargatePool contract on chain A and set it on the messaging contract
-        StargatePoolUSDC newSG = new StargatePoolUSDC(
-            "USDCPool",
-            "USDCP",
-            address(tokenOFT),
-            tokenOFT.decimals(),
-            6,
-            address(endpoints[fixtureOFT.eid]),
-            address(this)
-        );
+
+        StargatePool newSG = _createFiatTokenPool(isEURC, tokenOFT, address(endpoints[fixtureOFT.eid]), true);
         StargateFixture memory fixtureNewPool = fixtureOFT;
         fixtureNewPool.stargate = address(newSG);
 
@@ -444,7 +447,7 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
     }
 
     function assertSupply(StargateFixture memory fixture, uint256 _amount) internal {
-        USDC tokenPool = USDC(fixture.token);
+        CircleFiatToken tokenPool = CircleFiatToken(fixture.token);
         uint256 supply = tokenPool.totalSupply();
         assertEq(_amount, supply);
     }
@@ -480,5 +483,42 @@ contract USDCPoolMigrationTest is Test, StargateTestHelper {
 
     function sendTaxiExternal(address _sender, address _stargate, uint32 _dstEid, uint256 _amount) external {
         sendTaxi(_sender, _stargate, _dstEid, _amount, _sender, "");
+    }
+
+    function _createFiatTokenPool(
+        bool isEURC,
+        ERC20 token,
+        address endpoint,
+        bool newPool
+    ) internal returns (StargatePool sg) {
+        if (isEURC) {
+            sg = new StargatePoolEURC(
+                newPool ? newPoolName : poolName,
+                newPool ? newPoolSymbol : poolSymbol,
+                address(token),
+                token.decimals(),
+                6,
+                endpoint,
+                address(this)
+            );
+        } else {
+            sg = new StargatePoolUSDC(
+                newPool ? newPoolName : poolName,
+                newPool ? newPoolSymbol : poolSymbol,
+                address(token),
+                token.decimals(),
+                6,
+                endpoint,
+                address(this)
+            );
+        }
+    }
+
+    function _createFiatTokenOFT(bool isEURC, ERC20 token, address endpoint) internal returns (StargateOFT sg) {
+        if (isEURC) {
+            sg = new StargateOFTEURC(address(token), 6, endpoint, address(this));
+        } else {
+            sg = new StargateOFTUSDC(address(token), 6, endpoint, address(this));
+        }
     }
 }
