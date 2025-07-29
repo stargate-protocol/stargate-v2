@@ -34,11 +34,6 @@ const args = parse({
             defaultValue: true,
             description: 'run checks to verify that the contracts are configured correctly on-chain',
         },
-        runOffchainChecks: {
-            type: Boolean,
-            defaultValue: true,
-            description: 'run checks to verify that the offchain configuration is correct',
-        },
         numRetries: {
             alias: 'r',
             type: Number,
