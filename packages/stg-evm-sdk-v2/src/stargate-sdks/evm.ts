@@ -1,8 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { constants } from 'ethers'
 
-import { IToken, StargatePoolConfigGetter } from '../bootstrap-config'
 import { parallelProcess } from '../common-utils'
+import { IToken, StargatePoolConfigGetter } from '../config'
 import { ERC20__factory } from '../openzeppelin-contracts'
 import {
     CreditMessaging,

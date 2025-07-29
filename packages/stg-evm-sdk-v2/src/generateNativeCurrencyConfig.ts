@@ -118,7 +118,7 @@ async function main() {
         const config = generateNativeCurrencyConfig(metadata)
         console.log(`\n📝 Generated configuration for ${Object.keys(config).length} chains`)
 
-        const outputPath = join(__dirname, 'configs', 'nativeCurrencyConfigs.json')
+        const outputPath = join(__dirname, 'generated-configs', 'nativeCurrencyConfigs.json')
         writeConfigToFile(config, outputPath)
 
         console.log('\n🎉 Native currency configuration generated successfully!')

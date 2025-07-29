@@ -1,4 +1,4 @@
-import { IToken, StargateTypes } from '../bootstrap-config'
+import { IToken, StargateTypes } from '../config'
 
 export interface ContractMetadata {
     token: IToken

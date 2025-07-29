@@ -48,13 +48,11 @@ export const parse = <T extends { [name: string]: any }>(options: {
     }
 
     return commandParse<T & IHelp>(
-        // @ts-ignore
         {
             ...options.args,
             ...helpArgs,
         },
         {
-            // @ts-ignore
             helpArg: 'help',
             headerContentSections: [
                 {

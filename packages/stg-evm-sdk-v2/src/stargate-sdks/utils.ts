@@ -1,4 +1,4 @@
-import nativeCurrencyConfigs from '../configs/nativeCurrencyConfigs.json'
+import nativeCurrencyConfigs from '../generated-configs/nativeCurrencyConfigs.json'
 
 export function getNativeCurrencyInfo(chainName: string): { decimals: number; symbol: string } {
     const config = nativeCurrencyConfigs[chainName as keyof typeof nativeCurrencyConfigs]

@@ -1,7 +1,7 @@
 import { DEFAULT_PLANNER } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/01/constants'
 
-import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
 import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
+import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
 import {
     FeeLibV1__factory,
     connectStargateV2Contract,
