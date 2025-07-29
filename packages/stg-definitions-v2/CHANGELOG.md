@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 2.0.6
+
+### Patch Changes
+
+- a3078b8: Hedera chain config
+
 ## 2.0.5
 
 ### Patch Changes
