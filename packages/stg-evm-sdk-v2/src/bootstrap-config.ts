@@ -77,15 +77,13 @@ export type StargatePoolsConfig = {
     [assetId: string]: StargatePoolConfig
 }
 
-export type AllStargatePoolsConfig = StargatePoolsConfig
-
 export interface StargatePoolConfigGetter {
-    getPoolsConfig(): AllStargatePoolsConfig
+    getPoolsConfig(): StargatePoolsConfig
     getPoolInfo(assetId: string, chainName: string): StargatePoolInfo
     getAssetIds(): string[]
 }
 
-export class StargateConfigError extends Error {
+class StargateConfigError extends Error {
     constructor(message: string) {
         super(message)
         this.name = 'StargateConfigError'
@@ -100,12 +98,12 @@ abstract class BaseConfig<T> {
     }
 }
 
-class BaseStargatePoolConfigGetter extends BaseConfig<AllStargatePoolsConfig> implements StargatePoolConfigGetter {
+class BaseStargatePoolConfigGetter extends BaseConfig<StargatePoolsConfig> implements StargatePoolConfigGetter {
     protected constructor() {
         super()
     }
 
-    public getPoolsConfig(): AllStargatePoolsConfig {
+    public getPoolsConfig(): StargatePoolsConfig {
         return this.getConfig()
     }
 
@@ -190,7 +188,7 @@ export const getLocalStargatePoolConfigGetterFromArgs = async (
     return await LocalStargatePoolConfigGetter.create(configPath)
 }
 
-export enum UlnVersion {
+enum UlnVersion {
     V1 = 'V1',
     V2 = 'V2',
     V300 = 'V300', // simpleMessageLib
@@ -199,21 +197,21 @@ export enum UlnVersion {
     ReadV1002 = 'ReadV1002',
 }
 
-export interface UriWithHeaders {
+interface UriWithHeaders {
     uri: string
     headers?: { [header: string]: string }
 }
 
-export interface ProviderConfig {
+interface ProviderConfig {
     uris: string[] | UriWithHeaders[]
     quorum?: number
 }
 
-export interface ProviderConfigs {
+interface ProviderConfigs {
     [chainName: string]: ProviderConfig
 }
 
-export interface BootstrapChainConfig {
+interface BootstrapChainConfig {
     chainNames: string[]
     environment: string
     providers: {
@@ -228,7 +226,7 @@ export interface BootstrapChainConfigWithUln extends BootstrapChainConfig {
     supportedUlnVersions: UlnVersion[]
 }
 
-export const createProviderFromConfig = (config: ProviderConfig, chainName: string): Provider => {
+const createProviderFromConfig = (config: ProviderConfig, chainName: string): Provider => {
     if (config.uris.length === 0) {
         throw new Error(`No RPC URLs available for chain: ${chainName}`)
     }
@@ -387,7 +385,7 @@ const loadProviderConfigs = async (environment: string, chainNames?: string[]): 
     }
 }
 
-export const getBootstrapChainConfigFromArgs = async (
+const getBootstrapChainConfigFromArgs = async (
     service: string,
     args: {
         only: string | undefined

@@ -62,7 +62,7 @@ export const parse = <T extends { [name: string]: any }>(options: {
 export const errorString = 'error'
 export const timeoutString = 'timeout'
 
-export type ByPathConfig = {
+type ByPathConfig = {
     [fromChainName: string]: {
         [toChainName: string]: Record<string, string | number>
     }
