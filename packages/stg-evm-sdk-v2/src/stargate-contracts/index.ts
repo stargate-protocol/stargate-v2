@@ -1,6 +1,5 @@
 import { Signer } from 'ethers'
 
-import { createContractGetter } from './contractUtils'
 import {
     CreditMessaging__factory,
     StargateOFT,
@@ -12,6 +11,7 @@ import {
     StargateStaking__factory,
     TokenMessaging__factory,
 } from './typechain'
+import { createContractGetter } from './utils'
 
 import type { Provider } from '@ethersproject/providers'
 
@@ -80,7 +80,7 @@ export const connectStargateV2Contract = (
 }
 
 export * from './typechain'
-export * from './contractUtils'
+export * from './utils'
 
 export type { CreditsSentEvent } from './typechain/StargateBase'
 

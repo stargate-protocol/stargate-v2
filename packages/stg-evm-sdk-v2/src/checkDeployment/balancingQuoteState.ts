@@ -1,7 +1,7 @@
-import { EndpointVersion } from '@layerzerolabs/lz-definitions'
+import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
-import { getChainIdForEndpointVersion, processPromises, retryWithBackoff } from '../common-utils'
+import { processPromises, retryWithBackoff } from '../common-utils'
 import { getStargateV2CreditMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
 
 import {
@@ -64,11 +64,11 @@ export const getBalancingQuoteState = async (args: {
                                     return
                                 }
 
-                                const dstEid = getChainIdForEndpointVersion(
-                                    toChainName,
-                                    environment,
+                                const dstEid = chainAndStageToEndpointId(
+                                    toChainName as Chain,
+                                    environment as Stage,
                                     EndpointVersion.V2
-                                )
+                                ).toString()
 
                                 const creditMessagingContract = getStargateV2CreditMessagingContract(
                                     fromChainName,

@@ -6,8 +6,6 @@ import { parallelProcess } from '../common-utils'
 import { ERC20__factory } from '../openzeppelin-contracts'
 import {
     CreditMessaging,
-    ERC20Token,
-    FeeLibV1,
     LPToken__factory,
     StargateBase__factory,
     StargateContract,
@@ -35,14 +33,6 @@ export class StargateV2EvmSdk implements StargateV2Sdk {
     protected tokenMessagingContract: TokenMessaging
     protected creditMessagingContract: CreditMessaging
     protected logger: Logger | Console
-
-    protected tokenContracts: {
-        [assetId: string]: ERC20Token
-    } = {}
-
-    protected feeLibContracts: {
-        [assetId: string]: FeeLibV1
-    } = {}
 
     private addressToContract: { [address: string]: StargateContract } = {}
 
