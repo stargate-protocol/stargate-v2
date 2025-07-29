@@ -3,9 +3,9 @@ import { BigNumber, utils } from 'ethers'
 import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
-import { processPromises, retryWithBackoff } from '../common-utils'
+import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
 import { getExecutorContract } from '../protocol-contracts'
-import { getStargateV2TokenMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
+import { getStargateV2TokenMessagingContract } from '../stargate-contracts'
 
 import { ByAssetPathConfig, parseTargets, printByPathAndAssetFlattenConfig } from './utils'
 
@@ -126,7 +126,7 @@ export const getBusNativeDropsState = async (args: {
 
 if (require.main === module) {
     const main = async () => {
-        const { parse } = await import('./utils')
+        const { parse } = await import('../common-utils')
 
         const args = parse({
             header: 'Check Bus Native Drops State',
