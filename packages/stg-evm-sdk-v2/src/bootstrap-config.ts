@@ -82,23 +82,13 @@ export type AllStargatePoolsConfig = StargatePoolsConfig
 export interface StargatePoolConfigGetter {
     getPoolsConfig(): AllStargatePoolsConfig
     getPoolInfo(assetId: string, chainName: string): StargatePoolInfo
-    getPoolInfoByAddress(address: string, chainName: string): StargatePoolInfo
     getAssetIds(): string[]
-
-    getStargateTypeByAddress(chainName: string, address: string): StargateTypes
 }
 
 export class StargateConfigError extends Error {
     constructor(message: string) {
         super(message)
         this.name = 'StargateConfigError'
-    }
-}
-
-export class NotFoundError extends Error {
-    constructor(message: string) {
-        super(message)
-        this.name = 'NotFoundError'
     }
 }
 
@@ -111,9 +101,6 @@ abstract class BaseConfig<T> {
 }
 
 class BaseStargatePoolConfigGetter extends BaseConfig<AllStargatePoolsConfig> implements StargatePoolConfigGetter {
-    filteredPoolsConfigs?: AllStargatePoolsConfig
-    configRef?: AllStargatePoolsConfig // used to invalidate filteredPoolsConfigs if the underlying config has been changed
-
     protected constructor() {
         super()
     }
@@ -130,27 +117,8 @@ class BaseStargatePoolConfigGetter extends BaseConfig<AllStargatePoolsConfig> im
         return info
     }
 
-    public getPoolInfoByAddress(address: string, chainName: string): StargatePoolInfo {
-        for (const [assetId, data] of Object.entries(this.config)) {
-            if (data.poolInfo[chainName]?.address?.toLowerCase() === address.toLowerCase()) {
-                return data.poolInfo[chainName]
-            }
-        }
-        throw new Error(`pool config not found for chain ${chainName} pool ${address}`)
-    }
-
     public getAssetIds(): string[] {
         return Object.keys(this.config)
-    }
-
-    public getStargateTypeByAddress(chainName: string, address: string): StargateTypes {
-        for (const assetId of Object.keys(this.config)) {
-            const info = this.config[assetId]?.poolInfo[chainName]
-            if (info?.address?.toLowerCase() === address.toLowerCase()) {
-                return info.stargateType
-            }
-        }
-        throw new NotFoundError(`No StargateType found for address: ${address}`)
     }
 }
 
@@ -245,48 +213,19 @@ export interface ProviderConfigs {
     [chainName: string]: ProviderConfig
 }
 
-export interface ProviderConfigGetter {
-    getProviderConfig(chainName: string): ProviderConfig
-    getProviderConfigs(): ProviderConfigs
-}
-
 export interface BootstrapChainConfig {
     chainNames: string[]
     environment: string
     providers: {
         [chainName: string]: Provider
     }
-    isOnForkedChains: boolean
     initialTokensOverrides?: {
         [chainName: string]: string | { [key: string]: string }
     }
-    chainNamesAutoWithdrawFromULN?: string[]
-    supportedChainNames?: string[]
-    providerConfigGetter: ProviderConfigGetter
 }
 
 export interface BootstrapChainConfigWithUln extends BootstrapChainConfig {
     supportedUlnVersions: UlnVersion[]
-}
-
-class LocalProviderConfigGetter implements ProviderConfigGetter {
-    private providerConfigs: ProviderConfigs
-
-    constructor(providerConfigs: ProviderConfigs) {
-        this.providerConfigs = providerConfigs
-    }
-
-    getProviderConfig(chainName: string): ProviderConfig {
-        const config = this.providerConfigs[chainName]
-        if (!config) {
-            throw new Error(`Provider config not found for chain: ${chainName}`)
-        }
-        return config
-    }
-
-    getProviderConfigs(): ProviderConfigs {
-        return this.providerConfigs
-    }
 }
 
 export const createProviderFromConfig = (config: ProviderConfig, chainName: string): Provider => {
@@ -366,38 +305,6 @@ const getAvailableChainNamesFromDeployments = (environment: string, sorted = fal
     }
 }
 
-const loadProviderConfigs = async (environment: string, chainNames?: string[]): Promise<ProviderConfigs> => {
-    try {
-        const availableChainNames = chainNames || getAvailableChainNamesFromDeployments(environment)
-
-        if (availableChainNames.length === 0) {
-            throw new Error('No chain names available from deployment directories')
-        }
-
-        const providerConfigs: ProviderConfigs = {}
-
-        for (const chainName of availableChainNames) {
-            const rpcUrl = getRpcUrl(chainName, environment)
-            if (rpcUrl) {
-                providerConfigs[chainName] = {
-                    uris: [rpcUrl],
-                    quorum: 1,
-                }
-            } else {
-                providerConfigs[chainName] = {
-                    uris: [],
-                    quorum: 1,
-                }
-                console.warn(`No RPC URL found for chain: ${chainName}`)
-            }
-        }
-
-        return providerConfigs
-    } catch (error) {
-        throw new Error(`Failed to generate provider configs for environment ${environment}: ${error}`)
-    }
-}
-
 const getAvailableChainNames = (providerConfigs: ProviderConfigs): string[] => {
     return Object.keys(providerConfigs)
 }
@@ -442,6 +349,42 @@ const getAvailableChainsFromArgs = (
     }
 
     return { chainNames: availableChainNames, initialTokensOverrides: {} }
+}
+
+export const getAvailableChainNamesByEnvironment = (environment: string): string[] => {
+    return getAvailableChainNamesFromDeployments(environment, true)
+}
+
+const loadProviderConfigs = async (environment: string, chainNames?: string[]): Promise<ProviderConfigs> => {
+    try {
+        const availableChainNames = chainNames || getAvailableChainNamesFromDeployments(environment)
+
+        if (availableChainNames.length === 0) {
+            throw new Error('No chain names available from deployment directories')
+        }
+
+        const providerConfigs: ProviderConfigs = {}
+
+        for (const chainName of availableChainNames) {
+            const rpcUrl = getRpcUrl(chainName, environment)
+            if (rpcUrl) {
+                providerConfigs[chainName] = {
+                    uris: [rpcUrl],
+                    quorum: 1,
+                }
+            } else {
+                providerConfigs[chainName] = {
+                    uris: [],
+                    quorum: 1,
+                }
+                console.warn(`No RPC URL found for chain: ${chainName}`)
+            }
+        }
+
+        return providerConfigs
+    } catch (error) {
+        throw new Error(`Failed to generate provider configs for environment ${environment}: ${error}`)
+    }
 }
 
 export const getBootstrapChainConfigFromArgs = async (
@@ -489,15 +432,11 @@ export const getBootstrapChainConfigFromArgs = async (
         throw new Error('No chains with valid RPC URLs found after applying filters')
     }
 
-    const providerConfigGetter = new LocalProviderConfigGetter(providerConfigs)
-
     return {
         providers,
-        providerConfigGetter,
         environment: args.environment,
         chainNames: validChainNames,
         initialTokensOverrides,
-        isOnForkedChains: !args.noFork,
     }
 }
 
@@ -514,10 +453,6 @@ export const getBootstrapChainConfigWithUlnFromArgs = async (
         ...(await getBootstrapChainConfigFromArgs(service, args, isSupportedChainName)),
         supportedUlnVersions: [UlnVersion.V2],
     }
-}
-
-export const getAvailableChainNamesByEnvironment = (environment: string): string[] => {
-    return getAvailableChainNamesFromDeployments(environment, true)
 }
 
 export const bootstrapLoggerConfigFromArgs: LoggerOptions = {

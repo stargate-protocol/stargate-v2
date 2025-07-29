@@ -1,8 +1,4 @@
-export { getChainName, getChainIdForEndpointVersion } from './chainUtils'
-
-export { getContractDeploymentInfo } from './contractUtils'
-
-export { throwError } from './errorUtils'
+export { getContractDeploymentInfo, throwError } from './utils'
 
 export { parallelProcess, processPromises } from './parallelProcessing'
 

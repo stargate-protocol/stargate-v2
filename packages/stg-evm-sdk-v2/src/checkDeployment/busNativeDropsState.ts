@@ -1,9 +1,9 @@
 import { BigNumber, utils } from 'ethers'
 
-import { EndpointVersion } from '@layerzerolabs/lz-definitions'
+import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
-import { getChainIdForEndpointVersion, processPromises, retryWithBackoff } from '../common-utils'
+import { processPromises, retryWithBackoff } from '../common-utils'
 import { getExecutorContract } from '../protocol-contracts'
 import { getStargateV2TokenMessagingContract, isStargateV2SupportedChainName } from '../stargate-contracts'
 
@@ -72,7 +72,11 @@ export const getBusNativeDropsState = async (args: {
                                 bootstrapChainConfig.providers[fromChainName]
                             )
 
-                            const toChainId = getChainIdForEndpointVersion(toChainName, environment, EndpointVersion.V2)
+                            const toChainId = chainAndStageToEndpointId(
+                                toChainName as Chain,
+                                environment as Stage,
+                                EndpointVersion.V2
+                            ).toString()
 
                             // Ensure that maxNumPassengers * maxNativeDropPerPassenger <= executor nativeCap
                             // Otherwise, the quote will fail on the TokenMessaging contract

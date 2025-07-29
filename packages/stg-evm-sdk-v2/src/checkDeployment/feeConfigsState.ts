@@ -1,7 +1,7 @@
-import { EndpointVersion } from '@layerzerolabs/lz-definitions'
+import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../bootstrap-config'
-import { getChainIdForEndpointVersion, processPromises, retryWithBackoff } from '../common-utils'
+import { processPromises, retryWithBackoff } from '../common-utils'
 import { FeeLibV1__factory, connectStargateV2Contract, isStargateV2SupportedChainName } from '../stargate-contracts'
 
 import {
@@ -81,7 +81,11 @@ export const getFeeConfigsState = async (args: {
                                 await valueOrTimeout(
                                     () =>
                                         feeLibContract.feeConfigs(
-                                            getChainIdForEndpointVersion(chainName, environment, EndpointVersion.V2)
+                                            chainAndStageToEndpointId(
+                                                chainName as Chain,
+                                                environment as Stage,
+                                                EndpointVersion.V2
+                                            ).toString()
                                         ),
                                     {
                                         zone1FeeMillionth: errorString,
