@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.7
+
+### Patch Changes
+
+- a3078b8: Hedera chain config
+- Updated dependencies [a3078b8]
+  - @stargatefinance/stg-definitions-v2@2.0.6
+
 ## 2.0.6
 
 ### Patch Changes
