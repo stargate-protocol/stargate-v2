@@ -9,7 +9,7 @@ enum ChainStatus {
 
 //setting a chain to INACTIVE causes balancing to not run on that chain
 //setting a chain to DEPRECATED causes all stargate services to not run on that chain
-export const stargateV2ChainNamesPerEnvironment: {
+const stargateV2ChainNamesPerEnvironment: {
     [environment: string]: { [chainName: string]: ChainStatus }
 } = {
     testnet: {
@@ -79,7 +79,7 @@ export const stargateV2ChainNamesPerEnvironment: {
     },
 }
 
-export const stargateV2SupportedChainNamesPerEnvironment: {
+const stargateV2SupportedChainNamesPerEnvironment: {
     [environment: string]: string[]
 } = Object.fromEntries(
     Object.entries(stargateV2ChainNamesPerEnvironment).map(([environment, chains]) => [
