@@ -281,6 +281,7 @@ configure-mainnet:
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts --signer deployer
 
 	# Configure credit messaging
 	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --signer deployer
@@ -299,6 +300,7 @@ configure-mainnet:
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
+	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 
 	# Configure treasurer
 	$(CONFIGURE_TREASURER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --signer deployer
@@ -335,6 +337,7 @@ transfer-mainnet:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts --signer deployer
 
 	# Configure credit messaging
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --signer deployer
@@ -348,6 +351,7 @@ transfer-mainnet:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 
 	# Configure treasurer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --signer deployer
