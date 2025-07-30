@@ -495,13 +495,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'plume-mainnet': {
-        eid: EndpointId.PLUME_V2_MAINNET,
-        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'plumephoenix-mainnet': {
         eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
         url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
