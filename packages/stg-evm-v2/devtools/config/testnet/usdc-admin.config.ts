@@ -1,9 +1,10 @@
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getUSDCProxyDeployName } from '../../../ops/util'
+import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
 
 import { onKlaytn } from './utils'
@@ -15,7 +16,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
 
     // Get the corresponding underlying USDC contract
-    const klaytnUSDC = onKlaytn({ contractName: getUSDCProxyDeployName() })
+    const klaytnUSDC = onKlaytn({ contractName: getCircleFiatTokenProxyDeployName(TokenName.USDC) })
 
     const klaytn = await getEnvironment(EndpointId.KLAYTN_V2_TESTNET)
     const klaytnStargateMultisig = await klaytn.getNamedAccounts().then(getUSDCStargateMultisig)
