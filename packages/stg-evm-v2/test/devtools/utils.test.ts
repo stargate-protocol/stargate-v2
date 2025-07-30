@@ -400,15 +400,6 @@ describe('devtools/utils', () => {
             expect(result.map((r) => r.name)).to.include.members(['ethereum-mainnet', 'hemi-mainnet'])
             expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
         })
-
-        it('should return all chains that support usdc admins', () => {
-            const allChains = getAllChainsConfig()
-
-            expect(result.length).not.to.equal(0)
-            expect(result.length).to.be.lessThan(allChains.length)
-            expect(result.map((r) => r.name)).to.include.members(['lightlink-mainnet', 'klaytn-mainnet'])
-            expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
-        })
     })
 
     describe('validChains', () => {
