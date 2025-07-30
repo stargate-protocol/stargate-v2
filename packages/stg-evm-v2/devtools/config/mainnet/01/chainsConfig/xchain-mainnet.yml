@@ -8,4 +8,3 @@ tokens:
 treasurer:
   tokens:
     usdc: true
-usdc_admin: true

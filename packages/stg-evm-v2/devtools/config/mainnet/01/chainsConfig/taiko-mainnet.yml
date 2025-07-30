@@ -11,4 +11,3 @@ treasurer:
   tokens:
     usdt: true
     usdc: true
-usdc_admin: true
