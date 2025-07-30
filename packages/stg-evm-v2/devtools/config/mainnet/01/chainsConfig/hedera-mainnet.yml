@@ -1,0 +1,10 @@
+name: hedera-mainnet
+eid: HEDERA_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: oft
+treasurer:
+  tokens:
+    eth: true
