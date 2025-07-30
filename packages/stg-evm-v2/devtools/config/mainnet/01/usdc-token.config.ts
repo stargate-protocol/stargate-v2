@@ -3,14 +3,14 @@ import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { getUSDCProxyDeployName } from '../../../../ops/util'
+import { getCircleFiatTokenProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../utils'
 
-const proxyContract = { contractName: getUSDCProxyDeployName() }
-const fiatContract = { contractName: 'FiatTokenV2_2' }
 const tokenName = TokenName.USDC
+const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
+const fiatContract = { contractName: 'FiatTokenV2_2' }
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
