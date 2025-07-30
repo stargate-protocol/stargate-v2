@@ -14,7 +14,6 @@ import {
     getChainsThatSupportToken,
     getChainsThatSupportTokenWithType,
     getChainsThatSupportTreasurer,
-    getChainsThatSupportUsdcAdmins,
     getChainsThatSupportsUsdtOftByDeployment,
     getRewardTokenName,
     getSupportedTokensByEid,
@@ -403,7 +402,6 @@ describe('devtools/utils', () => {
         })
 
         it('should return all chains that support usdc admins', () => {
-            const result = getChainsThatSupportUsdcAdmins()
             const allChains = getAllChainsConfig()
 
             expect(result.length).not.to.equal(0)
