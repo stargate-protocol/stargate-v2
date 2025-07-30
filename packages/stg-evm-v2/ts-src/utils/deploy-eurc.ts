@@ -3,5 +3,5 @@ import { DeployFunction } from 'hardhat-deploy/dist/types'
 
 import { createDeployCircleFiatToken } from './deploy-circle-fiat-token'
 
-const tokenName = TokenName.USDC
-export const createDeployUSDC = (): DeployFunction => createDeployCircleFiatToken(tokenName)
+const tokenName = TokenName.EURC
+export const createDeployEURC = (): DeployFunction => createDeployCircleFiatToken(tokenName)
