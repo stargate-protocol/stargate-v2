@@ -2,3 +2,4 @@ name: blast-mainnet
 eid: BLAST_V2_MAINNET
 token_messaging: false
 credit_messaging: false
+status: INACTIVE
