@@ -1,0 +1,10 @@
+name: edu-mainnet
+eid: EDU_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdc:
+    type: oft
+treasurer:
+  tokens:
+    usdc: true
