@@ -51,11 +51,7 @@ The SDK also provides an `errors.json` file generated during the `build` phase t
 1. Add `RPC_URL_MAINNET` to `.env` file and set it to be the LZ proxy RPC URL
 2. Generate typechain
     - Navigate to `src/stargate-contracts` and run `node typechainConfig.js`. Then navigate to `src/protocol-contracts` and run the same command. Then navigate to `src/openzeppelin-contracts` and run the same command.
-3. If adding a new chain to the configuration checker:
-
-        a. Ensure new deployment files for that chain exist in `deployments/`
-        
-        b. Update `stargateV2ChainNamesPerEnvironment` in `src/stargate-contracts/supportedChains.ts` to include the new chain
+3. If adding a new chain to the configuration check, ensure new deployment files for that chain exist in `deployments/`
 4. Generate the `nativeCurrencyConfigs.json` by running `ts-node src/generateNativeCurrencyConfig.ts` in the root of this package.
 5. Generate the `stargatePoolConfig.json` by running `ts-node src/generatePoolConfig.ts -e mainnet --numRetries 10` in the root of this package. 
     - Note that this script takes about 10 minutes to finish running. 

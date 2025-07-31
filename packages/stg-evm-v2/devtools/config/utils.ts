@@ -273,6 +273,7 @@ export interface Chain {
     treasurer?: {
         tokens: Record<string, boolean>
     }
+    status?: string // DEPRECATED, INACTIVE, ACTIVE
 }
 
 export function loadChainConfig(filePath: string): Chain {

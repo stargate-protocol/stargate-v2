@@ -21,3 +21,4 @@ treasurer:
   tokens:
     eth: true
     usdc: true
+status: INACTIVE # temporary
