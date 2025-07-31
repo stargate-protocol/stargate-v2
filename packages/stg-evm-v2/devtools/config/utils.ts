@@ -274,6 +274,7 @@ export interface Chain {
         tokens: Record<string, boolean>
     }
     usdc_admin?: boolean
+    status?: string // DEPRECATED, INACTIVE, ACTIVE
 }
 
 export function loadChainConfig(filePath: string): Chain {

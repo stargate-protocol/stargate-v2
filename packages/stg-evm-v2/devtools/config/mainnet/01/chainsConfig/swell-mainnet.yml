@@ -8,3 +8,4 @@ tokens:
 treasurer:
   tokens:
     eth: true
+status: INACTIVE # temporary
