@@ -1,7 +1,7 @@
 import assert from 'assert'
 
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
-import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
+import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
@@ -18,7 +18,7 @@ const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenNam
 const usdcPeaqAsset = getAssetNetworkConfig(EndpointId.PEAQ_V2_MAINNET, tokenName)
 assert(usdcPeaqAsset.address != null, `External USDC address not found for PEAQ`)
 
-export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
+export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
     const chains = getChainsThatSupportUsdcAdmins()
 
     const contracts = chains.map((chain) => {
