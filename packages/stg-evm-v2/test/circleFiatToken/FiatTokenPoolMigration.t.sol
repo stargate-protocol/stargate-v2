@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 import { Test, console } from "forge-std/Test.sol";
-import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 import { PoolToken } from "../../src/mocks/PoolToken.sol";
 import { StargateOFT } from "../../src/StargateOFT.sol";
@@ -66,6 +65,7 @@ abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
 
             CircleFiatToken token = new CircleFiatToken(tokenName, tokenSymbol);
 
+            // creates either a StargatePoolEURC or StargatePoolUSDC contract
             StargatePool sg = _createFiatTokenPool(isEURC, token, address(lzFixtures[0].endpoint), false);
 
             lpAddress = sg.lpToken();
@@ -124,6 +124,7 @@ abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
 
             CircleFiatToken token = new CircleFiatToken(tokenName, tokenSymbol);
 
+            // creates either a StargateOFTEURC or StargateOFTUSDC contract
             StargateOFT sg = _createFiatTokenOFT(isEURC, token, address(lzFixtures[1].endpoint));
 
             stargateType = StargateType.OFT;
@@ -317,7 +318,6 @@ abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
         //  When switching to a Pool contract, we must "retroactively" burn the credit in the amount that has been
         // transferred to this OFT contract, as well as burn the excess asset. That amount is exactly the total supply of tokens.
         // StargatePoolEURC/StargatePoolUSDC implements burnCredit which burns both credit and asset.
-
         StargatePoolUSDC(fixturePool.stargate).allowBurn(
             address(this),
             ldToSd(PoolToken(fixtureOFT.token).totalSupply())
@@ -340,7 +340,7 @@ abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
         CircleFiatToken tokenOFT = CircleFiatToken(fixtureOFT.token);
 
         // 3.a Deploy StargatePool contract on chain A and set it on the messaging contract
-
+        // creates either a StargatePoolEURC or StargatePoolUSDC contract
         StargatePool newSG = _createFiatTokenPool(isEURC, tokenOFT, address(endpoints[fixtureOFT.eid]), true);
         StargateFixture memory fixtureNewPool = fixtureOFT;
         fixtureNewPool.stargate = address(newSG);
@@ -487,7 +487,7 @@ abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
 
     function _createFiatTokenPool(
         bool isEURC,
-        ERC20 token,
+        CircleFiatToken token,
         address endpoint,
         bool newPool
     ) internal returns (StargatePool sg) {
@@ -514,7 +514,11 @@ abstract contract FiatTokenPoolMigrationTest is Test, StargateTestHelper {
         }
     }
 
-    function _createFiatTokenOFT(bool isEURC, ERC20 token, address endpoint) internal returns (StargateOFT sg) {
+    function _createFiatTokenOFT(
+        bool isEURC,
+        CircleFiatToken token,
+        address endpoint
+    ) internal returns (StargateOFT sg) {
         if (isEURC) {
             sg = new StargateOFTEURC(address(token), 6, endpoint, address(this));
         } else {
