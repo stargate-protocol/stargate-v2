@@ -4,6 +4,7 @@ import path from 'path'
 
 import {
     AssetOmniGraphHardhatSchema,
+    CircleFiatTokenOmniGraphHardhatSchema,
     CreditMessagingOmniGraphHardhatSchema,
     ERC20OmniGraphHardhatSchema,
     FeeLibV1OmniGraphHardhatSchema,
@@ -15,8 +16,8 @@ import {
     StakingOmniGraphHardhatSchema,
     TokenMessagingOmniGraphHardhatSchema,
     TreasurerOmniGraphHardhatSchema,
-    USDCOmniGraphHardhatSchema,
     createAssetFactory,
+    createCircleFiatTokenFactory,
     createCreditMessagingFactory,
     createERC20Factory,
     createFeeLibV1Factory,
@@ -27,14 +28,15 @@ import {
     createStakingFactory,
     createTokenMessagingFactory,
     createTreasurerFactory,
-    createUSDCFactory,
 } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import {
     AssetOmniGraph,
+    CircleFiatTokenOmniGraph,
     CreditMessagingOmniGraph,
     ERC20OmniGraph,
     FeeLibV1OmniGraph,
     IAsset,
+    ICircleFiatToken,
     ICreditMessaging,
     IERC20,
     IFeeLibV1,
@@ -45,7 +47,6 @@ import {
     IStaking,
     ITokenMessaging,
     ITreasurer,
-    IUSDC,
     MintableOmniGraph,
     OFTWrapperOmniGraph,
     PoolOmniGraph,
@@ -54,8 +55,8 @@ import {
     StakingOmniGraph,
     TokenMessagingOmniGraph,
     TreasurerOmniGraph,
-    USDCOmniGraph,
     configureAsset,
+    configureCircleFiatToken,
     configureCreditMessaging,
     configureDeposit,
     configureERC20,
@@ -68,7 +69,6 @@ import {
     configureStaking,
     configureTokenMessaging,
     configureTreasurer,
-    configureUSDC,
     initializeBusQueueStorage,
     initializeMinters,
 } from '@stargatefinance/stg-devtools-v2'
@@ -341,18 +341,18 @@ wireTask(TASK_STG_WIRE_USDC).setAction(async (args, hre) => {
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
-            schema: USDCOmniGraphHardhatSchema,
+            schema: CircleFiatTokenOmniGraphHardhatSchema,
         })
     )
 
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureUSDC,
-                sdkFactory: createUSDCFactory(createConnectedContractFactory()),
+                configurator: configureCircleFiatToken,
+                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
             })
     )
 
@@ -372,17 +372,17 @@ wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
-            schema: USDCOmniGraphHardhatSchema,
+            schema: CircleFiatTokenOmniGraphHardhatSchema,
         })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Set admin for USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureProxyAdmin,
-                sdkFactory: createUSDCFactory(createConnectedContractFactory()),
+                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
             })
     )
 
@@ -402,17 +402,17 @@ wireTask(TASK_STG_WIRE_USDC_INITIALIZE_MINTER).setAction(async (args, hre) => {
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
-            schema: USDCOmniGraphHardhatSchema,
+            schema: CircleFiatTokenOmniGraphHardhatSchema,
         })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Initialize minters for USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: initializeMinters,
-                sdkFactory: createUSDCFactory(createConnectedContractFactory()),
+                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
             })
     )
 

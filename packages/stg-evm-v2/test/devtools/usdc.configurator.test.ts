@@ -1,8 +1,13 @@
 import '@nomiclabs/hardhat-ethers'
 
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
-import { USDC, createUSDCFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
-import { USDCOmniGraph, configureProxyAdmin, configureUSDC, initializeMinters } from '@stargatefinance/stg-devtools-v2'
+import { CircleFiatToken, createCircleFiatTokenFactory } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import {
+    CircleFiatTokenOmniGraph,
+    configureCircleFiatToken,
+    configureProxyAdmin,
+    initializeMinters,
+} from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
@@ -103,7 +108,7 @@ describe('USDC/configurator', () => {
     })
 
     it('should configure the contract using default configureUSDC', async () => {
-        const sdkFactory = createUSDCFactory(({ eid, address }: OmniPoint) => ({
+        const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
             contract: myUSDC.attach(address),
         }))
@@ -113,7 +118,7 @@ describe('USDC/configurator', () => {
             address: myUSDCProxyDeployment.address,
         }
 
-        const graph: USDCOmniGraph = new OmniGraphBuilder().addNodes({
+        const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
             point: myPoint,
             config: {
                 // USDC contract configuration
@@ -125,9 +130,9 @@ describe('USDC/configurator', () => {
                 // Rescuable contract configuration
                 rescuer: newRescuer.address,
             },
-        }).graph as USDCOmniGraph
+        }).graph as CircleFiatTokenOmniGraph
 
-        const configTxs = await configureUSDC(graph, sdkFactory)
+        const configTxs = await configureCircleFiatToken(graph, sdkFactory)
 
         for (let i = 0; i < configTxs.length; i++) {
             await owner.sendTransaction({
@@ -144,14 +149,15 @@ describe('USDC/configurator', () => {
     })
 
     it('should return no Txs when configurations match for configureUSDC', async () => {
-        const sdkFactory = (from: OmniPoint) => new USDC({ eid: from.eid, contract: myUSDC.attach(from.address) })
+        const sdkFactory = (from: OmniPoint) =>
+            new CircleFiatToken({ eid: from.eid, contract: myUSDC.attach(from.address) })
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
             address: myUSDCProxyDeployment.address,
         }
 
-        const graph: USDCOmniGraph = new OmniGraphBuilder().addNodes({
+        const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
             point: myPoint,
             config: {
                 // USDC contract configuration
@@ -163,9 +169,9 @@ describe('USDC/configurator', () => {
                 // Rescuable contract configuration
                 rescuer: newRescuer.address,
             },
-        }).graph as USDCOmniGraph
+        }).graph as CircleFiatTokenOmniGraph
 
-        const configTxs = await configureUSDC(graph, sdkFactory)
+        const configTxs = await configureCircleFiatToken(graph, sdkFactory)
 
         for (let i = 0; i < configTxs.length; i++) {
             await owner.sendTransaction({
@@ -174,11 +180,11 @@ describe('USDC/configurator', () => {
             })
         }
 
-        expect(await configureUSDC(graph, sdkFactory)).to.be.empty
+        expect(await configureCircleFiatToken(graph, sdkFactory)).to.be.empty
     })
 
     it('should configure the contract using initializeMinters', async () => {
-        const sdkFactory = createUSDCFactory(({ eid, address }: OmniPoint) => ({
+        const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
             contract: myUSDC.attach(address),
         }))
@@ -188,14 +194,14 @@ describe('USDC/configurator', () => {
             address: myUSDCProxyDeployment.address,
         }
 
-        const graph: USDCOmniGraph = new OmniGraphBuilder().addNodes({
+        const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
             point: myPoint,
             config: {
                 minters: {
                     [newMinter.address]: 100n,
                 },
             },
-        }).graph as USDCOmniGraph
+        }).graph as CircleFiatTokenOmniGraph
 
         const configTxs = await initializeMinters(graph, sdkFactory)
 
@@ -211,7 +217,7 @@ describe('USDC/configurator', () => {
     })
 
     it('should return no Txs when configurations match for initializeMinters', async () => {
-        const sdkFactory = createUSDCFactory(({ eid, address }: OmniPoint) => ({
+        const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
             contract: myUSDC.attach(address),
         }))
@@ -221,14 +227,14 @@ describe('USDC/configurator', () => {
             address: myUSDCProxyDeployment.address,
         }
 
-        const graph: USDCOmniGraph = new OmniGraphBuilder().addNodes({
+        const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
             point: myPoint,
             config: {
                 minters: {
                     [newMinter.address]: 100n,
                 },
             },
-        }).graph as USDCOmniGraph
+        }).graph as CircleFiatTokenOmniGraph
 
         const configTxs = await initializeMinters(graph, sdkFactory)
 
@@ -243,7 +249,7 @@ describe('USDC/configurator', () => {
     })
 
     it('should configure the contract using configureProxyAdmin', async () => {
-        const sdkFactory = createUSDCFactory(({ eid, address }: OmniPoint) => ({
+        const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
             contract: myUSDCProxyDeployment.attach(address),
         }))
@@ -253,12 +259,12 @@ describe('USDC/configurator', () => {
             address: myUSDCProxyDeployment.address,
         }
 
-        const graph: USDCOmniGraph = new OmniGraphBuilder().addNodes({
+        const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
             point: myPoint,
             config: {
                 admin: newAdmin.address,
             },
-        }).graph as USDCOmniGraph
+        }).graph as CircleFiatTokenOmniGraph
 
         const configTxs = await configureProxyAdmin(graph, sdkFactory)
 
@@ -275,7 +281,7 @@ describe('USDC/configurator', () => {
     })
 
     it('should return no Txs when configurations match for configureProxyAdmin', async () => {
-        const sdkFactory = createUSDCFactory(({ eid, address }: OmniPoint) => ({
+        const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
             contract: myUSDCProxyDeployment.attach(address),
         }))
@@ -285,12 +291,12 @@ describe('USDC/configurator', () => {
             address: myUSDCProxyDeployment.address,
         }
 
-        const graph: USDCOmniGraph = new OmniGraphBuilder().addNodes({
+        const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
             point: myPoint,
             config: {
                 admin: newAdmin.address,
             },
-        }).graph as USDCOmniGraph
+        }).graph as CircleFiatTokenOmniGraph
 
         const configTxs = await configureProxyAdmin(graph, sdkFactory)
         for (let i = 0; i < configTxs.length; i++) {

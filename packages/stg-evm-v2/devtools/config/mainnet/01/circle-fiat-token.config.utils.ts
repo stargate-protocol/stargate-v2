@@ -1,5 +1,5 @@
 import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
-import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
+import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 
@@ -8,10 +8,9 @@ import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-s
 import { getContractWithEid, getSafeAddress } from '../../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../utils'
 
-// USDCNodeConfig is EURC compatible so we can use it for both EURC and USDC
 export default async function buildCircleFiatTokenGraph(
     tokenName: TokenName
-): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> {
+): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> {
     const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
     const fiatContract = { contractName: 'FiatTokenV2_2' }
 
@@ -20,22 +19,22 @@ export default async function buildCircleFiatTokenGraph(
     const contractFactory = createContractFactory(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
-    // The newer USDC deployments (since December 2024)
+    // note: The newer USDC deployments (since December 2024, USDC is deployed and verified from Circle's repo)
     const chains = getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
     const contracts = await Promise.all(
         chains.map(async (chain) => {
-            let usdcProxyAddress
+            let tokenProxyAddress
             if (isExternalDeployment(chain, tokenName)) {
                 // if is external deployment, we need to get the fiat token proxy address
-                usdcProxyAddress = await contractFactory(
+                tokenProxyAddress = await contractFactory(
                     getContractWithEid(chain.eid, {
                         contractName: 'FiatTokenProxy',
-                        address: getAssetNetworkConfig(chain.eid, tokenName).address, // usdc asset address
+                        address: getAssetNetworkConfig(chain.eid, tokenName).address, // eurc/usdc asset address
                     })
                 )
             } else {
-                // if is not external deployment, we need to get USDCProxy address
-                usdcProxyAddress = await contractFactory(getContractWithEid(chain.eid, proxyContract))
+                // if is not external deployment, we need to get tokenProxy address
+                tokenProxyAddress = await contractFactory(getContractWithEid(chain.eid, proxyContract))
             }
 
             const stargateMultisig = getSafeAddress(chain.eid)
@@ -43,7 +42,7 @@ export default async function buildCircleFiatTokenGraph(
             return {
                 contract: getContractWithEid(chain.eid, {
                     ...fiatContract,
-                    address: usdcProxyAddress.contract.address,
+                    address: tokenProxyAddress.contract.address,
                 }),
                 config: {
                     owner: stargateMultisig,

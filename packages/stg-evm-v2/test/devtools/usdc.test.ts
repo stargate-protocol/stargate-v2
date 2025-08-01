@@ -1,6 +1,6 @@
 import '@nomiclabs/hardhat-ethers'
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
-import { USDC } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { CircleFiatToken } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
 import { Contract } from 'ethers'
 import { ethers } from 'hardhat'
@@ -22,8 +22,8 @@ describe('USDC/sdk', () => {
     let newBlacklister: SignerWithAddress
     let newPauser: SignerWithAddress
     let newRescuer: SignerWithAddress
-    let usdcSdk: USDC
-    let proxyUSDCSdk: USDC
+    let usdcSdk: CircleFiatToken
+    let proxyUSDCSdk: CircleFiatToken
     let token: Contract
 
     // Before hook for setup that runs once before all tests in the block
@@ -99,12 +99,12 @@ describe('USDC/sdk', () => {
         await myUSDCProxy.connect(initializer).initializeV2_1(lostAndFound.address)
         await myUSDCProxy.connect(initializer).initializeV2_2([], 'USDC.e')
 
-        usdcSdk = new USDC({
+        usdcSdk = new CircleFiatToken({
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
             contract: myUSDC.attach(myUSDCProxyDeployment.address),
         })
 
-        proxyUSDCSdk = new USDC({
+        proxyUSDCSdk = new CircleFiatToken({
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
             contract: myUSDCProxyDeployment,
         })
