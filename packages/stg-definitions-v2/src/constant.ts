@@ -1277,9 +1277,7 @@ export const REWARDS: RewardsConfig = {
     },
     [RewardTokenName.EURC]: {
         name: 'EURC',
-        networks: {
-            // TODO: Add EURC reward token network configurations when available
-        },
+        networks: {},
     },
 }
 
