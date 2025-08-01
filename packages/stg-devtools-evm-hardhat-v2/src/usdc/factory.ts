@@ -1,9 +1,9 @@
-import { USDCFactory } from '@stargatefinance/stg-devtools-v2'
+import { CircleFiatTokenFactory } from '@stargatefinance/stg-devtools-v2'
 import pMemoize from 'p-memoize'
 
 import { OmniPoint } from '@layerzerolabs/devtools'
 
-import { USDC } from './sdk'
+import { CircleFiatToken } from './sdk'
 
 import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 
@@ -12,8 +12,9 @@ import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
  * based on an `OmniPoint` with help of an `OmniContractFactory`
  *
  * @param {OmniContractFactory} contractFactory
- * @returns {USDCFactory<IUSDC>}
+ * @returns {CircleFiatTokenFactory<ICircleFiatToken>}
  */
-export const createUSDCFactory = <TOmniPoint = never>(
+export const createCircleFiatTokenFactory = <TOmniPoint = never>(
     contractFactory: OmniContractFactory<TOmniPoint | OmniPoint>
-): USDCFactory<USDC, TOmniPoint> => pMemoize(async (point) => new USDC(await contractFactory(point)))
+): CircleFiatTokenFactory<CircleFiatToken, TOmniPoint> =>
+    pMemoize(async (point) => new CircleFiatToken(await contractFactory(point)))
