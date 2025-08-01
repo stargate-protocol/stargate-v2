@@ -89,6 +89,9 @@ import {
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
     TASK_STG_WIRE_ASSET,
+    TASK_STG_WIRE_CIRCLE_TOKEN,
+    TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER,
+    TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN,
     TASK_STG_WIRE_CREDIT_MESSAGING,
     TASK_STG_WIRE_FEELIB_V1,
     TASK_STG_WIRE_OFT,
@@ -98,9 +101,6 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING,
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
-    TASK_STG_WIRE_USDC,
-    TASK_STG_WIRE_USDC_INITIALIZE_MINTER,
-    TASK_STG_WIRE_USDC_SET_ADMIN,
 } from './constants'
 
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
@@ -331,7 +331,7 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
 /**
  * Wiring task for USDC contracts
  */
-wireTask(TASK_STG_WIRE_USDC).setAction(async (args, hre) => {
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
     //
     // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
@@ -362,7 +362,7 @@ wireTask(TASK_STG_WIRE_USDC).setAction(async (args, hre) => {
 /**
  * Wiring task for USDC contract to add the asset contract to minters with a high allowance
  */
-wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
     //
     // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
@@ -392,7 +392,7 @@ wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
 /**
  * Wiring task for USDC contract to add the asset contract to minters with a high allowance
  */
-wireTask(TASK_STG_WIRE_USDC_INITIALIZE_MINTER).setAction(async (args, hre) => {
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
     //
     // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
