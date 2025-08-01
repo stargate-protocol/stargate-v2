@@ -71,6 +71,7 @@ abstract contract FiatTokenRealMigrationTest is Test, StargateTestHelper {
             address sgAddress;
 
             FiatTokenV2_2 token = deployTokenAndProxy();
+            // creates either a StargatePoolEURC or StargatePoolUSDC contract
             StargatePool sg = _createFiatTokenPool(isEURC, token, address(lzFixtures[0].endpoint), false);
 
             lpAddress = sg.lpToken();
@@ -131,6 +132,7 @@ abstract contract FiatTokenRealMigrationTest is Test, StargateTestHelper {
 
             FiatTokenV2_2 token = deployTokenAndProxy();
             tokenAddress = address(token);
+            // creates either a StargateOFTEURC or StargateOFTUSDC contract
             StargateOFT sg = _createFiatTokenOFT(isEURC, token, address(lzFixtures[1].endpoint));
             stargateType = StargateType.OFT;
             sgAddress = address(sg);
@@ -377,6 +379,7 @@ abstract contract FiatTokenRealMigrationTest is Test, StargateTestHelper {
         FiatTokenV2_2 tokenOFT = FiatTokenV2_2(fixtureOFT.token);
 
         // 3.a Deploy StargatePool contract on chain A and set it on the messaging contract
+        // creates either a StargatePoolEURC or StargatePoolUSDC contract
         StargatePool newSG = _createFiatTokenPool(isEURC, tokenOFT, address(endpoints[fixtureOFT.eid]), true);
 
         StargateFixture memory fixtureNewPool = fixtureOFT;
