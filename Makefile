@@ -10,9 +10,9 @@ HARDHAT=$(WORKSPACE) run hardhat
 TRANSFER_OWNERSHIP=$(HARDHAT) lz:ownable:transfer-ownership
 CONFIGURE_ASSET=$(HARDHAT) stg:wire::asset
 CONFIGURE_OFT=$(HARDHAT) stg:wire::oft
-CONFIGURE_USDC=$(HARDHAT) stg:wire::usdc
-CONFIGURE_USDC_SET_ADMIN=$(HARDHAT) stg:wire::usdc:set-admin
-CONFIGURE_USDC_INITIALIZE_MINTERS=$(HARDHAT) stg:wire::usdc:initialize-minters
+CONFIGURE_CIRCLE_TOKEN=$(HARDHAT) stg:wire::circle-token
+CONFIGURE_CIRCLE_TOKEN_SET_ADMIN=$(HARDHAT) stg:wire::circle-token:set-admin
+CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS=$(HARDHAT) stg:wire::circle-token:initialize-minters
 CONFIGURE_CREDIT_MESSAGING=$(HARDHAT) stg:wire::credit-messaging
 CONFIGURE_TOKEN_MESSAGING=$(HARDHAT) stg:wire::token-messaging
 CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE=$(HARDHAT) stg:wire::token-messaging:initialize-storage
@@ -87,13 +87,13 @@ configure-sandbox:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/mocks.oft.config.ts --signer deployer
 
 	# Set the admin to secondary role so our calls as owner get through
-	$(CONFIGURE_USDC_SET_ADMIN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer deployer
 
 	# Configure the minters while we are still MasterMinters
-	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
 	# Configure everything
-	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
 	# Transfer ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -181,10 +181,10 @@ configure-testnet:
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
 	# Configure the minters while we are still MasterMinters
-	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
 	# Configure everything
-	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
 	# Transfer ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -246,7 +246,7 @@ testnet: deploy-testnet configure-testnet
 # This target will deploy the mainnet contracts
 # 
 
-deploy-mainnet: DEPLOY_ARGS=--stage mainnet
+deploy-mainnet: DEPLOY_ARGS=--networks base-mainnet
 deploy-mainnet: build deploy
 
 # 
@@ -262,10 +262,12 @@ preconfigure-mainnet:
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
 	# Configure the minters while we are still MasterMinters
-	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer --token-name usdc
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer --token-name eurc
 
-	# Configure everything else for USDC
-	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	# Configure everything else for USDC and EURC
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer --token-name usdc
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer --token-name eurc
 
 # 
 # This target will configure the mainnet contracts
@@ -321,9 +323,6 @@ transfer-mainnet:
 
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
-
-	# Transfer EURC ownership
-	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)

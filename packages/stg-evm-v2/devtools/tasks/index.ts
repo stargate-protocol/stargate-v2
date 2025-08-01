@@ -329,35 +329,42 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
 })
 
 /**
- * Wiring task for USDC contracts
+ * Wiring task for EURC/USDC contracts
  */
-wireTask(TASK_STG_WIRE_CIRCLE_TOKEN).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: CircleFiatTokenOmniGraphHardhatSchema,
-        })
-    )
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
+    .addOptionalParam('tokenName', 'The token name to wire', 'CircleFiatToken')
+    .setAction(async (args, hre) => {
+        const tokenName = args.tokenName.toUpperCase()
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure USDC',
-        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureCircleFiatToken,
-                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
-            })
-    )
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            `Load ${tokenName} config`,
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CircleFiatTokenOmniGraphHardhatSchema,
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            `Configure ${tokenName}`,
+            (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureCircleFiatToken,
+                    sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
+                })
+        )
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for USDC contract to add the asset contract to minters with a high allowance
@@ -390,34 +397,41 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN).setAction(async (args, hre) => {
 })
 
 /**
- * Wiring task for USDC contract to add the asset contract to minters with a high allowance
+ * Wiring task for EURC/USDC contract to add the asset contract to minters with a high allowance
  */
-wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: CircleFiatTokenOmniGraphHardhatSchema,
-        })
-    )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Initialize minters for USDC',
-        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: initializeMinters,
-                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
-            })
-    )
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER)
+    .addOptionalParam('tokenName', 'The token name to wire', 'CircleFiatToken')
+    .setAction(async (args, hre) => {
+        const tokenName = args.tokenName.toUpperCase()
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            `Load ${tokenName} config`,
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CircleFiatTokenOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            `Initialize minters for ${tokenName}`,
+            (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: initializeMinters,
+                    sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
+                })
+        )
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for rewarder contracts
