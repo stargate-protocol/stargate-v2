@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 import { Test, console } from "forge-std/Test.sol";
-import { StargatePoolUSDC } from "../../../src/usdc/StargatePoolUSDC.sol";
+import { StargatePoolEURC } from "../../../src/eurc/StargatePoolEURC.sol";
 import { StargatePool } from "../../../src/StargatePool.sol";
 import { LPToken } from "../../../src/utils/LPToken.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
@@ -20,22 +20,22 @@ import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oa
 import { CircleFiatToken } from "../../../src/mocks/CircleFiatToken.sol";
 import { PathLib } from "../../../src/libs/Path.sol";
 
-contract StargatePoolUSDCTest is StargatePoolTest {
-    CircleFiatToken public usdc;
+contract StargatePoolEURCTest is StargatePoolTest {
+    CircleFiatToken public eurc;
 
     function _setUpStargate() internal override {
-        usdc = new CircleFiatToken("USDC", "USDC");
-        stargate = new MockStargatePoolUSDC(
+        eurc = new CircleFiatToken("EURC", "EURC");
+        stargate = new MockStargatePoolEURC(
             "LP Name",
             "LP",
-            address(usdc),
+            address(eurc),
             18,
             6, // share decimals
             LzUtil.deployEndpointV2(LOCAL_EID, address(this)), // endpoint v2
             address(this) // owner
         );
         lpToken = LPToken(stargate.lpToken());
-        usdc.mint(address(this), 10000 ether);
+        eurc.mint(address(this), 10000 ether);
     }
 
     function test_RevertIf_AllowBurnByNonOwner() public {
@@ -43,7 +43,7 @@ contract StargatePoolUSDCTest is StargatePoolTest {
         stargate.ensureCredit(LOCAL_EID, amountSD);
         _approveAndPrank(ALICE);
         vm.expectRevert("Ownable: caller is not the owner");
-        StargatePoolUSDC(address(stargate)).allowBurn(address(this), amountSD);
+        StargatePoolEURC(address(stargate)).allowBurn(address(this), amountSD);
     }
 
     function test_RevertIf_BurnCreditByNonAdmin() public {
@@ -51,7 +51,7 @@ contract StargatePoolUSDCTest is StargatePoolTest {
         stargate.ensureCredit(LOCAL_EID, amountSD);
         _approveAndPrank(ALICE);
         vm.expectRevert(StargateBase.Stargate_Unauthorized.selector);
-        StargatePoolUSDC(address(stargate)).burnLockedUSDC();
+        StargatePoolEURC(address(stargate)).burnLockedEURC();
     }
 
     function test_RevertIf_BurnTooMuchToken() public {
@@ -60,9 +60,9 @@ contract StargatePoolUSDCTest is StargatePoolTest {
         _deal(ALICE, amountLD);
         _approveAndPrank(ALICE);
         stargate.deposit(ALICE, amountLD);
-        StargatePoolUSDC(address(stargate)).allowBurn(address(this), amountSD + 1);
-        vm.expectRevert(StargatePoolUSDC.StargatePoolUSDC_BurnAmountExceedsBalance.selector);
-        StargatePoolUSDC(address(stargate)).burnLockedUSDC();
+        StargatePoolEURC(address(stargate)).allowBurn(address(this), amountSD + 1);
+        vm.expectRevert(StargatePoolEURC.StargatePoolEURC_BurnAmountExceedsBalance.selector);
+        StargatePoolEURC(address(stargate)).burnLockedEURC();
     }
 
     function test_RevertIf_BurnTooMuchCredit() public {
@@ -71,10 +71,10 @@ contract StargatePoolUSDCTest is StargatePoolTest {
         _deal(ALICE, amountLD);
         _approveAndPrank(ALICE);
         stargate.deposit(ALICE, amountLD);
-        MockStargatePoolUSDC(address(stargate)).sendCredit(LOCAL_EID, 1);
-        StargatePoolUSDC(address(stargate)).allowBurn(address(this), amountSD);
+        MockStargatePoolEURC(address(stargate)).sendCredit(LOCAL_EID, 1);
+        StargatePoolEURC(address(stargate)).allowBurn(address(this), amountSD);
         vm.expectRevert();
-        StargatePoolUSDC(address(stargate)).burnLockedUSDC();
+        StargatePoolEURC(address(stargate)).burnLockedEURC();
     }
 
     function test_BurnCredit(uint64 amountSD) public {
@@ -84,31 +84,31 @@ contract StargatePoolUSDCTest is StargatePoolTest {
         _deal(ALICE, amountLD);
         _approveAndPrank(ALICE);
         stargate.deposit(ALICE, amountLD);
-        StargatePoolUSDC(address(stargate)).allowBurn(address(this), amountSD);
+        StargatePoolEURC(address(stargate)).allowBurn(address(this), amountSD);
 
-        StargatePoolUSDC(address(stargate)).burnLockedUSDC();
+        StargatePoolEURC(address(stargate)).burnLockedEURC();
         assertLocalCreditEq(0);
         assertEq(_balanceOf(address(stargate)), 0);
         assertEq(stargate.poolBalance(), 0);
     }
 
     function _deal(address _to, uint256 _amount, uint256 _fee) internal override {
-        usdc.mint(_to, _amount);
+        eurc.mint(_to, _amount);
         if (_fee > 0) vm.deal(_to, _fee);
     }
 
     function _balanceOf(address _account) internal view override returns (uint256) {
-        return usdc.balanceOf(_account);
+        return eurc.balanceOf(_account);
     }
 
     function _approveAndPrank(address _account, address _spender) internal override {
         vm.prank(_account);
-        usdc.approve(_spender, type(uint256).max);
+        eurc.approve(_spender, type(uint256).max);
         vm.prank(_account);
     }
 }
 
-contract MockStargatePoolUSDC is StargatePoolUSDC, IMockStargatePool {
+contract MockStargatePoolEURC is StargatePoolEURC, IMockStargatePool {
     constructor(
         string memory _lpTokenName,
         string memory _lpTokenSymbol,
@@ -117,7 +117,7 @@ contract MockStargatePoolUSDC is StargatePoolUSDC, IMockStargatePool {
         uint8 _sharedDecimals,
         address _endpoint,
         address _owner
-    ) StargatePoolUSDC(_lpTokenName, _lpTokenSymbol, _token, _tokenDecimals, _sharedDecimals, _endpoint, _owner) {
+    ) StargatePoolEURC(_lpTokenName, _lpTokenSymbol, _token, _tokenDecimals, _sharedDecimals, _endpoint, _owner) {
         tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 128));
         planner = _owner;
         treasurer = _owner;

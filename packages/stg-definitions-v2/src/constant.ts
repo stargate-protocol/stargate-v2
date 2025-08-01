@@ -972,6 +972,14 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
         },
     },
+    [TokenName.EURC]: {
+        name: 'EURC',
+        symbol: 'EURC',
+        assetId: 3,
+        sharedDecimals: 6,
+        localDecimals: 6,
+        networks: {},
+    },
 }
 
 export const OFT_WRAPPER: OftWrapperConfig = {
@@ -1266,6 +1274,10 @@ export const REWARDS: RewardsConfig = {
                 address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
             },
         },
+    },
+    [RewardTokenName.EURC]: {
+        name: 'EURC',
+        networks: {},
     },
 }
 

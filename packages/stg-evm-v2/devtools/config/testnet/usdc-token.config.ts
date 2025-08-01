@@ -6,7 +6,7 @@ import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getUSDCProxyDeployName } from '../../../ops/util'
+import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig, getNamedAccount } from '../../../ts-src/utils/util'
 
 import { onKlaytn, onOdyssey } from './utils'
@@ -15,7 +15,8 @@ const getStargateMultisig = getNamedAccount('usdcAdmin')
 
 // Except for external deployments
 
-const usdcOdysseyAsset = getAssetNetworkConfig(EndpointId.ODYSSEY_V2_TESTNET, TokenName.USDC)
+const tokenName = TokenName.USDC
+const usdcOdysseyAsset = getAssetNetworkConfig(EndpointId.ODYSSEY_V2_TESTNET, tokenName)
 assert(usdcOdysseyAsset.address != null, `External USDC address not found for Odyssey`)
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
@@ -23,7 +24,9 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
 
-    const klaytnUSDCProxy = await contractFactory(onKlaytn({ contractName: getUSDCProxyDeployName() }))
+    const klaytnUSDCProxy = await contractFactory(
+        onKlaytn({ contractName: getCircleFiatTokenProxyDeployName(tokenName) })
+    )
     const odysseyUSDCProxy = await contractFactory(
         onOdyssey({ contractName: 'FiatTokenProxy', address: usdcOdysseyAsset.address })
     )
@@ -39,7 +42,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     const odysseyStargateMultisig = await odyssey.getNamedAccounts().then(getStargateMultisig)
 
     // Now we collect the address of the deployed assets(StargateOft.sol etc.)
-    const assets = [TokenName.USDC] as const
+    const assets = [tokenName] as const
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const klaytnAssetAddresses = await getAssetAddresses(EndpointId.KLAYTN_V2_TESTNET, assets)
     const odysseyAssetAddresses = await getAssetAddresses(EndpointId.ODYSSEY_V2_TESTNET, assets)
