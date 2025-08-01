@@ -15,42 +15,54 @@ import { ethers } from 'hardhat'
 import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-describe('USDC/configurator', () => {
-    // Declaration of variables to be used in the test suite
-    let myUSDC: Contract
-    let myUSDCProxyDeployment: Contract
-    let myUSDCProxy: Contract
-    let owner: SignerWithAddress
-    let planner: SignerWithAddress
-    let initializer: SignerWithAddress
-    let lostAndFound: SignerWithAddress
-    let tempMasterMinter: SignerWithAddress
-    let newMasterMinter: SignerWithAddress
-    let newAdmin: SignerWithAddress
-    let newMinter: SignerWithAddress
-    let newPauser: SignerWithAddress
-    let newBlacklister: SignerWithAddress
-    let newRescuer: SignerWithAddress
+const roles = [
+    'owner',
+    'planner',
+    'initializer',
+    'lostAndFound',
+    'tempMasterMinter',
+    'newMasterMinter',
+    'newAdmin',
+    'newMinter',
+    'newPauser',
+    'newBlacklister',
+    'newRescuer',
+] as const
+
+type SignerRole = (typeof roles)[number]
+type Signers = Record<SignerRole, SignerWithAddress>
+
+describe('CircleFiatToken/configurator', () => {
+    describe('USDC/configurator', async () => {
+        testCircleFiatTokenConfigurator('USDC', 'USDC.e', 18, 'USD')
+    })
+
+    describe('EURC/configurator', () => {
+        testCircleFiatTokenConfigurator('EURC', 'EURC.e', 18, 'EUR')
+    })
+})
+
+function testCircleFiatTokenConfigurator(
+    tokenName: string,
+    tokenSymbol: string,
+    tokenDecimals: number,
+    stringTokenCoin: string
+) {
+    let myToken: Contract
+    let myTokenProxyDeployment: Contract
+    let myTokenProxy: Contract
+    let signers: Signers
 
     // Before hook for setup that runs once before all tests in the block
     before(async () => {
-        ;[
-            owner,
-            planner,
-            initializer,
-            lostAndFound,
-            tempMasterMinter,
-            newMasterMinter,
-            newAdmin,
-            newMinter,
-            newPauser,
-            newBlacklister,
-            newRescuer,
-        ] = await ethers.getSigners()
+        const accounts = await ethers.getSigners()
+        signers = Object.fromEntries(roles.map((role, i) => [role, accounts[i]])) as Signers
     })
 
     // beforeEach hook for setup that runs before each test in the block
     beforeEach(async () => {
+        const { owner, planner, initializer, lostAndFound, tempMasterMinter } = signers
+
         const SignatureChecker = await ethers.getContractFactory('SignatureChecker')
         const signatureChecker = await SignatureChecker.deploy()
         await signatureChecker.deployed()
@@ -65,10 +77,10 @@ describe('USDC/configurator', () => {
         const fiatTokenAbi = fiatTokenContractFactory.interface.format(ethers.utils.FormatTypes.json)
 
         // Deploying an instance of the USDC contract
-        myUSDC = await fiatTokenContractFactory.connect(owner).deploy()
+        myToken = await fiatTokenContractFactory.connect(owner).deploy()
 
         // Brick its initialization
-        await myUSDC.initialize(
+        await myToken.initialize(
             '',
             '',
             '',
@@ -78,44 +90,46 @@ describe('USDC/configurator', () => {
             '0x0000000000000000000000000000000000000001',
             '0x0000000000000000000000000000000000000001'
         )
-        await myUSDC.initializeV2('')
-        await myUSDC.initializeV2_1('0x0000000000000000000000000000000000000001')
-        await myUSDC.initializeV2_2([], '')
+        await myToken.initializeV2('')
+        await myToken.initializeV2_1('0x0000000000000000000000000000000000000001')
+        await myToken.initializeV2_2([], '')
 
         // Deploying USDC proxy contract based on contract from planner address
-        myUSDCProxyDeployment = await (await ethers.getContractFactory('FiatTokenProxy'))
+        myTokenProxyDeployment = await (await ethers.getContractFactory('FiatTokenProxy'))
             .connect(planner)
-            .deploy(myUSDC.address)
+            .deploy(myToken.address)
 
         // impose the impl ABI on the proxy
-        myUSDCProxy = new ethers.Contract(myUSDCProxyDeployment.address, fiatTokenAbi)
+        myTokenProxy = new ethers.Contract(myTokenProxyDeployment.address, fiatTokenAbi)
 
-        await myUSDCProxy
+        await myTokenProxy
             .connect(initializer)
             .initialize(
-                'Bridged USDC (LZ)',
-                'USDC.e',
-                'USD',
-                18,
+                tokenName,
+                tokenSymbol,
+                stringTokenCoin,
+                tokenDecimals,
                 tempMasterMinter.address,
                 planner.address,
                 planner.address,
                 owner.address
             )
-        await myUSDCProxy.connect(initializer).initializeV2('Bridged USDC (LZ)')
-        await myUSDCProxy.connect(initializer).initializeV2_1(lostAndFound.address)
-        await myUSDCProxy.connect(initializer).initializeV2_2([], 'USDC.e')
+        await myTokenProxy.connect(initializer).initializeV2(tokenName)
+        await myTokenProxy.connect(initializer).initializeV2_1(lostAndFound.address)
+        await myTokenProxy.connect(initializer).initializeV2_2([], tokenSymbol)
     })
 
     it('should configure the contract using default configureUSDC', async () => {
+        const { owner, newMasterMinter, newBlacklister, newPauser, newRescuer } = signers
+
         const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
-            contract: myUSDC.attach(address),
+            contract: myToken.attach(address),
         }))
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
-            address: myUSDCProxyDeployment.address,
+            address: myTokenProxyDeployment.address,
         }
 
         const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
@@ -141,7 +155,7 @@ describe('USDC/configurator', () => {
             })
         }
 
-        const sdk = await sdkFactory({ eid: EndpointId.ETHEREUM_V2_SANDBOX, address: myUSDCProxyDeployment.address })
+        const sdk = await sdkFactory({ eid: EndpointId.ETHEREUM_V2_SANDBOX, address: myTokenProxyDeployment.address })
         expect(await sdk.getMasterMinter()).to.equal(newMasterMinter.address)
         expect(await sdk.getBlacklister()).to.equal(newBlacklister.address)
         expect(await sdk.getPauser()).to.equal(newPauser.address)
@@ -149,12 +163,14 @@ describe('USDC/configurator', () => {
     })
 
     it('should return no Txs when configurations match for configureUSDC', async () => {
+        const { owner, newMasterMinter, newBlacklister, newPauser, newRescuer } = signers
+
         const sdkFactory = (from: OmniPoint) =>
-            new CircleFiatToken({ eid: from.eid, contract: myUSDC.attach(from.address) })
+            new CircleFiatToken({ eid: from.eid, contract: myToken.attach(from.address) })
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
-            address: myUSDCProxyDeployment.address,
+            address: myTokenProxyDeployment.address,
         }
 
         const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
@@ -184,14 +200,16 @@ describe('USDC/configurator', () => {
     })
 
     it('should configure the contract using initializeMinters', async () => {
+        const { owner, newMinter, tempMasterMinter } = signers
+
         const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
-            contract: myUSDC.attach(address),
+            contract: myToken.attach(address),
         }))
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
-            address: myUSDCProxyDeployment.address,
+            address: myTokenProxyDeployment.address,
         }
 
         const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
@@ -212,19 +230,21 @@ describe('USDC/configurator', () => {
             })
         }
 
-        const sdk = await sdkFactory({ eid: EndpointId.ETHEREUM_V2_SANDBOX, address: myUSDCProxyDeployment.address })
+        const sdk = await sdkFactory({ eid: EndpointId.ETHEREUM_V2_SANDBOX, address: myTokenProxyDeployment.address })
         expect(await sdk.getMinterAllowance(newMinter.address)).to.equal(100n)
     })
 
     it('should return no Txs when configurations match for initializeMinters', async () => {
+        const { owner, newMinter, tempMasterMinter } = signers
+
         const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
-            contract: myUSDC.attach(address),
+            contract: myToken.attach(address),
         }))
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
-            address: myUSDCProxyDeployment.address,
+            address: myTokenProxyDeployment.address,
         }
 
         const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
@@ -249,14 +269,16 @@ describe('USDC/configurator', () => {
     })
 
     it('should configure the contract using configureProxyAdmin', async () => {
+        const { newAdmin, planner } = signers
+
         const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
-            contract: myUSDCProxyDeployment.attach(address),
+            contract: myTokenProxyDeployment.attach(address),
         }))
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
-            address: myUSDCProxyDeployment.address,
+            address: myTokenProxyDeployment.address,
         }
 
         const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
@@ -268,7 +290,7 @@ describe('USDC/configurator', () => {
 
         const configTxs = await configureProxyAdmin(graph, sdkFactory)
 
-        const sdk = await sdkFactory({ eid: EndpointId.ETHEREUM_V2_SANDBOX, address: myUSDCProxyDeployment.address })
+        const sdk = await sdkFactory({ eid: EndpointId.ETHEREUM_V2_SANDBOX, address: myTokenProxyDeployment.address })
         expect(await sdk.getAdmin()).to.equal(planner.address)
 
         for (let i = 0; i < configTxs.length; i++) {
@@ -281,14 +303,16 @@ describe('USDC/configurator', () => {
     })
 
     it('should return no Txs when configurations match for configureProxyAdmin', async () => {
+        const { newAdmin, planner } = signers
+
         const sdkFactory = createCircleFiatTokenFactory(({ eid, address }: OmniPoint) => ({
             eid,
-            contract: myUSDCProxyDeployment.attach(address),
+            contract: myTokenProxyDeployment.attach(address),
         }))
 
         const myPoint: OmniPoint = {
             eid: EndpointId.ETHEREUM_V2_SANDBOX,
-            address: myUSDCProxyDeployment.address,
+            address: myTokenProxyDeployment.address,
         }
 
         const graph: CircleFiatTokenOmniGraph = new OmniGraphBuilder().addNodes({
@@ -308,4 +332,4 @@ describe('USDC/configurator', () => {
 
         expect(await configureProxyAdmin(graph, sdkFactory)).to.be.empty
     })
-})
+}
