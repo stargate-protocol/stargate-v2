@@ -8,7 +8,7 @@ import { CircleFiatToken } from './sdk'
 import type { OmniContractFactory } from '@layerzerolabs/devtools-evm'
 
 /**
- * Syntactic sugar that creates an instance of EVM `USDC` SDK
+ * Syntactic sugar that creates an instance of EVM `CircleFiatToken`(USDC/EURC) SDK
  * based on an `OmniPoint` with help of an `OmniContractFactory`
  *
  * @param {OmniContractFactory} contractFactory

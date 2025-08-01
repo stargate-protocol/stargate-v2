@@ -17,7 +17,7 @@ import type { CircleFiatTokenOmniGraph, ICircleFiatToken } from './types'
 
 export type CircleFiatTokenConfigurator = Configurator<CircleFiatTokenOmniGraph, ICircleFiatToken>
 
-const createAssetLogger = () => createModuleLogger('USDC')
+const createAssetLogger = () => createModuleLogger('circleFiatToken')
 const withAsyncLogger = createWithAsyncLogger(createAssetLogger)
 
 export const configureProxyAdmin: CircleFiatTokenConfigurator = createConfigureNodes(
