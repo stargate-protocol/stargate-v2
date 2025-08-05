@@ -246,7 +246,7 @@ testnet: deploy-testnet configure-testnet
 # This target will deploy the mainnet contracts
 # 
 
-deploy-mainnet: DEPLOY_ARGS=--networks base-mainnet
+deploy-mainnet: DEPLOY_ARGS=--stage mainnet
 deploy-mainnet: build deploy
 
 # 
