@@ -1,5 +1,41 @@
 # @stargatefinance/stg-devtools-v2
 
+## 4.0.5
+
+### Patch Changes
+
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+- Updated dependencies [ba6a4b6]
+- Updated dependencies [131aee8]
+  - @stargatefinance/stg-definitions-v2@2.0.5
+
+## 4.0.4
+
+### Patch Changes
+
+- fb17003: bump versions
+- Updated dependencies [391728d]
+- Updated dependencies [18179f7]
+- Updated dependencies [332d944]
+- Updated dependencies [5605211]
+- Updated dependencies [fb17003]
+- Updated dependencies [f3ae1c2]
+  - @stargatefinance/stg-definitions-v2@2.0.4
+
+## 4.0.3
+
+### Patch Changes
+
+- 2ed591e: bump versions
+- Updated dependencies [2ed591e]
+- Updated dependencies [c702833]
+- Updated dependencies [fb569b8]
+- Updated dependencies [8888925]
+- Updated dependencies [17b46a3]
+- Updated dependencies [f4ae7dc]
+  - @stargatefinance/stg-definitions-v2@2.0.3
+
 ## 4.0.2
 
 ### Patch Changes

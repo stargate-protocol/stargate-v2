@@ -1,0 +1,18 @@
+name: kava-mainnet
+eid: KAVA_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    wkava:
+      allocation:
+        usdt: 10000
+staking:
+  tokens:
+    usdt: true
+treasurer:
+  tokens:
+    usdt: true

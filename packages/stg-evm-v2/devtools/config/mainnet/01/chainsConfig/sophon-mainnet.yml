@@ -1,0 +1,23 @@
+name: sophon-mainnet
+eid: SOPHON_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: pool
+  usdc:
+    type: pool
+rewarder:
+  tokens:
+    usdc:
+      allocation:
+        eth: 5000
+        usdc: 5000
+staking:
+  tokens:
+    eth: true
+    usdc: true
+treasurer:
+  tokens:
+    eth: true
+    usdc: true

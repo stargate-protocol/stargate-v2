@@ -1,0 +1,23 @@
+name: bsc-mainnet
+eid: BSC_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdc:
+    type: pool
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    stg:
+      allocation:
+        usdc: 1000
+        usdt: 9000
+staking:
+  tokens:
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    usdt: true
+    usdc: true

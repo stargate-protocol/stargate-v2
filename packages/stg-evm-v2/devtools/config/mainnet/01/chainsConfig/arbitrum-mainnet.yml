@@ -1,0 +1,33 @@
+name: arbitrum-mainnet
+eid: ARBITRUM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  usdc:
+    type: pool
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    arb:
+      allocation:
+        eth: 6000
+        usdc: 2500
+        usdt: 1500
+    stg:
+      allocation:
+        eth: 1
+        usdc: 1
+        usdt: 9998
+staking:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true

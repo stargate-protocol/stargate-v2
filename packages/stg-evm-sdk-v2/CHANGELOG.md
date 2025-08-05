@@ -1,5 +1,24 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.1.15
+
+### Patch Changes
+
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+
+## 1.1.14
+
+### Patch Changes
+
+- fb17003: bump versions
+
+## 1.1.13
+
+### Patch Changes
+
+- 2ed591e: bump versions
+
 ## 1.1.12
 
 ### Patch Changes

@@ -1,3 +1,7 @@
+import { createHash } from 'crypto'
+import fs from 'fs'
+import path from 'path'
+
 import {
     AssetOmniGraphHardhatSchema,
     CreditMessagingOmniGraphHardhatSchema,
@@ -68,7 +72,7 @@ import {
     initializeBusQueueStorage,
     initializeMinters,
 } from '@stargatefinance/stg-devtools-v2'
-import { subtask } from 'hardhat/config'
+import { subtask, task } from 'hardhat/config'
 
 import { createConnectedContractFactory, inheritTask } from '@layerzerolabs/devtools-evm-hardhat'
 import {
@@ -81,6 +85,7 @@ import {
 
 import {
     TASK_STG_ADD_LIQUIDITY,
+    TASK_STG_GET_CONFIG_HASHES,
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
     TASK_STG_WIRE_ASSET,
@@ -599,3 +604,118 @@ wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
+
+interface ConfigFile {
+    name: string
+    hashedContent: string
+}
+
+task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
+    .addFlag('genJson', 'Generate also each config as a json file')
+    .setAction(async (args, hre) => {
+        const directoryPath: string = path.join(__dirname, '..', 'config', 'mainnet', '01')
+        const directoryPathJson: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'json')
+        const directoryPathJsonHashes: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'hashes')
+        try {
+            // Read all files in the directory
+            const files = fs.readdirSync(directoryPath)
+
+            // Filter for .config.ts files
+            const configFiles = files.filter((file) => file.endsWith('.config.ts'))
+
+            // Use Promise.all with map to handle async operations properly
+            const output: ConfigFile[] = await Promise.all(
+                configFiles.map(async (file) => {
+                    const configPath = path.join(directoryPath, file)
+
+                    // Dynamic import the config file
+                    const configModule = await import(configPath)
+
+                    // Call the default export function to get the config
+                    const config = await configModule.default()
+
+                    // order contracts
+                    config.contracts
+                        // Step 1: Sort the outer array by contract.eid
+                        .sort((a: any, b: any) => a.contract.eid - b.contract.eid)
+                        // Step 2: Sort the assets object inside each item (by key)
+                        .forEach((item: any) => {
+                            if (item.config.assets) {
+                                item.config.assets = Object.fromEntries(
+                                    Object.entries(item.config.assets).sort(([keyA, valA], [keyB, valB]) =>
+                                        valA !== valB
+                                            ? (valA as any) - (valB as any)
+                                            : (keyA as any).localeCompare(keyB)
+                                    )
+                                )
+                            }
+                        })
+
+                    // Step 3: Sort pools by rewarder, then by token
+                    config.contracts.forEach((item: any) => {
+                        if (item.config.pools) {
+                            item.config.pools = Object.entries(item.config.pools)
+                                .sort(([, a], [, b]) => {
+                                    const rewarderCompare = (a as any).rewarder.localeCompare((b as any).rewarder)
+                                    if (rewarderCompare !== 0) return rewarderCompare
+                                    return (a as any).token.localeCompare((b as any).token)
+                                })
+                                .map(([, value]) => value)
+                        }
+                    })
+
+                    // order connections
+                    config.connections.sort((a: any, b: any) => {
+                        // Step 1: Sort by from.eid and then to.eid
+                        if (a.from.eid !== b.from.eid) {
+                            return a.from.eid - b.from.eid // primary sort
+                        } else {
+                            return a.to.eid - b.to.eid // secondary sort
+                        }
+                    })
+
+                    // Custom replacer function to handle BigInt serialization
+                    const replacer = (key: string, value: any) => {
+                        if (typeof value === 'bigint') {
+                            return value.toString()
+                        }
+                        return value
+                    }
+
+                    if (args.genJson) {
+                        // create folder if it doesn't exist
+                        if (!fs.existsSync(directoryPathJson)) {
+                            fs.mkdirSync(directoryPathJson, { recursive: true })
+                        }
+                        // Generate output filename by replacing .config.ts with .config.json and write to json file
+                        const outputPath = path.join(directoryPathJson, file.replace('.config.ts', '.config.json'))
+                        await fs.promises.writeFile(outputPath, JSON.stringify(config, replacer, 2), 'utf8')
+                    }
+
+                    // generate hash
+                    const hash = createHash('sha256')
+                        .update(JSON.stringify(config, replacer, 2))
+                        .digest('hex')
+
+                    return {
+                        name: file,
+                        hashedContent: hash,
+                    }
+                })
+            )
+
+            // create folder if it doesn't exist
+            if (!fs.existsSync(directoryPathJsonHashes)) {
+                fs.mkdirSync(directoryPathJsonHashes, { recursive: true })
+            }
+            // store all the hashes in a file
+            await fs.promises.writeFile(
+                path.join(directoryPathJsonHashes, 'hashes.json'),
+                JSON.stringify(output, null, 2)
+            )
+            return output
+        } catch (error) {
+            console.error('Error reading directory:', error)
+            return []
+        }
+    })

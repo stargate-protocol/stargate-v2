@@ -1,5 +1,54 @@
 # @stargatefinance/stg-evm-v2
 
+## 2.0.6
+
+### Patch Changes
+
+- ba6a4b6: Sophon mainnet config
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+- Updated dependencies [ba6a4b6]
+- Updated dependencies [131aee8]
+  - @stargatefinance/stg-definitions-v2@2.0.5
+
+## 2.0.5
+
+### Patch Changes
+
+- 18179f7: Botanix mainnet configuration
+- 332d944: swell mainnet configuration
+- fb17003: bump versions
+- 52c2a41: update eth rewards
+- b9cfa27: Deploy on swell mainnet
+- Updated dependencies [391728d]
+- Updated dependencies [18179f7]
+- Updated dependencies [332d944]
+- Updated dependencies [5605211]
+- Updated dependencies [fb17003]
+- Updated dependencies [f3ae1c2]
+  - @stargatefinance/stg-definitions-v2@2.0.4
+
+## 2.0.4
+
+### Patch Changes
+
+- 257764b: manta pacific mainnet deployment
+- 2ed591e: bump versions
+- bb8474f: Nibiru deployment
+- c702833: Nibiru mainnet config
+- fb569b8: xdc mainnet config
+- 2ba3c5c: usdt config update
+- 8888925: manta pacific mainnet config
+- 17b46a3: zkatana shutdown
+- 605f2b6: Xdc mainnet deployment
+- Updated dependencies [2ed591e]
+- Updated dependencies [c702833]
+- Updated dependencies [fb569b8]
+- Updated dependencies [8888925]
+- Updated dependencies [17b46a3]
+- Updated dependencies [f4ae7dc]
+  - @stargatefinance/stg-definitions-v2@2.0.3
+
 ## 2.0.3
 
 ### Patch Changes
