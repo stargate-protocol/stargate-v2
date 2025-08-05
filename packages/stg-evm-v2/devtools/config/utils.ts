@@ -273,7 +273,6 @@ export interface Chain {
     treasurer?: {
         tokens: Record<string, boolean>
     }
-    usdc_admin?: boolean
 }
 
 export function loadChainConfig(filePath: string): Chain {

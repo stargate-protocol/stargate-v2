@@ -504,7 +504,7 @@ const networks: NetworksUserConfig = {
     },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
-        url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon-pokt.nodies.app',
+        url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.POLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,

@@ -14,4 +14,3 @@ treasurer:
     eth: true
     usdt: true
     usdc: true
-usdc_admin: true
