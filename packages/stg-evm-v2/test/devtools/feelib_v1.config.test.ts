@@ -9,6 +9,7 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import feelibEthConfig from '../../devtools/config/mainnet/01/feelib-v1.eth.config'
+import feelibEurcConfig from '../../devtools/config/mainnet/01/feelib-v1.eurc.config'
 import feelibMethConfig from '../../devtools/config/mainnet/01/feelib-v1.meth.config'
 import feelibMetisConfig from '../../devtools/config/mainnet/01/feelib-v1.metis.config'
 import feelibUsdcConfig from '../../devtools/config/mainnet/01/feelib-v1.usdc.config'
@@ -38,6 +39,10 @@ describe('feelib_v1.config', () => {
 
     describe('USDT FeeLib Config', () => {
         testFeeLibConfig(TokenName.USDT, feelibUsdtConfig)
+    })
+
+    describe('EURC FeeLib Config', () => {
+        testFeeLibConfig(TokenName.EURC, feelibEurcConfig)
     })
 })
 
@@ -72,6 +77,12 @@ function testFeeLibConfig(
     it('should filter contracts based on CHAINS_LIST environment variable', async () => {
         // Get chains that support the token
         const supportedChains = getChainsThatSupportToken(tokenName)
+
+        if (supportedChains.length === 0) {
+            // do nothing if no chains support the token
+            return
+        }
+
         const chainsList = [supportedChains[0].name, supportedChains[1].name]
         process.env.CHAINS_LIST = chainsList.join(',')
 
