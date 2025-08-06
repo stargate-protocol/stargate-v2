@@ -8,6 +8,7 @@ import hre from 'hardhat'
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import assetEthConfig from '../../devtools/config/mainnet/01/asset.eth.config'
+import assetEurcConfig from '../../devtools/config/mainnet/01/asset.eurc.config'
 import assetMethConfig from '../../devtools/config/mainnet/01/asset.meth.config'
 import assetMetisConfig from '../../devtools/config/mainnet/01/asset.metis.config'
 import assetUsdcConfig from '../../devtools/config/mainnet/01/asset.usdc.config'
@@ -39,6 +40,10 @@ describe('asset.config', () => {
 
     describe('USDT Asset Config', () => {
         testAssetConfig(TokenName.USDT, ASSETS.USDT.assetId, assetUsdtConfig)
+    })
+
+    describe('EURC Asset Config', () => {
+        testAssetConfig(TokenName.EURC, ASSETS.EURC.assetId, assetEurcConfig)
     })
 })
 
@@ -80,6 +85,11 @@ function testAssetConfig(
         const supportedChains = getChainsThatSupportToken(tokenName)
         let fromChains: string[] = []
         let toChains: string[] = []
+
+        if (supportedChains.length < 1) {
+            // do nothing if no chains support the token or only one chain supports the token
+            return
+        }
 
         if (supportedChains.length < 4) {
             fromChains = [supportedChains[0].name]
@@ -126,6 +136,11 @@ function testAssetConfig(
     it('should filter connections based environment variables (FROM_CHAINS == TO_CHAINS)', async () => {
         // Get chains that support the token
         const supportedChains = getChainsThatSupportToken(tokenName)
+
+        if (supportedChains.length === 0) {
+            // do nothing if no chains support the token
+            return
+        }
 
         const chains = [supportedChains[0].name, supportedChains[1].name]
 
