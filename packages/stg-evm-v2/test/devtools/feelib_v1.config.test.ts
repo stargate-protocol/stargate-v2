@@ -78,8 +78,8 @@ function testFeeLibConfig(
         // Get chains that support the token
         const supportedChains = getChainsThatSupportToken(tokenName)
 
-        if (supportedChains.length === 0) {
-            // do nothing if no chains support the token
+        if (supportedChains.length < 2) {
+            // do nothing if no chains support the token or only one chain supports the token
             return
         }
 

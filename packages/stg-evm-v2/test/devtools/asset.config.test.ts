@@ -86,8 +86,8 @@ function testAssetConfig(
         let fromChains: string[] = []
         let toChains: string[] = []
 
-        if (supportedChains.length === 0) {
-            // do nothing if no chains support the token
+        if (supportedChains.length < 1) {
+            // do nothing if no chains support the token or only one chain supports the token
             return
         }
 
