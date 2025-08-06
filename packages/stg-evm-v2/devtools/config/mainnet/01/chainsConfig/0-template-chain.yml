@@ -27,4 +27,3 @@ treasurer: # list of tokens that support the treasurer in the chain
     eth: true
     usdt: true
     usdc: true
-usdc_admin: true # if the chain should configure usdc admin

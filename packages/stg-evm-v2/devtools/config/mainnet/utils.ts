@@ -119,12 +119,6 @@ export function getChainsThatSupportTreasurer(): Chain[] {
     return chainsConfig.filter((chain) => chain.treasurer !== undefined)
 }
 
-export function getChainsThatSupportUsdcAdmins(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
-
-    return chainsConfig.filter((chain) => chain.usdc_admin === true)
-}
-
 export function getChainsThatSupportsUsdtOftByDeployment(isExternal: boolean): Chain[] {
     const supportsOftUsdt = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Oft)
 
