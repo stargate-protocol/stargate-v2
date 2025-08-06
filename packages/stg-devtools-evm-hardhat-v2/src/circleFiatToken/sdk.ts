@@ -1,4 +1,4 @@
-import { IUSDC } from '@stargatefinance/stg-devtools-v2'
+import { ICircleFiatToken } from '@stargatefinance/stg-devtools-v2'
 
 import { AsyncRetriable, OmniAddress, type OmniTransaction, UIntBigIntSchema } from '@layerzerolabs/devtools'
 import { OmniSDK } from '@layerzerolabs/devtools-evm'
@@ -8,7 +8,7 @@ import { BlacklistableMixin } from '../blacklistable'
 import { PausableMixin } from '../pausable'
 import { RescuableMixin } from '../rescuable'
 
-export class USDC extends OmniSDK implements IUSDC {
+export class CircleFiatToken extends OmniSDK implements ICircleFiatToken {
     @AsyncRetriable()
     async getOwner(): Promise<string | undefined> {
         return OwnableMixin.getOwner.call(this)
