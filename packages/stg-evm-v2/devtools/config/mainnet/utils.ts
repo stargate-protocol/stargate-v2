@@ -18,10 +18,6 @@ export function validateChains(chains: string[], supportedChains: string[]) {
     chains.forEach((chain) => {
         if (!isValidChain(chain)) {
             throw new Error(`Invalid chain: ${chain}`)
-        } else {
-            if (!supportedChains.includes(chain)) {
-                throw new Error(`Chain ${chain} is not supported`)
-            }
         }
     })
 }
@@ -121,12 +117,6 @@ export function getChainsThatSupportTreasurer(): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
     return chainsConfig.filter((chain) => chain.treasurer !== undefined)
-}
-
-export function getChainsThatSupportUsdcAdmins(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
-
-    return chainsConfig.filter((chain) => chain.usdc_admin === true)
 }
 
 export function getChainsThatSupportsUsdtOftByDeployment(isExternal: boolean): Chain[] {

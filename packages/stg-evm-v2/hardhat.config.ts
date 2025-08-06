@@ -376,6 +376,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'hedera-mainnet': {
+        eid: EndpointId.HEDERA_V2_MAINNET,
+        url: process.env.RPC_URL_HEDERA_MAINNET || 'https://mainnet.hashio.io/api',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.HEDERA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'hemi-mainnet': {
         eid: EndpointId.HEMI_V2_MAINNET,
         url: process.env.RPC_URL_HEMI_MAINNET || 'https://7e57304f.rpc.hemi.network/rpc',
@@ -495,13 +502,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'plume-mainnet': {
-        eid: EndpointId.PLUME_V2_MAINNET,
-        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'plumephoenix-mainnet': {
         eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
         url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
@@ -511,7 +511,7 @@ const networks: NetworksUserConfig = {
     },
     'polygon-mainnet': {
         eid: EndpointId.POLYGON_V2_MAINNET,
-        url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon-pokt.nodies.app',
+        url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.POLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,

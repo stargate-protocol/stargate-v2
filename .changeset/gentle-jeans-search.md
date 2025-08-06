@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": patch
 ---
 
-Sophon mainnet config
+Hedera chain config

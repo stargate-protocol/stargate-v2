@@ -14,7 +14,6 @@ import {
     getChainsThatSupportToken,
     getChainsThatSupportTokenWithType,
     getChainsThatSupportTreasurer,
-    getChainsThatSupportUsdcAdmins,
     getChainsThatSupportsUsdtOftByDeployment,
     getRewardTokenName,
     getSupportedTokensByEid,
@@ -401,16 +400,6 @@ describe('devtools/utils', () => {
             expect(result.map((r) => r.name)).to.include.members(['ethereum-mainnet', 'hemi-mainnet'])
             expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
         })
-
-        it('should return all chains that support usdc admins', () => {
-            const result = getChainsThatSupportUsdcAdmins()
-            const allChains = getAllChainsConfig()
-
-            expect(result.length).not.to.equal(0)
-            expect(result.length).to.be.lessThan(allChains.length)
-            expect(result.map((r) => r.name)).to.include.members(['lightlink-mainnet', 'klaytn-mainnet'])
-            expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
-        })
     })
 
     describe('validChains', () => {
@@ -443,14 +432,6 @@ describe('devtools/utils', () => {
             const supportedChains = validChains
 
             expect(() => validateChains(invalidChains, validChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
-        })
-
-        it('should throw if a chain is valid but not supported', () => {
-            // define no supported chains
-            const supportedChains: string[] = []
-            expect(() => validateChains(validChains, supportedChains)).to.throw(
-                `Chain ${validChains[0]} is not supported`
-            )
         })
     })
 
