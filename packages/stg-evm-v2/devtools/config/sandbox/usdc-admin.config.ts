@@ -9,7 +9,7 @@ import { getNamedAccount } from '../../../ts-src/utils/util'
 
 import { onBsc, onEth, onPolygon } from './utils'
 
-const getUSDCStargateMultisig = getNamedAccount('usdcAdmin')
+const getUSDCStargateMultisig = getNamedAccount('tokenAdmin')
 
 // USDC Deployment name is the same for all chains
 const contract = { contractName: getCircleFiatTokenProxyDeployName(TokenName.USDC) }
