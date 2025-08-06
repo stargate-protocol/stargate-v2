@@ -91,7 +91,7 @@ const hardhatNamedAccounts: HardhatUserConfig = {
             'polygon-sandbox-local': '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
             default: 2,
         },
-        usdcAdmin: {
+        tokenAdmin: {
             default: 3, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
         },
     },

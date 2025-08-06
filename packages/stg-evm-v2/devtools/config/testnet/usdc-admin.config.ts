@@ -9,7 +9,7 @@ import { getNamedAccount } from '../../../ts-src/utils/util'
 
 import { onKlaytn } from './utils'
 
-const getUSDCStargateMultisig = getNamedAccount('usdcAdmin')
+const getUSDCStargateMultisig = getNamedAccount('tokenAdmin')
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks
