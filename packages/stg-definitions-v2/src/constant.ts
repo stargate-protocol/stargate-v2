@@ -824,7 +824,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ORDERLY_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo deploy
+                address: '0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd',
             },
             [EndpointId.PEAQ_V2_MAINNET]: {
                 type: StargateType.Oft,
