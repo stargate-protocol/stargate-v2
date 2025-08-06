@@ -28,7 +28,7 @@ const action: ActionType<TaskArgs> = async ({ stage }, hre) => {
     const getEnvironment = createGetHreByEid(hre)
     const getProvider = createProviderFactory(getEnvironment)
 
-    const accountNames = ['deployer', 'planner', 'treasurer', 'usdcAdmin']
+    const accountNames = ['deployer', 'planner', 'treasurer', 'tokenAdmin']
 
     const infos = await Promise.all(
         accountNames.map(async (accountName) => {

@@ -11,7 +11,7 @@ import { createGetAssetAddresses, getAssetNetworkConfig, getNamedAccount } from 
 
 import { onKlaytn, onOdyssey } from './utils'
 
-const getStargateMultisig = getNamedAccount('usdcAdmin')
+const getStargateMultisig = getNamedAccount('tokenAdmin')
 
 // Except for external deployments
 
