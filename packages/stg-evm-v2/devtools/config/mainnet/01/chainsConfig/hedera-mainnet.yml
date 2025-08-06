@@ -1,10 +1,10 @@
-name: xchain-mainnet
-eid: XCHAIN_V2_MAINNET
+name: hedera-mainnet
+eid: HEDERA_V2_MAINNET
 token_messaging: true
 credit_messaging: true
 tokens:
-  usdc:
+  eth:
     type: oft
 treasurer:
   tokens:
-    usdc: true
+    eth: true
