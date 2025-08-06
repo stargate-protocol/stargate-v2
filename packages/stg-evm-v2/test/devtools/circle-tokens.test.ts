@@ -25,7 +25,7 @@ type SignerRole = (typeof roles)[number]
 type Signers = Record<SignerRole, SignerWithAddress>
 
 describe('USDC/sdk', () => {
-    describe('USDC/sdk', async () => {
+    describe('USDC/sdk', () => {
         testCircleFiatTokenSDK('USDC', 'USDC.e', 18, 'USD')
     })
 
