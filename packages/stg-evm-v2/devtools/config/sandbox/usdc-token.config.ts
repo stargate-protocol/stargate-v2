@@ -10,7 +10,7 @@ import { createGetAssetAddresses, getNamedAccount } from '../../../ts-src/utils/
 import { OFFCHAIN_MINTER } from './constants'
 import { onBsc, onEth, onPolygon } from './utils'
 
-const getStargateMultisig = getNamedAccount('usdcAdmin')
+const getStargateMultisig = getNamedAccount('tokenAdmin')
 
 // USDC Deployment name is the same for all chains
 const contract = { contractName: getCircleFiatTokenProxyDeployName(TokenName.USDC) }
