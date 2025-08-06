@@ -747,7 +747,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.EDU_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo deploy
+                address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
