@@ -2,3 +2,7 @@ artifacts
 deployments
 dist
 src/errors.json
+src/*/typechain/
+src/generated-configs/
+
+.env
