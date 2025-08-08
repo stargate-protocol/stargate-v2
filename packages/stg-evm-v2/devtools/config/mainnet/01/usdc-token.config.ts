@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../../utils'
+import { getContractWithEid, getOneSigAddress } from '../../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
@@ -36,7 +36,7 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                 usdcProxyAddress = await contractFactory(getContractWithEid(chain.eid, proxyContract))
             }
 
-            const stargateMultisig = getSafeAddress(chain.eid)
+            const stargateOneSig = getOneSigAddress(chain.eid)
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
             return {
                 contract: getContractWithEid(chain.eid, {
@@ -44,11 +44,11 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                     address: usdcProxyAddress.contract.address,
                 }),
                 config: {
-                    owner: stargateMultisig,
-                    masterMinter: stargateMultisig,
-                    pauser: stargateMultisig,
-                    rescuer: stargateMultisig,
-                    blacklister: stargateMultisig,
+                    owner: stargateOneSig,
+                    masterMinter: stargateOneSig,
+                    pauser: stargateOneSig,
+                    rescuer: stargateOneSig,
+                    blacklister: stargateOneSig,
                     minters: {
                         [assetAddresses[tokenName]]: 2n ** 256n - 1n,
                     },
