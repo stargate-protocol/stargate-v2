@@ -5,7 +5,7 @@ import hre from 'hardhat'
 
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import creditMessagingConfig from '../../devtools/config/mainnet/01/credit-messaging.config'
-import { filterConnections, generateCreditMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
+import { filterConnections, generateCreditMessagingConfig, getOneSigAddress } from '../../devtools/config/utils'
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
@@ -148,9 +148,9 @@ describe('creditMessaging.config', () => {
 
         // Check that each contract has the correct safe address
         for (const contract of config.contracts) {
-            const safeAddress = getSafeAddress(contract.contract.eid)
-            expect(contract.config.owner).to.equal(safeAddress)
-            expect(contract.config.delegate).to.equal(safeAddress)
+            const oneSigAddress = getOneSigAddress(contract.contract.eid)
+            expect(contract.config.owner).to.equal(oneSigAddress)
+            expect(contract.config.delegate).to.equal(oneSigAddress)
         }
     })
 

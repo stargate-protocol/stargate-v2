@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import hre from 'hardhat'
 
 import rewarderConfig from '../../devtools/config/mainnet/01/rewarder.config'
-import { getSafeAddress } from '../../devtools/config/utils'
+import { getOneSigAddress } from '../../devtools/config/utils'
 import { getAllSupportedChains, getChainsThatSupportRewarder } from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
@@ -89,8 +89,8 @@ describe('rewarder.config', () => {
 
         // Check that each contract has the correct safe address
         for (const contract of config.contracts) {
-            const safeAddress = getSafeAddress(contract.contract.eid)
-            expect(contract.config.owner).to.equal(safeAddress)
+            const oneSigAddress = getOneSigAddress(contract.contract.eid)
+            expect(contract.config.owner).to.equal(oneSigAddress)
         }
     })
 
