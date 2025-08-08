@@ -5,7 +5,7 @@ import hre from 'hardhat'
 
 import treasurerConfig from '../../devtools/config/mainnet/01/treasurer.config'
 import { getAllSupportedChains, getChainsThatSupportTreasurer } from '../../devtools/config/mainnet/utils'
-import { getSafeAddress } from '../../devtools/config/utils'
+import { getOneSigAddress } from '../../devtools/config/utils'
 
 describe('treasurer.config', () => {
     let originalEnv: NodeJS.ProcessEnv
@@ -87,9 +87,9 @@ describe('treasurer.config', () => {
 
         // Check that each contract has the correct safe address
         for (const contract of config.contracts) {
-            const safeAddress = getSafeAddress(contract.contract.eid)
-            expect(contract.config.owner).to.equal(safeAddress)
-            expect(contract.config.admin).to.equal(safeAddress)
+            const oneSigAddress = getOneSigAddress(contract.contract.eid)
+            expect(contract.config.owner).to.equal(oneSigAddress)
+            expect(contract.config.admin).to.equal(oneSigAddress)
         }
     })
 
