@@ -13,7 +13,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { filterConnections, getContractWithEid, getSafeAddress } from '../utils'
+import { filterConnections, getContractWithEid, getOneSigAddress } from '../utils'
 
 import { getAssetsConfig } from './shared'
 import {
@@ -72,8 +72,8 @@ export default async function buildMessagingGraph(
             contract,
             config: {
                 // Only set owner for mainnet
-                ...(stage === Stage.MAINNET ? { owner: getSafeAddress(contract.eid) } : {}),
-                ...(stage === Stage.MAINNET ? { delegate: getSafeAddress(contract.eid) } : {}),
+                ...(stage === Stage.MAINNET ? { owner: getOneSigAddress(contract.eid) } : {}),
+                ...(stage === Stage.MAINNET ? { delegate: getOneSigAddress(contract.eid) } : {}),
                 planner: defaultPlanner,
                 assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },
