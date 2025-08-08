@@ -1,4 +1,3 @@
-// import * as hre from 'hardhat'
 import { existsSync, readFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 
@@ -83,10 +82,7 @@ async function getPendingTXs(oappConfig: string) {
     printTable(pendingTXs)
 
     // 3- Print errors if any while getting the one sig configuration
-    if (errors.length > 0) {
-        printErrors(errors)
-        // process.exit(1)
-    }
+    printErrors(errors)
 
     // todo should add checks for ensuring all current multisig owners are one sig owners, to check the threshold and/or total signers?
 
@@ -124,17 +120,17 @@ async function getOneSigConfiguration(
     signers: string[]
     threshold: number
     totalSigners: number
-    error?: string
+    error: string | undefined
 }> {
     const newAddress = _getNewAddress(tx.data)
     // Read-only call to fetch new one sig configuration
-    const hre = await getHre(tx.point.eid)
+    const hre = (await getHre(tx.point.eid)) as any
     const abi = [
         'function getSigners() view returns (address[])',
         'function threshold() view returns (uint256)',
         'function totalSigners() view returns (uint256)',
     ]
-    const contract = new (hre as any).ethers.Contract(newAddress, abi, (hre as any).ethers.provider)
+    const contract = new hre.ethers.Contract(newAddress, abi, hre.ethers.provider)
     let signers: string[] = []
     let threshold = 0
     let totalSigners = 0
@@ -172,12 +168,12 @@ function _getNewAddress(data: string): string {
 }
 
 async function _getCurrentMultisigOwner(tx: OmniTransaction): Promise<string> {
-    const hre = await getHre(tx.point.eid)
+    const hre = (await getHre(tx.point.eid)) as any
 
     const contractAddress = tx.point.address
 
     const abi = ['function owner() view returns (address)']
-    const contract = new (hre as any).ethers.Contract(contractAddress, abi, (hre as any).ethers.provider)
+    const contract = new hre.ethers.Contract(contractAddress, abi, hre.ethers.provider)
     return await contract.owner()
 }
 
