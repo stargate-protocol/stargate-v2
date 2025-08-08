@@ -3,6 +3,7 @@ import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
+    OnesigConfig,
     SafeConfig,
     StargateType,
     TokenMessagingNetworkConfig,
@@ -200,6 +201,53 @@ export const getSafeAddressMaybe = (eid: EndpointId): string | undefined => getS
  * @returns {string}
  */
 export const getSafeAddress = (eid: EndpointId): string => getSafeConfig(eid).safeAddress
+
+/**
+ * Returns the oneSig config for a particular network.
+ *
+ * If oneSig is not configured, will return `undefined`.
+ * If network is not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {SafeConfig | undefined}
+ */
+export const getOneSigConfigMaybe = (eid: EndpointId): OnesigConfig | undefined => getNetworkConfig(eid).onesigConfig
+
+/**
+ * Returns the oneSig config for a particular network.
+ *
+ * If oneSig or network are not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {SafeConfig}
+ */
+export const getOneSigConfig = (eid: EndpointId): OnesigConfig => {
+    const onesigConfig = getOneSigConfigMaybe(eid)
+
+    return assert(onesigConfig != null, `Missing onesig config for ${formatEid(eid)}`), onesigConfig
+}
+
+/**
+ * Returns the oneSig address configured for a particular network.
+ *
+ * If oneSig is not configured, will return `undefined`.
+ * If network is not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {string | undefined}
+ */
+export const getOneSigAddressMaybe = (eid: EndpointId): string | undefined => getOneSigConfigMaybe(eid)?.onesigAddress
+
+/**
+ * Returns the oneSig address configured for a particular network.
+ *
+ * If oneSig is not configured, will return `undefined`.
+ * If network is not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {string | undefined}
+ */
+export const getOneSigAddress = (eid: EndpointId): string => getOneSigConfig(eid).onesigAddress
 
 /**
  * Tiny helper around non-null assert
