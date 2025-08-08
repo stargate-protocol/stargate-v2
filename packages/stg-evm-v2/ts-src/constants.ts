@@ -10,6 +10,7 @@ export const CONTRACT_TREASURER_TAGS = ['treasurer']
 export const CONTRACT_STAKING_TAGS = ['staking']
 export const CONTRACT_STARGATE_TAGS = ['stargate']
 export const CONTRACT_USDC_TAGS = ['usdc']
+export const CONTRACT_EURC_TAGS = ['eurc']
 export const CONTRACT_USDT_TAGS = ['usdt']
 export const CONTRACT_OFT_WRAPPER_TAGS = ['oft-wrapper']
 
