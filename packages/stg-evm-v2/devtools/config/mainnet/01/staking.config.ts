@@ -9,7 +9,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getContractWithEid, getSafeAddress } from '../../utils'
+import { getContractWithEid, getOneSigAddress } from '../../utils'
 import { filterValidProvidedChains, getChainsThatSupportStaking, getTokenName } from '../utils'
 
 import { getLPTokenAddress } from './shared'
@@ -46,7 +46,7 @@ export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => 
             return {
                 contract: getContractWithEid(chain.eid, staking),
                 config: {
-                    owner: getSafeAddress(chain.eid),
+                    owner: getOneSigAddress(chain.eid),
                     pools,
                 },
             }

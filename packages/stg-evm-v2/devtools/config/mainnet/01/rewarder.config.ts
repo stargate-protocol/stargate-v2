@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../../utils'
+import { getContractWithEid, getOneSigAddress } from '../../utils'
 import { filterValidProvidedChains, getChainsThatSupportRewarder, getRewardTokenName, getTokenName } from '../utils'
 
 import { getLPTokenAddress } from './shared'
@@ -52,7 +52,7 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
             return {
                 contract: getContractWithEid(chain.eid, contract),
                 config: {
-                    owner: getSafeAddress(chain.eid),
+                    owner: getOneSigAddress(chain.eid),
                     allocations: allocations,
                 },
             }
