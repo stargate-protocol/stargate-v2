@@ -86,11 +86,16 @@ export interface SafeConfig {
     contractNetworks?: ContractNetworksConfig
 }
 
+export interface OnesigConfig {
+    onesigAddress: string
+}
+
 export interface NetworkConfig {
     permitAddress?: string
     creditMessaging?: CreditMessagingNetworkConfig
     tokenMessaging?: TokenMessagingNetworkConfig
     safeConfig?: SafeConfig
+    onesigConfig?: OnesigConfig
 }
 
 export interface CreditMessagingNetworkConfig {
