@@ -1,4 +1,7 @@
 // import * as hre from 'hardhat'
+import { existsSync, readFileSync, readdirSync } from 'fs'
+import { join } from 'path'
+
 import { run } from 'hardhat'
 
 import { type OmniTransaction, type SignAndSendResult } from '@layerzerolabs/devtools'
@@ -15,6 +18,7 @@ const getHre = createGetHreByEid()
 
 interface PendingTX {
     networkName: string
+    contractName: string
     contractAddress: string
     currentMultisigOwner: string
     newOneSigOwner: string
@@ -29,6 +33,8 @@ async function main(): Promise<void> {
     const oappConfigs = [
         './devtools/config/mainnet/01/oft-wrapper.config.ts',
         './devtools/config/mainnet/01/token-messaging.config.ts',
+        './devtools/config/mainnet/01/usdc-token.config.ts',
+        './devtools/config/mainnet/01/asset.eth.config.ts',
         // todo add all configs here
     ]
 
@@ -59,8 +65,11 @@ async function getPendingTXs(oappConfig: string) {
     for (const tx of transactions) {
         const networkName = getNetworkNameForEid(tx.point.eid)
         const oneSigConfiguration = await getOneSigConfiguration(tx, networkName)
+        // get the contract name
+        const contractName = await _getContractNameForAddress(networkName, tx.point.address)
         pendingTXs.push({
             networkName: networkName,
+            contractName: contractName,
             contractAddress: tx.point.address,
             currentMultisigOwner: await _getCurrentMultisigOwner(tx),
             newOneSigOwner: _getNewAddress(tx.data),
@@ -191,6 +200,7 @@ function printErrors(errors: string[]) {
 function printTable(pendingTXs: PendingTX[]) {
     const rows = pendingTXs.map((x) => ({
         networkName: x.networkName,
+        contractName: x.contractName,
         contractAddress: x.contractAddress,
         currentMultisigOwner: x.currentMultisigOwner,
         newOneSigOwner: x.newOneSigOwner,
@@ -199,4 +209,30 @@ function printTable(pendingTXs: PendingTX[]) {
         oneSigSigners: x.oneSigConfiguration.signers.join(','),
     }))
     console.table(rows)
+}
+
+async function _getContractNameForAddress(networkName: string, address: string): Promise<string> {
+    try {
+        const deploymentsDir = join(__dirname, '..', 'deployments', networkName)
+        if (!existsSync(deploymentsDir)) return ''
+
+        const files = readdirSync(deploymentsDir).filter((f) => f.endsWith('.json'))
+        const normalizedTarget = address.toLowerCase()
+
+        for (const file of files) {
+            try {
+                const filePath = join(deploymentsDir, file)
+                const json = JSON.parse(readFileSync(filePath, 'utf8')) as { address?: string }
+                const deployedAddress = json.address?.toLowerCase()
+                if (deployedAddress && deployedAddress === normalizedTarget) {
+                    return file.replace(/\.json$/, '')
+                }
+            } catch {
+                // Ignore parse errors and continue searching
+            }
+        }
+    } catch {
+        // fallthrough
+    }
+    return ''
 }
