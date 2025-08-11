@@ -34,7 +34,7 @@ async function main(): Promise<void> {
         './devtools/config/mainnet/01/token-messaging.config.ts',
         './devtools/config/mainnet/01/usdc-token.config.ts',
         './devtools/config/mainnet/01/asset.eth.config.ts',
-        // todo add all configs here
+        // Add additional configs to this list as needed.
     ]
 
     for (const config of oappConfigs) {
