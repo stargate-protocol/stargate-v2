@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.22;
 
-import { IBridgedUSDCMinter } from "../interfaces/IBridgedUSDCMinter.sol";
+import { IBridgedEURCMinter } from "../interfaces/IBridgedEURCMinter.sol";
 import { StargatePool } from "../StargatePool.sol";
 
 /**
@@ -45,7 +45,7 @@ contract StargatePoolEURC is StargatePool {
         poolBalanceSD -= burnAllowanceSD;
         burnAllowanceSD = 0;
 
-        IBridgedUSDCMinter(token).burn(_sd2ld(previousBurnAllowanceSD));
+        IBridgedEURCMinter(token).burn(_sd2ld(previousBurnAllowanceSD));
         paths[localEid].burnCredit(previousBurnAllowanceSD);
     }
 }
