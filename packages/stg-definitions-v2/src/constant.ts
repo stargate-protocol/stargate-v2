@@ -1,4 +1,4 @@
-import { parseEther } from '@ethersproject/units'
+import { parseEther, parseUnits } from '@ethersproject/units'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
@@ -1903,7 +1903,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET], DVNS.STG[EndpointId.HEDERA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.5').toBigInt(),
+            nativeDropAmount: parseUnits('0.5', 8).toBigInt(),
         },
         safeConfig: {
             safeAddress: '0xc2cf2825Eb027D8EE8Feb3003d19c466887d9cD4',
