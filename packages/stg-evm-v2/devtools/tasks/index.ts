@@ -74,7 +74,7 @@ import {
 } from '@stargatefinance/stg-devtools-v2'
 import { subtask, task } from 'hardhat/config'
 
-import { createConnectedContractFactory, inheritTask } from '@layerzerolabs/devtools-evm-hardhat'
+import { createConnectedContractFactory, inheritTask, types } from '@layerzerolabs/devtools-evm-hardhat'
 import {
     SUBTASK_LZ_OAPP_CONFIG_LOAD,
     SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
@@ -612,10 +612,22 @@ interface ConfigFile {
 
 task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
     .addFlag('genJson', 'Generate also each config as a json file')
+    .addParam('stage', 'Chain stage. One of: mainnet, testnet, sandbox', undefined, types.stage, true)
     .setAction(async (args, hre) => {
-        const directoryPath: string = path.join(__dirname, '..', 'config', 'mainnet', '01')
-        const directoryPathJson: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'json')
-        const directoryPathJsonHashes: string = path.join(__dirname, '..', 'config', 'mainnet', '01', 'hashes')
+        let chainsConfigPath: string
+        if (args.stage === 'mainnet') {
+            chainsConfigPath = path.join(__dirname, '..', 'config', 'mainnet', '01')
+        } else if (args.stage === 'testnet') {
+            chainsConfigPath = path.join(__dirname, '..', 'config', 'testnet')
+        } else if (args.stage === 'sandbox') {
+            chainsConfigPath = path.join(__dirname, '..', 'config', 'sandbox')
+        } else {
+            throw new Error('Invalid stage')
+        }
+
+        const directoryPath: string = chainsConfigPath
+        const directoryPathJson: string = path.join(chainsConfigPath, 'json')
+        const directoryPathJsonHashes: string = path.join(chainsConfigPath, 'hashes')
         try {
             // Read all files in the directory
             const files = fs.readdirSync(directoryPath)
