@@ -12,7 +12,7 @@ import {
     createGetHreByEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { filterConnections, getContractWithEid, getSafeAddress } from '../../utils'
+import { filterConnections, getContractWithEid, getOneSigAddress } from '../../utils'
 import { filterFromAndToChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -66,8 +66,8 @@ export default async function buildMessagingGraph(
         allContracts.map(async (contract) => ({
             contract,
             config: {
-                owner: getSafeAddress(contract.eid),
-                delegate: getSafeAddress(contract.eid),
+                owner: getOneSigAddress(contract.eid),
+                delegate: getOneSigAddress(contract.eid),
                 planner: DEFAULT_PLANNER,
                 assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },

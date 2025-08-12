@@ -10,7 +10,7 @@ import {
     getChainsThatSupportMessaging,
     getSupportedTokensByEid,
 } from '../../devtools/config/mainnet/utils'
-import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
+import { filterConnections, generateTokenMessagingConfig, getOneSigAddress } from '../../devtools/config/utils'
 
 import { setupConfigTestEnvironment } from './utils'
 
@@ -148,9 +148,9 @@ describe('tokenMessaging.config', () => {
 
         // Check that each contract has the correct safe address
         for (const contract of config.contracts) {
-            const safeAddress = getSafeAddress(contract.contract.eid)
-            expect(contract.config.owner).to.equal(safeAddress)
-            expect(contract.config.delegate).to.equal(safeAddress)
+            const oneSigAddress = getOneSigAddress(contract.contract.eid)
+            expect(contract.config.owner).to.equal(oneSigAddress)
+            expect(contract.config.delegate).to.equal(oneSigAddress)
         }
     })
 

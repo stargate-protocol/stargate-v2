@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../../utils'
+import { getContractWithEid, getOneSigAddress } from '../../utils'
 import { filterValidProvidedChains, getChainsThatSupportTreasurer, getTokenName } from '../utils'
 
 const contract = { contractName: 'Treasurer' }
@@ -37,8 +37,8 @@ export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>>
             return {
                 contract: getContractWithEid(chain.eid, contract),
                 config: {
-                    owner: getSafeAddress(chain.eid),
-                    admin: getSafeAddress(chain.eid),
+                    owner: getOneSigAddress(chain.eid),
+                    admin: getOneSigAddress(chain.eid),
                     assets,
                 },
             }

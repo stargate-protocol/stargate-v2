@@ -2,7 +2,7 @@ import { OFTWrapperNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { getContractWithEid, getSafeAddress } from '../../utils'
+import { getContractWithEid, getOneSigAddress } from '../../utils'
 import { filterValidProvidedChains, getAllChainsConfig } from '../utils'
 
 const contract = { contractName: 'OFTWrapper' }
@@ -18,7 +18,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
         return {
             contract: oftWrapper,
             config: {
-                owner: getSafeAddress(chain.eid),
+                owner: getOneSigAddress(chain.eid),
             },
         }
     })
