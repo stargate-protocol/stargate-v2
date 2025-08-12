@@ -6,13 +6,17 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../utils'
+import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
 const fiatContract = { contractName: 'FiatTokenV2_2' }
 const tokenName = TokenName.USDC
 
 export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)

@@ -10,7 +10,8 @@ import {
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportStaking, getTokenName } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportStaking, getTokenName } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
@@ -18,6 +19,9 @@ const rewarder = { contractName: 'StargateMultiRewarder' }
 const staking = { contractName: 'StargateStaking' }
 
 export default async (): Promise<OmniGraphHardhat<StakingNodeConfig, never>> => {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     const getEnvironment = createGetHreByEid()
     const contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment))
 

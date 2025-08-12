@@ -5,13 +5,17 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import { getContractWithEid } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportToken } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportToken } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
 export default async function buildFeeLibV1DeploymentGraph(
     tokenName: TokenName
 ): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1EdgeConfig>> {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     const contract = { contractName: getFeeLibV1DeployName(tokenName) }
 
     // only use the chains defined in the env variable if it is set

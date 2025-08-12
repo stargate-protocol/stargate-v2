@@ -5,13 +5,17 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getContractWithEid } from '../../utils'
-import { getChainsThatSupportsUsdtOftByDeployment } from '../utils'
+import { getChainsThatSupportsUsdtOftByDeployment } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
 const tokenName = TokenName.USDT
 
 export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> => {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)

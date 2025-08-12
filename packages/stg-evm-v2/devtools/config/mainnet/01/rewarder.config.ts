@@ -6,13 +6,22 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportRewarder, getRewardTokenName, getTokenName } from '../utils'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportRewarder,
+    getRewardTokenName,
+    getTokenName,
+} from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 
 const contract = { contractName: 'StargateMultiRewarder' }
 
 export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> => {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
 

@@ -6,11 +6,15 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportTreasurer, getTokenName } from '../utils'
+import { filterValidProvidedChains, getChainsThatSupportTreasurer, getTokenName } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 const contract = { contractName: 'Treasurer' }
 
 export default async (): Promise<OmniGraphHardhat<TreasurerNodeConfig, unknown>> => {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
 

@@ -13,7 +13,8 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, getContractWithEid, getSafeAddress } from '../../utils'
-import { filterFromAndToChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
+import { filterFromAndToChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 import { getAssetsConfig } from './shared'
@@ -30,6 +31,9 @@ export default async function buildMessagingGraph(
         TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
     >
 > {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 

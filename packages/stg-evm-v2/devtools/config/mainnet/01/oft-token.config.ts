@@ -6,10 +6,14 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportTokenWithType, getChainsThatSupportsUsdtOftByDeployment } from '../utils'
+import { getChainsThatSupportTokenWithType, getChainsThatSupportsUsdtOftByDeployment } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 // Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployments
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)

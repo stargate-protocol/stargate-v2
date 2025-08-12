@@ -5,13 +5,17 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { filterConnections, generateAssetConfig } from '../../utils'
-import { filterFromAndToChains, getChainsThatSupportToken } from '../utils'
+import { filterFromAndToChains, getChainsThatSupportToken } from '../../utils.config'
+import { setMainnetStage } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
 
 export default async function buildAssetDeploymentGraph(
     tokenName: TokenName
 ): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> {
+    // Set the stage to mainnet
+    setMainnetStage()
+
     const getAssetPoint = createGetAssetOmniPoint(tokenName)
     const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: DEFAULT_PLANNER })
 
