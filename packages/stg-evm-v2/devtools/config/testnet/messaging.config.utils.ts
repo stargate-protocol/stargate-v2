@@ -13,10 +13,15 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { filterConnections, getContractWithEid } from '../utils'
-import { filterFromAndToChains, getChainsThatSupportMessaging, printChains } from '../utils.config'
+import {
+    filterFromAndToChains,
+    getChainsThatSupportMessaging,
+    getSupportedTokensByEid,
+    printChains,
+} from '../utils.config'
 
 import { DEFAULT_PLANNER } from './constants'
-import { getMessagingAssetConfig } from './shared' // todo
+import { getMessagingAssetConfig } from './shared'
 import { setTestnetStage } from './utils'
 
 export default async function buildMessagingGraph(
@@ -60,13 +65,16 @@ export default async function buildMessagingGraph(
 
     const getEnvironment = createGetHreByEid()
 
-    const assetConfigs = await getMessagingAssetConfig(getEnvironment)
     const contracts = await Promise.all(
         allContracts.map(async (contract) => ({
             contract,
             config: {
                 planner: DEFAULT_PLANNER,
-                assets: assetConfigs[contract.eid as keyof typeof assetConfigs],
+                assets: await getMessagingAssetConfig(
+                    getEnvironment,
+                    contract.eid,
+                    getSupportedTokensByEid(contract.eid)
+                ),
             },
         }))
     )
