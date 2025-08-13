@@ -1,7 +1,8 @@
 import { withEid } from '@layerzerolabs/devtools'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
+import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
 import { getContractsInChain, setsDifference } from '../utils'
+import { setStage } from '../utils.config'
 
 export const onEth = withEid(EndpointId.SEPOLIA_V2_TESTNET)
 export const onBsc = withEid(EndpointId.BSC_V2_TESTNET)
@@ -51,4 +52,8 @@ export function isValidChain(chain: string): boolean {
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
     return getContractsInChain(chains, contract, isValidChain, chainEids)
+}
+
+export function setTestnetStage() {
+    setStage(Stage.TESTNET)
 }
