@@ -75,6 +75,7 @@ import {
 import { subtask, task } from 'hardhat/config'
 
 import { createConnectedContractFactory, inheritTask, types } from '@layerzerolabs/devtools-evm-hardhat'
+import { createLogger } from '@layerzerolabs/lz-utilities'
 import {
     SUBTASK_LZ_OAPP_CONFIG_LOAD,
     SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
@@ -625,6 +626,9 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
             throw new Error('Invalid stage')
         }
 
+        const logger = createLogger(process.env.LOG_LEVEL || 'info')
+        logger.info(`Getting config info for ${args.stage} stage`)
+
         const directoryPath: string = chainsConfigPath
         const directoryPathJson: string = path.join(chainsConfigPath, 'json')
         const directoryPathJsonHashes: string = path.join(chainsConfigPath, 'hashes')
@@ -715,6 +719,7 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
                     }
                 })
             )
+            if (args.genJson) logger.info(`Wrote config for ${args.stage} stage to ${directoryPathJson}`)
 
             // create folder if it doesn't exist
             if (!fs.existsSync(directoryPathJsonHashes)) {
@@ -725,9 +730,10 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
                 path.join(directoryPathJsonHashes, 'hashes.json'),
                 JSON.stringify(output, null, 2)
             )
+            logger.info(`Wrote hashes for ${args.stage} stage to ${directoryPathJsonHashes}/hashes.json`)
             return output
         } catch (error) {
-            console.error('Error reading directory:', error)
+            logger.error('Error reading directory:', error)
             return []
         }
     })

@@ -5,7 +5,7 @@ import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
 import { filterConnections, generateAssetConfig } from '../../utils'
-import { filterFromAndToChains, getChainsThatSupportToken } from '../../utils.config'
+import { filterFromAndToChains, getChainsThatSupportToken, printChains } from '../../utils.config'
 import { setMainnetStage } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -30,14 +30,8 @@ export default async function buildAssetDeploymentGraph(
     // Get valid chains config for the chains in the fromChains and toChains
     const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
 
-    console.log(
-        `asset.${tokenName} FROM_CHAINS:`,
-        validFromChains.map((chain) => chain.name)
-    )
-    console.log(
-        `asset.${tokenName} TO_CHAINS:`,
-        validToChains.map((chain) => chain.name)
-    )
+    printChains(`asset.${tokenName} FROM_CHAINS:`, validFromChains)
+    printChains(`asset.${tokenName} TO_CHAINS:`, validToChains)
 
     // Now we define all the contracts (from the valid chains set)
     const fromPoints = Array.from(validFromChains).map((chain) => getAssetPoint(chain.eid))

@@ -4,7 +4,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { generateTokenMessagingConfig } from '../../utils'
 
-import buildMessagingGraph from './messaging.config.helper'
+import buildMessagingGraph from './messaging.config.utils'
 
 const contract = { contractName: 'TokenMessaging' }
 

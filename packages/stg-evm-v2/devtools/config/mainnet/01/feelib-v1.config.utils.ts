@@ -5,7 +5,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getFeeLibV1DeployName } from '../../../../ops/util'
 import { getContractWithEid } from '../../utils'
-import { filterValidProvidedChains, getChainsThatSupportToken } from '../../utils.config'
+import { filterValidProvidedChains, getChainsThatSupportToken, printChains } from '../../utils.config'
 import { setMainnetStage } from '../utils'
 
 import { DEFAULT_PLANNER } from './constants'
@@ -27,6 +27,8 @@ export default async function buildFeeLibV1DeploymentGraph(
 
     // get valid chains config in the chainsList
     const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportToken(tokenName))
+
+    printChains(`feelib_v1.${tokenName} CHAINS_LIST:`, validChains)
 
     const contracts = Array.from(validChains).map((chain) => {
         return {

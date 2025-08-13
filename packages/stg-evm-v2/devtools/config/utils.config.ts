@@ -4,6 +4,7 @@ import * as path from 'path'
 import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
+import { createLogger } from '@layerzerolabs/lz-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
 
@@ -179,6 +180,35 @@ export function getTokenName(token: string): TokenName {
         throw new Error(`Token ${token} not found`)
     }
     return name
+}
+
+export function printChains(message: string, chains: Chain[]): void {
+    // get the logger level from the env variable
+    const loggerLevel = process.env.LOG_LEVEL || 'info'
+    const logger = createLogger(loggerLevel)
+
+    const names = chains.map((c) => c.name)
+    const total = names.length
+
+    if (!total) {
+        logger.debug(`${message} (0): \n\n`)
+        return
+    }
+
+    const columnWidth = Math.max(...names.map((n) => n.length)) + 2
+    const terminalWidth = process?.stdout?.columns || 120
+    const columns = Math.max(1, Math.floor(terminalWidth / columnWidth))
+    const rows = Math.ceil(total / columns)
+
+    const lines = Array.from({ length: rows }, (_, row) =>
+        Array.from({ length: columns }, (_, col) => {
+            const i = row + col * rows
+            return i < total ? names[i].padEnd(columnWidth, ' ') : ''
+        })
+            .join('')
+            .trimEnd()
+    )
+    logger.debug(`${message} (${total}):\n${lines.join('\n')} \n\n`)
 }
 
 function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
