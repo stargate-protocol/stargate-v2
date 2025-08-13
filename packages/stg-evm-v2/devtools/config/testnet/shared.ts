@@ -4,7 +4,7 @@ import { MessagingAssetConfig } from '@stargatefinance/stg-devtools-v2'
 import { createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetAddresses } from '../../../ts-src/utils/util'
+import { createGetAssetAddresses, createGetLPTokenAddresses } from '../../../ts-src/utils/util'
 
 export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid()) => {
     const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
@@ -53,4 +53,12 @@ export const getMessagingAssetConfig = async (getEnvironment = createGetHreByEid
             [odysseyAssetAddresses.USDT]: ASSETS[TokenName.USDT].assetId,
         },
     } satisfies Partial<Record<EndpointId, MessagingAssetConfig>>
+}
+
+export const getLPTokenAddress = async (
+    getEnvironment = createGetHreByEid(),
+    eid: EndpointId,
+    tokenName: TokenName
+) => {
+    return (await createGetLPTokenAddresses(getEnvironment)(eid, [tokenName] as const))[tokenName]
 }

@@ -1,131 +1,74 @@
-import { RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { RewarderNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createGetLPTokenAddresses, createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
+import { createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
+import { getContractWithEid } from '../utils'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportRewarder,
+    getRewardTokenName,
+    getTokenName,
+} from '../utils.config'
 
-import { onArb, onAvalanche, onBsc, onEth, onMantle, onMonad, onOpt } from './utils'
+import { getLPTokenAddress } from './shared'
+import { setTestnetStage } from './utils'
 
 const contract = { contractName: 'StargateMultiRewarder' }
 
 export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> => {
+    // Set the stage to testnet
+    setTestnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
 
-    const rewardTokens = [RewardTokenName.MOCK_A] as const
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+
+    // get valid chains config in the chainsList
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder())
+
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
-    const ethRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.SEPOLIA_V2_TESTNET, rewardTokens)
-    const bscRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.BSC_V2_TESTNET, rewardTokens)
-    const optRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, rewardTokens)
-    const arbRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, rewardTokens)
-    const avalancheRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.AVALANCHE_V2_TESTNET, rewardTokens)
-    const mantleRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, rewardTokens)
-    const monadRewardTokenAddresses = await getRewardTokenAddresses(EndpointId.MONAD_V2_TESTNET, rewardTokens)
 
-    const allAssets = [TokenName.USDT, TokenName.USDC, TokenName.ETH] as const
-    const getLPTokenAddresses = createGetLPTokenAddresses(getEnvironment)
-    const ethLPTokenAddresses = await getLPTokenAddresses(EndpointId.SEPOLIA_V2_TESTNET, allAssets)
-    const bscLPTokenAddresses = await getLPTokenAddresses(EndpointId.BSC_V2_TESTNET, [TokenName.USDT] as const)
-    const optLPTokenAddresses = await getLPTokenAddresses(EndpointId.OPTSEP_V2_TESTNET, allAssets)
-    const arbLPTokenAddresses = await getLPTokenAddresses(EndpointId.ARBSEP_V2_TESTNET, allAssets)
-    const avalancheLPTokenAddresses = await getLPTokenAddresses(EndpointId.AVALANCHE_V2_TESTNET, [
-        TokenName.USDT,
-    ] as const)
-    const mantleLPTokenAddresses = await getLPTokenAddresses(EndpointId.MANTLESEP_V2_TESTNET, allAssets)
-    const monadLPTokenAddresses = await getLPTokenAddresses(EndpointId.MONAD_V2_TESTNET, allAssets)
+    const contracts = await Promise.all(
+        validChains.map(async (chain) => {
+            // build the allocations object
+            const allocations = await Promise.all(
+                Object.entries(chain.rewarder?.tokens ?? {}).map(async ([token, allocations]) => {
+                    const rewardTokenName = getRewardTokenName(token)
 
-    // 1e18 reward per second
-    const DEFAULT_REWARDS_CONFIG = {
-        amount: BigInt(2419200000000000000000000000n),
-        start: Date.now() + 100, // add 100 so start is in the future
-        duration: 2419200000, // 28 days in seconds
-    }
+                    // build each token allocation object
+                    const allocationsPerToken = await Promise.all(
+                        Object.entries(allocations.allocation).map(async ([lpToken, amount]) => {
+                            const lpTokenAddress = await getLPTokenAddress(
+                                getEnvironment,
+                                chain.eid as EndpointId,
+                                getTokenName(lpToken) as TokenName
+                            )
+                            return { [lpTokenAddress]: amount }
+                        })
+                    ).then((results) => Object.assign({}, ...results))
+
+                    const rewardTokenAddress = await getRewardTokenAddresses(chain.eid, [rewardTokenName])
+                    return {
+                        [rewardTokenAddress[rewardTokenName]]: allocationsPerToken,
+                    }
+                })
+            ).then((results) => Object.assign({}, ...results))
+
+            return {
+                contract: getContractWithEid(chain.eid, contract),
+                config: {
+                    allocations: allocations,
+                },
+            }
+        })
+    )
 
     return {
-        contracts: [
-            {
-                contract: onEth(contract),
-                config: {
-                    allocations: {
-                        [ethRewardTokenAddresses.MOCK_A]: {
-                            [ethLPTokenAddresses.ETH]: 1,
-                            [ethLPTokenAddresses.USDC]: 1,
-                            [ethLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onBsc(contract),
-                config: {
-                    allocations: {
-                        [bscRewardTokenAddresses.MOCK_A]: {
-                            [bscLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onOpt(contract),
-                config: {
-                    allocations: {
-                        [optRewardTokenAddresses.MOCK_A]: {
-                            [optLPTokenAddresses.ETH]: 1,
-                            [optLPTokenAddresses.USDC]: 1,
-                            [optLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onArb(contract),
-                config: {
-                    allocations: {
-                        [arbRewardTokenAddresses.MOCK_A]: {
-                            [arbLPTokenAddresses.ETH]: 1,
-                            [arbLPTokenAddresses.USDC]: 1,
-                            [arbLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onAvalanche(contract),
-                config: {
-                    allocations: {
-                        [avalancheRewardTokenAddresses.MOCK_A]: {
-                            [avalancheLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onMantle(contract),
-                config: {
-                    allocations: {
-                        [mantleRewardTokenAddresses.MOCK_A]: {
-                            [mantleLPTokenAddresses.ETH]: 1,
-                            [mantleLPTokenAddresses.USDC]: 1,
-                            [mantleLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-            {
-                contract: onMonad(contract),
-                config: {
-                    allocations: {
-                        [monadRewardTokenAddresses.MOCK_A]: {
-                            [monadLPTokenAddresses.ETH]: 1,
-                            [monadLPTokenAddresses.USDC]: 1,
-                            [monadLPTokenAddresses.USDT]: 1,
-                        },
-                    },
-                },
-            },
-        ],
+        contracts,
         connections: [],
     }
 }
