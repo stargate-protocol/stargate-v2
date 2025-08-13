@@ -1,0 +1,23 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "FeeLibV1mETH",
+        "eid": 30101
+      },
+      "config": {
+        "owner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1mETH",
+        "eid": 30181
+      },
+      "config": {
+        "owner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5"
+      }
+    }
+  ],
+  "connections": []
+}
