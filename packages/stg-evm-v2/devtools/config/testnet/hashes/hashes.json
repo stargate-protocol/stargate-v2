@@ -13,7 +13,7 @@
   },
   {
     "name": "credit-messaging.config.ts",
-    "hashedContent": "c0579786370ff007cbc261aa61c62c4a03e1fb1780df8f1e35ec495f84c18bbb"
+    "hashedContent": "c55b3f4c055cb2b7345ed47ae3472c85f6c5e1c628dc296e420c0504a0fdd38a"
   },
   {
     "name": "deposit.config.ts",
@@ -45,7 +45,7 @@
   },
   {
     "name": "rewarder.rewards.config.ts",
-    "hashedContent": "0b90aaa0f421faf6a7a30e80c60bad073b87dad710e0970c5f55d84ceffbcbf8"
+    "hashedContent": "f2485848008ade01c921dc9a34b683ec2b81f5cd92f56dbc86a16da9fb60072b"
   },
   {
     "name": "staking.config.ts",
@@ -53,7 +53,7 @@
   },
   {
     "name": "token-messaging.config.ts",
-    "hashedContent": "5f61751b7be67c784cfb0bfe8c387b0b4a5764e857a593b72ea314bf5ee0bf65"
+    "hashedContent": "d3dba76a1e578bd30327ea318fabc40e452e120765c3a32db18902268bd73b80"
   },
   {
     "name": "treasurer.config.ts",

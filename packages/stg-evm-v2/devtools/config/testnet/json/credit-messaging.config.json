@@ -18,7 +18,10 @@
         "eid": 40106
       },
       "config": {
-        "planner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+        "planner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55",
+        "assets": {
+          "0x5b32c997211621d55a89Cc5abAF1cC21F3A6ddF5": 2
+        }
       }
     },
     {
@@ -55,7 +58,12 @@
         "eid": 40204
       },
       "config": {
-        "planner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+        "planner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55",
+        "assets": {
+          "0x0cEb237E109eE22374a567c6b09F373C73FA4cBb": 1,
+          "0x102d758f688a4C1C5a80b116bD945d4455460282": 2,
+          "0x9895D81bB462A195b4922ED7De0e3ACD007c32CB": 13
+        }
       }
     },
     {
