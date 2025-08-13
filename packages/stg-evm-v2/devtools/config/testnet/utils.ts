@@ -1,5 +1,6 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
+import hre from 'hardhat'
 
 import { withEid } from '@layerzerolabs/devtools'
 import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
