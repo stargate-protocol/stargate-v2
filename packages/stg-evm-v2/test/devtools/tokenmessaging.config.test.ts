@@ -5,12 +5,12 @@ import hre from 'hardhat'
 
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import tokenMessagingConfig from '../../devtools/config/mainnet/01/token-messaging.config'
+import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
     getSupportedTokensByEid,
-} from '../../devtools/config/mainnet/utils'
-import { filterConnections, generateTokenMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
+} from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 

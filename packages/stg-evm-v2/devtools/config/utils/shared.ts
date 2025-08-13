@@ -3,7 +3,7 @@ import { ASSETS, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetAddresses, createGetLPTokenAddresses } from '../../../../ts-src/utils/util'
+import { createGetAssetAddresses, createGetLPTokenAddresses } from '../../../ts-src/utils/util'
 
 export const getAssetsConfig = async (
     getEnvironment = createGetHreByEid(),

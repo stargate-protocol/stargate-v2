@@ -3,6 +3,8 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
 import { Bytes20, PossiblyBytes } from '@layerzerolabs/devtools'
 
+import { setMainnetStage } from '../../devtools/config/mainnet/utils'
+
 export const makeBytes20 = (address?: PossiblyBytes | null | undefined): Bytes20 => hexZeroPad(address || '0x0', 20)
 
 export function setupConfigTestEnvironment(hre: HardhatRuntimeEnvironment) {
@@ -16,6 +18,9 @@ export function setupConfigTestEnvironment(hre: HardhatRuntimeEnvironment) {
 
         // Save original environment variables
         originalEnv = { ...process.env }
+
+        // set mainnet stage
+        setMainnetStage()
     })
 
     beforeEach(() => {

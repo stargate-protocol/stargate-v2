@@ -13,8 +13,8 @@ import assetMetisConfig from '../../devtools/config/mainnet/01/asset.metis.confi
 import assetUsdcConfig from '../../devtools/config/mainnet/01/asset.usdc.config'
 import assetUsdtConfig from '../../devtools/config/mainnet/01/asset.usdt.config'
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
-import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/mainnet/utils'
 import { filterConnections, generateAssetConfig } from '../../devtools/config/utils'
+import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 
