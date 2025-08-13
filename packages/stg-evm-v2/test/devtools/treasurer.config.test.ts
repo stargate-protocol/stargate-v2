@@ -5,7 +5,7 @@ import hre from 'hardhat'
 
 import treasurerConfig from '../../devtools/config/mainnet/01/treasurer.config'
 import { getSafeAddress } from '../../devtools/config/utils'
-import { getAllSupportedChains, getChainsThatSupportTreasurer } from '../../devtools/config/utils.config'
+import { getAllSupportedChains, getChainsThatSupportTreasurer } from '../../devtools/config/utils/utils.config'
 
 describe('treasurer.config', () => {
     let originalEnv: NodeJS.ProcessEnv

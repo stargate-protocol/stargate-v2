@@ -27,7 +27,7 @@ import {
     getTokenName,
     isValidChain,
     validateChains,
-} from '../../devtools/config/utils.config'
+} from '../../devtools/config/utils/utils.config'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {

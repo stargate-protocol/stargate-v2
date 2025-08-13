@@ -3,10 +3,10 @@ import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
-import buildAssetDeploymentGraph from './asset.config.utils'
+import { buildAssetDeploymentGraphMainnet } from '../utils'
 
 const tokenName = TokenName.USDT
 
 export default async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
-    return buildAssetDeploymentGraph(tokenName)
+    return buildAssetDeploymentGraphMainnet(tokenName)
 }

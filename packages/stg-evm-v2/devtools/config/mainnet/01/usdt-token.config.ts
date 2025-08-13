@@ -5,7 +5,7 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getContractWithEid } from '../../utils'
-import { getChainsThatSupportsUsdtOftByDeployment } from '../../utils.config'
+import { getChainsThatSupportsUsdtOftByDeployment } from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
 
 const fiatContract = { contractName: 'TetherTokenV2' }

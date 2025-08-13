@@ -10,7 +10,7 @@ import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
     getSupportedTokensByEid,
-} from '../../devtools/config/utils.config'
+} from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 

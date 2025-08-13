@@ -3,13 +3,12 @@ import { TokenMessagingEdgeConfig, TokenMessagingNodeConfig } from '@stargatefin
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { generateTokenMessagingConfig } from '../../utils'
-
-import buildMessagingGraph from './messaging.config.utils'
+import { buildMessagingGraphMainnet } from '../utils'
 
 const contract = { contractName: 'TokenMessaging' }
 
 export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>> => {
-    return buildMessagingGraph(contract, 'TOKEN_MESSAGING', generateTokenMessagingConfig) as Promise<
+    return buildMessagingGraphMainnet(contract, 'TOKEN_MESSAGING', generateTokenMessagingConfig) as Promise<
         OmniGraphHardhat<TokenMessagingNodeConfig, TokenMessagingEdgeConfig>
     >
 }
