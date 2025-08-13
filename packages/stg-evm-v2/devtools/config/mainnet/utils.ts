@@ -1,7 +1,34 @@
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
+
+import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { setStage } from '../utils.config'
+import buildAssetDeploymentGraph from '../utils/asset.config.utils'
+import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
+import buildMessagingGraph from '../utils/messaging.config.utils'
+import { setStage } from '../utils/utils.config'
+
+import { DEFAULT_PLANNER } from './01/constants'
 
 export function setMainnetStage() {
     setStage(Stage.MAINNET)
+}
+
+export function buildAssetDeploymentGraphMainnet(tokenName: TokenName) {
+    return buildAssetDeploymentGraph(Stage.MAINNET, tokenName, DEFAULT_PLANNER)
+}
+
+export function buildMessagingGraphMainnet(
+    contract: { contractName: string },
+    messagingType: string,
+    generateMessagingConfig: (
+        points: OmniPointHardhat[]
+    ) => OmniEdgeHardhat<TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>[]
+) {
+    return buildMessagingGraph(Stage.MAINNET, contract, messagingType, DEFAULT_PLANNER, generateMessagingConfig)
+}
+
+export function buildFeeLibV1DeploymentGraphMainnet(tokenName: TokenName) {
+    return buildFeeLibV1DeploymentGraph(Stage.MAINNET, tokenName, DEFAULT_PLANNER)
 }

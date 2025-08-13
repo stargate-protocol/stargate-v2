@@ -3,7 +3,7 @@ import { OFTWrapperNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { filterValidProvidedChains, getAllChainsConfig } from '../../utils.config'
+import { filterValidProvidedChains, getAllChainsConfig } from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
 
 const contract = { contractName: 'OFTWrapper' }

@@ -2,22 +2,23 @@ import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { type OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
+import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../../utils'
-import { filterConnections, generateAssetConfig } from '../../utils'
-import { filterFromAndToChains, getChainsThatSupportToken, printChains } from '../../utils.config'
-import { setMainnetStage } from '../utils'
+import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../utils'
+import { filterConnections, generateAssetConfig } from '../utils'
 
-import { DEFAULT_PLANNER } from './constants'
+import { filterFromAndToChains, getChainsThatSupportToken, printChains, setStage } from './utils.config'
 
 export default async function buildAssetDeploymentGraph(
-    tokenName: TokenName
+    stage: Stage,
+    tokenName: TokenName,
+    defaultPlanner: string
 ): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> {
-    // Set the stage to mainnet
-    setMainnetStage()
+    // Set the correct stage
+    setStage(stage)
 
     const getAssetPoint = createGetAssetOmniPoint(tokenName)
-    const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: DEFAULT_PLANNER })
+    const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: defaultPlanner })
 
     const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []

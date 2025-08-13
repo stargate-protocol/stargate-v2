@@ -11,22 +11,24 @@ import {
     OmniPointHardhat,
     createGetHreByEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
+import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { filterConnections, getContractWithEid, getSafeAddress } from '../../utils'
+import { filterConnections, getContractWithEid, getSafeAddress } from '../utils'
+
+import { getAssetsConfig } from './shared'
 import {
     filterFromAndToChains,
     getChainsThatSupportMessaging,
     getSupportedTokensByEid,
     printChains,
-} from '../../utils.config'
-import { setMainnetStage } from '../utils'
-
-import { DEFAULT_PLANNER } from './constants'
-import { getAssetsConfig } from './shared'
+    setStage,
+} from './utils.config'
 
 export default async function buildMessagingGraph(
+    stage: Stage,
     contract: { contractName: string },
     messagingType: string,
+    defaultPlanner: string,
     generateMessagingConfig: (
         points: OmniPointHardhat[]
     ) => OmniEdgeHardhat<TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>[]
@@ -36,8 +38,8 @@ export default async function buildMessagingGraph(
         TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
     >
 > {
-    // Set the stage to mainnet
-    setMainnetStage()
+    // Set the correct stage
+    setStage(stage)
 
     const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
@@ -69,9 +71,10 @@ export default async function buildMessagingGraph(
         allContracts.map(async (contract) => ({
             contract,
             config: {
-                owner: getSafeAddress(contract.eid),
+                // Only set owner for mainnet
+                ...(stage === Stage.MAINNET ? { owner: getSafeAddress(contract.eid) } : {}),
                 delegate: getSafeAddress(contract.eid),
-                planner: DEFAULT_PLANNER,
+                planner: defaultPlanner,
                 assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },
         }))

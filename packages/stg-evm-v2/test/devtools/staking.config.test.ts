@@ -5,7 +5,7 @@ import hre from 'hardhat'
 
 import stakingConfig from '../../devtools/config/mainnet/01/staking.config'
 import { getSafeAddress } from '../../devtools/config/utils'
-import { getAllSupportedChains, getChainsThatSupportStaking } from '../../devtools/config/utils.config'
+import { getAllSupportedChains, getChainsThatSupportStaking } from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 

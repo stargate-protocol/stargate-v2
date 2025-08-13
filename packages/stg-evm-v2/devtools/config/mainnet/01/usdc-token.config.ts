@@ -6,7 +6,7 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { getUSDCProxyDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../../utils.config'
+import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }

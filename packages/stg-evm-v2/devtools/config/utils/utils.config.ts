@@ -6,16 +6,15 @@ import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-d
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 
-import { getAssetNetworkConfig } from '../../ts-src/utils/util'
-
-import { Chain, loadChainConfig } from './utils'
+import { getAssetNetworkConfig } from '../../../ts-src/utils/util'
+import { Chain, loadChainConfig } from '../utils'
 
 let CURRENT_STAGE: Stage | undefined
 
 const chainsToChainsDir: Record<Stage, string> = {
-    [Stage.MAINNET]: path.join(__dirname, 'mainnet', '01', 'chainsConfig'),
-    [Stage.TESTNET]: path.join(__dirname, 'testnet', 'chainsConfig'),
-    [Stage.SANDBOX]: path.join(__dirname, 'sandbox', 'chainsConfig'),
+    [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig'),
+    [Stage.TESTNET]: path.join(__dirname, '..', 'testnet', 'chainsConfig'),
+    [Stage.SANDBOX]: path.join(__dirname, '..', 'sandbox', 'chainsConfig'),
 }
 
 export function setStage(stage: Stage) {
@@ -212,7 +211,7 @@ export function printChains(message: string, chains: Chain[]): void {
 }
 
 function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
-    const deploymentsPath = path.join(__dirname, '../../deployments')
+    const deploymentsPath = path.join(__dirname, '../../../deployments')
     const deploymentDirs = fs
         .readdirSync(deploymentsPath, { withFileTypes: true })
         // check the directory is not empty
