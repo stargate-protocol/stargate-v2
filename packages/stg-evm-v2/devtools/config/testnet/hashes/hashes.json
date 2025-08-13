@@ -45,7 +45,7 @@
   },
   {
     "name": "rewarder.rewards.config.ts",
-    "hashedContent": "0b90aaa0f421faf6a7a30e80c60bad073b87dad710e0970c5f55d84ceffbcbf8"
+    "hashedContent": "9ebee5cb9861d30c9f5339139d717cce019df086538e9ee8cc5382e7cf054ebe"
   },
   {
     "name": "staking.config.ts",
@@ -65,10 +65,10 @@
   },
   {
     "name": "usdc-token.config.ts",
-    "hashedContent": "1400ac93eaa67f97da6cfe67ac69d46dd9dc084747637796e26b894a3bc6f7e9"
+    "hashedContent": "6d8d5223a7674019ffde2a8b6635446dadcb7ff401d6841f44e3b99ab6113b49"
   },
   {
     "name": "usdt-token.config.ts",
-    "hashedContent": "cd20caab01cca4863bb4ecf6d1f61ea4a8218fa29e38ba163a2f338a8e0cf550"
+    "hashedContent": "3c5ccd3af97974512062f1a9f64d70be34497d033f098a924a0a0107d7810a3c"
   }
 ]
