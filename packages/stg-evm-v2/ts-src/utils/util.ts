@@ -150,6 +150,17 @@ export const createGetDeployer =
     }
 
 /**
+ * Helper utility that gets a named account (and checks that it is defined)
+ * based on the named account config in hardhat
+ */
+export const createGetNamedAccount =
+    (getHre = createGetHreByEid()) =>
+    async (eid: EndpointId, name: string) => {
+        const hre = await getHre(eid)
+        return await hre.getNamedAccounts().then(getNamedAccount(name))
+    }
+
+/**
  * Helper utility to collect asset addresses based on their token names
  *
  * ```
