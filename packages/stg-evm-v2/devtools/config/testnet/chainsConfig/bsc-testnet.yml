@@ -1,0 +1,18 @@
+name: bsc-testnet
+eid: BSC_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    mock_a:
+      allocation:
+        usdt: 1
+staking:
+  tokens:
+    usdt: true
+treasurer:
+  tokens:
+    usdt: true

@@ -73,7 +73,7 @@ export default async function buildMessagingGraph(
             config: {
                 // Only set owner for mainnet
                 ...(stage === Stage.MAINNET ? { owner: getSafeAddress(contract.eid) } : {}),
-                delegate: getSafeAddress(contract.eid),
+                ...(stage === Stage.MAINNET ? { delegate: getSafeAddress(contract.eid) } : {}),
                 planner: defaultPlanner,
                 assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },

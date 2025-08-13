@@ -1,0 +1,16 @@
+name: klaytn-testnet
+eid: KLAYTN_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: oft
+  usdt:
+    type: oft
+  usdc:
+    type: oft
+treasurer:
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true

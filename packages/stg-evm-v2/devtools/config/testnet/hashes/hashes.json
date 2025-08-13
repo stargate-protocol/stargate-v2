@@ -13,7 +13,7 @@
   },
   {
     "name": "credit-messaging.config.ts",
-    "hashedContent": "c0579786370ff007cbc261aa61c62c4a03e1fb1780df8f1e35ec495f84c18bbb"
+    "hashedContent": "c55b3f4c055cb2b7345ed47ae3472c85f6c5e1c628dc296e420c0504a0fdd38a"
   },
   {
     "name": "deposit.config.ts",
@@ -45,7 +45,7 @@
   },
   {
     "name": "rewarder.rewards.config.ts",
-    "hashedContent": "9ebee5cb9861d30c9f5339139d717cce019df086538e9ee8cc5382e7cf054ebe"
+    "hashedContent": "c7c1bd01b878b4c726feb9d54a8e42ee4344964644baf1ce8db881b904770285"
   },
   {
     "name": "staking.config.ts",
@@ -53,15 +53,11 @@
   },
   {
     "name": "token-messaging.config.ts",
-    "hashedContent": "5f61751b7be67c784cfb0bfe8c387b0b4a5764e857a593b72ea314bf5ee0bf65"
+    "hashedContent": "d3dba76a1e578bd30327ea318fabc40e452e120765c3a32db18902268bd73b80"
   },
   {
     "name": "treasurer.config.ts",
     "hashedContent": "b48711a254f38ee5d6fc08847cbae0aa1e8f3873db1ba86878afac16d9acaea6"
-  },
-  {
-    "name": "usdc-admin.config.ts",
-    "hashedContent": "a7688d1aeb54ea796f1197a2569161eca54800d707beb0e40ae4d09eb849d662"
   },
   {
     "name": "usdc-token.config.ts",

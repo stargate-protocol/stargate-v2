@@ -1,0 +1,28 @@
+name: mantlesep-testnet
+eid: MANTLESEP_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: pool
+  usdt:
+    type: pool
+  usdc:
+    type: pool
+rewarder:
+  tokens:
+    mock_a:
+      allocation:
+        eth: 1
+        usdc: 1
+        usdt: 1
+staking:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true

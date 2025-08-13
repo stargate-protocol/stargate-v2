@@ -4,7 +4,7 @@ import { TreasurerNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
-import { createGetAssetAddresses } from '../../../ts-src/utils/util'
+import { createGetAssetAddresses, createGetDeployer } from '../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../utils'
 
 import { filterValidProvidedChains, getChainsThatSupportTreasurer, getTokenName, setStage } from './utils.config'
@@ -19,6 +19,7 @@ export default async function buildTreasurerGraph(
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
 
+    const getDeployer = createGetDeployer(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
@@ -44,7 +45,7 @@ export default async function buildTreasurerGraph(
                 config: {
                     // Only set owner for mainnet
                     ...(stage === Stage.MAINNET ? { owner: getSafeAddress(chain.eid) } : {}),
-                    admin: getSafeAddress(chain.eid),
+                    admin: stage === Stage.MAINNET ? getSafeAddress(chain.eid) : await getDeployer(chain.eid),
                     assets,
                 },
             }

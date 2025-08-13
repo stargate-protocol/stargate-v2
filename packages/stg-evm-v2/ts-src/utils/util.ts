@@ -140,6 +140,27 @@ export const getNamedAccount =
     (accounts: Record<string, string>): string => (assert(accounts[name], `Missing account ${name}`), accounts[name])
 
 /**
+ * Helper utility that gets the deployer account for a given network
+ */
+export const createGetDeployer =
+    (getHre = createGetHreByEid()) =>
+    async (eid: EndpointId) => {
+        const hre = await getHre(eid)
+        return await hre.getNamedAccounts().then(getNamedAccount(`deployer`))
+    }
+
+/**
+ * Helper utility that gets a named account (and checks that it is defined)
+ * based on the named account config in hardhat
+ */
+export const createGetNamedAccount =
+    (getHre = createGetHreByEid()) =>
+    async (eid: EndpointId, name: string) => {
+        const hre = await getHre(eid)
+        return await hre.getNamedAccounts().then(getNamedAccount(name))
+    }
+
+/**
  * Helper utility to collect asset addresses based on their token names
  *
  * ```

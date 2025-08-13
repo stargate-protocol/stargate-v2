@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../ops/util'
-import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
+import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
 
@@ -21,6 +21,7 @@ export default async function buildUsdcTokenGraph(stage: Stage): Promise<OmniGra
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const getStargateMultisigTestnet = createGetNamedAccount(getEnvironment)
 
     // The newer USDC deployments (since December 2024)
     const chains = getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
@@ -40,7 +41,10 @@ export default async function buildUsdcTokenGraph(stage: Stage): Promise<OmniGra
                 usdcProxyAddress = await contractFactory(getContractWithEid(chain.eid, proxyContract))
             }
 
-            const stargateMultisig = getSafeAddress(chain.eid)
+            const stargateMultisig =
+                stage === Stage.MAINNET
+                    ? getSafeAddress(chain.eid)
+                    : await getStargateMultisigTestnet(chain.eid, 'usdcAdmin')
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
             return {
                 contract: getContractWithEid(chain.eid, {
@@ -48,7 +52,8 @@ export default async function buildUsdcTokenGraph(stage: Stage): Promise<OmniGra
                     address: usdcProxyAddress.contract.address,
                 }),
                 config: {
-                    owner: stargateMultisig,
+                    // Only set owner for mainnet
+                    ...(stage === Stage.MAINNET ? { owner: getSafeAddress(chain.eid) } : {}),
                     masterMinter: stargateMultisig,
                     pauser: stargateMultisig,
                     rescuer: stargateMultisig,

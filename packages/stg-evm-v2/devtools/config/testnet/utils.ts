@@ -1,7 +1,19 @@
-import { withEid } from '@layerzerolabs/devtools'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
+import hre from 'hardhat'
 
+import { withEid } from '@layerzerolabs/devtools'
+import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
+import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
+
+import { getNamedAccount } from '../../../ts-src/utils/util'
 import { getContractsInChain, setsDifference } from '../utils'
+import buildAssetDeploymentGraph from '../utils/asset.config.utils'
+import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
+import buildMessagingGraph from '../utils/messaging.config.utils'
+import { setStage } from '../utils/utils.config'
+
+import { DEFAULT_PLANNER } from './constants'
 
 export const onEth = withEid(EndpointId.SEPOLIA_V2_TESTNET)
 export const onBsc = withEid(EndpointId.BSC_V2_TESTNET)
@@ -51,4 +63,27 @@ export function isValidChain(chain: string): boolean {
 
 export function getContracts(chains: string[] | null, contract: any, isValidChain: (chain: string) => boolean) {
     return getContractsInChain(chains, contract, isValidChain, chainEids)
+}
+
+export function setTestnetStage() {
+    setStage(Stage.TESTNET)
+}
+
+export async function buildAssetDeploymentGraphTestnet(tokenName: TokenName) {
+    const deployer = await hre.getNamedAccounts().then(getNamedAccount(`deployer`))
+    return buildAssetDeploymentGraph(Stage.TESTNET, tokenName, deployer)
+}
+
+export function buildMessagingGraphTestnet(
+    contract: { contractName: string },
+    messagingType: string,
+    generateMessagingConfig: (
+        points: OmniPointHardhat[]
+    ) => OmniEdgeHardhat<TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>[]
+) {
+    return buildMessagingGraph(Stage.TESTNET, contract, messagingType, DEFAULT_PLANNER, generateMessagingConfig)
+}
+
+export function buildFeeLibV1DeploymentGraphTestnet(tokenName: TokenName) {
+    return buildFeeLibV1DeploymentGraph(Stage.TESTNET, tokenName, DEFAULT_PLANNER)
 }
