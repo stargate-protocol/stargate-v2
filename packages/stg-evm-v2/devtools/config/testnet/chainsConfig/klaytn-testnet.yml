@@ -7,8 +7,10 @@ tokens:
     type: oft
   usdt:
     type: oft
+  usdc:
+    type: oft
 treasurer:
   tokens:
     eth: true
     usdt: true
-    usdc: true # it it in the current config but should not be there since it is not supported by the chain
+    usdc: true

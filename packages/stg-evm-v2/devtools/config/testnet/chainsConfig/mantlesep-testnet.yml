@@ -1,10 +1,10 @@
-name: opt-testnet
-eid: OPTSEP_V2_TESTNET
+name: mantlesep-testnet
+eid: MANTLESEP_V2_TESTNET
 token_messaging: true
 credit_messaging: true
 tokens:
   eth:
-    type: native
+    type: pool
   usdt:
     type: pool
   usdc:
