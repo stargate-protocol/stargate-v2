@@ -9,7 +9,7 @@
         "rewards": {
           "rewardToken": "0x1E8A86EcC9dc41106d3834c6F1033D86939B1e0D",
           "amount": "2419200000000000000000000000",
-          "start": 1755088258,
+          "start": 1755097248,
           "duration": 2419200000
         }
       }
@@ -23,7 +23,7 @@
         "rewards": {
           "rewardToken": "0x4cF28C9A7C7BB582EEcbCDD69e83864141C897C1",
           "amount": "2419200000000000000000000000",
-          "start": 1755088258,
+          "start": 1755097248,
           "duration": 2419200000
         }
       }
@@ -37,7 +37,7 @@
         "rewards": {
           "rewardToken": "0xA4d3026C9c04E43fc2777Dc871eF51d38C412e39",
           "amount": "2419200000000000000000000000",
-          "start": 1755088258,
+          "start": 1755097248,
           "duration": 2419200000
         }
       }
@@ -51,7 +51,7 @@
         "rewards": {
           "rewardToken": "0x9554E739735ef03C7458577bBa6549aEc619Ac50",
           "amount": "2419200000000000000000000000",
-          "start": 1755088258,
+          "start": 1755097248,
           "duration": 2419200000
         }
       }
