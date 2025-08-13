@@ -5,12 +5,12 @@ import hre from 'hardhat'
 
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import creditMessagingConfig from '../../devtools/config/mainnet/01/credit-messaging.config'
+import { filterConnections, generateCreditMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
     getSupportedTokensByEid,
-} from '../../devtools/config/mainnet/utils'
-import { filterConnections, generateCreditMessagingConfig, getSafeAddress } from '../../devtools/config/utils'
+} from '../../devtools/config/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 

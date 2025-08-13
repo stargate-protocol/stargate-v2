@@ -6,6 +6,13 @@ import sinon from 'sinon'
 import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import { setMainnetStage } from '../../devtools/config/mainnet/utils'
+import {
+    getContracts as getContractsTestnet,
+    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
+    validCreditMessagingChains as validCreditMessagingChainsTestnet,
+} from '../../devtools/config/testnet/utils'
+import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
 import {
     getAllChainsConfig,
     getAllSupportedChains,
@@ -20,16 +27,14 @@ import {
     getTokenName,
     isValidChain,
     validateChains,
-} from '../../devtools/config/mainnet/utils'
-import {
-    getContracts as getContractsTestnet,
-    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
-    validCreditMessagingChains as validCreditMessagingChainsTestnet,
-} from '../../devtools/config/testnet/utils'
-import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
+} from '../../devtools/config/utils.config'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
+    before(() => {
+        setMainnetStage()
+    })
+
     describe('createGetAssetAddresses()', () => {
         it('should return an empty object if called with no tokens', async () => {
             const getTokenAddresses = createGetAssetAddresses()
@@ -236,8 +241,6 @@ describe('devtools/utils', () => {
     })
 
     describe('setsDifference', () => {
-        const mockContractData = { contractName: 'MockContract' }
-
         it('should return empty set when sets are identical', () => {
             const setA = new Set(['a', 'b', 'c'])
             const result = setsDifference(setA, setA)
