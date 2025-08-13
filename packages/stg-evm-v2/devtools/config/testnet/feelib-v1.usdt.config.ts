@@ -3,10 +3,10 @@ import { FeeLibV1EdgeConfig, FeeLibV1NodeConfig } from '@stargatefinance/stg-dev
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
-import buildFeeLibV1DeploymentGraph from './feelib-v1.config.utils'
+import { buildFeeLibV1DeploymentGraphTestnet } from './utils'
 
 const tokenName = TokenName.USDT
 
 export default async (): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1EdgeConfig>> => {
-    return buildFeeLibV1DeploymentGraph(tokenName)
+    return buildFeeLibV1DeploymentGraphTestnet(tokenName)
 }

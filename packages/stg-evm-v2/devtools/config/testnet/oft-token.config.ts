@@ -6,7 +6,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { getTokenDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../ts-src/utils/util'
 import { getContractWithEid } from '../utils'
-import { getChainsThatSupportTokenWithType, getChainsThatSupportsUsdtOftByDeployment } from '../utils.config'
+import { getChainsThatSupportTokenWithType, getChainsThatSupportsUsdtOftByDeployment } from '../utils/utils.config'
 
 import { setTestnetStage } from './utils'
 
