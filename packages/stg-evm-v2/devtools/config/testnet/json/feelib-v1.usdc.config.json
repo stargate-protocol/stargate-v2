@@ -1,0 +1,68 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40150
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40161
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40204
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40231
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40232
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40246
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FeeLibV1USDC",
+        "eid": 40340
+      },
+      "config": {
+        "owner": "0x3E709fE32234514F1bFd851c9d7118AC253A2b55"
+      }
+    }
+  ],
+  "connections": []
+}
