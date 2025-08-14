@@ -5,7 +5,7 @@ import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import buildCircleFiatTokenGraph from './circle-fiat-token.config.utils'
 
-const tokenName = TokenName.USDC
+const tokenName = TokenName.EURC
 
 export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
     return buildCircleFiatTokenGraph(tokenName)
