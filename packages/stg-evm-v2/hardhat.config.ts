@@ -293,6 +293,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'edu-mainnet': {
+        eid: EndpointId.EDU_V2_MAINNET,
+        url: process.env.RPC_URL_EDU_MAINNET || 'https://rpc.edu-chain.raas.gelato.cloud',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.EDU_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
         url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.payload.de',
@@ -486,6 +493,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_OPTIMISM_MAINNET || 'https://optimism.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.OPTIMISM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'orderly-mainnet': {
+        eid: EndpointId.ORDERLY_V2_MAINNET,
+        url: process.env.RPC_URL_ORDERLY_MAINNET || 'https://rpc.orderly.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ORDERLY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'peaq-mainnet': {

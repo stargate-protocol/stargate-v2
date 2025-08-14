@@ -1,5 +1,20 @@
 # @stargatefinance/stg-evm-v2
 
+## 3.0.0
+
+### Major Changes
+
+- 4a8eece: Shutdown Plume legacy
+
+### Patch Changes
+
+- a3078b8: Hedera chain config
+- 8988aba: Hedera mainnet deployment
+- Updated dependencies [4a8eece]
+- Updated dependencies [a3078b8]
+- Updated dependencies [8988aba]
+  - @stargatefinance/stg-definitions-v2@3.0.0
+
 ## 2.0.6
 
 ### Patch Changes

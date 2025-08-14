@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.16
+
+### Patch Changes
+
+- 8988aba: Hedera mainnet deployment
+
 ## 1.1.15
 
 ### Patch Changes

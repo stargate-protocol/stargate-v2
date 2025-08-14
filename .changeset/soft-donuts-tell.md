@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": patch
 ---
 
-Hedera chain config
+Orderly mainnet configuration
