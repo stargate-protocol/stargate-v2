@@ -1,5 +1,17 @@
 # @stargatefinance/stg-evm-v2
 
+## 3.0.1
+
+### Patch Changes
+
+- 10c0272: Edu mainnet config
+- cb4330f: Orderly mainnet configuration
+- 3264257: Deployed EDU mainnet
+- Updated dependencies [10c0272]
+- Updated dependencies [b0fa7ab]
+- Updated dependencies [cb4330f]
+  - @stargatefinance/stg-definitions-v2@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

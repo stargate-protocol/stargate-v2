@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 3.0.1
+
+### Patch Changes
+
+- 10c0272: Edu mainnet config
+- b0fa7ab: Fixed Hedera mainnet native drop amount considering on the native token decimals
+- cb4330f: Orderly mainnet configuration
+
 ## 3.0.0
 
 ### Major Changes
