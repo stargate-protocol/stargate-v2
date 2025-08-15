@@ -116,13 +116,24 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
     )
 
 // For OFT we use the same contract for every token except USDC since it has a different minter interface
-const getOFTContractName = (tokenName: TokenName): 'StargateOFTUSDC' | 'StargateOFT' => {
-    return tokenName === 'USDC' ? 'StargateOFTUSDC' : 'StargateOFT'
+const getOFTContractName = (tokenName: TokenName): 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' => {
+    if (tokenName === 'USDC') {
+        return 'StargateOFTUSDC'
+    }
+    if (tokenName === 'EURC') {
+        return 'StargateOFTEURC'
+    }
+    return 'StargateOFT'
 }
 
-const getPoolContractName = (tokenName: TokenName): 'StargatePoolUSDC' | 'StargatePool' | 'StargatePoolMigratable' => {
+const getPoolContractName = (
+    tokenName: TokenName
+): 'StargatePoolUSDC' | 'StargatePoolEURC' | 'StargatePoolMigratable' | 'StargatePool' => {
     if (tokenName === 'USDC') {
         return 'StargatePoolUSDC'
+    }
+    if (tokenName === 'EURC') {
+        return 'StargatePoolEURC'
     }
     if (tokenName === 'USDT') {
         return 'StargatePoolMigratable'
@@ -156,7 +167,7 @@ const getInternalTokenAddress = async (
 }
 
 interface DeployOFTAssetOptions {
-    contractName: 'StargateOFTUSDC' | 'StargateOFT'
+    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT'
     deploymentName: string
     tokenAddress: string
     sharedDecimals: number
@@ -255,7 +266,7 @@ const deployNativePoolAsset = async (
 }
 
 interface DeployPoolAssetOptions {
-    contractName: 'StargatePoolUSDC' | 'StargatePool' | 'StargatePoolMigratable'
+    contractName: 'StargatePoolUSDC' | 'StargatePoolEURC' | 'StargatePoolMigratable' | 'StargatePool'
     deploymentName: string
     tokenAddress: string
     symbol: string

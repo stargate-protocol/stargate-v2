@@ -4,17 +4,17 @@ pragma solidity ^0.8.0;
 import { StargateOftTest, IMockStargate } from "./StargateOft.t.sol";
 import { CircleFiatToken } from "../../../src/mocks/CircleFiatToken.sol";
 import { TokenMessaging } from "../../../src/messaging/TokenMessaging.sol";
-import { StargateOFTUSDC } from "../../../src/usdc/StargateOFTUSDC.sol";
+import { StargateOFTEURC } from "../../../src/eurc/StargateOFTEURC.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 import { Path } from "../../../src/libs/Path.sol";
 
-contract StargateOftUSDCTest is StargateOftTest {
-    CircleFiatToken public usdc;
+contract StargateOftEURCTest is StargateOftTest {
+    CircleFiatToken public eurc;
 
     function _setUpStargate() internal override {
-        usdc = new CircleFiatToken("USDC", "USDC");
-        stargate = new MockStargateOFTUSDC(
-            address(usdc),
+        eurc = new CircleFiatToken("EURC", "EURC");
+        stargate = new MockStargateOFTEURC(
+            address(eurc),
             6,
             LzUtil.deployEndpointV2(LOCAL_EID, address(this)),
             address(this)
@@ -22,28 +22,27 @@ contract StargateOftUSDCTest is StargateOftTest {
     }
 
     function _deal(address _to, uint256 _amount, uint256 _fee) internal override {
-        usdc.mint(_to, _amount);
+        eurc.mint(_to, _amount);
         if (_fee > 0) vm.deal(_to, _fee);
     }
 
     function _balanceOf(address _account) internal view override returns (uint256) {
-        return usdc.balanceOf(_account);
+        return eurc.balanceOf(_account);
     }
 
     function _approveAndPrank(address _account, address _spender) internal override {
         vm.prank(_account);
-        usdc.approve(_spender, type(uint256).max);
+        eurc.approve(_spender, type(uint256).max);
         vm.prank(_account);
     }
 }
-
-contract MockStargateOFTUSDC is StargateOFTUSDC, IMockStargate {
+contract MockStargateOFTEURC is StargateOFTEURC, IMockStargate {
     constructor(
         address _token,
         uint8 _sharedDecimals,
         address _endpoint,
         address _owner
-    ) StargateOFTUSDC(_token, _sharedDecimals, _endpoint, _owner) {
+    ) StargateOFTEURC(_token, _sharedDecimals, _endpoint, _owner) {
         tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 128));
         planner = _owner;
         treasurer = _owner;
