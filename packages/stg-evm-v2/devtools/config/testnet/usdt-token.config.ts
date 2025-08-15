@@ -35,12 +35,12 @@ export default async (): Promise<OmniGraphHardhat<OwnableNodeConfig, unknown>> =
     return {
         contracts: [
             // Will fail on github ci/cd because of the external deployment -- already configured correctly
-            // {
-            //     contract: odysseyUSDT,
-            //     config: {
-            //         owner: odysseyAssetAddresses.USDT,
-            //     },
-            // },
+            {
+                contract: odysseyUSDT,
+                config: {
+                    owner: odysseyAssetAddresses.USDT,
+                },
+            },
         ],
         connections: [],
     }

@@ -59,18 +59,18 @@ export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
                 },
             },
             // Will fail on github ci/cd because of the external deployment -- already configured correctly
-            // {
-            //     contract: odysseyUSDC,
-            //     config: {
-            //         masterMinter: odysseyStargateMultisig,
-            //         pauser: odysseyStargateMultisig,
-            //         rescuer: odysseyStargateMultisig,
-            //         blacklister: odysseyStargateMultisig,
-            //         minters: {
-            //             [odysseyAssetAddresses.USDC]: 2n ** 256n - 1n,
-            //         },
-            //     },
-            // },
+            {
+                contract: odysseyUSDC,
+                config: {
+                    masterMinter: odysseyStargateMultisig,
+                    pauser: odysseyStargateMultisig,
+                    rescuer: odysseyStargateMultisig,
+                    blacklister: odysseyStargateMultisig,
+                    minters: {
+                        [odysseyAssetAddresses.USDC]: 2n ** 256n - 1n,
+                    },
+                },
+            },
         ],
         connections: [],
     }

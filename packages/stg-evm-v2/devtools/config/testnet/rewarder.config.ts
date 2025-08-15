@@ -50,9 +50,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     allocations: {
                         [ethRewardTokenAddresses.MOCK_A]: {
-                            [ethLPTokenAddresses.USDT]: 1,
-                            [ethLPTokenAddresses.USDC]: 1,
                             [ethLPTokenAddresses.ETH]: 1,
+                            [ethLPTokenAddresses.USDC]: 1,
+                            [ethLPTokenAddresses.USDT]: 1,
                         },
                     },
                 },
@@ -72,9 +72,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     allocations: {
                         [optRewardTokenAddresses.MOCK_A]: {
-                            [optLPTokenAddresses.USDT]: 1,
-                            [optLPTokenAddresses.USDC]: 1,
                             [optLPTokenAddresses.ETH]: 1,
+                            [optLPTokenAddresses.USDC]: 1,
+                            [optLPTokenAddresses.USDT]: 1,
                         },
                     },
                 },
@@ -84,9 +84,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     allocations: {
                         [arbRewardTokenAddresses.MOCK_A]: {
-                            [arbLPTokenAddresses.USDT]: 1,
-                            [arbLPTokenAddresses.USDC]: 1,
                             [arbLPTokenAddresses.ETH]: 1,
+                            [arbLPTokenAddresses.USDC]: 1,
+                            [arbLPTokenAddresses.USDT]: 1,
                         },
                     },
                 },
@@ -106,9 +106,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     allocations: {
                         [mantleRewardTokenAddresses.MOCK_A]: {
-                            [mantleLPTokenAddresses.USDT]: 1,
-                            [mantleLPTokenAddresses.USDC]: 1,
                             [mantleLPTokenAddresses.ETH]: 1,
+                            [mantleLPTokenAddresses.USDC]: 1,
+                            [mantleLPTokenAddresses.USDT]: 1,
                         },
                     },
                 },
@@ -118,9 +118,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderNodeConfig, unknown>> 
                 config: {
                     allocations: {
                         [monadRewardTokenAddresses.MOCK_A]: {
-                            [monadLPTokenAddresses.USDT]: 1,
-                            [monadLPTokenAddresses.USDC]: 1,
                             [monadLPTokenAddresses.ETH]: 1,
+                            [monadLPTokenAddresses.USDC]: 1,
+                            [monadLPTokenAddresses.USDT]: 1,
                         },
                     },
                 },

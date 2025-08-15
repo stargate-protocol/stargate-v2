@@ -1,0 +1,340 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30101
+      },
+      "config": {
+        "owner": "0x65bb797c2B9830d891D87288F029ed8dACc19705",
+        "allocations": {
+          "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6": {
+            "0xfcb42A0e352a08AbD50b8EE68d01f581B6Dfd80A": 4767,
+            "0x5DaAee9EF143faFF495B581e9863570e83F99d31": 4100,
+            "0x17BBC9BD51A52aAf4d2CC6652630DaF4fdB358F7": 1133
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30102
+      },
+      "config": {
+        "owner": "0x6e690075eedBC52244Dd4822D9F7887d4f27442F",
+        "allocations": {
+          "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b": {
+            "0xd5a9B8b07e9bA3D492b801c84B69E292476805B3": 1000,
+            "0xe664Fd3a278b1E49C20F9B0aF77aA57DC770B21B": 9000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30106
+      },
+      "config": {
+        "owner": "0x2B065946d41ADf43BBc3BaF8118ae94Ed19D7A40",
+        "allocations": {
+          "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590": {
+            "0xaDA7A31B692e3AbFccD02C3d7f8aDc5944510291": 5000,
+            "0x80f1b5d3665a61a91f896C1f0790B4062966610E": 5000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30109
+      },
+      "config": {
+        "owner": "0x47290DE56E71DC6f46C26e50776fe86cc8b21656",
+        "allocations": {
+          "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590": {
+            "0xfe2439B656d8b624c78B7bF7bDc440D101ff9929": 5959,
+            "0x3e3C6dC77Ebf9EA16E6d83bf3ba021aAa7374Ca7": 4041
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30110
+      },
+      "config": {
+        "owner": "0x9CD50907aeb5D16F29Bddf7e1aBb10018Ee8717d",
+        "allocations": {
+          "0x912CE59144191C1204E64559FE8253a0e49E6548": {
+            "0x993614e1c8c9C5AbE49462Ce5702431978Fd767F": 6000,
+            "0x6Ea313859A5D9F6fF2a68f529e6361174bFD2225": 2500,
+            "0x8D66Ff1845b1baCC6E87D867CA4680d05A349cA8": 1500
+          },
+          "0x6694340fc020c5E6B96567843da2df01b2CE1eb6": {
+            "0x993614e1c8c9C5AbE49462Ce5702431978Fd767F": 1,
+            "0x6Ea313859A5D9F6fF2a68f529e6361174bFD2225": 1,
+            "0x8D66Ff1845b1baCC6E87D867CA4680d05A349cA8": 9998
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30111
+      },
+      "config": {
+        "owner": "0x392AC17A9028515a3bFA6CCe51F8b70306C6bd43",
+        "allocations": {
+          "0x4200000000000000000000000000000000000042": {
+            "0x6Ea313859A5D9F6fF2a68f529e6361174bFD2225": 6000,
+            "0x8D66Ff1845b1baCC6E87D867CA4680d05A349cA8": 1500,
+            "0x9f58A79D81477130C0C6D74b96e1397db9765ab1": 2500
+          },
+          "0x296F55F8Fb28E498B858d0BcDA06D955B2Cb3f97": {
+            "0x6Ea313859A5D9F6fF2a68f529e6361174bFD2225": 6000,
+            "0x8D66Ff1845b1baCC6E87D867CA4680d05A349cA8": 1500,
+            "0x9f58A79D81477130C0C6D74b96e1397db9765ab1": 2500
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30151
+      },
+      "config": {
+        "owner": "0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E",
+        "allocations": {
+          "0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000": {
+            "0x16C58802FD464D2Ac33B8f1DB57D7717f8365d91": 5625,
+            "0x222A9a6dD812CA5a27fFfEC39816A2DF6837D396": 4375
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30153
+      },
+      "config": {
+        "owner": "0x43303706f215A53220291F0B8a896BCDA5EB709E",
+        "allocations": {
+          "0x0000000000000000000000000000000000000000": {
+            "0x26CA12d5eC43AA9f0aDb4a891918B70CF5720281": 5000,
+            "0x5B091Dc6f94B5E2B54EDaB3800759Abf0Ed7D26D": 5000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30177
+      },
+      "config": {
+        "owner": "0x424aCEFcd5E9fE8329e3530a214C5e88375b542f",
+        "allocations": {
+          "0xc86c7C0eFbd6A49B35E8714C5f59D99De09A225b": {
+            "0x9B8b53CDB3a241E838cDE548d7D8B76DA759D90B": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30181
+      },
+      "config": {
+        "owner": "0x44acb81da0D81573Feb9d794422Be91914eDcD3d",
+        "allocations": {
+          "0x8731d54E9D02c286767d56ac03e8037C07e01e98": {
+            "0xc2c3Cc203FB607f2f93e6A15f45556bc83620644": 7000,
+            "0x5D131cb99cE5642f3d539417A187a93EEae48177": 1500,
+            "0xe1152564ED7B59e01915FC95bBF87cF9b6636fe6": 1500
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30183
+      },
+      "config": {
+        "owner": "0xdBd9E7f55C3a7A0F17cCAc06dD4f4cbf06f7AD5c",
+        "allocations": {
+          "0x808d7c71ad2ba3FA531b068a2417C63106BC0949": {
+            "0x23A46eFDa973Bd4e97Ee84bAc87018537538D078": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30184
+      },
+      "config": {
+        "owner": "0x81EAb64E630C4a2E3E849268A6B64cb76D1C8109",
+        "allocations": {
+          "0xE3B53AF74a4BF62Ae5511055290838050bf764Df": {
+            "0x98fB8522d891F43B771e2d27367b41Ba138D0B80": 6500,
+            "0x53983F31E8E0D0c3Fd0b8d85654989A1336317d7": 3500
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30211
+      },
+      "config": {
+        "owner": "0x5D3917b47E963eC703eD66Da6637C701365fF500",
+        "allocations": {
+          "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79": {
+            "0x23A46eFDa973Bd4e97Ee84bAc87018537538D078": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30214
+      },
+      "config": {
+        "owner": "0xC02c4Ac2DBaA4eC11C306dDb0ABab5b421bd19fB",
+        "allocations": {
+          "0x8731d54e9d02c286767d56ac03e8037c07e01e98": {
+            "0x73424Acc8749b5c76c7AbBB1B17D1F18Ce0Bb092": 7000,
+            "0x1eA77149Dfd4C80A753aaa39AaFC22453aefcc99": 3000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30217
+      },
+      "config": {
+        "owner": "0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6",
+        "allocations": {
+          "0x95CeF13441Be50d20cA4558CC0a27B601aC544E5": {
+            "0xf6A301bCa4dD293C0Aa3e010Fe2fC04dFA0FD196": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30280
+      },
+      "config": {
+        "owner": "0x196009FbeD5825a4Fe7443b5a1908E359d051769",
+        "allocations": {
+          "0x0000000000000000000000000000000000000000": {
+            "0x3AE336CD18c50Fc5F23Ad44c6DAd07E83bd2B303": 5000,
+            "0xe1d6BE6B535EbCaa41bF23eEb22d08119ae258ed": 5000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30309
+      },
+      "config": {
+        "owner": "0xfa6D0b19CE28656079D822f6BBE3714ab1FDd44b",
+        "allocations": {
+          "0xd9d7123552fA2bEdB2348bB562576D67f6E8e96E": {
+            "0x2237919c01d752262c696617eaCf352a7e712267": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30324
+      },
+      "config": {
+        "owner": "0xaF0B7759f24AA346a857dc17E9Ef965b023D5c8E",
+        "allocations": {
+          "0x0000000000000000000000000000000000000000": {
+            "0x868bDf0B7429704Db1A50AF77Fc02C0BB9A4c754": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30329
+      },
+      "config": {
+        "owner": "0x012c45ab17B7c2AE53CA68046a50bcDf77b46Ad7",
+        "allocations": {
+          "0x4200000000000000000000000000000000000006": {
+            "0x26CA12d5eC43AA9f0aDb4a891918B70CF5720281": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30332
+      },
+      "config": {
+        "owner": "0x347eD93cA2F7aDCe6B1629590cC9717A8904e73A",
+        "allocations": {
+          "0x0000000000000000000000000000000000000000": {
+            "0x4b459Cd35839579C27Cbf0CEF3af1E47024284e7": 10000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30334
+      },
+      "config": {
+        "owner": "0x676e341775964245f414149D1d343F75E9b5B887",
+        "allocations": {
+          "0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F": {
+            "0x852CBfE0E0008584e2AA839596926D6bdF43b106": 5000,
+            "0x3EDe572d862F37812330185DAB659080A6BA4F88": 5000
+          }
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateMultiRewarder",
+        "eid": 30340
+      },
+      "config": {
+        "owner": "0xea4645d254A9E3C67595EaF3AFaaf3E0DaA4fa0e",
+        "allocations": {
+          "0x4200000000000000000000000000000000000006": {
+            "0x26CA12d5eC43AA9f0aDb4a891918B70CF5720281": 10000
+          }
+        }
+      }
+    }
+  ],
+  "connections": []
+}

@@ -1,0 +1,37 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0x313D71942d034F4a3200B6e4670AAcDcC7d13635",
+        "eid": 40150
+      },
+      "config": {
+        "masterMinter": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "pauser": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "rescuer": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "blacklister": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "minters": {
+          "0xf626Acea3FfBe6228149A651Aa8a8DF0c0e7A575": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0x88853D410299BCBfE5fCC9Eef93c03115E908279",
+        "eid": 40340
+      },
+      "config": {
+        "masterMinter": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "pauser": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "rescuer": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "blacklister": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+        "minters": {
+          "0xCD9A74e5fe451025E92b5b8F74117c6E275Aa7c8": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+        }
+      }
+    }
+  ],
+  "connections": []
+}

@@ -1,0 +1,68 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "eid": 30101,
+        "contractName": "StargatePoolmETH"
+      },
+      "config": {
+        "owner": "0x65bb797c2B9830d891D87288F029ed8dACc19705",
+        "assetId": 22,
+        "addressConfig": {
+          "feeLib": "0x6D5521F46b2cba9443feFC09cBaC3B15AE0F73eB",
+          "tokenMessaging": "0x6d6620eFa72948C5f68A3C8646d58C00d3f4A980",
+          "creditMessaging": "0x6b8aD17795d89B283e6D0362A87A403f3544bb9d",
+          "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
+          "treasurer": "0x1041D127b2d4BC700F0F563883bC689502606918",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 30181,
+        "contractName": "StargatePoolmETH"
+      },
+      "config": {
+        "owner": "0x44acb81da0D81573Feb9d794422Be91914eDcD3d",
+        "assetId": 22,
+        "addressConfig": {
+          "feeLib": "0x6eC3EfD27d8b1070Fe96910EF416D54e845045c9",
+          "tokenMessaging": "0x41B491285A4f888F9f636cEc8a363AB9770a0AEF",
+          "creditMessaging": "0x4141Eb977a8646EC60C4c2891AEA645118183221",
+          "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
+          "treasurer": "0x4e8c9BaC25CEF251352aCe831270D564615b9Ce1",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "eid": 30101,
+        "contractName": "StargatePoolmETH"
+      },
+      "to": {
+        "eid": 30181,
+        "contractName": "StargatePoolmETH"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30181,
+        "contractName": "StargatePoolmETH"
+      },
+      "to": {
+        "eid": 30101,
+        "contractName": "StargatePoolmETH"
+      },
+      "config": {
+        "isOFT": false
+      }
+    }
+  ]
+}

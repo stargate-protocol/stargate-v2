@@ -1,0 +1,15 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x880f614c729c622c727f3625b263a36c0b89167F",
+        "eid": 40340
+      },
+      "config": {
+        "owner": "0x4bb13347ce7Cbf8884ADB137AEDa0355Ef61B259"
+      }
+    }
+  ],
+  "connections": []
+}

@@ -1,0 +1,407 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30101
+      },
+      "config": {
+        "owner": "0x65bb797c2B9830d891D87288F029ed8dACc19705",
+        "pools": [
+          {
+            "rewarder": "0x5871A7f88b0f3F5143Bf599Fd45F8C0Dc237E881",
+            "token": "0x17BBC9BD51A52aAf4d2CC6652630DaF4fdB358F7"
+          },
+          {
+            "rewarder": "0x5871A7f88b0f3F5143Bf599Fd45F8C0Dc237E881",
+            "token": "0x5DaAee9EF143faFF495B581e9863570e83F99d31"
+          },
+          {
+            "rewarder": "0x5871A7f88b0f3F5143Bf599Fd45F8C0Dc237E881",
+            "token": "0xfcb42A0e352a08AbD50b8EE68d01f581B6Dfd80A"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30102
+      },
+      "config": {
+        "owner": "0x6e690075eedBC52244Dd4822D9F7887d4f27442F",
+        "pools": [
+          {
+            "rewarder": "0x68D7877b16002AD34836ba55416bcA9B92B55589",
+            "token": "0xd5a9B8b07e9bA3D492b801c84B69E292476805B3"
+          },
+          {
+            "rewarder": "0x68D7877b16002AD34836ba55416bcA9B92B55589",
+            "token": "0xe664Fd3a278b1E49C20F9B0aF77aA57DC770B21B"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30106
+      },
+      "config": {
+        "owner": "0x2B065946d41ADf43BBc3BaF8118ae94Ed19D7A40",
+        "pools": [
+          {
+            "rewarder": "0x6CE9bf8CDaB780416AD1fd87b318A077D2f50EaC",
+            "token": "0x80f1b5d3665a61a91f896C1f0790B4062966610E"
+          },
+          {
+            "rewarder": "0x6CE9bf8CDaB780416AD1fd87b318A077D2f50EaC",
+            "token": "0xaDA7A31B692e3AbFccD02C3d7f8aDc5944510291"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30109
+      },
+      "config": {
+        "owner": "0x47290DE56E71DC6f46C26e50776fe86cc8b21656",
+        "pools": [
+          {
+            "rewarder": "0xd240a859Efc77b7455AD1B1402357784a2D72a1B",
+            "token": "0x3e3C6dC77Ebf9EA16E6d83bf3ba021aAa7374Ca7"
+          },
+          {
+            "rewarder": "0xd240a859Efc77b7455AD1B1402357784a2D72a1B",
+            "token": "0xfe2439B656d8b624c78B7bF7bDc440D101ff9929"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30110
+      },
+      "config": {
+        "owner": "0x9CD50907aeb5D16F29Bddf7e1aBb10018Ee8717d",
+        "pools": [
+          {
+            "rewarder": "0x957b12606690C7692eF92bb5c34a0E63baED99C7",
+            "token": "0x6Ea313859A5D9F6fF2a68f529e6361174bFD2225"
+          },
+          {
+            "rewarder": "0x957b12606690C7692eF92bb5c34a0E63baED99C7",
+            "token": "0x8D66Ff1845b1baCC6E87D867CA4680d05A349cA8"
+          },
+          {
+            "rewarder": "0x957b12606690C7692eF92bb5c34a0E63baED99C7",
+            "token": "0x993614e1c8c9C5AbE49462Ce5702431978Fd767F"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30111
+      },
+      "config": {
+        "owner": "0x392AC17A9028515a3bFA6CCe51F8b70306C6bd43",
+        "pools": [
+          {
+            "rewarder": "0x146c8e409C113ED87C6183f4d25c50251DFfbb3a",
+            "token": "0x6Ea313859A5D9F6fF2a68f529e6361174bFD2225"
+          },
+          {
+            "rewarder": "0x146c8e409C113ED87C6183f4d25c50251DFfbb3a",
+            "token": "0x8D66Ff1845b1baCC6E87D867CA4680d05A349cA8"
+          },
+          {
+            "rewarder": "0x146c8e409C113ED87C6183f4d25c50251DFfbb3a",
+            "token": "0x9f58A79D81477130C0C6D74b96e1397db9765ab1"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30151
+      },
+      "config": {
+        "owner": "0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E",
+        "pools": [
+          {
+            "rewarder": "0x1F605162282570dFa6255D27895587f4117F52FA",
+            "token": "0x16C58802FD464D2Ac33B8f1DB57D7717f8365d91"
+          },
+          {
+            "rewarder": "0x1F605162282570dFa6255D27895587f4117F52FA",
+            "token": "0x222A9a6dD812CA5a27fFfEC39816A2DF6837D396"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30153
+      },
+      "config": {
+        "owner": "0x43303706f215A53220291F0B8a896BCDA5EB709E",
+        "pools": [
+          {
+            "rewarder": "0x296F55F8Fb28E498B858d0BcDA06D955B2Cb3f97",
+            "token": "0x26CA12d5eC43AA9f0aDb4a891918B70CF5720281"
+          },
+          {
+            "rewarder": "0x296F55F8Fb28E498B858d0BcDA06D955B2Cb3f97",
+            "token": "0x5B091Dc6f94B5E2B54EDaB3800759Abf0Ed7D26D"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30177
+      },
+      "config": {
+        "owner": "0x424aCEFcd5E9fE8329e3530a214C5e88375b542f",
+        "pools": [
+          {
+            "rewarder": "0x62207a4d054376052Bfcede2c00d113E97D4D247",
+            "token": "0x9B8b53CDB3a241E838cDE548d7D8B76DA759D90B"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30181
+      },
+      "config": {
+        "owner": "0x44acb81da0D81573Feb9d794422Be91914eDcD3d",
+        "pools": [
+          {
+            "rewarder": "0x0184857631ddb3e9E230Bca303F0Ab1e516FC0c8",
+            "token": "0x5D131cb99cE5642f3d539417A187a93EEae48177"
+          },
+          {
+            "rewarder": "0x0184857631ddb3e9E230Bca303F0Ab1e516FC0c8",
+            "token": "0xc2c3Cc203FB607f2f93e6A15f45556bc83620644"
+          },
+          {
+            "rewarder": "0x0184857631ddb3e9E230Bca303F0Ab1e516FC0c8",
+            "token": "0xe1152564ED7B59e01915FC95bBF87cF9b6636fe6"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30183
+      },
+      "config": {
+        "owner": "0xdBd9E7f55C3a7A0F17cCAc06dD4f4cbf06f7AD5c",
+        "pools": [
+          {
+            "rewarder": "0xE89Ca5C58E2978c031f7796Ca8580bC88Ea0B3dD",
+            "token": "0x23A46eFDa973Bd4e97Ee84bAc87018537538D078"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30184
+      },
+      "config": {
+        "owner": "0x81EAb64E630C4a2E3E849268A6B64cb76D1C8109",
+        "pools": [
+          {
+            "rewarder": "0x9Aa02D4Fae7F58b8E8f34c66E756cC734DAc7fe4",
+            "token": "0x53983F31E8E0D0c3Fd0b8d85654989A1336317d7"
+          },
+          {
+            "rewarder": "0x9Aa02D4Fae7F58b8E8f34c66E756cC734DAc7fe4",
+            "token": "0x98fB8522d891F43B771e2d27367b41Ba138D0B80"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30211
+      },
+      "config": {
+        "owner": "0x5D3917b47E963eC703eD66Da6637C701365fF500",
+        "pools": [
+          {
+            "rewarder": "0xE89Ca5C58E2978c031f7796Ca8580bC88Ea0B3dD",
+            "token": "0x23A46eFDa973Bd4e97Ee84bAc87018537538D078"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30214
+      },
+      "config": {
+        "owner": "0xC02c4Ac2DBaA4eC11C306dDb0ABab5b421bd19fB",
+        "pools": [
+          {
+            "rewarder": "0x4dCBFC0249e8d5032F89D6461218a9D2eFff5125",
+            "token": "0x1eA77149Dfd4C80A753aaa39AaFC22453aefcc99"
+          },
+          {
+            "rewarder": "0x4dCBFC0249e8d5032F89D6461218a9D2eFff5125",
+            "token": "0x73424Acc8749b5c76c7AbBB1B17D1F18Ce0Bb092"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30217
+      },
+      "config": {
+        "owner": "0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6",
+        "pools": [
+          {
+            "rewarder": "0x5b32c997211621d55a89Cc5abAF1cC21F3A6ddF5",
+            "token": "0xf6A301bCa4dD293C0Aa3e010Fe2fC04dFA0FD196"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30280
+      },
+      "config": {
+        "owner": "0x196009FbeD5825a4Fe7443b5a1908E359d051769",
+        "pools": [
+          {
+            "rewarder": "0xd69A3D88438f042a5a0b995b970F78FC8120ED67",
+            "token": "0x3AE336CD18c50Fc5F23Ad44c6DAd07E83bd2B303"
+          },
+          {
+            "rewarder": "0xd69A3D88438f042a5a0b995b970F78FC8120ED67",
+            "token": "0xe1d6BE6B535EbCaa41bF23eEb22d08119ae258ed"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30309
+      },
+      "config": {
+        "owner": "0xfa6D0b19CE28656079D822f6BBE3714ab1FDd44b",
+        "pools": [
+          {
+            "rewarder": "0x5c1a97C144A97E9b370F833a06c70Ca8F2f30DE5",
+            "token": "0x2237919c01d752262c696617eaCf352a7e712267"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30324
+      },
+      "config": {
+        "owner": "0xaF0B7759f24AA346a857dc17E9Ef965b023D5c8E",
+        "pools": [
+          {
+            "rewarder": "0x5F9c011dFf285E76fa64c14301fD6493A2F3B671",
+            "token": "0x868bDf0B7429704Db1A50AF77Fc02C0BB9A4c754"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30329
+      },
+      "config": {
+        "owner": "0x012c45ab17B7c2AE53CA68046a50bcDf77b46Ad7",
+        "pools": [
+          {
+            "rewarder": "0xe4111e53f1b59bBEE7dd88394ee995f058B404ea",
+            "token": "0x26CA12d5eC43AA9f0aDb4a891918B70CF5720281"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30332
+      },
+      "config": {
+        "owner": "0x347eD93cA2F7aDCe6B1629590cC9717A8904e73A",
+        "pools": [
+          {
+            "rewarder": "0x164A2dE1bc5dc56F329909F7c97Bae929CaE557B",
+            "token": "0x4b459Cd35839579C27Cbf0CEF3af1E47024284e7"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30334
+      },
+      "config": {
+        "owner": "0x676e341775964245f414149D1d343F75E9b5B887",
+        "pools": [
+          {
+            "rewarder": "0x77dDE6D33812f62d50d51608F38ae7897A36D8B2",
+            "token": "0x3EDe572d862F37812330185DAB659080A6BA4F88"
+          },
+          {
+            "rewarder": "0x77dDE6D33812f62d50d51608F38ae7897A36D8B2",
+            "token": "0x852CBfE0E0008584e2AA839596926D6bdF43b106"
+          }
+        ]
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargateStaking",
+        "eid": 30340
+      },
+      "config": {
+        "owner": "0xea4645d254A9E3C67595EaF3AFaaf3E0DaA4fa0e",
+        "pools": [
+          {
+            "rewarder": "0x296F55F8Fb28E498B858d0BcDA06D955B2Cb3f97",
+            "token": "0x26CA12d5eC43AA9f0aDb4a891918B70CF5720281"
+          },
+          {
+            "rewarder": "0x296F55F8Fb28E498B858d0BcDA06D955B2Cb3f97",
+            "token": "0x5B091Dc6f94B5E2B54EDaB3800759Abf0Ed7D26D"
+          }
+        ]
+      }
+    }
+  ],
+  "connections": []
+}
