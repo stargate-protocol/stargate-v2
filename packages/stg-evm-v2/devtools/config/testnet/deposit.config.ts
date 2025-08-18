@@ -7,11 +7,16 @@ import { getNamedAccount } from '../../../ts-src/utils/util'
 import { getContractWithEid } from '../utils'
 import { getChainsThatSupportTokenWithType } from '../utils/utils.config'
 
+import { setTestnetStage } from './utils'
+
 const nativePool = { contractName: 'StargatePoolNative' }
 const usdcPool = { contractName: 'StargatePoolUSDC' }
 const usdtPool = { contractName: 'StargatePoolUSDT' }
 
 export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
+    // Set the stage to testnet
+    setTestnetStage()
+
     const getHre = createGetHreByEid()
 
     // get all chains that has pool or native pool
