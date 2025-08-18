@@ -989,7 +989,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
     [TokenName.EURC]: {
         name: 'EURC',
         symbol: 'EURC',
-        assetId: 3,
+        assetId: 23,
         sharedDecimals: 6,
         localDecimals: 6,
         networks: {},
