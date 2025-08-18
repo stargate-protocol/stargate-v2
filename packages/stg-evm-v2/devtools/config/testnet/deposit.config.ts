@@ -1,112 +1,53 @@
+import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { PoolNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getNamedAccount } from '../../../ts-src/utils/util'
+import { getContractWithEid } from '../utils'
+import { getChainsThatSupportTokenWithType } from '../utils/utils.config'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+const nativePool = { contractName: 'StargatePoolNative' }
+const usdcPool = { contractName: 'StargatePoolUSDC' }
+const usdtPool = { contractName: 'StargatePoolUSDT' }
 
-const getDeployer = getNamedAccount('deployer')
 export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
-    // First let's create the HardhatRuntimeEnvironment objects for all networks
-    const getEnvironment = createGetHreByEid()
+    const getHre = createGetHreByEid()
 
-    const eth = await getEnvironment(EndpointId.SEPOLIA_V2_TESTNET)
+    // get all chains that has pool or native pool
+    const taggedChains = [
+        ...getChainsThatSupportTokenWithType(TokenName.ETH, StargateType.Native).map((chain) => ({
+            chain,
+            contractName: nativePool,
+        })),
+        ...getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Pool).map((chain) => ({
+            chain,
+            contractName: usdtPool,
+        })),
+        ...getChainsThatSupportTokenWithType(TokenName.USDC, StargateType.Pool).map((chain) => ({
+            chain,
+            contractName: usdcPool,
+        })),
+    ]
 
-    // Then grab the deployer account for each network to be used as the admin
-    const ethAdmin = await eth.getNamedAccounts().then(getDeployer)
-
-    const nativePool = { contractName: 'StargatePoolNative' }
-    const usdcPool = { contractName: 'StargatePoolUSDC' }
-    const usdtPool = { contractName: 'StargatePoolUSDT' }
+    const contracts = await Promise.all(
+        taggedChains.map(async (chain) => {
+            const hre = await getHre(chain.chain.eid)
+            const deployer = await hre.getNamedAccounts().then(getNamedAccount('deployer'))
+            return {
+                contract: getContractWithEid(chain.chain.eid, chain.contractName),
+                config: {
+                    depositAmount: {
+                        [deployer]: BigInt(18e18),
+                    },
+                    ...(chain.contractName === nativePool ? { isNative: true } : {}),
+                },
+            }
+        })
+    )
 
     return {
-        contracts: [
-            {
-                contract: onEth(nativePool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(1e18),
-                    },
-                    isNative: true,
-                },
-            },
-            {
-                contract: onEth(usdcPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onEth(usdtPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onOpt(nativePool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(1e18),
-                    },
-                    isNative: true,
-                },
-            },
-            {
-                contract: onOpt(usdcPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onOpt(usdtPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onArb(nativePool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(1e18),
-                    },
-                    isNative: true,
-                },
-            },
-            {
-                contract: onArb(usdtPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onArb(usdcPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onBsc(usdtPool),
-                config: {
-                    depositAmount: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-        ],
+        contracts,
         connections: [],
     }
 }
