@@ -66,7 +66,7 @@ export const DVNS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
         [EndpointId.SOPHON_V2_MAINNET]: '0xa1a31d9ddf919e87a23a1416b0aa0b600d32435d',
-        [EndpointId.SOMNIA_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.SOMNIA_V2_MAINNET]: '0x5fa12ebc08e183c1f5d44678cf897edefe68738b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -147,7 +147,7 @@ export const DVNS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
         [EndpointId.SEI_V2_MAINNET]: '0xbd00c87850416db0995ef8030b104f875e1bdd15',
         [EndpointId.SOPHON_V2_MAINNET]: '0x7cc1a4a700aab8fba8160a4e09b04a9a68c6d914',
-        [EndpointId.SOMNIA_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.SOMNIA_V2_MAINNET]: '0xa83a87a0bdce466edfbb6794404e1d7f556b8f20',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SONIC_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.STORY_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
@@ -215,7 +215,7 @@ export const EXECUTORS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.SOPHON_V2_MAINNET]: '0x553313dB58dEeFa3D55B1457D27EAB3Fe5EC87E8',
-        [EndpointId.SOMNIA_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.SOMNIA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
@@ -420,7 +420,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
             },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 type: StargateType.Native,
