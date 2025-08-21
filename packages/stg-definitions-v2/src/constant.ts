@@ -66,6 +66,7 @@ export const DVNS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
         [EndpointId.SOPHON_V2_MAINNET]: '0xa1a31d9ddf919e87a23a1416b0aa0b600d32435d',
+        [EndpointId.SOMNIA_V2_MAINNET]: '0x5fa12ebc08e183c1f5d44678cf897edefe68738b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -146,6 +147,7 @@ export const DVNS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0xb87591d8b0b93fae8b631a073577c40e8dd46a62',
         [EndpointId.SEI_V2_MAINNET]: '0xbd00c87850416db0995ef8030b104f875e1bdd15',
         [EndpointId.SOPHON_V2_MAINNET]: '0x7cc1a4a700aab8fba8160a4e09b04a9a68c6d914',
+        [EndpointId.SOMNIA_V2_MAINNET]: '0xa83a87a0bdce466edfbb6794404e1d7f556b8f20',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SONIC_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.STORY_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
@@ -213,6 +215,7 @@ export const EXECUTORS = {
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.SOPHON_V2_MAINNET]: '0x553313dB58dEeFa3D55B1457D27EAB3Fe5EC87E8',
+        [EndpointId.SOMNIA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
@@ -412,6 +415,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Ether',
                 type: StargateType.Pool,
                 address: '0x72af9F169B619D85A47Dfa8fefbCD39dE55c567D',
+            },
+            [EndpointId.SOMNIA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -619,6 +627,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.SEI_V2_MAINNET]: {
                 type: StargateType.Pool,
                 address: '0xB75D0B03c06A926e488e2659DF1A861F860bD3d1',
+            },
+            [EndpointId.SOMNIA_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x67B302E35Aef5EEE8c32D934F5856869EF428330',
             },
             [EndpointId.STORY_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -867,6 +879,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
                 address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
             },
+            [EndpointId.SOMNIA_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x28bec7e30e6faee657a03e19bf1128aad7632a00',
+            },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 address: '0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369',
                 type: StargateType.Pool,
@@ -1051,6 +1067,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SEI_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
         [EndpointId.SOPHON_V2_MAINNET]: {},
+        [EndpointId.SOMNIA_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
         [EndpointId.SONIC_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
@@ -2600,6 +2617,35 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56',
                     signMessageLibAddress: '0x357147caf9C0cCa67DfA0CF5369318d8193c8407',
                     simulateTxAccessorAddress: '0x4191E2e12E8BC5002424CE0c51f9947b02675a44',
+                },
+            },
+        },
+    },
+    [EndpointId.SOMNIA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.01').toBigInt(),
+        },
+        safeConfig: {
+            safeAddress: '0xf6a997990Fe12B2489bF3f56bBbc442e4cb185A7',
+            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/somnia`,
+            contractNetworks: {
+                [5031]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
                 },
             },
         },
