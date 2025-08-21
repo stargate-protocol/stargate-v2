@@ -7,12 +7,7 @@ import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
 import { setMainnetStage } from '../../devtools/config/mainnet/utils'
-import {
-    getContracts as getContractsTestnet,
-    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
-    validCreditMessagingChains as validCreditMessagingChainsTestnet,
-} from '../../devtools/config/testnet/utils'
-import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
+import { filterConnections, getContractWithEid, getContractsInChain, setsDifference } from '../../devtools/config/utils'
 import {
     __resetUtilsConfigStateForTests,
     getAllChainsConfig,
@@ -129,24 +124,33 @@ describe('devtools/utils', () => {
     })
 
     describe('getContracts', () => {
+        beforeEach(() => {
+            setStage(Stage.TESTNET)
+        })
+
         const mockContractData = { contractName: 'MockContract' }
 
         it('should return all valid contracts when chains is null', () => {
+            const supportedChains = getChainsThatSupportMessaging()
             // Testnet
-            const resultTestnet = getContractsTestnet(null, mockContractData, isValidCreditMessagingChainTestnet)
-            expect(resultTestnet.length).to.equal(validCreditMessagingChainsTestnet.size)
+            // const resultTestnet = getContractsInChain(null, mockContractData, isValidCreditMessagingChain)
+            const chainsThatSupportMessaging = getChainsThatSupportMessaging()
+            const resultTestnet = getContractsInChain(
+                chainsThatSupportMessaging.map((c) => c.name),
+                mockContractData,
+                isValidChain,
+                chainsThatSupportMessaging
+            )
+            expect(resultTestnet.length).to.equal(supportedChains.length)
             expect(resultTestnet[0]).to.have.property('eid')
             expect(resultTestnet[0]).to.have.property('contractName', 'MockContract')
         })
 
         it('should return specified contracts for valid chain names', () => {
             // Testnet
-            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'opt-testnet']
-            const resultTestnet = getContractsTestnet(
-                chainsTestnet,
-                mockContractData,
-                isValidCreditMessagingChainTestnet
-            )
+            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'optsep-testnet']
+
+            const resultTestnet = getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())
             expect(resultTestnet.length).to.equal(4)
             expect(resultTestnet.map((r) => r.eid)).to.have.members([
                 EndpointId.ARBSEP_V2_TESTNET,
@@ -159,19 +163,15 @@ describe('devtools/utils', () => {
         it('should throw an error for invalid chain names', () => {
             // Testnet
             const chainsTestnet = ['arbsep-testnet', 'invalid-chain-1', 'bsc-testnet', 'invalid-chain-2']
-            expect(() =>
-                getContractsTestnet(chainsTestnet, mockContractData, isValidCreditMessagingChainTestnet)
-            ).to.throw('Invalid chains found: invalid-chain-1, invalid-chain-2')
+            expect(() => getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())).to.throw(
+                'Invalid chains found: invalid-chain-1, invalid-chain-2'
+            )
         })
 
         it('should trim whitespace from chain names', () => {
             // Testnet
             const chainsTestnet = ['arbsep-testnet     ', '    bsc-testnet', ' sepolia-testnet ']
-            const resultTestnet = getContractsTestnet(
-                chainsTestnet,
-                mockContractData,
-                isValidCreditMessagingChainTestnet
-            )
+            const resultTestnet = getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())
             expect(resultTestnet.length).to.equal(3)
             expect(resultTestnet.map((r) => r.eid)).to.have.members([
                 EndpointId.ARBSEP_V2_TESTNET,
@@ -182,8 +182,9 @@ describe('devtools/utils', () => {
 
         it('should return all valid contracts for an empty input array', () => {
             // Testnet
-            const resultTestnet = getContractsTestnet([], mockContractData, isValidCreditMessagingChainTestnet)
-            expect(resultTestnet.length).to.equal(validCreditMessagingChainsTestnet.size)
+            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'optsep-testnet']
+            const resultTestnet = getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())
+            expect(resultTestnet.length).to.equal(4)
         })
     })
 
@@ -532,3 +533,12 @@ describe('devtools/utils', () => {
         })
     })
 })
+
+function getChainsEID() {
+    const supportedChains = getAllChainsConfig()
+    const mapping = supportedChains.reduce<Record<string, EndpointId>>((acc, chain) => {
+        acc[chain.name] = chain.eid
+        return acc
+    }, {})
+    return mapping
+}
