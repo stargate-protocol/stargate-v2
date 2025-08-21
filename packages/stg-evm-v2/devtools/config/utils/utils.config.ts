@@ -10,6 +10,7 @@ import { getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { Chain, loadChainConfig } from '../utils'
 
 let CURRENT_STAGE: Stage | undefined
+let SUPPORTED_CHAINS: Chain[] | undefined
 
 const chainsToChainsDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig'),
@@ -18,10 +19,15 @@ const chainsToChainsDir: Record<Stage, string> = {
 }
 
 export function setStage(stage: Stage) {
+    // revert if the value received is not a valid stage
+    if (!Object.values(Stage).includes(stage)) {
+        throw new Error(`Invalid stage: ${stage}`)
+    }
+
     CURRENT_STAGE = stage
 }
 
-function requireStage(): Stage {
+export function requireStage(): Stage {
     if (!CURRENT_STAGE) throw new Error('Stage not set. Call setStage(stage) before using chain utils.')
     return CURRENT_STAGE
 }
@@ -64,14 +70,12 @@ export function filterFromAndToChains(
     return { validFromChains, validToChains }
 }
 
-let _supportedChains: Chain[] | undefined
-
 // supported chains
 export function getAllChainsConfig(): Chain[] {
     const stage = requireStage()
 
-    if (_supportedChains !== undefined) {
-        return _supportedChains
+    if (SUPPORTED_CHAINS !== undefined) {
+        return SUPPORTED_CHAINS
     }
 
     const chainsDir = chainsToChainsDir[stage]
@@ -83,7 +87,7 @@ export function getAllChainsConfig(): Chain[] {
     chainFiles = chainFiles.filter((file: string) => file !== '0-template-chain.yml')
 
     // Load and process each chain configuration
-    _supportedChains = chainFiles.map((file: string) => {
+    SUPPORTED_CHAINS = chainFiles.map((file: string) => {
         const filePath = path.join(chainsDir, file)
 
         const chainConfig = loadChainConfig(filePath) // Each file contains only one chain
@@ -93,8 +97,8 @@ export function getAllChainsConfig(): Chain[] {
     })
 
     // check that all chains have a deployment folder
-    _supportedChains = _filterChainsWithDeployments(_supportedChains!)
-    return _supportedChains
+    SUPPORTED_CHAINS = _filterChainsWithDeployments(SUPPORTED_CHAINS!)
+    return SUPPORTED_CHAINS
 }
 
 export function getAllSupportedChains(): string[] {
@@ -221,4 +225,10 @@ function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
         .map((dirent) => dirent.name)
 
     return chains.filter((chain) => deploymentDirs.includes(chain.name))
+}
+
+// Test-only utility for clearing internal module state between test cases
+export function __resetUtilsConfigStateForTests(): void {
+    CURRENT_STAGE = undefined
+    SUPPORTED_CHAINS = undefined
 }
