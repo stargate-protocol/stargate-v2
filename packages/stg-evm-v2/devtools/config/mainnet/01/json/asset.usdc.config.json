@@ -254,6 +254,24 @@
     },
     {
       "contract": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "owner": "0xEdA49b9301b4310F6E4a4b42857906f8732a78dF",
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0x564770837Ef8bbF077cFe54E5f6106538c815B22",
+          "tokenMessaging": "0x9FBBAFC2Ad79af2b57eD23C60DfF79eF5c2b0FB5",
+          "creditMessaging": "0x0A06aC031bf6E3D7593c7566E49D28659a6381F4",
+          "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
+          "treasurer": "0x0F3273eA5d8B182CD87C8630Dc436a6133b9bE39",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -518,6 +536,24 @@
           "creditMessaging": "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
           "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
           "treasurer": "0xe7Ec689f432f29383f217e36e680B5C855051f25",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "owner": "0x720573EcD27d279a28812347B2fd73dF857EB774",
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0x8ebB731185773Dc7eC7A98cF3b3363d9A5a2D539",
+          "tokenMessaging": "0x87Dd5A7481726a53C5Ac6b0D296F5846f95a72f2",
+          "creditMessaging": "0x93819FfD972Fd57b1AAf42ba85e6B437D60FC807",
+          "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
+          "treasurer": "0xA7d119b72F4Ce3315B46C281b9DA5bD0496D8543",
           "lzToken": "0x0000000000000000000000000000000000000000"
         }
       }
@@ -1023,6 +1059,19 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30101,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -1206,6 +1255,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30101,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -1613,6 +1675,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30102,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -1804,6 +1879,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30102,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -2219,6 +2307,19 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30106,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -2402,6 +2503,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30106,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -2809,6 +2923,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30109,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -3000,6 +3127,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30109,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -3415,6 +3555,19 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30110,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -3598,6 +3751,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30110,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -4005,6 +4171,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30111,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -4196,6 +4375,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30111,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -4611,6 +4803,19 @@
         "contractName": "StargateOFTUSDC"
       },
       "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30138,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -4794,6 +4999,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30138,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -5201,6 +5419,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30145,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -5392,6 +5623,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30145,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -5807,6 +6051,19 @@
         "contractName": "StargateOFTUSDC"
       },
       "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -5990,6 +6247,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -6397,6 +6667,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30153,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -6588,6 +6871,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30153,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -7003,6 +7299,19 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30181,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
       },
@@ -7198,7 +7507,7 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
-        "eid": 30329,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -7211,7 +7520,7 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
-        "eid": 30330,
+        "eid": 30329,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -7224,8 +7533,21 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
-        "eid": 30332,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30330,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30181,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30332,
+        "contractName": "StargatePoolUSDC"
       },
       "config": {
         "isOFT": false
@@ -7593,6 +7915,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30184,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -7784,6 +8119,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30184,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -8191,6 +8539,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30199,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -8382,8 +8743,21 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30199,
         "contractName": "StargateOFTUSDC"
       },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
       "config": {
         "isOFT": true
       }
@@ -8785,6 +9159,19 @@
       },
       "to": {
         "eid": 30199,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30211,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -8980,6 +9367,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30211,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -9222,8 +9622,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30101,
@@ -9235,8 +9635,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30102,
@@ -9248,8 +9648,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30106,
@@ -9261,8 +9661,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30109,
@@ -9274,8 +9674,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30110,
@@ -9287,8 +9687,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30111,
@@ -9300,8 +9700,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30138,
@@ -9313,8 +9713,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30145,
@@ -9326,8 +9726,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30150,
@@ -9339,8 +9739,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30153,
@@ -9352,8 +9752,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30181,
@@ -9365,8 +9765,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30184,
@@ -9378,8 +9778,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30199,
@@ -9391,8 +9791,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30211,
@@ -9404,8 +9804,21 @@
     },
     {
       "from": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30235,
@@ -9417,8 +9830,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30267,
@@ -9430,8 +9843,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30280,
@@ -9443,8 +9856,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30284,
@@ -9456,8 +9869,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30290,
@@ -9469,8 +9882,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30291,
@@ -9482,8 +9895,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30294,
@@ -9495,8 +9908,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30295,
@@ -9508,8 +9921,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30302,
@@ -9521,8 +9934,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30309,
@@ -9534,8 +9947,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30312,
@@ -9547,8 +9960,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30323,
@@ -9560,8 +9973,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30324,
@@ -9573,8 +9986,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30327,
@@ -9586,8 +9999,21 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30329,
@@ -9599,8 +10025,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30330,
@@ -9612,8 +10038,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30332,
@@ -9625,8 +10051,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30333,
@@ -9638,8 +10064,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30334,
@@ -9651,8 +10077,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30336,
@@ -9664,8 +10090,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30339,
@@ -9677,8 +10103,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30340,
@@ -9690,8 +10116,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30342,
@@ -9703,8 +10129,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30359,
@@ -9716,8 +10142,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30360,
@@ -9729,8 +10155,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30361,
@@ -9742,8 +10168,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30362,
@@ -9755,8 +10181,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30364,
@@ -9768,8 +10194,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30365,
@@ -9781,8 +10207,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30369,
@@ -9794,8 +10220,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30370,
@@ -9807,8 +10233,8 @@
     },
     {
       "from": {
-        "eid": 30214,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30376,
@@ -9820,8 +10246,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30101,
@@ -9833,8 +10259,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30102,
@@ -9846,8 +10272,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30106,
@@ -9859,8 +10285,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30109,
@@ -9872,8 +10298,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30110,
@@ -9885,8 +10311,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30111,
@@ -9898,8 +10324,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30138,
@@ -9911,8 +10337,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30145,
@@ -9924,8 +10350,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30150,
@@ -9937,8 +10363,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30153,
@@ -9950,8 +10376,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30181,
@@ -9963,8 +10389,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30184,
@@ -9976,8 +10402,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30199,
@@ -9989,8 +10415,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30211,
@@ -10002,21 +10428,34 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
-      },
-      "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "config": {
-        "isOFT": false
+        "isOFT": true
       }
     },
     {
       "from": {
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
         "eid": 30235,
         "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30267,
@@ -10028,8 +10467,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30280,
@@ -10041,8 +10480,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30284,
@@ -10054,8 +10493,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30290,
@@ -10067,8 +10506,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30291,
@@ -10080,8 +10519,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30294,
@@ -10093,8 +10532,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30295,
@@ -10106,8 +10545,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30302,
@@ -10119,8 +10558,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30309,
@@ -10132,8 +10571,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30312,
@@ -10145,8 +10584,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30323,
@@ -10158,8 +10597,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30324,
@@ -10171,8 +10610,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30327,
@@ -10184,8 +10623,21 @@
     },
     {
       "from": {
-        "eid": 30235,
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30329,
@@ -10197,8 +10649,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30330,
@@ -10210,8 +10662,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30332,
@@ -10223,8 +10675,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30333,
@@ -10236,8 +10688,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30334,
@@ -10249,8 +10701,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30336,
@@ -10262,8 +10714,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30339,
@@ -10275,8 +10727,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30340,
@@ -10288,8 +10740,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30342,
@@ -10301,8 +10753,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30359,
@@ -10314,8 +10766,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30360,
@@ -10327,8 +10779,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30361,
@@ -10340,8 +10792,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30362,
@@ -10353,8 +10805,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30364,
@@ -10366,8 +10818,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30365,
@@ -10379,8 +10831,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30369,
@@ -10392,8 +10844,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30370,
@@ -10405,8 +10857,8 @@
     },
     {
       "from": {
-        "eid": 30235,
-        "contractName": "StargateOFTUSDC"
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
       },
       "to": {
         "eid": 30376,
@@ -10418,7 +10870,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10431,7 +10883,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10444,7 +10896,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10457,7 +10909,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10470,7 +10922,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10483,7 +10935,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10496,7 +10948,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10509,7 +10961,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10522,7 +10974,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10535,7 +10987,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10548,7 +11000,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10561,7 +11013,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10574,7 +11026,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10587,7 +11039,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10600,7 +11052,20 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10613,11 +11078,11 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30235,
+        "eid": 30267,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -10626,7 +11091,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10639,7 +11104,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10652,7 +11117,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10665,7 +11130,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10678,7 +11143,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10691,7 +11156,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10704,7 +11169,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10717,7 +11182,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10730,7 +11195,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10743,7 +11208,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10756,7 +11221,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10769,7 +11234,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10782,7 +11247,20 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10795,7 +11273,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10808,7 +11286,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10821,7 +11299,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10834,7 +11312,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10847,7 +11325,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10860,7 +11338,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10873,7 +11351,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10886,7 +11364,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10899,7 +11377,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10912,7 +11390,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10925,7 +11403,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10938,7 +11416,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10951,7 +11429,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10964,7 +11442,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10977,7 +11455,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -10990,7 +11468,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11003,7 +11481,7 @@
     },
     {
       "from": {
-        "eid": 30267,
+        "eid": 30235,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11016,8 +11494,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30101,
@@ -11029,8 +11507,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30102,
@@ -11042,8 +11520,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30106,
@@ -11055,8 +11533,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30109,
@@ -11068,8 +11546,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30110,
@@ -11081,8 +11559,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30111,
@@ -11094,8 +11572,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30138,
@@ -11107,8 +11585,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30145,
@@ -11120,8 +11598,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30150,
@@ -11133,8 +11611,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30153,
@@ -11146,8 +11624,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30181,
@@ -11159,8 +11637,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30184,
@@ -11172,8 +11650,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30199,
@@ -11185,8 +11663,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30211,
@@ -11198,8 +11676,21 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30214,
@@ -11211,8 +11702,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30235,
@@ -11224,21 +11715,21 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
-      },
-      "to": {
         "eid": 30267,
         "contractName": "StargateOFTUSDC"
       },
+      "to": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
       "config": {
-        "isOFT": true
+        "isOFT": false
       }
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30284,
@@ -11250,8 +11741,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30290,
@@ -11263,8 +11754,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30291,
@@ -11276,8 +11767,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30294,
@@ -11289,8 +11780,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30295,
@@ -11302,11 +11793,1272 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30302,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30309,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30312,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30323,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30324,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30329,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30330,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30332,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30333,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30334,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30336,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30339,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30340,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30342,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30359,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30360,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30361,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30362,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30364,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30365,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30369,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30370,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30376,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30101,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30102,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30106,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30109,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30110,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30111,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30138,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30145,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30153,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30181,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30184,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30199,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30211,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30235,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30290,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30291,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30294,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30295,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30302,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30309,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30312,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30323,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30324,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30329,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30330,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30332,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30333,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30334,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30336,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30339,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30340,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30342,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30359,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30360,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30361,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30362,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30364,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30365,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30369,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30370,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30376,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30101,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30102,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30106,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30109,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30110,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30111,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30138,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30145,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30153,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30181,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30184,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30199,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30211,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30214,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30235,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30267,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30280,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30290,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30291,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30294,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30295,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30302,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11315,11 +13067,11 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11328,11 +13080,11 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11341,11 +13093,11 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11354,11 +13106,11 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11367,11 +13119,11 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11380,8 +13132,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30329,
@@ -11393,8 +13145,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30330,
@@ -11406,8 +13158,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30332,
@@ -11419,8 +13171,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30333,
@@ -11432,8 +13184,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30334,
@@ -11445,8 +13197,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30336,
@@ -11458,8 +13210,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30339,
@@ -11471,8 +13223,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30340,
@@ -11484,8 +13236,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30342,
@@ -11497,8 +13249,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30359,
@@ -11510,8 +13262,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30360,
@@ -11523,8 +13275,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30361,
@@ -11536,8 +13288,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30362,
@@ -11549,8 +13301,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30364,
@@ -11562,8 +13314,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30365,
@@ -11575,8 +13327,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30369,
@@ -11588,8 +13340,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30370,
@@ -11601,8 +13353,8 @@
     },
     {
       "from": {
-        "eid": 30280,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30284,
+        "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30376,
@@ -11614,7 +13366,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11627,7 +13379,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11640,7 +13392,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11653,7 +13405,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11666,7 +13418,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11679,7 +13431,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11692,7 +13444,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11705,7 +13457,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11718,7 +13470,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11731,7 +13483,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11744,7 +13496,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11757,7 +13509,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11770,7 +13522,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11783,7 +13535,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11796,7 +13548,20 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11809,7 +13574,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11822,7 +13587,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11835,7 +13600,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11848,11 +13613,11 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30290,
+        "eid": 30284,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -11861,7 +13626,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11874,7 +13639,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11887,7 +13652,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11900,7 +13665,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11913,7 +13678,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11926,7 +13691,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11939,7 +13704,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11952,7 +13717,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11965,7 +13730,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11978,7 +13743,20 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -11991,7 +13769,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12004,7 +13782,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12017,7 +13795,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12030,7 +13808,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12043,7 +13821,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12056,7 +13834,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12069,7 +13847,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12082,7 +13860,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12095,7 +13873,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12108,7 +13886,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12121,7 +13899,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12134,7 +13912,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12147,7 +13925,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12160,7 +13938,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12173,7 +13951,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12186,7 +13964,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12199,7 +13977,7 @@
     },
     {
       "from": {
-        "eid": 30284,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12212,7 +13990,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12225,7 +14003,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12238,7 +14016,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12251,7 +14029,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12264,7 +14042,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12277,7 +14055,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12290,7 +14068,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12303,7 +14081,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12316,7 +14094,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12329,7 +14107,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12342,7 +14120,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12355,7 +14133,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12368,33 +14146,46 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
         "eid": 30199,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30211,
+        "contractName": "StargatePoolUSDC"
       },
       "config": {
-        "isOFT": true
+        "isOFT": false
       }
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30211,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "config": {
-        "isOFT": false
+        "isOFT": true
       }
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12407,7 +14198,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12420,7 +14211,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12433,7 +14224,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12446,7 +14237,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12459,11 +14250,11 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30291,
+        "eid": 30290,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -12472,7 +14263,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12485,7 +14276,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12498,7 +14289,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12511,7 +14302,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12524,7 +14315,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12537,7 +14328,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12550,7 +14341,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12563,7 +14354,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12576,7 +14367,20 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12589,7 +14393,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12602,7 +14406,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12615,7 +14419,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12628,7 +14432,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12641,7 +14445,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12654,7 +14458,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12667,7 +14471,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12680,7 +14484,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12693,7 +14497,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12706,7 +14510,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12719,7 +14523,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12732,7 +14536,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12745,7 +14549,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12758,7 +14562,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12771,7 +14575,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12784,7 +14588,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12797,7 +14601,7 @@
     },
     {
       "from": {
-        "eid": 30290,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12810,7 +14614,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12823,7 +14627,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12836,7 +14640,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12849,7 +14653,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12862,7 +14666,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12875,7 +14679,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12888,7 +14692,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12901,7 +14705,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12914,7 +14718,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12927,7 +14731,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12940,7 +14744,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12953,7 +14757,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12966,7 +14770,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12979,7 +14783,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -12992,7 +14796,20 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13005,7 +14822,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13018,7 +14835,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13031,7 +14848,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13044,7 +14861,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13057,7 +14874,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13070,11 +14887,11 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30294,
+        "eid": 30291,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -13083,7 +14900,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13096,7 +14913,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13109,7 +14926,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13122,7 +14939,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13135,7 +14952,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13148,7 +14965,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13161,7 +14978,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13174,7 +14991,20 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13187,7 +15017,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13200,7 +15030,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13213,7 +15043,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13226,7 +15056,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13239,7 +15069,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13252,7 +15082,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13265,7 +15095,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13278,7 +15108,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13291,7 +15121,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13304,7 +15134,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13317,7 +15147,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13330,7 +15160,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13343,7 +15173,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13356,7 +15186,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13369,7 +15199,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13382,7 +15212,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13395,7 +15225,7 @@
     },
     {
       "from": {
-        "eid": 30291,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13408,7 +15238,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13421,7 +15251,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13434,7 +15264,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13447,7 +15277,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13460,7 +15290,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13473,7 +15303,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13486,7 +15316,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13499,7 +15329,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13512,7 +15342,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13525,7 +15355,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13538,7 +15368,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13551,7 +15381,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13564,7 +15394,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13577,7 +15407,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13590,9 +15420,22 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
         "contractName": "StargateOFTUSDC"
       },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30295,
+        "contractName": "StargateOFTUSDC"
+      },
       "to": {
         "eid": 30214,
         "contractName": "StargatePoolUSDC"
@@ -13603,7 +15446,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13616,7 +15459,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13629,7 +15472,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13642,7 +15485,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13655,7 +15498,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13668,7 +15511,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13681,11 +15524,11 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30295,
+        "eid": 30294,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -13694,7 +15537,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13707,7 +15550,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13720,7 +15563,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13733,7 +15576,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13746,7 +15589,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13759,7 +15602,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13772,7 +15615,20 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13785,7 +15641,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13798,7 +15654,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13811,7 +15667,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13824,7 +15680,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13837,7 +15693,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13850,7 +15706,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13863,7 +15719,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13876,7 +15732,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13889,7 +15745,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13902,7 +15758,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13915,7 +15771,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13928,7 +15784,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13941,7 +15797,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13954,7 +15810,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13967,7 +15823,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13980,7 +15836,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -13993,7 +15849,7 @@
     },
     {
       "from": {
-        "eid": 30294,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14006,7 +15862,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14019,7 +15875,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14032,7 +15888,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14045,7 +15901,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14058,7 +15914,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14071,7 +15927,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14084,7 +15940,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14097,7 +15953,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14110,7 +15966,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14123,7 +15979,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14136,7 +15992,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14149,7 +16005,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14162,7 +16018,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14175,7 +16031,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14188,7 +16044,20 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14201,7 +16070,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14214,7 +16083,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14227,7 +16096,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14240,7 +16109,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14253,7 +16122,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14266,7 +16135,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14279,7 +16148,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14292,11 +16161,11 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30302,
+        "eid": 30295,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -14305,7 +16174,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14318,7 +16187,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14331,7 +16200,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14344,7 +16213,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14357,7 +16226,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14370,7 +16239,20 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14383,7 +16265,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14396,7 +16278,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14409,7 +16291,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14422,7 +16304,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14435,7 +16317,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14448,7 +16330,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14461,7 +16343,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14474,7 +16356,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14487,7 +16369,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14500,7 +16382,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14513,7 +16395,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14526,7 +16408,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14539,7 +16421,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14552,7 +16434,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14565,7 +16447,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14578,7 +16460,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14591,7 +16473,7 @@
     },
     {
       "from": {
-        "eid": 30295,
+        "eid": 30302,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14604,7 +16486,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14617,7 +16499,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14630,7 +16512,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14643,7 +16525,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14656,7 +16538,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14669,7 +16551,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14682,7 +16564,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14695,7 +16577,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14708,7 +16590,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14721,7 +16603,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14734,7 +16616,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14747,7 +16629,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14760,7 +16642,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14773,7 +16655,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14786,7 +16668,20 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14799,7 +16694,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14812,7 +16707,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14825,7 +16720,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14838,7 +16733,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14851,7 +16746,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14864,7 +16759,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14877,7 +16772,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14890,7 +16785,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14903,11 +16798,24 @@
     },
     {
       "from": {
+        "eid": 30309,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30302,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -14916,11 +16824,11 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -14929,11 +16837,11 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -14942,11 +16850,11 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -14955,11 +16863,11 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -14968,7 +16876,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14981,7 +16889,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -14994,7 +16902,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15007,7 +16915,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15020,7 +16928,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15033,7 +16941,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15046,7 +16954,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15059,7 +16967,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15072,7 +16980,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15085,7 +16993,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15098,7 +17006,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15111,7 +17019,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15124,7 +17032,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15137,7 +17045,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15150,7 +17058,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15163,7 +17071,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15176,7 +17084,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15189,7 +17097,7 @@
     },
     {
       "from": {
-        "eid": 30302,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15202,7 +17110,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15215,7 +17123,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15228,7 +17136,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15241,7 +17149,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15254,7 +17162,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15267,7 +17175,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15280,7 +17188,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15293,7 +17201,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15306,7 +17214,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15319,7 +17227,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15332,7 +17240,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15345,7 +17253,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15358,7 +17266,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15371,7 +17279,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15384,7 +17292,20 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15397,7 +17318,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15410,7 +17331,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15423,7 +17344,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15436,7 +17357,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15449,7 +17370,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15462,7 +17383,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15475,7 +17396,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15488,7 +17409,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15501,7 +17422,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15514,11 +17435,11 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30312,
+        "eid": 30309,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -15527,7 +17448,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15540,7 +17461,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15553,7 +17474,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15566,9 +17487,22 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30312,
+        "contractName": "StargateOFTUSDC"
+      },
       "to": {
         "eid": 30329,
         "contractName": "StargateOFTUSDC"
@@ -15579,7 +17513,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15592,7 +17526,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15605,7 +17539,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15618,7 +17552,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15631,7 +17565,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15644,7 +17578,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15657,7 +17591,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15670,7 +17604,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15683,7 +17617,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15696,7 +17630,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15709,7 +17643,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15722,7 +17656,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15735,7 +17669,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15748,7 +17682,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15761,7 +17695,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15774,7 +17708,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15787,7 +17721,7 @@
     },
     {
       "from": {
-        "eid": 30309,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15800,7 +17734,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15813,7 +17747,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15826,7 +17760,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15839,7 +17773,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15852,7 +17786,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15865,7 +17799,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15878,7 +17812,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15891,7 +17825,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15904,7 +17838,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15917,7 +17851,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15930,7 +17864,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15943,7 +17877,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15956,7 +17890,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15969,7 +17903,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15982,7 +17916,20 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -15995,7 +17942,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16008,7 +17955,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16021,7 +17968,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16034,7 +17981,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16047,7 +17994,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16060,7 +18007,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16073,7 +18020,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16086,7 +18033,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16099,7 +18046,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16112,7 +18059,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16125,11 +18072,11 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30323,
+        "eid": 30312,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -16138,7 +18085,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16151,7 +18098,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16164,7 +18111,20 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16177,7 +18137,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16190,7 +18150,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16203,7 +18163,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16216,7 +18176,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16229,7 +18189,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16242,7 +18202,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16255,7 +18215,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16268,7 +18228,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16281,7 +18241,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16294,7 +18254,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16307,7 +18267,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16320,7 +18280,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16333,7 +18293,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16346,7 +18306,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16359,7 +18319,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16372,7 +18332,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16385,7 +18345,7 @@
     },
     {
       "from": {
-        "eid": 30312,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16398,7 +18358,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16411,7 +18371,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16424,7 +18384,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16437,7 +18397,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16450,7 +18410,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16463,7 +18423,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16476,7 +18436,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16489,7 +18449,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16502,7 +18462,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16515,7 +18475,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16528,7 +18488,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16541,7 +18501,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16554,7 +18514,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16567,7 +18527,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16580,7 +18540,20 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16593,7 +18566,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16606,7 +18579,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16619,7 +18592,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16632,7 +18605,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16645,7 +18618,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16658,7 +18631,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16671,7 +18644,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16684,7 +18657,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16697,7 +18670,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16710,7 +18683,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16723,7 +18696,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16736,11 +18709,11 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
-        "eid": 30324,
+        "eid": 30323,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -16749,7 +18722,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16762,7 +18735,20 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16775,7 +18761,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16788,7 +18774,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16801,7 +18787,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16814,7 +18800,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16827,7 +18813,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16840,7 +18826,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16853,7 +18839,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16866,7 +18852,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16879,7 +18865,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16892,7 +18878,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16905,7 +18891,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16918,7 +18904,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16931,7 +18917,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16944,7 +18930,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16957,7 +18943,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16970,7 +18956,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16983,7 +18969,7 @@
     },
     {
       "from": {
-        "eid": 30323,
+        "eid": 30324,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -16996,7 +18982,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17009,7 +18995,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17022,7 +19008,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17035,7 +19021,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17048,7 +19034,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17061,7 +19047,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17074,7 +19060,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17087,7 +19073,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17100,7 +19086,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17113,7 +19099,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17126,7 +19112,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17139,7 +19125,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17152,7 +19138,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17165,7 +19151,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17178,7 +19164,20 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17191,7 +19190,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17204,7 +19203,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17217,7 +19216,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17230,7 +19229,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17243,7 +19242,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17256,7 +19255,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17269,7 +19268,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17282,7 +19281,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17295,7 +19294,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17308,7 +19307,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17321,7 +19320,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17334,7 +19333,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17347,11 +19346,24 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
+        "eid": 30324,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -17360,7 +19372,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17373,7 +19385,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17386,7 +19398,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17399,7 +19411,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17412,7 +19424,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17425,7 +19437,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17438,7 +19450,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17451,7 +19463,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17464,7 +19476,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17477,7 +19489,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17490,7 +19502,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17503,7 +19515,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17516,7 +19528,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17529,7 +19541,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17542,7 +19554,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17555,7 +19567,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17568,7 +19580,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17581,7 +19593,7 @@
     },
     {
       "from": {
-        "eid": 30324,
+        "eid": 30327,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17594,7 +19606,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17607,7 +19619,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17620,7 +19632,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17633,7 +19645,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17646,7 +19658,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17659,7 +19671,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17672,7 +19684,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17685,7 +19697,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17698,7 +19710,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17711,7 +19723,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17724,7 +19736,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17737,7 +19749,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17750,7 +19762,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17763,7 +19775,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17776,7 +19788,20 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17789,7 +19814,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17802,7 +19827,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17815,7 +19840,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17828,7 +19853,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17841,7 +19866,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17854,7 +19879,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17867,7 +19892,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17880,7 +19905,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17893,7 +19918,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17906,7 +19931,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17919,7 +19944,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17932,7 +19957,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17945,7 +19970,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17958,7 +19983,20 @@
     },
     {
       "from": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17971,7 +20009,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17984,7 +20022,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -17997,7 +20035,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18010,7 +20048,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18023,7 +20061,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18036,7 +20074,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18049,7 +20087,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18062,7 +20100,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18075,7 +20113,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18088,7 +20126,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18101,7 +20139,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18114,7 +20152,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18127,7 +20165,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18140,7 +20178,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18153,7 +20191,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18166,7 +20204,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18179,7 +20217,7 @@
     },
     {
       "from": {
-        "eid": 30327,
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "to": {
@@ -18370,6 +20408,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30329,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -18561,6 +20612,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30329,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -18968,6 +21032,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30330,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -19171,6 +21248,19 @@
         "contractName": "StargateOFTUSDC"
       },
       "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30330,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30329,
         "contractName": "StargateOFTUSDC"
       },
@@ -19566,6 +21656,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30332,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -19757,6 +21860,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30332,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -20164,6 +22280,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30333,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -20367,6 +22496,19 @@
         "contractName": "StargateOFTUSDC"
       },
       "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30333,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30329,
         "contractName": "StargateOFTUSDC"
       },
@@ -20762,6 +22904,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30334,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -20953,6 +23108,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30334,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -21360,6 +23528,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30336,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -21563,6 +23744,19 @@
         "contractName": "StargateOFTUSDC"
       },
       "to": {
+        "eid": 30328,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30336,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
         "eid": 30329,
         "contractName": "StargateOFTUSDC"
       },
@@ -21958,6 +24152,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30339,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -22149,6 +24356,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30339,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -22543,6 +24763,19 @@
       },
       "config": {
         "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30340,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30211,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
       }
     },
     {
@@ -22551,11 +24784,11 @@
         "contractName": "StargatePoolUSDC"
       },
       "to": {
-        "eid": 30211,
-        "contractName": "StargatePoolUSDC"
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
       },
       "config": {
-        "isOFT": false
+        "isOFT": true
       }
     },
     {
@@ -22747,6 +24980,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30340,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -23154,6 +25400,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30342,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -23345,6 +25604,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30342,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -23752,6 +26024,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30359,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -23943,6 +26228,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30359,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -24350,6 +26648,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30360,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -24541,6 +26852,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30360,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -24948,6 +27272,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30361,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -25139,6 +27476,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30361,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -25546,6 +27896,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30362,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -25737,6 +28100,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30362,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -26144,6 +28520,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30364,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -26335,6 +28724,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30364,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -26742,6 +29144,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30365,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -26933,6 +29348,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30365,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -27340,6 +29768,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30369,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -27531,6 +29972,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30369,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -27938,6 +30392,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30370,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -28129,6 +30596,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30370,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {
@@ -28536,6 +31016,19 @@
       },
       "config": {
         "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30376,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30213,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
       }
     },
     {
@@ -28727,6 +31220,19 @@
       },
       "to": {
         "eid": 30327,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 30376,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 30328,
         "contractName": "StargateOFTUSDC"
       },
       "config": {

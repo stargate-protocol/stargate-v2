@@ -249,6 +249,19 @@
     {
       "contract": {
         "contractName": "Treasurer",
+        "eid": 30213
+      },
+      "config": {
+        "owner": "0xEdA49b9301b4310F6E4a4b42857906f8732a78dF",
+        "admin": "0xEdA49b9301b4310F6E4a4b42857906f8732a78dF",
+        "assets": {
+          "0xd027aFcc69ffA2bCB288BA68da6B71EC90d7B1d2": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
         "eid": 30214
       },
       "config": {
@@ -497,6 +510,19 @@
         "admin": "0x670c49578aFd9644ceF7BFc43b399E11c4ba7837",
         "assets": {
           "0x8EE21165Ecb7562BA716c9549C1dE751282b9B33": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 30328
+      },
+      "config": {
+        "owner": "0x720573EcD27d279a28812347B2fd73dF857EB774",
+        "admin": "0x720573EcD27d279a28812347B2fd73dF857EB774",
+        "assets": {
+          "0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00": true
         }
       }
     },
