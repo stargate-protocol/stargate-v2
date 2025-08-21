@@ -210,6 +210,15 @@
     {
       "contract": {
         "contractName": "OFTWrapper",
+        "eid": 30213
+      },
+      "config": {
+        "owner": "0xEdA49b9301b4310F6E4a4b42857906f8732a78dF"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "OFTWrapper",
         "eid": 30214
       },
       "config": {
@@ -412,6 +421,15 @@
       },
       "config": {
         "owner": "0x670c49578aFd9644ceF7BFc43b399E11c4ba7837"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "OFTWrapper",
+        "eid": 30328
+      },
+      "config": {
+        "owner": "0x720573EcD27d279a28812347B2fd73dF857EB774"
       }
     },
     {
