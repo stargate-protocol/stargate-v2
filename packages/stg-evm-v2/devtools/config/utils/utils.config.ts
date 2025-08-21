@@ -18,6 +18,11 @@ const chainsToChainsDir: Record<Stage, string> = {
 }
 
 export function setStage(stage: Stage) {
+    // revert if the value received is not a valid stage
+    if (!Object.values(Stage).includes(stage)) {
+        throw new Error(`Invalid stage: ${stage}`)
+    }
+
     CURRENT_STAGE = stage
 }
 
