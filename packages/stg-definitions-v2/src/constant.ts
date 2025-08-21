@@ -630,7 +630,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SOMNIA_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x67B302E35Aef5EEE8c32D934F5856869EF428330',
             },
             [EndpointId.STORY_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -881,7 +881,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SOMNIA_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x28bec7e30e6faee657a03e19bf1128aad7632a00',
             },
             [EndpointId.SONEIUM_V2_MAINNET]: {
                 address: '0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369',
