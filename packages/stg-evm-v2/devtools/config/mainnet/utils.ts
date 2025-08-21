@@ -7,6 +7,11 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import buildAssetDeploymentGraph from '../utils/asset.config.utils'
 import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
 import buildMessagingGraph from '../utils/messaging.config.utils'
+import buildRewarderGraph from '../utils/rewarder.config.utils'
+import buildStakingGraph from '../utils/staking.config.utils'
+import buildTreasurerGraph from '../utils/treasurer.config.utils'
+import buildUsdcTokenGraph from '../utils/usdc-token.config.utils'
+import buildUsdtTokenGraph from '../utils/usdt-token.config.utils'
 import { setStage } from '../utils/utils.config'
 
 import { DEFAULT_PLANNER } from './01/constants'
@@ -31,4 +36,24 @@ export function buildMessagingGraphMainnet(
 
 export function buildFeeLibV1DeploymentGraphMainnet(tokenName: TokenName) {
     return buildFeeLibV1DeploymentGraph(Stage.MAINNET, tokenName, DEFAULT_PLANNER)
+}
+
+export function buildRewarderGraphMainnet(contract: { contractName: string }) {
+    return buildRewarderGraph(Stage.MAINNET, contract)
+}
+
+export function buildStakingGraphMainnet(rewarder: { contractName: string }, staking: { contractName: string }) {
+    return buildStakingGraph(Stage.MAINNET, rewarder, staking)
+}
+
+export function buildTreasurerGraphMainnet(contract: { contractName: string }) {
+    return buildTreasurerGraph(Stage.MAINNET, contract)
+}
+
+export function buildUsdcTokenGraphMainnet() {
+    return buildUsdcTokenGraph(Stage.MAINNET)
+}
+
+export function buildUsdtTokenGraphMainnet() {
+    return buildUsdtTokenGraph(Stage.MAINNET)
 }
