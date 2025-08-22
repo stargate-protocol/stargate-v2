@@ -111,7 +111,7 @@ export const valueOrTimeout = async <T, Y>(
         backOff(getter, {
             delayFirstAttempt: false,
             jitter: 'full',
-            numOfAttempts: 3,
+            numOfAttempts: 50,
             startingDelay: 5000,
             timeMultiple: 3,
             ...options,
@@ -122,7 +122,7 @@ export const valueOrTimeout = async <T, Y>(
         new Promise<T | Y>((resolve) => {
             setTimeout(() => {
                 resolve(timeoutValue)
-            }, options?.timeout ?? 60000)
+            }, options?.timeout ?? 120000)
         }),
     ])
 }
