@@ -277,15 +277,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'cronoszkevm-mainnet': {
-        eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://mainnet.zkevm.cronos.org',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        zksync: true,
-        ethNetwork: 'ethereum-mainnet',
-    },
     'degen-mainnet': {
         eid: EndpointId.DEGEN_V2_MAINNET,
         url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
