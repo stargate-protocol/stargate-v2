@@ -293,6 +293,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'edu-mainnet': {
+        eid: EndpointId.EDU_V2_MAINNET,
+        url: process.env.RPC_URL_EDU_MAINNET || 'https://rpc.edu-chain.raas.gelato.cloud',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.EDU_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'ethereum-mainnet': {
         eid: EndpointId.ETHEREUM_V2_MAINNET,
         url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.payload.de',
@@ -488,6 +495,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.OPTIMISM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'orderly-mainnet': {
+        eid: EndpointId.ORDERLY_V2_MAINNET,
+        url: process.env.RPC_URL_ORDERLY_MAINNET || 'https://rpc.orderly.network',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ORDERLY_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'peaq-mainnet': {
         eid: EndpointId.PEAQ_V2_MAINNET,
         url: process.env.RPC_URL_PEAQ_MAINNET || 'https://peaq.api.onfinality.io/public',
@@ -497,7 +511,7 @@ const networks: NetworksUserConfig = {
     },
     'plumephoenix-mainnet': {
         eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
-        url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://rpc.plume.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -554,6 +568,13 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
+    },
+    'somnia-mainnet': {
+        eid: EndpointId.SOMNIA_V2_MAINNET,
+        url: process.env.RPC_URL_SOMNIA_MAINNET || 'https://api.infra.mainnet.somnia.network/',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SOMNIA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'soneium-mainnet': {
         eid: EndpointId.SONEIUM_V2_MAINNET,
