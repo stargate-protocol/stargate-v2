@@ -3,6 +3,7 @@ import { parallelProcess, parse } from '../common-utils'
 import { getBalancingQuoteState } from './balancingQuoteState'
 import { getBusNativeDropsState } from './busNativeDropsState'
 import { getFeeConfigsState } from './feeConfigsState'
+import { getPlannerNativeBalanceState } from './plannerNativeBalanceState'
 import { getPlannerPermissionsState } from './plannerPermissionsState'
 import { getQuotesState } from './quotesState'
 import { errorString, timeoutString } from './utils'
@@ -70,24 +71,32 @@ const getErrorOnlyObject = (obj: any): any => {
 const main = async () => {
     const numConcurrentChecks = 3
 
-    const [feeConfigsState, plannerPermissionsState, busNativeDropsState, balancingQuoteState, quotesState] =
-        (await parallelProcess<any>(
-            [
-                // These checks validate that the contracts are configured correctly on-chain
-                () => getFeeConfigsState(args),
-                () => getPlannerPermissionsState(args),
-                () => getBusNativeDropsState(args),
-                () => getBalancingQuoteState(args),
-                () => getQuotesState(args),
-            ],
-            numConcurrentChecks
-        )) as [
-            ReturnType<typeof getFeeConfigsState>,
-            ReturnType<typeof getPlannerPermissionsState>,
-            ReturnType<typeof getBusNativeDropsState>,
-            ReturnType<typeof getBalancingQuoteState>,
-            ReturnType<typeof getQuotesState>,
-        ]
+    const [
+        feeConfigsState,
+        plannerPermissionsState,
+        busNativeDropsState,
+        balancingQuoteState,
+        quotesState,
+        plannerNativeBalanceState,
+    ] = (await parallelProcess<any>(
+        [
+            // These checks validate that the contracts are configured correctly on-chain
+            () => getFeeConfigsState(args),
+            () => getPlannerPermissionsState(args),
+            () => getBusNativeDropsState(args),
+            () => getBalancingQuoteState(args),
+            () => getQuotesState(args),
+            () => getPlannerNativeBalanceState(args),
+        ],
+        numConcurrentChecks
+    )) as [
+        ReturnType<typeof getFeeConfigsState>,
+        ReturnType<typeof getPlannerPermissionsState>,
+        ReturnType<typeof getBusNativeDropsState>,
+        ReturnType<typeof getBalancingQuoteState>,
+        ReturnType<typeof getQuotesState>,
+        ReturnType<typeof getPlannerNativeBalanceState>,
+    ]
 
     const errorsOnlyObject = getErrorOnlyObject({
         balancingQuoteState,
@@ -95,6 +104,7 @@ const main = async () => {
         busNativeDropsState,
         quotesState,
         plannerPermissionsState,
+        plannerNativeBalanceState,
     })
 
     console.log('\n\n')

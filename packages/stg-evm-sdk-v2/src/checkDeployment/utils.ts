@@ -9,6 +9,10 @@ type ByPathConfig = {
     }
 }
 
+export type ByChainConfig = {
+    [chainName: string]: Record<string, string | number>
+}
+
 export type ByAssetPathConfig = {
     [assetId: string]: ByPathConfig
 }
@@ -17,6 +21,25 @@ export type ByAssetConfig = {
     [assetId: string]: {
         [chainName: string]: Record<string, string | number>
     }
+}
+
+export const printByChainConfig = (title: string, config: ByChainConfig, onlyError = false) => {
+    console.log(`\n###################### ${title} ######################`)
+
+    const flattenedData = Object.entries(config).flatMap(([chainName, results]) => {
+        return {
+            chainName,
+            ...results,
+        }
+    })
+    // Filter the data if onlyError is true
+    const dataToDisplay = onlyError
+        ? flattenedData.filter((item) =>
+              Object.values(item).some((val) => typeof val === 'string' && val.startsWith('error'))
+          )
+        : flattenedData
+
+    console.table(dataToDisplay)
 }
 
 export const printByAssetFlattenConfig = (title: string, config: ByAssetConfig, onlyError = false) => {
