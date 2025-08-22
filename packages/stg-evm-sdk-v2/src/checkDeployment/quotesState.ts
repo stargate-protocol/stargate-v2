@@ -1,7 +1,7 @@
 import { Chain, EndpointVersion, Stage, chainAndStageToEndpointId } from '@layerzerolabs/lz-definitions'
 
 import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
-import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
+import { getBootstrapChainConfigFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
 import { getStargateV2TokenMessagingContract } from '../stargate-contracts'
 
 import {
@@ -21,13 +21,10 @@ export const getQuotesState = async (args: {
 }) => {
     const { environment, only, targets: targetsString, numRetries = 3 } = args
     const targets = parseTargets(targetsString)
-    const service = 'stargate'
 
-    const bootstrapChainConfig = await getBootstrapChainConfigWithUlnFromArgs(
-        service,
+    const bootstrapChainConfig = await getBootstrapChainConfigFromArgs(
         {
             environment,
-            noFork: true,
             only,
         },
         isStargateV2SupportedChainName

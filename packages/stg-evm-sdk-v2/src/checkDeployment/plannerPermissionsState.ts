@@ -1,7 +1,7 @@
 import { DEFAULT_PLANNER } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/01/constants'
 
 import { isStargateV2SupportedChainName, processPromises, retryWithBackoff } from '../common-utils'
-import { getBootstrapChainConfigWithUlnFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
+import { getBootstrapChainConfigFromArgs, getLocalStargatePoolConfigGetterFromArgs } from '../config'
 import {
     FeeLibV1__factory,
     connectStargateV2Contract,
@@ -22,13 +22,10 @@ export const getPlannerPermissionsState = async (args: {
 }) => {
     const { environment, only, targets: targetsString, numRetries = 3 } = args
     const targets = parseTargets(targetsString)
-    const service = 'stargate'
 
-    const bootstrapChainConfig = await getBootstrapChainConfigWithUlnFromArgs(
-        service,
+    const bootstrapChainConfig = await getBootstrapChainConfigFromArgs(
         {
             environment,
-            noFork: true,
             only,
         },
         isStargateV2SupportedChainName

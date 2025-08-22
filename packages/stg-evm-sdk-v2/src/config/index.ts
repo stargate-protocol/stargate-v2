@@ -14,10 +14,9 @@ export type {
     ProviderConfig,
     ProviderConfigs,
     BootstrapChainConfig,
-    BootstrapChainConfigWithUln,
 } from './types'
 
-export { StargateTypes, FarmType, UlnVersion } from './constants'
+export { StargateTypes, FarmType } from './constants'
 
 export { StargateConfigError, LocalStargatePoolConfigGetter, getLocalStargatePoolConfigGetterFromArgs } from './config'
 
@@ -30,4 +29,4 @@ export {
     getAvailableChainNamesByEnvironment,
 } from './chains'
 
-export { getBootstrapChainConfigWithUlnFromArgs, bootstrapLoggerConfigFromArgs } from './bootstrap'
+export { getBootstrapChainConfigFromArgs, bootstrapLoggerConfigFromArgs } from './bootstrap'

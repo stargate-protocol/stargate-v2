@@ -34,13 +34,6 @@ export const parse = <T extends { [name: string]: any }>(options: {
     description?: string
     partial?: boolean
 }): T & IHelp => {
-    // Making sure that every script alway exist on SIGINT and SIGTERM since @temporal/worker {Runtime} does not exit on SIGINT and SIGTERM
-    ;['SIGINT', 'SIGTERM'].forEach((signal: string) => {
-        process.on(signal, () => {
-            process.exit(0)
-        })
-    })
-
     // If coming from VSCode debugger, flatening the args
     // If using Javascript Debug Terminal, they will already be flatened
     if (process.env.VSCODE_INSPECTOR_OPTIONS && process.argv.length === 3) {
@@ -54,18 +47,6 @@ export const parse = <T extends { [name: string]: any }>(options: {
         },
         {
             helpArg: 'help',
-            headerContentSections: [
-                {
-                    header: options.header || 'Offchain script',
-                    content: options.description || 'Probably awesome script but no description',
-                },
-            ],
-            footerContentSections: [
-                {
-                    header: '---------------------------------',
-                    content: `Copyright: LayerZeroLabs Inc.`,
-                },
-            ],
             partial: (options.partial ?? false) as any,
         }
     )

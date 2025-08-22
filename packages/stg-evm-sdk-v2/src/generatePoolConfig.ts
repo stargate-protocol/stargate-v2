@@ -12,7 +12,7 @@ import {
     StargatePoolsConfig,
     bootstrapLoggerConfigFromArgs,
     getAvailableChainNamesByEnvironment,
-    getBootstrapChainConfigWithUlnFromArgs,
+    getBootstrapChainConfigFromArgs,
     getLocalStargatePoolConfigGetterFromArgs,
 } from './config'
 import { StargateV2SdkFactory } from './stargate-sdks/factory'
@@ -62,9 +62,8 @@ const generatePoolConfig = async (params: { environment: string; verbose?: boole
 
     if (chainNames.length) {
         logger.info(`⚙️  Bootstrapping chain configuration...`)
-        const bootstrapChainConfig = await getBootstrapChainConfigWithUlnFromArgs(
-            'stargate',
-            { ...bootstrapChainConfigArgs, noFork: true },
+        const bootstrapChainConfig = await getBootstrapChainConfigFromArgs(
+            { ...bootstrapChainConfigArgs },
             isStargateV2SupportedChainName
         )
         logger.debug(`✅ Bootstrap completed for ${bootstrapChainConfig.chainNames.length} chains`)

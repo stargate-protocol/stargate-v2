@@ -29,11 +29,7 @@ const args = parse({
             defaultValue: '',
             description: 'new chain names to check against',
         },
-        runContractChecks: {
-            type: Boolean,
-            defaultValue: true,
-            description: 'run checks to verify that the contracts are configured correctly on-chain',
-        },
+
         numRetries: {
             alias: 'r',
             type: Number,
@@ -71,14 +67,6 @@ const getErrorOnlyObject = (obj: any): any => {
     )
 }
 
-/**
- * Builds a callback that resolves to an empty object if the shouldRun flag is false.
- * Otherwise, it returns the check function itself.
- */
-const buildCallback = <T>({ check, shouldRun }: { check: () => T; shouldRun: boolean }): (() => T) => {
-    return shouldRun ? check : () => Promise.resolve({}) as T
-}
-
 const main = async () => {
     const numConcurrentChecks = 3
 
@@ -86,26 +74,11 @@ const main = async () => {
         (await parallelProcess<any>(
             [
                 // These checks validate that the contracts are configured correctly on-chain
-                buildCallback({
-                    check: () => getFeeConfigsState(args),
-                    shouldRun: args.runContractChecks,
-                }),
-                buildCallback({
-                    check: () => getPlannerPermissionsState(args),
-                    shouldRun: args.runContractChecks,
-                }),
-                buildCallback({
-                    check: () => getBusNativeDropsState(args),
-                    shouldRun: args.runContractChecks,
-                }),
-                buildCallback({
-                    check: () => getBalancingQuoteState(args),
-                    shouldRun: args.runContractChecks,
-                }),
-                buildCallback({
-                    check: () => getQuotesState(args),
-                    shouldRun: args.runContractChecks,
-                }),
+                () => getFeeConfigsState(args),
+                () => getPlannerPermissionsState(args),
+                () => getBusNativeDropsState(args),
+                () => getBalancingQuoteState(args),
+                () => getQuotesState(args),
             ],
             numConcurrentChecks
         )) as [

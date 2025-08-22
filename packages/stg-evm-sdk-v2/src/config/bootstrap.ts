@@ -1,10 +1,9 @@
 import { LoggerOptions, format, transports } from 'winston'
 
 import { getAvailableChainNames, getAvailableChainsFromArgs } from './chains'
-import { UlnVersion } from './constants'
 import { createProviderFromConfig, loadProviderConfigs } from './providers'
 
-import type { BootstrapChainConfig, BootstrapChainConfigWithUln } from './types'
+import type { BootstrapChainConfig } from './types'
 import type { Provider } from '@ethersproject/providers'
 
 export const bootstrapLoggerConfigFromArgs: LoggerOptions = {
@@ -18,12 +17,10 @@ export const bootstrapLoggerConfigFromArgs: LoggerOptions = {
     transports: [new transports.Console()],
 }
 
-const getBootstrapChainConfigFromArgs = async (
-    service: string,
+export const getBootstrapChainConfigFromArgs = async (
     args: {
         only: string | undefined
         environment: string
-        noFork: boolean
         servicePath?: string
     },
     isSupportedChainName?: (chainName: string, environment: string) => boolean
@@ -68,20 +65,5 @@ const getBootstrapChainConfigFromArgs = async (
         environment: args.environment,
         chainNames: validChainNames,
         initialTokensOverrides,
-    }
-}
-
-export const getBootstrapChainConfigWithUlnFromArgs = async (
-    service: string,
-    args: {
-        only: string | undefined
-        environment: string
-        noFork: boolean
-    },
-    isSupportedChainName?: (chainName: string, environment: string) => boolean
-): Promise<BootstrapChainConfigWithUln> => {
-    return {
-        ...(await getBootstrapChainConfigFromArgs(service, args, isSupportedChainName)),
-        supportedUlnVersions: [UlnVersion.V2],
     }
 }

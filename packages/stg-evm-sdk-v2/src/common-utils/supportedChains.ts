@@ -1,5 +1,4 @@
 import { getAllChainsConfig } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/utils'
-import { type Chain } from '@stargatefinance/stg-evm-v2/devtools/config/utils'
 
 enum ChainStatus {
     DEPRECATED = 'DEPRECATED', // not supported by stargate
@@ -30,11 +29,10 @@ function loadMainnetChainsFromYaml(): { [chainName: string]: ChainStatus } {
 
             // Determine status: use explicit status field if present, otherwise default to ACTIVE
             let status = ChainStatus.ACTIVE
-            const configWithStatus = chainConfig as Chain & { status?: string }
-            if (configWithStatus.status) {
-                if (configWithStatus.status.toUpperCase() === 'DEPRECATED') {
+            if (chainConfig.status) {
+                if (chainConfig.status.toUpperCase() === 'DEPRECATED') {
                     status = ChainStatus.DEPRECATED
-                } else if (configWithStatus.status.toUpperCase() === 'INACTIVE') {
+                } else if (chainConfig.status.toUpperCase() === 'INACTIVE') {
                     status = ChainStatus.INACTIVE
                 }
             }

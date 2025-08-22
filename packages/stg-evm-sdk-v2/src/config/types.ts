@@ -80,7 +80,3 @@ export interface BootstrapChainConfig {
         [chainName: string]: string | { [key: string]: string }
     }
 }
-
-export interface BootstrapChainConfigWithUln extends BootstrapChainConfig {
-    supportedUlnVersions: string[]
-}
