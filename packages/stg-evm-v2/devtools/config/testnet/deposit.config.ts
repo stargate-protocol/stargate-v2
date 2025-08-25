@@ -43,7 +43,7 @@ export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
                 contract: getContractWithEid(chain.chain.eid, chain.contractName),
                 config: {
                     depositAmount: {
-                        [deployer]: BigInt(18e18),
+                        [deployer]: BigInt(1e18),
                     },
                     ...(chain.contractName === nativePool ? { isNative: true } : {}),
                 },
