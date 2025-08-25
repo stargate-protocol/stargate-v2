@@ -4,14 +4,14 @@ import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { getUSDCProxyDeployName } from '../../../ops/util'
+import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
 
-const proxyContract = { contractName: getUSDCProxyDeployName() }
-const fiatContract = { contractName: 'FiatTokenV2_2' }
 const tokenName = TokenName.USDC
+const fiatContract = { contractName: 'FiatTokenV2_2' }
+const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
 
 export default async function buildUsdcTokenGraph(stage: Stage): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> {
     // Set the correct stage
