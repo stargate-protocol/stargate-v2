@@ -1,6 +1,3 @@
-import assert from 'assert'
-
-import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
