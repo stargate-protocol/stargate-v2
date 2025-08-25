@@ -1,0 +1,70 @@
+[
+  {
+    "name": "asset.eth.config.ts",
+    "hashedContent": "7cb4f4b145038f4075cce8df468319a4679ca3dab6662cb9c5cbf5a6f13dcf5c"
+  },
+  {
+    "name": "asset.usdc.config.ts",
+    "hashedContent": "f2e6f38fd7c876075fdfe1f007330c30a66cb8acc1e6826c98b5230f29cfe079"
+  },
+  {
+    "name": "asset.usdt.config.ts",
+    "hashedContent": "8e199247bfe51a6cffa5666508547f0c2412022002d9bed6908570cca9f3a1e2"
+  },
+  {
+    "name": "credit-messaging.config.ts",
+    "hashedContent": "c55b3f4c055cb2b7345ed47ae3472c85f6c5e1c628dc296e420c0504a0fdd38a"
+  },
+  {
+    "name": "deposit.config.ts",
+    "hashedContent": "1f36a0bd13ff0c6665f52295cafb6b6ed433a37e802c77d2d6496947ba0affd0"
+  },
+  {
+    "name": "feelib-v1.eth.config.ts",
+    "hashedContent": "25552a54414d7fded10f9874682a81dd161ae2bb65a0aa6d91397cec3c5347a3"
+  },
+  {
+    "name": "feelib-v1.usdc.config.ts",
+    "hashedContent": "79f1ec6230ef701bffb0ac9a71f5b9657688a3538d33caf9eca7853292162be5"
+  },
+  {
+    "name": "feelib-v1.usdt.config.ts",
+    "hashedContent": "f02ec309cb302054ae8318315694058a193a2f00ec4303afd51e437b57d30143"
+  },
+  {
+    "name": "mint.allowance.config.ts",
+    "hashedContent": "95c6a8501e6b8d7af686df198db79955f2944e3494cb2551b66cb2b6ef904b3a"
+  },
+  {
+    "name": "oft-token.config.ts",
+    "hashedContent": "f483e89fe93c933e70e0114963ca3aeec8f7b2e99b1a38c3295cc9aed426735c"
+  },
+  {
+    "name": "rewarder.config.ts",
+    "hashedContent": "2b87f466a639b69e8f9f89fdedb607ee4a282422dcec284c77c79635ea013bc1"
+  },
+  {
+    "name": "rewarder.rewards.config.ts",
+    "hashedContent": "3c386a7576373b29e41d6e532d198a11a4dc80f7786b643dedaad16bf106c7c0"
+  },
+  {
+    "name": "staking.config.ts",
+    "hashedContent": "6bfcdf3b3118a11221625d380126c9a4375eb65b92f7255b8102ecce2ebc25fd"
+  },
+  {
+    "name": "token-messaging.config.ts",
+    "hashedContent": "d3dba76a1e578bd30327ea318fabc40e452e120765c3a32db18902268bd73b80"
+  },
+  {
+    "name": "treasurer.config.ts",
+    "hashedContent": "b48711a254f38ee5d6fc08847cbae0aa1e8f3873db1ba86878afac16d9acaea6"
+  },
+  {
+    "name": "usdc-token.config.ts",
+    "hashedContent": "6d8d5223a7674019ffde2a8b6635446dadcb7ff401d6841f44e3b99ab6113b49"
+  },
+  {
+    "name": "usdt-token.config.ts",
+    "hashedContent": "3c5ccd3af97974512062f1a9f64d70be34497d033f098a924a0a0107d7810a3c"
+  }
+]
