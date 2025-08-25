@@ -1,0 +1,671 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0x6bD6De24CA0756698e3F2B706bBe717c2209633b",
+          "tokenMessaging": "0xdc443e1B760B1E3d2582a613a0Bc3608eBCc71Df",
+          "creditMessaging": "0xa31dCc5C71E25146b598bADA33E303627D7fC97e",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0xAD28ba8f98B9CB5Cb0a7D5c8883CB56ADA656707",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0xf80598283618e1BD9cAef85662653B268FDdf1F1",
+          "tokenMessaging": "0xfB112f7FC5725de9F630abB23E4916d6fd7526d3",
+          "creditMessaging": "0x37F84c52e7Af2aC039359b4484F65529d344B4f4",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0x41945d449bd72AE0E237Eade565D8Bde2aa5e969",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd",
+          "tokenMessaging": "0x43F2376D5D03553aE72F4A8093bbe9de4336EB08",
+          "creditMessaging": "0x1343994e136B6b15CBB2eB4075e0E73b8c4Ebce0",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0xc8D5b106fb3dB1140cfa12a94666de02A1d26183",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0x9554E739735ef03C7458577bBa6549aEc619Ac50",
+          "tokenMessaging": "0x657C13E8668B4eD33e524E3F8BD8559667E3Eb9b",
+          "creditMessaging": "0x28ddfFDf27b44aEFE73c9a5320A32C4145e30ddF",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0xd1E255BB6354D237172802646B0d6dDCFC8c509E",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0x6fddB6270F6c71f31B62AE0260cfa8E2e2d186E0",
+          "tokenMessaging": "0xea461D9B1a3d1d45E2Aa3a358c3b8cB9bF2c7063",
+          "creditMessaging": "0xAD28ba8f98B9CB5Cb0a7D5c8883CB56ADA656707",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0x7470E97cc02b0D5be6CFFAd3fd8012755db16156",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0x40461291347e1eCbb09499F3371D3f17f10d7159",
+          "tokenMessaging": "0xF1815bd50389c46847f0Bda824eC8da914045D14",
+          "creditMessaging": "0x824D8FcDC36E81618377D140BEC12c3B7E4e4cbA",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "assetId": 1,
+        "addressConfig": {
+          "feeLib": "0xEb8d955d8Ae221E5b502851ddd78E6C4498dB4f6",
+          "tokenMessaging": "0xf4D9235269a96aaDaFc9aDAe454a0618eBE37949",
+          "creditMessaging": "0x28E0f0eed8d6A6a96033feEe8b2D7F32EB5CCc48",
+          "planner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "treasurer": "0x99e799CBD972362a84145D98498Db4430A66a734",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "to": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40150,
+        "contractName": "StargateOFTUSDC"
+      },
+      "config": {
+        "isOFT": true
+      }
+    },
+    {
+      "from": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40161,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40204,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40231,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40232,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 40340,
+        "contractName": "StargateOFTUSDC"
+      },
+      "to": {
+        "eid": 40246,
+        "contractName": "StargatePoolUSDC"
+      },
+      "config": {
+        "isOFT": false
+      }
+    }
+  ]
+}

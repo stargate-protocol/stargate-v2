@@ -1,0 +1,68 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "eid": 30101,
+        "contractName": "StargatePoolMETIS"
+      },
+      "config": {
+        "owner": "0x65bb797c2B9830d891D87288F029ed8dACc19705",
+        "assetId": 17,
+        "addressConfig": {
+          "feeLib": "0x6Dd69717B1194B81A92105B7e0F94cb40f68A3e3",
+          "tokenMessaging": "0x6d6620eFa72948C5f68A3C8646d58C00d3f4A980",
+          "creditMessaging": "0x6b8aD17795d89B283e6D0362A87A403f3544bb9d",
+          "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
+          "treasurer": "0x1041D127b2d4BC700F0F563883bC689502606918",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "eid": 30151,
+        "contractName": "StargatePoolMETIS"
+      },
+      "config": {
+        "owner": "0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E",
+        "assetId": 17,
+        "addressConfig": {
+          "feeLib": "0xcE8CcA271Ebc0533920C83d39F417ED6A0abB7D0",
+          "tokenMessaging": "0xcbE78230CcA58b9EF4c3c5D1bC0D7E4b3206588a",
+          "creditMessaging": "0xA45B5130f36CDcA45667738e2a258AB09f4A5f7F",
+          "planner": "0xe37f7c80ceD04c4F243C0Fd04A5510D663CB88b5",
+          "treasurer": "0x3da4f8E456AC648c489c286B99Ca37B666be7C4C",
+          "lzToken": "0x0000000000000000000000000000000000000000"
+        }
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "eid": 30101,
+        "contractName": "StargatePoolMETIS"
+      },
+      "to": {
+        "eid": 30151,
+        "contractName": "StargatePoolMETIS"
+      },
+      "config": {
+        "isOFT": false
+      }
+    },
+    {
+      "from": {
+        "eid": 30151,
+        "contractName": "StargatePoolMETIS"
+      },
+      "to": {
+        "eid": 30101,
+        "contractName": "StargatePoolMETIS"
+      },
+      "config": {
+        "isOFT": false
+      }
+    }
+  ]
+}
