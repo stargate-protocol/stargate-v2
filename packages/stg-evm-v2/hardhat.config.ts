@@ -511,7 +511,7 @@ const networks: NetworksUserConfig = {
     },
     'plumephoenix-mainnet': {
         eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
-        url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://phoenix-rpc.plumenetwork.xyz',
+        url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://rpc.plume.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
@@ -568,6 +568,13 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
+    },
+    'somnia-mainnet': {
+        eid: EndpointId.SOMNIA_V2_MAINNET,
+        url: process.env.RPC_URL_SOMNIA_MAINNET || 'https://api.infra.mainnet.somnia.network/',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.SOMNIA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'soneium-mainnet': {
         eid: EndpointId.SONEIUM_V2_MAINNET,

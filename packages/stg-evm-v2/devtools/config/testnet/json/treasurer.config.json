@@ -1,0 +1,127 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40102
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0xf1b69ee3097c6E8CC6487B7667dB818FeDC7b1a9": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40106
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x5b32c997211621d55a89Cc5abAF1cC21F3A6ddF5": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40150
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x6312184c0cbe3D032daD2F2085b0e340B84F8b3B": true,
+          "0x77A5eBAA6862E5026a12BFA5695dF4057865D6ED": true,
+          "0xf626Acea3FfBe6228149A651Aa8a8DF0c0e7A575": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40161
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x4985b8fcEA3659FD801a5b857dA1D00e985863F0": true,
+          "0x9Cc7e185162Aa5D1425ee924D97a87A0a34A0706": true,
+          "0x9D819CcAE96d41d8F775bD1259311041248fF980": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40204
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x0cEb237E109eE22374a567c6b09F373C73FA4cBb": true,
+          "0x102d758f688a4C1C5a80b116bD945d4455460282": true,
+          "0x9895D81bB462A195b4922ED7De0e3ACD007c32CB": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40231
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x543BdA7c6cA4384FE90B1F5929bb851F52888983": true,
+          "0x6fddB6270F6c71f31B62AE0260cfa8E2e2d186E0": true,
+          "0xB956d6FDFB235636DE7885C5166756823bb27e3a": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40232
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x314B753272a3C79646b92A87dbFDEE643237033a": true,
+          "0x6bD6De24CA0756698e3F2B706bBe717c2209633b": true,
+          "0xa31dCc5C71E25146b598bADA33E303627D7fC97e": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40246
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x6D205337F45D6850c3c3006e28d5b52c8a432c35": true,
+          "0xd9492653457A69E9f4987DB43D7fa0112E620Cb4": true,
+          "0xE1AD845D93853fff44990aE0DcecD8575293681e": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "Treasurer",
+        "eid": 40340
+      },
+      "config": {
+        "admin": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "assets": {
+          "0x4bb13347ce7Cbf8884ADB137AEDa0355Ef61B259": true,
+          "0xad11a8BEb98bbf61dbb1aa0F6d6F2ECD87b35afA": true,
+          "0xCD9A74e5fe451025E92b5b8F74117c6E275Aa7c8": true
+        }
+      }
+    }
+  ],
+  "connections": []
+}

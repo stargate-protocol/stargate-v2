@@ -17,6 +17,10 @@ on:
 env:
   NPM_TOKEN: ""
 
+  # We'll add the proxy RPC from secrets
+  RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
+  RPC_URL_TESTNET: ${{ secrets.RPC_URL_TESTNET }}
+
 jobs:
   lint-build-test:
     name: Lint, Build & Test

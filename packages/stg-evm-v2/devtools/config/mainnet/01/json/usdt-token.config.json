@@ -1,0 +1,165 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x3695Dd1D1D43B794C0B13eb8be8419Eb3ac22bf7",
+        "eid": 30138
+      },
+      "config": {
+        "owner": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8",
+        "eid": 30199
+      },
+      "config": {
+        "owner": "0x3a1293Bdb83bBbDd5Ebf4fAc96605aD2021BbC0f"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8",
+        "eid": 30267
+      },
+      "config": {
+        "owner": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xf4D9235269a96aaDaFc9aDAe454a0618eBE37949",
+        "eid": 30302
+      },
+      "config": {
+        "owner": "0x07cd5A2702394E512aaaE54f7a250ea0576E5E8C"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8",
+        "eid": 30312
+      },
+      "config": {
+        "owner": "0xEb8d955d8Ae221E5b502851ddd78E6C4498dB4f6"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x0709f39376deee2a2dfc94a58edeb2eb9df012bd",
+        "eid": 30324
+      },
+      "config": {
+        "owner": "0x943C484278b8bE05D119DfC73CfAa4c9D8f11A76"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xbB0D083fb1be0A9f6157ec484b6C79E0A4e31C2e",
+        "eid": 30329
+      },
+      "config": {
+        "owner": "0xAF54BE5B6eEc24d6BFACf1cce4eaF680A8239398"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x88853D410299BCBfE5fCC9Eef93c03115E908279",
+        "eid": 30330
+      },
+      "config": {
+        "owner": "0xF2c0e57f48276112a596e141817D93bE472Ed6c5"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xaf368c91793cb22739386dfcbbb2f1a9e4bcbebf",
+        "eid": 30333
+      },
+      "config": {
+        "owner": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8",
+        "eid": 30336
+      },
+      "config": {
+        "owner": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xE1AD845D93853fff44990aE0DcecD8575293681e",
+        "eid": 30342
+      },
+      "config": {
+        "owner": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xE1AD845D93853fff44990aE0DcecD8575293681e",
+        "eid": 30361
+      },
+      "config": {
+        "owner": "0x549943e04f40284185054145c6E4e9568C1D3241"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x674843C06FF83502ddb4D37c2E09C01cdA38cbc8",
+        "eid": 30364
+      },
+      "config": {
+        "owner": "0x3a1293Bdb83bBbDd5Ebf4fAc96605aD2021BbC0f"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xcdA5b77E2E2268D9E09c874c1b9A4c3F07b37555",
+        "eid": 30365
+      },
+      "config": {
+        "owner": "0xA4272ad93AC5d2FF048DD6419c88Eb4C1002Ec6b"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0x43F2376D5D03553aE72F4A8093bbe9de4336EB08",
+        "eid": 30369
+      },
+      "config": {
+        "owner": "0xC16977205c53Cd854136031BD2128F75D6ff63C9"
+      }
+    },
+    {
+      "contract": {
+        "contractName": "TetherTokenV2",
+        "address": "0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd",
+        "eid": 30370
+      },
+      "config": {
+        "owner": "0x2D870D17e640eD6c057afBAA0DF56B8DEa5Cf2F6"
+      }
+    }
+  ],
+  "connections": []
+}

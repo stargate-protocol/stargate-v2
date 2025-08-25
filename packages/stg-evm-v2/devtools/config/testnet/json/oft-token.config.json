@@ -1,0 +1,28 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "OFTTokenETH",
+        "eid": 40150
+      },
+      "config": {
+        "minters": {
+          "0x6312184c0cbe3D032daD2F2085b0e340B84F8b3B": true,
+          "0x77A5eBAA6862E5026a12BFA5695dF4057865D6ED": true
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "OFTTokenETH",
+        "eid": 40340
+      },
+      "config": {
+        "minters": {
+          "0xad11a8BEb98bbf61dbb1aa0F6d6F2ECD87b35afA": true
+        }
+      }
+    }
+  ],
+  "connections": []
+}

@@ -1,0 +1,314 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40102
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x3C0Dea5955cb490F78e330A213c960cA63f66314": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0xe37Bdc6F09DAB6ce6E4eBC4d2E72792994Ef3765",
+        "eid": 40102
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0xf1b69ee3097c6E8CC6487B7667dB818FeDC7b1a9": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40106
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x60219C44E146BAf36002eA73767820238Ebc1db6": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0x144843929Df063312A083DB6f0a0FF5697ABED4a",
+        "eid": 40106
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x5b32c997211621d55a89Cc5abAF1cC21F3A6ddF5": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40161
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x1a8B0C2F4cc508981470ec6C0F5e84C18A8af5F5": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0xF3F2b4815A58152c9BE53250275e8211163268BA",
+        "eid": 40161
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x9D819CcAE96d41d8F775bD1259311041248fF980": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590",
+        "eid": 40161
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x4985b8fcEA3659FD801a5b857dA1D00e985863F0": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40204
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0xaC7D7780C3338fc306033e443d6232Da12B5A907": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0x88b8E2161DEDC77EF4ab7585569D2415a1C1055D",
+        "eid": 40204
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x102d758f688a4C1C5a80b116bD945d4455460282": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0xf817257fed379853cDe0fa4F97AB987181B1E5Ea",
+        "eid": 40204
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x0cEb237E109eE22374a567c6b09F373C73FA4cBb": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40231
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0xD58fCBA3E5A0F5a41A708A70C3B66BcfA64aE5DE": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0x095f40616FA98Ff75D1a7D0c68685c5ef806f110",
+        "eid": 40231
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0xB956d6FDFB235636DE7885C5166756823bb27e3a": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0x3253a335E7bFfB4790Aa4C25C4250d206E9b9773",
+        "eid": 40231
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x543BdA7c6cA4384FE90B1F5929bb851F52888983": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40232
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x2D942075b09c0B955994cf5bf71E25e584f23668": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0xdc443e1B760B1E3d2582a613a0Bc3608eBCc71Df",
+        "eid": 40232
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x6bD6De24CA0756698e3F2B706bBe717c2209633b": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0x488327236B65C61A6c083e8d811a4E0D3d1D4268",
+        "eid": 40232
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x314B753272a3C79646b92A87dbFDEE643237033a": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "RewardTokenMock",
+        "eid": 40246
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x74c9f2b00581F1B11AA7ff05aa9F608B7389De67": "2419200000000000007516192768"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "2419200000000000007516192768"
+        }
+      }
+    },
+    {
+      "contract": {
+        "address": "0xcC4Ac915857532ADa58D69493554C6d869932Fe6",
+        "eid": 40246
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0xd9492653457A69E9f4987DB43D7fa0112E620Cb4": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "FiatTokenV2_2",
+        "address": "0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080",
+        "eid": 40246
+      },
+      "config": {
+        "allowance": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+            "0x6D205337F45D6850c3c3006e28d5b52c8a432c35": "18000000000000000000"
+          }
+        },
+        "mint": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    }
+  ],
+  "connections": []
+}
