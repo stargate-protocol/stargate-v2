@@ -1,23 +1,6 @@
-import assert from 'assert'
-
-import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
-import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
-
-import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
-import { createGetAssetAddresses, getAssetNetworkConfig, getNamedAccount } from '../../../ts-src/utils/util'
-
-import { onKlaytn, onOdyssey } from './utils'
-
-const getStargateMultisig = getNamedAccount('tokenAdmin')
-
-// Except for external deployments
-
-const tokenName = TokenName.USDC
-const usdcOdysseyAsset = getAssetNetworkConfig(EndpointId.ODYSSEY_V2_TESTNET, tokenName)
-assert(usdcOdysseyAsset.address != null, `External USDC address not found for Odyssey`)
+import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
     // First let's create the HardhatRuntimeEnvironment objects for all networks

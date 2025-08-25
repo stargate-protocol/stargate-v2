@@ -1,0 +1,173 @@
+{
+  "contracts": [
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40102
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40106
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolNative",
+        "eid": 40161
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000"
+        },
+        "isNative": true
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40161
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDC",
+        "eid": 40161
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40204
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDC",
+        "eid": 40204
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolNative",
+        "eid": 40231
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000"
+        },
+        "isNative": true
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40231
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDC",
+        "eid": 40231
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolNative",
+        "eid": 40232
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000"
+        },
+        "isNative": true
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40232
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDC",
+        "eid": 40232
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDT",
+        "eid": 40246
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    },
+    {
+      "contract": {
+        "contractName": "StargatePoolUSDC",
+        "eid": 40246
+      },
+      "config": {
+        "depositAmount": {
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+        }
+      }
+    }
+  ],
+  "connections": []
+}
