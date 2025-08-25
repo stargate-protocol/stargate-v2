@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
-import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
+import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { getContractWithEid, getSafeAddress } from '../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
 
@@ -23,6 +23,7 @@ export default async function buildCircleFiatTokenGraph(
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
+    const getStargateMultisigTestnet = createGetNamedAccount(getEnvironment)
 
     // note: The newer USDC deployments (since December 2024, USDC is deployed and verified from Circle's repo)
     const chains = getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
@@ -42,7 +43,10 @@ export default async function buildCircleFiatTokenGraph(
                 tokenProxyAddress = await contractFactory(getContractWithEid(chain.eid, proxyContract))
             }
 
-            const stargateMultisig = getSafeAddress(chain.eid)
+            const stargateMultisig =
+                stage === Stage.MAINNET
+                    ? getSafeAddress(chain.eid)
+                    : await getStargateMultisigTestnet(chain.eid, 'tokenAdmin')
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
             return {
                 contract: getContractWithEid(chain.eid, {
