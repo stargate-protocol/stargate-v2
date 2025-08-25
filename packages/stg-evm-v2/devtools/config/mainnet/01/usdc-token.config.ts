@@ -3,10 +3,10 @@ import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
-import buildCircleFiatTokenGraph from './circle-fiat-token.config.utils'
+import { buildCircleFiatTokenGraphMainnet } from '../utils'
 
 const tokenName = TokenName.USDC
 
 export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
-    return buildCircleFiatTokenGraph(tokenName)
+    return buildCircleFiatTokenGraphMainnet(tokenName)
 }
