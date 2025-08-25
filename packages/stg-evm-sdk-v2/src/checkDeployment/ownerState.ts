@@ -4,6 +4,7 @@ import * as path from 'path'
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import { DEFAULT_PLANNER } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/01/constants'
 import { getAssetNetworkConfig } from '@stargatefinance/stg-evm-v2/ts-src/utils/util'
+import { ethers } from 'ethers'
 
 import { EndpointVersion, networkToEndpointId } from '@layerzerolabs/lz-definitions'
 
@@ -32,7 +33,7 @@ import {
     valueOrTimeout,
 } from './utils'
 
-const isEOA = async (provider: any, address: string): Promise<boolean> => {
+const isEOA = async (provider: ethers.providers.Provider, address: string): Promise<boolean> => {
     try {
         const code = await provider.getCode(address)
         return code === '0x' || code === '0x0'
@@ -42,9 +43,103 @@ const isEOA = async (provider: any, address: string): Promise<boolean> => {
     }
 }
 
-/**
- * Helper function to check if a token contract deployment exists
- */
+const checkContractOwnership = async (params: {
+    chainName: string
+    contractName: string
+    getContract: () => Promise<{ owner: () => Promise<string> }>
+    expectedOwner?: string
+    numRetries: number
+    provider: ethers.providers.Provider
+}): Promise<string> => {
+    const { chainName, contractName, getContract, expectedOwner, numRetries, provider } = params
+
+    try {
+        const contract = await getContract()
+        const ownerAddress = await valueOrTimeout(
+            () => retryWithBackoff(() => contract.owner(), numRetries, chainName, `${contractName}.owner()`),
+            errorString,
+            timeoutString
+        )
+
+        if (typeof ownerAddress === 'string' && (ownerAddress === errorString || ownerAddress === timeoutString)) {
+            return ownerAddress
+        }
+
+        if (expectedOwner) {
+            const isCorrectOwner = (ownerAddress as string).toLowerCase() === expectedOwner.toLowerCase()
+            return isCorrectOwner
+                ? `OK (owner: DEFAULT_PLANNER ${ownerAddress})`
+                : `error: ${contractName} owned by ${ownerAddress} (expected ${expectedOwner})`
+        }
+
+        const isOwnerEOA = await isEOA(provider, ownerAddress as string)
+        return isOwnerEOA ? `error: EOA ${ownerAddress}` : `OK (owner: ${ownerAddress})`
+    } catch (error) {
+        return `${contractName} not deployed`
+    }
+}
+
+const checkTokenContract = async (params: {
+    chainName: string
+    environment: string
+    tokenConfig: {
+        name: string
+        internalName: string
+        externalTokenName: TokenName
+        factory: { connect: (address: string, provider: ethers.providers.Provider) => { owner: () => Promise<string> } }
+        poolAssetId: string
+    }
+    poolsConfig: Record<string, { poolInfo: Record<string, { stargateType: string }> }>
+    numRetries: number
+    provider: ethers.providers.Provider
+}): Promise<string> => {
+    const { chainName, environment, tokenConfig, poolsConfig, numRetries, provider } = params
+    const { name, internalName, externalTokenName, factory, poolAssetId } = tokenConfig
+
+    // Only check ownership of external tokens if there are OFT assets on the chain
+    const hasOftAssets = Object.values(poolsConfig).some(
+        (config) => config.poolInfo[chainName]?.stargateType?.toUpperCase() === 'OFT'
+    )
+    const hasPool = poolsConfig[poolAssetId]?.poolInfo[chainName]?.stargateType?.toUpperCase() === 'POOL'
+
+    // Check for internal deployment first
+    let tokenAddress = getTokenContractAddress(chainName, environment, internalName)
+    let contractType = `Internal ${internalName}`
+
+    if (!tokenAddress && hasOftAssets && !hasPool) {
+        tokenAddress = getExternalTokenAddress(chainName, externalTokenName, environment)
+        contractType = `External ${name.toUpperCase()}`
+    }
+
+    if (!tokenAddress) {
+        if (!hasOftAssets) {
+            return `No internal ${internalName} found (external check skipped - no OFT assets)`
+        } else if (hasPool) {
+            return `No internal ${internalName} found (external check skipped - chain has ${name.toUpperCase()} Pool)`
+        } else {
+            return `No internal ${internalName} found and no external ${name.toUpperCase()} found`
+        }
+    }
+
+    try {
+        const tokenContract = factory.connect(tokenAddress, provider)
+        const ownerAddress = await valueOrTimeout(
+            () => retryWithBackoff(() => tokenContract.owner(), numRetries, chainName, `${contractType}.owner()`),
+            errorString,
+            timeoutString
+        )
+
+        if (typeof ownerAddress === 'string' && (ownerAddress === errorString || ownerAddress === timeoutString)) {
+            return ownerAddress
+        }
+
+        const isOwnerEOA = await isEOA(provider, ownerAddress as string)
+        return isOwnerEOA ? `error: ${contractType} EOA ${ownerAddress}` : `${contractType} OK (owner: ${ownerAddress})`
+    } catch (error) {
+        return `${contractType} not accessible`
+    }
+}
+
 const getTokenContractAddress = (chainName: string, environment: string, contractName: string): string | null => {
     try {
         const deploymentPath = path.join(
@@ -66,12 +161,8 @@ const getTokenContractAddress = (chainName: string, environment: string, contrac
     }
 }
 
-/**
- * Helper function to get chain eid from chain name
- */
 const getChainEid = (chainName: string, environment = 'mainnet'): number | null => {
     try {
-        // networkToEndpointId expects format like "botanix-mainnet", not just "botanix"
         const networkName = `${chainName}-${environment}`
         return networkToEndpointId(networkName, EndpointVersion.V2)
     } catch (error) {
@@ -79,9 +170,6 @@ const getChainEid = (chainName: string, environment = 'mainnet'): number | null 
     }
 }
 
-/**
- * Helper function to get external token address if it exists
- */
 const getExternalTokenAddress = (chainName: string, tokenName: TokenName, environment = 'mainnet'): string | null => {
     try {
         const eid = getChainEid(chainName, environment)
@@ -94,9 +182,75 @@ const getExternalTokenAddress = (chainName: string, tokenName: TokenName, enviro
     }
 }
 
-/**
- * Check that all Stargate contracts are not owned by EOAs
- */
+const CHAIN_WIDE_CONTRACTS = [
+    {
+        key: 'tokenMessaging',
+        name: 'TokenMessaging',
+        getContract: (chainName: string, environment: string, provider: ethers.providers.Provider) =>
+            getStargateV2TokenMessagingContract(chainName, environment, provider),
+    },
+    {
+        key: 'creditMessaging',
+        name: 'CreditMessaging',
+        getContract: (chainName: string, environment: string, provider: ethers.providers.Provider) =>
+            getStargateV2CreditMessagingContract(chainName, environment, provider),
+    },
+    {
+        key: 'stargateStaking',
+        name: 'StargateStaking',
+        getContract: (chainName: string, environment: string, provider: ethers.providers.Provider) =>
+            getStargateV2StargateStakingContract(chainName, environment, provider),
+    },
+    {
+        key: 'oftWrapper',
+        name: 'OFTWrapper',
+        getContract: (chainName: string, environment: string, provider: ethers.providers.Provider) =>
+            getStargateV2OFTWrapperContract(chainName, environment, provider),
+    },
+    {
+        key: 'stargateMultiRewarder',
+        name: 'StargateMultiRewarder',
+        getContract: (chainName: string, environment: string, provider: ethers.providers.Provider) =>
+            getStargateV2StargateMultiRewarderContract(chainName, environment, provider),
+    },
+    {
+        key: 'treasurer',
+        name: 'Treasurer',
+        getContract: (chainName: string, environment: string, provider: ethers.providers.Provider) =>
+            getStargateV2TreasurerContract(chainName, environment, provider),
+    },
+]
+
+const TOKEN_CONTRACTS = [
+    {
+        key: 'oftToken',
+        name: 'oft',
+        internalName: 'OFTTokenETH',
+        externalTokenName: TokenName.USDC,
+        factory: OFTTokenERC20__factory,
+        poolAssetId: '',
+        isOftOnly: true,
+    },
+    {
+        key: 'usdcToken',
+        name: 'usdc',
+        internalName: 'USDCProxy',
+        externalTokenName: TokenName.USDC,
+        factory: FiatTokenV2_2__factory,
+        poolAssetId: '1',
+        isOftOnly: false,
+    },
+    {
+        key: 'usdtToken',
+        name: 'usdt',
+        internalName: 'USDT',
+        externalTokenName: TokenName.USDT,
+        factory: USDT__factory,
+        poolAssetId: '2',
+        isOftOnly: false,
+    },
+]
+
 export const getOwnerState = async (args: {
     environment: string
     only: string
@@ -119,8 +273,7 @@ export const getOwnerState = async (args: {
 
     const ownerState: ByAssetConfig = {}
 
-    // First, check chain-wide contracts once per chain
-    const chainWideState: Record<string, any> = {}
+    const chainWideState: Record<string, Record<string, string>> = {}
 
     await processPromises(
         'CHAIN-WIDE OWNER STATE CHECK',
@@ -132,416 +285,57 @@ export const getOwnerState = async (args: {
             chainWideState[chainName] = {}
 
             return [
-                async () => {
-                    try {
-                        const tokenMessagingContract = getStargateV2TokenMessagingContract(
+                ...CHAIN_WIDE_CONTRACTS.map((contractConfig) => async () => {
+                    chainWideState[chainName][contractConfig.key] = await checkContractOwnership({
+                        chainName,
+                        contractName: contractConfig.name,
+                        getContract: () =>
+                            Promise.resolve(
+                                contractConfig.getContract(
+                                    chainName,
+                                    environment,
+                                    bootstrapChainConfig.providers[chainName]
+                                )
+                            ),
+                        numRetries,
+                        provider: bootstrapChainConfig.providers[chainName],
+                    })
+                }),
+
+                ...TOKEN_CONTRACTS.map((tokenConfig) => async () => {
+                    if (tokenConfig.isOftOnly) {
+                        const tokenAddress = getTokenContractAddress(chainName, environment, tokenConfig.internalName)
+                        if (!tokenAddress) {
+                            chainWideState[chainName][tokenConfig.key] =
+                                `No internal ${tokenConfig.internalName} deployment`
+                            return
+                        }
+
+                        chainWideState[chainName][tokenConfig.key] = await checkContractOwnership({
+                            chainName,
+                            contractName: tokenConfig.internalName,
+                            getContract: () =>
+                                Promise.resolve(
+                                    tokenConfig.factory.connect(tokenAddress, bootstrapChainConfig.providers[chainName])
+                                ),
+                            numRetries,
+                            provider: bootstrapChainConfig.providers[chainName],
+                        })
+                    } else {
+                        chainWideState[chainName][tokenConfig.key] = await checkTokenContract({
                             chainName,
                             environment,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => tokenMessagingContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    'TokenMessaging.owner()'
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].tokenMessaging = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].tokenMessaging = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].tokenMessaging = `TokenMessaging not deployed`
+                            tokenConfig,
+                            poolsConfig,
+                            numRetries,
+                            provider: bootstrapChainConfig.providers[chainName],
+                        })
                     }
-                },
-
-                async () => {
-                    try {
-                        const creditMessagingContract = getStargateV2CreditMessagingContract(
-                            chainName,
-                            environment,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => creditMessagingContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    'CreditMessaging.owner()'
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].creditMessaging = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].creditMessaging = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].creditMessaging = `CreditMessaging not deployed`
-                    }
-                },
-
-                async () => {
-                    try {
-                        const stakingContract = getStargateV2StargateStakingContract(
-                            chainName,
-                            environment,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => stakingContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    'StargateStaking.owner()'
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].stargateStaking = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].stargateStaking = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].stargateStaking = `StargateStaking not deployed`
-                    }
-                },
-
-                async () => {
-                    try {
-                        const oftWrapperContract = getStargateV2OFTWrapperContract(
-                            chainName,
-                            environment,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => oftWrapperContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    'OFTWrapper.owner()'
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].oftWrapper = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].oftWrapper = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].oftWrapper = `OFTWrapper not deployed`
-                    }
-                },
-
-                async () => {
-                    try {
-                        const multiRewarderContract = getStargateV2StargateMultiRewarderContract(
-                            chainName,
-                            environment,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => multiRewarderContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    'StargateMultiRewarder.owner()'
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].stargateMultiRewarder = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].stargateMultiRewarder = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].stargateMultiRewarder = `StargateMultiRewarder not deployed`
-                    }
-                },
-
-                async () => {
-                    try {
-                        const treasurerContract = getStargateV2TreasurerContract(
-                            chainName,
-                            environment,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => treasurerContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    'Treasurer.owner()'
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].treasurer = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].treasurer = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].treasurer = `Treasurer not deployed`
-                    }
-                },
-
-                // Check OFT Token contract if it exists (chain-wide)
-                async () => {
-                    const oftTokenName = `OFTTokenETH`
-                    const tokenAddress = getTokenContractAddress(chainName, environment, oftTokenName)
-
-                    if (!tokenAddress) {
-                        chainWideState[chainName].oftToken = `No internal ${oftTokenName} deployment`
-                        return
-                    }
-
-                    try {
-                        const oftTokenContract = OFTTokenERC20__factory.connect(
-                            tokenAddress,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => oftTokenContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    `${oftTokenName}.owner()`
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].oftToken = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].oftToken = isOwnerEOA
-                            ? `error: EOA ${ownerAddress}`
-                            : `OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].oftToken = `${oftTokenName} not accessible`
-                    }
-                },
-
-                // Check USDC Token contract (internal deployment or external, chain-wide)
-                // Only check external USDC if the chain has OFT-type assets and no Pool-type USDC assets
-                async () => {
-                    // Check if this chain has any OFT-type assets
-                    const hasOftAssets = Object.values(poolsConfig).some(
-                        (config) => config.poolInfo[chainName]?.stargateType?.toUpperCase() === 'OFT'
-                    )
-
-                    // Check if this chain has Pool-type USDC (asset ID 1)
-                    const hasUsdcPool = poolsConfig['1']?.poolInfo[chainName]?.stargateType?.toUpperCase() === 'POOL'
-
-                    // Try internal deployment first
-                    let tokenAddress = getTokenContractAddress(chainName, environment, 'USDCProxy')
-                    let contractType = 'Internal USDCProxy'
-
-                    // If no internal deployment, check for external USDC only if chain has OFT assets but no USDC pools
-                    if (!tokenAddress && hasOftAssets && !hasUsdcPool) {
-                        tokenAddress = getExternalTokenAddress(chainName, TokenName.USDC, environment)
-                        contractType = 'External USDC'
-                    }
-
-                    if (!tokenAddress) {
-                        let reason = 'No internal USDCProxy found'
-                        if (!hasOftAssets) {
-                            reason += ' (external check skipped - no OFT assets)'
-                        } else if (hasUsdcPool) {
-                            reason += ' (external check skipped - chain has USDC Pool)'
-                        } else {
-                            reason += ' and no external USDC found'
-                        }
-                        chainWideState[chainName].usdcToken = reason
-                        return
-                    }
-
-                    try {
-                        const usdcContract = FiatTokenV2_2__factory.connect(
-                            tokenAddress,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => usdcContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    `${contractType}.owner()`
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].usdcToken = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].usdcToken = isOwnerEOA
-                            ? `error: ${contractType} EOA ${ownerAddress}`
-                            : `${contractType} OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].usdcToken = `${contractType} not accessible`
-                    }
-                },
-
-                // Check USDT Token contract (internal deployment or external, chain-wide)
-                // Only check external USDT if the chain has OFT-type assets and no Pool-type USDT assets
-                async () => {
-                    // Check if this chain has any OFT-type assets
-                    const hasOftAssets = Object.values(poolsConfig).some(
-                        (config) => config.poolInfo[chainName]?.stargateType?.toUpperCase() === 'OFT'
-                    )
-
-                    // Check if this chain has Pool-type USDT (asset ID 2)
-                    const hasUsdtPool = poolsConfig['2']?.poolInfo[chainName]?.stargateType?.toUpperCase() === 'POOL'
-
-                    // Try internal deployment first
-                    let tokenAddress = getTokenContractAddress(chainName, environment, 'USDT')
-                    let contractType = 'Internal USDT'
-
-                    // If no internal deployment, check for external USDT only if chain has OFT assets but no USDT pools
-                    if (!tokenAddress && hasOftAssets && !hasUsdtPool) {
-                        tokenAddress = getExternalTokenAddress(chainName, TokenName.USDT, environment)
-                        contractType = 'External USDT'
-                    }
-
-                    if (!tokenAddress) {
-                        let reason = 'No internal USDT found'
-                        if (!hasOftAssets) {
-                            reason += ' (external check skipped - no OFT assets)'
-                        } else if (hasUsdtPool) {
-                            reason += ' (external check skipped - chain has USDT Pool)'
-                        } else {
-                            reason += ' and no external USDT found'
-                        }
-                        chainWideState[chainName].usdtToken = reason
-                        return
-                    }
-
-                    try {
-                        // Use USDT factory for both internal and external USDT tokens
-                        const usdtContract = USDT__factory.connect(
-                            tokenAddress,
-                            bootstrapChainConfig.providers[chainName]
-                        )
-
-                        const ownerAddress = await valueOrTimeout(
-                            () =>
-                                retryWithBackoff(
-                                    () => usdtContract.owner(),
-                                    numRetries,
-                                    chainName,
-                                    `${contractType}.owner()`
-                                ),
-                            errorString,
-                            timeoutString
-                        )
-
-                        if (
-                            typeof ownerAddress === 'string' &&
-                            (ownerAddress === errorString || ownerAddress === timeoutString)
-                        ) {
-                            chainWideState[chainName].usdtToken = ownerAddress
-                            return
-                        }
-
-                        const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                        chainWideState[chainName].usdtToken = isOwnerEOA
-                            ? `error: ${contractType} EOA ${ownerAddress}`
-                            : `${contractType} OK (owner: ${ownerAddress})`
-                    } catch (error) {
-                        chainWideState[chainName].usdtToken = `${contractType} not accessible`
-                    }
-                },
+                }),
             ]
         })
     )
 
-    // Now check asset-specific contracts (FeeLib and StargateContract)
     await processPromises(
         'ASSET-SPECIFIC OWNER STATE CHECK',
         Object.entries(poolsConfig).flatMap(([assetId, config]) => {
@@ -557,105 +351,53 @@ export const getOwnerState = async (args: {
                 }
 
                 ownerState[assetId][chainName] ??= {}
-
                 Object.assign(ownerState[assetId][chainName], chainWideState[chainName])
 
-                // Get asset symbol from the pool info
+                const { stargateType, address } = config.poolInfo[chainName]
                 const assetSymbol = config.poolInfo[chainName].token.symbol
 
                 return [
-                    // Check FeeLib contract for this specific asset is owned by the DEFAULT_PLANNER
+                    // Check FeeLib contract for this specific asset (should be owned by DEFAULT_PLANNER)
                     async () => {
-                        try {
-                            const { stargateType, address } = config.poolInfo[chainName]
-                            const stargateContract = connectStargateV2Contract(
-                                bootstrapChainConfig.providers[chainName],
-                                stargateType,
-                                address
-                            )
-
-                            const { feeLib } = await retryWithBackoff(
-                                () => stargateContract.getAddressConfig(),
-                                numRetries,
-                                chainName,
-                                `getAddressConfig(${assetSymbol})`
-                            )
-
-                            const feeLibContract = FeeLibV1__factory.connect(
-                                feeLib,
-                                bootstrapChainConfig.providers[chainName]
-                            )
-
-                            const ownerAddress = await valueOrTimeout(
-                                () =>
-                                    retryWithBackoff(
-                                        () => feeLibContract.owner(),
-                                        numRetries,
-                                        chainName,
-                                        `FeeLib_${assetSymbol}.owner()`
-                                    ),
-                                errorString,
-                                timeoutString
-                            )
-
-                            if (
-                                typeof ownerAddress === 'string' &&
-                                (ownerAddress === errorString || ownerAddress === timeoutString)
-                            ) {
-                                ownerState[assetId][chainName].feeLib = `FeeLib_${assetSymbol} ${ownerAddress}`
-                                return
-                            }
-
-                            // FeeLib should be owned by the DEFAULT_PLANNER
-                            const isCorrectOwner = ownerAddress.toLowerCase() === DEFAULT_PLANNER.toLowerCase()
-                            ownerState[assetId][chainName].feeLib = isCorrectOwner
-                                ? `FeeLib_${assetSymbol} OK (owner: DEFAULT_PLANNER ${ownerAddress})`
-                                : `error: FeeLib_${assetSymbol} owned by ${ownerAddress} (expected ${DEFAULT_PLANNER})`
-                        } catch (error) {
-                            ownerState[assetId][chainName].feeLib = `FeeLib_${assetSymbol} not accessible`
-                        }
+                        ownerState[assetId][chainName].feeLib = await checkContractOwnership({
+                            chainName,
+                            contractName: `FeeLib_${assetSymbol}`,
+                            getContract: async () => {
+                                const stargateContract = connectStargateV2Contract(
+                                    bootstrapChainConfig.providers[chainName],
+                                    stargateType,
+                                    address
+                                )
+                                const { feeLib } = await retryWithBackoff(
+                                    () => stargateContract.getAddressConfig(),
+                                    numRetries,
+                                    chainName,
+                                    `getAddressConfig(${assetSymbol})`
+                                )
+                                return FeeLibV1__factory.connect(feeLib, bootstrapChainConfig.providers[chainName])
+                            },
+                            expectedOwner: DEFAULT_PLANNER,
+                            numRetries,
+                            provider: bootstrapChainConfig.providers[chainName],
+                        })
                     },
 
                     // Check Stargate Pool/OFT contract for this specific asset
                     async () => {
-                        const { stargateType, address } = config.poolInfo[chainName]
-
-                        try {
-                            const stargateContract = connectStargateV2Contract(
-                                bootstrapChainConfig.providers[chainName],
-                                stargateType,
-                                address
-                            )
-
-                            const ownerAddress = await valueOrTimeout(
-                                () =>
-                                    retryWithBackoff(
-                                        () => stargateContract.owner(),
-                                        numRetries,
-                                        chainName,
-                                        `Stargate${stargateType}_${assetSymbol}.owner()`
-                                    ),
-                                errorString,
-                                timeoutString
-                            )
-
-                            if (
-                                typeof ownerAddress === 'string' &&
-                                (ownerAddress === errorString || ownerAddress === timeoutString)
-                            ) {
-                                ownerState[assetId][chainName].stargateContract =
-                                    `Stargate${stargateType}_${assetSymbol} ${ownerAddress}`
-                                return
-                            }
-
-                            const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
-                            ownerState[assetId][chainName].stargateContract = isOwnerEOA
-                                ? `error: Stargate${stargateType}_${assetSymbol} EOA ${ownerAddress}`
-                                : `Stargate${stargateType}_${assetSymbol} OK (owner: ${ownerAddress})`
-                        } catch (error) {
-                            ownerState[assetId][chainName].stargateContract =
-                                `Stargate${stargateType}_${assetSymbol} not accessible`
-                        }
+                        ownerState[assetId][chainName].stargateContract = await checkContractOwnership({
+                            chainName,
+                            contractName: `Stargate${stargateType}_${assetSymbol}`,
+                            getContract: () =>
+                                Promise.resolve(
+                                    connectStargateV2Contract(
+                                        bootstrapChainConfig.providers[chainName],
+                                        stargateType,
+                                        address
+                                    )
+                                ),
+                            numRetries,
+                            provider: bootstrapChainConfig.providers[chainName],
+                        })
                     },
                 ]
             })
@@ -665,6 +407,9 @@ export const getOwnerState = async (args: {
     return ownerState
 }
 
+/**
+ * Check that all Stargate contracts are not owned by EOAs
+ */
 if (require.main === module) {
     const main = async () => {
         const { parse } = await import('../common-utils')
