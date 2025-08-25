@@ -72,11 +72,13 @@ export function filterFromAndToChains(
 
 // supported chains
 export function getAllChainsConfig(): Chain[] {
+    const stage = requireStage()
+
     if (SUPPORTED_CHAINS !== undefined) {
         return SUPPORTED_CHAINS
     }
 
-    const chainsDir = chainsToChainsDir[requireStage()]
+    const chainsDir = chainsToChainsDir[stage]
 
     // Read all yml files from the chains directory
     let chainFiles = fs.readdirSync(chainsDir).filter((file: string) => file.endsWith('.yml'))

@@ -13,11 +13,11 @@
   },
   {
     "name": "credit-messaging.config.ts",
-    "hashedContent": "c0579786370ff007cbc261aa61c62c4a03e1fb1780df8f1e35ec495f84c18bbb"
+    "hashedContent": "c55b3f4c055cb2b7345ed47ae3472c85f6c5e1c628dc296e420c0504a0fdd38a"
   },
   {
     "name": "deposit.config.ts",
-    "hashedContent": "e8801ec64dfa50ee887c6cee4ce4e9c6bf9a71c146a7e5a19679c23611b30cba"
+    "hashedContent": "1f36a0bd13ff0c6665f52295cafb6b6ed433a37e802c77d2d6496947ba0affd0"
   },
   {
     "name": "feelib-v1.eth.config.ts",
@@ -33,7 +33,7 @@
   },
   {
     "name": "mint.allowance.config.ts",
-    "hashedContent": "7345513b7676fe789b99b172fb42755b260d4eadf959fa02f85e1aff91169c0d"
+    "hashedContent": "95c6a8501e6b8d7af686df198db79955f2944e3494cb2551b66cb2b6ef904b3a"
   },
   {
     "name": "oft-token.config.ts",
@@ -45,7 +45,7 @@
   },
   {
     "name": "rewarder.rewards.config.ts",
-    "hashedContent": "9ebee5cb9861d30c9f5339139d717cce019df086538e9ee8cc5382e7cf054ebe"
+    "hashedContent": "3c386a7576373b29e41d6e532d198a11a4dc80f7786b643dedaad16bf106c7c0"
   },
   {
     "name": "staking.config.ts",
@@ -53,15 +53,11 @@
   },
   {
     "name": "token-messaging.config.ts",
-    "hashedContent": "5f61751b7be67c784cfb0bfe8c387b0b4a5764e857a593b72ea314bf5ee0bf65"
+    "hashedContent": "d3dba76a1e578bd30327ea318fabc40e452e120765c3a32db18902268bd73b80"
   },
   {
     "name": "treasurer.config.ts",
     "hashedContent": "b48711a254f38ee5d6fc08847cbae0aa1e8f3873db1ba86878afac16d9acaea6"
-  },
-  {
-    "name": "usdc-admin.config.ts",
-    "hashedContent": "a7688d1aeb54ea796f1197a2569161eca54800d707beb0e40ae4d09eb849d662"
   },
   {
     "name": "usdc-token.config.ts",
