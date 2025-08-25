@@ -618,9 +618,9 @@ export const getOwnerState = async (args: {
 
                     // Check Stargate Pool/OFT contract for this specific asset
                     async () => {
-                        try {
-                            const { stargateType, address } = config.poolInfo[chainName]
+                        const { stargateType, address } = config.poolInfo[chainName]
 
+                        try {
                             const stargateContract = connectStargateV2Contract(
                                 bootstrapChainConfig.providers[chainName],
                                 stargateType,
