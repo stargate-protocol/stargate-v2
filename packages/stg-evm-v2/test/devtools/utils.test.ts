@@ -4,9 +4,17 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 
 import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
+import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
+import { setMainnetStage } from '../../devtools/config/mainnet/utils'
 import {
+    getContracts as getContractsTestnet,
+    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
+    validCreditMessagingChains as validCreditMessagingChainsTestnet,
+} from '../../devtools/config/testnet/utils'
+import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
+import {
+    __resetUtilsConfigStateForTests,
     getAllChainsConfig,
     getAllSupportedChains,
     getChainsThatSupportMessaging,
@@ -19,17 +27,21 @@ import {
     getSupportedTokensByEid,
     getTokenName,
     isValidChain,
+    requireStage,
+    setStage,
     validateChains,
-} from '../../devtools/config/mainnet/utils'
-import {
-    getContracts as getContractsTestnet,
-    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
-    validCreditMessagingChains as validCreditMessagingChainsTestnet,
-} from '../../devtools/config/testnet/utils'
-import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
+} from '../../devtools/config/utils/utils.config'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
+    before(() => {
+        setMainnetStage()
+    })
+
+    beforeEach(() => {
+        __resetUtilsConfigStateForTests()
+    })
+
     describe('createGetAssetAddresses()', () => {
         it('should return an empty object if called with no tokens', async () => {
             const getTokenAddresses = createGetAssetAddresses()
@@ -236,8 +248,6 @@ describe('devtools/utils', () => {
     })
 
     describe('setsDifference', () => {
-        const mockContractData = { contractName: 'MockContract' }
-
         it('should return empty set when sets are identical', () => {
             const setA = new Set(['a', 'b', 'c'])
             const result = setsDifference(setA, setA)
@@ -317,7 +327,12 @@ describe('devtools/utils', () => {
         })
     })
 
+    // utils.config
     describe('supportedChains', () => {
+        beforeEach(() => {
+            setStage(Stage.MAINNET)
+        })
+
         const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
         const chainsThatSupportUSDTPool = ['ethereum-mainnet', 'avalanche-mainnet']
         const chainsThatSupportUSDTOft = ['degen-mainnet', 'flare-mainnet']
@@ -403,6 +418,10 @@ describe('devtools/utils', () => {
     })
 
     describe('validChains', () => {
+        beforeEach(() => {
+            setStage(Stage.MAINNET)
+        })
+
         const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
         const invalidChains = ['invalid-chain-1', 'invalid-chain-2']
 
@@ -462,6 +481,10 @@ describe('devtools/utils', () => {
     })
 
     describe('getSupportedTokensByEid', () => {
+        beforeEach(() => {
+            setStage(Stage.MAINNET)
+        })
+
         it('should return the supported tokens by eid (chain with tokens)', () => {
             const result = getSupportedTokensByEid(EndpointId.ETHEREUM_V2_MAINNET)
 
@@ -487,6 +510,25 @@ describe('devtools/utils', () => {
 
             expect(result.length).to.equal(0)
             expect(result).to.have.members([])
+        })
+    })
+
+    describe('setStage', () => {
+        it('should set the stage', () => {
+            setStage(Stage.MAINNET)
+
+            const currentStage = requireStage()
+
+            expect(currentStage).to.equal(Stage.MAINNET)
+        })
+
+        it('should throw if the stage is not set', () => {
+            expect(() => requireStage()).to.throw('Stage not set. Call setStage(stage) before using chain utils.')
+        })
+        it('should throw if the stage is invalid', () => {
+            const invalidStage = 'invalid-stage' as Stage
+
+            expect(() => setStage(invalidStage)).to.throw(`Invalid stage: ${invalidStage}`)
         })
     })
 })
