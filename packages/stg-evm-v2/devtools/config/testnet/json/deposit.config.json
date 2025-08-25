@@ -29,7 +29,7 @@
       },
       "config": {
         "depositAmount": {
-          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000"
         },
         "isNative": true
       }
@@ -85,7 +85,7 @@
       },
       "config": {
         "depositAmount": {
-          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000"
         },
         "isNative": true
       }
@@ -119,7 +119,7 @@
       },
       "config": {
         "depositAmount": {
-          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "18000000000000000000"
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": "1000000000000000000"
         },
         "isNative": true
       }
