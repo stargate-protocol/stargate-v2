@@ -3,6 +3,7 @@ import { parallelProcess, parse } from '../common-utils'
 import { getBalancingQuoteState } from './balancingQuoteState'
 import { getBusNativeDropsState } from './busNativeDropsState'
 import { getFeeConfigsState } from './feeConfigsState'
+import { getOwnerState } from './ownerState'
 import { getPlannerNativeBalanceState } from './plannerNativeBalanceState'
 import { getPlannerPermissionsState } from './plannerPermissionsState'
 import { getQuotesState } from './quotesState'
@@ -78,6 +79,7 @@ const main = async () => {
         balancingQuoteState,
         quotesState,
         plannerNativeBalanceState,
+        ownerState,
     ] = (await parallelProcess<any>(
         [
             // These checks validate that the contracts are configured correctly on-chain
@@ -87,6 +89,7 @@ const main = async () => {
             () => getBalancingQuoteState(args),
             () => getQuotesState(args),
             () => getPlannerNativeBalanceState(args),
+            () => getOwnerState(args),
         ],
         numConcurrentChecks
     )) as [
@@ -96,6 +99,7 @@ const main = async () => {
         ReturnType<typeof getBalancingQuoteState>,
         ReturnType<typeof getQuotesState>,
         ReturnType<typeof getPlannerNativeBalanceState>,
+        ReturnType<typeof getOwnerState>,
     ]
 
     const errorsOnlyObject = getErrorOnlyObject({
@@ -105,6 +109,7 @@ const main = async () => {
         quotesState,
         plannerPermissionsState,
         plannerNativeBalanceState,
+        ownerState,
     })
 
     console.log('\n\n')
