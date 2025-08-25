@@ -12,6 +12,7 @@ import { setTestnetStage } from './utils'
 const nativePool = { contractName: 'StargatePoolNative' }
 const usdcPool = { contractName: 'StargatePoolUSDC' }
 const usdtPool = { contractName: 'StargatePoolUSDT' }
+const eurcPool = { contractName: 'StargatePoolEURC' }
 
 export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
     // Set the stage to testnet
@@ -32,6 +33,10 @@ export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
         ...getChainsThatSupportTokenWithType(TokenName.USDC, StargateType.Pool).map((chain) => ({
             chain,
             contractName: usdcPool,
+        })),
+        ...getChainsThatSupportTokenWithType(TokenName.EURC, StargateType.Pool).map((chain) => ({
+            chain,
+            contractName: eurcPool,
         })),
     ]
 
