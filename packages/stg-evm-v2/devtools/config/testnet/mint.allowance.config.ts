@@ -124,7 +124,7 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
 
             const contract = {
                 contractName: 'FiatTokenV2_2',
-                address: ASSETS[TokenName.USDC].networks[chain.eid as EndpointId]?.address,
+                address: ASSETS[TokenName.EURC].networks[chain.eid as EndpointId]?.address,
             }
             const deployer = await hre.getNamedAccounts().then(getDeployer)
             const poolContract = await contractFactory(getContractWithEid(chain.eid, eurcPool))
