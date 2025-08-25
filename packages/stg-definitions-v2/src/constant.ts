@@ -1025,7 +1025,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.ARBSEP_V2_TESTNET]: {
-                address: '0x0000000000000000000000000000000000000000', // todo deploy
+                address: '0xa6f01ccc347f07256bec0dc7d1a3b62adc3f1a68',
                 type: StargateType.Oft,
             },
         },
