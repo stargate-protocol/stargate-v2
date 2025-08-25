@@ -14,7 +14,7 @@ import feelibMethConfig from '../../devtools/config/mainnet/01/feelib-v1.meth.co
 import feelibMetisConfig from '../../devtools/config/mainnet/01/feelib-v1.metis.config'
 import feelibUsdcConfig from '../../devtools/config/mainnet/01/feelib-v1.usdc.config'
 import feelibUsdtConfig from '../../devtools/config/mainnet/01/feelib-v1.usdt.config'
-import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/mainnet/utils'
+import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 

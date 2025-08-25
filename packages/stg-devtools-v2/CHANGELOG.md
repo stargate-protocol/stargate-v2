@@ -1,5 +1,15 @@
 # @stargatefinance/stg-devtools-v2
 
+## 5.0.0
+
+### Patch Changes
+
+- 8988aba: Hedera mainnet deployment
+- Updated dependencies [4a8eece]
+- Updated dependencies [a3078b8]
+- Updated dependencies [8988aba]
+  - @stargatefinance/stg-definitions-v2@3.0.0
+
 ## 4.0.5
 
 ### Patch Changes

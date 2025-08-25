@@ -11,16 +11,24 @@ import {
     OmniPointHardhat,
     createGetHreByEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
+import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { filterConnections, getContractWithEid, getSafeAddress } from '../../utils'
-import { filterFromAndToChains, getChainsThatSupportMessaging, getSupportedTokensByEid } from '../utils'
+import { filterConnections, getContractWithEid, getSafeAddress } from '../utils'
 
-import { DEFAULT_PLANNER } from './constants'
 import { getAssetsConfig } from './shared'
+import {
+    filterFromAndToChains,
+    getChainsThatSupportMessaging,
+    getSupportedTokensByEid,
+    printChains,
+    setStage,
+} from './utils.config'
 
 export default async function buildMessagingGraph(
+    stage: Stage,
     contract: { contractName: string },
     messagingType: string,
+    defaultPlanner: string,
     generateMessagingConfig: (
         points: OmniPointHardhat[]
     ) => OmniEdgeHardhat<TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>[]
@@ -30,6 +38,9 @@ export default async function buildMessagingGraph(
         TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
     >
 > {
+    // Set the correct stage
+    setStage(stage)
+
     const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
     const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
@@ -39,14 +50,8 @@ export default async function buildMessagingGraph(
     // Get valid chains config for the chains in the fromChains and toChains
     const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
 
-    console.log(
-        messagingType + ' FROM_CHAINS:',
-        validFromChains.map((chain) => chain.name)
-    )
-    console.log(
-        messagingType + ' TO_CHAINS:',
-        validToChains.map((chain) => chain.name)
-    )
+    printChains(`${messagingType} FROM_CHAINS:`, validFromChains)
+    printChains(`${messagingType} TO_CHAINS:`, validToChains)
 
     const fromContracts = validFromChains.map((chain) => getContractWithEid(chain.eid, contract))
     const toContracts = validToChains.map((chain) => getContractWithEid(chain.eid, contract))
@@ -66,9 +71,10 @@ export default async function buildMessagingGraph(
         allContracts.map(async (contract) => ({
             contract,
             config: {
-                owner: getSafeAddress(contract.eid),
-                delegate: getSafeAddress(contract.eid),
-                planner: DEFAULT_PLANNER,
+                // Only set owner for mainnet
+                ...(stage === Stage.MAINNET ? { owner: getSafeAddress(contract.eid) } : {}),
+                ...(stage === Stage.MAINNET ? { delegate: getSafeAddress(contract.eid) } : {}),
+                planner: defaultPlanner,
                 assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
             },
         }))

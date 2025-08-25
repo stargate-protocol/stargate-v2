@@ -2,15 +2,20 @@ import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
+import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { getCircleFiatTokenProxyDeployName } from '../../../../ops/util'
-import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportTokenWithType, isExternalDeployment } from '../utils'
+import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
+import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
+import { getContractWithEid, getSafeAddress } from '../utils'
+import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
 
 export default async function buildCircleFiatTokenGraph(
+    stage: Stage,
     tokenName: TokenName
 ): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> {
+    // Set the correct stage
+    setStage(stage)
+
     const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
     const fiatContract = { contractName: 'FiatTokenV2_2' }
 
