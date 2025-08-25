@@ -162,8 +162,8 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].tokenMessaging = isOwnerEOA
-                            ? `error: TokenMessaging EOA ${ownerAddress}`
-                            : `TokenMessaging OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].tokenMessaging = `TokenMessaging not deployed`
                     }
@@ -199,8 +199,8 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].creditMessaging = isOwnerEOA
-                            ? `error: CreditMessaging EOA ${ownerAddress}`
-                            : `CreditMessaging OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].creditMessaging = `CreditMessaging not deployed`
                     }
@@ -236,8 +236,8 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].stargateStaking = isOwnerEOA
-                            ? `error: StargateStaking EOA ${ownerAddress}`
-                            : `StargateStaking OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].stargateStaking = `StargateStaking not deployed`
                     }
@@ -273,8 +273,8 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].oftWrapper = isOwnerEOA
-                            ? `error: OFTWrapper EOA ${ownerAddress}`
-                            : `OFTWrapper OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].oftWrapper = `OFTWrapper not deployed`
                     }
@@ -310,8 +310,8 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].stargateMultiRewarder = isOwnerEOA
-                            ? `error: StargateMultiRewarder EOA ${ownerAddress}`
-                            : `StargateMultiRewarder OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].stargateMultiRewarder = `StargateMultiRewarder not deployed`
                     }
@@ -347,8 +347,8 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].treasurer = isOwnerEOA
-                            ? `error: Treasurer EOA ${ownerAddress}`
-                            : `Treasurer OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].treasurer = `Treasurer not deployed`
                     }
@@ -392,27 +392,44 @@ export const getOwnerState = async (args: {
 
                         const isOwnerEOA = await isEOA(bootstrapChainConfig.providers[chainName], ownerAddress)
                         chainWideState[chainName].oftToken = isOwnerEOA
-                            ? `error: ${oftTokenName} EOA ${ownerAddress}`
-                            : `${oftTokenName} OK (owner: ${ownerAddress})`
+                            ? `error: EOA ${ownerAddress}`
+                            : `OK (owner: ${ownerAddress})`
                     } catch (error) {
                         chainWideState[chainName].oftToken = `${oftTokenName} not accessible`
                     }
                 },
 
                 // Check USDC Token contract (internal deployment or external, chain-wide)
+                // Only check external USDC if the chain has OFT-type assets and no Pool-type USDC assets
                 async () => {
+                    // Check if this chain has any OFT-type assets
+                    const hasOftAssets = Object.values(poolsConfig).some(
+                        (config) => config.poolInfo[chainName]?.stargateType?.toUpperCase() === 'OFT'
+                    )
+
+                    // Check if this chain has Pool-type USDC (asset ID 1)
+                    const hasUsdcPool = poolsConfig['1']?.poolInfo[chainName]?.stargateType?.toUpperCase() === 'POOL'
+
                     // Try internal deployment first
                     let tokenAddress = getTokenContractAddress(chainName, environment, 'USDCProxy')
                     let contractType = 'Internal USDCProxy'
 
-                    // If no internal deployment, check for external USDC
-                    if (!tokenAddress) {
+                    // If no internal deployment, check for external USDC only if chain has OFT assets but no USDC pools
+                    if (!tokenAddress && hasOftAssets && !hasUsdcPool) {
                         tokenAddress = getExternalTokenAddress(chainName, TokenName.USDC, environment)
                         contractType = 'External USDC'
                     }
 
                     if (!tokenAddress) {
-                        chainWideState[chainName].usdcToken = 'No internal USDCProxy or external USDC found'
+                        let reason = 'No internal USDCProxy found'
+                        if (!hasOftAssets) {
+                            reason += ' (external check skipped - no OFT assets)'
+                        } else if (hasUsdcPool) {
+                            reason += ' (external check skipped - chain has USDC Pool)'
+                        } else {
+                            reason += ' and no external USDC found'
+                        }
+                        chainWideState[chainName].usdcToken = reason
                         return
                     }
 
@@ -452,19 +469,36 @@ export const getOwnerState = async (args: {
                 },
 
                 // Check USDT Token contract (internal deployment or external, chain-wide)
+                // Only check external USDT if the chain has OFT-type assets and no Pool-type USDT assets
                 async () => {
+                    // Check if this chain has any OFT-type assets
+                    const hasOftAssets = Object.values(poolsConfig).some(
+                        (config) => config.poolInfo[chainName]?.stargateType?.toUpperCase() === 'OFT'
+                    )
+
+                    // Check if this chain has Pool-type USDT (asset ID 2)
+                    const hasUsdtPool = poolsConfig['2']?.poolInfo[chainName]?.stargateType?.toUpperCase() === 'POOL'
+
                     // Try internal deployment first
                     let tokenAddress = getTokenContractAddress(chainName, environment, 'USDT')
                     let contractType = 'Internal USDT'
 
-                    // If no internal deployment, check for external USDT
-                    if (!tokenAddress) {
+                    // If no internal deployment, check for external USDT only if chain has OFT assets but no USDT pools
+                    if (!tokenAddress && hasOftAssets && !hasUsdtPool) {
                         tokenAddress = getExternalTokenAddress(chainName, TokenName.USDT, environment)
                         contractType = 'External USDT'
                     }
 
                     if (!tokenAddress) {
-                        chainWideState[chainName].usdtToken = 'No internal USDT or external USDT found'
+                        let reason = 'No internal USDT found'
+                        if (!hasOftAssets) {
+                            reason += ' (external check skipped - no OFT assets)'
+                        } else if (hasUsdtPool) {
+                            reason += ' (external check skipped - chain has USDT Pool)'
+                        } else {
+                            reason += ' and no external USDT found'
+                        }
+                        chainWideState[chainName].usdtToken = reason
                         return
                     }
 
