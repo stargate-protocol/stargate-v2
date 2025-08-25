@@ -39,11 +39,12 @@ export default async (): Promise<OmniGraphHardhat<PoolNodeConfig, unknown>> => {
         taggedChains.map(async (chain) => {
             const hre = await getHre(chain.chain.eid)
             const deployer = await hre.getNamedAccounts().then(getNamedAccount('deployer'))
+            const depositAmount = chain.contractName === nativePool ? BigInt(1e18) : BigInt(18e18)
             return {
                 contract: getContractWithEid(chain.chain.eid, chain.contractName),
                 config: {
                     depositAmount: {
-                        [deployer]: BigInt(1e18),
+                        [deployer]: depositAmount,
                     },
                     ...(chain.contractName === nativePool ? { isNative: true } : {}),
                 },
