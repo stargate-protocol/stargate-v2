@@ -13,14 +13,14 @@ import { configurePausable } from '../pausable'
 import { configureRescuable } from '../rescuable'
 import { formatNumberOfTransactions } from '../utils/logger'
 
-import type { IUSDC, USDCOmniGraph } from './types'
+import type { CircleFiatTokenOmniGraph, ICircleFiatToken } from './types'
 
-export type USDCConfigurator = Configurator<USDCOmniGraph, IUSDC>
+export type CircleFiatTokenConfigurator = Configurator<CircleFiatTokenOmniGraph, ICircleFiatToken>
 
-const createAssetLogger = () => createModuleLogger('USDC')
+const createAssetLogger = () => createModuleLogger('circleFiatToken')
 const withAsyncLogger = createWithAsyncLogger(createAssetLogger)
 
-export const configureProxyAdmin: USDCConfigurator = createConfigureNodes(
+export const configureProxyAdmin: CircleFiatTokenConfigurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.admin == null) return []
@@ -43,7 +43,7 @@ export const configureProxyAdmin: USDCConfigurator = createConfigureNodes(
     )
 )
 
-export const configureMasterMinter: USDCConfigurator = createConfigureNodes(
+export const configureMasterMinter: CircleFiatTokenConfigurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.masterMinter == null) return []
@@ -69,7 +69,7 @@ export const configureMasterMinter: USDCConfigurator = createConfigureNodes(
 // This configurator will only set a minter if is currently not a minter, or unset it if the configuration
 // allowance is 0. In this way, it behaves like an idempotent configurator, as it will only apply the setting
 // once.
-export const initializeMinters: USDCConfigurator = createConfigureNodes(
+export const initializeMinters: CircleFiatTokenConfigurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             const txs: OmniTransaction[] = []
@@ -111,7 +111,7 @@ export const initializeMinters: USDCConfigurator = createConfigureNodes(
 
 // This configurator will reset the allowance of any minters. Compared to initializeMinters, it is
 // not idempotent, and should be used only on specific operations that intend to reset the allowance.
-export const resetMinters: USDCConfigurator = createConfigureNodes(
+export const resetMinters: CircleFiatTokenConfigurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             const txs: OmniTransaction[] = []
@@ -150,7 +150,7 @@ export const resetMinters: USDCConfigurator = createConfigureNodes(
     )
 )
 
-export const configureUSDC: USDCConfigurator = createConfigureMultiple(
+export const configureCircleFiatToken: CircleFiatTokenConfigurator = createConfigureMultiple(
     configureMasterMinter,
     configureBlacklistable,
     configureRescuable,

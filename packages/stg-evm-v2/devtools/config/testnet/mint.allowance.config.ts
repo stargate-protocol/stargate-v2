@@ -16,6 +16,7 @@ const getDeployer = getNamedAccount('deployer')
 
 const rewarder = { contractName: 'StargateMultiRewarder' }
 const usdcPool = { contractName: 'StargatePoolUSDC' }
+const eurcPool = { contractName: 'StargatePoolEURC' }
 const usdtPool = { contractName: 'StargatePoolUSDT' }
 
 export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => {
@@ -56,6 +57,7 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
     // get all chains that has pool
     const usdtChains = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Pool)
     const usdcChains = getChainsThatSupportTokenWithType(TokenName.USDC, StargateType.Pool)
+    const eurcChains = getChainsThatSupportTokenWithType(TokenName.EURC, StargateType.Pool)
 
     // usdt pools
     const usdtPoolsContracts = await Promise.all(
@@ -115,8 +117,35 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
         })
     )
 
+    // eurc pools
+    const eurcPoolsContracts = await Promise.all(
+        eurcChains.map(async (chain) => {
+            const hre = await getHre(chain.eid)
+
+            const contract = {
+                contractName: 'FiatTokenV2_2',
+                address: ASSETS[TokenName.EURC].networks[chain.eid as EndpointId]?.address,
+            }
+            const deployer = await hre.getNamedAccounts().then(getDeployer)
+            const poolContract = await contractFactory(getContractWithEid(chain.eid, eurcPool))
+            return {
+                contract: getContractWithEid(chain.eid, contract),
+                config: {
+                    allowance: {
+                        [deployer]: {
+                            [poolContract.contract.address]: BigInt(18e18),
+                        },
+                    },
+                    mint: {
+                        [deployer]: BigInt(18e18),
+                    },
+                },
+            }
+        })
+    )
+
     return {
-        contracts: [...rewarderContracts, ...usdtPoolsContracts, ...usdcPoolsContracts],
+        contracts: [...rewarderContracts, ...usdtPoolsContracts, ...usdcPoolsContracts, ...eurcPoolsContracts],
         connections: [],
     }
 }

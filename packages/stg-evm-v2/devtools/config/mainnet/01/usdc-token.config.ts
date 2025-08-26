@@ -1,9 +1,12 @@
-import { USDCNodeConfig } from '@stargatefinance/stg-devtools-v2'
+import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { buildUsdcTokenGraphMainnet } from '../utils'
+import { buildCircleFiatTokenGraphMainnet } from '../utils'
 
-export default async (): Promise<OmniGraphHardhat<USDCNodeConfig, unknown>> => {
-    return buildUsdcTokenGraphMainnet()
+const tokenName = TokenName.USDC
+
+export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
+    return buildCircleFiatTokenGraphMainnet(tokenName)
 }
