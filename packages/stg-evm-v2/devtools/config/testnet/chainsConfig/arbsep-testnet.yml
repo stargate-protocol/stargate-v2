@@ -9,6 +9,8 @@ tokens:
     type: pool
   usdc:
     type: pool
+  eurc:
+    type: oft
 rewarder:
   tokens:
     mock_a:
