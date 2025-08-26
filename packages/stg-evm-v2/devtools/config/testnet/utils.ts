@@ -7,12 +7,12 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { getNamedAccount } from '../../../ts-src/utils/util'
 import buildAssetDeploymentGraph from '../utils/asset.config.utils'
+import buildCircleFiatTokenGraph from '../utils/circle-fiat-token.config.utils'
 import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
 import buildMessagingGraph from '../utils/messaging.config.utils'
 import buildRewarderGraph from '../utils/rewarder.config.utils'
 import buildStakingGraph from '../utils/staking.config.utils'
 import buildTreasurerGraph from '../utils/treasurer.config.utils'
-import buildUsdcTokenGraph from '../utils/usdc-token.config.utils'
 import buildUsdtTokenGraph from '../utils/usdt-token.config.utils'
 import { setStage } from '../utils/utils.config'
 
@@ -53,8 +53,8 @@ export function buildTreasurerGraphTestnet(contract: { contractName: string }) {
     return buildTreasurerGraph(Stage.TESTNET, contract)
 }
 
-export function buildUsdcTokenGraphTestnet() {
-    return buildUsdcTokenGraph(Stage.TESTNET)
+export function buildCircleFiatTokenGraphTestnet(tokenName: TokenName) {
+    return buildCircleFiatTokenGraph(Stage.TESTNET, tokenName)
 }
 
 export function buildUsdtTokenGraphTestnet() {
