@@ -256,6 +256,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'codex-mainnet': {
+        eid: EndpointId.CODEX_V2_MAINNET,
+        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
