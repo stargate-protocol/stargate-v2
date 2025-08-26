@@ -626,6 +626,13 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.UNICHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'xchain-mainnet': {
+        eid: EndpointId.XCHAIN_V2_MAINNET,
+        url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://xchain-rpc.idex.io/',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'xdc-mainnet': {
         eid: EndpointId.XDC_V2_MAINNET,
         url: process.env.RPC_URL_XDC_MAINNET || 'https://rpc.xdc.org',
