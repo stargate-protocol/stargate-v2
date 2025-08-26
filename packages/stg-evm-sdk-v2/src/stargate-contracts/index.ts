@@ -2,8 +2,6 @@ import { Signer } from 'ethers'
 
 import {
     CreditMessaging__factory,
-    OFTWrapper__factory,
-    StargateMultiRewarder__factory,
     StargateOFT,
     StargateOFT__factory,
     StargatePool,
@@ -12,7 +10,6 @@ import {
     StargatePool__factory,
     StargateStaking__factory,
     TokenMessaging__factory,
-    Treasurer__factory,
 } from './typechain'
 import { createContractGetter } from './utils'
 
@@ -63,27 +60,6 @@ export const getStargateV2StargateStakingContract = createContractGetter(
     StargateStaking__factory,
     PACKAGE_NAME,
     'StargateStaking',
-    resolvePackagePath
-)
-
-export const getStargateV2TreasurerContract = createContractGetter(
-    Treasurer__factory,
-    PACKAGE_NAME,
-    'Treasurer',
-    resolvePackagePath
-)
-
-export const getStargateV2OFTWrapperContract = createContractGetter(
-    OFTWrapper__factory,
-    PACKAGE_NAME,
-    'OFTWrapper',
-    resolvePackagePath
-)
-
-export const getStargateV2StargateMultiRewarderContract = createContractGetter(
-    StargateMultiRewarder__factory,
-    PACKAGE_NAME,
-    'StargateMultiRewarder',
     resolvePackagePath
 )
 
