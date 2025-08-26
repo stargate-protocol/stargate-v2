@@ -2962,10 +2962,6 @@ export const NETWORKS: NetworksConfig = {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
-    [EndpointId.ODYSSEY_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
     [EndpointId.MANTLESEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
