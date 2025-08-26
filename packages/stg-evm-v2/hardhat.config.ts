@@ -147,11 +147,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
         accounts: testnetAccounts,
     },
-    'odyssey-testnet': {
-        eid: EndpointId.ODYSSEY_V2_TESTNET,
-        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://story-testnet-evm.itrocket.net',
-        accounts: testnetAccounts,
-    },
     'mantlesep-testnet': {
         eid: EndpointId.MANTLESEP_V2_TESTNET,
         url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',

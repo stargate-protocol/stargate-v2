@@ -454,11 +454,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
-            [EndpointId.ODYSSEY_V2_TESTNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
-            },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
@@ -658,10 +653,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 type: StargateType.Oft,
-            },
-            [EndpointId.ODYSSEY_V2_TESTNET]: {
-                type: StargateType.Oft,
-                address: '0x880f614c729c622c727f3625b263a36c0b89167F',
             },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
                 address: '0xcC4Ac915857532ADa58D69493554C6d869932Fe6',
@@ -910,10 +901,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'USDC.e',
                 type: StargateType.Oft,
             },
-            [EndpointId.ODYSSEY_V2_TESTNET]: {
-                type: StargateType.Oft,
-                address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
-            },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
                 address: '0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080',
                 type: StargateType.Pool,
@@ -1067,7 +1054,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.AVALANCHE_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
-        [EndpointId.ODYSSEY_V2_TESTNET]: {},
         [EndpointId.MANTLESEP_V2_TESTNET]: {},
         [EndpointId.MONAD_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
@@ -2951,10 +2937,6 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.KLAYTN_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.ODYSSEY_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
