@@ -15,7 +15,7 @@ contract StargateOFTEURC is StargateOFT {
         address _owner
     ) StargateOFT(_token, _sharedDecimals, _endpoint, _owner) {}
 
-    /// @dev Transfer USDC from the sender to this contract and burn it.
+    /// @dev Transfer EURC from the sender to this contract and burn it.
     function _inflow(address _from, uint256 _amountLD) internal virtual override returns (uint64 amountSD) {
         amountSD = _ld2sd(_amountLD);
         _amountLD = _sd2ld(amountSD); // remove dust
