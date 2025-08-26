@@ -1,4 +1,6 @@
-import { getAllChainsConfig } from '@stargatefinance/stg-evm-v2/devtools/config/mainnet/utils'
+import { getAllChainsConfig, setStage } from '@stargatefinance/stg-evm-v2/devtools/config/utils/utils.config'
+
+import { Stage } from '@layerzerolabs/lz-definitions'
 
 enum ChainStatus {
     DEPRECATED = 'DEPRECATED', // not supported by stargate
@@ -13,6 +15,7 @@ function loadMainnetChainsFromYaml(): { [chainName: string]: ChainStatus } {
     const mainnetChains: { [chainName: string]: ChainStatus } = {}
 
     try {
+        setStage(Stage.MAINNET)
         const allChains = getAllChainsConfig()
 
         for (const chainConfig of allChains) {

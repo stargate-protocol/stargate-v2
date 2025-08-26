@@ -30,9 +30,8 @@
     },
     "./devtools/config/mainnet/01/constants": "./devtools/config/mainnet/01/constants.ts",
     "./devtools/config/mainnet/utils": "./devtools/config/mainnet/utils.ts",
-    "./devtools/config/utils": "./devtools/config/utils.ts",
-    "./package.json": "./package.json",
-    "./ts-src/utils/util": "./ts-src/utils/util.ts"
+    "./devtools/config/utils/utils.config": "./devtools/config/utils/utils.config.ts",
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
