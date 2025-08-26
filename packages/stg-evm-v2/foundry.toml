@@ -31,6 +31,7 @@ gas_reports = [
     "StargateMultiRewarder", "StargateStaking",
     "StargateZapperV1",
     "StargateOFTUSDC", "StargatePoolUSDC", "FiatTokenV2_2",
+    "StargateOFTEURC", "StargatePoolEURC",
     "LPToken", "OFTTokenERC20", "OFTTokenERC20Upgradeable"
 ]
 

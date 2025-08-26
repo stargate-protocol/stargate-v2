@@ -28,10 +28,10 @@ export const DVNS = {
         [EndpointId.BERA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.BOTANIX_V2_MAINNET]: '0xa4281c1c88f0278ff696edeb517052153190fc9e',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
-        [EndpointId.CODEX_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
+        [EndpointId.CODEX_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
-        [EndpointId.CRONOSZKEVM_V2_MAINNET]: '0x3a5a74f863ec48c1769c4ee85f6c3d70f5655e2a',
+        [EndpointId.CRONOSZKEVM_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.EBI_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.EDU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -75,7 +75,7 @@ export const DVNS = {
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TELOS_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x25e0e650a78e6304a3983fc4b7ffc6544b1beea6',
-        [EndpointId.XCHAIN_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.XCHAIN_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.XDC_V2_MAINNET]: '0x1294e3347ec64fd63e1d0594dc1294247cd237c7',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xDd7B5E1dB4AaFd5C8EC3b764eFB8ed265Aa5445B',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0xb183c2b91cf76cAd13602b32ADa2Fd273f19009C',
@@ -109,10 +109,10 @@ export const DVNS = {
         [EndpointId.BERA_V2_MAINNET]: '0x6e70fcdc42d3d63748b7d8883399dcb16bbb5c8c',
         [EndpointId.BOTANIX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
-        [EndpointId.CODEX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.CODEX_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0x2ae36a544b904f2f2960f6fd1a6084b4b11ba334',
-        [EndpointId.CRONOSZKEVM_V2_MAINNET]: '0x0d1bc4efd08940eb109ef3040c1386d09b6334e0',
+        [EndpointId.CRONOSZKEVM_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
         [EndpointId.EBI_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.EDU_V2_MAINNET]: '0x97f930a15172f38b7e947778889424e37b5df316',
@@ -156,7 +156,7 @@ export const DVNS = {
         [EndpointId.TAIKO_V2_MAINNET]: '0x37473676ff697f2eba29c8a3105309abf00ba013',
         [EndpointId.TELOS_V2_MAINNET]: '0xa80aa110f05c9c6140018aae0c4e08a70f43350d',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x9885110b909e88bb94f7f767a68ec2558b2afa73',
-        [EndpointId.XCHAIN_V2_MAINNET]: '0x56053a8f4db677e5774f8ee5bdd9d2dc270075f3',
+        [EndpointId.XCHAIN_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.XDC_V2_MAINNET]: '0x4fe90e0f2a99e464d6e97b161d72101cd03c20fe',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xef269bbadb81de86e4b3278fa1dae1723545268b',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x62aa89bad332788021f6f4f4fb196d5fe59c27a6',
@@ -177,10 +177,10 @@ export const EXECUTORS = {
         [EndpointId.BERA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.BOTANIX_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
-        [EndpointId.CODEX_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
+        [EndpointId.CODEX_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0x4b80F7d25c451D204b1C93D9bdf2aB3B04f3EA4a',
-        [EndpointId.CRONOSZKEVM_V2_MAINNET]: '0x553313dB58dEeFa3D55B1457D27EAB3Fe5EC87E8',
+        [EndpointId.CRONOSZKEVM_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.EBI_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.EDU_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
@@ -224,7 +224,7 @@ export const EXECUTORS = {
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TELOS_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
-        [EndpointId.XCHAIN_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.XCHAIN_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.XDC_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x0408804C5dcD9796F22558464E6fE5bDdF16A7c7',
         // [EndpointId.ZKSYNC_V2_MAINNET]: '0x664e390e672A811c12091db8426cBb7d68D5D8A6',
@@ -287,12 +287,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
-            },
-            [EndpointId.CRONOSZKEVM_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Pool,
-                address: '0x898B3560AFFd6D955b1574D87EE09e46669c60eA',
             },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -456,11 +450,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.KLAYTN_V2_TESTNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
-            },
-            [EndpointId.ODYSSEY_V2_TESTNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -665,10 +654,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 type: StargateType.Oft,
             },
-            [EndpointId.ODYSSEY_V2_TESTNET]: {
-                type: StargateType.Oft,
-                address: '0x880f614c729c622c727f3625b263a36c0b89167F',
-            },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
                 address: '0xcC4Ac915857532ADa58D69493554C6d869932Fe6',
                 type: StargateType.Pool,
@@ -744,10 +729,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
                 type: StargateType.Pool,
             },
-            [EndpointId.CODEX_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '0xbbA60da06c2c5424f03f7434542280FCAd453d10',
-            },
             [EndpointId.COREDAO_V2_MAINNET]: {
                 address: '0xa4151b2b3e269645181dccf2d426ce75fcbdeca9',
                 type: StargateType.Pool,
@@ -755,10 +736,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.CRONOSEVM_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xf951eC28187D9E5Ca673Da8FE6757E6f0Be5F77C',
-            },
-            [EndpointId.CRONOSZKEVM_V2_MAINNET]: {
-                type: StargateType.Pool,
-                address: '0xaa5b845F8C9c047779bEDf64829601d8B264076c',
             },
             [EndpointId.DEGEN_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -908,11 +885,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
-            [EndpointId.XCHAIN_V2_MAINNET]: {
-                type: StargateType.Oft,
-                name: 'Bridged USDC (Stargate)',
-                symbol: 'USDC.e',
-            },
             [EndpointId.XDC_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xCc0587aeBDa397146cc828b445dB130a94486e74',
@@ -928,10 +900,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.KLAYTN_V2_TESTNET]: {
                 symbol: 'USDC.e',
                 type: StargateType.Oft,
-            },
-            [EndpointId.ODYSSEY_V2_TESTNET]: {
-                type: StargateType.Oft,
-                address: '0x88853D410299BCBfE5fCC9Eef93c03115E908279',
             },
             [EndpointId.MANTLESEP_V2_TESTNET]: {
                 address: '0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080',
@@ -1002,6 +970,34 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
         },
     },
+    [TokenName.EURC]: {
+        name: 'EURC',
+        symbol: 'EURC',
+        assetId: 23,
+        sharedDecimals: 6,
+        localDecimals: 6,
+        networks: {
+            //
+            // MAINNET
+            //
+
+            //
+            // TESTNET
+            //
+            [EndpointId.SEPOLIA_V2_TESTNET]: {
+                address: '0x08210F9170F89Ab7658F0B5E3fF39b0E03C594D4',
+                type: StargateType.Pool,
+            },
+            [EndpointId.AVALANCHE_V2_TESTNET]: {
+                address: '0x5e44db7996c682e92a960b65ac713a54ad815c6b',
+                type: StargateType.Pool,
+            },
+            [EndpointId.ARBSEP_V2_TESTNET]: {
+                address: '0xa6f01ccc347f07256bec0dc7d1a3b62adc3f1a68',
+                type: StargateType.Oft,
+            },
+        },
+    },
 }
 
 export const OFT_WRAPPER: OftWrapperConfig = {
@@ -1023,10 +1019,8 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BLAST_V2_MAINNET]: {},
         [EndpointId.BOTANIX_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
-        [EndpointId.CODEX_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
         [EndpointId.CRONOSEVM_V2_MAINNET]: {},
-        [EndpointId.CRONOSZKEVM_V2_MAINNET]: {},
         [EndpointId.DEGEN_V2_MAINNET]: {},
         [EndpointId.EDU_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
@@ -1076,7 +1070,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.TAIKO_V2_MAINNET]: {},
         [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
-        [EndpointId.XCHAIN_V2_MAINNET]: {},
         [EndpointId.XDC_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
@@ -1089,7 +1082,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.AVALANCHE_V2_TESTNET]: {},
         [EndpointId.BSC_V2_TESTNET]: {},
         [EndpointId.KLAYTN_V2_TESTNET]: {},
-        [EndpointId.ODYSSEY_V2_TESTNET]: {},
         [EndpointId.MANTLESEP_V2_TESTNET]: {},
         [EndpointId.MONAD_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
@@ -1299,6 +1291,10 @@ export const REWARDS: RewardsConfig = {
                 address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
             },
         },
+    },
+    [RewardTokenName.EURC]: {
+        name: 'EURC',
+        networks: {},
     },
 }
 
@@ -3177,10 +3173,6 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.KLAYTN_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.ODYSSEY_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
