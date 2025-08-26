@@ -186,8 +186,9 @@ configure-testnet:
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
-	# Configure the minters while we are still MasterMinters
+	# Configure the minters while we are still MasterMinters (USDC and EURC)
 	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
 	# Configure everything for USDC
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
