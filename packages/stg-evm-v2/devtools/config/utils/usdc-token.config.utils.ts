@@ -6,7 +6,7 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { getUSDCProxyDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../utils'
+import { getContractWithEid, getOneSigAddress } from '../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
 
 const proxyContract = { contractName: getUSDCProxyDeployName() }
@@ -43,7 +43,7 @@ export default async function buildUsdcTokenGraph(stage: Stage): Promise<OmniGra
 
             const stargateMultisig =
                 stage === Stage.MAINNET
-                    ? getSafeAddress(chain.eid)
+                    ? getOneSigAddress(chain.eid)
                     : await getStargateMultisigTestnet(chain.eid, 'usdcAdmin')
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
             return {
@@ -53,7 +53,7 @@ export default async function buildUsdcTokenGraph(stage: Stage): Promise<OmniGra
                 }),
                 config: {
                     // Only set owner for mainnet
-                    ...(stage === Stage.MAINNET ? { owner: getSafeAddress(chain.eid) } : {}),
+                    ...(stage === Stage.MAINNET ? { owner: stargateMultisig } : {}),
                     masterMinter: stargateMultisig,
                     pauser: stargateMultisig,
                     rescuer: stargateMultisig,

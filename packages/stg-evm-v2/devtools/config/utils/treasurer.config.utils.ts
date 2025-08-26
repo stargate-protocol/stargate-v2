@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetAddresses, createGetDeployer } from '../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../utils'
+import { getContractWithEid, getOneSigAddress } from '../utils'
 
 import { filterValidProvidedChains, getChainsThatSupportTreasurer, getTokenName, setStage } from './utils.config'
 
@@ -44,8 +44,8 @@ export default async function buildTreasurerGraph(
                 contract: getContractWithEid(chain.eid, contract),
                 config: {
                     // Only set owner for mainnet
-                    ...(stage === Stage.MAINNET ? { owner: getSafeAddress(chain.eid) } : {}),
-                    admin: stage === Stage.MAINNET ? getSafeAddress(chain.eid) : await getDeployer(chain.eid),
+                    ...(stage === Stage.MAINNET ? { owner: getOneSigAddress(chain.eid) } : {}),
+                    admin: stage === Stage.MAINNET ? getOneSigAddress(chain.eid) : await getDeployer(chain.eid),
                     assets,
                 },
             }
