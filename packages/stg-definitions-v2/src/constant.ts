@@ -989,7 +989,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.BERA_V2_MAINNET]: {
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
                 type: StargateType.Oft,
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
@@ -997,7 +997,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x15F8c62B1f6DcaEE4805F60539F254dd4fa78AE4',
                 type: StargateType.Oft,
             },
             //
