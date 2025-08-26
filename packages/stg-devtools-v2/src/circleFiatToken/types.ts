@@ -6,7 +6,7 @@ import { IRescuable, RescuableNodeConfig } from '../rescuable'
 
 import type { OmniAddress, OmniGraph, OmniPoint, OmniSDKFactory, OmniTransaction } from '@layerzerolabs/devtools'
 
-export interface USDCNodeConfig
+export interface CircleFiatTokenNodeConfig
     extends OwnableNodeConfig,
         PausableNodeConfig,
         RescuableNodeConfig,
@@ -16,11 +16,14 @@ export interface USDCNodeConfig
     minters?: Record<OmniAddress, bigint>
 }
 
-export type USDCOmniGraph = OmniGraph<USDCNodeConfig, unknown>
+export type CircleFiatTokenOmniGraph = OmniGraph<CircleFiatTokenNodeConfig, unknown>
 
-export type USDCFactory<TUSDC extends IUSDC = IUSDC, TOmniPoint = OmniPoint> = OmniSDKFactory<TUSDC, TOmniPoint>
+export type CircleFiatTokenFactory<
+    TCircleFiatToken extends ICircleFiatToken = ICircleFiatToken,
+    TOmniPoint = OmniPoint,
+> = OmniSDKFactory<TCircleFiatToken, TOmniPoint>
 
-export interface IUSDC extends IOwnable, IPausable, IRescuable, IBlacklistable {
+export interface ICircleFiatToken extends IOwnable, IPausable, IRescuable, IBlacklistable {
     isMinter(minter: OmniAddress): Promise<boolean>
     getMinterAllowance(minter: OmniAddress): Promise<bigint>
     configureMinter(minter: OmniAddress, allowance: bigint): Promise<OmniTransaction> // onlyMasterMinter

@@ -4,6 +4,7 @@ import path from 'path'
 
 import {
     AssetOmniGraphHardhatSchema,
+    CircleFiatTokenOmniGraphHardhatSchema,
     CreditMessagingOmniGraphHardhatSchema,
     ERC20OmniGraphHardhatSchema,
     FeeLibV1OmniGraphHardhatSchema,
@@ -15,8 +16,8 @@ import {
     StakingOmniGraphHardhatSchema,
     TokenMessagingOmniGraphHardhatSchema,
     TreasurerOmniGraphHardhatSchema,
-    USDCOmniGraphHardhatSchema,
     createAssetFactory,
+    createCircleFiatTokenFactory,
     createCreditMessagingFactory,
     createERC20Factory,
     createFeeLibV1Factory,
@@ -27,14 +28,15 @@ import {
     createStakingFactory,
     createTokenMessagingFactory,
     createTreasurerFactory,
-    createUSDCFactory,
 } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import {
     AssetOmniGraph,
+    CircleFiatTokenOmniGraph,
     CreditMessagingOmniGraph,
     ERC20OmniGraph,
     FeeLibV1OmniGraph,
     IAsset,
+    ICircleFiatToken,
     ICreditMessaging,
     IERC20,
     IFeeLibV1,
@@ -45,7 +47,6 @@ import {
     IStaking,
     ITokenMessaging,
     ITreasurer,
-    IUSDC,
     MintableOmniGraph,
     OFTWrapperOmniGraph,
     PoolOmniGraph,
@@ -54,8 +55,8 @@ import {
     StakingOmniGraph,
     TokenMessagingOmniGraph,
     TreasurerOmniGraph,
-    USDCOmniGraph,
     configureAsset,
+    configureCircleFiatToken,
     configureCreditMessaging,
     configureDeposit,
     configureERC20,
@@ -68,7 +69,6 @@ import {
     configureStaking,
     configureTokenMessaging,
     configureTreasurer,
-    configureUSDC,
     initializeBusQueueStorage,
     initializeMinters,
 } from '@stargatefinance/stg-devtools-v2'
@@ -90,6 +90,9 @@ import {
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
     TASK_STG_WIRE_ASSET,
+    TASK_STG_WIRE_CIRCLE_TOKEN,
+    TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER,
+    TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN,
     TASK_STG_WIRE_CREDIT_MESSAGING,
     TASK_STG_WIRE_FEELIB_V1,
     TASK_STG_WIRE_OFT,
@@ -99,9 +102,6 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING,
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
-    TASK_STG_WIRE_USDC,
-    TASK_STG_WIRE_USDC_INITIALIZE_MINTER,
-    TASK_STG_WIRE_USDC_SET_ADMIN,
 } from './constants'
 
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
@@ -330,40 +330,47 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
 })
 
 /**
- * Wiring task for USDC contracts
+ * Wiring task for EURC/USDC contracts
  */
-wireTask(TASK_STG_WIRE_USDC).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: USDCOmniGraphHardhatSchema,
-        })
-    )
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
+    .addOptionalParam('tokenName', 'The token name to wire', 'CircleFiatToken')
+    .setAction(async (args, hre) => {
+        const tokenName = args.tokenName.toUpperCase()
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureUSDC,
-                sdkFactory: createUSDCFactory(createConnectedContractFactory()),
-            })
-    )
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            `Load ${tokenName} config`,
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CircleFiatTokenOmniGraphHardhatSchema,
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            `Configure ${tokenName}`,
+            (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureCircleFiatToken,
+                    sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
+                })
+        )
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for USDC contract to add the asset contract to minters with a high allowance
  */
-wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
     //
     // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
@@ -373,17 +380,17 @@ wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
-            schema: USDCOmniGraphHardhatSchema,
+            schema: CircleFiatTokenOmniGraphHardhatSchema,
         })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Set admin for USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureProxyAdmin,
-                sdkFactory: createUSDCFactory(createConnectedContractFactory()),
+                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
             })
     )
 
@@ -391,34 +398,41 @@ wireTask(TASK_STG_WIRE_USDC_SET_ADMIN).setAction(async (args, hre) => {
 })
 
 /**
- * Wiring task for USDC contract to add the asset contract to minters with a high allowance
+ * Wiring task for EURC/USDC contract to add the asset contract to minters with a high allowance
  */
-wireTask(TASK_STG_WIRE_USDC_INITIALIZE_MINTER).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: USDCOmniGraphHardhatSchema,
-        })
-    )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Initialize minters for USDC',
-        (args: SubtaskConfigureTaskArgs<USDCOmniGraph, IUSDC>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: initializeMinters,
-                sdkFactory: createUSDCFactory(createConnectedContractFactory()),
-            })
-    )
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER)
+    .addOptionalParam('tokenName', 'The token name to wire', 'CircleFiatToken')
+    .setAction(async (args, hre) => {
+        const tokenName = args.tokenName.toUpperCase()
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            `Load ${tokenName} config`,
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CircleFiatTokenOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            `Initialize minters for ${tokenName}`,
+            (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: initializeMinters,
+                    sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
+                })
+        )
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for rewarder contracts

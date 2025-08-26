@@ -1002,6 +1002,34 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
         },
     },
+    [TokenName.EURC]: {
+        name: 'EURC',
+        symbol: 'EURC',
+        assetId: 23,
+        sharedDecimals: 6,
+        localDecimals: 6,
+        networks: {
+            //
+            // MAINNET
+            //
+
+            //
+            // TESTNET
+            //
+            [EndpointId.SEPOLIA_V2_TESTNET]: {
+                address: '0x08210F9170F89Ab7658F0B5E3fF39b0E03C594D4',
+                type: StargateType.Pool,
+            },
+            [EndpointId.AVALANCHE_V2_TESTNET]: {
+                address: '0x5e44db7996c682e92a960b65ac713a54ad815c6b',
+                type: StargateType.Pool,
+            },
+            [EndpointId.ARBSEP_V2_TESTNET]: {
+                address: '0xa6f01ccc347f07256bec0dc7d1a3b62adc3f1a68',
+                type: StargateType.Oft,
+            },
+        },
+    },
 }
 
 export const OFT_WRAPPER: OftWrapperConfig = {
@@ -1299,6 +1327,10 @@ export const REWARDS: RewardsConfig = {
                 address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
             },
         },
+    },
+    [RewardTokenName.EURC]: {
+        name: 'EURC',
+        networks: {},
     },
 }
 

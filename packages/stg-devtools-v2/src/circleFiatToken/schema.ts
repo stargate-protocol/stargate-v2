@@ -7,9 +7,9 @@ import { BlacklistableNodeConfigSchema } from '../blacklistable'
 import { PausableNodeConfigSchema } from '../pausable'
 import { RescuableNodeConfigSchema } from '../rescuable'
 
-import type { USDCNodeConfig } from './types'
+import type { CircleFiatTokenNodeConfig } from './types'
 
-export const USDCNodeConfigSchema = z
+export const CircleFiatTokenNodeConfigSchema = z
     .object({
         masterMinter: AddressSchema.optional(),
         admin: AddressSchema.optional(),
@@ -18,6 +18,6 @@ export const USDCNodeConfigSchema = z
     .merge(RescuableNodeConfigSchema)
     .merge(PausableNodeConfigSchema)
     .merge(BlacklistableNodeConfigSchema)
-    .merge(OwnableNodeConfigSchema) satisfies z.ZodSchema<USDCNodeConfig, z.ZodTypeDef, unknown>
+    .merge(OwnableNodeConfigSchema) satisfies z.ZodSchema<CircleFiatTokenNodeConfig, z.ZodTypeDef, unknown>
 
-export const USDCEdgeConfigSchema = z.unknown()
+export const CircleFiatTokenEdgeConfigSchema = z.unknown()
