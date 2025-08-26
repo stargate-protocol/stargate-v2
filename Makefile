@@ -186,14 +186,21 @@ configure-testnet:
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
-	# Configure the minters while we are still MasterMinters
+	# Configure the minters while we are still MasterMinters (USDC and EURC)
 	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
-	# Configure everything
+	# Configure everything for USDC
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
-	# Transfer ownership
+	# Configure everything for EURC
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+
+	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+
+	# Transfer EURC ownership
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
@@ -206,6 +213,7 @@ configure-testnet:
 
 	# Configure the assets
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts --signer deployer
 
@@ -220,11 +228,13 @@ configure-testnet:
 
 	# Configure feelib V1
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
+	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
 
 	# Transfer the feelib V1 ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
 
@@ -330,6 +340,9 @@ transfer-mainnet:
 
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+
+	# Transfer EURC ownership
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
