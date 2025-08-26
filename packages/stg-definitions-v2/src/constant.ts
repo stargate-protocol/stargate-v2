@@ -1489,35 +1489,6 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/bsc`,
         },
     },
-    [EndpointId.CODEX_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.CODEX_V2_MAINNET], DVNS.STG[EndpointId.CODEX_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.CODEX_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.CODEX_V2_MAINNET], DVNS.STG[EndpointId.CODEX_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.CODEX_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
-        },
-        safeConfig: {
-            safeAddress: '0x539bd5B55eBFb8EfEDc51f115d96FE9705027621',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/codex`,
-            contractNetworks: {
-                [81224]: {
-                    multiSendAddress: '0x00B3FA8E2020e93Cc092508C61DcCa70425635E3',
-                    multiSendCallOnlyAddress: '0xddE16aA6EA27d17c83D43C8f62f828427Ae9848d',
-                    safeMasterCopyAddress: '0xA042C3543E6b546a34ECe6411cD3E3093e7551ec',
-                    safeProxyFactoryAddress: '0x3Dc5fA91e051BB23051Fd424125bc90f24A7DFB9',
-                    fallbackHandlerAddress: '0x075bB7db8EbE09E507295A9Be57da19DEA01aa3B',
-                    createCallAddress: '0x5BF7D6509be83C1e0AA5b9C0bCaF81d626204848',
-                    signMessageLibAddress: '0x9DE94C4F9AB1E1157d3637E04bD96fb8A8143401',
-                    simulateTxAccessorAddress: '0xa60175Fe4Ea218afE3C5dD23203a0fe82BDB6638',
-                },
-            },
-        },
-    },
     [EndpointId.COREDAO_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -1560,41 +1531,6 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
                     signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
                     simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
-                },
-            },
-        },
-    },
-    [EndpointId.CRONOSZKEVM_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.CRONOSZKEVM_V2_MAINNET],
-                DVNS.STG[EndpointId.CRONOSZKEVM_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSZKEVM_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.CRONOSZKEVM_V2_MAINNET],
-                DVNS.STG[EndpointId.CRONOSZKEVM_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSZKEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('2').toBigInt(),
-        },
-        safeConfig: {
-            safeAddress: '0x3cC43e322FE7CCd49F0cc5dB3FE35e5Ee8359b06',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/cronoszkevm`,
-            contractNetworks: {
-                [388]: {
-                    multiSendAddress: '0x0dFcccB95225ffB03c6FBB2559B530C2B7C8A912',
-                    multiSendCallOnlyAddress: '0xf220D3b4DFb23C4ade8C88E526C1353AbAcbC38F',
-                    safeMasterCopyAddress: '0x1727c2c531cf966f902E5927b98490fDFb3b2b70',
-                    safeProxyFactoryAddress: '0xDAec33641865E4651fB43181C6DB6f7232Ee91c2',
-                    fallbackHandlerAddress: '0x2f870a80647BbC554F3a0EBD093f11B4d2a7492A',
-                    createCallAddress: '0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56',
-                    signMessageLibAddress: '0x357147caf9C0cCa67DfA0CF5369318d8193c8407',
-                    simulateTxAccessorAddress: '0x4191E2e12E8BC5002424CE0c51f9947b02675a44',
                 },
             },
         },
@@ -1653,35 +1589,6 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
                     signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
                     simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
-                },
-            },
-        },
-    },
-    [EndpointId.EBI_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00003').toBigInt(),
-        },
-        safeConfig: {
-            safeAddress: '0xb93Aa694A3De8662E1ca9aD0C811440E48cDFe5E',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/ebi`,
-            contractNetworks: {
-                [98881]: {
-                    multiSendAddress: '0x00B3FA8E2020e93Cc092508C61DcCa70425635E3',
-                    multiSendCallOnlyAddress: '0xddE16aA6EA27d17c83D43C8f62f828427Ae9848d',
-                    safeMasterCopyAddress: '0xA042C3543E6b546a34ECe6411cD3E3093e7551ec',
-                    safeProxyFactoryAddress: '0x3Dc5fA91e051BB23051Fd424125bc90f24A7DFB9',
-                    fallbackHandlerAddress: '0x075bB7db8EbE09E507295A9Be57da19DEA01aa3B',
-                    createCallAddress: '0x5BF7D6509be83C1e0AA5b9C0bCaF81d626204848',
-                    signMessageLibAddress: '0x9DE94C4F9AB1E1157d3637E04bD96fb8A8143401',
-                    simulateTxAccessorAddress: '0xa60175Fe4Ea218afE3C5dD23203a0fe82BDB6638',
                 },
             },
         },
@@ -2331,35 +2238,6 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
-    [EndpointId.PLUME_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLUME_V2_MAINNET], DVNS.STG[EndpointId.PLUME_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.PLUME_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLUME_V2_MAINNET], DVNS.STG[EndpointId.PLUME_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.PLUME_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
-        },
-        safeConfig: {
-            safeAddress: '0x30b1Ca299577f70bc456Fa37C6822d9088069d31',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/plume`,
-            contractNetworks: {
-                [98865]: {
-                    multiSendAddress: '0x1E999A606771577f10AFee9111b6263cCF176a1D',
-                    multiSendCallOnlyAddress: '0x3BE538f8E6a8809892a1a9618bda69C518a14a8a',
-                    safeMasterCopyAddress: '0xB79F7E683E365E21B150812b86f1e0D60512D168',
-                    safeProxyFactoryAddress: '0x73aFaC05744f1246Ac94d5Ee92d56be5a7298ecC',
-                    fallbackHandlerAddress: '0x1B01E51e3ff9D83DD245D8320c5007b6a3dBF91c',
-                    createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
-                    signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
-                    simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
-                },
-            },
-        },
-    },
     [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -2823,35 +2701,6 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0x9b35Af71d77eaf8d7e40252370304687390A1A52',
                     signMessageLibAddress: '0xd53cd0aB83D845Ac265BE939c57F53AD838012c9',
                     simulateTxAccessorAddress: '0x3d4BA2E0884aa488718476ca2FB8Efc291A46199',
-                },
-            },
-        },
-    },
-    [EndpointId.XCHAIN_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.XCHAIN_V2_MAINNET], DVNS.STG[EndpointId.XCHAIN_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.XCHAIN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00004').toBigInt(),
-        },
-        safeConfig: {
-            safeAddress: '0xdC20E4cDf9C1bF75dF848D4e8F4E3B9B767840C8',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/xchain`,
-            contractNetworks: {
-                [94524]: {
-                    multiSendAddress: '0xD7e873F871032f8F2B581F1A92fbfd7F5cC0DB87',
-                    multiSendCallOnlyAddress: '0x0a61F43687FB5389A191b60688A878D8c230518C',
-                    safeMasterCopyAddress: '0x7D3e29Fe34eA9f0f061ca1793698BB31227B539c',
-                    safeProxyFactoryAddress: '0xCe2a317b5E866fb4a88d2d1AD5b62791504e6294',
-                    fallbackHandlerAddress: '0x1808829ca983697d33CD2BaD30c1EaAF51a89E07',
-                    createCallAddress: '0xcaA28451125C3c355C8a5596C99B0360Cdd2F928',
-                    signMessageLibAddress: '0x298E98C8DeCa852438b2Df6Bc4bD05BC18D6E7D3',
-                    simulateTxAccessorAddress: '0xECeBABaaDe81E90524F64426FF76BBdD6683739C',
                 },
             },
         },
