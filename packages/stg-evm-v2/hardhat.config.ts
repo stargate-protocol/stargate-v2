@@ -251,13 +251,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'codex-mainnet': {
-        eid: EndpointId.CODEX_V2_MAINNET,
-        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
@@ -271,15 +264,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'cronoszkevm-mainnet': {
-        eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://mainnet.zkevm.cronos.org',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        zksync: true,
-        ethNetwork: 'ethereum-mainnet',
     },
     'degen-mainnet': {
         eid: EndpointId.DEGEN_V2_MAINNET,
@@ -504,13 +488,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'plume-mainnet': {
-        eid: EndpointId.PLUME_V2_MAINNET,
-        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'plumephoenix-mainnet': {
         eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
         url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://rpc.plume.org',
@@ -633,13 +610,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_UNICHAIN_MAINNET || 'https://mainnet.unichain.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.UNICHAIN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'xchain-mainnet': {
-        eid: EndpointId.XCHAIN_V2_MAINNET,
-        url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://xchain-rpc.idex.io/',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'xdc-mainnet': {
