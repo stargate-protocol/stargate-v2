@@ -42,10 +42,33 @@ const ONE_SIG_SIGNERS = [
 ]
 
 const MAINNET_CONFIGS = [
-    './devtools/config/mainnet/01/oft-wrapper.config.ts',
-    './devtools/config/mainnet/01/token-messaging.config.ts',
-    './devtools/config/mainnet/01/usdc-token.config.ts',
     './devtools/config/mainnet/01/asset.eth.config.ts',
+    './devtools/config/mainnet/01/asset.eurc.config.ts',
+    // './devtools/config/mainnet/01/asset.meth.config.ts',
+    // './devtools/config/mainnet/01/asset.metis.config.ts',
+    // './devtools/config/mainnet/01/asset.usdc.config.ts',
+    // './devtools/config/mainnet/01/asset.usdt.config.ts',
+
+    // './devtools/config/mainnet/01/feelib-v1.eth.config.ts',
+    // './devtools/config/mainnet/01/feelib-v1.eurc.config.ts',
+    // './devtools/config/mainnet/01/feelib-v1.meth.config.ts',
+    // './devtools/config/mainnet/01/feelib-v1.metis.config.ts',
+    // './devtools/config/mainnet/01/feelib-v1.usdc.config.ts',
+    // './devtools/config/mainnet/01/feelib-v1.usdt.config.ts',
+
+    // './devtools/config/mainnet/01/oft-token.config.ts',
+    // './devtools/config/mainnet/01/oft-wrapper.config.ts',
+
+    // './devtools/config/mainnet/01/rewarder.config.ts',
+    // './devtools/config/mainnet/01/staking.config.ts',
+    // './devtools/config/mainnet/01/treasurer.config.ts',
+
+    // './devtools/config/mainnet/01/credit-messaging.config.ts',
+    // './devtools/config/mainnet/01/token-messaging.config.ts',
+
+    // './devtools/config/mainnet/01/eurc-token.config.ts',
+    // './devtools/config/mainnet/01/usdc-token.config.ts',
+    // './devtools/config/mainnet/01/usdt-token.config.ts',
 ]
 
 const TESTNET_CONFIGS = [
