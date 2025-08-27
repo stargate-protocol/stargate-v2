@@ -30,7 +30,7 @@ interface PendingTX {
 }
 
 // todo update since in mainnet we have 6 signers and threshold is 3
-const ONE_SIG_THRESHOLD = 1
+let ONE_SIG_THRESHOLD = 3
 const ONE_SIG_TOTAL_SIGNERS = 6
 const ONE_SIG_SIGNERS = [
     '0x79e2b9C1F6C9ed1375C93AaF139e6C4537f48523',
@@ -41,6 +41,48 @@ const ONE_SIG_SIGNERS = [
     '0x2E1078e128e8AA6A70eC8d1B17A79Fc4B457d437',
 ]
 
+const MAINNET_CONFIGS = [
+    './devtools/config/mainnet/01/oft-wrapper.config.ts',
+    './devtools/config/mainnet/01/token-messaging.config.ts',
+    './devtools/config/mainnet/01/usdc-token.config.ts',
+    './devtools/config/mainnet/01/asset.eth.config.ts',
+]
+
+const TESTNET_CONFIGS = [
+    './devtools/config/testnet/asset.eth.config.ts',
+    './devtools/config/testnet/asset.eurc.config.ts',
+    './devtools/config/testnet/asset.usdc.config.ts',
+    './devtools/config/testnet/asset.usdt.config.ts',
+    './devtools/config/testnet/credit-messaging.config.ts',
+    './devtools/config/testnet/eurc-token.config.ts',
+    './devtools/config/testnet/feelib-v1.eth.config.ts',
+    './devtools/config/testnet/feelib-v1.eurc.config.ts',
+    './devtools/config/testnet/feelib-v1.usdc.config.ts',
+    './devtools/config/testnet/feelib-v1.usdt.config.ts',
+    './devtools/config/testnet/token-messaging.config.ts',
+    './devtools/config/testnet/treasurer.config.ts',
+    './devtools/config/testnet/staking.config.ts',
+    './devtools/config/testnet/rewarder.config.ts',
+    './devtools/config/testnet/usdt-token.config.ts',
+    './devtools/config/testnet/usdc-token.config.ts',
+]
+
+// Parse command line arguments
+function parseArgs() {
+    const args = process.argv.slice(2)
+    let stage = args.find((arg) => arg === 'testnet' || arg === 'mainnet')
+    const safe = args.includes('--safe')
+    const dryRun = args.includes('--dry-run')
+
+    if (!stage) {
+        stage = 'mainnet'
+    }
+
+    return { stage, safe, dryRun }
+}
+
+const { stage, safe, dryRun } = parseArgs()
+
 main()
     .then(() => process.exit(0))
     .catch((err) => {
@@ -49,32 +91,11 @@ main()
     })
 
 async function main(): Promise<void> {
-    const oappConfigs = [
-        // mainnet
-        // './devtools/config/mainnet/01/oft-wrapper.config.ts',
-        // './devtools/config/mainnet/01/token-messaging.config.ts',
-        // './devtools/config/mainnet/01/usdc-token.config.ts',
-        // './devtools/config/mainnet/01/asset.eth.config.ts',
-        // Add additional configs to this list as needed.
+    ONE_SIG_THRESHOLD = stage === 'mainnet' ? 3 : 1
 
-        // testnet
-        './devtools/config/testnet/asset.eth.config.ts',
-        './devtools/config/testnet/asset.eurc.config.ts',
-        './devtools/config/testnet/asset.usdc.config.ts',
-        './devtools/config/testnet/asset.usdt.config.ts',
-        './devtools/config/testnet/credit-messaging.config.ts',
-        './devtools/config/testnet/eurc-token.config.ts',
-        './devtools/config/testnet/feelib-v1.eth.config.ts',
-        './devtools/config/testnet/feelib-v1.eurc.config.ts',
-        './devtools/config/testnet/feelib-v1.usdc.config.ts',
-        './devtools/config/testnet/feelib-v1.usdt.config.ts',
-        './devtools/config/testnet/token-messaging.config.ts',
-        './devtools/config/testnet/treasurer.config.ts',
-        './devtools/config/testnet/staking.config.ts',
-        './devtools/config/testnet/rewarder.config.ts',
-        './devtools/config/testnet/usdt-token.config.ts',
-        './devtools/config/testnet/usdc-token.config.ts',
-    ]
+    console.log(`Running migration for ${stage} stage, safe mode: ${safe}`)
+
+    const oappConfigs = stage === 'mainnet' ? MAINNET_CONFIGS : TESTNET_CONFIGS
 
     // 1. get all pending transactions from all configs
     const transactions = []
@@ -88,7 +109,11 @@ async function main(): Promise<void> {
     await processPendingTXs(transactions)
 
     // 3. propose all transactions at once
-    await proposeTransactions(transactions)
+    if (dryRun) {
+        console.log('Dry run mode, skipping proposal')
+    } else {
+        await proposeTransactions(transactions)
+    }
 }
 
 async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
@@ -138,12 +163,8 @@ async function processPendingTXs(transactions: OmniTransaction[]) {
     printErrors(errors)
 }
 
-// todo check it is not working getting stuck in the propose transactions
 async function proposeTransactions(transactions: OmniTransaction[]) {
-    // Propose the transactions to the multisig
     // Create signer factory
-    // todo safe is false cuz I'm trying to make it work for testnet (without setting the owner to the multisig)
-    const safe = false
     const createSigner = safe
         ? createGnosisSignerFactory({ type: 'named', name: 'deployer' })
         : createSignerFactory({ type: 'named', name: 'deployer' })
