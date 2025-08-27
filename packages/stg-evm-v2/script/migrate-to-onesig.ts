@@ -28,42 +28,77 @@ interface PendingTX {
     }
 }
 
+// todo update since in mainnet we have 6 signers and threshold is 3
+const ONE_SIG_THRESHOLD = 1
+const ONE_SIG_TOTAL_SIGNERS = 6
+const ONE_SIG_SIGNERS = [
+    '0x79e2b9C1F6C9ed1375C93AaF139e6C4537f48523',
+    '0xf02CC4dc84aC59Bd6089BAddcEB9d4Ef3AEFb0f0',
+    '0x8A403992b0d9CA20f009063C7bE6F20814Cb8AEB',
+    '0x1D7C6783328C145393e84fb47a7f7C548f5Ee28d',
+    '0x565cFd7224bbc2a81a6e2a1464892ecB27efB070',
+    '0x2E1078e128e8AA6A70eC8d1B17A79Fc4B457d437',
+]
+
+main()
+    .then(() => process.exit(0))
+    .catch((err) => {
+        console.error(err)
+        // process.exit(1)
+    })
+
 async function main(): Promise<void> {
     const oappConfigs = [
-        './devtools/config/mainnet/01/oft-wrapper.config.ts',
-        './devtools/config/mainnet/01/token-messaging.config.ts',
-        './devtools/config/mainnet/01/usdc-token.config.ts',
-        './devtools/config/mainnet/01/asset.eth.config.ts',
+        // mainnet
+        // './devtools/config/mainnet/01/oft-wrapper.config.ts',
+        // './devtools/config/mainnet/01/token-messaging.config.ts',
+        // './devtools/config/mainnet/01/usdc-token.config.ts',
+        // './devtools/config/mainnet/01/asset.eth.config.ts',
         // Add additional configs to this list as needed.
+
+        // testnet
+        './devtools/config/testnet/token-messaging.config.ts',
+        './devtools/config/testnet/usdc-token.config.ts',
+        './devtools/config/testnet/asset.eth.config.ts',
     ]
 
+    // 1. get all pending transactions from all configs
+    const transactions = []
     for (const config of oappConfigs) {
         console.log(`Processing ${config} ...`)
-        await getPendingTXs(config)
+        const response = await getPendingTXs(config)
+        transactions.push(...response)
     }
+
+    // 2. Print the table with each tx details and errors if any
+    await processPendingTXs(transactions)
+
+    // 3. propose all transactions at once
+    await proposeTransactions(transactions)
 }
 
-async function getPendingTXs(oappConfig: string) {
+async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
     const args = {
         oappConfig,
         signer: 'deployer',
         dryRun: true,
         logLevel: 'error',
     }
-    // 1- Get all contracts that needs to transfer ownership to oneSig
+    // Get all contracts that needs to transfer ownership to oneSig
     const result: SignAndSendResult = await run('lz:ownable:transfer-ownership', args)
-    const transactions: OmniTransaction[] = result[2] // pending transactions
+    return result[2] // pending transactions
+}
 
-    // 2- Print the a table with one sig address config
-    console.log('===============================')
-    console.log('       Preparing the Table     ')
-    console.log('===============================')
-
+async function processPendingTXs(transactions: OmniTransaction[]) {
     const pendingTXs: PendingTX[] = []
     const errors: string[] = []
     for (const tx of transactions) {
         const networkName = getNetworkNameForEid(tx.point.eid)
-        const oneSigConfiguration = await getOneSigConfiguration(tx, networkName)
+        const configResult = await _getOneSigConfiguration(tx, networkName)
+
+        // check oneSig configuration
+        const checkResult = await _checkOneSigConfiguration(configResult.oneSigContextConfig)
+
         // get the contract name
         const contractName = await _getContractNameForAddress(networkName, tx.point.address)
         pendingTXs.push({
@@ -72,23 +107,27 @@ async function getPendingTXs(oappConfig: string) {
             contractAddress: tx.point.address,
             currentMultisigOwner: await _getCurrentMultisigOwner(tx),
             newOneSigOwner: _getNewAddress(tx.data),
-            oneSigConfiguration: oneSigConfiguration,
+            oneSigConfiguration: configResult.oneSigContextConfig.oneSigConfiguration,
         })
-        if (oneSigConfiguration.error !== undefined) {
-            errors.push(oneSigConfiguration.error)
+        if (configResult.error !== undefined) {
+            errors.push(configResult.error)
+        }
+        if (checkResult !== undefined) {
+            errors.push(checkResult)
         }
     }
 
+    // print the table with txs details
     printTable(pendingTXs)
 
-    // 3- Print errors if any while getting the one sig configuration
+    // print errors if any while getting the one sig configuration
     printErrors(errors)
+}
 
-    // todo should add checks for ensuring all current multisig owners are one sig owners, to check the threshold and/or total signers?
-
-    // 4- Propose the transactions to the multisig
+// todo check it is not working getting stuck in the propose transactions
+async function proposeTransactions(transactions: OmniTransaction[]) {
+    // Propose the transactions to the multisig
     // Create signer factory
-    // todo check if works (code copied from the transfer-ownership task)
     const createSigner = createGnosisSignerFactory({ type: 'named', name: 'deployer' })
 
     // Sign and send without prompts
@@ -106,20 +145,23 @@ async function getPendingTXs(oappConfig: string) {
     }
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch((err) => {
-        console.error(err)
-        // process.exit(1)
-    })
-
-async function getOneSigConfiguration(
-    tx: OmniTransaction,
+type OneSigContextConfig = {
     networkName: string
-): Promise<{
+    oneSigConfiguration: OneSigConfiguration
+}
+
+type OneSigConfiguration = {
     signers: string[]
     threshold: number
     totalSigners: number
+}
+
+// helpers
+async function _getOneSigConfiguration(
+    tx: OmniTransaction,
+    networkName: string
+): Promise<{
+    oneSigContextConfig: OneSigContextConfig
     error: string | undefined
 }> {
     const newAddress = _getNewAddress(tx.data)
@@ -157,7 +199,41 @@ async function getOneSigConfiguration(
             ? `Error getting one sig configuration for ${networkName},  ${newAddress}: ${errors.join('\n')}`
             : undefined
 
-    return { signers, threshold, totalSigners, error }
+    const oneSigConfiguration: OneSigConfiguration = { signers, threshold, totalSigners }
+    const oneSigContextConfig: OneSigContextConfig = { networkName, oneSigConfiguration }
+    return { oneSigContextConfig, error }
+}
+
+async function _checkOneSigConfiguration(oneSigContextConfig: OneSigContextConfig): Promise<string | undefined> {
+    const { oneSigConfiguration } = oneSigContextConfig
+    const errors: string[] = []
+    // check the total signers is correct
+    if (oneSigConfiguration.totalSigners != ONE_SIG_TOTAL_SIGNERS)
+        errors.push(
+            `Total signers is incorrect, for chain ${oneSigContextConfig.networkName}, expected ${ONE_SIG_TOTAL_SIGNERS}, got ${oneSigConfiguration.totalSigners}`
+        )
+
+    // check the threshold is correct
+    if (oneSigConfiguration.threshold != ONE_SIG_THRESHOLD)
+        errors.push(
+            `Threshold is incorrect, for chain ${oneSigContextConfig.networkName}, expected ${ONE_SIG_THRESHOLD}, got ${oneSigConfiguration.threshold}`
+        )
+
+    // check signers list is correct
+    if (oneSigConfiguration.signers.length != ONE_SIG_SIGNERS.length)
+        errors.push(
+            `Signers list is incorrect, for chain ${oneSigContextConfig.networkName}, expected ${ONE_SIG_SIGNERS.length}, got ${oneSigConfiguration.signers.length}`
+        )
+    // check if all signers are in the list
+    for (const signer of ONE_SIG_SIGNERS) {
+        if (!oneSigConfiguration.signers.includes(signer)) {
+            errors.push(`Signer ${signer} is not in the list, for chain ${oneSigContextConfig.networkName}`)
+        }
+    }
+
+    const error = errors.length > 0 ? `Error checking one sig configuration: ${errors.join('\n')}` : undefined
+
+    return error
 }
 
 function _getNewAddress(data: string): string {
@@ -200,8 +276,8 @@ function printTable(pendingTXs: PendingTX[]) {
         contractAddress: x.contractAddress,
         currentMultisigOwner: x.currentMultisigOwner,
         newOneSigOwner: x.newOneSigOwner,
-        oneSigThreshold: x.oneSigConfiguration.threshold,
-        oneSigTotal: x.oneSigConfiguration.totalSigners,
+        oneSigThreshold: x.oneSigConfiguration.threshold.toString(),
+        oneSigTotal: x.oneSigConfiguration.totalSigners.toString(),
         oneSigSigners: x.oneSigConfiguration.signers.join(','),
     }))
     console.table(rows)
