@@ -3163,6 +3163,13 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ARBSEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+        onesigConfig: {
+            onesigAddress: '0x55A2D5A7D5F7BDcAb8EfC30dA5EAE6a4e4277A18',
+        },
+        safeConfig: {
+            safeAddress: '0xE98fE3d98FF3c2b8346be8Ce87b48cde037A0995',
+            safeUrl: `${process.env.BASE_SAFE_URL_TESTNET}/arbsep`,
+        },
     },
     [EndpointId.AVALANCHE_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -3187,6 +3194,13 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.OPTSEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+        onesigConfig: {
+            onesigAddress: '0x93c6E9904fF6641dCE90Af118EAcE11C2F115247',
+        },
+        safeConfig: {
+            safeAddress: '0x4842Cb8BD3FD7469faB47218A262855EAe9b824E',
+            safeUrl: `${process.env.BASE_SAFE_URL_TESTNET}/optsep`,
+        },
     },
     [EndpointId.SEPOLIA_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
