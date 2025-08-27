@@ -289,18 +289,19 @@ async function _checkOneSigConfiguration(oneSigContextConfig: OneSigContextConfi
             `Threshold is incorrect, for chain ${oneSigContextConfig.networkName}, expected ${ONE_SIG_THRESHOLD}, got ${oneSigConfiguration.threshold}`
         )
 
-    // check signers list is correct
+    // check signers list length is correct
     if (oneSigConfiguration.signers.length != ONE_SIG_SIGNERS.length)
         errors.push(
             `Signers list is incorrect, for chain ${oneSigContextConfig.networkName}, expected ${ONE_SIG_SIGNERS.length}, got ${oneSigConfiguration.signers.length}`
         )
-    // check if all signers are in the list
-    for (const signer of ONE_SIG_SIGNERS) {
-        if (!oneSigConfiguration.signers.includes(signer)) {
-            errors.push(`Signer ${signer} is not in the list, for chain ${oneSigContextConfig.networkName}`)
+    else {
+        // check if all signers are in the list
+        for (const signer of ONE_SIG_SIGNERS) {
+            if (!oneSigConfiguration.signers.includes(signer)) {
+                errors.push(`Signer ${signer} is not in the list, for chain ${oneSigContextConfig.networkName}`)
+            }
         }
     }
-
     const error = errors.length > 0 ? `Error checking one sig configuration: ${errors.join('\n')}` : undefined
 
     return error
