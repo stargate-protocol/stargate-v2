@@ -2179,7 +2179,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         onesigConfig: {
-            onesigAddress: '0x0000000000000AE5160000000000000000000000',
+            onesigAddress: '0xc6f71bd1a4c178780fe62787591bfe3c7eb3160e',
         },
         safeConfig: {
             safeAddress: '0xce578Ad2a804BfD2a999a9911609f551B2a940bb',
@@ -3137,7 +3137,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.00005').toBigInt(),
         },
         onesigConfig: {
-            onesigAddress: '0x0000000000000AE5160000000000000000000000',
+            onesigAddress: '0xd37ba986553f7ac25bdf9867a60b10ebf182e51e',
         },
         safeConfig: {
             safeAddress: '0xdBd9E7f55C3a7A0F17cCAc06dD4f4cbf06f7AD5c',
