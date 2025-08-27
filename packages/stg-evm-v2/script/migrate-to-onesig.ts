@@ -8,6 +8,7 @@ import {
     SUBTASK_LZ_SIGN_AND_SEND,
     createGetHreByEid,
     createGnosisSignerFactory,
+    createSignerFactory,
     getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 
@@ -57,9 +58,22 @@ async function main(): Promise<void> {
         // Add additional configs to this list as needed.
 
         // testnet
-        './devtools/config/testnet/token-messaging.config.ts',
-        './devtools/config/testnet/usdc-token.config.ts',
         './devtools/config/testnet/asset.eth.config.ts',
+        './devtools/config/testnet/asset.eurc.config.ts',
+        './devtools/config/testnet/asset.usdc.config.ts',
+        './devtools/config/testnet/asset.usdt.config.ts',
+        './devtools/config/testnet/credit-messaging.config.ts',
+        './devtools/config/testnet/eurc-token.config.ts',
+        './devtools/config/testnet/feelib-v1.eth.config.ts',
+        './devtools/config/testnet/feelib-v1.eurc.config.ts',
+        './devtools/config/testnet/feelib-v1.usdc.config.ts',
+        './devtools/config/testnet/feelib-v1.usdt.config.ts',
+        './devtools/config/testnet/token-messaging.config.ts',
+        './devtools/config/testnet/treasurer.config.ts',
+        './devtools/config/testnet/staking.config.ts',
+        './devtools/config/testnet/rewarder.config.ts',
+        './devtools/config/testnet/usdt-token.config.ts',
+        './devtools/config/testnet/usdc-token.config.ts',
     ]
 
     // 1. get all pending transactions from all configs
@@ -128,7 +142,11 @@ async function processPendingTXs(transactions: OmniTransaction[]) {
 async function proposeTransactions(transactions: OmniTransaction[]) {
     // Propose the transactions to the multisig
     // Create signer factory
-    const createSigner = createGnosisSignerFactory({ type: 'named', name: 'deployer' })
+    // todo safe is false cuz I'm trying to make it work for testnet (without setting the owner to the multisig)
+    const safe = false
+    const createSigner = safe
+        ? createGnosisSignerFactory({ type: 'named', name: 'deployer' })
+        : createSignerFactory({ type: 'named', name: 'deployer' })
 
     // Sign and send without prompts
     const ci = false
@@ -286,7 +304,7 @@ function printTable(pendingTXs: PendingTX[]) {
 async function _getContractNameForAddress(networkName: string, address: string): Promise<string> {
     try {
         const deploymentsDir = join(__dirname, '..', 'deployments', networkName)
-        if (!existsSync(deploymentsDir)) return ''
+        if (!existsSync(deploymentsDir)) return 'Err'
 
         const files = readdirSync(deploymentsDir).filter((f) => f.endsWith('.json'))
         const normalizedTarget = address.toLowerCase()
@@ -306,5 +324,5 @@ async function _getContractNameForAddress(networkName: string, address: string):
     } catch {
         // fallthrough
     }
-    return ''
+    return 'External deployment'
 }
