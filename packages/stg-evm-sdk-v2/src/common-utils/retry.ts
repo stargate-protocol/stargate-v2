@@ -14,16 +14,11 @@ export const retryWithBackoff = async <T>(
             lastError = error as Error
 
             if (attempt === maxRetries) {
+                const logMessage = `❌ Final attempt failed for ${operationName} on ${chainName} after ${maxRetries} retries:`
                 if (logger) {
-                    logger.error(
-                        `❌ Final attempt failed for ${operationName} on ${chainName} after ${maxRetries} retries:`,
-                        error
-                    )
+                    logger.error(logMessage, error)
                 } else {
-                    console.error(
-                        `❌ Final attempt failed for ${operationName} on ${chainName} after ${maxRetries} retries:`,
-                        error
-                    )
+                    console.error(logMessage, error)
                 }
                 throw error
             }

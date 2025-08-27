@@ -17,7 +17,6 @@ function loadMainnetChainsFromYaml(): { [chainName: string]: ChainStatus } {
     try {
         setStage(Stage.MAINNET)
         const allChains = getAllChainsConfig()
-
         for (const chainConfig of allChains) {
             if (!chainConfig.name) {
                 console.warn(`Skipping chain config: missing name field`)
@@ -49,19 +48,51 @@ function loadMainnetChainsFromYaml(): { [chainName: string]: ChainStatus } {
     return mainnetChains
 }
 
+/**
+ * @returns Object mapping chain names to their status
+ */
+function loadTestnetChainsFromYaml(): { [chainName: string]: ChainStatus } {
+    const testnetChains: { [chainName: string]: ChainStatus } = {}
+
+    try {
+        setStage(Stage.TESTNET)
+        const allChains = getAllChainsConfig()
+
+        for (const chainConfig of allChains) {
+            if (!chainConfig.name) {
+                console.warn(`Skipping chain config: missing name field`)
+                continue
+            }
+
+            // Extract chain name by removing the -testnet suffix
+            let chainName = chainConfig.name
+            if (chainName.endsWith('-testnet')) {
+                chainName = chainName.replace(/-testnet$/, '')
+            }
+
+            // Determine status: use explicit status field if present, otherwise default to ACTIVE
+            let status = ChainStatus.ACTIVE
+            if (chainConfig.status) {
+                if (chainConfig.status.toUpperCase() === 'DEPRECATED') {
+                    status = ChainStatus.DEPRECATED
+                } else if (chainConfig.status.toUpperCase() === 'INACTIVE') {
+                    status = ChainStatus.INACTIVE
+                }
+            }
+
+            testnetChains[chainName] = status
+        }
+    } catch (error) {
+        console.warn('Failed to load testnet chains from config:', error)
+    }
+
+    return testnetChains
+}
+
 const stargateV2ChainNamesPerEnvironment: {
     [environment: string]: { [chainName: string]: ChainStatus }
 } = {
-    testnet: {
-        bsc: ChainStatus.ACTIVE,
-        sepolia: ChainStatus.ACTIVE,
-        arbsep: ChainStatus.ACTIVE,
-        optsep: ChainStatus.ACTIVE,
-        klaytn: ChainStatus.ACTIVE,
-        bl3: ChainStatus.DEPRECATED,
-        mantlesep: ChainStatus.ACTIVE,
-        odyssey: ChainStatus.DEPRECATED,
-    },
+    testnet: loadTestnetChainsFromYaml(),
     mainnet: loadMainnetChainsFromYaml(),
 }
 
@@ -81,6 +112,5 @@ export const isStargateV2SupportedChainName = (chainName: string, environment: s
 }
 
 export const filterStargateV2SupportedChainNames = (chainNames: string[], environment: string): string[] => {
-    console.log(chainNames.filter((chainName) => isStargateV2SupportedChainName(chainName, environment)))
     return chainNames.filter((chainName) => isStargateV2SupportedChainName(chainName, environment))
 }
