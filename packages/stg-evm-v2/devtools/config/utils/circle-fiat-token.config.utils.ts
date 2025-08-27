@@ -6,7 +6,7 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
-import { getContractWithEid, getOneSigAddress } from '../utils'
+import { getContractWithEid, getOneSigAddressMaybe, getSafeAddressMaybe } from '../utils'
 import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
 
 export default async function buildCircleFiatTokenGraph(
@@ -43,23 +43,22 @@ export default async function buildCircleFiatTokenGraph(
                 tokenProxyAddress = await contractFactory(getContractWithEid(chain.eid, proxyContract))
             }
 
-            const stargateMultisig =
-                stage === Stage.MAINNET
-                    ? getOneSigAddress(chain.eid)
-                    : await getStargateMultisigTestnet(chain.eid, 'tokenAdmin')
+            const stargateOnesig = getOneSigAddressMaybe(chain.eid)
+            const stargateMultisig = getSafeAddressMaybe(chain.eid)
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
+            const predefinedAdmin = await getStargateMultisigTestnet(chain.eid, 'tokenAdmin')
             return {
                 contract: getContractWithEid(chain.eid, {
                     ...fiatContract,
                     address: tokenProxyAddress.contract.address,
                 }),
                 config: {
-                    // Only set owner for mainnet
-                    ...(stage === Stage.MAINNET ? { owner: stargateMultisig } : {}),
-                    masterMinter: stargateMultisig,
-                    pauser: stargateMultisig,
-                    rescuer: stargateMultisig,
-                    blacklister: stargateMultisig,
+                    // Only set owner if defined in the chain config
+                    ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
+                    masterMinter: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
+                    pauser: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
+                    rescuer: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
+                    blacklister: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
                     minters: {
                         [assetAddresses[tokenName]]: 2n ** 256n - 1n,
                     },
