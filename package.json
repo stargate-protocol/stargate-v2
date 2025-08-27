@@ -20,7 +20,7 @@
     ]
   },
   "resolutions": {
-    "@layerzerolabs/devtools": "~1.0.1",
+    "@layerzerolabs/devtools": "~2.0.1",
     "@layerzerolabs/io-devtools": "~0.3.0",
     "@layerzerolabs/lz-definitions": "~3.0.125",
     "@layerzerolabs/lz-evm-sdk-v2": "3.0.125",
@@ -46,7 +46,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@layerzerolabs/devtools": "~1.0.1",
+      "@layerzerolabs/devtools": "~2.0.1",
       "@layerzerolabs/io-devtools": "~0.3.0"
     },
     "patchedDependencies": {
