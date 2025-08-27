@@ -15,6 +15,7 @@ export enum TokenName {
     USDC = 'USDC',
     METIS = 'METIS',
     mETH = 'mETH',
+    EURC = 'EURC',
 }
 
 /**
@@ -63,6 +64,7 @@ export enum RewardTokenName {
     S = 'S',
     MANTA = 'MANTA',
     USDC = 'USDC',
+    EURC = 'EURC',
 }
 
 export type RewardsConfig = Record<RewardTokenName, RewardsTokenConfig>

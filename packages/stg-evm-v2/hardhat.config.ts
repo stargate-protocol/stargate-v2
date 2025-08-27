@@ -91,7 +91,7 @@ const hardhatNamedAccounts: HardhatUserConfig = {
             'polygon-sandbox-local': '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
             default: 2,
         },
-        usdcAdmin: {
+        tokenAdmin: {
             default: 3, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
         },
     },
@@ -145,11 +145,6 @@ const networks: NetworksUserConfig = {
     'klaytn-testnet': {
         eid: EndpointId.KLAYTN_V2_TESTNET,
         url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
-        accounts: testnetAccounts,
-    },
-    'odyssey-testnet': {
-        eid: EndpointId.ODYSSEY_V2_TESTNET,
-        url: process.env.RPC_URL_ODYSSEY_TESTNET || 'https://story-testnet-evm.itrocket.net',
         accounts: testnetAccounts,
     },
     'mantlesep-testnet': {
@@ -507,6 +502,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_PEAQ_MAINNET || 'https://peaq.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'plume-mainnet': {
+        eid: EndpointId.PLUME_V2_MAINNET,
+        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
+        accounts: mainnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'plumephoenix-mainnet': {

@@ -17,14 +17,14 @@ import { StargatePoolTest, IMockStargatePool } from "./StargatePool.t.sol";
 import { Path } from "../../../src/libs/Path.sol";
 import { TokenMessaging } from "../../../src/messaging/TokenMessaging.sol";
 import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppCore.sol";
-import { USDC } from "../../../src/mocks/USDC.sol";
+import { CircleFiatToken } from "../../../src/mocks/CircleFiatToken.sol";
 import { PathLib } from "../../../src/libs/Path.sol";
 
 contract StargatePoolUSDCTest is StargatePoolTest {
-    USDC public usdc;
+    CircleFiatToken public usdc;
 
     function _setUpStargate() internal override {
-        usdc = new USDC("USDC", "USDC");
+        usdc = new CircleFiatToken("USDC", "USDC");
         stargate = new MockStargatePoolUSDC(
             "LP Name",
             "LP",

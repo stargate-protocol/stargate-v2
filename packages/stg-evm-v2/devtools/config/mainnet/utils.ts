@@ -5,12 +5,12 @@ import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-h
 import { Stage } from '@layerzerolabs/lz-definitions'
 
 import buildAssetDeploymentGraph from '../utils/asset.config.utils'
+import buildCircleFiatTokenGraph from '../utils/circle-fiat-token.config.utils'
 import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
 import buildMessagingGraph from '../utils/messaging.config.utils'
 import buildRewarderGraph from '../utils/rewarder.config.utils'
 import buildStakingGraph from '../utils/staking.config.utils'
 import buildTreasurerGraph from '../utils/treasurer.config.utils'
-import buildUsdcTokenGraph from '../utils/usdc-token.config.utils'
 import buildUsdtTokenGraph from '../utils/usdt-token.config.utils'
 import { setStage } from '../utils/utils.config'
 
@@ -50,10 +50,10 @@ export function buildTreasurerGraphMainnet(contract: { contractName: string }) {
     return buildTreasurerGraph(Stage.MAINNET, contract)
 }
 
-export function buildUsdcTokenGraphMainnet() {
-    return buildUsdcTokenGraph(Stage.MAINNET)
-}
-
 export function buildUsdtTokenGraphMainnet() {
     return buildUsdtTokenGraph(Stage.MAINNET)
+}
+
+export function buildCircleFiatTokenGraphMainnet(tokenName: TokenName) {
+    return buildCircleFiatTokenGraph(Stage.MAINNET, tokenName)
 }
