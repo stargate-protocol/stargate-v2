@@ -106,7 +106,13 @@ async function main(): Promise<void> {
     }
 
     // 2. Print the table with each tx details and errors if any
-    await processPendingTXs(transactions)
+    const errors = await processPendingTXs(transactions)
+
+    // do not propose if there are errors in the one sig configuration
+    if (errors.length > 0) {
+        console.log('❌ Errors found, skipping proposal')
+        return
+    }
 
     // 3. propose all transactions at once
     if (dryRun) {
@@ -128,7 +134,7 @@ async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
     return result[2] // pending transactions
 }
 
-async function processPendingTXs(transactions: OmniTransaction[]) {
+async function processPendingTXs(transactions: OmniTransaction[]): Promise<string[]> {
     const pendingTXs: PendingTX[] = []
     const errors: string[] = []
     for (const tx of transactions) {
@@ -161,6 +167,8 @@ async function processPendingTXs(transactions: OmniTransaction[]) {
 
     // print errors if any while getting the one sig configuration
     printErrors(errors)
+
+    return errors
 }
 
 async function proposeTransactions(transactions: OmniTransaction[]) {
