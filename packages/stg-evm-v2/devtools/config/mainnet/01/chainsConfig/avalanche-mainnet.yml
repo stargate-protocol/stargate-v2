@@ -8,7 +8,7 @@ tokens:
   usdt:
     type: pool
   eurc:
-    type: oft
+    type: pool
 rewarder:
   tokens:
     stg:
