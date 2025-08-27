@@ -258,6 +258,11 @@ interface RewarderToken {
     allocation: Record<string, number>
 }
 
+enum ChainStatus {
+    DEPRECATED = 'DEPRECATED',
+    INACTIVE = 'INACTIVE',
+    ACTIVE = 'ACTIVE',
+}
 export interface Chain {
     name: string
     eid: any
@@ -273,6 +278,7 @@ export interface Chain {
     treasurer?: {
         tokens: Record<string, boolean>
     }
+    status?: ChainStatus
 }
 
 export function loadChainConfig(filePath: string): Chain {

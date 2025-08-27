@@ -24,6 +24,11 @@ export function setStage(stage: Stage) {
         throw new Error(`Invalid stage: ${stage}`)
     }
 
+    // Reset the supported chains cache when stage changes
+    if (CURRENT_STAGE !== stage) {
+        SUPPORTED_CHAINS = undefined
+    }
+
     CURRENT_STAGE = stage
 }
 
