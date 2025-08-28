@@ -233,7 +233,7 @@ export const EXECUTORS = {
 
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
-    creditGasLimit: 40000n, // fixed gas limit for creditMsging
+    creditGasLimit: 40000n, // fixed gas limit for creditMessaging
     sendCreditGasLimit: 40000n, // marginal gasLimit for sending credit
 }
 
