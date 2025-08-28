@@ -29,7 +29,6 @@ interface PendingTX {
     }
 }
 
-// todo update since in mainnet we have 6 signers and threshold is 3
 let ONE_SIG_THRESHOLD = 3
 const ONE_SIG_TOTAL_SIGNERS = 6
 const ONE_SIG_SIGNERS = [
@@ -154,7 +153,8 @@ async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
     }
     // Get all contracts that needs to transfer ownership to oneSig
     const result: SignAndSendResult = await run('lz:ownable:transfer-ownership', args)
-    return result[2] // pending transactions
+    const [, , pending] = result
+    return pending // pending transactions
 }
 
 async function processPendingTXs(transactions: OmniTransaction[]): Promise<string[]> {
