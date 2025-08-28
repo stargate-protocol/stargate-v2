@@ -1,4 +1,6 @@
-export function checkResult(result: any, config: string) {
+import { SignAndSendResult } from '@layerzerolabs/devtools'
+
+export function checkResult(result: SignAndSendResult, config: string) {
     if (result.length === 3 && (result[0].length > 0 || result[1].length > 0 || result[2].length > 0)) {
         printMessage(false, config)
         throw new Error(`There are still ${result[2].length} pending transactions to wire`)
