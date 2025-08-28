@@ -3173,8 +3173,20 @@ export const NETWORKS: NetworksConfig = {
             onesigAddress: '0x55A2D5A7D5F7BDcAb8EfC30dA5EAE6a4e4277A18',
         },
         safeConfig: {
-            safeAddress: '0xE98fE3d98FF3c2b8346be8Ce87b48cde037A0995',
+            safeAddress: '0xe98fe3d98ff3c2b8346be8ce87b48cde037a0995',
             safeUrl: `${process.env.BASE_SAFE_URL_TESTNET}/arbsep`,
+            contractNetworks: {
+                [421614]: {
+                    multiSendAddress: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+                    multiSendCallOnlyAddress: '0x40A2aCCbd92BCA938b02010E17A5b8929b49130D',
+                    safeMasterCopyAddress: '0x3E5c63644E683549055b9Be8653de26E0B4CD36E',
+                    safeProxyFactoryAddress: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
+                    fallbackHandlerAddress: '0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4',
+                    createCallAddress: '0x7cbB62EaA69F79e6873cD1ecB2392971036cFAa4',
+                    signMessageLibAddress: '0xA65387F16B013cf2Af4605Ad8aA5ec25a2cbA3a2',
+                    simulateTxAccessorAddress: '0x59AD6735bCd8152B84860Cb256dD9e96b85F69Da',
+                },
+            },
         },
     },
     [EndpointId.AVALANCHE_V2_TESTNET]: {
@@ -3204,8 +3216,20 @@ export const NETWORKS: NetworksConfig = {
             onesigAddress: '0x93c6E9904fF6641dCE90Af118EAcE11C2F115247',
         },
         safeConfig: {
-            safeAddress: '0x4842Cb8BD3FD7469faB47218A262855EAe9b824E',
+            safeAddress: '0x4842cb8bd3fd7469fab47218a262855eae9b824e',
             safeUrl: `${process.env.BASE_SAFE_URL_TESTNET}/optsep`,
+            contractNetworks: {
+                [11155420]: {
+                    multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
+                    multiSendCallOnlyAddress: '0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B',
+                    safeMasterCopyAddress: '0xfb1bffC9d739B8D520DaF37dF666da4C687191EA',
+                    safeProxyFactoryAddress: '0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC',
+                    fallbackHandlerAddress: '0x017062a1dE2FE6b99BE3d9d37841FeD19F573804',
+                    createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
+                    signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
+                    simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
+                },
+            },
         },
     },
     [EndpointId.SEPOLIA_V2_TESTNET]: {
