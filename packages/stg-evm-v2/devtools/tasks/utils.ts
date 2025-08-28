@@ -2,7 +2,7 @@ import { SignAndSendResult } from '@layerzerolabs/devtools'
 
 export function checkResult(result: SignAndSendResult, config: string) {
     const [successes, failures, pendings] = result
-    if (result.length === 3 && (successes.length > 0 || failures.length > 0 || pendings.length > 0)) {
+    if (result.length === 3 && (failures.length > 0 || pendings.length > 0)) {
         printMessage(false, config)
         throw new Error(`There are still ${pendings.length} pending transactions to wire`)
     } else {
