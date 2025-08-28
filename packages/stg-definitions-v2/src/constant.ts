@@ -1721,7 +1721,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.5').toBigInt(),
         },
         onesigConfig: {
-            onesigAddress: '0x0000000000000AE5160000000000000000000000',
+            onesigAddress: '0x0000000000000AE5160000000000000000000000', // todo
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
