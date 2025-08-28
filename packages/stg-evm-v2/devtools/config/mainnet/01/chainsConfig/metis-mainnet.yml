@@ -1,0 +1,26 @@
+name: metis-mainnet
+eid: METIS_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  metis:
+    type: pool
+  eth:
+    type: pool
+  usdt:
+    type: pool
+rewarder:
+  tokens:
+    metis:
+      allocation:
+        eth: 5625
+        usdt: 4375
+staking:
+  tokens:
+    eth: true
+    usdt: true
+treasurer:
+  tokens:
+    eth: true
+    metis: true
+    usdt: true

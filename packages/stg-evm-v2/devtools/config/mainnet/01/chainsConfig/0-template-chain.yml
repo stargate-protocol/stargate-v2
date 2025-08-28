@@ -1,0 +1,29 @@
+name: template-chain
+eid: TEMPLATE_V2_MAINNET
+token_messaging: true # if the chain supports token messaging
+credit_messaging: true # if the chain supports credit messaging
+tokens: # list of tokens supported by the chain and each token has a type (native, pool, oft)
+  eth:
+    type: native/pool/oft
+rewarder:
+  tokens: # list of reward tokens supported by the chain and each reward token's allocation
+    arb:
+      allocation:
+        eth: 10
+        usdc: 10
+        usdt: 10
+    stg:
+      allocation:
+        eth: 10
+        usdc: 10
+        usdt: 10
+staking: # list of tokens that support staking in the chain
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+treasurer: # list of tokens that support the treasurer in the chain
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true

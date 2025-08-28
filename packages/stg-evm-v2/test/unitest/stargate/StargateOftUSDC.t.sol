@@ -2,17 +2,17 @@
 pragma solidity ^0.8.0;
 
 import { StargateOftTest, IMockStargate } from "./StargateOft.t.sol";
-import { USDC } from "../../../src/mocks/USDC.sol";
+import { CircleFiatToken } from "../../../src/mocks/CircleFiatToken.sol";
 import { TokenMessaging } from "../../../src/messaging/TokenMessaging.sol";
 import { StargateOFTUSDC } from "../../../src/usdc/StargateOFTUSDC.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 import { Path } from "../../../src/libs/Path.sol";
 
 contract StargateOftUSDCTest is StargateOftTest {
-    USDC public usdc;
+    CircleFiatToken public usdc;
 
     function _setUpStargate() internal override {
-        usdc = new USDC("USDC", "USDC");
+        usdc = new CircleFiatToken("USDC", "USDC");
         stargate = new MockStargateOFTUSDC(
             address(usdc),
             6,

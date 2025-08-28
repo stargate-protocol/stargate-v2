@@ -1,0 +1,33 @@
+name: sepolia-testnet
+eid: SEPOLIA_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  usdt:
+    type: pool
+  usdc:
+    type: pool
+  eurc:
+    type: pool
+rewarder:
+  tokens:
+    mock_a:
+      allocation:
+        eth: 1
+        usdc: 1
+        usdt: 1
+        eurc: 1
+staking:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+    eurc: true
+treasurer:
+  tokens:
+    eth: true
+    usdt: true
+    usdc: true
+    eurc: true

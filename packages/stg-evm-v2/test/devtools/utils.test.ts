@@ -1,25 +1,42 @@
-import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { Asset } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
 import sinon from 'sinon'
 
 import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
+import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
+import { setMainnetStage } from '../../devtools/config/mainnet/utils'
+import { filterConnections, getContractWithEid, getContractsInChain, setsDifference } from '../../devtools/config/utils'
 import {
-    getContracts as getContractsMainnet,
-    isValidCreditMessagingChain as isValidCreditMessagingChainMainnet,
-    validCreditMessagingChains as validCreditMessagingChainsMainnet,
-} from '../../devtools/config/mainnet/utils'
-import {
-    getContracts as getContractsTestnet,
-    isValidCreditMessagingChain as isValidCreditMessagingChainTestnet,
-    validCreditMessagingChains as validCreditMessagingChainsTestnet,
-} from '../../devtools/config/testnet/utils'
-import { filterConnections, getContractWithEid, setsDifference } from '../../devtools/config/utils'
+    __resetUtilsConfigStateForTests,
+    getAllChainsConfig,
+    getAllSupportedChains,
+    getChainsThatSupportMessaging,
+    getChainsThatSupportStaking,
+    getChainsThatSupportToken,
+    getChainsThatSupportTokenWithType,
+    getChainsThatSupportTreasurer,
+    getChainsThatSupportsUsdtOftByDeployment,
+    getRewardTokenName,
+    getSupportedTokensByEid,
+    getTokenName,
+    isValidChain,
+    requireStage,
+    setStage,
+    validateChains,
+} from '../../devtools/config/utils/utils.config'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
 
 describe('devtools/utils', () => {
+    before(() => {
+        setMainnetStage()
+    })
+
+    beforeEach(() => {
+        __resetUtilsConfigStateForTests()
+    })
+
     describe('createGetAssetAddresses()', () => {
         it('should return an empty object if called with no tokens', async () => {
             const getTokenAddresses = createGetAssetAddresses()
@@ -107,41 +124,33 @@ describe('devtools/utils', () => {
     })
 
     describe('getContracts', () => {
+        beforeEach(() => {
+            setStage(Stage.TESTNET)
+        })
+
         const mockContractData = { contractName: 'MockContract' }
 
         it('should return all valid contracts when chains is null', () => {
-            // Mainnet
-            const result = getContractsMainnet(null, mockContractData, isValidCreditMessagingChainMainnet)
-            expect(result.length).to.equal(validCreditMessagingChainsMainnet.size)
-            expect(result[0]).to.have.property('eid')
-            expect(result[0]).to.have.property('contractName', 'MockContract')
-
+            const supportedChains = getChainsThatSupportMessaging()
             // Testnet
-            const resultTestnet = getContractsTestnet(null, mockContractData, isValidCreditMessagingChainTestnet)
-            expect(resultTestnet.length).to.equal(validCreditMessagingChainsTestnet.size)
+            // const resultTestnet = getContractsInChain(null, mockContractData, isValidCreditMessagingChain)
+            const chainsThatSupportMessaging = getChainsThatSupportMessaging()
+            const resultTestnet = getContractsInChain(
+                chainsThatSupportMessaging.map((c) => c.name),
+                mockContractData,
+                isValidChain,
+                chainsThatSupportMessaging
+            )
+            expect(resultTestnet.length).to.equal(supportedChains.length)
             expect(resultTestnet[0]).to.have.property('eid')
             expect(resultTestnet[0]).to.have.property('contractName', 'MockContract')
         })
 
         it('should return specified contracts for valid chain names', () => {
-            // Mainnet
-            const chains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
-            const result = getContractsMainnet(chains, mockContractData, isValidCreditMessagingChainMainnet)
-            expect(result.length).to.equal(4)
-            expect(result.map((r) => r.eid)).to.have.members([
-                EndpointId.ETHEREUM_V2_MAINNET,
-                EndpointId.ARBITRUM_V2_MAINNET,
-                EndpointId.OPTIMISM_V2_MAINNET,
-                EndpointId.BASE_V2_MAINNET,
-            ])
-
             // Testnet
-            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'opt-testnet']
-            const resultTestnet = getContractsTestnet(
-                chainsTestnet,
-                mockContractData,
-                isValidCreditMessagingChainTestnet
-            )
+            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'optsep-testnet']
+
+            const resultTestnet = getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())
             expect(resultTestnet.length).to.equal(4)
             expect(resultTestnet.map((r) => r.eid)).to.have.members([
                 EndpointId.ARBSEP_V2_TESTNET,
@@ -152,43 +161,17 @@ describe('devtools/utils', () => {
         })
 
         it('should throw an error for invalid chain names', () => {
-            // Mainnet
-            const chains = [
-                'ethereum-mainnet',
-                'invalid-chain-1',
-                'arbitrum-mainnet',
-                'invalid-chain-2',
-                'base-mainnet',
-            ]
-            expect(() => getContractsMainnet(chains, mockContractData, isValidCreditMessagingChainMainnet)).to.throw(
-                'Invalid chains found: invalid-chain-1, invalid-chain-2'
-            )
-
             // Testnet
             const chainsTestnet = ['arbsep-testnet', 'invalid-chain-1', 'bsc-testnet', 'invalid-chain-2']
-            expect(() =>
-                getContractsTestnet(chainsTestnet, mockContractData, isValidCreditMessagingChainTestnet)
-            ).to.throw('Invalid chains found: invalid-chain-1, invalid-chain-2')
+            expect(() => getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())).to.throw(
+                'Invalid chains found: invalid-chain-1, invalid-chain-2'
+            )
         })
 
         it('should trim whitespace from chain names', () => {
-            // Mainnet
-            const chains = [' ethereum-mainnet', 'arbitrum-mainnet ', '  base-mainnet']
-            const result = getContractsMainnet(chains, mockContractData, isValidCreditMessagingChainMainnet)
-            expect(result.length).to.equal(3)
-            expect(result.map((r) => r.eid)).to.have.members([
-                EndpointId.ETHEREUM_V2_MAINNET,
-                EndpointId.ARBITRUM_V2_MAINNET,
-                EndpointId.BASE_V2_MAINNET,
-            ])
-
             // Testnet
             const chainsTestnet = ['arbsep-testnet     ', '    bsc-testnet', ' sepolia-testnet ']
-            const resultTestnet = getContractsTestnet(
-                chainsTestnet,
-                mockContractData,
-                isValidCreditMessagingChainTestnet
-            )
+            const resultTestnet = getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())
             expect(resultTestnet.length).to.equal(3)
             expect(resultTestnet.map((r) => r.eid)).to.have.members([
                 EndpointId.ARBSEP_V2_TESTNET,
@@ -198,13 +181,10 @@ describe('devtools/utils', () => {
         })
 
         it('should return all valid contracts for an empty input array', () => {
-            // Mainnet
-            const result = getContractsMainnet([], mockContractData, isValidCreditMessagingChainMainnet)
-            expect(result.length).to.equal(validCreditMessagingChainsMainnet.size)
-
             // Testnet
-            const resultTestnet = getContractsTestnet([], mockContractData, isValidCreditMessagingChainTestnet)
-            expect(resultTestnet.length).to.equal(validCreditMessagingChainsTestnet.size)
+            const chainsTestnet = ['arbsep-testnet', 'bsc-testnet', 'sepolia-testnet', 'optsep-testnet']
+            const resultTestnet = getContractsInChain(chainsTestnet, mockContractData, isValidChain, getChainsEID())
+            expect(resultTestnet.length).to.equal(4)
         })
     })
 
@@ -269,8 +249,6 @@ describe('devtools/utils', () => {
     })
 
     describe('setsDifference', () => {
-        const mockContractData = { contractName: 'MockContract' }
-
         it('should return empty set when sets are identical', () => {
             const setA = new Set(['a', 'b', 'c'])
             const result = setsDifference(setA, setA)
@@ -349,4 +327,218 @@ describe('devtools/utils', () => {
             expect(result.customField).to.equal(mockBigContractData.customField)
         })
     })
+
+    // utils.config
+    describe('supportedChains', () => {
+        beforeEach(() => {
+            setStage(Stage.MAINNET)
+        })
+
+        const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
+        const chainsThatSupportUSDTPool = ['ethereum-mainnet', 'avalanche-mainnet']
+        const chainsThatSupportUSDTOft = ['degen-mainnet', 'flare-mainnet']
+
+        it('should return all defined chains names', () => {
+            const result = getAllSupportedChains()
+
+            expect(result.length).not.to.equal(0)
+            expect(result[0]).to.be.a('string')
+            expect(result).to.include.members(validChains)
+        })
+
+        it('should return all defined chains config', () => {
+            const result = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result[0]).to.have.property('eid')
+            expect(result[0]).to.have.property('tokens')
+            expect(result[0]).to.have.property('token_messaging')
+            expect(result[0]).to.have.property('credit_messaging')
+            expect(result.map((r) => r.name)).to.include.members(validChains)
+        })
+
+        it('should return all chains that support a specific token', () => {
+            const result = getChainsThatSupportToken(TokenName.USDT)
+            const allChains = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result.length).to.be.lessThan(allChains.length)
+            expect(result.map((r) => r.name)).to.include.members(chainsThatSupportUSDTPool)
+            expect(result.map((r) => r.name)).to.include.members(chainsThatSupportUSDTOft)
+        })
+
+        it('should return all chains that support a specific token with type', () => {
+            const result = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Oft)
+            const allChains = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result.length).to.be.lessThan(allChains.length)
+            expect(result.map((r) => r.name)).to.include.members(chainsThatSupportUSDTOft)
+            expect(result.map((r) => r.name)).to.not.include.members(chainsThatSupportUSDTPool)
+        })
+
+        it('should return all chains that support usdt by deployment (external or not)', () => {
+            const result = getChainsThatSupportsUsdtOftByDeployment(false)
+            const allChains = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result.length).to.be.lessThan(allChains.length)
+            expect(result.map((r) => r.name)).to.include.members(['flare-mainnet', 'klaytn-mainnet'])
+            expect(result.map((r) => r.name)).to.not.include.members(['peaq-mainnet', 'islander-mainnet'])
+        })
+
+        it('should return all chains that support messaging', () => {
+            const result = getChainsThatSupportMessaging()
+            const allChains = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result.length).to.be.lessThan(allChains.length)
+            expect(result.map((r) => r.name)).to.include.members(['abstract-mainnet', 'ape-mainnet'])
+            expect(result.map((r) => r.name)).to.not.include.members(['astar-mainnet', 'etherlink-mainnet'])
+        })
+
+        it('should return all chains that support treasurer', () => {
+            const result = getChainsThatSupportTreasurer()
+            const allChains = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result.length).to.be.lessThan(allChains.length)
+            expect(result.map((r) => r.name)).to.include.members(['ethereum-mainnet', 'degen-mainnet'])
+            expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
+        })
+
+        it('should return all chains that support staking', () => {
+            const result = getChainsThatSupportStaking()
+            const allChains = getAllChainsConfig()
+
+            expect(result.length).not.to.equal(0)
+            expect(result.length).to.be.lessThan(allChains.length)
+            expect(result.map((r) => r.name)).to.include.members(['ethereum-mainnet', 'hemi-mainnet'])
+            expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
+        })
+    })
+
+    describe('validChains', () => {
+        beforeEach(() => {
+            setStage(Stage.MAINNET)
+        })
+
+        const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
+        const invalidChains = ['invalid-chain-1', 'invalid-chain-2']
+
+        it('should return if a chain is valid (valid chain)', () => {
+            const result = isValidChain('ethereum-mainnet')
+
+            expect(result).to.be.true
+        })
+
+        it('should return if a chain is valid (invalid chain)', () => {
+            const result = isValidChain('invalid-chain-1')
+
+            expect(result).to.be.false
+        })
+
+        it('should not revert if all chains are valid', () => {
+            const supportedChains = validChains
+            expect(() => validateChains(validChains, supportedChains)).to.not.throw()
+        })
+
+        it('should not revert if all chains are valid and supported', () => {
+            const supportedChains = validChains
+            expect(() => validateChains(validChains, supportedChains)).to.not.throw()
+        })
+
+        it('should throw if a chain is invalid', () => {
+            const supportedChains = validChains
+
+            expect(() => validateChains(invalidChains, validChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
+        })
+    })
+
+    describe('tokenNames', () => {
+        it('should return the token name (valid token name)', () => {
+            const result = getTokenName('usdt')
+
+            expect(result).to.equal(TokenName.USDT)
+        })
+
+        it('should throw if a token name is invalid', () => {
+            const invalidTokenName = 'invalid-token-1'
+            expect(() => getTokenName(invalidTokenName)).to.throw(`Token ${invalidTokenName} not found`)
+        })
+
+        it('should return the reward token name (valid reward token name)', () => {
+            const result = getRewardTokenName('lle')
+
+            expect(result).to.equal(RewardTokenName.LLE)
+        })
+
+        it('should throw if a reward token name is invalid', () => {
+            const invalidRewardTokenName = 'invalid-reward-token-1'
+            expect(() => getRewardTokenName(invalidRewardTokenName)).to.throw(
+                `Reward Token ${invalidRewardTokenName} not found`
+            )
+        })
+    })
+
+    describe('getSupportedTokensByEid', () => {
+        beforeEach(() => {
+            setStage(Stage.MAINNET)
+        })
+
+        it('should return the supported tokens by eid (chain with tokens)', () => {
+            const result = getSupportedTokensByEid(EndpointId.ETHEREUM_V2_MAINNET)
+
+            expect(result.length).to.equal(5)
+            expect(result).to.have.members([
+                TokenName.USDT,
+                TokenName.USDC,
+                TokenName.ETH,
+                TokenName.METIS,
+                TokenName.mETH,
+            ])
+        })
+
+        it('should return the supported tokens by eid (chain without tokens)', () => {
+            const result = getSupportedTokensByEid(EndpointId.ETHERLINK_V2_MAINNET)
+
+            expect(result.length).to.equal(0)
+            expect(result).to.have.members([])
+        })
+
+        it('should return an empty array if the eid is invalid', () => {
+            const result = getSupportedTokensByEid(90 as EndpointId)
+
+            expect(result.length).to.equal(0)
+            expect(result).to.have.members([])
+        })
+    })
+
+    describe('setStage', () => {
+        it('should set the stage', () => {
+            setStage(Stage.MAINNET)
+
+            const currentStage = requireStage()
+
+            expect(currentStage).to.equal(Stage.MAINNET)
+        })
+
+        it('should throw if the stage is not set', () => {
+            expect(() => requireStage()).to.throw('Stage not set. Call setStage(stage) before using chain utils.')
+        })
+        it('should throw if the stage is invalid', () => {
+            const invalidStage = 'invalid-stage' as Stage
+
+            expect(() => setStage(invalidStage)).to.throw(`Invalid stage: ${invalidStage}`)
+        })
+    })
 })
+
+function getChainsEID() {
+    const supportedChains = getAllChainsConfig()
+    const mapping = supportedChains.reduce<Record<string, EndpointId>>((acc, chain) => {
+        acc[chain.name] = chain.eid
+        return acc
+    }, {})
+    return mapping
+}

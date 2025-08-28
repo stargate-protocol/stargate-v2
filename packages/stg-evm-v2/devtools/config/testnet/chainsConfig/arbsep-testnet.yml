@@ -1,0 +1,30 @@
+name: arbsep-testnet
+eid: ARBSEP_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: native
+  usdt:
+    type: pool
+  usdc:
+    type: pool
+  eurc:
+    type: oft
+rewarder:
+  tokens:
+    mock_a:
+      allocation:
+        eth: 1
+        usdc: 1
+        usdt: 1
+staking:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true
+treasurer:
+  tokens:
+    eth: true
+    usdc: true
+    usdt: true

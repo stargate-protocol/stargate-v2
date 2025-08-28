@@ -1,5 +1,24 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.16
+
+### Patch Changes
+
+- 8988aba: Hedera mainnet deployment
+
+## 1.1.15
+
+### Patch Changes
+
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+
+## 1.1.14
+
+### Patch Changes
+
+- fb17003: bump versions
+
 ## 1.1.13
 
 ### Patch Changes

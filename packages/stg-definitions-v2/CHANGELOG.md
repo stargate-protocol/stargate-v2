@@ -1,5 +1,35 @@
 # @stargatefinance/stg-definitions-v2
 
+## 3.0.0
+
+### Major Changes
+
+- 4a8eece: Shutdown Plume legacy
+
+### Patch Changes
+
+- a3078b8: Hedera chain config
+- 8988aba: Hedera mainnet deployment
+
+## 2.0.5
+
+### Patch Changes
+
+- ba6a4b6: Sophon mainnet config
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+
+## 2.0.4
+
+### Patch Changes
+
+- 391728d: bump credits
+- 18179f7: Botanix mainnet configuration
+- 332d944: swell mainnet configuration
+- 5605211: unichain bump
+- fb17003: bump versions
+- f3ae1c2: bump taxi plumephoenix
+
 ## 2.0.3
 
 ### Patch Changes

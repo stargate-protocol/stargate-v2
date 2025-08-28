@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-definitions-v2",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@ethersproject/units": "~5.7.0",
-    "@layerzerolabs/lz-definitions": "~3.0.79",
+    "@layerzerolabs/lz-definitions": "~3.0.125",
     "@layerzerolabs/tsup-config-next": "~3.0.7",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
     "@safe-global/protocol-kit": "^1.3.0",

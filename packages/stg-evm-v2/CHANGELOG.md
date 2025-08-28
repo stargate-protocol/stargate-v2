@@ -1,5 +1,48 @@
 # @stargatefinance/stg-evm-v2
 
+## 3.0.0
+
+### Major Changes
+
+- 4a8eece: Shutdown Plume legacy
+
+### Patch Changes
+
+- a3078b8: Hedera chain config
+- 8988aba: Hedera mainnet deployment
+- Updated dependencies [4a8eece]
+- Updated dependencies [a3078b8]
+- Updated dependencies [8988aba]
+  - @stargatefinance/stg-definitions-v2@3.0.0
+
+## 2.0.6
+
+### Patch Changes
+
+- ba6a4b6: Sophon mainnet config
+- 131aee8: Sophon mainnet deployment
+  Bump packages versions
+- Updated dependencies [ba6a4b6]
+- Updated dependencies [131aee8]
+  - @stargatefinance/stg-definitions-v2@2.0.5
+
+## 2.0.5
+
+### Patch Changes
+
+- 18179f7: Botanix mainnet configuration
+- 332d944: swell mainnet configuration
+- fb17003: bump versions
+- 52c2a41: update eth rewards
+- b9cfa27: Deploy on swell mainnet
+- Updated dependencies [391728d]
+- Updated dependencies [18179f7]
+- Updated dependencies [332d944]
+- Updated dependencies [5605211]
+- Updated dependencies [fb17003]
+- Updated dependencies [f3ae1c2]
+  - @stargatefinance/stg-definitions-v2@2.0.4
+
 ## 2.0.4
 
 ### Patch Changes

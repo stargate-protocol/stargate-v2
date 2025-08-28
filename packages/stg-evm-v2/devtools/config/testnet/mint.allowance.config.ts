@@ -1,4 +1,4 @@
-import { ASSETS, REWARDS, RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
+import { ASSETS, REWARDS, RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { ERC20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
@@ -6,225 +6,146 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { getUSDTDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
+import { getContractWithEid } from '../utils'
+import { getChainsThatSupportRewarder, getChainsThatSupportTokenWithType } from '../utils/utils.config'
 
-import { onArb, onBsc, onEth, onOpt } from './utils'
+import { setTestnetStage } from './utils'
 
-const contract = { contractName: REWARDS[RewardTokenName.MOCK_A].name }
-const rewarder = { contractName: 'StargateMultiRewarder' }
+const rewarderTokenContract = { contractName: REWARDS[RewardTokenName.MOCK_A].name }
 const getDeployer = getNamedAccount('deployer')
 
+const rewarder = { contractName: 'StargateMultiRewarder' }
+const usdcPool = { contractName: 'StargatePoolUSDC' }
+const eurcPool = { contractName: 'StargatePoolEURC' }
+const usdtPool = { contractName: 'StargatePoolUSDT' }
+
 export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => {
+    // set testnet stage
+    setTestnetStage()
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
-    const getEnvironment = createGetHreByEid()
-    const contractFactory = createContractFactory(getEnvironment)
+    const getHre = createGetHreByEid()
+    const contractFactory = createContractFactory(getHre)
 
-    const bsc = await getEnvironment(EndpointId.BSC_V2_TESTNET)
-    const eth = await getEnvironment(EndpointId.SEPOLIA_V2_TESTNET)
-    const arb = await getEnvironment(EndpointId.ARBSEP_V2_TESTNET)
-    const opt = await getEnvironment(EndpointId.OPTSEP_V2_TESTNET)
+    const chainsSupportingRewards = getChainsThatSupportRewarder()
 
-    // Then grab the deployer account for each network to be used as the admin
-    const bscAdmin = await bsc.getNamedAccounts().then(getDeployer)
-    const ethAdmin = await eth.getNamedAccounts().then(getDeployer)
-    const arbAdmin = await arb.getNamedAccounts().then(getDeployer)
-    const optAdmin = await opt.getNamedAccounts().then(getDeployer)
+    // getting the rewarder configs
+    const rewarderContracts = await Promise.all(
+        chainsSupportingRewards.map(async (chain) => {
+            const contract = getContractWithEid(chain.eid, rewarderTokenContract)
+            const hre = await getHre(chain.eid)
+            const deployer = await hre.getNamedAccounts().then(getDeployer)
+            const rewarderContract = await contractFactory(getContractWithEid(chain.eid, rewarder))
+            return {
+                contract,
+                config: {
+                    allowance: {
+                        [deployer]: {
+                            [rewarderContract.contract.address]: BigInt(24192e23),
+                        },
+                    },
+                    mint: {
+                        [deployer]: BigInt(24192e23),
+                    },
+                },
+            }
+        })
+    )
 
-    // Rewarder contracts to give allowance to
-    const bscRewarder = await contractFactory(onBsc(rewarder))
-    const ethRewarder = await contractFactory(onEth(rewarder))
-    const arbRewarder = await contractFactory(onArb(rewarder))
-    const optRewarder = await contractFactory(onOpt(rewarder))
+    // getting the pools configs
 
-    // USDC
-    const ethUsdc = onEth({
-        contractName: 'FiatTokenV2_2',
-        address: ASSETS[TokenName.USDC].networks[EndpointId.SEPOLIA_V2_TESTNET]?.address,
-    })
-    const optUsdc = onOpt({
-        contractName: 'FiatTokenV2_2',
-        address: ASSETS[TokenName.USDC].networks[EndpointId.OPTSEP_V2_TESTNET]?.address,
-    })
-    const arbUsdc = onArb({
-        contractName: 'FiatTokenV2_2',
-        address: ASSETS[TokenName.USDC].networks[EndpointId.ARBSEP_V2_TESTNET]?.address,
-    })
+    // get all chains that has pool
+    const usdtChains = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Pool)
+    const usdcChains = getChainsThatSupportTokenWithType(TokenName.USDC, StargateType.Pool)
+    const eurcChains = getChainsThatSupportTokenWithType(TokenName.EURC, StargateType.Pool)
 
-    // USDT
-    const ethUsdt = await contractFactory(onEth({ contractName: getUSDTDeployName() }))
-    const bscUsdt = onBsc({
-        contractName: 'FiatTokenV2_2',
-        address: ASSETS[TokenName.USDT].networks[EndpointId.BSC_V2_TESTNET]?.address,
-    })
-    const optUsdt = await contractFactory(onOpt({ contractName: getUSDTDeployName() }))
-    const arbUsdt = await contractFactory(onArb({ contractName: getUSDTDeployName() }))
+    // usdt pools
+    const usdtPoolsContracts = await Promise.all(
+        usdtChains.map(async (chain) => {
+            const hre = await getHre(chain.eid)
 
-    // collect eth pools
-    const ethUsdcPool = await contractFactory(onEth({ contractName: 'StargatePoolUSDC' }))
-    const ethUsdtPool = await contractFactory(onEth({ contractName: 'StargatePoolUSDT' }))
+            // get the contract address from the ASSETS or deployed contract
+            const constantDefinedAddr = ASSETS[TokenName.USDT].networks[chain.eid as EndpointId]?.address
+            const contractAddress = constantDefinedAddr
+                ? constantDefinedAddr
+                : (await contractFactory(getContractWithEid(chain.eid, { contractName: getUSDTDeployName() }))).contract
+                      .address
 
-    // collect opt pools
-    const optUsdcPool = await contractFactory(onOpt({ contractName: 'StargatePoolUSDC' }))
-    const optUsdtPool = await contractFactory(onOpt({ contractName: 'StargatePoolUSDT' }))
+            const deployer = await hre.getNamedAccounts().then(getDeployer)
+            const poolContract = await contractFactory(getContractWithEid(chain.eid, usdtPool))
 
-    // collect arb pools
-    const arbUsdcPool = await contractFactory(onArb({ contractName: 'StargatePoolUSDC' }))
-    const arbUsdtPool = await contractFactory(onArb({ contractName: 'StargatePoolUSDT' }))
+            return {
+                contract: getContractWithEid(chain.eid, { address: contractAddress }),
+                config: {
+                    allowance: {
+                        [deployer]: {
+                            [poolContract.contract.address]: BigInt(18e18),
+                        },
+                    },
+                    mint: {
+                        [deployer]: BigInt(18e18),
+                    },
+                },
+            }
+        })
+    )
 
-    // collect bsc pools
-    const bscUsdtPool = await contractFactory(onBsc({ contractName: 'StargatePoolUSDT' }))
+    // usdc pools
+    const usdcPoolsContracts = await Promise.all(
+        usdcChains.map(async (chain) => {
+            const hre = await getHre(chain.eid)
 
-    const ethUsdtContract = { address: ethUsdt.contract.address }
-    const optUsdtContract = { address: optUsdt.contract.address }
-    const arbUsdtContract = { address: arbUsdt.contract.address }
+            const contract = {
+                contractName: 'FiatTokenV2_2',
+                address: ASSETS[TokenName.USDC].networks[chain.eid as EndpointId]?.address,
+            }
+            const deployer = await hre.getNamedAccounts().then(getDeployer)
+            const poolContract = await contractFactory(getContractWithEid(chain.eid, usdcPool))
+            return {
+                contract: getContractWithEid(chain.eid, contract),
+                config: {
+                    allowance: {
+                        [deployer]: {
+                            [poolContract.contract.address]: BigInt(18e18),
+                        },
+                    },
+                    mint: {
+                        [deployer]: BigInt(18e18),
+                    },
+                },
+            }
+        })
+    )
+
+    // eurc pools
+    const eurcPoolsContracts = await Promise.all(
+        eurcChains.map(async (chain) => {
+            const hre = await getHre(chain.eid)
+
+            const contract = {
+                contractName: 'FiatTokenV2_2',
+                address: ASSETS[TokenName.EURC].networks[chain.eid as EndpointId]?.address,
+            }
+            const deployer = await hre.getNamedAccounts().then(getDeployer)
+            const poolContract = await contractFactory(getContractWithEid(chain.eid, eurcPool))
+            return {
+                contract: getContractWithEid(chain.eid, contract),
+                config: {
+                    allowance: {
+                        [deployer]: {
+                            [poolContract.contract.address]: BigInt(18e18),
+                        },
+                    },
+                    mint: {
+                        [deployer]: BigInt(18e18),
+                    },
+                },
+            }
+        })
+    )
 
     return {
-        contracts: [
-            // Mint and Allowance needed for Setting Rewarder Rewards
-            {
-                contract: onEth(contract),
-                config: {
-                    allowance: {
-                        [ethAdmin]: {
-                            [ethRewarder.contract.address]: BigInt(24192e23),
-                        },
-                    },
-                    mint: {
-                        [ethAdmin]: BigInt(24192e23),
-                    },
-                },
-            },
-            {
-                contract: onBsc(contract),
-                config: {
-                    allowance: {
-                        [bscAdmin]: {
-                            [bscRewarder.contract.address]: BigInt(24192e23),
-                        },
-                    },
-                    mint: {
-                        [bscAdmin]: BigInt(24192e23),
-                    },
-                },
-            },
-            {
-                contract: onArb(contract),
-                config: {
-                    allowance: {
-                        [arbAdmin]: {
-                            [arbRewarder.contract.address]: BigInt(24192e23),
-                        },
-                    },
-                    mint: {
-                        [arbAdmin]: BigInt(24192e23),
-                    },
-                },
-            },
-            {
-                contract: onOpt(contract),
-                config: {
-                    allowance: {
-                        [optAdmin]: {
-                            [optRewarder.contract.address]: BigInt(24192e23),
-                        },
-                    },
-                    mint: {
-                        [optAdmin]: BigInt(24192e23),
-                    },
-                },
-            },
-            // Mint and Allowance needed for Adding Liquidity to Pools
-            {
-                contract: ethUsdc,
-                config: {
-                    allowance: {
-                        [ethAdmin]: {
-                            [ethUsdcPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onEth(ethUsdtContract),
-                config: {
-                    allowance: {
-                        [ethAdmin]: {
-                            [ethUsdtPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [ethAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: optUsdc,
-                config: {
-                    allowance: {
-                        [optAdmin]: {
-                            [optUsdcPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [optAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onOpt(optUsdtContract),
-                config: {
-                    allowance: {
-                        [optAdmin]: {
-                            [optUsdtPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [optAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: arbUsdc,
-                config: {
-                    allowance: {
-                        [arbAdmin]: {
-                            [arbUsdcPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [arbAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: onArb(arbUsdtContract),
-                config: {
-                    allowance: {
-                        [arbAdmin]: {
-                            [arbUsdtPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [arbAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-            {
-                contract: bscUsdt,
-                config: {
-                    allowance: {
-                        [bscAdmin]: {
-                            [bscUsdtPool.contract.address]: BigInt(18e18),
-                        },
-                    },
-                    mint: {
-                        [bscAdmin]: BigInt(18e18),
-                    },
-                },
-            },
-        ],
+        contracts: [...rewarderContracts, ...usdtPoolsContracts, ...usdcPoolsContracts, ...eurcPoolsContracts],
         connections: [],
     }
 }

@@ -1,10 +1,10 @@
-import { REWARDS, RewardTokenName } from '@stargatefinance/stg-definitions-v2'
+import { REWARDS, RewardTokenName, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { ERC20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getUSDCProxyDeployName, getUSDTDeployName } from '../../../ops/util'
+import { getCircleFiatTokenProxyDeployName, getUSDTDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
 
 import { onBsc, onEth, onPolygon } from './utils'
@@ -38,7 +38,9 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
     const polygonUsdtPool = await contractFactory(onPolygon({ contractName: 'StargatePoolUSDT' }))
 
     // Now we collect the addresses of the deployed assets to mint to the deployer to add liquidity to the pools
-    const ethUSDCProxy = await contractFactory(onEth({ contractName: getUSDCProxyDeployName() }))
+    const ethUSDCProxy = await contractFactory(
+        onEth({ contractName: getCircleFiatTokenProxyDeployName(TokenName.USDC) })
+    )
     const ethUSDC = onEth({ contractName: 'FiatTokenV2_2', address: ethUSDCProxy.contract.address })
 
     const ethUSDT = await contractFactory(onEth({ contractName: getUSDTDeployName() }))

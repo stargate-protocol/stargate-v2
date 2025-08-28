@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-error-parser",
-  "version": "1.1.13",
+  "version": "1.1.16",
   "license": "BUSL-1.1",
   "exports": {
     "types": "./dist/index.d.ts",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@layerzerolabs/tsup-config-next": "~3.0.7",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
-    "@stargatefinance/stg-evm-sdk-v2": "~1.1.13",
+    "@stargatefinance/stg-evm-sdk-v2": "~1.1.16",
     "@types/jest": "^29.5.10",
     "@types/node": "^18.15.11",
     "jest": "^29.7.0",

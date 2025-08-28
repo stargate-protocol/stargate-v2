@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-devtools-v2",
-  "version": "4.0.3",
+  "version": "5.0.0",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -21,13 +21,13 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@layerzerolabs/devtools": "~0.4.1",
+    "@layerzerolabs/devtools": "~1.0.1",
     "@layerzerolabs/io-devtools": "~0.1.13",
     "@layerzerolabs/lz-definitions": "~3.0.18",
     "@layerzerolabs/lz-v2-utilities": "~3.0.18",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
     "@layerzerolabs/ua-devtools": "~1.0.5",
-    "@stargatefinance/stg-definitions-v2": "~2.0.3",
+    "@stargatefinance/stg-definitions-v2": "~3.0.0",
     "@types/node": "^18.15.11",
     "ts-node": "^10.9.1",
     "tsup": "^8.0.1",
@@ -35,12 +35,12 @@
     "zod": "~3.22.4"
   },
   "peerDependencies": {
-    "@layerzerolabs/devtools": "~0.4.1",
+    "@layerzerolabs/devtools": "~1.0.1",
     "@layerzerolabs/io-devtools": "^0.1.11",
     "@layerzerolabs/lz-definitions": "~3.0.18",
     "@layerzerolabs/lz-v2-utilities": "~3.0.18",
     "@layerzerolabs/ua-devtools": "^0.3.20",
-    "@stargatefinance/stg-definitions-v2": "^2.0.3",
+    "@stargatefinance/stg-definitions-v2": "^3.0.0",
     "zod": "~3.22.4"
   },
   "publishConfig": {

@@ -1,0 +1,23 @@
+name: avalanche-testnet
+eid: AVALANCHE_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdt:
+    type: pool
+  eurc:
+    type: pool
+rewarder:
+  tokens:
+    mock_a:
+      allocation:
+        usdt: 1
+        eurc: 1
+staking:
+  tokens:
+    usdt: true
+    eurc: true
+treasurer:
+  tokens:
+    usdt: true
+    eurc: true

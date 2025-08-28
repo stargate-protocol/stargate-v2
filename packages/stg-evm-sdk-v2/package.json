@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-evm-sdk-v2",
-  "version": "1.1.13",
+  "version": "1.1.16",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -37,18 +37,39 @@
   ],
   "scripts": {
     "build": "$npm_execpath tsup --clean",
-    "clean": "rm -rf .turbo dist artifacts deployments"
+    "check:deployment": "ts-node src/checkDeployment/index.ts -e mainnet --numRetries 50 && echo \"Deployment checks completed.\"",
+    "check:deployment:custom": "ts-node src/checkDeployment/index.ts",
+    "clean": "rm -rf .turbo dist artifacts deployments",
+    "config:all": "pnpm run config:native && pnpm run config:pools",
+    "config:native": "ts-node src/generateNativeCurrencyConfig.ts && echo \"Native currency configs generated.\"",
+    "config:pools": "ts-node src/generatePoolConfig.ts -e mainnet --numRetries 50 && echo \"Pool configs generated.\"",
+    "config:pools:custom": "ts-node src/generatePoolConfig.ts",
+    "setup:typechain": "(cd src/stargate-contracts && node typechainConfig.js) && (cd src/protocol-contracts && node typechainConfig.js) && (cd src/openzeppelin-contracts && node typechainConfig.js) && echo \"Typechain generation complete.\"",
+    "validate": "pnpm run setup:typechain && pnpm run config:all && pnpm run check:deployment"
   },
   "devDependencies": {
+    "@ethersproject/providers": "~5.7.2",
+    "@layerzerolabs/lz-definitions": "~3.0.30",
+    "@layerzerolabs/lz-evm-sdk-v2": "3.0.106",
     "@layerzerolabs/tsup-config-next": "~3.0.7",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
-    "@stargatefinance/stg-evm-v2": "~2.0.4",
+    "@openzeppelin/contracts": "^4.8.1",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@stargatefinance/stg-evm-v2": "~3.0.0",
     "@types/node": "^18.15.11",
+    "dotenv": "^16.4.5",
     "esbuild-plugin-clean": "~1.0.1",
     "esbuild-plugin-copy": "~2.1.1",
+    "ethers": "^5.7.2",
+    "exponential-backoff": "^3.1.2",
+    "hardhat": "^2.22.10",
+    "hardhat-deploy": "^0.12.4",
+    "ts-command-line-args": "^2.4.2",
     "ts-node": "^10.9.1",
     "tsup": "^8.0.1",
-    "typescript": "~5.6.3"
+    "typechain": "^8.1.0",
+    "typescript": "~5.6.3",
+    "winston": "^3.13.0"
   },
   "publishConfig": {
     "access": "public"
