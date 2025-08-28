@@ -1,77 +1,53 @@
 #!/usr/bin/env node
+import fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 
-// todo instead of hardcode the chains, get them from a source of truth
-const mainnetChains = [
-    'abstract-mainnet',
-    'ape-mainnet',
-    'arbitrum-mainnet',
-    'aurora-mainnet',
-    'avalanche-mainnet',
-    'base-mainnet',
-    'bera-mainnet',
-    'bsc-mainnet',
-    'codex-mainnet',
-    'coredao-mainnet',
-    'cronosevm-mainnet',
-    'cronoszkevm-mainnet',
-    'degen-mainnet',
-    'ethereum-mainnet',
-    'flare-mainnet',
-    'flow-mainnet',
-    'fuse-mainnet',
-    'glue-mainnet',
-    'gnosis-mainnet',
-    'goat-mainnet',
-    'gravity-mainnet',
-    'hemi-mainnet',
-    'ink-mainnet',
-    'iota-mainnet',
-    'islander-mainnet',
-    'kava-mainnet',
-    'klaytn-mainnet',
-    'lightlink-mainnet',
-    'manta-mainnet',
-    'mantle-mainnet',
-    'metis-mainnet',
-    'nibiru-mainnet',
-    'optimism-mainnet',
-    'peaq-mainnet',
-    'plume-mainnet',
-    'plumephoenix-mainnet',
-    'polygon-mainnet',
-    'rarible-mainnet',
-    'rootstock-mainnet',
-    'scroll-mainnet',
-    'sei-mainnet',
-    'soneium-mainnet',
-    'sonic-mainnet',
-    'story-mainnet',
-    'superposition-mainnet',
-    'taiko-mainnet',
-    'telos-mainnet',
-    'unichain-mainnet',
-    'xchain-mainnet',
-    'xdc-mainnet',
-    'zkconsensys-mainnet',
-];
+// Get current directory for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const testnetChains = [
-    'avalanche-testnet',
-    'arbsep-testnet',
-    'bsc-testnet',
-    'klaytn-testnet',
-    'mantle-testnet',
-    'monad-testnet',
-    'odyssey-testnet',
-    'opt-testnet',
-    'sepolia-testnet',
-];
+function loadMainnetChainsFromYaml(stage) {
+    let allChainsNames;
+    try {
+        allChainsNames = getAllChainsNames(stage);
+    } catch (error) {
+        console.warn('Failed to load mainnet chains from config:', error);
+    }
+    return allChainsNames;
+}
 
 // Get the network from environment variable or default to mainnet
 const network = process.env.NETWORK || 'mainnet';
 
 // Select the appropriate chain list based on the network
-const chainList = network === 'mainnet' ? mainnetChains : testnetChains;
+const chainList = loadMainnetChainsFromYaml(network);
 
 // Return the list of strings
 console.log(JSON.stringify(chainList));
+
+function getAllChainsNames(stage) {
+    if (stage !== 'mainnet' && stage !== 'testnet' && stage !== 'sandbox') {
+        throw new Error('Invalid stage');
+    }
+    const rootDir = path.join(__dirname, '..', '..', '..', 'packages', 'stg-evm-v2', 'devtools', 'config');
+
+    const chainsToChainsDir = {
+        ['mainnet']: path.join(rootDir, 'mainnet', '01', 'chainsConfig'),
+        ['testnet']: path.join(rootDir, 'testnet', 'chainsConfig'),
+        ['sandbox']: path.join(rootDir, 'sandbox', 'chainsConfig'),
+    };
+
+    const chainsDir = chainsToChainsDir[stage];
+
+    // Read all yml files from the chains directory
+    let chainFiles = fs.readdirSync(chainsDir).filter((file) => file.endsWith('.yml'));
+
+    // remove template-chain.yml
+    chainFiles = chainFiles.filter((file) => file !== '0-template-chain.yml');
+
+    // the file name is the chain name
+    return chainFiles.map((file) => {
+        return path.basename(file, path.extname(file));
+    });
+}
