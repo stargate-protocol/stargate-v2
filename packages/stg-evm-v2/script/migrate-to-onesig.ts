@@ -74,19 +74,6 @@ const TESTNET_CONFIGS = [
     './devtools/config/testnet/asset.eth.config.ts',
     './devtools/config/testnet/asset.eurc.config.ts',
     './devtools/config/testnet/asset.usdc.config.ts',
-    './devtools/config/testnet/asset.usdt.config.ts',
-    './devtools/config/testnet/credit-messaging.config.ts',
-    './devtools/config/testnet/eurc-token.config.ts',
-    './devtools/config/testnet/feelib-v1.eth.config.ts',
-    './devtools/config/testnet/feelib-v1.eurc.config.ts',
-    './devtools/config/testnet/feelib-v1.usdc.config.ts',
-    './devtools/config/testnet/feelib-v1.usdt.config.ts',
-    './devtools/config/testnet/token-messaging.config.ts',
-    './devtools/config/testnet/treasurer.config.ts',
-    './devtools/config/testnet/staking.config.ts',
-    './devtools/config/testnet/rewarder.config.ts',
-    './devtools/config/testnet/usdt-token.config.ts',
-    './devtools/config/testnet/usdc-token.config.ts',
 ]
 
 // Parse command line arguments
