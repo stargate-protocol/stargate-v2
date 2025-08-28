@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 function loadMainnetChainsFromYaml(stage) {
-    let allChainsNames;
+    let allChainsNames = [];
     try {
         allChainsNames = getAllChainsNames(stage);
     } catch (error) {

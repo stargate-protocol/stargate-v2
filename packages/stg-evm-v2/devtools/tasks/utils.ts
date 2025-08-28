@@ -1,9 +1,10 @@
 import { SignAndSendResult } from '@layerzerolabs/devtools'
 
 export function checkResult(result: SignAndSendResult, config: string) {
-    if (result.length === 3 && (result[0].length > 0 || result[1].length > 0 || result[2].length > 0)) {
+    const [successes, failures, pendings] = result
+    if (result.length === 3 && (successes.length > 0 || failures.length > 0 || pendings.length > 0)) {
         printMessage(false, config)
-        throw new Error(`There are still ${result[2].length} pending transactions to wire`)
+        throw new Error(`There are still ${pendings.length} pending transactions to wire`)
     } else {
         printMessage(true, config)
     }
