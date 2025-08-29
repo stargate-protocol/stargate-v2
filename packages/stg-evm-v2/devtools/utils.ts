@@ -14,7 +14,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getFeeLibV1DeployName, getStargateDeployName } from '../ops/util'
 import { getAddress, getAssetNetworkConfig, getAssetType, getNamedAccount } from '../ts-src/utils/util'
 
-import { getSafeAddressMaybe } from './config/utils'
+import { getOneSigAddressMaybe } from './config/utils'
 
 /**
  * Helper function for getting default `AddressConfig` objects for an `Asset`
@@ -53,7 +53,7 @@ export const createGetAssetNode =
     ) =>
     async (contract: OmniPointHardhat): Promise<OmniNodeHardhat<AssetNodeConfig>> => {
         const hre = await getHre(contract.eid)
-        const owner = getSafeAddressMaybe(contract.eid)
+        const owner = getOneSigAddressMaybe(contract.eid)
         const assetConfig = ASSETS[tokenName]
         const config: AssetNodeConfig = {
             ...defaultConfig,

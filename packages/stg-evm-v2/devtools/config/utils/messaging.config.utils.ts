@@ -13,7 +13,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { filterConnections, getContractWithEid, getSafeAddress } from '../utils'
+import { filterConnections, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getAssetsConfig } from './shared'
 import {
@@ -68,16 +68,19 @@ export default async function buildMessagingGraph(
     const getEnvironment = createGetHreByEid()
 
     const contracts = await Promise.all(
-        allContracts.map(async (contract) => ({
-            contract,
-            config: {
-                // Only set owner for mainnet
-                ...(stage === Stage.MAINNET ? { owner: getSafeAddress(contract.eid) } : {}),
-                ...(stage === Stage.MAINNET ? { delegate: getSafeAddress(contract.eid) } : {}),
-                planner: defaultPlanner,
-                assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
-            },
-        }))
+        allContracts.map(async (contract) => {
+            const stargateOnesig = getOneSigAddressMaybe(contract.eid)
+            return {
+                contract,
+                config: {
+                    // Only set owner and delegate if they are defined in the chain config
+                    ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
+                    ...(stargateOnesig !== undefined ? { delegate: stargateOnesig } : {}),
+                    planner: defaultPlanner,
+                    assets: await getAssetsConfig(getEnvironment, contract.eid, getSupportedTokensByEid(contract.eid)),
+                },
+            }
+        })
     )
 
     return {
