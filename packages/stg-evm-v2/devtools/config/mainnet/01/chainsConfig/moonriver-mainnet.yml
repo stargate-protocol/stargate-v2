@@ -2,3 +2,4 @@ name: moonriver-mainnet
 eid: MOONRIVER_V2_MAINNET
 token_messaging: false
 credit_messaging: false
+status: INACTIVE

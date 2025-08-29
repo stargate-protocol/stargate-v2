@@ -1,12 +1,17 @@
+import { OneSigConfig } from '@stargatefinance/stg-definitions-v2'
 import 'hardhat/types/config'
 
 declare module 'hardhat/types/config' {
     interface HardhatNetworkUserConfig {
         useFeeData?: never
+
+        oneSigConfig?: never
     }
 
     interface HardhatNetworkConfig {
         useFeeData?: never
+
+        oneSigConfig?: never
     }
 
     interface HttpNetworkUserConfig {
@@ -18,6 +23,8 @@ declare module 'hardhat/types/config' {
          * plus it is only important for arbitrum chains (mainnet & testnet)
          */
         useFeeData?: boolean
+
+        oneSigConfig?: OneSigConfig
     }
 
     interface HttpNetworkConfig {
@@ -29,5 +36,7 @@ declare module 'hardhat/types/config' {
          * plus it is only important for arbitrum chains (mainnet & testnet)
          */
         useFeeData?: boolean
+
+        oneSigConfig?: OneSigConfig
     }
 }

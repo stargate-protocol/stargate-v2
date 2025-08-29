@@ -3,7 +3,7 @@ import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
-    OnesigConfig,
+    OneSigConfig,
     SafeConfig,
     StargateType,
     TokenMessagingNetworkConfig,
@@ -182,6 +182,31 @@ export const getSafeConfig = (eid: EndpointId): SafeConfig => {
 }
 
 /**
+ * Returns the OneSig config for a particular network.
+ *
+ * If OneSig is not configured, will return `undefined`.
+ * If network is not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {OneSigConfig | undefined}
+ */
+export const getOneSigConfigMaybe = (eid: EndpointId): OneSigConfig | undefined => getNetworkConfig(eid).oneSigConfig
+
+/**
+ * Returns the OneSig config for a particular network.
+ *
+ * If OneSig or network are not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {OneSigConfig}
+ */
+export const getOneSigConfig = (eid: EndpointId): OneSigConfig => {
+    const oneSigConfig = getOneSigConfigMaybe(eid)
+
+    return assert(oneSigConfig != null, `Missing OneSig config for ${formatEid(eid)}`), oneSigConfig
+}
+
+/**
  * Returns the gnosis safe address configured for a particular network.
  *
  * If safe is not configured, will return `undefined`.
@@ -306,6 +331,11 @@ interface RewarderToken {
     allocation: Record<string, number>
 }
 
+enum ChainStatus {
+    DEPRECATED = 'DEPRECATED',
+    INACTIVE = 'INACTIVE',
+    ACTIVE = 'ACTIVE',
+}
 export interface Chain {
     name: string
     eid: any
@@ -321,6 +351,7 @@ export interface Chain {
     treasurer?: {
         tokens: Record<string, boolean>
     }
+    status?: ChainStatus
 }
 
 export function loadChainConfig(filePath: string): Chain {

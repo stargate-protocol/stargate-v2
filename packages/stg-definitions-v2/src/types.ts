@@ -88,8 +88,12 @@ export interface SafeConfig {
     contractNetworks?: ContractNetworksConfig
 }
 
-export interface OnesigConfig {
-    onesigAddress: string
+export interface OneSigConfig {
+    oneSigAddress: string
+    /**
+     * The URL of the OneSig REST API
+     */
+    oneSigUrl?: string
 }
 
 export interface NetworkConfig {
@@ -97,7 +101,7 @@ export interface NetworkConfig {
     creditMessaging?: CreditMessagingNetworkConfig
     tokenMessaging?: TokenMessagingNetworkConfig
     safeConfig?: SafeConfig
-    onesigConfig?: OnesigConfig
+    oneSigConfig?: OneSigConfig
 }
 
 export interface CreditMessagingNetworkConfig {
