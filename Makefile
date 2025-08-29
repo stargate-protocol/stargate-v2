@@ -7,7 +7,7 @@ WORKSPACE=pnpm --filter $(PACKAGE)
 HARDHAT=$(WORKSPACE) run hardhat
 
 # We define the configuration commands to keep things DRY
-TRANSFER_OWNERSHIP=$(HARDHAT) lz:ownable:transfer-ownership
+TRANSFER_OWNERSHIP=$(HARDHAT) stg:ownable:transfer-ownership
 CONFIGURE_ASSET=$(HARDHAT) stg:wire::asset
 CONFIGURE_OFT=$(HARDHAT) stg:wire::oft
 CONFIGURE_CIRCLE_TOKEN=$(HARDHAT) stg:wire::circle-token

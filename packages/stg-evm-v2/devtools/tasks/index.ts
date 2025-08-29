@@ -92,8 +92,10 @@ import {
 import { createOneSigSignerFactory } from '../onesig'
 
 import {
+    TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP,
     TASK_STG_ADD_LIQUIDITY,
     TASK_STG_GET_CONFIG_HASHES,
+    TASK_STG_OWNABLE_TRANSFER_OWNERSHIP,
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
     TASK_STG_WIRE_ASSET,
@@ -118,241 +120,352 @@ const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 /**
  * Wiring task for credit messaging contracts
  */
-wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load credit messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: CreditMessagingOmniGraphHardhatSchema,
-            })
-    )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure credit messaging',
-        (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureCreditMessaging,
-                sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
-            })
-    )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+wireTask(TASK_STG_WIRE_CREDIT_MESSAGING)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load credit messaging config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CreditMessagingOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure credit messaging',
+            (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureCreditMessaging,
+                    sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
+                })
+        )
 
-/**
- * Wiring task for token messaging contracts
- */
-wireTask(TASK_STG_WIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load token messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: TokenMessagingOmniGraphHardhatSchema,
-            })
-    )
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign credit messaging transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure token messaging',
-        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureTokenMessaging,
-                sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
-            })
-    )
-
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for token messaging contracts
  */
-wireTask(TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load token messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: TokenMessagingOmniGraphHardhatSchema,
-            })
-    )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Initialize storage for token messaging',
-        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: initializeBusQueueStorage,
-                sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
-            })
-    )
+wireTask(TASK_STG_WIRE_TOKEN_MESSAGING)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load token messaging config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: TokenMessagingOmniGraphHardhatSchema,
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure token messaging',
+            (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureTokenMessaging,
+                    sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign token messaging transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
+
+/**
+ * Wiring task for token messaging contracts
+ */
+wireTask(TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load token messaging config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: TokenMessagingOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Initialize storage for token messaging',
+            (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: initializeBusQueueStorage,
+                    sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign token messaging initialize storage transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for asset contracts
  */
-wireTask(TASK_STG_WIRE_ASSET).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load asset config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: AssetOmniGraphHardhatSchema,
-        })
-    )
-
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure asset',
-        (args: SubtaskConfigureTaskArgs<AssetOmniGraph, IAsset>, hre, runSuper) =>
+wireTask(TASK_STG_WIRE_ASSET)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load asset config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureAsset,
-                sdkFactory: createAssetFactory(createConnectedContractFactory()),
+                schema: AssetOmniGraphHardhatSchema,
             })
-    )
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure asset',
+            (args: SubtaskConfigureTaskArgs<AssetOmniGraph, IAsset>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureAsset,
+                    sdkFactory: createAssetFactory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign asset transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for feelib V1 contracts
  */
-wireTask(TASK_STG_WIRE_FEELIB_V1).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load feelib config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: FeeLibV1OmniGraphHardhatSchema,
-        })
-    )
-
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure feelib V1',
-        (args: SubtaskConfigureTaskArgs<FeeLibV1OmniGraph, IFeeLibV1>, hre, runSuper) =>
+wireTask(TASK_STG_WIRE_FEELIB_V1)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load feelib config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureFeeLibV1,
-                sdkFactory: createFeeLibV1Factory(createConnectedContractFactory()),
+                schema: FeeLibV1OmniGraphHardhatSchema,
             })
-    )
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure feelib V1',
+            (args: SubtaskConfigureTaskArgs<FeeLibV1OmniGraph, IFeeLibV1>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureFeeLibV1,
+                    sdkFactory: createFeeLibV1Factory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign feelib V1 transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for treasurer contracts
  */
-wireTask(TASK_STG_WIRE_TREASURER).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load treasurer config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: TreasurerOmniGraphHardhatSchema,
-        })
-    )
+wireTask(TASK_STG_WIRE_TREASURER)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load treasurer config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: TreasurerOmniGraphHardhatSchema,
+                })
+        )
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure treasurer',
-        (args: SubtaskConfigureTaskArgs<TreasurerOmniGraph, ITreasurer>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureTreasurer,
-                sdkFactory: createTreasurerFactory(createConnectedContractFactory()),
-            })
-    )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure treasurer',
+            (args: SubtaskConfigureTaskArgs<TreasurerOmniGraph, ITreasurer>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureTreasurer,
+                    sdkFactory: createTreasurerFactory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign treasurer transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for OFT contracts
  */
-wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load OFT config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: MintableOmniGraphHardhatSchema,
-        })
-    )
-
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure OFT',
-        (args: SubtaskConfigureTaskArgs<MintableOmniGraph, IMintable>, hre, runSuper) =>
+wireTask(TASK_STG_WIRE_OFT)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load OFT config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureMintable,
-                sdkFactory: createMintableFactory(createConnectedContractFactory()),
+                schema: MintableOmniGraphHardhatSchema,
             })
-    )
+        )
 
-    const signerDefinition = args.signer
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure OFT',
+            (args: SubtaskConfigureTaskArgs<MintableOmniGraph, IMintable>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureMintable,
+                    sdkFactory: createMintableFactory(createConnectedContractFactory()),
+                })
+        )
 
-    subtask(SUBTASK_LZ_SIGN_AND_SEND, 'Sign OFT transactions', (args: SignAndSendTaskArgs, _hre, runSuper) => {
-        return runSuper({
-            ...args,
-            createSigner: createOneSigSignerFactory(signerDefinition),
-        })
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(SUBTASK_LZ_SIGN_AND_SEND, 'Sign OFT transactions', (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                return runSuper({
+                    ...args,
+                    createSigner: createOneSigSignerFactory(signerDefinition),
+                })
+            })
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
     })
-
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
 
 /**
  * Wiring task for EURC/USDC contracts
  */
 wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
     .addOptionalParam('tokenName', 'The token name to wire', 'CircleFiatToken')
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
     .setAction(async (args, hre) => {
         const tokenName = args.tokenName.toUpperCase()
 
@@ -383,44 +496,77 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
                 })
         )
 
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                `Sign configure ${tokenName} transactions`,
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
         return hre.run(TASK_LZ_OAPP_WIRE, args)
     })
 
 /**
  * Wiring task for USDC contract to add the asset contract to minters with a high allowance
  */
-wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: CircleFiatTokenOmniGraphHardhatSchema,
-        })
-    )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Set admin for USDC',
-        (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
+wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load USDC config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureProxyAdmin,
-                sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
+                schema: CircleFiatTokenOmniGraphHardhatSchema,
             })
-    )
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Set admin for USDC',
+            (args: SubtaskConfigureTaskArgs<CircleFiatTokenOmniGraph, ICircleFiatToken>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureProxyAdmin,
+                    sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign admin USDC transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for EURC/USDC contract to add the asset contract to minters with a high allowance
  */
 wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER)
     .addOptionalParam('tokenName', 'The token name to wire', 'CircleFiatToken')
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
     .setAction(async (args, hre) => {
         const tokenName = args.tokenName.toUpperCase()
 
@@ -450,200 +596,346 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER)
                 })
         )
 
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                `Sign initialize ${tokenName} minters transactions`,
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
         return hre.run(TASK_LZ_OAPP_WIRE, args)
     })
 
 /**
  * Wiring task for rewarder contracts
  */
-wireTask(TASK_STG_WIRE_REWARDER).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: RewarderOmniGraphHardhatSchema,
-        })
-    )
-
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure rewarder',
-        (args: SubtaskConfigureTaskArgs<RewarderOmniGraph, IRewarder>, hre, runSuper) =>
+wireTask(TASK_STG_WIRE_REWARDER)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureRewarder,
-                sdkFactory: createRewarderFactory(createConnectedContractFactory()),
+                schema: RewarderOmniGraphHardhatSchema,
             })
-    )
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure rewarder',
+            (args: SubtaskConfigureTaskArgs<RewarderOmniGraph, IRewarder>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureRewarder,
+                    sdkFactory: createRewarderFactory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign rewarder transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for setting rewards
  */
-wireTask(TASK_STG_SET_REWARDS).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: RewarderRewardsOmniGraphHardhatSchema,
-        })
-    )
-
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Set rewards',
-        (args: SubtaskConfigureTaskArgs<RewarderRewardsOmniGraph, IRewarder>, hre, runSuper) =>
+wireTask(TASK_STG_SET_REWARDS)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load rewarder config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureRewards,
-                sdkFactory: createRewarderFactory(createConnectedContractFactory()),
+                schema: RewarderRewardsOmniGraphHardhatSchema,
             })
-    )
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Set rewards',
+            (args: SubtaskConfigureTaskArgs<RewarderRewardsOmniGraph, IRewarder>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureRewards,
+                    sdkFactory: createRewarderFactory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign rewards transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for staking contracts
  */
-wireTask(TASK_STG_WIRE_STAKING).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load staking config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: StakingOmniGraphHardhatSchema,
-        })
-    )
-
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure staking',
-        (args: SubtaskConfigureTaskArgs<StakingOmniGraph, IStaking>, hre, runSuper) =>
+wireTask(TASK_STG_WIRE_STAKING)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load staking config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureStaking,
-                sdkFactory: createStakingFactory(createConnectedContractFactory()),
+                schema: StakingOmniGraphHardhatSchema,
             })
-    )
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure staking',
+            (args: SubtaskConfigureTaskArgs<StakingOmniGraph, IStaking>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureStaking,
+                    sdkFactory: createStakingFactory(createConnectedContractFactory()),
+                })
+        )
+
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign staking transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for OFT Wrapper contracts
  */
-wireTask(TASK_STG_WIRE_OFT_WRAPPER).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load OFT Wrapper config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: OFTWrapperOmniGraphHardhatSchema,
-        })
-    )
+wireTask(TASK_STG_WIRE_OFT_WRAPPER)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load OFT Wrapper config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: OFTWrapperOmniGraphHardhatSchema,
+                })
+        )
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure OFT Wrapper',
-        (args: SubtaskConfigureTaskArgs<OFTWrapperOmniGraph, IOFTWrapper>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureOFTWrapper,
-                sdkFactory: createOFTWrapperFactory(createConnectedContractFactory()),
-            })
-    )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure OFT Wrapper',
+            (args: SubtaskConfigureTaskArgs<OFTWrapperOmniGraph, IOFTWrapper>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureOFTWrapper,
+                    sdkFactory: createOFTWrapperFactory(createConnectedContractFactory()),
+                })
+        )
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign OFT Wrapper transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Wiring task for setting allowance
  */
-wireTask(TASK_STG_SET_MINT_ALLOWANCE).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load allowance config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: ERC20OmniGraphHardhatSchema,
-        })
-    )
+wireTask(TASK_STG_SET_MINT_ALLOWANCE)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load allowance config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: ERC20OmniGraphHardhatSchema,
+                })
+        )
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure allowance',
-        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureERC20,
-                sdkFactory: createERC20Factory(createConnectedContractFactory()),
-            })
-    )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure allowance',
+            (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureERC20,
+                    sdkFactory: createERC20Factory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign allowance transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
 
 /**
  * Task for adding liquidity to a pool
  */
-wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
-    // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
-    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
-    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
-    // the task that runs first will overwrite the original subtask definition
-    // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load liquidity config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-        runSuper({
-            ...args,
-            schema: PoolOmniGraphHardhatSchema,
-        })
-    )
+wireTask(TASK_STG_ADD_LIQUIDITY)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // Here we'll overwrite the config loading & configuration tasks just-in-time
+        //
+        // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+        // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+        // the task that runs first will overwrite the original subtask definition
+        // whereas the task that runs later will overwrite the overwritten task definition
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load liquidity config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: PoolOmniGraphHardhatSchema,
+                })
+        )
 
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Configure liquidity',
-        (args: SubtaskConfigureTaskArgs<PoolOmniGraph, IPool>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureDeposit,
-                sdkFactory: createPoolFactory(createConnectedContractFactory()),
-            })
-    )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Configure liquidity',
+            (args: SubtaskConfigureTaskArgs<PoolOmniGraph, IPool>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureDeposit,
+                    sdkFactory: createPoolFactory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign liquidity transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        return hre.run(TASK_LZ_OAPP_WIRE, args)
+    })
+
+wireTask(TASK_STG_OWNABLE_TRANSFER_OWNERSHIP)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre) => {
+        // override sign and send task if proposing via oneSig
+        if (args.onesig) {
+            const signerDefinition = args.signer
+            subtask(
+                SUBTASK_LZ_SIGN_AND_SEND,
+                'Sign transfer ownership transactions',
+                (args: SignAndSendTaskArgs, _hre, runSuper) => {
+                    return runSuper({
+                        ...args,
+                        createSigner: createOneSigSignerFactory(signerDefinition),
+                    })
+                }
+            )
+        }
+
+        // call the lz original task
+        return hre.run(TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP, args)
+    })
 
 interface ConfigFile {
     name: string
     hashedContent: string
 }
-
 task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
     .addFlag('genJson', 'Generate also each config as a json file')
     .addParam('stage', 'Chain stage. One of: mainnet, testnet, sandbox', undefined, types.stage, true)
