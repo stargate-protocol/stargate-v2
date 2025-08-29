@@ -980,7 +980,26 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
-
+            [EndpointId.AVALANCHE_V2_MAINNET]: {
+                address: '0xc891eb4cbdeff6e073e859e987815ed1505c2acd',
+                type: StargateType.Pool,
+            },
+            [EndpointId.BASE_V2_MAINNET]: {
+                address: '0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42',
+                type: StargateType.Pool,
+            },
+            [EndpointId.BERA_V2_MAINNET]: {
+                address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
+                type: StargateType.Oft,
+            },
+            [EndpointId.ETHEREUM_V2_MAINNET]: {
+                address: '0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c',
+                type: StargateType.Pool,
+            },
+            [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
+                address: '0x15F8c62B1f6DcaEE4805F60539F254dd4fa78AE4',
+                type: StargateType.Oft,
+            },
             //
             // TESTNET
             //
@@ -1294,7 +1313,19 @@ export const REWARDS: RewardsConfig = {
     },
     [RewardTokenName.EURC]: {
         name: 'EURC',
-        networks: {},
+        networks: {
+            //
+            // Mainnet
+            [EndpointId.AVALANCHE_V2_MAINNET]: {
+                address: '0xc891eb4cbdeff6e073e859e987815ed1505c2acd',
+            },
+            [EndpointId.BASE_V2_MAINNET]: {
+                address: '0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42',
+            },
+            [EndpointId.ETHEREUM_V2_MAINNET]: {
+                address: '0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c',
+            },
+        },
     },
 }
 

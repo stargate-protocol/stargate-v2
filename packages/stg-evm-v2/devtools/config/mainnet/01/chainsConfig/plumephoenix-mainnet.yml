@@ -9,8 +9,11 @@ tokens:
     type: oft
   usdt:
     type: oft
+  eurc:
+    type: oft
 treasurer:
   tokens:
     eth: true
     usdt: true
     usdc: true
+    eurc: true
