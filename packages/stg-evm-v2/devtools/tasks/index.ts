@@ -74,7 +74,12 @@ import {
 } from '@stargatefinance/stg-devtools-v2'
 import { subtask, task } from 'hardhat/config'
 
-import { createConnectedContractFactory, inheritTask, types } from '@layerzerolabs/devtools-evm-hardhat'
+import {
+    SUBTASK_LZ_SIGN_AND_SEND,
+    createConnectedContractFactory,
+    inheritTask,
+    types,
+} from '@layerzerolabs/devtools-evm-hardhat'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 import {
     SUBTASK_LZ_OAPP_CONFIG_LOAD,
@@ -83,6 +88,8 @@ import {
     SubtaskLoadConfigTaskArgs,
     TASK_LZ_OAPP_WIRE,
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
+
+import { createOneSigSignerFactory } from '../onesig'
 
 import {
     TASK_STG_ADD_LIQUIDITY,
@@ -103,6 +110,8 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
 } from './constants'
+
+import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 
@@ -158,6 +167,7 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
                 schema: TokenMessagingOmniGraphHardhatSchema,
             })
     )
+
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure token messaging',
@@ -325,6 +335,15 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
                 sdkFactory: createMintableFactory(createConnectedContractFactory()),
             })
     )
+
+    const signerDefinition = args.signer
+
+    subtask(SUBTASK_LZ_SIGN_AND_SEND, 'Sign OFT transactions', (args: SignAndSendTaskArgs, _hre, runSuper) => {
+        return runSuper({
+            ...args,
+            createSigner: createOneSigSignerFactory(signerDefinition),
+        })
+    })
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })

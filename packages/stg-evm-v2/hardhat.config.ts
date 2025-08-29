@@ -10,7 +10,7 @@ configDotenv({
 import { AsyncRetriable } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getSafeConfig } from './devtools/config/utils'
+import { getOneSigConfig, getSafeConfig } from './devtools/config/utils'
 
 import type { HDAccountsUserConfig, HardhatUserConfig, NetworksUserConfig } from 'hardhat/types'
 
@@ -130,6 +130,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
         useFeeData: true,
+        oneSigConfig: getOneSigConfig(EndpointId.ARBSEP_V2_TESTNET),
     },
     'avalanche-testnet': {
         eid: EndpointId.AVALANCHE_V2_TESTNET,

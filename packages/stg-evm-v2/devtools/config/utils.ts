@@ -3,6 +3,7 @@ import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
+    OneSigConfig,
     SafeConfig,
     StargateType,
     TokenMessagingNetworkConfig,
@@ -178,6 +179,31 @@ export const getSafeConfig = (eid: EndpointId): SafeConfig => {
     const safeConfig = getSafeConfigMaybe(eid)
 
     return assert(safeConfig != null, `Missing safe config for ${formatEid(eid)}`), safeConfig
+}
+
+/**
+ * Returns the OneSig config for a particular network.
+ *
+ * If OneSig is not configured, will return `undefined`.
+ * If network is not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {OneSigConfig | undefined}
+ */
+export const getOneSigConfigMaybe = (eid: EndpointId): OneSigConfig | undefined => getNetworkConfig(eid).oneSigConfig
+
+/**
+ * Returns the OneSig config for a particular network.
+ *
+ * If OneSig or network are not configured, will throw an exception.
+ *
+ * @param {EndpointId} eid
+ * @returns {OneSigConfig}
+ */
+export const getOneSigConfig = (eid: EndpointId): OneSigConfig => {
+    const oneSigConfig = getOneSigConfigMaybe(eid)
+
+    return assert(oneSigConfig != null, `Missing OneSig config for ${formatEid(eid)}`), oneSigConfig
 }
 
 /**
