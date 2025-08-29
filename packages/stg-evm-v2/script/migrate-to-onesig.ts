@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 
+import { ethers } from 'ethers'
 import { run } from 'hardhat'
 
 import { type OmniTransaction, type SignAndSendResult } from '@layerzerolabs/devtools'
@@ -27,6 +28,7 @@ interface PendingTX {
         threshold: number
         totalSigners: number
     }
+    isValid: boolean
 }
 
 let ONE_SIG_THRESHOLD = 3
@@ -114,8 +116,14 @@ async function main(): Promise<void> {
         transactions.push(...response)
     }
 
-    // 2. Print the table with each tx details and errors if any
-    const errors = await processPendingTXs(transactions)
+    // 2. Process the pending transactions to get the one sig configuration needed
+    const processedTXs = await processPendingTXs(transactions)
+
+    // 3. Validate the one sig configuration
+    const { pendingTXs, errors } = await validateTXs(processedTXs)
+
+    // 4. Print the output
+    printOutput(pendingTXs, errors)
 
     // do not propose if there are errors in the one sig configuration
     if (errors.length > 0) {
@@ -123,7 +131,7 @@ async function main(): Promise<void> {
         return
     }
 
-    // 3. propose all transactions at once
+    // 5. propose all transactions at once
     if (dryRun) {
         console.log('Dry run mode, skipping proposal')
     } else {
@@ -144,41 +152,67 @@ async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
     return pending // pending transactions
 }
 
-async function processPendingTXs(transactions: OmniTransaction[]): Promise<string[]> {
-    const pendingTXs: PendingTX[] = []
+async function processPendingTXs(
+    transactions: OmniTransaction[]
+): Promise<{ oneSigContextConfig: OneSigContextConfig; error: string | undefined }[]> {
     const errors: string[] = []
+
+    const txsConfigs: { oneSigContextConfig: OneSigContextConfig; error: string | undefined }[] = []
     for (const tx of transactions) {
         const networkName = getNetworkNameForEid(tx.point.eid)
-        const configResult = await _getOneSigConfiguration(tx, networkName)
+        txsConfigs.push(await _getOneSigConfiguration(tx, networkName)) // oneSigContextConfig
+    }
 
-        // check oneSig configuration
-        const checkResult = await _checkOneSigConfiguration(configResult.oneSigContextConfig)
+    return txsConfigs
+}
+
+async function validateTXs(
+    processedTXs: { oneSigContextConfig: OneSigContextConfig; error: string | undefined }[]
+): Promise<{ pendingTXs: PendingTX[]; errors: string[] }> {
+    const pendingTXs: PendingTX[] = []
+    const errors: string[] = []
+    for (const processedtx of processedTXs) {
+        const contractAddress = processedtx.oneSigContextConfig.tx.point.address
+        const networkName = processedtx.oneSigContextConfig.networkName
+        const oneSigContextConfig = processedtx.oneSigContextConfig
+        const tx = oneSigContextConfig.tx
+        const oneSigConfiguration = oneSigContextConfig.oneSigConfiguration
+        const processedError = processedtx.error
+
+        // validate oneSig configuration
+        const checkResult = await _checkOneSigConfiguration(oneSigContextConfig)
 
         // get the contract name
-        const contractName = await _getContractNameForAddress(networkName, tx.point.address)
+        const contractName = await _getContractNameForAddress(networkName, contractAddress)
+
+        // push all pending txs
         pendingTXs.push({
             networkName: networkName,
             contractName: contractName,
             contractAddress: tx.point.address,
             currentMultisigOwner: await _getCurrentMultisigOwner(tx),
-            newOneSigOwner: _getNewAddress(tx.data),
-            oneSigConfiguration: configResult.oneSigContextConfig.oneSigConfiguration,
+            newOneSigOwner: _getNewAddressFromFirstParam(tx.data),
+            oneSigConfiguration: oneSigConfiguration,
+            isValid: processedError === undefined && checkResult === undefined,
         })
-        if (configResult.error !== undefined) {
-            errors.push(configResult.error)
+
+        if (processedError !== undefined) {
+            errors.push(processedError)
         }
         if (checkResult !== undefined) {
             errors.push(checkResult)
         }
     }
 
+    return { pendingTXs, errors }
+}
+
+function printOutput(pendingTXs: PendingTX[], errors: string[]) {
     // print the table with txs details
     printTable(pendingTXs)
 
     // print errors if any while getting the one sig configuration
     printErrors(errors)
-
-    return errors
 }
 
 async function proposeTransactions(transactions: OmniTransaction[]) {
@@ -203,6 +237,7 @@ async function proposeTransactions(transactions: OmniTransaction[]) {
 }
 
 type OneSigContextConfig = {
+    tx: OmniTransaction
     networkName: string
     oneSigConfiguration: OneSigConfiguration
 }
@@ -214,6 +249,17 @@ type OneSigConfiguration = {
 }
 
 // helpers
+
+/**
+ * Get the one sig configuration for a given contract address in a chain
+ * It returns:
+ * - the one sig configuration context
+ *    - the network name
+ *    - the signers list
+ *    - the threshold
+ *    - the total signers
+ * - the error if any
+ */
 async function _getOneSigConfiguration(
     tx: OmniTransaction,
     networkName: string
@@ -221,7 +267,7 @@ async function _getOneSigConfiguration(
     oneSigContextConfig: OneSigContextConfig
     error: string | undefined
 }> {
-    const newAddress = _getNewAddress(tx.data)
+    const newAddress = _getNewAddressFromFirstParam(tx.data)
     // Read-only call to fetch new one sig configuration
     const hre = (await getHre(tx.point.eid)) as any
     const abi = [
@@ -251,16 +297,25 @@ async function _getOneSigConfiguration(
         errors.push(`totalSigners: ${error} \n`)
     }
 
+    // batch errors if any
     const error =
         errors.length > 0
             ? `Error getting one sig configuration for ${networkName},  ${newAddress}: ${errors.join('\n')}`
             : undefined
 
     const oneSigConfiguration: OneSigConfiguration = { signers, threshold, totalSigners }
-    const oneSigContextConfig: OneSigContextConfig = { networkName, oneSigConfiguration }
+    const oneSigContextConfig: OneSigContextConfig = { networkName, tx, oneSigConfiguration }
     return { oneSigContextConfig, error }
 }
 
+/**
+ * Check the one sig configuration is correct
+ * It checks:
+ * - the total signers is correct (6)
+ * - the threshold is correct (3 in mainnet, 1 in testnet)
+ * - the signers list length is correct (6)
+ * - the signers are in the list (the list is the same as the ONE_SIG_SIGNERS list)
+ */
 async function _checkOneSigConfiguration(oneSigContextConfig: OneSigContextConfig): Promise<string | undefined> {
     const { oneSigConfiguration } = oneSigContextConfig
     const errors: string[] = []
@@ -294,13 +349,30 @@ async function _checkOneSigConfiguration(oneSigContextConfig: OneSigContextConfi
     return error
 }
 
-function _getNewAddress(data: string): string {
-    const hex = data.startsWith('0x') ? data.slice(2) : data
-    if (hex.length < 72) return '0x'
-    const functionArg0 = hex.slice(8, 72) // getting the first arg of the calldata
-    return `0x${functionArg0.slice(-40)}` // last 20 bytes
+/**
+ * Parses calldata and extracts the first argument (address).
+ * Assumes the calldata corresponds to a function that takes
+ * an address as the first argument.
+ */
+function _getNewAddressFromFirstParam(data: string): string {
+    if (!data || data.length < 10) return '0x'
+
+    // Define a minimal ABI for decoding
+    const abi = ['function transferOwnership(address)']
+    const iface = new ethers.utils.Interface(abi)
+
+    try {
+        const [firstParam] = iface.decodeFunctionData('transferOwnership', data)
+        return firstParam
+    } catch (e) {
+        console.warn('Could not decode calldata:', e)
+        return '0x'
+    }
 }
 
+/**
+ * Get the current multisig owner for a given contract address in a chain
+ */
 async function _getCurrentMultisigOwner(tx: OmniTransaction): Promise<string> {
     const hre = (await getHre(tx.point.eid)) as any
 
@@ -329,6 +401,7 @@ function printErrors(errors: string[]) {
 
 function printTable(pendingTXs: PendingTX[]) {
     const rows = pendingTXs.map((x) => ({
+        isValid: x.isValid ? '✅' : '❌',
         networkName: x.networkName,
         contractName: x.contractName,
         contractAddress: x.contractAddress,
@@ -341,6 +414,10 @@ function printTable(pendingTXs: PendingTX[]) {
     console.table(rows)
 }
 
+/**
+ * Get the contract from the deployments folder for a given address in a chain
+ * if the address is not found, return 'External deployment', in those cases the contract name should be either "USDC", "EURC" or "USDT"
+ */
 async function _getContractNameForAddress(networkName: string, address: string): Promise<string> {
     try {
         const deploymentsDir = join(__dirname, '..', 'deployments', networkName)
