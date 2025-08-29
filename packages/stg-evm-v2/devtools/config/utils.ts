@@ -182,31 +182,6 @@ export const getSafeConfig = (eid: EndpointId): SafeConfig => {
 }
 
 /**
- * Returns the OneSig config for a particular network.
- *
- * If OneSig is not configured, will return `undefined`.
- * If network is not configured, will throw an exception.
- *
- * @param {EndpointId} eid
- * @returns {OneSigConfig | undefined}
- */
-export const getOneSigConfigMaybe = (eid: EndpointId): OneSigConfig | undefined => getNetworkConfig(eid).oneSigConfig
-
-/**
- * Returns the OneSig config for a particular network.
- *
- * If OneSig or network are not configured, will throw an exception.
- *
- * @param {EndpointId} eid
- * @returns {OneSigConfig}
- */
-export const getOneSigConfig = (eid: EndpointId): OneSigConfig => {
-    const oneSigConfig = getOneSigConfigMaybe(eid)
-
-    return assert(oneSigConfig != null, `Missing OneSig config for ${formatEid(eid)}`), oneSigConfig
-}
-
-/**
  * Returns the gnosis safe address configured for a particular network.
  *
  * If safe is not configured, will return `undefined`.
@@ -236,7 +211,7 @@ export const getSafeAddress = (eid: EndpointId): string => getSafeConfig(eid).sa
  * @param {EndpointId} eid
  * @returns {SafeConfig | undefined}
  */
-export const getOneSigConfigMaybe = (eid: EndpointId): OnesigConfig | undefined => getNetworkConfig(eid).onesigConfig
+export const getOneSigConfigMaybe = (eid: EndpointId): OneSigConfig | undefined => getNetworkConfig(eid).oneSigConfig
 
 /**
  * Returns the oneSig config for a particular network.
@@ -246,7 +221,7 @@ export const getOneSigConfigMaybe = (eid: EndpointId): OnesigConfig | undefined 
  * @param {EndpointId} eid
  * @returns {SafeConfig}
  */
-export const getOneSigConfig = (eid: EndpointId): OnesigConfig => {
+export const getOneSigConfig = (eid: EndpointId): OneSigConfig => {
     const onesigConfig = getOneSigConfigMaybe(eid)
 
     return assert(onesigConfig != null, `Missing onesig config for ${formatEid(eid)}`), onesigConfig
@@ -261,7 +236,7 @@ export const getOneSigConfig = (eid: EndpointId): OnesigConfig => {
  * @param {EndpointId} eid
  * @returns {string | undefined}
  */
-export const getOneSigAddressMaybe = (eid: EndpointId): string | undefined => getOneSigConfigMaybe(eid)?.onesigAddress
+export const getOneSigAddressMaybe = (eid: EndpointId): string | undefined => getOneSigConfigMaybe(eid)?.oneSigAddress
 
 /**
  * Returns the oneSig address configured for a particular network.
@@ -272,7 +247,7 @@ export const getOneSigAddressMaybe = (eid: EndpointId): string | undefined => ge
  * @param {EndpointId} eid
  * @returns {string | undefined}
  */
-export const getOneSigAddress = (eid: EndpointId): string => getOneSigConfig(eid).onesigAddress
+export const getOneSigAddress = (eid: EndpointId): string => getOneSigConfig(eid).oneSigAddress
 
 /**
  * Tiny helper around non-null assert

@@ -159,6 +159,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
         accounts: testnetAccounts,
         safeConfig: getSafeConfig(EndpointId.OPTSEP_V2_TESTNET),
+        oneSigConfig: getOneSigConfig(EndpointId.OPTSEP_V2_TESTNET),
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,

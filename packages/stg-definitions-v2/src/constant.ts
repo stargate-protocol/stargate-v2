@@ -1316,6 +1316,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x984c4702c4d07973078c481a28adb46d1fe49d75',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/abstract`,
         },
         safeConfig: {
             safeAddress: '0xaF0B7759f24AA346a857dc17E9Ef965b023D5c8E',
@@ -1348,6 +1349,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x1ba45d65782f69daa454c5ff4e773856926fdcf6',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/ape`,
         },
         safeConfig: {
             safeAddress: '0x4a43eCB40A35795545192875E2Bb6866F6f91da8',
@@ -1382,6 +1384,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/arbitrum`,
         },
         safeConfig: {
             safeAddress: '0x9CD50907aeb5D16F29Bddf7e1aBb10018Ee8717d',
@@ -1391,6 +1394,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ASTAR_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x8c8a79427d31abec383fe8697b235429aeee481e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/astar`,
         },
         safeConfig: {
             safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
@@ -1411,6 +1415,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x4469467be9eb66c025518db796aee2ed7e9c6e0d',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/aurora`,
         },
         safeConfig: {
             safeAddress: '0x5D3917b47E963eC703eD66Da6637C701365fF500',
@@ -1431,6 +1436,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x18a0b14478f40abf89594bfe1afa6f9e6a4f9a3a',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/avalanche`,
         },
         safeConfig: {
             safeAddress: '0x2B065946d41ADf43BBc3BaF8118ae94Ed19D7A40',
@@ -1453,6 +1459,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x7c20d58cb9f3f3cf73b79a3fbda3fff412d7d82d',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/base`,
         },
         safeConfig: {
             safeAddress: '0x81EAb64E630C4a2E3E849268A6B64cb76D1C8109',
@@ -1475,6 +1482,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x64a83552ed614c5136327a30e76dbb52e871737e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/bera`,
         },
         safeConfig: {
             safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
@@ -1496,6 +1504,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.BLAST_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x91463637898cce4fecb66fb3df4c73126eeed1b1',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/blast`,
         },
         safeConfig: {
             safeAddress: '0xc53329FD24f3a446b7c3a804Ebc53515c0244012',
@@ -1516,6 +1525,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x2f0e1fdc3028720a6191cdfcf2cc4fe9027cdf5a',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/botanix`,
         },
         safeConfig: {
             safeAddress: '0xAC9DFe100F75DC72b68155e99861ECe5A05f72ec',
@@ -1548,6 +1558,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x2f7d714632ec8aa70061e536ee645ffbb4f289ef',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/bsc`,
         },
         safeConfig: {
             safeAddress: '0x6e690075eedBC52244Dd4822D9F7887d4f27442F',
@@ -1568,6 +1579,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x6312c1793a767f98f069459ff678c9409d1c2f44',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/codex`,
         },
         safeConfig: {
             safeAddress: '0x539bd5B55eBFb8EfEDc51f115d96FE9705027621',
@@ -1600,6 +1612,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x6312c1793a767f98f069459ff678c9409d1c2f44',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/cronosevm`,
         },
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
@@ -1620,6 +1633,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x5ab51e3fa70538d01e9579add517e732abe582ad',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/cronosevm`,
         },
         safeConfig: {
             safeAddress: '0x7F433ac60E7400479a734e8264Eb0B772E6fD2Ad',
@@ -1658,6 +1672,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x82fb702e0cbbd87fd1a046858c4a56dbaa63b2c4',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/cronoszkevm`,
         },
         safeConfig: {
             safeAddress: '0x3cC43e322FE7CCd49F0cc5dB3FE35e5Ee8359b06',
@@ -1690,6 +1705,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xa867fda1cad13183c87f397c87077ffa8f7cfb83',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/degen`,
         },
         safeConfig: {
             safeAddress: '0x2F2F0C7097926e66a31A72BA956cf99DB6aeAe4A',
@@ -1722,6 +1738,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x0000000000000AE5160000000000000000000000', // todo
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/edu`,
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
@@ -1751,6 +1768,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EBI_V2_MAINNET], DVNS.STG[EndpointId.EBI_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.EBI_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x0000000000000AE5160000000000000000000000', // todo
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/ebi`,
         },
         safeConfig: {
             safeAddress: '0xb93Aa694A3De8662E1ca9aD0C811440E48cDFe5E',
@@ -1783,6 +1804,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xbe634b030feaab661300667eaf82510a3a025413',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/ethereum`,
         },
         safeConfig: {
             safeAddress: '0x65bb797c2B9830d891D87288F029ed8dACc19705',
@@ -1792,6 +1814,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ETHERLINK_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x7bfe8c68a9e9b2faade9c29e7cc46b78649145c4',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/etherlink`,
         },
         safeConfig: {
             safeAddress: '0x757A404a44C9fC75136e8901E561ac2bcc9FCE8D',
@@ -1801,6 +1824,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.FANTOM_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x34ee86f14fd32868407d42cf14dfad503317354c',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/fantom`,
         },
         safeConfig: {
             safeAddress: '0x2351BBCb7cF7Ee9D18AF2Be0d106BFc5D47A9E85',
@@ -1823,6 +1847,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/flare`,
         },
         safeConfig: {
             safeAddress: '0x61820502d20a11e90AC0D59305947E177E52d1E9',
@@ -1855,6 +1880,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x70599fd481a918CA53DBC6C79f8DF8BBBfD919FE',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/flow`,
         },
         safeConfig: {
             safeAddress: '0xce578Ad2a804BfD2a999a9911609f551B2a940bb',
@@ -1876,6 +1902,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.FRAXTAL_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0xfb8555e61b938ca8326d0cb88a273e87370d9c57',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/fraxtal`,
         },
         safeConfig: {
             safeAddress: '0x62B5F0B624301A1F5C0DD998A40Ea7297B26FB90',
@@ -1896,6 +1923,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xeff268107c0231e711cc847c0ed2d8b3974aec48',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/fuse`,
         },
         safeConfig: {
             safeAddress: '0x10fE9418bc6bf06C849c070AE341238B45F8B805',
@@ -1933,6 +1961,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x51fe95869bf8a4a5183043e1eecaaf9dc6908647',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/glue`,
         },
         safeConfig: {
             safeAddress: '0x6C0d029292f48068f576515c79Fc6bCDec5F58DA',
@@ -1965,6 +1994,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x55338616f2138e2c2090d97139ea8030a455f6dc',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/gnosis`,
         },
         safeConfig: {
             safeAddress: '0x92f4BA1931E1A03f5486228502C5f2A2b622dd17',
@@ -1985,6 +2015,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/goat`,
         },
         safeConfig: {
             safeAddress: '0x93fC2AffA2633C873A74876B76C8e4154579E8Ef',
@@ -2017,6 +2048,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/gravity`,
         },
         safeConfig: {
             safeAddress: '0xB3e401A59571D4BF5996B0f5FfFE377FbfE71359',
@@ -2049,6 +2081,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xa15db586f123537078a16f714969b6a73b52879d',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/hedera`,
         },
         safeConfig: {
             safeAddress: '0xc2cf2825Eb027D8EE8Feb3003d19c466887d9cD4',
@@ -2081,6 +2114,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xf8513918fc689d0ab0c59d7e781f50edd1970e2c',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/hemi`,
         },
         safeConfig: {
             safeAddress: '0x012c45ab17B7c2AE53CA68046a50bcDf77b46Ad7',
@@ -2116,6 +2150,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x55338616f2138e2c2090d97139ea8030a455f6dc',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/ink`,
         },
         safeConfig: {
             safeAddress: '0xD4B757c44aC3e849DE1DBd2c9b27CBCDAB3809C3',
@@ -2148,6 +2183,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xeff268107c0231e711cc847c0ed2d8b3974aec48',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/iota`,
         },
         safeConfig: {
             safeAddress: '0x61F36B8575ED9e363a131838dD02b69230253702',
@@ -2180,6 +2216,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xc6f71bd1a4c178780fe62787591bfe3c7eb3160e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/islander`,
         },
         safeConfig: {
             safeAddress: '0xce578Ad2a804BfD2a999a9911609f551B2a940bb',
@@ -2212,6 +2249,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x6312c1793a767f98f069459ff678c9409d1c2f44',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/kava`,
         },
         safeConfig: {
             safeAddress: '0x424aCEFcd5E9fE8329e3530a214C5e88375b542f',
@@ -2232,6 +2270,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xeff268107c0231e711cc847c0ed2d8b3974aec48',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/klaytn`,
         },
         safeConfig: {
             safeAddress: '0x9e3c3BBC88DA6123BA09a660766260bB4c35b470',
@@ -2252,6 +2291,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x32b323efc09d5812510b6510b242647c603947ab',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/lightlink`,
         },
         safeConfig: {
             safeAddress: '0xfa6D0b19CE28656079D822f6BBE3714ab1FDd44b',
@@ -2284,6 +2324,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xb697c9d99ca0e127bd3aa3fb46b750dc305a3342',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/manta`,
         },
         safeConfig: {
             safeAddress: '0x3f0DFccF4f7BBc0ed52A212e4d981435a7f27Cc6',
@@ -2316,6 +2357,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x25689e691a3a6bb8ee79ca5139abd4e1b1cb76b7',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/mantle`,
         },
         safeConfig: {
             safeAddress: '0x44acb81da0D81573Feb9d794422Be91914eDcD3d',
@@ -2337,6 +2379,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xc6c85e359f00c46a95ffcd421ed5bd6e550cc582',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/metis`,
         },
         safeConfig: {
             safeAddress: '0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E',
@@ -2346,6 +2389,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MODE_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x985c40afb557684cac7a0f7ee4ba9f9fbbf01347',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/mode`,
         },
         safeConfig: {
             safeAddress: '0x9BD292C0f5D95686481A8af9b8694654B25aE1AC',
@@ -2355,6 +2399,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MOONBEAM_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/moonbeam`,
         },
         safeConfig: {
             safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
@@ -2364,6 +2409,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.MOONRIVER_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/moonriver`,
         },
         safeConfig: {
             safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
@@ -2385,6 +2431,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xd0d341b2c985875084f55d95d337b9d771985c60',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/nibiru`,
         },
         safeConfig: {
             safeAddress: '0xF9d173F325035b4A9654EA21a798b9C8b7a0B4fE',
@@ -2406,6 +2453,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.OPBNB_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x3a0bb679c334b26732feabc7c3cd9165079fcc77',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/opbnb`,
         },
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
@@ -2428,6 +2476,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xec230013182261343f235b8c92b443f90a8a3c86',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/optimism`,
         },
         safeConfig: {
             safeAddress: '0x392AC17A9028515a3bFA6CCe51F8b70306C6bd43',
@@ -2448,6 +2497,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xef9c1b117d4179359ba1a8cbbbe135fc27576c19',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/orderly`,
         },
         safeConfig: {
             safeAddress: '0xEdA49b9301b4310F6E4a4b42857906f8732a78dF',
@@ -2486,6 +2536,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x18a0b14478f40abf89594bfe1afa6f9e6a4f9a3a',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/peaq`,
         },
         safeConfig: {
             safeAddress: '0xB2687F7F6290aBa4ED3290ffFF6cB2e1cc30686D',
@@ -2518,6 +2569,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x45546826ca1b4b3bca702d0400a48ad446c14b57',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/plume`,
         },
         safeConfig: {
             safeAddress: '0x30b1Ca299577f70bc456Fa37C6822d9088069d31',
@@ -2557,6 +2609,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xd372024f83b1882e4c615fd834597bd5b1532706',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/plumephoenix`,
         },
         safeConfig: {
             safeAddress: '0xb8ce2bE5c3c13712b4da61722EAd9d64bB57AbC9',
@@ -2589,6 +2642,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x6ad59102caa47cfa76e7cf2ccc7d76557cc5e37d',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/polygon`,
         },
         safeConfig: {
             safeAddress: '0x47290DE56E71DC6f46C26e50776fe86cc8b21656',
@@ -2609,6 +2663,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x4469467be9eb66c025518db796aee2ed7e9c6e0d',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/rarible`,
         },
         safeConfig: {
             safeAddress: '0x0bB70602d48E1A681B6aCBC788712751A3f0b59d',
@@ -2641,6 +2696,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x3e7f423105854ae9b4019f92d9fe9757074cf2f3',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/rootstock`,
         },
         safeConfig: {
             safeAddress: '0x12BF73dADeaFAD42C0293752617C3cDc0b14A364',
@@ -2673,6 +2729,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xe46b47be62785c20c6f3cb89f7043ea045e6f88e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/scroll`,
         },
         safeConfig: {
             safeAddress: '0xC02c4Ac2DBaA4eC11C306dDb0ABab5b421bd19fB',
@@ -2682,6 +2739,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.SHIMMER_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0xf7d8c13b546fbead84c30ec3e2df4a5d398d003b',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/shimmer`,
         },
         safeConfig: {
             safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
@@ -2704,6 +2762,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/sei`,
         },
         safeConfig: {
             safeAddress: '0x196009FbeD5825a4Fe7443b5a1908E359d051769',
@@ -2738,6 +2797,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xd4e9fe5ff9788496267124f4bdf4b48f8c6dad4a',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/story`,
         },
         safeConfig: {
             safeAddress: '0x720573EcD27d279a28812347B2fd73dF857EB774',
@@ -2770,6 +2830,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x82fb702e0cbbd87fd1a046858c4a56dbaa63b2c4',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/sophon`,
         },
         safeConfig: {
             safeAddress: '0x676e341775964245f414149D1d343F75E9b5B887',
@@ -2802,6 +2863,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xd6b03d71e401479cc976fc94a41a37576404e7bd',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/somnia`,
         },
         safeConfig: {
             safeAddress: '0xf6a997990Fe12B2489bF3f56bBbc442e4cb185A7',
@@ -2834,6 +2896,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x18a0b14478f40abf89594bfe1afa6f9e6a4f9a3a',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/soneium`,
         },
         safeConfig: {
             safeAddress: '0xea4645d254A9E3C67595EaF3AFaaf3E0DaA4fa0e',
@@ -2866,6 +2929,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/sonic`,
         },
         safeConfig: {
             safeAddress: '0x347eD93cA2F7aDCe6B1629590cC9717A8904e73A',
@@ -2907,6 +2971,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xb95abacefa0d4b0443ae765aac376f42791a610c',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/superposition`,
         },
         safeConfig: {
             safeAddress: '0x670c49578aFd9644ceF7BFc43b399E11c4ba7837',
@@ -2939,6 +3004,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x4015894e779198847ae942cebaaf04dc70adbd37',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/swell`,
         },
         safeConfig: {
             safeAddress: '0x4565E255dbA625fDf7bF1229ED6C280915740aA8',
@@ -2971,6 +3037,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x4469467be9eb66c025518db796aee2ed7e9c6e0d',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/taiko`,
         },
         safeConfig: {
             safeAddress: '0xB3e401A59571D4BF5996B0f5FfFE377FbfE71359',
@@ -3003,6 +3070,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x50bb6dbc58b92aa0bd9593a667b07067e2be5e92',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/telos`,
         },
         safeConfig: {
             safeAddress: '0x8421259dda5CE973680a1aAC7EFf45589A515B55',
@@ -3036,6 +3104,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x77f28cf9dc0c14ef691c6ec45ca24d53fcb421bf',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/unichain`,
         },
         safeConfig: {
             safeAddress: '0x60049009F2c54E50f93739Ffa2B1896b4594292B',
@@ -3068,6 +3137,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x9c1a8d91c41fa253a4fa9ff5b65ecfc48cd79325',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/xchain`,
         },
         safeConfig: {
             safeAddress: '0xdC20E4cDf9C1bF75dF848D4e8F4E3B9B767840C8',
@@ -3100,6 +3170,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x4ddcce7c68b281f256b031f70192d25480d8b139',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/xdc`,
         },
         safeConfig: {
             safeAddress: '0x5A185C81AFa796a753dd662343cbF911254f796e',
@@ -3138,6 +3209,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0xd37ba986553f7ac25bdf9867a60b10ebf182e51e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/zkconsensys`,
         },
         safeConfig: {
             safeAddress: '0xdBd9E7f55C3a7A0F17cCAc06dD4f4cbf06f7AD5c',
@@ -3147,6 +3219,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKPOLYGON_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0xedf2ea1672bb77b827ecbad969d89f4f2b6a8ae1',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/zkpolygon`,
         },
         safeConfig: {
             safeAddress: '0x5D3917b47E963eC703eD66Da6637C701365fF500',
@@ -3156,6 +3229,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ZKSYNC_V2_MAINNET]: {
         oneSigConfig: {
             oneSigAddress: '0x82fb702e0cbbd87fd1a046858c4a56dbaa63b2c4',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/zksync`,
         },
         safeConfig: {
             safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',

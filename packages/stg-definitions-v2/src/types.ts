@@ -93,7 +93,7 @@ export interface OneSigConfig {
     /**
      * The URL of the OneSig REST API
      */
-    oneSigUrl?: string
+    oneSigUrl: string
 }
 
 export interface NetworkConfig {
