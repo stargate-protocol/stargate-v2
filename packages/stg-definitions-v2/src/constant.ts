@@ -2959,6 +2959,10 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.ARBSEP_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+        oneSigConfig: {
+            oneSigAddress: '0x55a2d5a7d5f7bdcab8efc30da5eae6a4e4277a18',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_TESTNET}/arbsep`,
+        },
     },
     [EndpointId.AVALANCHE_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
