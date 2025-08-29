@@ -233,7 +233,7 @@ export const EXECUTORS = {
 
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
-    creditGasLimit: 40000n, // fixed gas limit for creditMsging
+    creditGasLimit: 40000n, // fixed gas limit for creditMessaging
     sendCreditGasLimit: 40000n, // marginal gasLimit for sending credit
 }
 
@@ -2854,12 +2854,17 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+            sendCreditGasLimit: 20n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
+            taxiGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
+            busGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
+            busRideGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
+            nativeDropGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
         },
         oneSigConfig: {
             oneSigAddress: '0xd6b03d71e401479cc976fc94a41a37576404e7bd',
