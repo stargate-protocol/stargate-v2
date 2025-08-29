@@ -31,7 +31,7 @@ export interface OneSigSignedBatch extends OneSigBatch {
 
 // API request types
 export interface OneSigProposeTransactionRequest {
-    oneSigTransaction: {
+    proposedTransactions: {
         chainName: string
         oneSigId: string
         callData: {
@@ -174,7 +174,7 @@ export class OneSigSignerEVM extends OmniSignerEVMBase {
         const oneSigUrlWithoutChainName = oneSigUrl.substring(0, oneSigUrl.lastIndexOf('/'))
 
         const proposeTransactionRequest: OneSigProposeTransactionRequest = {
-            oneSigTransaction: oneSigBatch.oneSigTransactions.map((transaction) => ({
+            proposedTransactions: oneSigBatch.oneSigTransactions.map((transaction) => ({
                 chainName,
                 oneSigId: transaction.oneSigId.toString(),
                 callData: {
