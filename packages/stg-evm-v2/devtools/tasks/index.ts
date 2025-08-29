@@ -119,18 +119,19 @@ import {
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
 /**
- * Inherits the TASK_LZ_OAPP_WIRE task and adds a 'onesig' flag to toggle usage of OneSig for proposing transactions.
- * Overrides the sign-and-send behavior to select the appropriate signer
- * based on whether to use 'safe', 'onesig', or 'eoa' signing methods.
+ * Extends the TASK_LZ_OAPP_WIRE task by adding a custom `--onesig` flag to control how transactions are proposed.
+ * Overrides the sign-and-send logic to select the appropriate signer based on whether to use 'safe', 'onesig', or 'eoa'.
+ * Executes the original task action via `runSuper()` after injecting the custom signer behavior.
  */
-const wireTask = (taskName: string) => {
-    return inheritTask(TASK_LZ_OAPP_WIRE)(taskName)
-        .addFlag('onesig', 'Whether to use oneSig for the transactions')
-        .setAction(async (args, hre, runSuper) => {
-            overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-            return runSuper(args)
-        })
-}
+
+task(TASK_LZ_OAPP_WIRE)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre, runSuper) => {
+        overrideSignAndSendTask(args.safe, args.onesig, args.signer)
+        return runSuper(args)
+    })
+
+const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 
 function overrideSignAndSendTask(safe: boolean, onesig: boolean, signer: SignerDefinition) {
     if (safe && onesig) {
@@ -185,8 +186,6 @@ wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -221,8 +220,6 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -256,8 +253,6 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE).setAction(async (args
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -288,8 +283,6 @@ wireTask(TASK_STG_WIRE_ASSET).setAction(async (args, hre) => {
                 sdkFactory: createAssetFactory(createConnectedContractFactory()),
             })
     )
-
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
@@ -322,8 +315,6 @@ wireTask(TASK_STG_WIRE_FEELIB_V1).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -355,8 +346,6 @@ wireTask(TASK_STG_WIRE_TREASURER).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -387,8 +376,6 @@ wireTask(TASK_STG_WIRE_OFT).setAction(async (args, hre) => {
                 sdkFactory: createMintableFactory(createConnectedContractFactory()),
             })
     )
-
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
@@ -428,8 +415,6 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
                 })
         )
 
-        overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
         return hre.run(TASK_LZ_OAPP_WIRE, args)
     })
 
@@ -459,8 +444,6 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN).setAction(async (args, hre) => {
                 sdkFactory: createCircleFiatTokenFactory(createConnectedContractFactory()),
             })
     )
-
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
@@ -499,8 +482,6 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN_INITIALIZE_MINTER)
                 })
         )
 
-        overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
         return hre.run(TASK_LZ_OAPP_WIRE, args)
     })
 
@@ -531,8 +512,6 @@ wireTask(TASK_STG_WIRE_REWARDER).setAction(async (args, hre) => {
                 sdkFactory: createRewarderFactory(createConnectedContractFactory()),
             })
     )
-
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
@@ -565,8 +544,6 @@ wireTask(TASK_STG_SET_REWARDS).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -597,8 +574,6 @@ wireTask(TASK_STG_WIRE_STAKING).setAction(async (args, hre) => {
                 sdkFactory: createStakingFactory(createConnectedContractFactory()),
             })
     )
-
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
@@ -631,8 +606,6 @@ wireTask(TASK_STG_WIRE_OFT_WRAPPER).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -663,8 +636,6 @@ wireTask(TASK_STG_SET_MINT_ALLOWANCE).setAction(async (args, hre) => {
                 sdkFactory: createERC20Factory(createConnectedContractFactory()),
             })
     )
-
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
@@ -697,15 +668,14 @@ wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
             })
     )
 
-    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
 wireTask(TASK_STG_OWNABLE_TRANSFER_OWNERSHIP).setAction(async (args, hre) => {
+    // override the sign-and-send task to use the appropriate signer
     overrideSignAndSendTask(args.safe, args.onesig, args.signer)
 
-    // call the lz original task
+    // call the original task
     return hre.run(TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP, args)
 })
 
