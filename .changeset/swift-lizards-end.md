@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": patch
 ---
 
-Zkconsensys mainnet usdc pool configuration
+Zkconsensys mainnet usdc pool configuration and deployment
