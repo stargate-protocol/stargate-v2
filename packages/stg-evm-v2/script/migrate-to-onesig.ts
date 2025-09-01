@@ -79,7 +79,7 @@ const MAINNET_CONFIGS = [
 
     './devtools/config/mainnet/01/eurc-token.config.ts',
     './devtools/config/mainnet/01/usdc-token.config.ts',
-    // './devtools/config/mainnet/01/usdt-token.config.ts',
+    './devtools/config/mainnet/01/usdt-token.config.ts',
 ]
 
 const TESTNET_CONFIGS = [
