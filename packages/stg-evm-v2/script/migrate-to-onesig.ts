@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from 'fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
 import { ethers } from 'ethers'
@@ -17,17 +17,25 @@ import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/ta
 
 const getHre = createGetHreByEid()
 
-interface PendingTX {
+type OneSigContextConfig = {
+    tx: OmniTransaction
     networkName: string
+    oneSigConfiguration: OneSigConfig
+}
+
+type OneSigConfig = {
+    signers: string[]
+    threshold: number
+    totalSigners: number
+}
+
+interface PendingTX {
+    // networkName: string
     contractName: string
     contractAddress: string
     currentMultisigOwner: string
     newOneSigOwner: string
-    oneSigConfiguration: {
-        signers: string[]
-        threshold: number
-        totalSigners: number
-    }
+    oneSigContextConfig: OneSigContextConfig
     isValid: boolean
 }
 
@@ -45,30 +53,30 @@ const ONE_SIG_SIGNERS = [
 const MAINNET_CONFIGS = [
     './devtools/config/mainnet/01/asset.eth.config.ts',
     './devtools/config/mainnet/01/asset.eurc.config.ts',
-    // './devtools/config/mainnet/01/asset.meth.config.ts',
-    // './devtools/config/mainnet/01/asset.metis.config.ts',
-    // './devtools/config/mainnet/01/asset.usdc.config.ts',
-    // './devtools/config/mainnet/01/asset.usdt.config.ts',
+    './devtools/config/mainnet/01/asset.meth.config.ts',
+    './devtools/config/mainnet/01/asset.metis.config.ts',
+    './devtools/config/mainnet/01/asset.usdc.config.ts',
+    './devtools/config/mainnet/01/asset.usdt.config.ts',
 
-    // './devtools/config/mainnet/01/feelib-v1.eth.config.ts',
-    // './devtools/config/mainnet/01/feelib-v1.eurc.config.ts',
-    // './devtools/config/mainnet/01/feelib-v1.meth.config.ts',
-    // './devtools/config/mainnet/01/feelib-v1.metis.config.ts',
-    // './devtools/config/mainnet/01/feelib-v1.usdc.config.ts',
-    // './devtools/config/mainnet/01/feelib-v1.usdt.config.ts',
+    './devtools/config/mainnet/01/feelib-v1.eth.config.ts',
+    './devtools/config/mainnet/01/feelib-v1.eurc.config.ts',
+    './devtools/config/mainnet/01/feelib-v1.meth.config.ts',
+    './devtools/config/mainnet/01/feelib-v1.metis.config.ts',
+    './devtools/config/mainnet/01/feelib-v1.usdc.config.ts',
+    './devtools/config/mainnet/01/feelib-v1.usdt.config.ts',
 
-    // './devtools/config/mainnet/01/oft-token.config.ts',
-    // './devtools/config/mainnet/01/oft-wrapper.config.ts',
+    './devtools/config/mainnet/01/oft-token.config.ts',
+    './devtools/config/mainnet/01/oft-wrapper.config.ts',
 
-    // './devtools/config/mainnet/01/rewarder.config.ts',
-    // './devtools/config/mainnet/01/staking.config.ts',
-    // './devtools/config/mainnet/01/treasurer.config.ts',
+    './devtools/config/mainnet/01/rewarder.config.ts',
+    './devtools/config/mainnet/01/staking.config.ts',
+    './devtools/config/mainnet/01/treasurer.config.ts',
 
-    // './devtools/config/mainnet/01/credit-messaging.config.ts',
-    // './devtools/config/mainnet/01/token-messaging.config.ts',
+    './devtools/config/mainnet/01/credit-messaging.config.ts',
+    './devtools/config/mainnet/01/token-messaging.config.ts',
 
-    // './devtools/config/mainnet/01/eurc-token.config.ts',
-    // './devtools/config/mainnet/01/usdc-token.config.ts',
+    './devtools/config/mainnet/01/eurc-token.config.ts',
+    './devtools/config/mainnet/01/usdc-token.config.ts',
     // './devtools/config/mainnet/01/usdt-token.config.ts',
 ]
 
@@ -77,6 +85,8 @@ const TESTNET_CONFIGS = [
     './devtools/config/testnet/asset.eurc.config.ts',
     './devtools/config/testnet/asset.usdc.config.ts',
 ]
+
+const cachedOneSigs: Record<string, OneSigConfig> = {}
 
 // Parse command line arguments
 function parseArgs() {
@@ -117,24 +127,24 @@ async function main(): Promise<void> {
     }
 
     // 2. Process the pending transactions to get the one sig configuration needed
+    console.log('Processing pending transactions: ', transactions.length)
     const processedTXs = await processPendingTXs(transactions)
 
     // 3. Validate the one sig configuration
     const { pendingTXs, errors } = await validateTXs(processedTXs)
 
-    // 4. Print the output
-    printOutput(pendingTXs, errors)
-
-    // do not propose if there are errors in the one sig configuration
-    if (errors.length > 0) {
-        console.log('❌ Errors found, skipping proposal')
-        return
-    }
+    // 4. Export the output to file
+    exportOutput(pendingTXs, errors, './migration-output.txt')
 
     // 5. propose all transactions at once
     if (dryRun) {
         console.log('Dry run mode, skipping proposal')
     } else {
+        // do not propose if there are errors in the one sig configuration
+        if (errors.length > 0) {
+            console.log('❌ Errors found, skipping proposal')
+            return
+        }
         await proposeTransactions(transactions)
     }
 }
@@ -187,12 +197,12 @@ async function validateTXs(
 
         // push all pending txs
         pendingTXs.push({
-            networkName: networkName,
+            // networkName: networkName,
             contractName: contractName,
             contractAddress: tx.point.address,
             currentMultisigOwner: await _getCurrentMultisigOwner(tx),
             newOneSigOwner: _getNewAddressFromFirstParam(tx.data),
-            oneSigConfiguration: oneSigConfiguration,
+            oneSigContextConfig: oneSigContextConfig,
             isValid: processedError === undefined && checkResult === undefined,
         })
 
@@ -207,12 +217,19 @@ async function validateTXs(
     return { pendingTXs, errors }
 }
 
-function printOutput(pendingTXs: PendingTX[], errors: string[]) {
-    // print the table with txs details
-    printTable(pendingTXs)
+function exportOutput(pendingTXs: PendingTX[], errors: string[], outputPath = './migration-output.txt') {
+    // generate the table content
+    const tableContent = generateTableContent(pendingTXs)
 
-    // print errors if any while getting the one sig configuration
-    printErrors(errors)
+    // generate errors content if any while getting the one sig configuration
+    const errorsContent = generateErrorsContent(errors)
+
+    // combine all content
+    const fullContent = `${tableContent}\n\n\n\n${errorsContent}`
+
+    // write to file
+    writeFileSync(outputPath, fullContent, 'utf8')
+    console.log(`✅ Output exported to: ${outputPath}`)
 }
 
 async function proposeTransactions(transactions: OmniTransaction[]) {
@@ -236,18 +253,6 @@ async function proposeTransactions(transactions: OmniTransaction[]) {
     }
 }
 
-type OneSigContextConfig = {
-    tx: OmniTransaction
-    networkName: string
-    oneSigConfiguration: OneSigConfiguration
-}
-
-type OneSigConfiguration = {
-    signers: string[]
-    threshold: number
-    totalSigners: number
-}
-
 // helpers
 
 /**
@@ -267,7 +272,20 @@ async function _getOneSigConfiguration(
     oneSigContextConfig: OneSigContextConfig
     error: string | undefined
 }> {
-    const newAddress = _getNewAddressFromFirstParam(tx.data)
+    // check if the one sig configuration is already cached
+    if (cachedOneSigs[networkName]) {
+        return {
+            oneSigContextConfig: {
+                networkName,
+                tx,
+                oneSigConfiguration: cachedOneSigs[networkName],
+            },
+            error: undefined,
+        }
+    }
+
+    const newOneSigAddress = _getNewAddressFromFirstParam(tx.data)
+
     // Read-only call to fetch new one sig configuration
     const hre = (await getHre(tx.point.eid)) as any
     const abi = [
@@ -275,7 +293,7 @@ async function _getOneSigConfiguration(
         'function threshold() view returns (uint256)',
         'function totalSigners() view returns (uint256)',
     ]
-    const contract = new hre.ethers.Contract(newAddress, abi, hre.ethers.provider)
+    const contract = new hre.ethers.Contract(newOneSigAddress, abi, hre.ethers.provider)
     let signers: string[] = []
     let threshold = 0
     let totalSigners = 0
@@ -300,11 +318,15 @@ async function _getOneSigConfiguration(
     // batch errors if any
     const error =
         errors.length > 0
-            ? `Error getting one sig configuration for ${networkName},  ${newAddress}: ${errors.join('\n')}`
+            ? `Error getting one sig configuration for ${networkName},  ${newOneSigAddress}: ${errors.join('\n')}`
             : undefined
 
-    const oneSigConfiguration: OneSigConfiguration = { signers, threshold, totalSigners }
+    const oneSigConfiguration: OneSigConfig = { signers, threshold, totalSigners }
     const oneSigContextConfig: OneSigContextConfig = { networkName, tx, oneSigConfiguration }
+
+    // cache the one sig configuration
+    cachedOneSigs[networkName] = oneSigConfiguration
+
     return { oneSigContextConfig, error }
 }
 
@@ -383,35 +405,82 @@ async function _getCurrentMultisigOwner(tx: OmniTransaction): Promise<string> {
     return await contract.owner()
 }
 
-function printErrors(errors: string[]) {
+function generateErrorsContent(errors: string[]): string {
     if (errors.length === 0) {
-        console.log('✅ No errors found.')
-        return
+        return '✅ No errors found.'
     }
 
-    console.log(`❌ ${errors.length} Errors found:`)
-    console.log('-----------------------------')
+    let content = `❌ ${errors.length} Errors found:\n`
+    content += '-----------------------------\n'
 
     errors.forEach((error, index) => {
-        console.log(`${index + 1}. ${error}`)
+        content += `${index + 1}. ${error}\n`
     })
 
-    console.log('-----------------------------')
+    content += '-----------------------------\n'
+    return content
 }
 
-function printTable(pendingTXs: PendingTX[]) {
-    const rows = pendingTXs.map((x) => ({
-        isValid: x.isValid ? '✅' : '❌',
-        networkName: x.networkName,
-        contractName: x.contractName,
-        contractAddress: x.contractAddress,
-        currentMultisigOwner: x.currentMultisigOwner,
-        newOneSigOwner: x.newOneSigOwner,
-        oneSigThreshold: x.oneSigConfiguration.threshold.toString(),
-        oneSigTotal: x.oneSigConfiguration.totalSigners.toString(),
-        oneSigSigners: x.oneSigConfiguration.signers.join(','),
+function generateTableContent(pendingTXs: PendingTX[]): string {
+    if (pendingTXs.length === 0) {
+        return 'No pending transactions found.\n'
+    }
+
+    // Sort by networkName to group by chain
+    const sortedTXs = [...pendingTXs].sort((a, b) =>
+        a.oneSigContextConfig.networkName.localeCompare(b.oneSigContextConfig.networkName)
+    )
+
+    // Define headers
+    const headers = [
+        'index',
+        'isValid',
+        'networkName',
+        'contractName',
+        'contractAddress',
+        'currentMultisigOwner',
+        'newOneSigOwner',
+        'oneSigThreshold',
+        'oneSigTotal',
+        'oneSigSigners',
+        'txDescription',
+        'txData',
+    ]
+
+    // Map each tx to a row object
+    const rows = sortedTXs.map((tx, idx) => ({
+        index: String(idx + 1),
+        isValid: tx.isValid ? '✅' : '❌',
+        networkName: tx.oneSigContextConfig.networkName,
+        contractName: tx.contractName,
+        contractAddress: tx.contractAddress,
+        currentMultisigOwner: tx.currentMultisigOwner,
+        newOneSigOwner: tx.newOneSigOwner,
+        oneSigThreshold: tx.oneSigContextConfig.oneSigConfiguration.threshold.toString(),
+        oneSigTotal: tx.oneSigContextConfig.oneSigConfiguration.totalSigners.toString(),
+        oneSigSigners: tx.oneSigContextConfig.oneSigConfiguration.signers.join(','),
+        txDescription: tx.oneSigContextConfig.tx.description ?? 'No description',
+        txData: tx.oneSigContextConfig.tx.data,
     }))
-    console.table(rows)
+
+    // Compute max width per column
+    const colWidths = headers.map((header) =>
+        Math.max(header.length, ...rows.map((row) => row[header as keyof typeof row]?.length ?? 0))
+    )
+
+    // Format a row into a padded string
+    const formatRow = (row: Record<string, string>) =>
+        headers.map((header, i) => (row[header] ?? '').padEnd(colWidths[i], ' ')).join('  ') // spacing between columns
+
+    // Generate the full table
+    let content = `Total Rows: ${rows.length}\n\n`
+    content += formatRow(Object.fromEntries(headers.map((h) => [h, h]))) + '\n'
+    content += colWidths.map((w) => '-'.repeat(w)).join('  ') + '\n'
+    for (const row of rows) {
+        content += formatRow(row) + '\n'
+    }
+
+    return content
 }
 
 /**
