@@ -6,7 +6,7 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { getContractWithEid } from '../utils'
-import { getChainsThatSupportsUsdtOftByDeployment, setStage } from '../utils/utils.config'
+import { filterValidProvidedChains, getChainsThatSupportsUsdtOftByDeployment, setStage } from '../utils/utils.config'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
@@ -16,15 +16,22 @@ export default async function buildUsdtTokenGraph(stage: Stage): Promise<OmniGra
     // Set the correct stage
     setStage(stage)
 
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+
+    // get the list of chains that supports usdt external deployments (oft usdt with external deployment)
+    const chainsThatSupports = getChainsThatSupportsUsdtOftByDeployment(true)
+
+    // get valid chains config in the chainsList
+    const validChains = filterValidProvidedChains(chainsList, chainsThatSupports)
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
-    // get the list of chains that supports usdt external deployments (oft usdt with external deployment)
-    const chains = getChainsThatSupportsUsdtOftByDeployment(true)
     const contracts = await Promise.all(
-        chains.map(async (chain) => {
+        validChains.map(async (chain) => {
             const usdtProxyAddress = await contractFactory(
                 getContractWithEid(chain.eid, {
                     contractName: 'TransparentUpgradeableProxy',
