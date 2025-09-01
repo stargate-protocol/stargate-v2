@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
+import { ASSETS, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { ethers } from 'ethers'
 import { run } from 'hardhat'
 
@@ -12,6 +13,7 @@ import {
     createSignerFactory,
     getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
+import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { TASK_STG_OWNABLE_TRANSFER_OWNERSHIP, TASK_STG_WIRE_MESSAGING_DELEGATE } from '../devtools/tasks/constants'
 
@@ -90,6 +92,12 @@ const TESTNET_CONFIGS = [
 
 // networkName::oneSigAddress -> oneSigConfiguration
 const cachedOneSigs: Record<string, OneSigConfig> = {}
+
+// endpointId -> networkName
+const cacheNetworkEid: Record<string, string> = {}
+
+// networkName -> (lowercasedAddress -> contractName)
+const deploymentsAddressIndex: Record<string, Record<string, string>> = {}
 
 // Parse command line arguments
 function parseArgs() {
@@ -185,7 +193,7 @@ async function processPendingTXs(
     const txsConfigs: { oneSigContextConfig: OneSigContextConfig; error: string | undefined }[] = []
     for (const tx of transactions) {
         console.log(`\nProcessing ${tx.point.address} ...`)
-        const networkName = getNetworkNameForEid(tx.point.eid)
+        const networkName = _getNetworkNameByEid(tx.point.eid)
         console.log(` on ${networkName} ...`)
         txsConfigs.push(await _getOneSigConfiguration(tx, networkName)) // oneSigContextConfig
     }
@@ -209,7 +217,7 @@ async function validateTXs(
         const checkResult = await _checkOneSigConfiguration(oneSigContextConfig)
 
         // get the contract name
-        const contractName = await _getContractNameForAddress(networkName, contractAddress)
+        const contractName = await _getContractNameByAddress(tx, networkName, contractAddress)
 
         // push all pending txs
         pendingTXs.push({
@@ -350,6 +358,16 @@ async function _getOneSigConfiguration(
     cachedOneSigs[key] = oneSigConfiguration
 
     return { oneSigContextConfig, error }
+}
+
+function _getNetworkNameByEid(eid: EndpointId): string {
+    if (eid in cacheNetworkEid) {
+        return cacheNetworkEid[eid]
+    }
+
+    const networkName = getNetworkNameForEid(eid)
+    cacheNetworkEid[eid] = networkName
+    return networkName
 }
 
 /**
@@ -511,30 +529,55 @@ function generateTableContent(pendingTXs: PendingTX[]): string {
  * Get the contract from the deployments folder for a given address in a chain
  * if the address is not found, return 'External deployment', in those cases the contract name should be either "USDC", "EURC" or "USDT"
  */
-async function _getContractNameForAddress(networkName: string, address: string): Promise<string> {
+async function _getContractNameByAddress(tx: OmniTransaction, networkName: string, address: string): Promise<string> {
+    const normalizedTarget = address.toLowerCase()
+
+    // Build the index once per network on first use
+    _buildDeploymentsIndexForNetwork(networkName)
+
+    const name = deploymentsAddressIndex[networkName]?.[normalizedTarget]
+    if (name) return name
+
+    // check if is USDC/USDT/EURC
+    if (ASSETS[TokenName.USDC].networks[tx.point.eid]?.address === address) return 'USDC'
+    if (ASSETS[TokenName.USDT].networks[tx.point.eid]?.address === address) return 'USDT'
+    if (ASSETS[TokenName.EURC].networks[tx.point.eid]?.address === address) return 'EURC'
+
+    return 'External deployment'
+}
+
+function _buildDeploymentsIndexForNetwork(networkName: string): void {
+    if (deploymentsAddressIndex[networkName]) return
+
     try {
         const deploymentsDir = join(__dirname, '..', 'deployments', networkName)
-        if (!existsSync(deploymentsDir)) return 'Err'
+        if (!existsSync(deploymentsDir)) {
+            // mark as initialized to avoid repeated filesystem checks
+            deploymentsAddressIndex[networkName] = {}
+            return
+        }
 
         const files = readdirSync(deploymentsDir).filter((f) => f.endsWith('.json'))
-        const normalizedTarget = address.toLowerCase()
+        const index: Record<string, string> = {}
 
         for (const file of files) {
             try {
                 const filePath = join(deploymentsDir, file)
                 const json = JSON.parse(readFileSync(filePath, 'utf8')) as { address?: string }
                 const deployedAddress = json.address?.toLowerCase()
-                if (deployedAddress && deployedAddress === normalizedTarget) {
-                    return file.replace(/\.json$/, '')
+                if (deployedAddress) {
+                    index[deployedAddress] = file.replace(/\.json$/, '')
                 }
             } catch {
-                // Ignore parse errors and continue searching
+                // Ignore parse errors and continue building the index
             }
         }
+
+        deploymentsAddressIndex[networkName] = index
     } catch {
-        // fallthrough
+        // If anything goes wrong, ensure an empty index is set to avoid repeated attempts
+        deploymentsAddressIndex[networkName] = {}
     }
-    return 'External deployment'
 }
 
 function _getKey(networkName: string, oneSigAddress: string): string {
