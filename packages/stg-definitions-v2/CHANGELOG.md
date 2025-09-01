@@ -1,5 +1,28 @@
 # @stargatefinance/stg-definitions-v2
 
+## 4.0.0
+
+### Major Changes
+
+- 4795c5a: Shutdown cronoszkevm mainnet
+- 665b3cd: Shutdown Codex mainnet
+- 536a6c3: Shutdown odyssey testnet
+- 47331cf: Shutdown XChain mainnet
+
+### Minor Changes
+
+- 18592b7: - Added `EURC` token support by introducing new contracts, deployment scripts, and configuration files following the existing `USDC` pattern.
+  - Refactored `USDC`-specific devtools to use a generic CircleFiatToken naming, enabling reuse across both `USDC` and `EURC`.
+
+### Patch Changes
+
+- 10c0272: Edu mainnet config
+- 1a092d9: Addded Somnia mainnet config
+- 31b73c1: Bump somnia gas limit
+- 138547e: bump versions
+- b0fa7ab: Fixed Hedera mainnet native drop amount considering on the native token decimals
+- cb4330f: Orderly mainnet configuration
+
 ## 3.0.0
 
 ### Major Changes
