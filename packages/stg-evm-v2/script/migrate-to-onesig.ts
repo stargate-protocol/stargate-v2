@@ -13,6 +13,8 @@ import {
     getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 
+import { TASK_STG_OWNABLE_TRANSFER_OWNERSHIP, TASK_STG_WIRE_MESSAGING_DELEGATE } from '../devtools/tasks/constants'
+
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
 const getHre = createGetHreByEid()
@@ -72,8 +74,8 @@ const MAINNET_CONFIGS = [
     './devtools/config/mainnet/01/staking.config.ts',
     './devtools/config/mainnet/01/treasurer.config.ts',
 
-    './devtools/config/mainnet/01/credit-messaging.config.ts',
     './devtools/config/mainnet/01/token-messaging.config.ts',
+    './devtools/config/mainnet/01/credit-messaging.config.ts',
 
     './devtools/config/mainnet/01/eurc-token.config.ts',
     './devtools/config/mainnet/01/usdc-token.config.ts',
@@ -86,6 +88,7 @@ const TESTNET_CONFIGS = [
     './devtools/config/testnet/asset.usdc.config.ts',
 ]
 
+// networkName::oneSigAddress -> oneSigConfiguration
 const cachedOneSigs: Record<string, OneSigConfig> = {}
 
 // Parse command line arguments
@@ -121,8 +124,11 @@ async function main(): Promise<void> {
     // 1. get all pending transactions from all configs
     const transactions = []
     for (const config of oappConfigs) {
-        console.log(`Processing ${config} ...`)
-        const response = await getPendingTXs(config)
+        console.log(`\nProcessing ${config} ...`)
+        // only transfer delegate for credit messaging and token messaging
+        const isMessaging = config.includes('messaging.config.ts')
+
+        const response = await getPendingTXs(config, isMessaging)
         transactions.push(...response)
     }
 
@@ -131,6 +137,7 @@ async function main(): Promise<void> {
     const processedTXs = await processPendingTXs(transactions)
 
     // 3. Validate the one sig configuration
+    console.log('Validating one sig configuration: ', processedTXs.length)
     const { pendingTXs, errors } = await validateTXs(processedTXs)
 
     // 4. Export the output to file
@@ -149,7 +156,7 @@ async function main(): Promise<void> {
     }
 }
 
-async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
+async function getPendingTXs(oappConfig: string, isMessaging = false): Promise<OmniTransaction[]> {
     const args = {
         oappConfig,
         signer: 'deployer',
@@ -157,19 +164,29 @@ async function getPendingTXs(oappConfig: string): Promise<OmniTransaction[]> {
         logLevel: 'error',
     }
     // Get all contracts that needs to transfer ownership to oneSig
-    const result: SignAndSendResult = await run('lz:ownable:transfer-ownership', args)
-    const [, , pending] = result
-    return pending // pending transactions
+    const [, , pendingOwnershipTXs]: SignAndSendResult = await run(TASK_STG_OWNABLE_TRANSFER_OWNERSHIP, args)
+
+    // only transfer delegate for credit messaging and token messaging
+    if (isMessaging) {
+        // Get all contracts that needs to transfer delegate to oneSig
+        const [, , pendingDelegateTXs]: SignAndSendResult = await run(TASK_STG_WIRE_MESSAGING_DELEGATE, args)
+
+        // return both ownership and delegate transactions
+        return [...pendingOwnershipTXs, ...pendingDelegateTXs]
+    }
+
+    // if is not a messaging config, return only the ownership transactions
+    return [...pendingOwnershipTXs]
 }
 
 async function processPendingTXs(
     transactions: OmniTransaction[]
 ): Promise<{ oneSigContextConfig: OneSigContextConfig; error: string | undefined }[]> {
-    const errors: string[] = []
-
     const txsConfigs: { oneSigContextConfig: OneSigContextConfig; error: string | undefined }[] = []
     for (const tx of transactions) {
+        console.log(`\nProcessing ${tx.point.address} ...`)
         const networkName = getNetworkNameForEid(tx.point.eid)
+        console.log(` on ${networkName} ...`)
         txsConfigs.push(await _getOneSigConfiguration(tx, networkName)) // oneSigContextConfig
     }
 
@@ -186,7 +203,6 @@ async function validateTXs(
         const networkName = processedtx.oneSigContextConfig.networkName
         const oneSigContextConfig = processedtx.oneSigContextConfig
         const tx = oneSigContextConfig.tx
-        const oneSigConfiguration = oneSigContextConfig.oneSigConfiguration
         const processedError = processedtx.error
 
         // validate oneSig configuration
@@ -264,6 +280,8 @@ async function proposeTransactions(transactions: OmniTransaction[]) {
  *    - the threshold
  *    - the total signers
  * - the error if any
+ *
+ * If the one sig configuration is already cached, it will return the cached one
  */
 async function _getOneSigConfiguration(
     tx: OmniTransaction,
@@ -272,19 +290,23 @@ async function _getOneSigConfiguration(
     oneSigContextConfig: OneSigContextConfig
     error: string | undefined
 }> {
+    const newOneSigAddress = _getNewAddressFromFirstParam(tx.data)
+
     // check if the one sig configuration is already cached
-    if (cachedOneSigs[networkName]) {
+    const key = _getKey(networkName, newOneSigAddress)
+    if (cachedOneSigs[key]) {
+        console.log(`One sig configuration already cached for ${networkName}, ${newOneSigAddress}`)
+        // already exists
         return {
             oneSigContextConfig: {
                 networkName,
                 tx,
-                oneSigConfiguration: cachedOneSigs[networkName],
+                oneSigConfiguration: cachedOneSigs[key],
             },
             error: undefined,
         }
     }
-
-    const newOneSigAddress = _getNewAddressFromFirstParam(tx.data)
+    console.log(`One sig configuration not cached for ${networkName}, ${newOneSigAddress}`)
 
     // Read-only call to fetch new one sig configuration
     const hre = (await getHre(tx.point.eid)) as any
@@ -325,7 +347,7 @@ async function _getOneSigConfiguration(
     const oneSigContextConfig: OneSigContextConfig = { networkName, tx, oneSigConfiguration }
 
     // cache the one sig configuration
-    cachedOneSigs[networkName] = oneSigConfiguration
+    cachedOneSigs[key] = oneSigConfiguration
 
     return { oneSigContextConfig, error }
 }
@@ -375,16 +397,18 @@ async function _checkOneSigConfiguration(oneSigContextConfig: OneSigContextConfi
  * Parses calldata and extracts the first argument (address).
  * Assumes the calldata corresponds to a function that takes
  * an address as the first argument.
+ * Supports both `transferOwnership(address)` and `setDelegate(address)`.
  */
 function _getNewAddressFromFirstParam(data: string): string {
     if (!data || data.length < 10) return '0x'
 
     // Define a minimal ABI for decoding
-    const abi = ['function transferOwnership(address)']
+    const abi = ['function transferOwnership(address)', 'function setDelegate(address)']
     const iface = new ethers.utils.Interface(abi)
 
     try {
-        const [firstParam] = iface.decodeFunctionData('transferOwnership', data)
+        const parsed = iface.parseTransaction({ data })
+        const [firstParam] = parsed.args
         return firstParam
     } catch (e) {
         console.warn('Could not decode calldata:', e)
@@ -511,4 +535,8 @@ async function _getContractNameForAddress(networkName: string, address: string):
         // fallthrough
     }
     return 'External deployment'
+}
+
+function _getKey(networkName: string, oneSigAddress: string): string {
+    return `${networkName.toLowerCase()}::${oneSigAddress.toLowerCase()}`
 }
