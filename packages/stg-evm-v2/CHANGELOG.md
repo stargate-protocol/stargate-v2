@@ -1,5 +1,41 @@
 # @stargatefinance/stg-evm-v2
 
+## 4.0.0
+
+### Major Changes
+
+- 4795c5a: Shutdown cronoszkevm mainnet
+- 665b3cd: Shutdown Codex mainnet
+- 536a6c3: Shutdown odyssey testnet
+- 47331cf: Shutdown XChain mainnet
+
+### Minor Changes
+
+- 18592b7: - Added `EURC` token support by introducing new contracts, deployment scripts, and configuration files following the existing `USDC` pattern.
+  - Refactored `USDC`-specific devtools to use a generic CircleFiatToken naming, enabling reuse across both `USDC` and `EURC`.
+
+### Patch Changes
+
+- 742c5b0: Introducing configuration checker for stargate deployments
+- 10c0272: Edu mainnet config
+- 298c412: Deployed Orderly mainnet
+- 1a092d9: Addded Somnia mainnet config
+- 138547e: bump versions
+- cb4330f: Orderly mainnet configuration
+- 3264257: Deployed EDU mainnet
+- Updated dependencies [10c0272]
+- Updated dependencies [18592b7]
+- Updated dependencies [4795c5a]
+- Updated dependencies [1a092d9]
+- Updated dependencies [665b3cd]
+- Updated dependencies [31b73c1]
+- Updated dependencies [138547e]
+- Updated dependencies [b0fa7ab]
+- Updated dependencies [cb4330f]
+- Updated dependencies [536a6c3]
+- Updated dependencies [47331cf]
+  - @stargatefinance/stg-definitions-v2@4.0.0
+
 ## 3.0.0
 
 ### Major Changes
