@@ -6,7 +6,12 @@ import { OwnableNodeConfig } from '@layerzerolabs/ua-devtools'
 
 import { createGetAssetAddresses, getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { getContractWithEid } from '../utils'
-import { filterValidProvidedChains, getChainsThatSupportsUsdtOftByDeployment, setStage } from '../utils/utils.config'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportsUsdtOftByDeployment,
+    printChains,
+    setStage,
+} from '../utils/utils.config'
 
 const fiatContract = { contractName: 'TetherTokenV2' }
 
@@ -24,6 +29,8 @@ export default async function buildUsdtTokenGraph(stage: Stage): Promise<OmniGra
 
     // get valid chains config in the chainsList
     const validChains = filterValidProvidedChains(chainsList, chainsThatSupports)
+
+    printChains(`${tokenName} CHAINS_LIST:`, validChains)
 
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()

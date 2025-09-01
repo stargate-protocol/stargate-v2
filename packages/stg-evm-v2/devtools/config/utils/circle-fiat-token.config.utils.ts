@@ -11,6 +11,7 @@ import {
     filterValidProvidedChains,
     getChainsThatSupportTokenWithType,
     isExternalDeployment,
+    printChains,
     setStage,
 } from '../utils/utils.config'
 
@@ -29,6 +30,7 @@ export default async function buildCircleFiatTokenGraph(
         // note: The newer USDC deployments (since December 2024, USDC is deployed and verified from Circle's repo)
         getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
     )
+    printChains(`${tokenName} CHAINS_LIST:`, validChains)
 
     const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
     const fiatContract = { contractName: 'FiatTokenV2_2' }

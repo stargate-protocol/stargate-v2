@@ -10,6 +10,7 @@ import {
     filterValidProvidedChains,
     getChainsThatSupportTokenWithType,
     getChainsThatSupportsUsdtOftByDeployment,
+    printChains,
 } from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
 
@@ -22,6 +23,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     const validChainUSDT = filterValidProvidedChains(chainsList, getChainsThatSupportsUsdtOftByDeployment(false))
+    printChains(`USDT OFT TokenCHAINS_LIST:`, validChainUSDT)
 
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
@@ -49,6 +51,7 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
         chainsList,
         getChainsThatSupportTokenWithType(TokenName.ETH, StargateType.Oft)
     )
+    printChains(`oft.token ETH CHAINS_LIST:`, validChainETH)
 
     const ethContractsWithConfig = await Promise.all(
         validChainETH.map(async (chain) => {
