@@ -84,6 +84,8 @@ import {
     types,
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { createLogger } from '@layerzerolabs/lz-utilities'
+import { type IOApp, type OAppOmniGraph, configureOAppDelegates } from '@layerzerolabs/ua-devtools'
+import { createOAppFactory } from '@layerzerolabs/ua-devtools-evm'
 import {
     SUBTASK_LZ_OAPP_CONFIG_LOAD,
     SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
@@ -107,6 +109,7 @@ import {
     TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN,
     TASK_STG_WIRE_CREDIT_MESSAGING,
     TASK_STG_WIRE_FEELIB_V1,
+    TASK_STG_WIRE_MESSAGING_DELEGATE,
     TASK_STG_WIRE_OFT,
     TASK_STG_WIRE_OFT_WRAPPER,
     TASK_STG_WIRE_REWARDER,
@@ -677,6 +680,27 @@ wireTask(TASK_STG_OWNABLE_TRANSFER_OWNERSHIP).setAction(async (args, hre) => {
 
     // call the original task
     return hre.run(TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP, args)
+})
+
+wireTask(TASK_STG_WIRE_MESSAGING_DELEGATE).setAction(async (args, hre) => {
+    // Here we'll overwrite the configuration tasks just-in-time
+    //
+    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+    // the task that runs first will overwrite the original subtask definition
+    // whereas the task that runs later will overwrite the overwritten task definition
+    subtask(
+        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+        'Configure credit messaging delegate',
+        (args: SubtaskConfigureTaskArgs<OAppOmniGraph, IOApp>, hre, runSuper) =>
+            runSuper({
+                ...args,
+                configurator: configureOAppDelegates,
+                sdkFactory: createOAppFactory(createConnectedContractFactory()),
+            })
+    )
+
+    return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
 interface ConfigFile {

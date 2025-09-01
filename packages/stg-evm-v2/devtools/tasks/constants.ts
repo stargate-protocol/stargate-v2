@@ -3,6 +3,8 @@ export const TASK_STG_WIRE_CREDIT_MESSAGING = `stg:wire::credit-messaging`
 export const TASK_STG_WIRE_TOKEN_MESSAGING = `stg:wire::token-messaging`
 export const TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE = `stg:wire::token-messaging:initialize-storage`
 
+export const TASK_STG_WIRE_MESSAGING_DELEGATE = `stg:conf::messaging:delegate`
+
 export const TASK_STG_WIRE_ASSET = `stg:wire::asset`
 
 export const TASK_STG_WIRE_FEELIB_V1 = `stg:wire::feelib-v1`
