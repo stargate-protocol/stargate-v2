@@ -177,7 +177,7 @@ async function getPendingTXs(oappConfig: string, isMessaging = false): Promise<O
         const [, , pendingDelegateTXs]: SignAndSendResult = await run(TASK_STG_WIRE_MESSAGING_DELEGATE, args)
 
         // return both ownership and delegate transactions
-        return [...pendingOwnershipTXs, ...pendingDelegateTXs]
+        return [...pendingDelegateTXs, ...pendingOwnershipTXs]
     }
 
     // if is not a messaging config, return only the ownership transactions
