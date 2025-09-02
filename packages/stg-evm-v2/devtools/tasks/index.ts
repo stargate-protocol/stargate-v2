@@ -169,14 +169,11 @@ wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load credit messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: CreditMessagingOmniGraphHardhatSchema,
-            })
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load messaging config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        runSuper({
+            ...args,
+            schema: CreditMessagingOmniGraphHardhatSchema,
+        })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
