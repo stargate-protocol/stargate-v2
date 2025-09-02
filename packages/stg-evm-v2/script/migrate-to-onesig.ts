@@ -167,7 +167,6 @@ async function getPendingTXs(oappConfig: string, isMessaging = false): Promise<O
         signer: { type: 'named', name: 'deployer' },
         dryRun: true,
         safe,
-        logLevel: 'error',
     }
     // Get all contracts that needs to transfer ownership to oneSig
     const [, , pendingOwnershipTXs]: SignAndSendResult = await run(TASK_STG_OWNABLE_TRANSFER_OWNERSHIP, args)
@@ -262,6 +261,11 @@ async function proposeTransactions(transactions: OmniTransaction[]) {
 
     // Sign and send without prompts
     const ci = false
+
+    // fill env vars to submit in batches
+    process.env.LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND = 'true'
+    // process.env.LZ_BATCH_SIZE = '10' // default value is 20
+
     const signAndSendResult: SignAndSendResult = await run(SUBTASK_LZ_SIGN_AND_SEND, {
         transactions,
         ci,
