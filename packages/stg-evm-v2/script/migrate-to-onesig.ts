@@ -106,15 +106,16 @@ function parseArgs() {
     let stage = args.find((arg) => arg === 'testnet' || arg === 'mainnet')
     const safe = args.includes('--safe')
     const dryRun = args.includes('--dry-run')
+    const usdcAdmin = args.includes('--usdc-admin')
 
     if (!stage) {
         stage = 'mainnet'
     }
 
-    return { stage, safe, dryRun }
+    return { stage, safe, dryRun, usdcAdmin }
 }
 
-const { stage, safe, dryRun } = parseArgs()
+const { stage, safe, dryRun, usdcAdmin } = parseArgs()
 
 main()
     .then(() => process.exit(0))
@@ -134,18 +135,19 @@ async function main(): Promise<void> {
     const transactions = []
 
     // get the usdc admin config
-    const usdcAdminTXs = await getUSDCAdminPendingTXs()
-    transactions.push(...usdcAdminTXs)
+    if (usdcAdmin) {
+        const usdcAdminTXs = await getUSDCAdminPendingTXs()
+        transactions.push(...usdcAdminTXs)
+    } else {
+        for (const config of oappConfigs) {
+            console.log(`\nProcessing ${config} ...`)
+            // only transfer delegate for credit messaging and token messaging
+            const isMessaging = config.includes('messaging.config.ts')
 
-    for (const config of oappConfigs) {
-        console.log(`\nProcessing ${config} ...`)
-        // only transfer delegate for credit messaging and token messaging
-        const isMessaging = config.includes('messaging.config.ts')
-
-        const response = await getPendingTXs(config, isMessaging)
-        transactions.push(...response)
+            const response = await getPendingTXs(config, isMessaging)
+            transactions.push(...response)
+        }
     }
-
     // 2. Process the pending transactions to get the one sig configuration needed
     console.log('Processing pending transactions: ', transactions.length)
     const processedTXs = await processPendingTXs(transactions)
