@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
-import { ASSETS, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { ethers } from 'ethers'
 import { run } from 'hardhat'
 
@@ -13,7 +12,6 @@ import {
     createSignerFactory,
     getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
-import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import { TASK_STG_OWNABLE_TRANSFER_OWNERSHIP, TASK_STG_WIRE_MESSAGING_DELEGATE } from '../devtools/tasks/constants'
 
@@ -34,7 +32,6 @@ type OneSigConfig = {
 }
 
 interface PendingTX {
-    // networkName: string
     contractName: string
     contractAddress: string
     currentMultisigOwner: string
@@ -167,8 +164,9 @@ async function main(): Promise<void> {
 async function getPendingTXs(oappConfig: string, isMessaging = false): Promise<OmniTransaction[]> {
     const args = {
         oappConfig,
-        signer: 'deployer',
+        signer: { type: 'named', name: 'deployer' },
         dryRun: true,
+        safe,
         logLevel: 'error',
     }
     // Get all contracts that needs to transfer ownership to oneSig
@@ -360,7 +358,7 @@ async function _getOneSigConfiguration(
     return { oneSigContextConfig, error }
 }
 
-function _getNetworkNameByEid(eid: EndpointId): string {
+function _getNetworkNameByEid(eid: number): string {
     if (eid in cacheNetworkEid) {
         return cacheNetworkEid[eid]
     }
@@ -537,11 +535,6 @@ async function _getContractNameByAddress(tx: OmniTransaction, networkName: strin
 
     const name = deploymentsAddressIndex[networkName]?.[normalizedTarget]
     if (name) return name
-
-    // check if is USDC/USDT/EURC
-    if (ASSETS[TokenName.USDC].networks[tx.point.eid]?.address === address) return 'USDC'
-    if (ASSETS[TokenName.USDT].networks[tx.point.eid]?.address === address) return 'USDT'
-    if (ASSETS[TokenName.EURC].networks[tx.point.eid]?.address === address) return 'EURC'
 
     return 'External deployment'
 }
