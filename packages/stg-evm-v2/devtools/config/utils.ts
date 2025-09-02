@@ -209,7 +209,7 @@ export const getSafeAddress = (eid: EndpointId): string => getSafeConfig(eid).sa
  * If network is not configured, will throw an exception.
  *
  * @param {EndpointId} eid
- * @returns {SafeConfig | undefined}
+ * @returns {OneSigConfig | undefined}
  */
 export const getOneSigConfigMaybe = (eid: EndpointId): OneSigConfig | undefined => getNetworkConfig(eid).oneSigConfig
 
@@ -219,7 +219,7 @@ export const getOneSigConfigMaybe = (eid: EndpointId): OneSigConfig | undefined 
  * If oneSig or network are not configured, will throw an exception.
  *
  * @param {EndpointId} eid
- * @returns {SafeConfig}
+ * @returns {OneSigConfig}
  */
 export const getOneSigConfig = (eid: EndpointId): OneSigConfig => {
     const onesigConfig = getOneSigConfigMaybe(eid)
