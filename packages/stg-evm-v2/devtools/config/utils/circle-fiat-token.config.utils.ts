@@ -60,7 +60,14 @@ export default async function buildCircleFiatTokenGraph(
             const stargateOnesig = getOneSigAddressMaybe(chain.eid)
             const stargateMultisig = getSafeAddressMaybe(chain.eid)
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
-            const predefinedAdmin = await getStargateMultisigTestnet(chain.eid, 'tokenAdmin')
+
+            // the role will be the stargate multisig if defined, otherwise it will be the testnet admin if it is a testnet chain
+            const multisigRole =
+                stargateMultisig !== undefined
+                    ? stargateMultisig
+                    : stage === Stage.TESTNET
+                      ? await getStargateMultisigTestnet(chain.eid, 'tokenAdmin')
+                      : undefined
             return {
                 contract: getContractWithEid(chain.eid, {
                     ...fiatContract,
@@ -69,10 +76,10 @@ export default async function buildCircleFiatTokenGraph(
                 config: {
                     // Only set owner if defined in the chain config
                     ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
-                    masterMinter: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
-                    pauser: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
-                    rescuer: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
-                    blacklister: stargateMultisig !== undefined ? stargateMultisig : predefinedAdmin,
+                    masterMinter: multisigRole,
+                    pauser: multisigRole,
+                    rescuer: multisigRole,
+                    blacklister: multisigRole,
                     minters: {
                         [assetAddresses[tokenName]]: 2n ** 256n - 1n,
                     },
