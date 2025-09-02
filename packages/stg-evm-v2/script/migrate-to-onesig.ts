@@ -13,7 +13,11 @@ import {
     getNetworkNameForEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { TASK_STG_OWNABLE_TRANSFER_OWNERSHIP, TASK_STG_WIRE_MESSAGING_DELEGATE } from '../devtools/tasks/constants'
+import {
+    TASK_STG_OWNABLE_TRANSFER_OWNERSHIP,
+    TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN,
+    TASK_STG_WIRE_MESSAGING_DELEGATE,
+} from '../devtools/tasks/constants'
 
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
@@ -128,6 +132,11 @@ async function main(): Promise<void> {
 
     // 1. get all pending transactions from all configs
     const transactions = []
+
+    // get the usdc admin config
+    const usdcAdminTXs = await getUSDCAdminPendingTXs()
+    transactions.push(...usdcAdminTXs)
+
     for (const config of oappConfigs) {
         console.log(`\nProcessing ${config} ...`)
         // only transfer delegate for credit messaging and token messaging
@@ -182,6 +191,18 @@ async function getPendingTXs(oappConfig: string, isMessaging = false): Promise<O
 
     // if is not a messaging config, return only the ownership transactions
     return [...pendingOwnershipTXs]
+}
+
+async function getUSDCAdminPendingTXs(): Promise<OmniTransaction[]> {
+    const args = {
+        oappConfig: './devtools/config/mainnet/01/usdc-admin.config.ts',
+        signer: { type: 'named', name: 'deployer' },
+        dryRun: true,
+        safe,
+    }
+    // Get all admin trasnfers to oneSig
+    const [, , txs]: SignAndSendResult = await run(TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN, args)
+    return txs
 }
 
 async function processPendingTXs(
@@ -423,7 +444,11 @@ function _getNewAddressFromFirstParam(data: string): string {
     if (!data || data.length < 10) return '0x'
 
     // Define a minimal ABI for decoding
-    const abi = ['function transferOwnership(address)', 'function setDelegate(address)']
+    const abi = [
+        'function transferOwnership(address)',
+        'function setDelegate(address)',
+        'function changeAdmin(address)',
+    ]
     const iface = new ethers.utils.Interface(abi)
 
     try {
@@ -540,7 +565,7 @@ async function _getContractNameByAddress(tx: OmniTransaction, networkName: strin
     const name = deploymentsAddressIndex[networkName]?.[normalizedTarget]
     if (name) return name
 
-    return 'External deployment'
+    return 'USDC'
 }
 
 function _buildDeploymentsIndexForNetwork(networkName: string): void {
