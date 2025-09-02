@@ -75,7 +75,6 @@ export default async function buildCircleFiatTokenGraph(
                     blacklister: stargateMultisig,
                     minters: {
                         [assetAddresses[tokenName]]: 2n ** 256n - 1n,
-                        ['0x5e6e4f234c7Ad525700fcF5B7862589950589ed5']: 2n ** 256n - 1n,
                     },
                 },
             }
