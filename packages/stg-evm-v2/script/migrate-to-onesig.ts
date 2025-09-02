@@ -176,7 +176,7 @@ async function getPendingTXs(oappConfig: string, isMessaging = false): Promise<O
         // Get all contracts that needs to transfer delegate to oneSig
         const [, , pendingDelegateTXs]: SignAndSendResult = await run(TASK_STG_WIRE_MESSAGING_DELEGATE, args)
 
-        // return both ownership and delegate transactions
+        // return both ownership and delegate transactions, delegate first and then ownership since only owner can set delegate to set it before transferring ownership
         return [...pendingDelegateTXs, ...pendingOwnershipTXs]
     }
 
