@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 
 import { createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
 import { getContractWithEid } from '../utils'
-import { getChainsThatSupportRewarder } from '../utils/utils.config'
+import { filterValidProvidedChains, getChainsThatSupportRewarder, printChains } from '../utils/utils.config'
 
 import { setTestnetStage } from './utils'
 
@@ -14,6 +14,9 @@ const contract = { contractName: 'StargateMultiRewarder' }
 export default async (): Promise<OmniGraphHardhat<RewarderRewardsNodeConfig, unknown>> => {
     // Set the stage to testnet
     setTestnetStage()
+
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
@@ -30,7 +33,9 @@ export default async (): Promise<OmniGraphHardhat<RewarderRewardsNodeConfig, unk
 
     // get chains that support rewards
     // get valid chains config in the chainsList
-    const validChains = getChainsThatSupportRewarder()
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder())
+
+    printChains(`rewarder.rewards CHAINS_LIST:`, validChains)
 
     const contracts = await Promise.all(
         validChains.map(async (chain) => {
