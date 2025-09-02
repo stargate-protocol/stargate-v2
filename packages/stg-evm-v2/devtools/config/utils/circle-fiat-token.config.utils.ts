@@ -7,7 +7,13 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
 import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
 import { getContractWithEid, getOneSigAddressMaybe, getSafeAddressMaybe } from '../utils'
-import { getChainsThatSupportTokenWithType, isExternalDeployment, setStage } from '../utils/utils.config'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportTokenWithType,
+    isExternalDeployment,
+    printChains,
+    setStage,
+} from '../utils/utils.config'
 
 export default async function buildCircleFiatTokenGraph(
     stage: Stage,
@@ -15,6 +21,16 @@ export default async function buildCircleFiatTokenGraph(
 ): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> {
     // Set the correct stage
     setStage(stage)
+
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+
+    const validChains = filterValidProvidedChains(
+        chainsList,
+        // note: The newer USDC deployments (since December 2024, USDC is deployed and verified from Circle's repo)
+        getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
+    )
+    printChains(`${tokenName} CHAINS_LIST:`, validChains)
 
     const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
     const fiatContract = { contractName: 'FiatTokenV2_2' }
@@ -25,10 +41,8 @@ export default async function buildCircleFiatTokenGraph(
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
     const getStargateMultisigTestnet = createGetNamedAccount(getEnvironment)
 
-    // note: The newer USDC deployments (since December 2024, USDC is deployed and verified from Circle's repo)
-    const chains = getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
     const contracts = await Promise.all(
-        chains.map(async (chain) => {
+        validChains.map(async (chain) => {
             let tokenProxyAddress
             if (isExternalDeployment(chain, tokenName)) {
                 // if is external deployment, we need to get the fiat token proxy address
