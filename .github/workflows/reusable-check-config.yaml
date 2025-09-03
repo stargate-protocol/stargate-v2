@@ -16,7 +16,8 @@ permissions:
 env:
   NPM_TOKEN: ""
   NUM_RETRIES: 100
-  RPC_URL: ${{ secrets.RPC_URL }}
+  RPC_URL_TESTNET: ${{ secrets.RPC_URL_TESTNET }}
+  RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
   LZ_ENABLE_EXPERIMENTAL_PARALLEL_EXECUTION: 1
 
 # Add concurrency to prevent parallel runs
