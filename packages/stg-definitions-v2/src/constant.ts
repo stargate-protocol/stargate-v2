@@ -1737,7 +1737,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.5').toBigInt(),
         },
         oneSigConfig: {
-            oneSigAddress: '0x0000000000000AE5160000000000000000000000', // todo
+            oneSigAddress: '0x74e86b7a210278eddc8153572854e2919cb561dd',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/edu`,
         },
         safeConfig: {
