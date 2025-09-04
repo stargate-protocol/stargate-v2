@@ -17,7 +17,7 @@ import {
     TASK_STG_OWNABLE_TRANSFER_OWNERSHIP,
     TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN,
     TASK_STG_WIRE_MESSAGING_DELEGATE,
-} from '../devtools/tasks/constants'
+} from '../../devtools/tasks/constants'
 
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
@@ -157,7 +157,8 @@ async function main(): Promise<void> {
     const { pendingTXs, errors } = await validateTXs(processedTXs)
 
     // 4. Export the output to file
-    exportOutput(pendingTXs, errors, './migration-output.txt')
+    const outputPath = join(__dirname, 'migration-output.txt')
+    exportOutput(pendingTXs, errors, outputPath)
 
     // 5. propose all transactions at once
     if (dryRun) {
