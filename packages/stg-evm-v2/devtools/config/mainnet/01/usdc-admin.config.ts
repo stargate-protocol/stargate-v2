@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@lay
 
 import { getCircleFiatTokenProxyDeployName } from '../../../../ops/util'
 import { getAssetNetworkConfig } from '../../../../ts-src/utils/util'
-import { getContractWithEid, getOneSigAddressMaybe, getSafeAddressMaybe } from '../../utils'
+import { getContractWithEid, getOneSigAddressMaybe } from '../../utils'
 import {
     filterValidProvidedChains,
     getChainsThatSupportTokenWithType,
@@ -54,7 +54,6 @@ export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unk
             }
 
             const stargateOnesig = getOneSigAddressMaybe(chain.eid)
-            const stargateMultisig = getSafeAddressMaybe(chain.eid)
             return {
                 contract: getContractWithEid(chain.eid, {
                     ...fiatProxyContract,
