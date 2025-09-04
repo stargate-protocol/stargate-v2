@@ -16,6 +16,14 @@ import { setMainnetStage } from '../utils'
 
 const tokenName = TokenName.USDC
 
+/**
+ * Note: This configuration is not used during mainnet preconfiguration or configuration.
+ * The admin is set automatically during the deployment process via the Circle repository.
+ *
+ * This config acts as a helper in case an admin change is required later.
+ * Keep in mind that the admin and owner are the same address, so this may be necessary for
+ * executing any onlyOwner-restricted operations on the token.
+ */
 export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
     // Set the correct stage
     setMainnetStage()

@@ -130,8 +130,8 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ARBSEP_V2_TESTNET),
-        useFeeData: true,
         oneSigConfig: getOneSigConfig(EndpointId.ARBSEP_V2_TESTNET),
+        useFeeData: true,
     },
     'avalanche-testnet': {
         eid: EndpointId.AVALANCHE_V2_TESTNET,

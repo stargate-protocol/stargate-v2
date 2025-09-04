@@ -704,6 +704,7 @@ interface ConfigFile {
     name: string
     hashedContent: string
 }
+
 task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
     .addFlag('genJson', 'Generate also each config as a json file')
     .addParam('stage', 'Chain stage. One of: mainnet, testnet, sandbox', undefined, types.stage, true)
