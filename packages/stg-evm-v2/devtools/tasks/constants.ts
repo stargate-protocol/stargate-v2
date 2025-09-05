@@ -31,3 +31,12 @@ export const TASK_STG_GET_CONFIG_HASHES = `stg:get::config-hashes`
 
 export const TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP = 'lz:ownable:transfer-ownership'
 export const TASK_STG_OWNABLE_TRANSFER_OWNERSHIP = 'stg:ownable:transfer-ownership'
+
+export const TASK_STG_CHECK_CREDIT_MESSAGING = `stg:check::credit-messaging`
+export const TASK_STG_CHECK_TOKEN_MESSAGING = `stg:check::token-messaging`
+export const TASK_STG_CHECK_ASSET = `stg:check::asset`
+export const TASK_STG_CHECK_FEELIB_V1 = `stg:check::feelib-v1`
+export const TASK_STG_CHECK_STAKING = `stg:check::staking`
+export const TASK_STG_CHECK_TREASURER = `stg:check::treasurer`
+export const TASK_STG_CHECK_REWARDER = `stg:check::rewarder`
+export const TASK_STG_CHECK_OFT_WRAPPER = `stg:check::oft-wrapper`

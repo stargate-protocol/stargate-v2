@@ -25,6 +25,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
             contract: oftWrapper,
             config: {
                 owner: getOneSigAddress(chain.eid),
+                oftBps: {}, // adding to avoid error when wiring the oft wrapper
             },
         }
     })
