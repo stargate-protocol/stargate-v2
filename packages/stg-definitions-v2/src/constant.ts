@@ -1612,7 +1612,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x6312c1793a767f98f069459ff678c9409d1c2f44',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/cronosevm`,
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/coredao`,
         },
         safeConfig: {
             safeAddress: '0x43303706f215A53220291F0B8a896BCDA5EB709E',
