@@ -9,7 +9,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
-import { getContractWithEid, getSafeAddress } from '../utils'
+import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 import { filterValidProvidedChains, getChainsThatSupportStaking, getTokenName, setStage } from './utils.config'
@@ -46,12 +46,13 @@ export default async function buildStakingGraph(
                     }
                 })
             )
+            const stargateOnesig = getOneSigAddressMaybe(chain.eid)
 
             return {
                 contract: getContractWithEid(chain.eid, staking),
                 config: {
-                    // Only set owner for mainnet
-                    ...(stage === Stage.MAINNET ? { owner: getSafeAddress(chain.eid) } : {}),
+                    // Only set owner if defined in the chain config
+                    ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
                     pools,
                 },
             }

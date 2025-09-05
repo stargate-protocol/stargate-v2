@@ -2,25 +2,31 @@ import { StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { CircleFiatTokenNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat, createContractFactory, createGetHreByEid } from '@layerzerolabs/devtools-evm-hardhat'
-import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { getCircleFiatTokenProxyDeployName } from '../../../ops/util'
-import { createGetAssetAddresses, createGetNamedAccount, getAssetNetworkConfig } from '../../../ts-src/utils/util'
-import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
+import { getCircleFiatTokenProxyDeployName } from '../../../../ops/util'
+import { getAssetNetworkConfig } from '../../../../ts-src/utils/util'
+import { getContractWithEid, getOneSigAddressMaybe } from '../../utils'
 import {
     filterValidProvidedChains,
     getChainsThatSupportTokenWithType,
     isExternalDeployment,
     printChains,
-    setStage,
-} from '../utils/utils.config'
+} from '../../utils/utils.config'
+import { setMainnetStage } from '../utils'
 
-export default async function buildCircleFiatTokenGraph(
-    stage: Stage,
-    tokenName: TokenName
-): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> {
+const tokenName = TokenName.USDC
+
+/**
+ * Note: This configuration is not used during mainnet preconfiguration or configuration.
+ * The admin is set automatically during the deployment process via the Circle repository.
+ *
+ * This config acts as a helper in case an admin change is required later.
+ * Keep in mind that the admin and owner are the same address, so this may be necessary for
+ * executing any onlyOwner-restricted operations on the token.
+ */
+export default async (): Promise<OmniGraphHardhat<CircleFiatTokenNodeConfig, unknown>> => {
     // Set the correct stage
-    setStage(stage)
+    setMainnetStage()
 
     // only use the chains defined in the env variable if it is set
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
@@ -33,13 +39,11 @@ export default async function buildCircleFiatTokenGraph(
     printChains(`${tokenName} CHAINS_LIST:`, validChains)
 
     const proxyContract = { contractName: getCircleFiatTokenProxyDeployName(tokenName) }
-    const fiatContract = { contractName: 'FiatTokenV2_2' }
+    const fiatProxyContract = { contractName: 'FiatTokenProxy' }
 
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
     const contractFactory = createContractFactory(getEnvironment)
-    const getAssetAddresses = createGetAssetAddresses(getEnvironment)
-    const getStargateMultisigTestnet = createGetNamedAccount(getEnvironment)
 
     const contracts = await Promise.all(
         validChains.map(async (chain) => {
@@ -58,30 +62,14 @@ export default async function buildCircleFiatTokenGraph(
             }
 
             const stargateOnesig = getOneSigAddressMaybe(chain.eid)
-            const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
-
-            // the role will be the stargate onesig if defined, otherwise it will be the testnet admin if it is a testnet chain
-            const onesigRole =
-                stargateOnesig !== undefined
-                    ? stargateOnesig
-                    : stage === Stage.TESTNET
-                      ? await getStargateMultisigTestnet(chain.eid, 'tokenAdmin')
-                      : undefined
             return {
                 contract: getContractWithEid(chain.eid, {
-                    ...fiatContract,
+                    ...fiatProxyContract,
                     address: tokenProxyAddress.contract.address,
                 }),
                 config: {
-                    // Only set owner if defined in the chain config
-                    ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
-                    masterMinter: onesigRole,
-                    pauser: onesigRole,
-                    rescuer: onesigRole,
-                    blacklister: onesigRole,
-                    minters: {
-                        [assetAddresses[tokenName]]: 2n ** 256n - 1n,
-                    },
+                    // Only set onesig
+                    admin: stargateOnesig,
                 },
             }
         })

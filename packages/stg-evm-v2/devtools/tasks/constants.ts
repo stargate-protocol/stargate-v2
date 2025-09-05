@@ -3,6 +3,8 @@ export const TASK_STG_WIRE_CREDIT_MESSAGING = `stg:wire::credit-messaging`
 export const TASK_STG_WIRE_TOKEN_MESSAGING = `stg:wire::token-messaging`
 export const TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE = `stg:wire::token-messaging:initialize-storage`
 
+export const TASK_STG_WIRE_MESSAGING_DELEGATE = `stg:wire::messaging:delegate`
+
 export const TASK_STG_WIRE_ASSET = `stg:wire::asset`
 
 export const TASK_STG_WIRE_FEELIB_V1 = `stg:wire::feelib-v1`
@@ -26,6 +28,9 @@ export const TASK_STG_WIRE_STAKING = `stg:wire::staking`
 export const TASK_STG_WIRE_OFT_WRAPPER = `stg:wire::oft-wrapper`
 
 export const TASK_STG_GET_CONFIG_HASHES = `stg:get::config-hashes`
+
+export const TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP = 'lz:ownable:transfer-ownership'
+export const TASK_STG_OWNABLE_TRANSFER_OWNERSHIP = 'stg:ownable:transfer-ownership'
 
 export const TASK_STG_CHECK_CREDIT_MESSAGING = `stg:check::credit-messaging`
 export const TASK_STG_CHECK_TOKEN_MESSAGING = `stg:check::token-messaging`
