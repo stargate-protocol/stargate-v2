@@ -143,19 +143,6 @@ task(TASK_LZ_OAPP_WIRE)
         return runSuper(args)
     })
 
-/**
- * Extends the TASK_LZ_OAPP_WIRE task by adding a custom `--onesig` flag to control how transactions are proposed.
- * Overrides the sign-and-send logic to select the appropriate signer based on whether to use 'safe', 'onesig', or 'eoa'.
- * Executes the original task action via `runSuper()` after injecting the custom signer behavior.
- */
-
-task(TASK_LZ_OAPP_WIRE)
-    .addFlag('onesig', 'Whether to use oneSig for the transactions')
-    .setAction(async (args, hre, runSuper) => {
-        overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-        return runSuper(args)
-    })
-
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
 
 function overrideSignAndSendTask(safe: boolean, onesig: boolean, signer: SignerDefinition) {
