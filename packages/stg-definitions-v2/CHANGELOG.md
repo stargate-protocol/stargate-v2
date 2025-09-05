@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 4.0.1
+
+### Patch Changes
+
+- 175ec1e: Increase somnia credit messaging gas limit by 1 million
+
 ## 4.0.0
 
 ### Major Changes
