@@ -74,8 +74,18 @@ import {
 } from '@stargatefinance/stg-devtools-v2'
 import { subtask, task } from 'hardhat/config'
 
-import { createConnectedContractFactory, inheritTask, types } from '@layerzerolabs/devtools-evm-hardhat'
+import { SignerDefinition } from '@layerzerolabs/devtools-evm'
+import {
+    SUBTASK_LZ_SIGN_AND_SEND,
+    createConnectedContractFactory,
+    createGnosisSignerFactory,
+    createSignerFactory,
+    inheritTask,
+    types,
+} from '@layerzerolabs/devtools-evm-hardhat'
 import { createLogger } from '@layerzerolabs/lz-utilities'
+import { type IOApp, type OAppOmniGraph, configureOAppDelegates } from '@layerzerolabs/ua-devtools'
+import { createOAppFactory } from '@layerzerolabs/ua-devtools-evm'
 import {
     SUBTASK_LZ_OAPP_CONFIG_LOAD,
     SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
@@ -84,9 +94,21 @@ import {
     TASK_LZ_OAPP_WIRE,
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
 
+import { createOneSigSignerFactory } from '../onesig'
+
 import {
+    TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP,
     TASK_STG_ADD_LIQUIDITY,
+    TASK_STG_CHECK_ASSET,
+    TASK_STG_CHECK_CREDIT_MESSAGING,
+    TASK_STG_CHECK_FEELIB_V1,
+    TASK_STG_CHECK_OFT_WRAPPER,
+    TASK_STG_CHECK_REWARDER,
+    TASK_STG_CHECK_STAKING,
+    TASK_STG_CHECK_TOKEN_MESSAGING,
+    TASK_STG_CHECK_TREASURER,
     TASK_STG_GET_CONFIG_HASHES,
+    TASK_STG_OWNABLE_TRANSFER_OWNERSHIP,
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
     TASK_STG_WIRE_ASSET,
@@ -95,6 +117,7 @@ import {
     TASK_STG_WIRE_CIRCLE_TOKEN_SET_ADMIN,
     TASK_STG_WIRE_CREDIT_MESSAGING,
     TASK_STG_WIRE_FEELIB_V1,
+    TASK_STG_WIRE_MESSAGING_DELEGATE,
     TASK_STG_WIRE_OFT,
     TASK_STG_WIRE_OFT_WRAPPER,
     TASK_STG_WIRE_REWARDER,
@@ -103,12 +126,51 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
 } from './constants'
+import { checkResult } from './utils'
+
+import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
+
+/**
+ * Extends the TASK_LZ_OAPP_WIRE task by adding a custom `--onesig` flag to control how transactions are proposed.
+ * Overrides the sign-and-send logic to select the appropriate signer based on whether to use 'safe', 'onesig', or 'eoa'.
+ * Executes the original task action via `runSuper()` after injecting the custom signer behavior.
+ */
+
+task(TASK_LZ_OAPP_WIRE)
+    .addFlag('onesig', 'Whether to use oneSig for the transactions')
+    .setAction(async (args, hre, runSuper) => {
+        overrideSignAndSendTask(args.safe, args.onesig, args.signer)
+        return runSuper(args)
+    })
 
 const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
+
+function overrideSignAndSendTask(safe: boolean, onesig: boolean, signer: SignerDefinition) {
+    if (safe && onesig) {
+        throw new Error('Safe and oneSig cannot be used together')
+    }
+
+    // if safe, use gnosis signer
+    // if onesig, use oneSig signer
+    // otherwise, use eoa factory
+    const createSigner = safe
+        ? createGnosisSignerFactory(signer)
+        : onesig
+          ? createOneSigSignerFactory(signer)
+          : createSignerFactory(signer)
+
+    subtask(SUBTASK_LZ_SIGN_AND_SEND, 'Sign and send transactions', (args: SignAndSendTaskArgs, _hre, runSuper) => {
+        return runSuper({
+            ...args,
+            createSigner,
+        })
+    })
+}
 
 /**
  * Wiring task for credit messaging contracts
  */
+
 wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
     //
@@ -116,14 +178,11 @@ wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
     // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
     // the task that runs first will overwrite the original subtask definition
     // whereas the task that runs later will overwrite the overwritten task definition
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load credit messaging config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: CreditMessagingOmniGraphHardhatSchema,
-            })
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load messaging config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        runSuper({
+            ...args,
+            schema: CreditMessagingOmniGraphHardhatSchema,
+        })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
@@ -158,6 +217,7 @@ wireTask(TASK_STG_WIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
                 schema: TokenMessagingOmniGraphHardhatSchema,
             })
     )
+
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure token messaging',
@@ -620,6 +680,35 @@ wireTask(TASK_STG_ADD_LIQUIDITY).setAction(async (args, hre) => {
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
+wireTask(TASK_STG_OWNABLE_TRANSFER_OWNERSHIP).setAction(async (args, hre) => {
+    // override the sign-and-send task to use the appropriate signer
+    overrideSignAndSendTask(args.safe, args.onesig, args.signer)
+
+    // call the original task
+    return hre.run(TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP, args)
+})
+
+wireTask(TASK_STG_WIRE_MESSAGING_DELEGATE).setAction(async (args, hre) => {
+    // Here we'll overwrite the configuration tasks just-in-time
+    //
+    // This is one way of doing this - it has minimal boilerplate but it comes with a downside:
+    // if two wire tasks are executed in the same runtime environment (e.g. using hre.run),
+    // the task that runs first will overwrite the original subtask definition
+    // whereas the task that runs later will overwrite the overwritten task definition
+    subtask(
+        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+        'Configure credit messaging delegate',
+        (args: SubtaskConfigureTaskArgs<OAppOmniGraph, IOApp>, hre, runSuper) =>
+            runSuper({
+                ...args,
+                configurator: configureOAppDelegates,
+                sdkFactory: createOAppFactory(createConnectedContractFactory()),
+            })
+    )
+
+    return hre.run(TASK_LZ_OAPP_WIRE, args)
+})
+
 interface ConfigFile {
     name: string
     hashedContent: string
@@ -750,4 +839,124 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
             logger.error('Error reading directory:', error)
             return []
         }
+    })
+
+/**
+ * Task for checking assets are fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_ASSET, 'Check asset')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_ASSET, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking feelibs are fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_FEELIB_V1, 'Check feelib')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_FEELIB_V1, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking treasurer is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_TREASURER, 'Check treasurer')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_TREASURER, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking staking is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_STAKING, 'Check staking')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_STAKING, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking rewarder is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_REWARDER, 'Check rewarder')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_REWARDER, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking oft wrapper is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_OFT_WRAPPER, 'Check OFT Wrapper')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_OFT_WRAPPER, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking oft credit messaging is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_CREDIT_MESSAGING, 'Check Credit Messaging')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_CREDIT_MESSAGING, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
+    })
+
+/**
+ * Task for checking oft token messaging is fully wired
+ * throw an error if there are still pending transactions to wire or if the wiring fails
+ */
+task(TASK_STG_CHECK_TOKEN_MESSAGING, 'Check Token Messaging')
+    .addParam('oappConfig', 'Path to the OApp config file')
+    .setAction(async (args, hre) => {
+        const result = await hre.run(TASK_STG_WIRE_TOKEN_MESSAGING, {
+            ...args,
+            dryRun: true,
+        })
+        // check the result is a success
+        return checkResult(result, args.oappConfig)
     })

@@ -5,7 +5,7 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
 import { createGetRewardTokenAddresses } from '../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../utils'
+import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getLPTokenAddress } from './shared'
 import {
@@ -59,11 +59,14 @@ export default async function buildRewarderGraph(
                 })
             ).then((results) => Object.assign({}, ...results))
 
+            const stargateOnesig = getOneSigAddressMaybe(chain.eid)
+
             return {
                 contract: getContractWithEid(chain.eid, contract),
                 config: {
-                    // Only set owner for mainnet
-                    ...(stage === Stage.MAINNET ? { owner: getSafeAddress(chain.eid) } : {}),
+                    // Only set owner if defined in the chain config
+                    ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
+
                     allocations: allocations,
                 },
             }
