@@ -91,6 +91,7 @@ const deployToken = async (
 const getContractName = (stargateType: StargateType, tokenName: TokenName): string => {
     assert(tokenName !== TokenName.USDC, 'Should not deploy USDC with this method')
     assert(tokenName !== TokenName.USDT, 'Should not deploy USDT with this method')
+    assert(tokenName !== TokenName.EURC, 'Should not deploy EURC with this method')
 
     if (stargateType === StargateType.Pool) {
         return 'PoolToken' // NOTE: This is a mock, because the situation where we are deploying a Pool token because it does not have an address is expected in sandbox only

@@ -7,7 +7,12 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getUSDTDeployName } from '../../../ops/util'
 import { getNamedAccount } from '../../../ts-src/utils/util'
 import { getContractWithEid } from '../utils'
-import { getChainsThatSupportRewarder, getChainsThatSupportTokenWithType } from '../utils/utils.config'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportRewarder,
+    getChainsThatSupportTokenWithType,
+    printChains,
+} from '../utils/utils.config'
 
 import { setTestnetStage } from './utils'
 
@@ -16,21 +21,27 @@ const getDeployer = getNamedAccount('deployer')
 
 const rewarder = { contractName: 'StargateMultiRewarder' }
 const usdcPool = { contractName: 'StargatePoolUSDC' }
+const eurcPool = { contractName: 'StargatePoolEURC' }
 const usdtPool = { contractName: 'StargatePoolUSDT' }
 
 export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => {
     // set testnet stage
     setTestnetStage()
 
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getHre = createGetHreByEid()
     const contractFactory = createContractFactory(getHre)
 
-    const chainsSupportingRewards = getChainsThatSupportRewarder()
+    const validChainRewarder = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder())
+
+    printChains(`mint.allowance Rewarder CHAINS_LIST:`, validChainRewarder)
 
     // getting the rewarder configs
     const rewarderContracts = await Promise.all(
-        chainsSupportingRewards.map(async (chain) => {
+        validChainRewarder.map(async (chain) => {
             const contract = getContractWithEid(chain.eid, rewarderTokenContract)
             const hre = await getHre(chain.eid)
             const deployer = await hre.getNamedAccounts().then(getDeployer)
@@ -54,8 +65,22 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
     // getting the pools configs
 
     // get all chains that has pool
-    const usdtChains = getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Pool)
-    const usdcChains = getChainsThatSupportTokenWithType(TokenName.USDC, StargateType.Pool)
+    const usdtChains = filterValidProvidedChains(
+        chainsList,
+        getChainsThatSupportTokenWithType(TokenName.USDT, StargateType.Pool)
+    )
+    const usdcChains = filterValidProvidedChains(
+        chainsList,
+        getChainsThatSupportTokenWithType(TokenName.USDC, StargateType.Pool)
+    )
+    const eurcChains = filterValidProvidedChains(
+        chainsList,
+        getChainsThatSupportTokenWithType(TokenName.EURC, StargateType.Pool)
+    )
+
+    printChains(`mint.allowance USDT pools CHAINS_LIST:`, usdtChains)
+    printChains(`mint.allowance USDC pools CHAINS_LIST:`, usdcChains)
+    printChains(`mint.allowance EURC pools CHAINS_LIST:`, eurcChains)
 
     // usdt pools
     const usdtPoolsContracts = await Promise.all(
@@ -115,8 +140,35 @@ export default async (): Promise<OmniGraphHardhat<ERC20NodeConfig, unknown>> => 
         })
     )
 
+    // eurc pools
+    const eurcPoolsContracts = await Promise.all(
+        eurcChains.map(async (chain) => {
+            const hre = await getHre(chain.eid)
+
+            const contract = {
+                contractName: 'FiatTokenV2_2',
+                address: ASSETS[TokenName.EURC].networks[chain.eid as EndpointId]?.address,
+            }
+            const deployer = await hre.getNamedAccounts().then(getDeployer)
+            const poolContract = await contractFactory(getContractWithEid(chain.eid, eurcPool))
+            return {
+                contract: getContractWithEid(chain.eid, contract),
+                config: {
+                    allowance: {
+                        [deployer]: {
+                            [poolContract.contract.address]: BigInt(18e18),
+                        },
+                    },
+                    mint: {
+                        [deployer]: BigInt(18e18),
+                    },
+                },
+            }
+        })
+    )
+
     return {
-        contracts: [...rewarderContracts, ...usdtPoolsContracts, ...usdcPoolsContracts],
+        contracts: [...rewarderContracts, ...usdtPoolsContracts, ...usdcPoolsContracts, ...eurcPoolsContracts],
         connections: [],
     }
 }

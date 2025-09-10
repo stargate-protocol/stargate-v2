@@ -15,6 +15,7 @@ export enum TokenName {
     USDC = 'USDC',
     METIS = 'METIS',
     mETH = 'mETH',
+    EURC = 'EURC',
 }
 
 /**
@@ -63,6 +64,7 @@ export enum RewardTokenName {
     S = 'S',
     MANTA = 'MANTA',
     USDC = 'USDC',
+    EURC = 'EURC',
 }
 
 export type RewardsConfig = Record<RewardTokenName, RewardsTokenConfig>
@@ -86,11 +88,20 @@ export interface SafeConfig {
     contractNetworks?: ContractNetworksConfig
 }
 
+export interface OneSigConfig {
+    oneSigAddress: string
+    /**
+     * The URL of the OneSig REST API
+     */
+    oneSigUrl: string
+}
+
 export interface NetworkConfig {
     permitAddress?: string
     creditMessaging?: CreditMessagingNetworkConfig
     tokenMessaging?: TokenMessagingNetworkConfig
     safeConfig?: SafeConfig
+    oneSigConfig?: OneSigConfig
 }
 
 export interface CreditMessagingNetworkConfig {

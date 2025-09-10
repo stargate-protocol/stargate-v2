@@ -1,5 +1,15 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.2.0
+
+### Minor Changes
+
+- 742c5b0: Introducing configuration checker for stargate deployments
+
+### Patch Changes
+
+- 138547e: bump versions
+
 ## 1.1.16
 
 ### Patch Changes

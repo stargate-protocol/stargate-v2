@@ -5,14 +5,25 @@ import { OmniGraphHardhat, createGetHreByEid } from '@layerzerolabs/devtools-evm
 
 import { getTokenDeployName, getUSDTDeployName } from '../../../../ops/util'
 import { createGetAssetAddresses, getAssetType } from '../../../../ts-src/utils/util'
-import { getContractWithEid, getSafeAddress } from '../../utils'
-import { getChainsThatSupportTokenWithType, getChainsThatSupportsUsdtOftByDeployment } from '../../utils/utils.config'
+import { getContractWithEid, getOneSigAddress } from '../../utils'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportTokenWithType,
+    getChainsThatSupportsUsdtOftByDeployment,
+    printChains,
+} from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
 
 // Both USDC and USDT now (as of 2024-12-10) have their own config files, so this file is just used for WETH Hydra deployments
 export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> => {
     // Set the stage to mainnet
     setMainnetStage()
+
+    // only use the chains defined in the env variable if it is set
+    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+
+    const validChainUSDT = filterValidProvidedChains(chainsList, getChainsThatSupportsUsdtOftByDeployment(false))
+    printChains(`USDT OFT TokenCHAINS_LIST:`, validChainUSDT)
 
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
@@ -21,13 +32,12 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // USDT Deployment name is the same for all chains
     const usdtContractTemplate = { contractName: getUSDTDeployName() }
 
-    const usdtOldDeploymentChains = getChainsThatSupportsUsdtOftByDeployment(false)
     const usdtOldDeploymentContracts = await Promise.all(
-        usdtOldDeploymentChains.map(async (chain) => {
+        validChainUSDT.map(async (chain) => {
             return {
                 contract: getContractWithEid(chain.eid, usdtContractTemplate),
                 config: {
-                    owner: getSafeAddress(chain.eid),
+                    owner: getOneSigAddress(chain.eid),
                     minters: {
                         [(await getAssetAddresses(chain.eid, [TokenName.USDT] as const)).USDT]: true,
                     },
@@ -37,16 +47,20 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     )
 
     // ETH contract pointers (for all WETH OFT)
-    const chainsThatSupportEth = getChainsThatSupportTokenWithType(TokenName.ETH, StargateType.Oft)
+    const validChainETH = filterValidProvidedChains(
+        chainsList,
+        getChainsThatSupportTokenWithType(TokenName.ETH, StargateType.Oft)
+    )
+    printChains(`oft.token ETH CHAINS_LIST:`, validChainETH)
 
     const ethContractsWithConfig = await Promise.all(
-        chainsThatSupportEth.map(async (chain) => {
+        validChainETH.map(async (chain) => {
             return {
                 contract: getContractWithEid(chain.eid, {
                     contractName: getTokenDeployName(TokenName.ETH, getAssetType(chain.eid, TokenName.ETH)),
                 }),
                 config: {
-                    owner: getSafeAddress(chain.eid),
+                    owner: getOneSigAddress(chain.eid),
                     minters: {
                         [(await getAssetAddresses(chain.eid, [TokenName.ETH] as const)).ETH]: true,
                     },

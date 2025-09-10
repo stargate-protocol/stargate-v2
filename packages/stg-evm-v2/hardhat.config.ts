@@ -10,7 +10,7 @@ configDotenv({
 import { AsyncRetriable } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
-import { getSafeConfig } from './devtools/config/utils'
+import { getOneSigConfig, getSafeConfig } from './devtools/config/utils'
 
 import type { HDAccountsUserConfig, HardhatUserConfig, NetworksUserConfig } from 'hardhat/types'
 
@@ -91,7 +91,7 @@ const hardhatNamedAccounts: HardhatUserConfig = {
             'polygon-sandbox-local': '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC',
             default: 2,
         },
-        usdcAdmin: {
+        tokenAdmin: {
             default: 3, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
         },
     },
@@ -129,6 +129,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ARBSEP_V2_TESTNET,
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.ARBSEP_V2_TESTNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ARBSEP_V2_TESTNET),
         useFeeData: true,
     },
     'avalanche-testnet': {
@@ -156,6 +158,8 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
         accounts: testnetAccounts,
+        safeConfig: getSafeConfig(EndpointId.OPTSEP_V2_TESTNET),
+        oneSigConfig: getOneSigConfig(EndpointId.OPTSEP_V2_TESTNET),
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
@@ -176,6 +180,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ABSTRACT_MAINNET || 'https://api.mainnet.abs.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ABSTRACT_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ABSTRACT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
@@ -185,6 +190,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_APE_MAINNET || 'https://apechain.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.APE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.APE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'arbitrum-mainnet': {
@@ -192,6 +198,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://arb1.arbitrum.io/rpc',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ARBITRUM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ARBITRUM_V2_MAINNET),
         useFeeData: true,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
@@ -200,6 +207,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ASTAR_MAINNET || 'https://evm.astar.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ASTAR_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ASTAR_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'aurora-mainnet': {
@@ -207,6 +215,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_AURORA_MAINNET || 'https://aurora.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.AURORA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.AURORA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'avalanche-mainnet': {
@@ -214,6 +223,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_AVALANCHE_MAINNET || 'https://avalanche-c-chain-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.AVALANCHE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.AVALANCHE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'base-mainnet': {
@@ -221,6 +231,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_BASE_MAINNET || 'https://base-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BASE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.BASE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'bera-mainnet': {
@@ -228,6 +239,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_BERA_MAINNET || 'https://rpc.berachain-apis.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BERA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.BERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'blast-mainnet': {
@@ -235,6 +247,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_BLAST_MAINNET || 'https://blast-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BLAST_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.BLAST_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'botanix-mainnet': {
@@ -242,6 +255,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_BOTANIX_MAINNET || 'https://rpc.botanixlabs.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BOTANIX_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.BOTANIX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'bsc-mainnet': {
@@ -249,6 +263,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_BSC_MAINNET || 'https://bsc-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.BSC_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'coredao-mainnet': {
@@ -256,6 +271,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.COREDAO_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.COREDAO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'cronosevm-mainnet': {
@@ -263,6 +279,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_CRONOSEVM_MAINNET || 'https://evm.cronos.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'degen-mainnet': {
@@ -270,6 +287,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'edu-mainnet': {
@@ -277,6 +295,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_EDU_MAINNET || 'https://rpc.edu-chain.raas.gelato.cloud',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.EDU_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.EDU_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ethereum-mainnet': {
@@ -284,6 +303,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_MAINNET || 'https://rpc.payload.de',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ETHEREUM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ETHEREUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'etherlink-mainnet': {
@@ -291,6 +311,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHERLINK_MAINNET || 'https://node.mainnet.etherlink.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ETHERLINK_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ETHERLINK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'fantom-mainnet': {
@@ -298,6 +319,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FANTOM_MAINNET || 'https://fantom-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FANTOM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.FANTOM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'flare-mainnet': {
@@ -305,12 +327,14 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FLARE_MAINNET || 'https://flare-api.flare.network/ext/C/rpc',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FLARE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.FLARE_V2_MAINNET),
     },
     'flow-mainnet': {
         eid: EndpointId.FLOW_V2_MAINNET,
         url: process.env.RPC_URL_FLOW_MAINNET || 'https://mainnet.evm.nodes.onflow.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FLOW_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.FLOW_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'fraxtal-mainnet': {
@@ -318,6 +342,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FRAXTAL_MAINNET || 'https://rpc.frax.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FRAXTAL_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.FRAXTAL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'fuse-mainnet': {
@@ -325,6 +350,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_FUSE_MAINNET || 'https://rpc.fuse.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.FUSE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.FUSE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'glue-mainnet': {
@@ -332,6 +358,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.GLUE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'gnosis-mainnet': {
@@ -339,6 +366,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://gnosis.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.GNOSIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'goat-mainnet': {
@@ -346,6 +374,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GOAT_MAINNET || 'https://rpc.goat.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GOAT_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.GOAT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'gravity-mainnet': {
@@ -353,6 +382,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.GRAVITY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'hedera-mainnet': {
@@ -360,6 +390,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_HEDERA_MAINNET || 'https://mainnet.hashio.io/api',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.HEDERA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.HEDERA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'hemi-mainnet': {
@@ -367,6 +398,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_HEMI_MAINNET || 'https://7e57304f.rpc.hemi.network/rpc',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.HEMI_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ink-mainnet': {
@@ -374,6 +406,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_INK_MAINNET || 'https://rpc-gel.inkonchain.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.INK_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.INK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'iota-mainnet': {
@@ -381,6 +414,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_IOTA_MAINNET || 'https://json-rpc.evm.iotaledger.net',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.IOTA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.IOTA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'islander-mainnet': {
@@ -388,6 +422,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ISLANDER_MAINNET || 'https://evm-rpc-vana.josephtran.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ISLANDER_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ISLANDER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'kava-mainnet': {
@@ -395,6 +430,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_KAVA_MAINNET || 'https://kava-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KAVA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.KAVA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'klaytn-mainnet': {
@@ -402,6 +438,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_KLAYTN_MAINNET || 'https://rpc.ankr.com/klaytn',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.KLAYTN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'lightlink-mainnet': {
@@ -409,6 +446,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_LIGHTLINK_MAINNET || 'https://replicator.phoenix.lightlink.io/rpc/v1',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.LIGHTLINK_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.LIGHTLINK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'manta-mainnet': {
@@ -416,6 +454,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_MANTA_MAINNET || 'https://pacific-rpc.manta.network/http',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MANTA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.MANTA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'mantle-mainnet': {
@@ -423,6 +462,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_MANTLE_MAINNET || 'https://mantle-mainnet.public.blastapi.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MANTLE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.MANTLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'metis-mainnet': {
@@ -430,6 +470,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_METIS_MAINNET || 'https://metis-pokt.nodies.app',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.METIS_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.METIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'mode-mainnet': {
@@ -437,6 +478,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_MODE_MAINNET || 'https://mainnet.mode.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MODE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.MODE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'moonbeam-mainnet': {
@@ -444,6 +486,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_MOONBEAM_MAINNET || 'https://rpc.api.moonbeam.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MOONBEAM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.MOONBEAM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'moonriver-mainnet': {
@@ -451,6 +494,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_MOONRIVER_MAINNET || 'https://moonriver-rpc.publicnode.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.MOONRIVER_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.MOONRIVER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'nibiru-mainnet': {
@@ -458,6 +502,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_NIBIRU_MAINNET || 'https://evm-rpc.nibiru.fi',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.NIBIRU_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.NIBIRU_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'opbnb-mainnet': {
@@ -465,6 +510,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_OPBNB_MAINNET || 'https://opbnb-mainnet-rpc.bnbchain.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.OPBNB_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.OPBNB_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'optimism-mainnet': {
@@ -472,6 +518,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_OPTIMISM_MAINNET || 'https://optimism.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.OPTIMISM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.OPTIMISM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'orderly-mainnet': {
@@ -479,6 +526,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ORDERLY_MAINNET || 'https://rpc.orderly.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ORDERLY_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ORDERLY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'peaq-mainnet': {
@@ -486,6 +534,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_PEAQ_MAINNET || 'https://peaq.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PEAQ_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'plumephoenix-mainnet': {
@@ -493,6 +542,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://rpc.plume.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.PLUMEPHOENIX_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'polygon-mainnet': {
@@ -500,6 +550,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_POLYGON_MAINNET || 'https://polygon.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.POLYGON_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.POLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'rarible-mainnet': {
@@ -507,6 +558,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_RARIBLE_MAINNET || 'https://mainnet.rpc.rarichain.org/http',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.RARIBLE_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.RARIBLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'rootstock-mainnet': {
@@ -514,6 +566,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://public-node.rsk.co',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ROOTSTOCK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'scroll-mainnet': {
@@ -521,6 +574,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SCROLL_MAINNET || 'https://scroll.api.onfinality.io/public',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SCROLL_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SCROLL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'sei-mainnet': {
@@ -528,6 +582,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SEI_MAINNET || 'https://evm-rpc.sei-apis.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SEI_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SEI_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
         // Sei is giving us ProviderError: Out of gas: gas required exceeds allowance errors
         useFeeData: true,
@@ -537,6 +592,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SHIMMER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'sophon-mainnet': {
@@ -544,6 +600,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SOPHON_MAINNET || 'https://rpc.sophon.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SOPHON_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SOPHON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',
@@ -553,6 +610,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SOMNIA_MAINNET || 'https://api.infra.mainnet.somnia.network/',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SOMNIA_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SOMNIA_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'soneium-mainnet': {
@@ -560,6 +618,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SONEIUM_MAINNET || 'https://rpc.soneium.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SONEIUM_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SONEIUM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'sonic-mainnet': {
@@ -567,6 +626,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SONIC_MAINNET || 'https://rpc.soniclabs.com',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SONIC_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SONIC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'story-mainnet': {
@@ -574,6 +634,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_STORY_MAINNET || 'https://mainnet.storyrpc.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.STORY_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.STORY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'superposition-mainnet': {
@@ -581,6 +642,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SUPERPOSITION_MAINNET || 'https://rpc.superposition.so',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'swell-mainnet': {
@@ -588,6 +650,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_SWELL_MAINNET || 'https://swell-mainnet.alt.technology',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.SWELL_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.SWELL_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'taiko-mainnet': {
@@ -595,6 +658,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.mainnet.taiko.xyz',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.TAIKO_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
         gasPrice: 20000000,
     },
@@ -603,6 +667,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_TELOS_MAINNET || 'https://rpc.telos.net',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.TELOS_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.TELOS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'unichain-mainnet': {
@@ -610,6 +675,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_UNICHAIN_MAINNET || 'https://mainnet.unichain.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.UNICHAIN_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.UNICHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'xdc-mainnet': {
@@ -617,6 +683,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_XDC_MAINNET || 'https://rpc.xdc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.XDC_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.XDC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zkconsensys-mainnet': {
@@ -624,6 +691,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ZKCONSENSYS_MAINNET || 'https://linea.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKCONSENSYS_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ZKCONSENSYS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zkpolygon-mainnet': {
@@ -631,6 +699,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ZKPOLYGON_MAINNET || 'https://polygon-zkevm.drpc.org',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'zksync-mainnet': {
@@ -638,6 +707,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://mainnet.era.zksync.io',
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
+        oneSigConfig: getOneSigConfig(EndpointId.ZKSYNC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
         zksync: true,
         ethNetwork: 'ethereum-mainnet',

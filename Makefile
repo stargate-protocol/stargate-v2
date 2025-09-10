@@ -7,12 +7,12 @@ WORKSPACE=pnpm --filter $(PACKAGE)
 HARDHAT=$(WORKSPACE) run hardhat
 
 # We define the configuration commands to keep things DRY
-TRANSFER_OWNERSHIP=$(HARDHAT) lz:ownable:transfer-ownership
+TRANSFER_OWNERSHIP=$(HARDHAT) stg:ownable:transfer-ownership
 CONFIGURE_ASSET=$(HARDHAT) stg:wire::asset
 CONFIGURE_OFT=$(HARDHAT) stg:wire::oft
-CONFIGURE_USDC=$(HARDHAT) stg:wire::usdc
-CONFIGURE_USDC_SET_ADMIN=$(HARDHAT) stg:wire::usdc:set-admin
-CONFIGURE_USDC_INITIALIZE_MINTERS=$(HARDHAT) stg:wire::usdc:initialize-minters
+CONFIGURE_CIRCLE_TOKEN=$(HARDHAT) stg:wire::circle-token
+CONFIGURE_CIRCLE_TOKEN_SET_ADMIN=$(HARDHAT) stg:wire::circle-token:set-admin
+CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS=$(HARDHAT) stg:wire::circle-token:initialize-minters
 CONFIGURE_CREDIT_MESSAGING=$(HARDHAT) stg:wire::credit-messaging
 CONFIGURE_TOKEN_MESSAGING=$(HARDHAT) stg:wire::token-messaging
 CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE=$(HARDHAT) stg:wire::token-messaging:initialize-storage
@@ -93,13 +93,13 @@ configure-sandbox:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/mocks.oft.config.ts --signer deployer
 
 	# Set the admin to secondary role so our calls as owner get through
-	$(CONFIGURE_USDC_SET_ADMIN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-admin.config.ts --signer deployer
 
 	# Configure the minters while we are still MasterMinters
-	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
 	# Configure everything
-	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
 	# Transfer ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -186,14 +186,21 @@ configure-testnet:
 	# Configure the OFTs
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
-	# Configure the minters while we are still MasterMinters
-	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	# Configure the minters while we are still MasterMinters (USDC and EURC)
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
-	# Configure everything
-	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	# Configure everything for USDC
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
-	# Transfer ownership
+	# Configure everything for EURC
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+
+	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+
+	# Transfer EURC ownership
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
@@ -206,6 +213,7 @@ configure-testnet:
 
 	# Configure the assets
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts --signer deployer
 
@@ -220,11 +228,13 @@ configure-testnet:
 
 	# Configure feelib V1
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
+	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
 
 	# Transfer the feelib V1 ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
 
@@ -268,10 +278,12 @@ preconfigure-mainnet:
 	$(CONFIGURE_OFT) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-token.config.ts --signer deployer
 
 	# Configure the minters while we are still MasterMinters
-	$(CONFIGURE_USDC_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer --token-name usdc
+	$(CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer --token-name eurc
 
-	# Configure everything else for USDC
-	$(CONFIGURE_USDC) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
+	# Configure everything else for USDC and EURC
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer --token-name usdc
+	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer --token-name eurc
 
 # 
 # This target will configure the mainnet contracts
@@ -288,6 +300,7 @@ configure-mainnet:
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
 	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts --signer deployer
 
 	# Configure credit messaging
 	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --signer deployer
@@ -306,6 +319,7 @@ configure-mainnet:
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
 	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
+	$(CONFIGURE_FEELIB_V1) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 
 	# Configure treasurer
 	$(CONFIGURE_TREASURER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --signer deployer
@@ -327,6 +341,9 @@ transfer-mainnet:
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
 
+	# Transfer EURC ownership
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
 
@@ -342,6 +359,7 @@ transfer-mainnet:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts --signer deployer
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts --signer deployer
 
 	# Configure credit messaging
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts --signer deployer
@@ -355,6 +373,7 @@ transfer-mainnet:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
+	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 
 	# Configure treasurer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --signer deployer
@@ -375,3 +394,54 @@ transfer-mainnet:
 # make transfer-mainnet
 # make configure-mainnet
 mainnet: deploy-mainnet preconfigure-mainnet transfer-mainnet configure-mainnet
+
+
+# Check configuration targets
+network ?= mainnet
+ifeq ($(network),mainnet)
+    CONFIG_BASE_PATH=./devtools/config/mainnet/01
+else
+    CONFIG_BASE_PATH=./devtools/config/testnet
+endif
+
+check-assets:
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.eth.config.ts
+ifeq ($(network),mainnet)
+	# only check meth and metis on mainnet
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.meth.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.metis.config.ts
+endif
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.usdc.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.usdt.config.ts
+	$(HARDHAT) stg:check::asset --oapp-config $(CONFIG_BASE_PATH)/asset.eurc.config.ts
+
+check-feelibs:
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts
+ifeq ($(network),mainnet)
+	# only check meth and metis on mainnet
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.meth.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.metis.config.ts
+endif
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdc.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts
+	$(HARDHAT) stg:check::feelib-v1 --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts
+
+check-treasurer:
+	$(HARDHAT) stg:check::treasurer --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts
+
+check-staking:
+	$(HARDHAT) stg:check::staking --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts
+
+check-rewarder:
+	$(HARDHAT) stg:check::rewarder --oapp-config $(CONFIG_BASE_PATH)/rewarder.config.ts
+
+check-oft-wrapper:
+ifeq ($(network),mainnet)
+	$(HARDHAT) stg:check::oft-wrapper --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts
+endif
+
+check-token-messaging:
+	$(HARDHAT) stg:check::token-messaging --oapp-config $(CONFIG_BASE_PATH)/token-messaging.config.ts
+
+check-credit-messaging:
+	$(HARDHAT) stg:check::credit-messaging --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts
