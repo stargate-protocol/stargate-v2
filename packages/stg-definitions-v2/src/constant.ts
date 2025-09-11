@@ -997,9 +997,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
-                address: '0x15F8c62B1f6DcaEE4805F60539F254dd4fa78AE4',
+                address: '0x94DaD7d9f37C815Eb4dDC611E6460CC5F6617fA0',
                 type: StargateType.Oft,
             },
+
             //
             // TESTNET
             //
