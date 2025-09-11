@@ -22,9 +22,9 @@
   "resolutions": {
     "@layerzerolabs/devtools": "~2.0.1",
     "@layerzerolabs/io-devtools": "~0.3.0",
-    "@layerzerolabs/lz-definitions": "~3.0.125",
-    "@layerzerolabs/lz-evm-sdk-v2": "3.0.125",
-    "@layerzerolabs/lz-v2-utilities": "~3.0.125",
+    "@layerzerolabs/lz-definitions": "~3.0.128",
+    "@layerzerolabs/lz-evm-sdk-v2": "3.0.128",
+    "@layerzerolabs/lz-v2-utilities": "~3.0.128",
     "es5-ext": "https://github.com/LayerZero-Labs/es5-ext"
   },
   "devDependencies": {
