@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 4.0.1
+
+### Patch Changes
+
+- 50a0da2: Added EURC mesh
+- d5b0b2e: Added Plasma mainnet config
+- Updated dependencies [50a0da2]
+- Updated dependencies [d5b0b2e]
+- Updated dependencies [175ec1e]
+  - @stargatefinance/stg-definitions-v2@4.0.1
+
 ## 4.0.0
 
 ### Major Changes
