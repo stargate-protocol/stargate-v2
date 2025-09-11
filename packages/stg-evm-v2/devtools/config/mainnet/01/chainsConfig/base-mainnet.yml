@@ -7,17 +7,24 @@ tokens:
     type: native
   usdc:
     type: pool
+  eurc:
+    type: pool
 rewarder:
   tokens:
     stg:
       allocation:
         eth: 6500
         usdc: 3500
+    eurc:
+      allocation:
+        eurc: 1
 staking:
   tokens:
     eth: true
     usdc: true
+    eurc: true
 treasurer:
   tokens:
     eth: true
     usdc: true
+    eurc: true
