@@ -58,6 +58,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.ORDERLY_V2_MAINNET]: '0x6a4c9096f162f0ab3c0517b0a40dc1ce44785e16',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
+        [EndpointId.PLASMA_V2_MAINNET]: '0xa51ce237fafa3052d5d3308df38a024724bb1274',
         [EndpointId.PLUME_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x882a1ee8891c7d22310dedf032ef9653785532b8',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
@@ -139,6 +140,7 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xfe6507f094155cabb4784403cd784c2df04122dd',
         [EndpointId.ORDERLY_V2_MAINNET]: '0xd074b6bbcbec2f2b4c4265de3d95e521f82bf669',
         [EndpointId.PEAQ_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
+        [EndpointId.PLASMA_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.PLUME_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.POLYGON_V2_MAINNET]: '0xc79f0b1bcb7cdae9f9ba547dcfc57cbfcd2993a5',
@@ -207,6 +209,7 @@ export const EXECUTORS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.ORDERLY_V2_MAINNET]: '0x1aCe9DD1BC743aD036eF2D92Af42Ca70A1159df5',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.PLASMA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.PLUME_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
@@ -382,6 +385,12 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.PEAQ_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
+
+            [EndpointId.PLASMA_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -1053,6 +1062,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.ORDERLY_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
+        [EndpointId.PLASMA_V2_MAINNET]: {},
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
@@ -2598,6 +2608,23 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
                 },
             },
+        },
+    },
+    [EndpointId.PLASMA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET], DVNS.STG[EndpointId.PLASMA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET], DVNS.STG[EndpointId.PLASMA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.1').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x9fffeba0564f5a521428c20ac601c2dba4b2e67f', // todo double check on the spreadsheet
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/plasma`,
         },
     },
     [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
