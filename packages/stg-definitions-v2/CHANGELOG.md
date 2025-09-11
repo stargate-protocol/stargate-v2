@@ -1,5 +1,13 @@
 # @stargatefinance/stg-definitions-v2
 
+## 4.0.1
+
+### Patch Changes
+
+- 50a0da2: Added EURC mesh
+- d5b0b2e: Added Plasma mainnet config
+- 175ec1e: Increase somnia credit messaging gas limit by 1 million
+
 ## 4.0.0
 
 ### Major Changes
