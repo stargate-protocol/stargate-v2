@@ -563,6 +563,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.PLUME_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'plasma-mainnet': {
+        eid: EndpointId.PLASMA_V2_MAINNET,
+        url: process.env.RPC_URL_PLASMA_MAINNET || 'https://rpc.plasma.to',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.PLASMA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'plumephoenix-mainnet': {
         eid: EndpointId.PLUMEPHOENIX_V2_MAINNET,
         url: process.env.RPC_URL_PLUMEPHOENIX_MAINNET || 'https://rpc.plume.org',
