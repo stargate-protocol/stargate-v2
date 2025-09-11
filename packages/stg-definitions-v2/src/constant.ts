@@ -79,7 +79,6 @@ export const DVNS = {
         [EndpointId.XCHAIN_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.XDC_V2_MAINNET]: '0x1294e3347ec64fd63e1d0594dc1294247cd237c7',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xDd7B5E1dB4AaFd5C8EC3b764eFB8ed265Aa5445B',
-        // [EndpointId.ZKSYNC_V2_MAINNET]: '0xb183c2b91cf76cAd13602b32ADa2Fd273f19009C',
     } satisfies Partial<Record<EndpointId, string>>,
     LZ_LABS: {
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x2f55C492897526677C5B68fb199ea31E2c126416',
@@ -98,7 +97,6 @@ export const DVNS = {
         [EndpointId.RARIBLE_V2_MAINNET]: '0x0b5E5452d0c9DA1Bb5fB0664F48313e9667d7820',
         [EndpointId.SCROLL_V2_MAINNET]: '0xbe0d08a85EeBFCC6eDA0A843521f7CBB1180D2e2',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x129Ee430Cb2Ff2708CCADDBDb408a88Fe4FFd480',
-        // [EndpointId.ZKSYNC_V2_MAINNET]: '0x620A9DF73D2F1015eA75aea1067227F9013f5C51',
     } satisfies Partial<Record<EndpointId, string>>,
     STG: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0xcec9f0a49073ac4a1c439d06cb9448512389a64e',
@@ -161,7 +159,6 @@ export const DVNS = {
         [EndpointId.XCHAIN_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.XDC_V2_MAINNET]: '0x4fe90e0f2a99e464d6e97b161d72101cd03c20fe',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xef269bbadb81de86e4b3278fa1dae1723545268b',
-        // [EndpointId.ZKSYNC_V2_MAINNET]: '0x62aa89bad332788021f6f4f4fb196d5fe59c27a6',
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
@@ -230,7 +227,6 @@ export const EXECUTORS = {
         [EndpointId.XCHAIN_V2_MAINNET]: '0x0000000000000000000000000000000000000000',
         [EndpointId.XDC_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x0408804C5dcD9796F22558464E6fE5bDdF16A7c7',
-        // [EndpointId.ZKSYNC_V2_MAINNET]: '0x664e390e672A811c12091db8426cBb7d68D5D8A6',
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
@@ -1083,7 +1079,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.XDC_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
         [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
-        [EndpointId.ZKSYNC_V2_MAINNET]: {},
 
         //
         // TESTNET
@@ -3097,16 +3092,6 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x5D3917b47E963eC703eD66Da6637C701365fF500',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zkpolygon`,
-        },
-    },
-    [EndpointId.ZKSYNC_V2_MAINNET]: {
-        oneSigConfig: {
-            oneSigAddress: '0x82fb702e0cbbd87fd1a046858c4a56dbaa63b2c4',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/zksync`,
-        },
-        safeConfig: {
-            safeAddress: '0x026756AB43866eCd92289663E91CCa8afb20414B',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zksync`,
         },
     },
 

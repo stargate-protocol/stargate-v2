@@ -709,16 +709,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'zksync-mainnet': {
-        eid: EndpointId.ZKSYNC_V2_MAINNET,
-        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://mainnet.era.zksync.io',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.ZKSYNC_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        zksync: true,
-        ethNetwork: 'ethereum-mainnet',
-    },
 }
 
 // We'll connect V1 deployments so that we can access them when deploying e.g. zapper
