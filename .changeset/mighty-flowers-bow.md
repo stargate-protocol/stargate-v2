@@ -1,6 +1,6 @@
 ---
-"@stargatefinance/stg-definitions-v2": patch
-"@stargatefinance/stg-evm-v2": patch
+"@stargatefinance/stg-definitions-v2": major
+"@stargatefinance/stg-evm-v2": major
 ---
 
-Removed all references to deprecated chains
+Removed all references to deprecated chains (XChain, CronosZKEVM, Codex, Ebi, Plume, ZKSync)
