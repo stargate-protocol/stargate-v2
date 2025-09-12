@@ -266,14 +266,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'codex-mainnet': {
-        eid: EndpointId.CODEX_V2_MAINNET,
-        url: process.env.RPC_URL_CODEX_MAINNET || 'https://rpc.codex.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.CODEX_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.CODEX_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
@@ -289,16 +281,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'cronoszkevm-mainnet': {
-        eid: EndpointId.CRONOSZKEVM_V2_MAINNET,
-        url: process.env.RPC_URL_CRONOSZKEVM_MAINNET || 'https://mainnet.zkevm.cronos.org',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.CRONOSZKEVM_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        zksync: true,
-        ethNetwork: 'ethereum-mainnet',
     },
     'degen-mainnet': {
         eid: EndpointId.DEGEN_V2_MAINNET,
@@ -555,14 +537,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.PEAQ_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'plume-mainnet': {
-        eid: EndpointId.PLUME_V2_MAINNET,
-        url: process.env.RPC_URL_PLUME_MAINNET || 'https://rpc.plumenetwork.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.PLUME_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.PLUME_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'plasma-mainnet': {
         eid: EndpointId.PLASMA_V2_MAINNET,
         url: process.env.RPC_URL_PLASMA_MAINNET || 'https://rpc.plasma.to',
@@ -711,14 +685,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.UNICHAIN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'xchain-mainnet': {
-        eid: EndpointId.XCHAIN_V2_MAINNET,
-        url: process.env.RPC_URL_XCHAIN_MAINNET || 'https://xchain-rpc.idex.io/',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.XCHAIN_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.XCHAIN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'xdc-mainnet': {
         eid: EndpointId.XDC_V2_MAINNET,
         url: process.env.RPC_URL_XDC_MAINNET || 'https://rpc.xdc.org',
@@ -742,16 +708,6 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'zksync-mainnet': {
-        eid: EndpointId.ZKSYNC_V2_MAINNET,
-        url: process.env.RPC_URL_ZKSYNC_MAINNET || 'https://mainnet.era.zksync.io',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ZKSYNC_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.ZKSYNC_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        zksync: true,
-        ethNetwork: 'ethereum-mainnet',
     },
 }
 

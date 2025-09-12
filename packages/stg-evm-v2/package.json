@@ -52,7 +52,7 @@
     "compile:forge": "forge build",
     "compile:hardhat": "$npm_execpath hardhat compile",
     "compile:hardhat:evm": "$npm_execpath hardhat compile",
-    "compile:hardhat:zksync": "$npm_execpath hardhat compile --network zksync-mainnet",
+    "compile:hardhat:zksync": "$npm_execpath hardhat compile --network abstract-mainnet",
     "coverage:forge": "forge coverage --no-match-path ./test/invariant/StargateInvariantTest.t.sol --report lcov",
     "forge": "forge",
     "format-sol": "prettier --no-error-on-unmatched-pattern --ignore-unknown -w ./src/**/*.sol",
