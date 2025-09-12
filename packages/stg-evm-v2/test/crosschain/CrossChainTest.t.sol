@@ -346,7 +346,7 @@ contract CrossChainTest is Test, StargateTestHelper {
         StargateFixture memory fixturePoolBinanceUSDT = stargateFixtures[eidBinance][assetUSDT];
         StargateFixture memory fixtureOFTPolygonETH = stargateFixtures[eidPolygon][assetETH];
         StargateFixture memory fixtureOFTPolygonUSDT = stargateFixtures[eidPolygon][assetUSDT];
-        // mint add add liquidity
+        // mint add liquidity
         mintAndAddLiquidity(ALICE, fixturePoolEthereumETH.stargate, amountLD);
         mintAndAddLiquidity(ALICE, fixturePoolEthereumUSDT.stargate, amountLD);
         mintAndAddLiquidity(ALICE, fixturePoolBinanceETH.stargate, amountLD);
