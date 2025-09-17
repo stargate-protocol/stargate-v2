@@ -695,7 +695,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x00', // todo
+                address: '0x8a2B28364102Bea189D99A475C494330Ef2bDD0B',
             },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
@@ -2527,7 +2527,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         oneSigConfig: {
-            oneSigAddress: '0x9fffeba0564f5a521428c20ac601c2dba4b2e67f', // todo double check on the spreadsheet
+            oneSigAddress: '0x9fffeba0564f5a521428c20ac601c2dba4b2e67f',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/plasma`,
         },
     },
