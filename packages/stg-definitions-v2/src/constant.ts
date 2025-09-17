@@ -21,6 +21,7 @@ export const DVNS = {
     NETHERMIND: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0xc4a1f52fda034a9a5e1b3b27d14451d15776fef6',
         [EndpointId.APE_V2_MAINNET]: '0x07653d28b0f53d4c54b70eb1f9025795b23a9d6e',
+        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.AURORA_V2_MAINNET]: '0x34730f2570e6cff8b1c91faabf37d0dd917c4367',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
@@ -95,6 +96,7 @@ export const DVNS = {
     STG: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0xcec9f0a49073ac4a1c439d06cb9448512389a64e',
         [EndpointId.APE_V2_MAINNET]: '0x794c0b0071d4a926c443468f027912e693678151',
+        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x313328609a9c38459cae56625fff7f2ad6dcde3b',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x5756a74e8e18d8392605ba667171962b2b2826b5',
         [EndpointId.AURORA_V2_MAINNET]: '0xe11c808bc6099abc9be566c9017aa2ab0f131d35',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x252b234545e154543ad2784c7111eb90406be836',
@@ -158,6 +160,7 @@ export const EXECUTORS = {
     LZ_LABS: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0x643E1471f37c4680Df30cF0C540Cd379a0fF58A5',
         [EndpointId.APE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
+        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x31CAe3B7fB82d847621859fb1585353c5720660D',
         [EndpointId.AURORA_V2_MAINNET]: '0xA2b402FFE8dd7460a8b425644B6B9f50667f0A61',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
@@ -690,6 +693,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
+            [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x00', // todo
+            },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
                 type: StargateType.Pool,
@@ -1019,6 +1026,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         //
         [EndpointId.ABSTRACT_V2_MAINNET]: {},
         [EndpointId.APE_V2_MAINNET]: {},
+        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: {},
         [EndpointId.ARBITRUM_V2_MAINNET]: {},
         [EndpointId.ASTAR_V2_MAINNET]: {},
         [EndpointId.AURORA_V2_MAINNET]: {},
@@ -1387,6 +1395,29 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
                 },
             },
+        },
+    },
+    [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                DVNS.STG[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                DVNS.STG[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+            nativeDropAmount: parseEther('0.001').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x23d1ffcc206ec043c64591da89f9696748698ce8',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/apexfusionnexus`,
         },
     },
     [EndpointId.ARBITRUM_V2_MAINNET]: {
