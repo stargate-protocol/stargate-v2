@@ -2439,7 +2439,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         oneSigConfig: {
-            oneSigAddress: '0x23d1ffcc206ec043c64591da89f9696748698ce8',
+            oneSigAddress: '0x4731ca7d2c06a4b9a615d5ffe0d7a462001acdeb',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/og`,
         },
     },
