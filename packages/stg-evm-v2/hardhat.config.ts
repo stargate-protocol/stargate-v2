@@ -831,6 +831,10 @@ const getRpcUrl = (chainName: string): string | null => {
             return null
     }
 
+    if (chainRawName === 'apexfusionnexus') {
+        chainRawName = 'ap3x'
+    }
+
     const url = templateUrl?.replace('CHAIN', chainRawName) ?? null
     return url
 }
