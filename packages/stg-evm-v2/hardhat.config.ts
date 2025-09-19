@@ -512,6 +512,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.NIBIRU_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'og-mainnet': {
+        eid: EndpointId.OG_V2_MAINNET,
+        url: process.env.RPC_URL_OG_MAINNET || 'https://evmrpc.0g.ai',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.OG_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'opbnb-mainnet': {
         eid: EndpointId.OPBNB_V2_MAINNET,
         url: process.env.RPC_URL_OPBNB_MAINNET || 'https://opbnb-mainnet-rpc.bnbchain.org',
