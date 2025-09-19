@@ -592,7 +592,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.OG_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x00000', // todo
+                address: '0x9FBBAFC2Ad79af2b57eD23C60DfF79eF5c2b0FB5',
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 type: StargateType.Pool,
