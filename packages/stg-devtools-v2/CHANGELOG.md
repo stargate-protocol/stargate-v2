@@ -1,5 +1,20 @@
 # @stargatefinance/stg-devtools-v2
 
+## 7.0.0
+
+### Patch Changes
+
+- 4470c74: Plasma mainnet deployment
+- Updated dependencies [50a0da2]
+- Updated dependencies [67e21d9]
+- Updated dependencies [d5b0b2e]
+- Updated dependencies [175ec1e]
+- Updated dependencies [0047bbc]
+- Updated dependencies [4470c74]
+- Updated dependencies [e72e193]
+- Updated dependencies [dba67b5]
+  - @stargatefinance/stg-definitions-v2@5.0.0
+
 ## 6.0.0
 
 ### Major Changes

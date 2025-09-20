@@ -1,5 +1,21 @@
 # @stargatefinance/stg-definitions-v2
 
+## 5.0.0
+
+### Major Changes
+
+- 0047bbc: Removed all references to deprecated chains (XChain, CronosZKEVM, Codex, Ebi, Plume, ZKSync)
+
+### Patch Changes
+
+- 50a0da2: Added EURC mesh
+- 67e21d9: Setting plasma native drop to 0
+- d5b0b2e: Added Plasma mainnet config
+- 175ec1e: Increase somnia credit messaging gas limit by 1 million
+- 4470c74: Plasma mainnet deployment
+- e72e193: Added Apex Fusion Nexus mainnet config
+- dba67b5: Added og mainnet config
+
 ## 4.0.0
 
 ### Major Changes

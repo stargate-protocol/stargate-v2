@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.18
+
+### Patch Changes
+
+- 4470c74: Plasma mainnet deployment
+
 ## 1.1.17
 
 ### Patch Changes
