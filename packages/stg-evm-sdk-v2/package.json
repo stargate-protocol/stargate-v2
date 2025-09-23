@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-evm-sdk-v2",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "BUSL-1.1",
   "exports": {
     ".": {
@@ -54,7 +54,7 @@
     "@layerzerolabs/tsup-config-next": "~3.0.7",
     "@layerzerolabs/typescript-config-next": "~3.0.7",
     "@openzeppelin/contracts": "^4.8.1",
-    "@stargatefinance/stg-evm-v2": "~4.0.0",
+    "@stargatefinance/stg-evm-v2": "~5.0.0",
     "@typechain/ethers-v5": "^10.2.0",
     "@types/node": "^18.15.11",
     "dotenv": "^16.4.5",
