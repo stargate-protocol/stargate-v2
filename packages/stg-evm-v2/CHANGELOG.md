@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-v2
 
+## 5.0.1
+
+### Patch Changes
+
+- 518ed22: Added 0g mainnet deployment
+
 ## 5.0.0
 
 ### Major Changes
