@@ -193,6 +193,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.APE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'apexfusionnexus-mainnet': {
+        eid: EndpointId.APEXFUSIONNEXUS_V2_MAINNET,
+        url: process.env.RPC_URL_APEXFUSIONNEXUS_MAINNET || 'https://rpc.nexus.mainnet.apexfusion.org',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.APEXFUSIONNEXUS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'arbitrum-mainnet': {
         eid: EndpointId.ARBITRUM_V2_MAINNET,
         url: process.env.RPC_URL_ARBITRUM_MAINNET || 'https://arb1.arbitrum.io/rpc',
@@ -503,6 +510,13 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.NIBIRU_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.NIBIRU_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'og-mainnet': {
+        eid: EndpointId.OG_V2_MAINNET,
+        url: process.env.RPC_URL_OG_MAINNET || 'https://evmrpc.0g.ai',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.OG_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'opbnb-mainnet': {

@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.2.1
+
+### Patch Changes
+
+- 4470c74: Plasma mainnet deployment
+
 ## 1.2.0
 
 ### Minor Changes

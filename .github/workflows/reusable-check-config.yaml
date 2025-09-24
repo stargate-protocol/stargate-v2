@@ -102,6 +102,7 @@ jobs:
     needs: generate-matrix
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 10 # 👈 cap fan-out to 10 at a time
       matrix:
         chain: ${{ fromJson(needs.generate-matrix.outputs.chains) }}
     steps:
@@ -119,6 +120,7 @@ jobs:
     needs: generate-matrix
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 10 # 👈 cap fan-out to 10 at a time
       matrix:
         chain: ${{ fromJson(needs.generate-matrix.outputs.chains) }}
     steps:

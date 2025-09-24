@@ -1,5 +1,35 @@
 # @stargatefinance/stg-evm-v2
 
+## 5.0.1
+
+### Patch Changes
+
+- 518ed22: Added 0g mainnet deployment
+
+## 5.0.0
+
+### Major Changes
+
+- 0047bbc: Removed all references to deprecated chains (XChain, CronosZKEVM, Codex, Ebi, Plume, ZKSync)
+
+### Patch Changes
+
+- 50a0da2: Added EURC mesh
+- d5b0b2e: Added Plasma mainnet config
+- b2590f0: Added apex fusion nexus
+- 4470c74: Plasma mainnet deployment
+- e72e193: Added Apex Fusion Nexus mainnet config
+- dba67b5: Added og mainnet config
+- Updated dependencies [50a0da2]
+- Updated dependencies [67e21d9]
+- Updated dependencies [d5b0b2e]
+- Updated dependencies [175ec1e]
+- Updated dependencies [0047bbc]
+- Updated dependencies [4470c74]
+- Updated dependencies [e72e193]
+- Updated dependencies [dba67b5]
+  - @stargatefinance/stg-definitions-v2@5.0.0
+
 ## 4.0.0
 
 ### Major Changes
