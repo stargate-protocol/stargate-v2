@@ -2558,7 +2558,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET], DVNS.STG[EndpointId.PLASMA_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(),
+            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x9fffeba0564f5a521428c20ac601c2dba4b2e67f',
