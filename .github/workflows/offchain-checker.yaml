@@ -1,0 +1,38 @@
+name: Offchain Checker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Run stg-evm-sdk-v2 validation
+    runs-on: ubuntu-latest
+    env:
+      RPC_URL_MAINNET: ${{ secrets.RPC_URL_MAINNET }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.14.0
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build repository
+        run: pnpm run build
+
+      - name: Run offchain validation
+        working-directory: packages/stg-evm-sdk-v2
+        run: pnpm run validate
