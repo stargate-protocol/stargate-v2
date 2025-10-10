@@ -116,7 +116,9 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
 
         // partner fee and protocol fee
         _validateFee(partnerFee.bps, operationParams.amountToSend, operationParams.partnerFee);
-        _validateFee(defaultBPS, operationParams.amountToSend, operationParams.protocolFee);
+        uint256 protocolBPS = specificBPS[operationParams.token];
+        if (protocolBPS == 0) protocolBPS = defaultBPS;
+        _validateFee(protocolBPS, operationParams.amountToSend, operationParams.protocolFee);
 
         // accumulate the partner and protocol fees
         accruedFees[partnerFee.partnerId][operationParams.token] += operationParams.partnerFee;
