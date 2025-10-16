@@ -1,4 +1,6 @@
 name: Offchain Checker
+permissions:
+  contents: read
 
 on:
   workflow_dispatch:
