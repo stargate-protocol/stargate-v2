@@ -746,7 +746,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.CAMP_V2_MAINNET]: {
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x8a2b28364102bea189d99a475c494330ef2bdd0b',
                 type: StargateType.Oft,
             },
             [EndpointId.COREDAO_V2_MAINNET]: {
