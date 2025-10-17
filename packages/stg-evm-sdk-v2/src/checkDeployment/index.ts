@@ -115,12 +115,12 @@ const main = async () => {
     console.log('\n\n')
 
     if (Object.keys(errorsOnlyObject).length) {
-        console.log(JSON.stringify(errorsOnlyObject, null, 2))
-        console.log(
+        console.error(
             '⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ Errors found in deployment state ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️'
         )
+        console.error(`${JSON.stringify(errorsOnlyObject, null, 2)}`)
 
-        return
+        process.exit(1)
     }
 
     console.log(
