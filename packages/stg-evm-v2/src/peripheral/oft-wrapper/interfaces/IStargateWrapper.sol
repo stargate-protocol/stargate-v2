@@ -22,7 +22,7 @@ interface IStargateWrapper {
         address token;
     }
 
-    struct GasOperationParams {
+    struct OperationFeeParams {
         uint256 amount;
         address ctrAddress;
         address token;
@@ -48,7 +48,7 @@ interface IStargateWrapper {
     ///                      EVENTS
     /// ===============================================
     event PartnerSet(uint256 partnerId, address withdrawAddress);
-    event PartnerAccruedFeesWithdrawn(uint256 partnerId, address oft, address receiver, uint256 accruedFees);
+    event PartnerFeesWithdrawn(uint256 partnerId, address oft, address receiver, uint256 accruedFees);
     event PartnerPaused(uint256 partnerId);
 
     event OperationSent(address from, uint256 indexed partnerId, address indexed to, uint256 amount);
@@ -57,8 +57,8 @@ interface IStargateWrapper {
         address indexed feeToken,
         uint256 partnerFee,
         uint256 protocolFee,
-        address indexed gasToken,
-        uint256 gasFee
+        address indexed opFeeToken,
+        uint256 opFee
     );
 
     // admin functions
@@ -67,13 +67,13 @@ interface IStargateWrapper {
     function sweep(address receiver, address[] calldata tokens) external;
 
     // partner functions
-    function withdrawPartnerAccruedFees(uint256 partnerId, address oft, address receiver) external;
+    function withdrawPartnerFees(uint256 partnerId, address token, uint256 amount) external;
 
     // send functions
     function send(
         uint256 partnerId,
         OperationParams calldata operationParams,
-        GasOperationParams calldata gasOperationParams,
+        OperationFeeParams calldata operationFeeParams,
         Call calldata call,
         bytes calldata signature
     ) external payable;

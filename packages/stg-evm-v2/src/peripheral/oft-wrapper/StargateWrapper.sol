@@ -17,9 +17,6 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
     // Partners
     mapping(uint256 partnerId => Partner partner) public partners;
 
-    // @dev partnerId = 0 will be used for the protocol fees
-    mapping(uint256 partnerId => mapping(address oft => uint256 bps)) public accruedFees;
-
     constructor(address owner_) {
         _transferOwnership(owner_);
     }
@@ -47,26 +44,25 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
 
     /**
      * ! TBD
-     * !  - Should the partner be able to withdraw their fees?
-     * !  - Should the withdrawn fees for paused partner?
-     * !  - should allow withdrawing a specific amount of fees?
-     * !  - Should the partner be able to withdraw the fees to a specific address?
+     * !  - Should be possible to withdraw fees for paused partner?
+     * !  - Should the partner address be stated on chain or be an input parameter?
      * @param partnerId The ID of the partner
+     * @param token The token to withdraw the fees
+     * @param amount The amount of fees to withdraw
      * @dev only the owner can withdraw the fees
      */
-
-    function withdrawPartnerAccruedFees(
+    function withdrawPartnerFees(
         uint256 partnerId,
-        address oft
+        address token,
+        uint256 amount
     ) external onlyActivePartner(partnerId) onlyOwner {
-        uint256 accruedBps = accruedFees[partnerId][oft];
+        if (amount == 0) return;
 
-        if (accruedBps == 0) return;
+        address receiver = partners[partnerId].partnerAddress;
+        if (receiver == address(0)) revert InvalidZeroAddress();
 
-        accruedFees[partnerId][oft] = 0;
-        IERC20(oft).safeTransfer(partners[partnerId].partnerAddress, accruedBps);
-
-        emit PartnerAccruedFeesWithdrawn(partnerId, oft, partners[partnerId].partnerAddress, accruedBps);
+        emit PartnerFeesWithdrawn(partnerId, token, receiver, amount);
+        IERC20(token).safeTransfer(receiver, amount);
     }
 
     function sweep(address receiver, address[] calldata tokens) external onlyOwner {
@@ -88,63 +84,62 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
     function send(
         uint256 partnerId,
         OperationParams calldata operationParams,
-        GasOperationParams calldata gasOperationParams,
+        OperationFeeParams calldata operationFeeParams,
         Call calldata call,
         bytes calldata signature
     ) external payable nonReentrant onlyActivePartner(partnerId) {
         // validations
         bool opInNative = operationParams.token == address(0);
-        bool gasOpInNative = gasOperationParams.token == address(0);
+        bool opFeeInNative = operationFeeParams.token == address(0);
 
         // todo the payload should be all received params encoded together, do any adjustments needed
         _validateSignature(
-            abi.encode(address(this), block.chainid, partnerId, operationParams, gasOperationParams, call),
+            abi.encode(address(this), block.chainid, partnerId, operationParams, operationFeeParams, call),
             signature
         );
         _validateOperationParams(operationParams);
         _validateCall(call);
         _validateMsgValue(
             opInNative,
-            gasOpInNative,
+            opFeeInNative,
             operationParams.totalAmount,
-            gasOperationParams.amount,
+            operationFeeParams.amount,
             call.value
         );
 
-        // accumulate the protocol and partner fees
-        accruedFees[partnerId][operationParams.token] += operationParams.partnerFee;
-        accruedFees[0][operationParams.token] += operationParams.protocolFee;
-
-        // get funds from user to do the operation
-        if (!opInNative) {
-            IERC20(operationParams.token).safeTransferFrom(msg.sender, address(this), operationParams.totalAmount);
-
-            // approve the contracts to spend the funds
-            IERC20(operationParams.token).safeApprove(operationParams.ctrAddress, operationParams.amountToSend);
-        }
-
-        if (!gasOpInNative) {
-            IERC20(gasOperationParams.token).safeTransferFrom(msg.sender, address(this), gasOperationParams.amount);
-
-            // approve the contracts to spend the funds
-            IERC20(gasOperationParams.token).safeApprove(gasOperationParams.ctrAddress, gasOperationParams.amount);
-        }
-
-        // do the wrapped operation
-        (bool success, bytes memory result) = call.to.call{ value: call.value }(call.data);
-        if (!success) revert OperationFailed(string(result));
-
-        // emit the events
-        // todo check any other value that should be emitted
-        emit OperationSent(msg.sender, partnerId, call.to, operationParams.amountToSend);
+        // emit the fees for the operation to accumulate the values offchain
         emit WrapperFees(
             partnerId,
             operationParams.token,
             operationParams.partnerFee,
             operationParams.protocolFee,
-            gasOperationParams.token,
-            gasOperationParams.amount
+            operationFeeParams.token,
+            operationFeeParams.amount
         );
+
+        // get funds from user to do the operation
+        uint256 callValue = call.value;
+        if (!opInNative) {
+            IERC20(operationParams.token).safeTransferFrom(msg.sender, address(this), operationParams.totalAmount);
+
+            // approve the contracts to spend the funds
+            IERC20(operationParams.token).safeApprove(operationParams.ctrAddress, operationParams.amountToSend);
+        } else callValue += operationParams.totalAmount;
+
+        if (!opFeeInNative) {
+            IERC20(operationFeeParams.token).safeTransferFrom(msg.sender, address(this), operationFeeParams.amount);
+
+            // approve the contracts to spend the funds
+            IERC20(operationFeeParams.token).safeApprove(operationFeeParams.ctrAddress, operationFeeParams.amount);
+        } else callValue += operationFeeParams.amount;
+
+        // do the wrapped operation
+        (bool success, bytes memory result) = call.to.call{ value: callValue }(call.data);
+        if (!success) revert OperationFailed(string(result));
+
+        // emit the events
+        // todo check any other value that should be emitted
+        emit OperationSent(msg.sender, partnerId, call.to, operationParams.amountToSend);
     }
 
     function _validateCall(Call calldata call) internal view {
@@ -153,14 +148,14 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
 
     function _validateMsgValue(
         bool opInNative,
-        bool gasOpInNative,
+        bool opFeeInNative,
         uint256 opTotalAmount,
-        uint256 gasOpAmount,
+        uint256 opFeeAmount,
         uint256 callValue
     ) internal view {
         uint256 expectedValue = callValue;
         if (opInNative) expectedValue += opTotalAmount;
-        if (gasOpInNative) expectedValue += gasOpAmount;
+        if (opFeeInNative) expectedValue += opFeeAmount;
 
         if (msg.value < expectedValue) revert InvalidMsgValue(msg.value, expectedValue);
     }
@@ -184,6 +179,4 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
                 operationParams.partnerFee
             );
     }
-
-    function withdrawPartnerAccruedFees(uint256 partnerId, address oft, address receiver) external override {}
 }
