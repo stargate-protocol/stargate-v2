@@ -74,12 +74,10 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
     // Send
     /**
      * @dev only active partners can send operations
-     * ! TODO
-     * ! - Check the gas and operation params are enough to cover all operation costs
-     * !         - CCTP fees - cctp fees + protocol fees + partner fees + the autoclaim fees must be paid
-     * !         - Ask multihop particularities.
+     * ! TBD
      * ! - This assumes the protocol and partner fees are paid in the same operation token, explore the possibility of having different tokens for each fee.
-     * ! - Check if there is any missing validations.
+     * ! - I'm decreasing the allowance after the operation call, due to I'm assuming it would be consumed atomically, could there be a case when it's not?
+     * ! - Extra fees should be paid instantly or just approved? Check how LZ handles this to pay for the message auto delivery by the executor.
      */
     /**
      * @dev send the operation to the target contract
