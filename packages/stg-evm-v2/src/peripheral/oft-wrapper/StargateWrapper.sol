@@ -81,117 +81,118 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
      * ! - This assumes the protocol and partner fees are paid in the same operation token, explore the possibility of having different tokens for each fee.
      * ! - Check if there is any missing validations.
      */
+    /**
+     * @dev send the operation to the target contract
+     * @param partnerId The ID of the partner
+     * @param operationData The operation data with the call, operation asset information, subsequent call forward token, and protocol and partner fees
+     * @param extraFeeParams The extra fee parameters, this is used to pay any extra fees needed (e.g. CCTP auto-claim fees)
+     * @param signature The signature of the operation
+     */
     function send(
         uint256 partnerId,
-        OperationParams calldata operationParams,
-        OperationFeeParams calldata operationFeeParams,
-        Call calldata call,
+        Operation calldata operationData,
+        ExtraFeeParams calldata extraFeeParams,
         bytes calldata signature
     ) external payable nonReentrant onlyActivePartner(partnerId) {
-        // validations
-        bool opInNative = operationParams.token == address(0);
-        bool opFeeInNative = operationFeeParams.token == address(0);
+        // FeeParams memory feeParams = operation.feeParams;
+        CallParams memory call = operationData.call;
+        Asset memory op = operationData.op;
+        FeeAmounts memory fees = operationData.fees;
+        Asset memory forward = operationData.forward;
 
+        // validations
         // todo the payload should be all received params encoded together, do any adjustments needed
         _validateSignature(
-            abi.encode(address(this), block.chainid, partnerId, operationParams, operationFeeParams, call),
+            abi.encode(address(this), block.chainid, partnerId, operationData, extraFeeParams),
             signature
         );
-        _validateOperationParams(operationParams);
-        _validateOperationFeeParams(operationFeeParams);
-        _validateCall(call);
-        _validateMsgValue(
-            opInNative,
-            opFeeInNative,
-            operationParams.totalAmount,
-            operationFeeParams.amount,
-            call.value
-        );
+        _validateCallParams(call);
+        _validateOperationForward(forward);
+        _validateMsgValue(op, fees, call.value);
+        _validateExtraFeeParams(extraFeeParams);
 
-        // emit the fees for the operation to accumulate the values offchain
-        emit WrapperFees(
-            partnerId,
-            operationParams.token,
-            operationParams.partnerFee,
-            operationParams.protocolFee,
-            operationFeeParams.token,
-            operationFeeParams.amount
-        );
+        // emit the fees for the operation to accumulate the values off-chain
+        emit FeesPaid(partnerId, op.token, fees.partnerFee, fees.protocolFee);
 
         // get funds from user to do the operation
         uint256 callValue = call.value;
-        if (!opInNative) {
-            IERC20(operationParams.token).safeTransferFrom(msg.sender, address(this), operationParams.totalAmount);
+        bool approveOpToken;
+
+        if (op.token != address(0)) {
+            uint256 totalAmount = op.amount + fees.protocolFee + fees.partnerFee;
+
+            // transfer operation amount to this
+            _receiveAsset(Asset(totalAmount, op.token));
 
             // approve the contracts to spend the funds
-            IERC20(operationParams.token).safeIncreaseAllowance(
-                operationParams.ctrAddress,
-                operationParams.amountToSend
-            );
-        } else callValue += operationParams.totalAmount;
-
-        if (!opFeeInNative) {
-            IERC20(operationFeeParams.token).safeTransferFrom(msg.sender, address(this), operationFeeParams.amount);
-
-            // approve the contracts to spend the funds
-            IERC20(operationFeeParams.token).safeIncreaseAllowance(
-                operationFeeParams.ctrAddress,
-                operationFeeParams.amount
-            );
+            approveOpToken = op.amount > 0;
+            if (approveOpToken) IERC20(op.token).safeIncreaseAllowance(call.target, op.amount);
         } else {
-            // todo have to sent the native tokens to the ctr
+            // add the operation amount to the call value if the operation token is native
+            callValue += op.amount;
+        }
+
+        bool approveForwardToken = forward.amount > 0;
+        if (approveForwardToken) {
+            // transfer operation forward amount to this
+
+            _receiveAsset(forward);
+
+            // approve the contracts to spend the funds for the target call
+            IERC20(forward.token).safeIncreaseAllowance(call.target, forward.amount);
+        }
+
+        // receive the extra fees if needed
+        if (extraFeeParams.ctrAddress != address(0)) {
+            if (extraFeeParams.asset.token != address(0)) _receiveAsset(extraFeeParams.asset);
+
+            // todo how deal with the tokens/ native to a contract address
+            // should they be transferred or just approved?
+            emit ExtraFeeReceived(extraFeeParams.ctrAddress, extraFeeParams.asset.token, extraFeeParams.asset.amount);
         }
 
         // do the wrapped operation
-        (bool success, bytes memory result) = call.to.call{ value: callValue }(call.data);
+        emit OperationSent(msg.sender, partnerId, call.target, op.amount);
+
+        (bool success, bytes memory result) = call.target.call{ value: callValue }(call.data);
         if (!success) revert OperationFailed(string(result));
 
-        // emit the events
-        // todo check any other value that should be emitted
-        emit OperationSent(msg.sender, partnerId, call.to, operationParams.amountToSend);
+        // revert allowance for the call target
+        if (approveOpToken) IERC20(op.token).safeApprove(call.target, 0);
+        if (approveForwardToken) IERC20(forward.token).safeApprove(call.target, 0);
     }
 
-    function _validateCall(Call calldata call) internal view {
-        if (call.to != address(this)) revert CallToSelf();
+    function _receiveAsset(Asset memory asset) internal {
+        IERC20(asset.token).safeTransferFrom(msg.sender, address(this), asset.amount);
     }
 
-    function _validateMsgValue(
-        bool opInNative,
-        bool opFeeInNative,
-        uint256 opTotalAmount,
-        uint256 opFeeAmount,
-        uint256 callValue
-    ) internal view {
+    function _validateCallParams(CallParams memory call) internal view {
+        if (call.target != address(this)) revert CallToSelf();
+    }
+
+    function _validateMsgValue(Asset memory op, FeeAmounts memory fees, uint256 callValue) internal view {
         uint256 expectedValue = callValue;
-        if (opInNative) expectedValue += opTotalAmount;
-        if (opFeeInNative) expectedValue += opFeeAmount;
+        if (op.token == address(0)) {
+            expectedValue += op.amount + fees.protocolFee + fees.partnerFee;
+        }
 
         if (msg.value < expectedValue) revert InvalidMsgValue(msg.value, expectedValue);
     }
 
-    function _validateSignature(bytes memory payload, bytes calldata signature) internal view {
+    function _validateSignature(bytes memory payload, bytes memory signature) internal view {
         if (ECDSA.recover(ECDSA.toEthSignedMessageHash(keccak256(payload)), signature) == externalSigner)
             revert InvalidSignature();
     }
 
-    function _validateOperationParams(OperationParams calldata operationParams) internal pure {
-        if (operationParams.ctrAddress == address(0)) revert InvalidOperationCtrAddress(operationParams.ctrAddress);
-        if (
-            operationParams.totalAmount ==
-            operationParams.amountToSend + operationParams.protocolFee + operationParams.partnerFee
-        )
-            revert InvalidOperationAmounts(
-                operationParams.totalAmount,
-                operationParams.amountToSend,
-                operationParams.protocolFee,
-                operationParams.partnerFee
-            );
+    function _validateOperationForward(Asset memory forward) internal pure {
+        if (forward.amount == 0) return;
+        // forward token must be set
+        if (forward.token == address(0)) revert InvalidOperationForwardToken(forward.token);
     }
 
-    function _validateOperationFeeParams(OperationFeeParams calldata operationFeeParams) internal pure {
-        if (operationFeeParams.amount == 0) return;
-        // if the amount is 0, the operation fee is not required
-        if (operationFeeParams.ctrAddress == address(0))
-            revert InvalidOperationFeeCtrAddress(operationFeeParams.ctrAddress);
+    function _validateExtraFeeParams(ExtraFeeParams calldata extraFeeParams) internal pure {
+        if (extraFeeParams.asset.amount == 0) return;
+        // extra fee contract address must be set
+        if (extraFeeParams.ctrAddress == address(0)) revert InvalidExtraFeeCtrAddress(extraFeeParams.ctrAddress);
     }
 }
