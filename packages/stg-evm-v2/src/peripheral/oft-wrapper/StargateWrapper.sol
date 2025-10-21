@@ -98,6 +98,7 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
             signature
         );
         _validateOperationParams(operationParams);
+        _validateOperationFeeParams(operationFeeParams);
         _validateCall(call);
         _validateMsgValue(
             opInNative,
@@ -123,15 +124,23 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
             IERC20(operationParams.token).safeTransferFrom(msg.sender, address(this), operationParams.totalAmount);
 
             // approve the contracts to spend the funds
-            IERC20(operationParams.token).safeApprove(operationParams.ctrAddress, operationParams.amountToSend);
+            IERC20(operationParams.token).safeIncreaseAllowance(
+                operationParams.ctrAddress,
+                operationParams.amountToSend
+            );
         } else callValue += operationParams.totalAmount;
 
         if (!opFeeInNative) {
             IERC20(operationFeeParams.token).safeTransferFrom(msg.sender, address(this), operationFeeParams.amount);
 
             // approve the contracts to spend the funds
-            IERC20(operationFeeParams.token).safeApprove(operationFeeParams.ctrAddress, operationFeeParams.amount);
-        } else callValue += operationFeeParams.amount;
+            IERC20(operationFeeParams.token).safeIncreaseAllowance(
+                operationFeeParams.ctrAddress,
+                operationFeeParams.amount
+            );
+        } else {
+            // todo have to sent the native tokens to the ctr
+        }
 
         // do the wrapped operation
         (bool success, bytes memory result) = call.to.call{ value: callValue }(call.data);
@@ -166,7 +175,6 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
     }
 
     function _validateOperationParams(OperationParams calldata operationParams) internal pure {
-        if (operationParams.token == address(0)) revert InvalidOperationToken(operationParams.token);
         if (operationParams.ctrAddress == address(0)) revert InvalidOperationCtrAddress(operationParams.ctrAddress);
         if (
             operationParams.totalAmount ==
@@ -178,5 +186,12 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
                 operationParams.protocolFee,
                 operationParams.partnerFee
             );
+    }
+
+    function _validateOperationFeeParams(OperationFeeParams calldata operationFeeParams) internal pure {
+        if (operationFeeParams.amount == 0) return;
+        // if the amount is 0, the operation fee is not required
+        if (operationFeeParams.ctrAddress == address(0))
+            revert InvalidOperationFeeCtrAddress(operationFeeParams.ctrAddress);
     }
 }

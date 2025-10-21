@@ -35,8 +35,8 @@ interface IStargateWrapper {
     error InvalidZeroPartnerId();
     error InvalidSignature();
     error InvalidOperationAmounts(uint256 total, uint256 amountToSend, uint256 protocolFee, uint256 partnerFee);
-    error InvalidOperationToken(address token);
     error InvalidOperationCtrAddress(address ctrAddress);
+    error InvalidOperationFeeCtrAddress(address ctrAddress);
     error InvalidMsgValue(uint256 msgValue, uint256 callValue);
 
     error PartnerNotActive(uint256 partnerId);
