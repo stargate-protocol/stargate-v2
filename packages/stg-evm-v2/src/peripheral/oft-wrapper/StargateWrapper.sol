@@ -94,11 +94,10 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
         ExtraFeeParams calldata extraFeeParams,
         bytes calldata signature
     ) external payable nonReentrant onlyActivePartner(partnerId) {
-        // FeeParams memory feeParams = operation.feeParams;
-        CallParams memory call = operationData.call;
-        Asset memory op = operationData.op;
-        FeeAmounts memory fees = operationData.fees;
-        Asset memory forward = operationData.forward;
+        CallParams calldata call = operationData.call;
+        Asset calldata op = operationData.op;
+        FeeAmounts calldata fees = operationData.fees;
+        Asset calldata fwd = operationData.forward;
 
         // validations
         // todo the payload should be all received params encoded together, do any adjustments needed
@@ -107,70 +106,92 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
             signature
         );
         _validateCallParams(call);
-        _validateOperationForward(forward);
+        _validateOperationForward(fwd);
         _validateMsgValue(op, fees, call.value);
         _validateExtraFeeParams(extraFeeParams);
 
         // emit the fees for the operation to accumulate the values off-chain
         emit FeesPaid(partnerId, op.token, fees.partnerFee, fees.protocolFee);
 
-        // get funds from user to do the operation
-        uint256 callValue = call.value;
-        bool approveOpToken;
+        // gather funds & compute approvals
+        address approveToken0; // op token (and maybe fwd merged)
+        uint256 approveAmt0;
+        address approveToken1; // second token if different
+        uint256 approveAmt1;
+
+        uint256 valueToSend = call.value;
+        // bool approveOpToken;
 
         if (op.token != address(0)) {
-            uint256 totalAmount = op.amount + fees.protocolFee + fees.partnerFee;
+            // total pull for the op token (op amount + both fees)
+            uint256 totalPull = op.amount + fees.protocolFee + fees.partnerFee;
 
-            // transfer operation amount to this
-            _receiveAsset(Asset(totalAmount, op.token));
+            _receiveAsset(Asset(totalPull, op.token));
 
-            // approve the contracts to spend the funds
-            approveOpToken = op.amount > 0;
-            if (approveOpToken) IERC20(op.token).safeIncreaseAllowance(call.target, op.amount);
+            // compute the approvals needed for the operation
+            if (op.amount > 0) {
+                approveToken0 = op.token;
+                approveAmt0 = op.amount;
+            }
         } else {
-            // add the operation amount to the call value if the operation token is native
-            callValue += op.amount;
+            // Native funding: add to call value
+            unchecked {
+                valueToSend += op.amount;
+            }
         }
 
-        bool approveForwardToken = forward.amount > 0;
-        if (approveForwardToken) {
-            // transfer operation forward amount to this
+        if (fwd.amount > 0) {
+            _receiveAsset(fwd);
 
-            _receiveAsset(forward);
-
-            // approve the contracts to spend the funds for the target call
-            IERC20(forward.token).safeIncreaseAllowance(call.target, forward.amount);
+            // compute the approvals needed for the forward call
+            if (approveToken0 == address(0)) {
+                approveToken0 = fwd.token;
+                approveAmt0 = fwd.amount;
+            } else if (fwd.token == approveToken0) {
+                approveAmt0 += fwd.amount; // merge approvals
+            } else {
+                approveToken1 = fwd.token;
+                approveAmt1 = fwd.amount;
+            }
         }
 
-        // receive the extra fees if needed
+        // Apply approvals (0–2 calls)
+        if (approveAmt0 != 0) IERC20(approveToken0).safeIncreaseAllowance(call.target, approveAmt0);
+        if (approveAmt1 != 0) IERC20(approveToken1).safeIncreaseAllowance(call.target, approveAmt1);
+
+        // optional extra fee asset
         if (extraFeeParams.ctrAddress != address(0)) {
-            if (extraFeeParams.asset.token != address(0)) _receiveAsset(extraFeeParams.asset);
+            if (extraFeeParams.asset.token != address(0) && extraFeeParams.asset.amount > 0)
+                // todo how deal with the tokens/ native to a contract address? should they be transferred or just approved?
+                _receiveAsset(extraFeeParams.asset);
 
-            // todo how deal with the tokens/ native to a contract address
-            // should they be transferred or just approved?
             emit ExtraFeeReceived(extraFeeParams.ctrAddress, extraFeeParams.asset.token, extraFeeParams.asset.amount);
         }
 
-        // do the wrapped operation
         emit OperationSent(msg.sender, partnerId, call.target, op.amount);
+        // external call the wrapped operation
+        (bool ok, bytes memory result) = call.target.call{ value: valueToSend }(call.data);
+        if (!ok) {
+            // Bubble exact reason (cheaper than string(result))
+            assembly {
+                revert(add(result, 0x20), mload(result))
+            }
+        }
 
-        (bool success, bytes memory result) = call.target.call{ value: callValue }(call.data);
-        if (!success) revert OperationFailed(string(result));
-
-        // revert allowance for the call target
-        if (approveOpToken) IERC20(op.token).safeApprove(call.target, 0);
-        if (approveForwardToken) IERC20(forward.token).safeApprove(call.target, 0);
+        // reset allowances only if set
+        if (approveAmt0 != 0) IERC20(approveToken0).safeApprove(call.target, 0);
+        if (approveAmt1 != 0) IERC20(approveToken1).safeApprove(call.target, 0);
     }
 
     function _receiveAsset(Asset memory asset) internal {
         IERC20(asset.token).safeTransferFrom(msg.sender, address(this), asset.amount);
     }
 
-    function _validateCallParams(CallParams memory call) internal view {
+    function _validateCallParams(CallParams calldata call) internal view {
         if (call.target != address(this)) revert CallToSelf();
     }
 
-    function _validateMsgValue(Asset memory op, FeeAmounts memory fees, uint256 callValue) internal view {
+    function _validateMsgValue(Asset calldata op, FeeAmounts calldata fees, uint256 callValue) internal view {
         uint256 expectedValue = callValue;
         if (op.token == address(0)) {
             expectedValue += op.amount + fees.protocolFee + fees.partnerFee;
@@ -179,12 +200,12 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
         if (msg.value < expectedValue) revert InvalidMsgValue(msg.value, expectedValue);
     }
 
-    function _validateSignature(bytes memory payload, bytes memory signature) internal view {
+    function _validateSignature(bytes memory payload, bytes calldata signature) internal view {
         if (ECDSA.recover(ECDSA.toEthSignedMessageHash(keccak256(payload)), signature) == externalSigner)
             revert InvalidSignature();
     }
 
-    function _validateOperationForward(Asset memory forward) internal pure {
+    function _validateOperationForward(Asset calldata forward) internal pure {
         if (forward.amount == 0) return;
         // forward token must be set
         if (forward.token == address(0)) revert InvalidOperationForwardToken(forward.token);
