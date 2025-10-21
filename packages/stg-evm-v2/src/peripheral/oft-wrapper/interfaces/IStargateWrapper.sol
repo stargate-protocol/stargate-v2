@@ -70,7 +70,6 @@ interface IStargateWrapper {
     error InvalidZeroAddress();
     error InvalidZeroPartnerId();
     error InvalidSignature();
-    error InvalidOperationAmounts(uint256 total, uint256 amountToSend, uint256 protocolFee, uint256 partnerFee);
     error InvalidExtraFeeCtrAddress(address ctrAddress);
     error InvalidOperationForwardToken(address token);
     error InvalidMsgValue(uint256 msgValue, uint256 callValue);
@@ -78,7 +77,6 @@ interface IStargateWrapper {
     error PartnerNotActive(uint256 partnerId);
 
     error CallToSelf();
-    error OperationFailed(string reason);
 
     /// ===============================================
     ///                      EVENTS

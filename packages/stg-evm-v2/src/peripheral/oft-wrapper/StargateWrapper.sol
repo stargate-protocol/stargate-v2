@@ -66,7 +66,7 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
     }
 
     function sweep(address receiver, address[] calldata tokens) external onlyOwner {
-        for (uint256 i = 0; i < tokens.length; i++) {
+        for (uint256 i = 0; i < tokens.length; ++i) {
             IERC20(tokens[i]).safeTransfer(receiver, IERC20(tokens[i]).balanceOf(address(this)));
         }
     }
@@ -179,8 +179,8 @@ contract StargateWrapper is IStargateWrapper, Ownable, ReentrancyGuard {
         }
 
         // reset allowances only if set
-        if (approveAmt0 != 0) IERC20(approveToken0).safeApprove(call.target, 0);
-        if (approveAmt1 != 0) IERC20(approveToken1).safeApprove(call.target, 0);
+        if (approveAmt0 != 0) IERC20(approveToken0).forceApprove(call.target, 0);
+        if (approveAmt1 != 0) IERC20(approveToken1).forceApprove(call.target, 0);
     }
 
     function _receiveAsset(Asset memory asset) internal {
