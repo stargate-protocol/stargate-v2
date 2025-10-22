@@ -273,6 +273,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'camp-mainnet': {
+        eid: EndpointId.CAMP_V2_MAINNET,
+        url: process.env.RPC_URL_CAMP_MAINNET || 'https://rpc.camp.raas.gelato.cloud',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.CAMP_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
