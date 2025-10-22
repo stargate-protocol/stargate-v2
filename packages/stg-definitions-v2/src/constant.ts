@@ -29,7 +29,7 @@ export const DVNS = {
         [EndpointId.BERA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.BOTANIX_V2_MAINNET]: '0xa4281c1c88f0278ff696edeb517052153190fc9e',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
-        [EndpointId.CAMP_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.CAMP_V2_MAINNET]: '0x2f29d3d12fc2d1961ad8b5397c0f878003c35e20',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -106,7 +106,7 @@ export const DVNS = {
         [EndpointId.BERA_V2_MAINNET]: '0x6e70fcdc42d3d63748b7d8883399dcb16bbb5c8c',
         [EndpointId.BOTANIX_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.BSC_V2_MAINNET]: '0xac8de74ce0a44a5e73bbc709fe800406f58431e0',
-        [EndpointId.CAMP_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.CAMP_V2_MAINNET]: '0x64a344a15e4de73f393e345e6bfe937f34ee1f90',
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0x2ae36a544b904f2f2960f6fd1a6084b4b11ba334',
         [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
@@ -1657,7 +1657,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET], DVNS.STG[EndpointId.CAMP_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
-            nativeDropAmount: parseEther('0.003').toBigInt(), // todo
+            nativeDropAmount: parseEther('0.25').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x8c8a79427d31abec383fe8697b235429aeee481e',
