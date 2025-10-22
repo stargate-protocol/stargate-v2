@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 5.0.1
+
+### Patch Changes
+
+- 8183d3e: Added Camp network mainnet config
+
 ## 5.0.0
 
 ### Major Changes
