@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 5.0.2
+
+### Patch Changes
+
+- 272cec8: Added camp network deployment
+- 8183d3e: Added Camp network mainnet config
+- e4f0996: Update packages
+- Updated dependencies [8183d3e]
+- Updated dependencies [e4f0996]
+  - @stargatefinance/stg-definitions-v2@5.0.1
+
 ## 5.0.1
 
 ### Patch Changes
