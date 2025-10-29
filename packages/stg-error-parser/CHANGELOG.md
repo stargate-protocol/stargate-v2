@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.19
+
+### Patch Changes
+
+- e4f0996: Update packages
+
 ## 1.1.18
 
 ### Patch Changes
