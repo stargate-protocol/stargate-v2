@@ -304,6 +304,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.DEGEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'doma-mainnet': {
+        eid: EndpointId.DOMA_V2_MAINNET,
+        url: process.env.RPC_URL_DOMA_MAINNET || 'https://doma.drpc.org',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.DOMA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'edu-mainnet': {
         eid: EndpointId.EDU_V2_MAINNET,
         url: process.env.RPC_URL_EDU_MAINNET || 'https://rpc.edu-chain.raas.gelato.cloud',
