@@ -33,6 +33,7 @@ export const DVNS = {
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.DEGEN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
+        [EndpointId.DOMA_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.EDU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
@@ -110,6 +111,7 @@ export const DVNS = {
         [EndpointId.COREDAO_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0x2ae36a544b904f2f2960f6fd1a6084b4b11ba334',
         [EndpointId.DEGEN_V2_MAINNET]: '0x80442151791bbdd89117719e508115ebc1ce2d93',
+        [EndpointId.DOMA_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
         [EndpointId.EDU_V2_MAINNET]: '0x97f930a15172f38b7e947778889424e37b5df316',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x8fafae7dd957044088b3d0f67359c327c6200d18',
         [EndpointId.FLARE_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
@@ -176,6 +178,7 @@ export const EXECUTORS = {
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.CRONOSEVM_V2_MAINNET]: '0x4b80F7d25c451D204b1C93D9bdf2aB3B04f3EA4a',
         [EndpointId.DEGEN_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
+        [EndpointId.DOMA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.EDU_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.ETHEREUM_V2_MAINNET]: '0x173272739Bd7Aa6e4e214714048a9fE699453059',
         [EndpointId.FLARE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -761,6 +764,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
+            [EndpointId.DOMA_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x0000000000000000000000000000000000000000', // todo
+            },
             [EndpointId.EDU_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
@@ -1068,6 +1075,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.COREDAO_V2_MAINNET]: {},
         [EndpointId.CRONOSEVM_V2_MAINNET]: {},
         [EndpointId.DEGEN_V2_MAINNET]: {},
+        [EndpointId.DOMA_V2_MAINNET]: {},
         [EndpointId.EDU_V2_MAINNET]: {},
         [EndpointId.ETHEREUM_V2_MAINNET]: {},
         [EndpointId.ETHERLINK_V2_MAINNET]: {},
@@ -1750,6 +1758,23 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x63db1940eac4647dde9aA753DeF013a8eB52F39a',
                 },
             },
+        },
+    },
+    [EndpointId.DOMA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET], DVNS.STG[EndpointId.DOMA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET], DVNS.STG[EndpointId.DOMA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0003').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0xa867fda1cad13183c87f397c87077ffa8f7cfb83',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/doma`,
         },
     },
     [EndpointId.EDU_V2_MAINNET]: {
