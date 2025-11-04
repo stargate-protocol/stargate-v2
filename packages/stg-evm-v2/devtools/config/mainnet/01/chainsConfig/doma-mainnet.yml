@@ -4,9 +4,17 @@ token_messaging: true
 credit_messaging: true
 tokens:
   eth:
-    type: oft
+    type: pool
   usdc:
     type: oft
+rewarder: # todo: add this information
+  tokens:
+    stg:
+      allocation:
+        eth: 5625
+staking: # todo: add this information
+  tokens:
+    eth: true
 treasurer:
   tokens:
     eth: true

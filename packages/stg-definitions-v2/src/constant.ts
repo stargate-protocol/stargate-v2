@@ -294,9 +294,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.DOMA_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
+                type: StargateType.Native,
             },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 type: StargateType.Native,
