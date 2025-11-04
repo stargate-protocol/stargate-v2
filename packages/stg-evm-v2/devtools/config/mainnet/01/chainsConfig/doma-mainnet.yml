@@ -7,12 +7,12 @@ tokens:
     type: pool
   usdc:
     type: oft
-rewarder: # todo: add this information
+rewarder:
   tokens:
-    stg:
+    eth:
       allocation:
-        eth: 5625
-staking: # todo: add this information
+        eth: 1
+staking:
   tokens:
     eth: true
 treasurer:
