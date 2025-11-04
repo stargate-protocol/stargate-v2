@@ -293,6 +293,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.DOMA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 type: StargateType.Native,
             },
@@ -766,7 +771,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.DOMA_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x31EEf89D5215C305304a2fA5376a1f1b6C5dc477',
             },
             [EndpointId.EDU_V2_MAINNET]: {
                 type: StargateType.Oft,
