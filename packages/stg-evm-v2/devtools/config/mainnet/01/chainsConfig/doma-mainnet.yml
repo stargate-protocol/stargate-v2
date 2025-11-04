@@ -4,7 +4,7 @@ token_messaging: true
 credit_messaging: true
 tokens:
   eth:
-    type: pool
+    type: native
   usdc:
     type: oft
 rewarder:

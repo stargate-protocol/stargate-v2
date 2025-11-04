@@ -1318,6 +1318,9 @@ export const REWARDS: RewardsConfig = {
             [EndpointId.ABSTRACT_V2_MAINNET]: {
                 address: '0x0000000000000000000000000000000000000000',
             },
+            [EndpointId.DOMA_V2_MAINNET]: {
+                address: '0x0000000000000000000000000000000000000000',
+            },
         },
     },
     [RewardTokenName.S]: {
