@@ -1773,7 +1773,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0003').toBigInt(),
         },
         oneSigConfig: {
-            oneSigAddress: '0xa867fda1cad13183c87f397c87077ffa8f7cfb83',
+            oneSigAddress: '0x7DD9bFFC30154C25339B7fbffc2FDDae615A1B08',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/doma`,
         },
     },
