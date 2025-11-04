@@ -1,0 +1,21 @@
+name: doma-mainnet
+eid: DOMA_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: pool
+  usdc:
+    type: oft
+rewarder:
+  tokens:
+    eth:
+      allocation:
+        eth: 1
+staking:
+  tokens:
+    eth: true
+treasurer:
+  tokens:
+    eth: true
+    usdc: true
