@@ -1,5 +1,15 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 7.0.2
+
+### Patch Changes
+
+- 07d1916: Upgraded packages versions
+- Updated dependencies [f02ef24]
+- Updated dependencies [07d1916]
+  - @stargatefinance/stg-definitions-v2@5.0.2
+  - @stargatefinance/stg-devtools-v2@7.0.2
+
 ## 7.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.2.3
+
+### Patch Changes
+
+- 07d1916: Upgraded packages versions
+
 ## 1.2.2
 
 ### Patch Changes

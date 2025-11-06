@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 5.0.3
+
+### Patch Changes
+
+- f02ef24: Added doma mainnet config
+- 07d1916: Upgraded packages versions
+- 9ae48cd: Added doma mainnet deployment
+- Updated dependencies [f02ef24]
+- Updated dependencies [07d1916]
+  - @stargatefinance/stg-definitions-v2@5.0.2
+
 ## 5.0.2
 
 ### Patch Changes
