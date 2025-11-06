@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.20
+
+### Patch Changes
+
+- 07d1916: Upgraded packages versions
+
 ## 1.1.19
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 5.0.2
+
+### Patch Changes
+
+- f02ef24: Added doma mainnet config
+- 07d1916: Upgraded packages versions
+
 ## 5.0.1
 
 ### Patch Changes
