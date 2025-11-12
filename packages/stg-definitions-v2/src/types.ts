@@ -107,7 +107,8 @@ export interface NetworkConfig {
 export interface CreditMessagingNetworkConfig {
     creditGasLimit: bigint
     sendCreditGasLimit: bigint
-    requiredDVNs?: string[]
+    requiredDVNs?: string[] // default required DVNs used for all paths
+    perPathRequiredDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific required DVNs
     executor?: string
     confirmations?: bigint
 }
@@ -119,7 +120,8 @@ export interface TokenMessagingNetworkConfig {
     busRideGasLimit: bigint
     nativeDropGasLimit: bigint
     maxPassengerCount: number
-    requiredDVNs?: string[]
+    requiredDVNs?: string[] // default required DVNs used for all paths
+    perPathRequiredDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific required DVNs
     executor?: string
     queueCapacity: number
     confirmations?: bigint
