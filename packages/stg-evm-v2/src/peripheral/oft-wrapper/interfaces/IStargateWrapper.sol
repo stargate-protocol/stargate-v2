@@ -10,14 +10,14 @@ interface IStargateWrapper {
     /**
      * @dev Operation is the main struct for the operation
      * @param call The call parameters for the operation call
-     * @param op The asset and amount needed on the operation
-     * @param forward The asset and amount needed on the forward call to do the operation
+     * @param opAsset The asset and amount needed for the operation
+     * @param forwardAsset The asset and amount needed for the forward call to do the operation
      * @param fees The fee amounts for the protocol and partner
      */
     struct Operation {
         CallParams call;
-        Asset op;
-        Asset forward;
+        Asset opAsset;
+        Asset forwardAsset;
         FeeAmounts fees;
     }
 
@@ -27,8 +27,8 @@ interface IStargateWrapper {
      * @param token The token address
      */
     struct Asset {
-        uint256 amount;
         address token;
+        uint256 amount;
     }
 
     /**
@@ -64,6 +64,12 @@ interface IStargateWrapper {
         Asset asset;
     }
 
+    struct AssetAllocation {
+        address token;
+        uint256 approveAmt;
+        uint256 pullAmt;
+    }
+
     /// ===============================================
     ///                      ERRORS
     /// ===============================================
@@ -71,7 +77,7 @@ interface IStargateWrapper {
     error InvalidZeroPartnerId();
     error InvalidSignature();
     error InvalidExtraFeeCtrAddress(address ctrAddress);
-    error InvalidOperationForwardToken(address token);
+    error InvalidOperationForwardAmount(uint256 amount);
     error InvalidMsgValue(uint256 msgValue, uint256 callValue);
 
     error PartnerNotActive(uint256 partnerId);
@@ -81,6 +87,8 @@ interface IStargateWrapper {
     /// ===============================================
     ///                      EVENTS
     /// ===============================================
+    event ExternalSignerUpdated(address indexed oldSigner, address indexed newSigner);
+
     event PartnerSet(uint256 partnerId, address withdrawAddress);
     event PartnerFeesWithdrawn(uint256 partnerId, address oft, address receiver, uint256 accruedFees);
     event PartnerPaused(uint256 partnerId);
