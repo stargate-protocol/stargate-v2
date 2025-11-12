@@ -56,6 +56,7 @@ export const generateCreditMessagingConfig = (
 ): OmniEdgeHardhat<CreditMessagingEdgeConfig>[] =>
     generateDefaultConnections(points, (from, to) =>
         toCreditMessagingEdgeConfig(
+            to.eid,
             assertAndReturn(
                 getNetworkConfig(to.eid).creditMessaging,
                 `CreditMessaging config not defined for ${formatEid(to.eid)}`
@@ -68,6 +69,7 @@ export const generateCreditMessagingConfig = (
     )
 
 const toCreditMessagingEdgeConfig = (
+    toEid: EndpointId,
     toConfig: CreditMessagingNetworkConfig,
     fromConfig: CreditMessagingNetworkConfig
 ): CreditMessagingEdgeConfig => ({
@@ -87,13 +89,13 @@ const toCreditMessagingEdgeConfig = (
               }
             : undefined,
         ulnConfig: {
-            requiredDVNs: fromConfig.requiredDVNs ?? [],
+            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
             confirmations: fromConfig.confirmations,
         },
     },
     receiveConfig: {
         ulnConfig: {
-            requiredDVNs: fromConfig.requiredDVNs ?? [],
+            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
             confirmations: fromConfig.confirmations,
         },
     },
@@ -103,18 +105,20 @@ const toCreditMessagingEdgeConfig = (
 export const generateTokenMessagingConfig = (points: OmniPointHardhat[]): OmniEdgeHardhat<TokenMessagingEdgeConfig>[] =>
     generateDefaultConnections(points, (from, to) =>
         toTokenMessagingEdgeConfig(
+            to.eid,
             assertAndReturn(
                 getNetworkConfig(to.eid).tokenMessaging,
                 `TokenMessaging config not defined for ${formatEid(to.eid)}`
             ),
             assertAndReturn(
                 getNetworkConfig(from.eid).tokenMessaging,
-                `TokenMessaging config not defined for ${formatEid(to.eid)}`
+                `TokenMessaging config not defined for ${formatEid(from.eid)}`
             )
         )
     )
 
 const toTokenMessagingEdgeConfig = (
+    toEid: EndpointId,
     toConfig: TokenMessagingNetworkConfig,
     fromConfig: TokenMessagingNetworkConfig
 ): TokenMessagingEdgeConfig => ({
@@ -144,17 +148,28 @@ const toTokenMessagingEdgeConfig = (
               }
             : undefined,
         ulnConfig: {
-            requiredDVNs: fromConfig.requiredDVNs ?? [],
+            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
             confirmations: fromConfig.confirmations,
         },
     },
     receiveConfig: {
         ulnConfig: {
-            requiredDVNs: fromConfig.requiredDVNs ?? [],
+            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
             confirmations: fromConfig.confirmations,
         },
     },
 })
+
+const getRequiredDVNsForPath = (
+    config: CreditMessagingNetworkConfig | TokenMessagingNetworkConfig,
+    toEid: EndpointId
+): string[] => {
+    const perPathRequiredDVNs = config.perPathRequiredDVNs?.[toEid]
+    if (perPathRequiredDVNs) {
+        return perPathRequiredDVNs
+    }
+    return config.requiredDVNs ?? []
+}
 
 /**
  * Returns the gnosis safe config for a particular network.
