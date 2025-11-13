@@ -70,7 +70,7 @@ export const DVNS = {
         [EndpointId.SOMNIA_V2_MAINNET]: '0x5fa12ebc08e183c1f5d44678cf897edefe68738b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
-        [EndpointId.STABLE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.STABLE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.SWELL_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -95,7 +95,7 @@ export const DVNS = {
         [EndpointId.POLYGON_V2_MAINNET]: '0x23DE2FE932d9043291f870324B74F820e11dc81A',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x0b5E5452d0c9DA1Bb5fB0664F48313e9667d7820',
         [EndpointId.SCROLL_V2_MAINNET]: '0xbe0d08a85EeBFCC6eDA0A843521f7CBB1180D2e2',
-        [EndpointId.STABLE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.STABLE_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x129Ee430Cb2Ff2708CCADDBDb408a88Fe4FFd480',
     } satisfies Partial<Record<EndpointId, string>>,
     STG: {
@@ -217,7 +217,7 @@ export const EXECUTORS = {
         [EndpointId.SOMNIA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
-        [EndpointId.STABLE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.STABLE_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SWELL_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -912,7 +912,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.STABLE_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x8a2b28364102bea189d99a475c494330ef2bdd0b',
             },
             [EndpointId.STORY_V2_MAINNET]: {
                 type: StargateType.Oft,
