@@ -664,6 +664,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.SONIC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'stable-mainnet': {
+        eid: EndpointId.STABLE_V2_MAINNET,
+        url: process.env.RPC_URL_STABLE_MAINNET || 'https://rpc.stable.xyz',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.STABLE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'story-mainnet': {
         eid: EndpointId.STORY_V2_MAINNET,
         url: process.env.RPC_URL_STORY_MAINNET || 'https://mainnet.storyrpc.io',
