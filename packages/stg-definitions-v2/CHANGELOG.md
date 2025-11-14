@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 5.0.3
+
+### Patch Changes
+
+- 560d705: Added Stable mainnet configuration
+- 9801c6e: Deployed to Stable mainnet
+
 ## 5.0.2
 
 ### Patch Changes

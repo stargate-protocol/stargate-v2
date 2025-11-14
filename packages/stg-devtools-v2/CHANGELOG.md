@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-v2
 
+## 7.0.3
+
+### Patch Changes
+
+- 9801c6e: Deployed to Stable mainnet
+- Updated dependencies [560d705]
+- Updated dependencies [9801c6e]
+  - @stargatefinance/stg-definitions-v2@5.0.3
+
 ## 7.0.2
 
 ### Patch Changes
