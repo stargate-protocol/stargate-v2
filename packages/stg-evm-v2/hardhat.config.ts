@@ -670,6 +670,7 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.STABLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+        gasPrice: 0, //! added because the chain gas price is 0
     },
     'story-mainnet': {
         eid: EndpointId.STORY_V2_MAINNET,
