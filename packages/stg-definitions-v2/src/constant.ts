@@ -159,6 +159,10 @@ export const DVNS = {
         [EndpointId.XDC_V2_MAINNET]: '0x4fe90e0f2a99e464d6e97b161d72101cd03c20fe',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xef269bbadb81de86e4b3278fa1dae1723545268b',
     } satisfies Partial<Record<EndpointId, string>>,
+    EIGEN_ZERO: {
+        [EndpointId.AVALANCHE_V2_MAINNET]: '0xd3333aa4fa669d3eb036676ec01cb0acaaec0cc0',
+        [EndpointId.BSC_V2_MAINNET]: '0x9188b373378d284c9174ae474c2b0a937924b34b',
+    } satisfies Partial<Record<EndpointId, string>>,
 }
 
 export const EXECUTORS = {
@@ -1535,11 +1539,23 @@ export const NETWORKS: NetworksConfig = {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET], DVNS.STG[EndpointId.AVALANCHE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.BSC_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET], DVNS.STG[EndpointId.AVALANCHE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.BSC_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
             nativeDropAmount: parseEther('0.018').toBigInt(),
         },
@@ -1657,11 +1673,23 @@ export const NETWORKS: NetworksConfig = {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET], DVNS.STG[EndpointId.BSC_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.AVALANCHE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
+                    DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET], DVNS.STG[EndpointId.BSC_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.AVALANCHE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
+                    DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
             nativeDropAmount: parseEther('0.0012').toBigInt(),
         },
