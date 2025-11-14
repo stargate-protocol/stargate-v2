@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.21
+
+### Patch Changes
+
+- 9801c6e: Deployed to Stable mainnet
+
 ## 1.1.20
 
 ### Patch Changes

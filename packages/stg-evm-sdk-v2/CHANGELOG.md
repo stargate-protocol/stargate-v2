@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.2.4
+
+### Patch Changes
+
+- 9801c6e: Deployed to Stable mainnet
+
 ## 1.2.3
 
 ### Patch Changes
