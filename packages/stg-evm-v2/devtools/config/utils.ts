@@ -72,34 +72,44 @@ const toCreditMessagingEdgeConfig = (
     toEid: EndpointId,
     toConfig: CreditMessagingNetworkConfig,
     fromConfig: CreditMessagingNetworkConfig
-): CreditMessagingEdgeConfig => ({
-    gasLimit: toConfig.sendCreditGasLimit, // marginal gas limit
-    enforcedOptions: [
-        {
-            msgType: MSG_TYPE_CREDIT_MESSAGING,
-            optionType: ExecutorOptionType.LZ_RECEIVE,
-            gas: toConfig.creditGasLimit, // fixed gasLimit
+): CreditMessagingEdgeConfig => {
+    const requiredDVNs = getRequiredDVNsForPath(fromConfig, toEid)
+    const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
+    const optionalDVNThreshold = optionalDVNs.length
+
+    return {
+        gasLimit: toConfig.sendCreditGasLimit, // marginal gas limit
+        enforcedOptions: [
+            {
+                msgType: MSG_TYPE_CREDIT_MESSAGING,
+                optionType: ExecutorOptionType.LZ_RECEIVE,
+                gas: toConfig.creditGasLimit, // fixed gasLimit
+            },
+        ],
+        sendConfig: {
+            executorConfig: fromConfig.executor
+                ? {
+                      maxMessageSize: 10000,
+                      executor: fromConfig.executor,
+                  }
+                : undefined,
+            ulnConfig: {
+                requiredDVNs,
+                optionalDVNs,
+                optionalDVNThreshold,
+                confirmations: fromConfig.confirmations,
+            },
         },
-    ],
-    sendConfig: {
-        executorConfig: fromConfig.executor
-            ? {
-                  maxMessageSize: 10000,
-                  executor: fromConfig.executor,
-              }
-            : undefined,
-        ulnConfig: {
-            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
-            confirmations: fromConfig.confirmations,
+        receiveConfig: {
+            ulnConfig: {
+                requiredDVNs,
+                optionalDVNs,
+                optionalDVNThreshold,
+                confirmations: fromConfig.confirmations,
+            },
         },
-    },
-    receiveConfig: {
-        ulnConfig: {
-            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
-            confirmations: fromConfig.confirmations,
-        },
-    },
-})
+    }
+}
 
 // token messaging config
 export const generateTokenMessagingConfig = (points: OmniPointHardhat[]): OmniEdgeHardhat<TokenMessagingEdgeConfig>[] =>
@@ -121,44 +131,53 @@ const toTokenMessagingEdgeConfig = (
     toEid: EndpointId,
     toConfig: TokenMessagingNetworkConfig,
     fromConfig: TokenMessagingNetworkConfig
-): TokenMessagingEdgeConfig => ({
-    maxPassengers: toConfig.maxPassengerCount,
-    gasLimit: {
-        gasLimit: toConfig.busRideGasLimit,
-        nativeDropGasLimit: toConfig.nativeDropGasLimit,
-    },
-    nativeDropAmount: toConfig.nativeDropAmount,
-    enforcedOptions: [
-        {
-            msgType: MSG_TYPE_TAXI,
-            optionType: ExecutorOptionType.LZ_RECEIVE,
-            gas: toConfig.taxiGasLimit,
+): TokenMessagingEdgeConfig => {
+    const requiredDVNs = getRequiredDVNsForPath(fromConfig, toEid)
+    const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
+    const optionalDVNThreshold = optionalDVNs.length
+    return {
+        maxPassengers: toConfig.maxPassengerCount,
+        gasLimit: {
+            gasLimit: toConfig.busRideGasLimit,
+            nativeDropGasLimit: toConfig.nativeDropGasLimit,
         },
-        {
-            msgType: MSG_TYPE_BUS,
-            optionType: ExecutorOptionType.LZ_RECEIVE,
-            gas: toConfig.busGasLimit,
+        nativeDropAmount: toConfig.nativeDropAmount,
+        enforcedOptions: [
+            {
+                msgType: MSG_TYPE_TAXI,
+                optionType: ExecutorOptionType.LZ_RECEIVE,
+                gas: toConfig.taxiGasLimit,
+            },
+            {
+                msgType: MSG_TYPE_BUS,
+                optionType: ExecutorOptionType.LZ_RECEIVE,
+                gas: toConfig.busGasLimit,
+            },
+        ],
+        sendConfig: {
+            executorConfig: fromConfig.executor
+                ? {
+                      maxMessageSize: 10000,
+                      executor: fromConfig.executor,
+                  }
+                : undefined,
+            ulnConfig: {
+                requiredDVNs: requiredDVNs,
+                optionalDVNs: optionalDVNs,
+                optionalDVNThreshold: optionalDVNThreshold,
+                confirmations: fromConfig.confirmations,
+            },
         },
-    ],
-    sendConfig: {
-        executorConfig: fromConfig.executor
-            ? {
-                  maxMessageSize: 10000,
-                  executor: fromConfig.executor,
-              }
-            : undefined,
-        ulnConfig: {
-            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
-            confirmations: fromConfig.confirmations,
+        receiveConfig: {
+            ulnConfig: {
+                requiredDVNs: requiredDVNs,
+                optionalDVNs: optionalDVNs,
+                optionalDVNThreshold: optionalDVNThreshold,
+                confirmations: fromConfig.confirmations,
+            },
         },
-    },
-    receiveConfig: {
-        ulnConfig: {
-            requiredDVNs: getRequiredDVNsForPath(fromConfig, toEid),
-            confirmations: fromConfig.confirmations,
-        },
-    },
-})
+    }
+}
 
 const getRequiredDVNsForPath = (
     config: CreditMessagingNetworkConfig | TokenMessagingNetworkConfig,
@@ -169,6 +188,17 @@ const getRequiredDVNsForPath = (
         return perPathRequiredDVNs
     }
     return config.requiredDVNs ?? []
+}
+
+const getOptionalDVNsForPath = (
+    config: CreditMessagingNetworkConfig | TokenMessagingNetworkConfig,
+    toEid: EndpointId
+): string[] => {
+    const perPathOptionalDVNs = config.perPathOptionalDVNs?.[toEid]
+    if (perPathOptionalDVNs) {
+        return perPathOptionalDVNs
+    }
+    return config.optionalDVNs ?? []
 }
 
 /**
