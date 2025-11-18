@@ -2871,7 +2871,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STABLE_V2_MAINNET], DVNS.LZ_LABS[EndpointId.STABLE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
-            nativeDropAmount: parseEther('0').toBigInt(),
+            nativeDropAmount: parseEther('2').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
