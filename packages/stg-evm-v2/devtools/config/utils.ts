@@ -162,17 +162,17 @@ const toTokenMessagingEdgeConfig = (
                   }
                 : undefined,
             ulnConfig: {
-                requiredDVNs: requiredDVNs,
-                optionalDVNs: optionalDVNs,
-                optionalDVNThreshold: optionalDVNThreshold,
+                requiredDVNs,
+                optionalDVNs,
+                optionalDVNThreshold,
                 confirmations: fromConfig.confirmations,
             },
         },
         receiveConfig: {
             ulnConfig: {
-                requiredDVNs: requiredDVNs,
-                optionalDVNs: optionalDVNs,
-                optionalDVNThreshold: optionalDVNThreshold,
+                requiredDVNs,
+                optionalDVNs,
+                optionalDVNThreshold,
                 confirmations: fromConfig.confirmations,
             },
         },
