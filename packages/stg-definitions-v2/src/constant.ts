@@ -116,7 +116,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0xa09db5142654e3eb5cf547d66833fae7097b21c3',
         [EndpointId.MANTLE_V2_MAINNET]: '0x28b6140ead70cb2fb669705b3598ffb4beaa060b',
         [EndpointId.METIS_V2_MAINNET]: '0x32d4f92437454829b3fe7bebfece5d0523deb475',
-        [EndpointId.NIBIRU_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0x5727e81a40015961145330d91cc27b5e189ff3e1',
         [EndpointId.OG_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x6a02d83e8d433304bba74ef1c427913958187142',
         [EndpointId.ORDERLY_V2_MAINNET]: '0xf53857dbc0d2c59d5666006ec200cba2936b8c35',
