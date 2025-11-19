@@ -92,7 +92,7 @@ const hardhatNamedAccounts: HardhatUserConfig = {
             default: 2,
         },
         tokenAdmin: {
-            default: 0, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
+            default: 3, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
         },
     },
 }
