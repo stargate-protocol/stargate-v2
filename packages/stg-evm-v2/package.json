@@ -91,7 +91,7 @@
     "ethers": "^5.7.2"
   },
   "devDependencies": {
-    "@ensdomains/buffer": "^0.1.1",
+    "@ensdomains/buffer": "^0.1.3",
     "@ethersproject/abi": "~5.7.0",
     "@ethersproject/abstract-provider": "~5.7.0",
     "@ethersproject/abstract-signer": "~5.7.0",
