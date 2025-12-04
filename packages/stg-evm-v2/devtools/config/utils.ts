@@ -75,8 +75,7 @@ const toCreditMessagingEdgeConfig = (
 ): CreditMessagingEdgeConfig => {
     const requiredDVNs = getRequiredDVNsForPath(fromConfig, toEid)
     const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
-    const optionalDVNThreshold = optionalDVNs.length
-
+    const optionalDVNThreshold = getOptionalDVNThreshold(fromConfig)
     return {
         gasLimit: toConfig.sendCreditGasLimit, // marginal gas limit
         enforcedOptions: [
@@ -134,7 +133,7 @@ const toTokenMessagingEdgeConfig = (
 ): TokenMessagingEdgeConfig => {
     const requiredDVNs = getRequiredDVNsForPath(fromConfig, toEid)
     const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
-    const optionalDVNThreshold = optionalDVNs.length
+    const optionalDVNThreshold = getOptionalDVNThreshold(fromConfig)
     return {
         maxPassengers: toConfig.maxPassengerCount,
         gasLimit: {
@@ -199,6 +198,10 @@ const getOptionalDVNsForPath = (
         return perPathOptionalDVNs
     }
     return config.optionalDVNs ?? []
+}
+
+const getOptionalDVNThreshold = (config: CreditMessagingNetworkConfig | TokenMessagingNetworkConfig): number => {
+    return config.optionalDVNThreshold ?? 1
 }
 
 /**
