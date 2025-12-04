@@ -1676,6 +1676,9 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
+            perPathOptionalDVNs: {
+                [EndpointId.BSC_V2_MAINNET]: [],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
         },
         tokenMessaging: {
@@ -1692,6 +1695,9 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
+            },
+            perPathOptionalDVNs: {
+                [EndpointId.BSC_V2_MAINNET]: [],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
             nativeDropAmount: parseEther('0.018').toBigInt(),
@@ -1870,6 +1876,9 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
             },
+            perPathOptionalDVNs: {
+                [EndpointId.AVALANCHE_V2_MAINNET]: [],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
         },
         tokenMessaging: {
@@ -1886,6 +1895,9 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
+            },
+            perPathOptionalDVNs: {
+                [EndpointId.AVALANCHE_V2_MAINNET]: [],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
             nativeDropAmount: parseEther('0.0012').toBigInt(),
