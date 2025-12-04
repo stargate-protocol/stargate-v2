@@ -3,6 +3,7 @@ import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
+    OPTIONAL_DVN_THRESHOLD,
     OneSigConfig,
     SafeConfig,
     StargateType,
@@ -201,7 +202,7 @@ const getOptionalDVNsForPath = (
 }
 
 const getOptionalDVNThreshold = (config: CreditMessagingNetworkConfig | TokenMessagingNetworkConfig): number => {
-    return config.optionalDVNThreshold ?? 1
+    return config.optionalDVNThreshold ?? OPTIONAL_DVN_THRESHOLD
 }
 
 /**
