@@ -1,6 +1,8 @@
 import type { EndpointId } from '@layerzerolabs/lz-definitions'
 import type { ContractNetworksConfig } from '@safe-global/protocol-kit/dist/src/types'
 
+export const OPTIONAL_DVN_THRESHOLD = 1
+
 export enum StargateType {
     Pool = 'Pool',
     Oft = 'OFT',
