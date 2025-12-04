@@ -114,6 +114,7 @@ export interface CreditMessagingNetworkConfig {
     optionalDVNs?: string[] // default optional DVNs used for all paths
     perPathOptionalDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific optional DVNs
     optionalDVNThreshold?: number // default optional DVN threshold used for all paths
+    perPathOptionalDVNsThreshold?: Partial<Record<EndpointId, number>> // per-path specific optional DVN threshold
     executor?: string
     confirmations?: bigint
 }
@@ -130,6 +131,7 @@ export interface TokenMessagingNetworkConfig {
     optionalDVNs?: string[] // default optional DVNs used for all paths
     perPathOptionalDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific optional DVNs
     optionalDVNThreshold?: number // default optional DVN threshold used for all paths
+    perPathOptionalDVNsThreshold?: Partial<Record<EndpointId, number>> // per-path specific optional DVN threshold
     executor?: string
     queueCapacity: number
     confirmations?: bigint
