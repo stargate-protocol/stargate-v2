@@ -80,6 +80,68 @@ export const DVNS = {
         [EndpointId.XDC_V2_MAINNET]: '0x1294e3347ec64fd63e1d0594dc1294247cd237c7',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xDd7B5E1dB4AaFd5C8EC3b764eFB8ed265Aa5445B',
     } satisfies Partial<Record<EndpointId, string>>,
+    LZ_LABS: {
+        [EndpointId.ABSTRACT_V2_MAINNET]: '0xf4da94b4ee9d8e209e3bf9f469221ce2731a7112',
+        [EndpointId.APE_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.ARBITRUM_V2_MAINNET]: '0x2f55c492897526677c5b68fb199ea31e2c126416',
+        [EndpointId.AURORA_V2_MAINNET]: '0xd4a903930f2c9085586cda0b11d9681eecb20d2f',
+        [EndpointId.AVALANCHE_V2_MAINNET]: '0x962f502a63f5fbeb44dc9ab932122648e8352959',
+        [EndpointId.BASE_V2_MAINNET]: '0x9e059a54699a285714207b43b055483e78faac25',
+        [EndpointId.BERA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.BOTANIX_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.BSC_V2_MAINNET]: '0xfd6865c841c2d64565562fcc7e05e619a30615f0',
+        [EndpointId.CAMP_V2_MAINNET]: '0x15e51701f245f6d5bd0fee87bcaf55b0841451b3',
+        [EndpointId.COREDAO_V2_MAINNET]: '0x3c5575898f59c097681d1fc239c2c6ad36b7b41c',
+        [EndpointId.CRONOSEVM_V2_MAINNET]: '0xce8358bc28dd8296ce8caf1cd2b44787abd65887',
+        [EndpointId.DEGEN_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.DOMA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.EDU_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.ETHEREUM_V2_MAINNET]: '0x589dedbd617e0cbcb916a9223f4d1300c294236b',
+        [EndpointId.FLARE_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.FLOW_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.FUSE_V2_MAINNET]: '0x795f8325af292ff6e58249361d1954893be15aff',
+        [EndpointId.GLUE_V2_MAINNET]: '0xce8358bc28dd8296ce8caf1cd2b44787abd65887',
+        [EndpointId.GNOSIS_V2_MAINNET]: '0x11bb2991882a86dc3e38858d922559a385d506ba',
+        [EndpointId.GOAT_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.GRAVITY_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.HEDERA_V2_MAINNET]: '0xce8358bc28dd8296ce8caf1cd2b44787abd65887',
+        [EndpointId.HEMI_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.INK_V2_MAINNET]: '0x174f2ba26f8adeafa82663bcf908288d5dbca649',
+        [EndpointId.IOTA_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.ISLANDER_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.KAVA_V2_MAINNET]: '0x2d40a7b66f776345cf763c8ebb83199cd285e7a3',
+        [EndpointId.KLAYTN_V2_MAINNET]: '0xc80233ad8251e668becbc3b0415707fc7075501e',
+        [EndpointId.LIGHTLINK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.MANTA_V2_MAINNET]: '0xa09db5142654e3eb5cf547d66833fae7097b21c3',
+        [EndpointId.MANTLE_V2_MAINNET]: '0x28b6140ead70cb2fb669705b3598ffb4beaa060b',
+        [EndpointId.METIS_V2_MAINNET]: '0x32d4f92437454829b3fe7bebfece5d0523deb475',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0x5727e81a40015961145330d91cc27b5e189ff3e1',
+        [EndpointId.OG_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.OPTIMISM_V2_MAINNET]: '0x6a02d83e8d433304bba74ef1c427913958187142',
+        [EndpointId.ORDERLY_V2_MAINNET]: '0xf53857dbc0d2c59d5666006ec200cba2936b8c35',
+        [EndpointId.PEAQ_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.PLASMA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x4208d6e27538189bb48e603d6123a94b8abe0a0b',
+        [EndpointId.POLYGON_V2_MAINNET]: '0x23de2fe932d9043291f870324b74f820e11dc81a',
+        [EndpointId.RARIBLE_V2_MAINNET]: '0x0b5e5452d0c9da1bb5fb0664f48313e9667d7820',
+        [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.SCROLL_V2_MAINNET]: '0xbe0d08a85eebfcc6eda0a843521f7cbb1180d2e2',
+        [EndpointId.SEI_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.SOPHON_V2_MAINNET]: '0x07fd0e370b49919ca8da0ce842b8177263c0e12c',
+        [EndpointId.SOMNIA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.SONEIUM_V2_MAINNET]: '0xfdfa2330713a8e2eac6e4f15918f11937ffa4dbe',
+        [EndpointId.SONIC_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.STABLE_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.STORY_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.SWELL_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.TAIKO_V2_MAINNET]: '0xc097ab8cd7b053326dfe9fb3e3a31a0cce3b526f',
+        [EndpointId.TELOS_V2_MAINNET]: '0x3c5575898f59c097681d1fc239c2c6ad36b7b41c',
+        [EndpointId.UNICHAIN_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.XDC_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x129ee430cb2ff2708ccaddbdb408a88fe4ffd480',
+    } satisfies Partial<Record<EndpointId, string>>,
     STG: {
         [EndpointId.ABSTRACT_V2_MAINNET]: '0xcec9f0a49073ac4a1c439d06cb9448512389a64e',
         [EndpointId.APE_V2_MAINNET]: '0x794c0b0071d4a926c443468f027912e693678151',
@@ -1441,12 +1503,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET], DVNS.STG[EndpointId.ABSTRACT_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET], DVNS.STG[EndpointId.ABSTRACT_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
             nativeDropAmount: parseEther('0.0008').toBigInt(),
         },
@@ -1476,12 +1550,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET], DVNS.STG[EndpointId.APE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET], DVNS.STG[EndpointId.APE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
@@ -1514,6 +1600,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                 DVNS.STG[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
         },
         tokenMessaging: {
@@ -1523,6 +1615,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                 DVNS.STG[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
@@ -1536,12 +1634,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET], DVNS.STG[EndpointId.ARBITRUM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET], DVNS.STG[EndpointId.ARBITRUM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.00001').toBigInt(),
             busGasLimit: 60000n,
@@ -1571,12 +1681,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET], DVNS.STG[EndpointId.AURORA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET], DVNS.STG[EndpointId.AURORA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
             nativeDropAmount: parseEther('0.00005').toBigInt(),
         },
@@ -1599,6 +1721,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
         },
@@ -1610,6 +1736,10 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BSC_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                ],
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
@@ -1629,12 +1759,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET], DVNS.STG[EndpointId.BASE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET], DVNS.STG[EndpointId.BASE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
             nativeDropAmount: parseEther('0.00005').toBigInt(),
             busGasLimit: 60000n,
@@ -1654,12 +1796,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
             busGasLimit: 60000n,
@@ -1701,12 +1855,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET], DVNS.STG[EndpointId.BOTANIX_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET], DVNS.STG[EndpointId.BOTANIX_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
             nativeDropAmount: parseEther('0.000000000003').toBigInt(),
         },
@@ -1741,6 +1907,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
                 ],
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
         },
@@ -1752,6 +1922,10 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
+                ],
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
@@ -1771,12 +1945,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET], DVNS.STG[EndpointId.CAMP_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET], DVNS.STG[EndpointId.CAMP_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
             nativeDropAmount: parseEther('0.25').toBigInt(),
         },
@@ -1791,12 +1977,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET], DVNS.STG[EndpointId.COREDAO_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET], DVNS.STG[EndpointId.COREDAO_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
@@ -1814,12 +2012,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET], DVNS.STG[EndpointId.CRONOSEVM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET], DVNS.STG[EndpointId.CRONOSEVM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
             nativeDropAmount: parseEther('5').toBigInt(),
         },
@@ -1849,12 +2059,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
             nativeDropAmount: parseEther('5').toBigInt(),
         },
@@ -1884,12 +2106,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET], DVNS.STG[EndpointId.DOMA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET], DVNS.STG[EndpointId.DOMA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
             nativeDropAmount: parseEther('0.0003').toBigInt(),
         },
@@ -1903,12 +2137,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET], DVNS.STG[EndpointId.EDU_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET], DVNS.STG[EndpointId.EDU_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
         },
@@ -1938,12 +2184,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET], DVNS.STG[EndpointId.ETHEREUM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET], DVNS.STG[EndpointId.ETHEREUM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
@@ -1993,12 +2251,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET], DVNS.STG[EndpointId.FLARE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET], DVNS.STG[EndpointId.FLARE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
             nativeDropAmount: parseEther('3').toBigInt(),
             busGasLimit: 60000n,
@@ -2030,12 +2300,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET], DVNS.STG[EndpointId.FLOW_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET], DVNS.STG[EndpointId.FLOW_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
@@ -2075,12 +2357,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET], DVNS.STG[EndpointId.FUSE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET], DVNS.STG[EndpointId.FUSE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
         },
@@ -2110,6 +2404,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
             sendCreditGasLimit: 255000n,
         },
@@ -2117,6 +2417,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
             taxiGasLimit: 350000n,
@@ -2150,12 +2456,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET], DVNS.STG[EndpointId.GNOSIS_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET], DVNS.STG[EndpointId.GNOSIS_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
             nativeDropAmount: parseEther('0.0001').toBigInt(),
         },
@@ -2173,12 +2491,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET], DVNS.STG[EndpointId.GOAT_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET], DVNS.STG[EndpointId.GOAT_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
             nativeDropAmount: parseEther('0.00001').toBigInt(),
         },
@@ -2208,12 +2538,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
             nativeDropAmount: parseEther('2').toBigInt(),
         },
@@ -2243,12 +2585,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET], DVNS.STG[EndpointId.HEDERA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET], DVNS.STG[EndpointId.HEDERA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
             nativeDropAmount: parseUnits('0.5', 8).toBigInt(),
         },
@@ -2278,12 +2632,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET], DVNS.STG[EndpointId.HEMI_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET], DVNS.STG[EndpointId.HEMI_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
             nativeDropAmount: parseEther('0.005').toBigInt(),
         },
@@ -2313,12 +2679,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
             nativeDropAmount: parseEther('0.0003').toBigInt(),
             busGasLimit: 60000n,
@@ -2351,12 +2729,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET], DVNS.STG[EndpointId.IOTA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET], DVNS.STG[EndpointId.IOTA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
@@ -2386,12 +2776,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET], DVNS.STG[EndpointId.ISLANDER_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET], DVNS.STG[EndpointId.ISLANDER_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
@@ -2421,12 +2823,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET], DVNS.STG[EndpointId.KAVA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET], DVNS.STG[EndpointId.KAVA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
@@ -2444,12 +2858,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET], DVNS.STG[EndpointId.KLAYTN_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET], DVNS.STG[EndpointId.KLAYTN_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
             nativeDropAmount: parseEther('0.043').toBigInt(),
         },
@@ -2467,12 +2893,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET], DVNS.STG[EndpointId.LIGHTLINK_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET], DVNS.STG[EndpointId.LIGHTLINK_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
             nativeDropAmount: parseEther('0.0001').toBigInt(),
         },
@@ -2502,12 +2940,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
             nativeDropAmount: parseEther('0.0001').toBigInt(),
         },
@@ -2537,12 +2987,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET], DVNS.STG[EndpointId.MANTLE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET], DVNS.STG[EndpointId.MANTLE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
             nativeDropAmount: parseEther('0.2').toBigInt(),
         },
@@ -2560,12 +3022,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET], DVNS.STG[EndpointId.METIS_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET], DVNS.STG[EndpointId.METIS_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
             nativeDropAmount: parseEther('0.00813').toBigInt(),
             busGasLimit: 50000n,
@@ -2614,12 +3088,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
             nativeDropAmount: parseEther('2').toBigInt(),
             busGasLimit: 50000n,
@@ -2650,12 +3136,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET], DVNS.STG[EndpointId.OG_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.OG_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET], DVNS.STG[EndpointId.OG_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.OG_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
         },
@@ -2679,12 +3177,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET], DVNS.STG[EndpointId.OPTIMISM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET], DVNS.STG[EndpointId.OPTIMISM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
             busGasLimit: 50000n,
@@ -2704,12 +3214,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET], DVNS.STG[EndpointId.ORDERLY_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET], DVNS.STG[EndpointId.ORDERLY_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
             nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
@@ -2740,6 +3262,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             sendCreditGasLimit: 90000n,
         },
@@ -2747,6 +3275,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
             taxiGasLimit: 190000n,
@@ -2780,12 +3314,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET], DVNS.STG[EndpointId.PLASMA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET], DVNS.STG[EndpointId.PLASMA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
@@ -2802,6 +3348,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                 DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
         },
         tokenMessaging: {
@@ -2811,6 +3363,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                 DVNS.STG[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             nativeDropAmount: parseEther('0.05').toBigInt(),
             taxiGasLimit: 230000n,
@@ -2841,12 +3399,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET], DVNS.STG[EndpointId.POLYGON_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET], DVNS.STG[EndpointId.POLYGON_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
             nativeDropAmount: parseEther('0.0324').toBigInt(),
         },
@@ -2864,12 +3434,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET], DVNS.STG[EndpointId.RARIBLE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET], DVNS.STG[EndpointId.RARIBLE_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
             nativeDropAmount: parseEther('0.00003').toBigInt(),
         },
@@ -2899,12 +3481,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET], DVNS.STG[EndpointId.ROOTSTOCK_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET], DVNS.STG[EndpointId.ROOTSTOCK_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
             nativeDropAmount: parseEther('0.000055').toBigInt(),
         },
@@ -2934,12 +3528,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET], DVNS.STG[EndpointId.SCROLL_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET], DVNS.STG[EndpointId.SCROLL_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
             nativeDropAmount: parseEther('0.00035').toBigInt(),
         },
@@ -2967,12 +3573,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
             nativeDropAmount: parseEther('0.0006').toBigInt(),
             busGasLimit: 60000n,
@@ -3011,7 +3629,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STABLE_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.STABLE_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
-            nativeDropAmount: parseEther('0').toBigInt(),
+            nativeDropAmount: parseEther('2').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
@@ -3024,12 +3642,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET], DVNS.STG[EndpointId.STORY_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET], DVNS.STG[EndpointId.STORY_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
             nativeDropAmount: parseEther('0.05').toBigInt(),
             busGasLimit: 75000n,
@@ -3061,12 +3691,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
             nativeDropAmount: parseEther('3').toBigInt(),
         },
@@ -3096,6 +3738,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
             sendCreditGasLimit: 1_000_000n + 20n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
         },
@@ -3103,6 +3751,12 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
             taxiGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
@@ -3136,12 +3790,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET], DVNS.STG[EndpointId.SONEIUM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET], DVNS.STG[EndpointId.SONEIUM_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
@@ -3171,12 +3837,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET], DVNS.STG[EndpointId.SONIC_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET], DVNS.STG[EndpointId.SONIC_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
             nativeDropAmount: parseEther('0.5').toBigInt(),
         },
@@ -3209,6 +3887,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
                 DVNS.STG[EndpointId.SUPERPOSITION_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
         },
         tokenMessaging: {
@@ -3218,6 +3902,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
                 DVNS.STG[EndpointId.SUPERPOSITION_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
             busGasLimit: 60000n,
@@ -3250,12 +3940,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET], DVNS.STG[EndpointId.SWELL_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET], DVNS.STG[EndpointId.SWELL_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
             nativeDropAmount: parseEther('0.0003').toBigInt(),
         },
@@ -3285,12 +3987,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
             nativeDropAmount: parseEther('0.0008').toBigInt(),
         },
@@ -3320,12 +4034,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET], DVNS.STG[EndpointId.TELOS_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET], DVNS.STG[EndpointId.TELOS_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
             nativeDropAmount: parseEther('1').toBigInt(),
         },
@@ -3355,12 +4081,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET], DVNS.STG[EndpointId.UNICHAIN_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET], DVNS.STG[EndpointId.UNICHAIN_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
             nativeDropAmount: parseEther('0.005').toBigInt(),
             taxiGasLimit: 350000n,
@@ -3391,12 +4129,24 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET]],
             optionalDVNs: [DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
             nativeDropAmount: parseEther('0.01').toBigInt(),
         },
@@ -3429,6 +4179,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 DVNS.STG[EndpointId.ZKCONSENSYS_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
         },
         tokenMessaging: {
@@ -3438,6 +4194,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 DVNS.STG[EndpointId.ZKCONSENSYS_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                ],
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
             nativeDropAmount: parseEther('0.00005').toBigInt(),
         },
