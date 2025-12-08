@@ -39,7 +39,7 @@ export const DVNS = {
         [EndpointId.FLARE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
         [EndpointId.FLOW_V2_MAINNET]: '0x3c61aad6d402d867c653f603558f4b8f91abe952',
         [EndpointId.FUSE_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
-        [EndpointId.GATELAYER_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // todo
+        [EndpointId.GATELAYER_V2_MAINNET]: '0x54dd79f5ce72b51fcbbcb170dd01e32034323565',
         [EndpointId.GLUE_V2_MAINNET]: '0xaa3099f91912e07976c2dd1598dc740d81bd3fea',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.GOAT_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
@@ -858,7 +858,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.GATELAYER_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // todo
+                address: '0x8a2b28364102bea189d99a475c494330ef2bdd0b',
             },
             [EndpointId.GLUE_V2_MAINNET]: {
                 type: StargateType.Oft,
