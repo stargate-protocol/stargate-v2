@@ -2326,7 +2326,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0002').toBigInt(), // todo
+            nativeDropAmount: parseEther('0.0002').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
