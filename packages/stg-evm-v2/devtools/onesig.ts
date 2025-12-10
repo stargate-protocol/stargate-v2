@@ -14,13 +14,15 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import { getSigningData, makeOneSigTree } from '@layerzerolabs/onesig-core'
 import { ETHLeafData, evmLeafGenerator } from '@layerzerolabs/onesig-evm'
 
+type DescribedETHLeafData = ETHLeafData & { description?: string }
+
 export interface OneSigProposedTransactionSignature {
     signature: string
     dataHash: string
 }
 export interface OneSigBatch {
     // When proposing a batch, the convention is one transaction per leaf
-    oneSigTransactions: ETHLeafData[]
+    oneSigTransactions: DescribedETHLeafData[]
     seed: string
     expiry: number
 }
@@ -117,7 +119,7 @@ export class OneSigSignerEVM extends OmniSignerEVMBase {
 
         const startNonce = await this.#getNextNonce()
 
-        const oneSigTransactions: ETHLeafData[] = transactions.map((transaction, index) => {
+        const oneSigTransactions: DescribedETHLeafData[] = transactions.map((transaction, index) => {
             const nonce = startNonce + index
             return {
                 nonce: BigInt(nonce),
@@ -131,6 +133,7 @@ export class OneSigSignerEVM extends OmniSignerEVMBase {
                         data: transaction.data,
                     },
                 ],
+                description: transaction.description,
             }
         })
 
@@ -184,6 +187,7 @@ export class OneSigSignerEVM extends OmniSignerEVMBase {
                 },
                 order: Number(transaction.nonce),
                 targetOneSigAddress: oneSigAddress,
+                description: transaction.description,
             })),
             proposerSignature: oneSigBatch.proposerSignature,
             seed: oneSigBatch.seed,
