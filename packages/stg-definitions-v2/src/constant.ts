@@ -1458,6 +1458,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
         },
@@ -1466,6 +1470,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET], DVNS.STG[EndpointId.ABSTRACT_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
                 ],
@@ -1503,6 +1511,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
         },
@@ -1511,6 +1523,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET], DVNS.STG[EndpointId.APE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
                 ],
@@ -1551,6 +1567,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
         },
@@ -1562,6 +1582,10 @@ export const NETWORKS: NetworksConfig = {
             ],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                 ],
@@ -1583,6 +1607,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
         },
@@ -1591,6 +1619,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET], DVNS.STG[EndpointId.ARBITRUM_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
                 ],
@@ -1628,6 +1660,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
         },
@@ -1636,6 +1672,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET], DVNS.STG[EndpointId.AURORA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.AURORA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AURORA_V2_MAINNET],
                 ],
@@ -1665,6 +1705,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
         },
@@ -1677,6 +1721,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
@@ -1702,6 +1750,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
         },
@@ -1710,6 +1762,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET], DVNS.STG[EndpointId.BASE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
                 ],
@@ -1737,6 +1793,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
         },
@@ -1745,6 +1805,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.STG[EndpointId.BERA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
                 ],
@@ -1794,6 +1858,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
         },
@@ -1802,6 +1870,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET], DVNS.STG[EndpointId.BOTANIX_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
                 ],
@@ -1843,6 +1915,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
         },
@@ -1855,6 +1931,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
@@ -1880,6 +1960,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
         },
@@ -1888,6 +1972,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET], DVNS.STG[EndpointId.CAMP_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.CAMP_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
                 ],
@@ -1910,6 +1998,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
         },
@@ -1918,6 +2010,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET], DVNS.STG[EndpointId.COREDAO_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
                 ],
@@ -1943,6 +2039,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
         },
@@ -1951,6 +2051,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET], DVNS.STG[EndpointId.CRONOSEVM_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
                 ],
@@ -1988,6 +2092,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
         },
@@ -1996,6 +2104,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET], DVNS.STG[EndpointId.DEGEN_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.DEGEN_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.DEGEN_V2_MAINNET],
                 ],
@@ -2033,6 +2145,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
         },
@@ -2041,6 +2157,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET], DVNS.STG[EndpointId.DOMA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
                 ],
@@ -2062,6 +2182,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
         },
@@ -2070,6 +2194,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET], DVNS.STG[EndpointId.EDU_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.EDU_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.EDU_V2_MAINNET],
                 ],
@@ -2107,6 +2235,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
         },
@@ -2115,6 +2247,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET], DVNS.STG[EndpointId.ETHEREUM_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
                 ],
@@ -2172,6 +2308,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
         },
@@ -2180,6 +2320,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET], DVNS.STG[EndpointId.FLARE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
                 ],
@@ -2219,6 +2363,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
         },
@@ -2227,6 +2375,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET], DVNS.STG[EndpointId.FLOW_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
                 ],
@@ -2274,6 +2426,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
         },
@@ -2282,6 +2438,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET], DVNS.STG[EndpointId.FUSE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
                 ],
@@ -2333,13 +2493,16 @@ export const NETWORKS: NetworksConfig = {
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/gatelayer`,
         },
     },
-
     [EndpointId.GLUE_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
                 ],
@@ -2352,6 +2515,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET], DVNS.STG[EndpointId.GLUE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
                 ],
@@ -2393,6 +2560,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
         },
@@ -2401,6 +2572,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET], DVNS.STG[EndpointId.GNOSIS_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.GNOSIS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GNOSIS_V2_MAINNET],
                 ],
@@ -2426,6 +2601,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
         },
@@ -2434,6 +2613,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET], DVNS.STG[EndpointId.GOAT_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.GOAT_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
                 ],
@@ -2471,6 +2654,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
         },
@@ -2479,6 +2666,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET], DVNS.STG[EndpointId.GRAVITY_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.GRAVITY_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
                 ],
@@ -2516,6 +2707,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
         },
@@ -2524,6 +2719,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET], DVNS.STG[EndpointId.HEDERA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
                 ],
@@ -2561,6 +2760,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
         },
@@ -2569,6 +2772,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET], DVNS.STG[EndpointId.HEMI_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
                 ],
@@ -2606,6 +2813,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
         },
@@ -2614,6 +2825,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET], DVNS.STG[EndpointId.INK_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
                 ],
@@ -2654,6 +2869,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
         },
@@ -2662,6 +2881,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET], DVNS.STG[EndpointId.IOTA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
                 ],
@@ -2699,6 +2922,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
         },
@@ -2707,6 +2934,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET], DVNS.STG[EndpointId.ISLANDER_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
                 ],
@@ -2744,6 +2975,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
         },
@@ -2752,6 +2987,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET], DVNS.STG[EndpointId.KAVA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
                 ],
@@ -2777,6 +3016,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
         },
@@ -2785,6 +3028,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET], DVNS.STG[EndpointId.KLAYTN_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
                 ],
@@ -2810,6 +3057,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
         },
@@ -2818,6 +3069,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET], DVNS.STG[EndpointId.LIGHTLINK_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.LIGHTLINK_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.LIGHTLINK_V2_MAINNET],
                 ],
@@ -2855,6 +3110,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
         },
@@ -2863,6 +3122,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET], DVNS.STG[EndpointId.MANTA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
                 ],
@@ -2900,6 +3163,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
         },
@@ -2908,6 +3175,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET], DVNS.STG[EndpointId.MANTLE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
                 ],
@@ -2933,6 +3204,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
         },
@@ -2941,6 +3216,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET], DVNS.STG[EndpointId.METIS_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.METIS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
                 ],
@@ -2997,6 +3276,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
         },
@@ -3005,6 +3288,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET], DVNS.STG[EndpointId.NIBIRU_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
                 ],
@@ -3043,6 +3330,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.OG_V2_MAINNET],
         },
@@ -3051,6 +3342,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET], DVNS.STG[EndpointId.OG_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
                 ],
@@ -3082,6 +3377,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
         },
@@ -3090,6 +3389,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET], DVNS.STG[EndpointId.OPTIMISM_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
                 ],
@@ -3117,6 +3420,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
         },
@@ -3125,6 +3432,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET], DVNS.STG[EndpointId.ORDERLY_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
                 ],
@@ -3163,6 +3474,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             sendCreditGasLimit: 90000n,
@@ -3172,6 +3487,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET], DVNS.STG[EndpointId.PEAQ_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
                 ],
@@ -3213,6 +3532,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
         },
@@ -3221,6 +3544,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET], DVNS.STG[EndpointId.PLASMA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
                 ],
@@ -3245,6 +3572,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
         },
@@ -3256,6 +3587,10 @@ export const NETWORKS: NetworksConfig = {
             ],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                 ],
@@ -3294,6 +3629,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
         },
@@ -3302,6 +3641,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET], DVNS.STG[EndpointId.POLYGON_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
                 ],
@@ -3327,6 +3670,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
         },
@@ -3335,6 +3682,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET], DVNS.STG[EndpointId.RARIBLE_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
                 ],
@@ -3372,6 +3723,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
         },
@@ -3380,6 +3735,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET], DVNS.STG[EndpointId.ROOTSTOCK_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
                 ],
@@ -3417,6 +3776,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
         },
@@ -3425,6 +3788,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET], DVNS.STG[EndpointId.SCROLL_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
                 ],
@@ -3460,6 +3827,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
         },
@@ -3468,6 +3839,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET], DVNS.STG[EndpointId.SEI_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
                 ],
@@ -3525,6 +3900,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
         },
@@ -3533,6 +3912,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET], DVNS.STG[EndpointId.STORY_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
                 ],
@@ -3572,6 +3955,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
         },
@@ -3580,6 +3967,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.STG[EndpointId.SOPHON_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
                 ],
@@ -3617,6 +4008,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
             sendCreditGasLimit: 1_000_000n + 20n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
@@ -3626,6 +4021,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET], DVNS.STG[EndpointId.SOMNIA_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
                 ],
@@ -3667,6 +4066,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
         },
@@ -3675,6 +4078,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET], DVNS.STG[EndpointId.SONEIUM_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
                 ],
@@ -3712,6 +4119,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
         },
@@ -3720,6 +4131,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET], DVNS.STG[EndpointId.SONIC_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
                 ],
@@ -3760,6 +4175,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
         },
@@ -3771,6 +4190,10 @@ export const NETWORKS: NetworksConfig = {
             ],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
                 ],
@@ -3811,6 +4234,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
         },
@@ -3819,6 +4246,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET], DVNS.STG[EndpointId.SWELL_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.SWELL_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.SWELL_V2_MAINNET],
                 ],
@@ -3856,6 +4287,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
         },
@@ -3864,6 +4299,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET], DVNS.STG[EndpointId.TAIKO_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.TAIKO_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.TAIKO_V2_MAINNET],
                 ],
@@ -3901,6 +4340,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
         },
@@ -3909,6 +4352,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET], DVNS.STG[EndpointId.TELOS_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
                 ],
@@ -3946,6 +4393,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
         },
@@ -3954,6 +4405,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET], DVNS.STG[EndpointId.UNICHAIN_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
                 ],
@@ -3992,6 +4447,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
         },
@@ -4000,6 +4459,10 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET], DVNS.STG[EndpointId.XDC_V2_MAINNET]],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
                 ],
@@ -4040,6 +4503,10 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                ],
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
         },
@@ -4051,6 +4518,10 @@ export const NETWORKS: NetworksConfig = {
             ],
             perPathRequiredDVNs: {
                 [EndpointId.STABLE_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                ],
+                [EndpointId.GATELAYER_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 ],
