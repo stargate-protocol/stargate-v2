@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.22
+
+### Patch Changes
+
+- d23bf8a: Added GateLayer deployment
+
 ## 1.1.21
 
 ### Patch Changes
