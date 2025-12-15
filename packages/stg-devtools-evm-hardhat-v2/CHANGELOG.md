@@ -1,5 +1,15 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 7.0.4
+
+### Patch Changes
+
+- d23bf8a: Added GateLayer deployment
+- Updated dependencies [d23bf8a]
+- Updated dependencies [d7740ea]
+  - @stargatefinance/stg-definitions-v2@5.0.4
+  - @stargatefinance/stg-devtools-v2@7.0.4
+
 ## 7.0.3
 
 ### Patch Changes

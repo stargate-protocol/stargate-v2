@@ -374,6 +374,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.FUSE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'gatelayer-mainnet': {
+        eid: EndpointId.GATELAYER_V2_MAINNET,
+        url: process.env.RPC_URL_GATELAYER_MAINNET || 'https://gatelayer-mainnet.gatenode.cc',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.GATELAYER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'glue-mainnet': {
         eid: EndpointId.GLUE_V2_MAINNET,
         url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
