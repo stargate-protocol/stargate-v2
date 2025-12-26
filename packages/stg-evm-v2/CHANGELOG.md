@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 5.0.5
+
+### Patch Changes
+
+- 02fd41c: Updated @ensdomains/buffer version to `0.1.3` due to version `0.1.1` being compromised and removed from npm.
+- d23bf8a: Added GateLayer deployment
+- d7740ea: Added GateLayer mainnet configuration
+- Updated dependencies [d23bf8a]
+- Updated dependencies [d7740ea]
+  - @stargatefinance/stg-definitions-v2@5.0.4
+
 ## 5.0.4
 
 ### Patch Changes

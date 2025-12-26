@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 5.0.4
+
+### Patch Changes
+
+- d23bf8a: Added GateLayer deployment
+- d7740ea: Added GateLayer mainnet configuration
+
 ## 5.0.3
 
 ### Patch Changes

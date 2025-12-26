@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.2.5
+
+### Patch Changes
+
+- d23bf8a: Added GateLayer deployment
+
 ## 1.2.4
 
 ### Patch Changes
