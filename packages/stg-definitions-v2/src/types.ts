@@ -1,6 +1,8 @@
 import type { EndpointId } from '@layerzerolabs/lz-definitions'
 import type { ContractNetworksConfig } from '@safe-global/protocol-kit/dist/src/types'
 
+export const OPTIONAL_DVN_THRESHOLD = 1
+
 export enum StargateType {
     Pool = 'Pool',
     Oft = 'OFT',
@@ -109,6 +111,10 @@ export interface CreditMessagingNetworkConfig {
     sendCreditGasLimit: bigint
     requiredDVNs?: string[] // default required DVNs used for all paths
     perPathRequiredDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific required DVNs
+    optionalDVNs?: string[] // default optional DVNs used for all paths
+    perPathOptionalDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific optional DVNs
+    optionalDVNThreshold?: number // default optional DVN threshold used for all paths
+    perPathOptionalDVNsThreshold?: Partial<Record<EndpointId, number>> // per-path specific optional DVN threshold
     executor?: string
     confirmations?: bigint
 }
@@ -122,6 +128,10 @@ export interface TokenMessagingNetworkConfig {
     maxPassengerCount: number
     requiredDVNs?: string[] // default required DVNs used for all paths
     perPathRequiredDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific required DVNs
+    optionalDVNs?: string[] // default optional DVNs used for all paths
+    perPathOptionalDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific optional DVNs
+    optionalDVNThreshold?: number // default optional DVN threshold used for all paths
+    perPathOptionalDVNsThreshold?: Partial<Record<EndpointId, number>> // per-path specific optional DVN threshold
     executor?: string
     queueCapacity: number
     confirmations?: bigint
