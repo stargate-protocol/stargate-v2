@@ -17,6 +17,7 @@ contract StargateOFTAlt is StargateOFT {
 
     error Stargate_NotAnAltEndpoint();
     error Stargate_OnlyAltToken();
+    error Stargate_BusNotAllowedInAlt();
 
     constructor(
         address _token,
@@ -71,6 +72,17 @@ contract StargateOFTAlt is StargateOFT {
         );
     }
 
+    // ! will not allow to ride bus in ALT
+    function _rideBus(
+        SendParam calldata /*_sendParam*/,
+        MessagingFee memory /*_messagingFee*/,
+        uint64 /*_amountSD*/,
+        address /*_refundAddress*/
+    ) internal virtual override returns (MessagingReceipt memory, Ticket memory) {
+        // ? this might not be even needed since could be achieved by setting all fares to 0.
+        revert Stargate_BusNotAllowedInAlt();
+    }
+
     /**
      * @dev Bus path (ALT): pull exactly the required ERC20 fare into this contract (no refund path).
      * Normal (ETH) behavior in StargateBase._rideBus:
@@ -87,12 +99,11 @@ contract StargateOFTAlt is StargateOFT {
      * - This avoids an extra token transfer (over-pull + refund).
      * - The collected ERC20 remains on this contract as planner treasury, mirroring the ETH semantics. The
      *   actual LayerZero send fee is paid by the bus driver at driveBus() time (driver → endpoint), same as ETH.
-     */
     function _rideBus(
         SendParam calldata _sendParam,
         MessagingFee memory _messagingFee,
         uint64 _amountSD,
-        address /*_refundAddress*/
+        address // _refundAddress
     ) internal virtual override returns (MessagingReceipt memory receipt, Ticket memory ticket) {
         if (_messagingFee.lzTokenFee > 0) revert Stargate_LzTokenUnavailable();
 
@@ -117,6 +128,7 @@ contract StargateOFTAlt is StargateOFT {
             Transfer.safeTransferTokenFrom(feeToken, msg.sender, address(this), busFare);
         }
     }
+    */
 
     /// @dev In ALT, users must not send ETH for messaging fees.
     function _assertMessagingFee(
