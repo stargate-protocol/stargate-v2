@@ -197,7 +197,7 @@ contract TokenMessaging is Transfer, MessagingBase, TokenMessagingOptions, IToke
     function driveBus(
         uint32 _dstEid,
         bytes calldata _passengers
-    ) external payable returns (MessagingReceipt memory receipt) {
+    ) external payable virtual returns (MessagingReceipt memory receipt) {
         // Step 1: check the tickets and drive
         Bus memory bus = busQueues[_dstEid].checkTicketsAndDrive(queueCapacity, _passengers);
 
