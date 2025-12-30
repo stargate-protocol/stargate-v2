@@ -3948,7 +3948,7 @@ export const NETWORKS: NetworksConfig = {
         },
         oneSigConfig: {
             oneSigAddress: '0x1fda8b638284d0c599667bdbeca8fc76e81ac46e',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/stable`,
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/redbelly`,
         },
     },
     [EndpointId.ROOTSTOCK_V2_MAINNET]: {
