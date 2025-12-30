@@ -3,8 +3,6 @@ eid: REDBELLY_V2_MAINNET
 token_messaging: true
 credit_messaging: true
 tokens:
-  eth:
-    type: oft
   usdc:
     type: oft
 treasurer:
