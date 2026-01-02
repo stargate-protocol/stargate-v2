@@ -14,7 +14,10 @@ contract CreditMessaging is MessagingBase, CreditMessagingOptions, ICreditMessag
 
     // ---------------------------------- Only Planner ------------------------------------------
 
-    function sendCredits(uint32 _dstEid, TargetCreditBatch[] calldata _creditBatches) external payable onlyPlanner {
+    function sendCredits(
+        uint32 _dstEid,
+        TargetCreditBatch[] calldata _creditBatches
+    ) external payable virtual onlyPlanner {
         CreditBatch[] memory batches = new CreditBatch[](_creditBatches.length);
         uint256 index = 0;
         uint128 totalCreditNum = 0; // total number of credits in all batches
