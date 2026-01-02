@@ -558,7 +558,7 @@ abstract contract StargateBase is Transfer, IStargate, ITokenMessagingHandler, I
         MessagingFee memory _messagingFee,
         uint64 _amountSD,
         address _refundAddress
-    ) internal returns (MessagingReceipt memory receipt) {
+    ) internal virtual returns (MessagingReceipt memory receipt) {
         if (_messagingFee.lzTokenFee > 0) _payLzToken(_messagingFee.lzTokenFee); // handle lz token fee
 
         receipt = ITokenMessaging(tokenMessaging).taxi{ value: _messagingFee.nativeFee }(
@@ -640,7 +640,7 @@ abstract contract StargateBase is Transfer, IStargate, ITokenMessagingHandler, I
     }
 
     /// @dev if _cmd is empty, Taxi mode. Otherwise, Bus mode
-    function _isTaxiMode(bytes calldata _oftCmd) internal pure returns (bool) {
+    function _isTaxiMode(bytes calldata _oftCmd) internal pure virtual returns (bool) {
         return _oftCmd.length == 0;
     }
 
