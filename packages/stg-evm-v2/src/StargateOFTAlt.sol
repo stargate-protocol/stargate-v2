@@ -31,17 +31,9 @@ contract StargateOFTAlt is StargateOFT {
 
     //  StargateBase Overrides
 
-    // ---------------------------------- Only Planner ------------------------------------------
-    /// @notice Withdraw planner fees accumulated in the fee token.
-    function withdrawPlannerFee() external override onlyCaller(planner) {
-        uint256 available = _plannerFee();
-        Transfer.safeTransferToken(feeToken, msg.sender, available);
-        emit PlannerFeeWithdrawn(available);
-    }
-
-    /// @dev Planner fee is held in the fee token balance of this contract for ALT.
-    function _plannerFee() internal view override returns (uint256) {
-        return IERC20(feeToken).balanceOf(address(this));
+    /// @dev Planner fee is not allowed in ALT because BUS is not allowed.
+    function _plannerFee() internal pure override returns (uint256) {
+        revert Stargate_BusNotAllowedInAlt();
     }
 
     /// @dev Taxi path: pull fee token from user to TokenMessaging, then send (no ETH).
@@ -72,7 +64,7 @@ contract StargateOFTAlt is StargateOFT {
         );
     }
 
-    // ! will not allow to ride bus in ALT
+    /// @dev Bus is not allowed in ALT.
     function _rideBus(
         SendParam calldata /*_sendParam*/,
         MessagingFee memory /*_messagingFee*/,
