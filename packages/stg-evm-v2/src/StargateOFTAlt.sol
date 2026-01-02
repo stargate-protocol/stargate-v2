@@ -83,53 +83,6 @@ contract StargateOFTAlt is StargateOFT {
         revert Stargate_BusNotAllowedInAlt();
     }
 
-    /**
-     * @dev Bus path (ALT): pull exactly the required ERC20 fare into this contract (no refund path).
-     * Normal (ETH) behavior in StargateBase._rideBus:
-     * - The rider passes a nativeFee (msg.value) up-front.
-     * - After calling rideBus(), we know the exact bus fare (receipt.fee.nativeFee) based on current queue state.
-     * - We compare provided vs fare; refund any excess in native coin; revert if short. The ETH that remains
-     *   on the Stargate contract is planner treasury. The actual LayerZero send is later paid by the driver
-     *   when driveBus() executes.
-     *
-     * ERC20-native:
-     * - With ERC20s we are not forced to over-collect and refund; we can pull exactly what is needed AFTER
-     *   rideBus() returns the final fare. We still use the user-specified providedFare as a hard cap
-     *   guard (revert if fare > cap), preserving the same user safety guarantees as ETH.
-     * - This avoids an extra token transfer (over-pull + refund).
-     * - The collected ERC20 remains on this contract as planner treasury, mirroring the ETH semantics. The
-     *   actual LayerZero send fee is paid by the bus driver at driveBus() time (driver → endpoint), same as ETH.
-    function _rideBus(
-        SendParam calldata _sendParam,
-        MessagingFee memory _messagingFee,
-        uint64 _amountSD,
-        address // _refundAddress
-    ) internal virtual override returns (MessagingReceipt memory receipt, Ticket memory ticket) {
-        if (_messagingFee.lzTokenFee > 0) revert Stargate_LzTokenUnavailable();
-
-        (receipt, ticket) = ITokenMessaging(tokenMessaging).rideBus(
-            RideBusParams({
-                sender: msg.sender,
-                dstEid: _sendParam.dstEid,
-                receiver: _sendParam.to,
-                amountSD: _amountSD,
-                nativeDrop: _sendParam.extraOptions.length > 0
-            })
-        );
-
-        uint256 busFare = receipt.fee.nativeFee;
-        uint256 providedFare = _messagingFee.nativeFee;
-
-        // Cap check: fare cannot exceed the user's provided cap
-        if (busFare > providedFare) revert Stargate_InsufficientFare();
-
-        // Pull exactly the required fare; no refund path needed
-        if (busFare > 0) {
-            Transfer.safeTransferTokenFrom(feeToken, msg.sender, address(this), busFare);
-        }
-    }
-    */
-
     /// @dev In ALT, users must not send ETH for messaging fees.
     function _assertMessagingFee(
         MessagingFee memory _fee,
