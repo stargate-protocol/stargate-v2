@@ -640,7 +640,7 @@ abstract contract StargateBase is Transfer, IStargate, ITokenMessagingHandler, I
     }
 
     /// @dev if _cmd is empty, Taxi mode. Otherwise, Bus mode
-    function _isTaxiMode(bytes calldata _oftCmd) internal pure returns (bool) {
+    function _isTaxiMode(bytes calldata _oftCmd) internal pure virtual returns (bool) {
         return _oftCmd.length == 0;
     }
 

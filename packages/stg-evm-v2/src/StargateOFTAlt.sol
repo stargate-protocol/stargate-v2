@@ -6,7 +6,7 @@ import { EndpointV2Alt } from "@layerzerolabs/lz-evm-protocol-v2/contracts/Endpo
 import { MessagingReceipt, MessagingFee, SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 import { StargateOFT } from "./StargateOFT.sol";
-import { ITokenMessaging, RideBusParams, TaxiParams, Ticket } from "./interfaces/ITokenMessaging.sol";
+import { ITokenMessaging, TaxiParams } from "./interfaces/ITokenMessaging.sol";
 import { Transfer } from "./libs/Transfer.sol";
 
 /// @notice OFT variant for EndpointV2Alt chains where the "native" messaging fee is an ERC20 token.
@@ -33,7 +33,7 @@ contract StargateOFTAlt is StargateOFT {
 
     /// @dev Planner fee is not allowed in ALT because BUS is not allowed.
     function _plannerFee() internal pure override returns (uint256) {
-        revert Stargate_BusNotAllowedInAlt();
+        return 0;
     }
 
     /// @dev Taxi path: pull fee token from user to TokenMessaging, then send (no ETH).
@@ -48,6 +48,10 @@ contract StargateOFTAlt is StargateOFT {
         // Push native ERC20 fee to the endpoint
         if (_messagingFee.nativeFee > 0) {
             Transfer.safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), _messagingFee.nativeFee);
+
+            // Zero nativeFee before calling TokenMessaging so no ETH is forwarded to EndpointV2Alt.
+            // ? a cleaner way might be to override TokenMessaging._payNative but it will need a dedicated contract, is it better?
+            _messagingFee.nativeFee = 0;
         }
 
         receipt = ITokenMessaging(tokenMessaging).taxi(
@@ -64,17 +68,6 @@ contract StargateOFTAlt is StargateOFT {
         );
     }
 
-    /// @dev Bus is not allowed in ALT.
-    function _rideBus(
-        SendParam calldata /*_sendParam*/,
-        MessagingFee memory /*_messagingFee*/,
-        uint64 /*_amountSD*/,
-        address /*_refundAddress*/
-    ) internal virtual override returns (MessagingReceipt memory, Ticket memory) {
-        // ? this might not be even needed since could be achieved by setting all fares to 0.
-        revert Stargate_BusNotAllowedInAlt();
-    }
-
     /// @dev In ALT, users must not send ETH for messaging fees.
     function _assertMessagingFee(
         MessagingFee memory _fee,
@@ -82,5 +75,12 @@ contract StargateOFTAlt is StargateOFT {
     ) internal view override returns (MessagingFee memory) {
         if (msg.value != 0) revert Stargate_OnlyAltToken();
         return _fee;
+    }
+
+    /// @dev Alt endpoints are taxi-only; reject bus mode at the mode check so all downstream bus flows revert early.
+    /// @dev This makes quoteSend/quoteOFT fail for bus, prevents sendToken from reaching _rideBus.
+    function _isTaxiMode(bytes calldata _oftCmd) internal pure override returns (bool) {
+        if (_oftCmd.length != 0) revert Stargate_BusNotAllowedInAlt();
+        return true;
     }
 }
