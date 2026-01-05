@@ -65,6 +65,7 @@ export const DVNS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x882a1ee8891c7d22310dedf032ef9653785532b8',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
+        [EndpointId.REDBELLY_V2_MAINNET]: '0x6d4fc4bd9f9c29086e2aa67d4c81f32d2e0f285c',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
@@ -128,6 +129,7 @@ export const DVNS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x4208d6e27538189bb48e603d6123a94b8abe0a0b',
         [EndpointId.POLYGON_V2_MAINNET]: '0x23de2fe932d9043291f870324b74f820e11dc81a',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x0b5e5452d0c9da1bb5fb0664f48313e9667d7820',
+        [EndpointId.REDBELLY_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.SCROLL_V2_MAINNET]: '0xbe0d08a85eebfcc6eda0a843521f7cbb1180d2e2',
         [EndpointId.SEI_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
@@ -262,6 +264,7 @@ export const EXECUTORS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
+        [EndpointId.REDBELLY_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
@@ -942,6 +945,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
             },
+            [EndpointId.REDBELLY_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x974ceBB683C7DbaA538407b7Aaf5ae89f2E1810F',
+            },
             [EndpointId.ROOTSTOCK_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x74c9f2b00581f1b11aa7ff05aa9f608b7389de67',
@@ -1189,6 +1196,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
+        [EndpointId.REDBELLY_V2_MAINNET]: {},
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
         [EndpointId.SEI_V2_MAINNET]: {},
@@ -3913,6 +3921,29 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0xf96B7814BA740fd56511dc698257c41d52683517',
                 },
             },
+        },
+    },
+    [EndpointId.REDBELLY_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.REDBELLY_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.REDBELLY_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
+            nativeDropAmount: parseEther('110').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x1fda8b638284d0c599667bdbeca8fc76e81ac46e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/redbelly`,
         },
     },
     [EndpointId.ROOTSTOCK_V2_MAINNET]: {
