@@ -947,7 +947,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.REDBELLY_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x974ceBB683C7DbaA538407b7Aaf5ae89f2E1810F',
+                address: '0xd6182773Bf646Fe65122B8542e2aeE646FD55E26',
             },
             [EndpointId.ROOTSTOCK_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -3939,7 +3939,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
-            nativeDropAmount: parseEther('0').toBigInt(),
+            nativeDropAmount: parseEther('110').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x1fda8b638284d0c599667bdbeca8fc76e81ac46e',
