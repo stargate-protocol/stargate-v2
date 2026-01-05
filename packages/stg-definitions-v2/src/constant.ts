@@ -3939,7 +3939,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
-            nativeDropAmount: parseEther('0').toBigInt(),
+            nativeDropAmount: parseEther('110`').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x1fda8b638284d0c599667bdbeca8fc76e81ac46e',
