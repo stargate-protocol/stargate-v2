@@ -1,0 +1,1243 @@
+{
+  "address": "0x9f3eea6709F4359d71d55187069Ff0652dF51166",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_stargate",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "FeeLib_InvalidFeeConfiguration",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FeeLib_Paused",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FeeLib_Unauthorized",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint32",
+          "name": "eid",
+          "type": "uint32"
+        },
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "paused",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint64",
+              "name": "zone1UpperBound",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "zone2UpperBound",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint24",
+              "name": "zone1FeeMillionth",
+              "type": "uint24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "zone2FeeMillionth",
+              "type": "uint24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "zone3FeeMillionth",
+              "type": "uint24"
+            },
+            {
+              "internalType": "uint24",
+              "name": "rewardMillionth",
+              "type": "uint24"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct FeeConfig",
+          "name": "config",
+          "type": "tuple"
+        }
+      ],
+      "name": "FeeConfigSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint32",
+          "name": "eid",
+          "type": "uint32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isPaused",
+          "type": "bool"
+        }
+      ],
+      "name": "PausedSet",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint32",
+              "name": "dstEid",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint64",
+              "name": "amountInSD",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "deficitSD",
+              "type": "uint64"
+            },
+            {
+              "internalType": "bool",
+              "name": "toOFT",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "isTaxi",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct FeeParams",
+          "name": "_params",
+          "type": "tuple"
+        }
+      ],
+      "name": "applyFee",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "amountOutSD",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint32",
+              "name": "dstEid",
+              "type": "uint32"
+            },
+            {
+              "internalType": "uint64",
+              "name": "amountInSD",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "deficitSD",
+              "type": "uint64"
+            },
+            {
+              "internalType": "bool",
+              "name": "toOFT",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "isTaxi",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct FeeParams",
+          "name": "_params",
+          "type": "tuple"
+        }
+      ],
+      "name": "applyFeeView",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "amountOutSD",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "eid",
+          "type": "uint32"
+        }
+      ],
+      "name": "feeConfigs",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "paused",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint64",
+          "name": "zone1UpperBound",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint64",
+          "name": "zone2UpperBound",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint24",
+          "name": "zone1FeeMillionth",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "zone2FeeMillionth",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "zone3FeeMillionth",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "rewardMillionth",
+          "type": "uint24"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "_dstEid",
+          "type": "uint32"
+        },
+        {
+          "internalType": "uint64",
+          "name": "_zone1UpperBound",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint64",
+          "name": "_zone2UpperBound",
+          "type": "uint64"
+        },
+        {
+          "internalType": "uint24",
+          "name": "_zone1FeeMillionth",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "_zone2FeeMillionth",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "_zone3FeeMillionth",
+          "type": "uint24"
+        },
+        {
+          "internalType": "uint24",
+          "name": "_rewardMillionth",
+          "type": "uint24"
+        }
+      ],
+      "name": "setFeeConfig",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "_dstEid",
+          "type": "uint32"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isPaused",
+          "type": "bool"
+        }
+      ],
+      "name": "setPaused",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "stargate",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "stargateType",
+      "outputs": [
+        {
+          "internalType": "enum StargateType",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x1ae1ded53c842638fcd547b9b18f3465a892d5da529b8f470c2e7821b3ce8c57",
+  "receipt": {
+    "to": null,
+    "from": "0x0BE11700A754F2A3116Ed9978472A9f326E19c84",
+    "contractAddress": "0x9f3eea6709F4359d71d55187069Ff0652dF51166",
+    "transactionIndex": 0,
+    "gasUsed": "213450",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x047de952763bd2522c520e36ff352ca3a5034d236ab17977df1f3734b28d0fea",
+    "transactionHash": "0x1ae1ded53c842638fcd547b9b18f3465a892d5da529b8f470c2e7821b3ce8c57",
+    "logs": [],
+    "blockNumber": 2687759,
+    "cumulativeGasUsed": "213450",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": ["0xD6FD6611a8C9600Ce0D45E3c989b5d21DAE02F7f"],
+  "numDeployments": 1,
+  "solcInputHash": "861e06c1f9b43b99543da9ee2a03d18b",
+  "metadata": {
+    "llvm_options": [],
+    "optimizer_settings": {
+      "is_debug_logging_enabled": false,
+      "is_fallback_to_size_enabled": false,
+      "is_verify_each_enabled": false,
+      "level_back_end": "Aggressive",
+      "level_middle_end": "Default",
+      "level_middle_end_size": "Z"
+    },
+    "solc_version": "0.8.22",
+    "solc_zkvm_edition": null,
+    "source_metadata": {
+      "compiler": {
+        "version": "0.8.22+commit.4fc1097e"
+      },
+      "language": "Solidity",
+      "output": {
+        "abi": [
+          {
+            "inputs": [
+              {
+                "internalType": "address",
+                "name": "_stargate",
+                "type": "address"
+              }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+          },
+          {
+            "inputs": [],
+            "name": "FeeLib_InvalidFeeConfiguration",
+            "type": "error"
+          },
+          {
+            "inputs": [],
+            "name": "FeeLib_Paused",
+            "type": "error"
+          },
+          {
+            "inputs": [],
+            "name": "FeeLib_Unauthorized",
+            "type": "error"
+          },
+          {
+            "anonymous": false,
+            "inputs": [
+              {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "eid",
+                "type": "uint32"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "bool",
+                    "name": "paused",
+                    "type": "bool"
+                  },
+                  {
+                    "internalType": "uint64",
+                    "name": "zone1UpperBound",
+                    "type": "uint64"
+                  },
+                  {
+                    "internalType": "uint64",
+                    "name": "zone2UpperBound",
+                    "type": "uint64"
+                  },
+                  {
+                    "internalType": "uint24",
+                    "name": "zone1FeeMillionth",
+                    "type": "uint24"
+                  },
+                  {
+                    "internalType": "uint24",
+                    "name": "zone2FeeMillionth",
+                    "type": "uint24"
+                  },
+                  {
+                    "internalType": "uint24",
+                    "name": "zone3FeeMillionth",
+                    "type": "uint24"
+                  },
+                  {
+                    "internalType": "uint24",
+                    "name": "rewardMillionth",
+                    "type": "uint24"
+                  }
+                ],
+                "indexed": false,
+                "internalType": "struct FeeConfig",
+                "name": "config",
+                "type": "tuple"
+              }
+            ],
+            "name": "FeeConfigSet",
+            "type": "event"
+          },
+          {
+            "anonymous": false,
+            "inputs": [
+              {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+              },
+              {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+              }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+          },
+          {
+            "anonymous": false,
+            "inputs": [
+              {
+                "indexed": false,
+                "internalType": "uint32",
+                "name": "eid",
+                "type": "uint32"
+              },
+              {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "isPaused",
+                "type": "bool"
+              }
+            ],
+            "name": "PausedSet",
+            "type": "event"
+          },
+          {
+            "inputs": [
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint32",
+                    "name": "dstEid",
+                    "type": "uint32"
+                  },
+                  {
+                    "internalType": "uint64",
+                    "name": "amountInSD",
+                    "type": "uint64"
+                  },
+                  {
+                    "internalType": "uint64",
+                    "name": "deficitSD",
+                    "type": "uint64"
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "toOFT",
+                    "type": "bool"
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "isTaxi",
+                    "type": "bool"
+                  }
+                ],
+                "internalType": "struct FeeParams",
+                "name": "_params",
+                "type": "tuple"
+              }
+            ],
+            "name": "applyFee",
+            "outputs": [
+              {
+                "internalType": "uint64",
+                "name": "amountOutSD",
+                "type": "uint64"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint32",
+                    "name": "dstEid",
+                    "type": "uint32"
+                  },
+                  {
+                    "internalType": "uint64",
+                    "name": "amountInSD",
+                    "type": "uint64"
+                  },
+                  {
+                    "internalType": "uint64",
+                    "name": "deficitSD",
+                    "type": "uint64"
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "toOFT",
+                    "type": "bool"
+                  },
+                  {
+                    "internalType": "bool",
+                    "name": "isTaxi",
+                    "type": "bool"
+                  }
+                ],
+                "internalType": "struct FeeParams",
+                "name": "_params",
+                "type": "tuple"
+              }
+            ],
+            "name": "applyFeeView",
+            "outputs": [
+              {
+                "internalType": "uint64",
+                "name": "amountOutSD",
+                "type": "uint64"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "uint32",
+                "name": "eid",
+                "type": "uint32"
+              }
+            ],
+            "name": "feeConfigs",
+            "outputs": [
+              {
+                "internalType": "bool",
+                "name": "paused",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint64",
+                "name": "zone1UpperBound",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint64",
+                "name": "zone2UpperBound",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint24",
+                "name": "zone1FeeMillionth",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "zone2FeeMillionth",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "zone3FeeMillionth",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "rewardMillionth",
+                "type": "uint24"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+              {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "uint32",
+                "name": "_dstEid",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint64",
+                "name": "_zone1UpperBound",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint64",
+                "name": "_zone2UpperBound",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint24",
+                "name": "_zone1FeeMillionth",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "_zone2FeeMillionth",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "_zone3FeeMillionth",
+                "type": "uint24"
+              },
+              {
+                "internalType": "uint24",
+                "name": "_rewardMillionth",
+                "type": "uint24"
+              }
+            ],
+            "name": "setFeeConfig",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "uint32",
+                "name": "_dstEid",
+                "type": "uint32"
+              },
+              {
+                "internalType": "bool",
+                "name": "_isPaused",
+                "type": "bool"
+              }
+            ],
+            "name": "setPaused",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "stargate",
+            "outputs": [
+              {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [],
+            "name": "stargateType",
+            "outputs": [
+              {
+                "internalType": "enum StargateType",
+                "name": "",
+                "type": "uint8"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+              }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          }
+        ],
+        "devdoc": {
+          "kind": "dev",
+          "methods": {
+            "applyFee((address,uint32,uint64,uint64,bool,bool))": {
+              "details": "Included to future proof the API to allow for fees to modify state.In the case of the FeeLibV1 implementation, state is not modified."
+            },
+            "applyFeeView((address,uint32,uint64,uint64,bool,bool))": {
+              "details": "Reverts with Paused if the path is paused.",
+              "params": {
+                "_params": "The transfer information, namely the amount and destination"
+              },
+              "returns": {
+                "amountOutSD": "The number of tokens the sender will receive on the destination chain, in shared decimals."
+              }
+            },
+            "owner()": {
+              "details": "Returns the address of the current owner."
+            },
+            "renounceOwnership()": {
+              "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+            },
+            "setFeeConfig(uint32,uint64,uint64,uint24,uint24,uint24,uint24)": {
+              "params": {
+                "_dstEid": "The destination endpoint ID",
+                "_rewardMillionth": "The reward in millionth",
+                "_zone1FeeMillionth": "The fee for the first zone in millionth",
+                "_zone1UpperBound": "The upper bound for the first zone",
+                "_zone2FeeMillionth": "The fee for the second zone in millionth",
+                "_zone2UpperBound": "The upper bound for the second zone",
+                "_zone3FeeMillionth": "The fee for the third zone in millionth"
+              }
+            },
+            "setPaused(uint32,bool)": {
+              "params": {
+                "_dstEid": "The destination LayerZero endpoint ID",
+                "_isPaused": "A flag indicating whether or not the destination is paused."
+              }
+            },
+            "transferOwnership(address)": {
+              "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+            }
+          },
+          "title": "FeeLibV1",
+          "version": 1
+        },
+        "userdoc": {
+          "kind": "user",
+          "methods": {
+            "applyFeeView((address,uint32,uint64,uint64,bool,bool))": {
+              "notice": "Apply fee to the request parameters and calculate the expected output amount on the destination chain"
+            },
+            "setFeeConfig(uint32,uint64,uint64,uint24,uint24,uint24,uint24)": {
+              "notice": "Set the new configuration for a destination."
+            },
+            "setPaused(uint32,bool)": {
+              "notice": "Pause fee calculation for a destination."
+            }
+          },
+          "notice": "An implementation of IStargateFeeLib used to calculate fees for Stargate transfers.",
+          "version": 1
+        }
+      },
+      "settings": {
+        "compilationTarget": {
+          "src/feelibs/FeeLibV1.sol": "FeeLibV1"
+        },
+        "evmVersion": "paris",
+        "libraries": {
+          "src/usdc/impl/util/SignatureChecker.sol:SignatureChecker": "0xfe9034963f90789648ae12e3ae08e0303b0af2fc"
+        },
+        "metadata": {
+          "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+          "enabled": true,
+          "runs": 200
+        },
+        "remappings": []
+      },
+      "sources": {
+        "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/OAppCore.sol": {
+          "keccak256": "0x13a9c2d1d2c1f086b8624f2e84c4a4702212daae36f701d92bb915b535cbe4cc",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://606515dd9193551bd2c94ac8c304f3776fafcc70e544ebf441f334658b2fd5f0",
+            "dweb:/ipfs/QmZ88ey7DdZqV5taAoebabvszX5kdPMSrQCAmTteVdDtcH"
+          ]
+        },
+        "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/OAppSender.sol": {
+          "keccak256": "0x518cf4adca601923ed4baa6619846a253ea32b8d8775f8bc1faa3dfac7f67c20",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://d42b471418efadcc3577ef3fa9f8f504e8bed7db90c3b0c862038d8b29529eb2",
+            "dweb:/ipfs/QmZETDQiJN4U92fmLKo8T9ZbdDf7BNBUUvo9H7M7GqAyFU"
+          ]
+        },
+        "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppCore.sol": {
+          "keccak256": "0x40e49f2de74506e1da5dcaed53a39853f691647f4ceb0fccc8f49a68d3f47c58",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://4a1deb2a6a3eb1fb83936c9578469142bff470295f403d7d07d955a76be3adbd",
+            "dweb:/ipfs/QmS9bjSfBaE4YhQ1PCQ1TknbEPbNfRXzBK9E7SaPGyiZEv"
+          ]
+        },
+        "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol": {
+          "keccak256": "0x42431bdbe135f7cfefd0be6cd345a6a1045124f6ea707a06756ef2322140eef5",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://fa1e0c47cb3235aeee9f91e613c8e7b92e6802a1d55eb994a711eed874dfcc57",
+            "dweb:/ipfs/QmPPLndhKHToYrGujgRYFd25UMqjGrpnvCCBTw6Fhu1Jqd"
+          ]
+        },
+        "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol": {
+          "keccak256": "0xbc3b4a31ccf905e2f61fe248c57da6591670d286e910d634502598c490c7c671",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://b8bfafcb03e6b870d221e45a67dae643a81178935006c4ba2bc27db12aba2d1d",
+            "dweb:/ipfs/QmZf5Bw28Ku8b6Y3kJ4Y7QLvwjTxq75tXCGhAKFHeAt853"
+          ]
+        },
+        "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessageLibManager.sol": {
+          "keccak256": "0xe47b048f28b0705b66bdd62c62990c0d068ce0568c15962c2d6f2feed3fdf06e",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://2d269928c3c49e7b887b29abe26c62bba45dd17441bf4ab0831d3ba47f8a7f38",
+            "dweb:/ipfs/QmXJNDF8KrfGxZwFT6farHPALjqgZm5YRajt6QT8B8z8u8"
+          ]
+        },
+        "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessagingChannel.sol": {
+          "keccak256": "0x37e57a48c2019d37d77913bed32a349c2958423723bac6aa75cf271b57d8ba51",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://1501310b3ce39c00fbe3d68fa6a6e7531de86ba6127fc0a85083444f3d10a40e",
+            "dweb:/ipfs/QmNhuEMBbmDxBizTBgPV5E3ya4McMLLiFvybMSDHQP7uCK"
+          ]
+        },
+        "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessagingComposer.sol": {
+          "keccak256": "0x85bc7090134529ec474866dc4bb1c48692d518c756eb0a961c82574829c51901",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://b18b23a1643fc6636c4ad9d9023e2e6ca2d3c2a4a046482d4655bff09950598d",
+            "dweb:/ipfs/Qma6G5SqiovwrMPfgqTrRngK1HWW373Wkf9c6YP2NhXpPk"
+          ]
+        },
+        "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/IMessagingContext.sol": {
+          "keccak256": "0xff0c546c2813dae3e440882f46b377375f7461b0714efd80bd3f0c6e5cb8da4e",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://5173fc9143bea314b159ca5a9adb5626659ef763bc598e27de5fa46efe3291a6",
+            "dweb:/ipfs/QmSLFeMFPmVeGxT4sxRPW28ictjAS22M8rLeYRu9TXkA6D"
+          ]
+        },
+        "@openzeppelin/contracts/access/Ownable.sol": {
+          "keccak256": "0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://fc980984badf3984b6303b377711220e067722bbd6a135b24669ff5069ef9f32",
+            "dweb:/ipfs/QmPHXMSXj99XjSVM21YsY6aNtLLjLVXDbyN76J5HQYvvrz"
+          ]
+        },
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+          "keccak256": "0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://bd39944e8fc06be6dbe2dd1d8449b5336e23c6a7ba3e8e9ae5ae0f37f35283f5",
+            "dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53"
+          ]
+        },
+        "@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit.sol": {
+          "keccak256": "0xb264c03a3442eb37a68ad620cefd1182766b58bee6cec40343480392d6b14d69",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://28879d01fd22c07b44f006612775f8577defbe459cb01685c5e25cd518c91a71",
+            "dweb:/ipfs/QmVgfkwv2Fxw6hhTcDUZhE7NkoSKjab3ipM7UaRbt6uXb5"
+          ]
+        },
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
+          "keccak256": "0xabefac93435967b4d36a4fabcbdbb918d1f0b7ae3c3d85bc30923b326c927ed1",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://9d213d3befca47da33f6db0310826bcdb148299805c10d77175ecfe1d06a9a68",
+            "dweb:/ipfs/QmRgCn6SP1hbBkExUADFuDo8xkT4UU47yjNF5FhCeRbQmS"
+          ]
+        },
+        "@openzeppelin/contracts/utils/Address.sol": {
+          "keccak256": "0x006dd67219697fe68d7fbfdea512e7c4cb64a43565ed86171d67e844982da6fa",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://2455248c8ddd9cc6a7af76a13973cddf222072427e7b0e2a7d1aff345145e931",
+            "dweb:/ipfs/QmfYjnjRbWqYpuxurqveE6HtzsY1Xx323J428AKQgtBJZm"
+          ]
+        },
+        "@openzeppelin/contracts/utils/Context.sol": {
+          "keccak256": "0xa92e4fa126feb6907daa0513ddd816b2eb91f30a808de54f63c17d0e162c3439",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://a367861093b74443b137564d3f3c472f70bcf114739e62059c939f25e315706c",
+            "dweb:/ipfs/Qmd7JMpcxD9RuQjK3uM3EzJUgSqdN8vzp8eytEiuwxQJ6h"
+          ]
+        },
+        "@openzeppelin/contracts/utils/math/SafeCast.sol": {
+          "keccak256": "0x52a8cfb0f5239d11b457dcdd1b326992ef672714ca8da71a157255bddd13f3ad",
+          "license": "MIT",
+          "urls": [
+            "bzz-raw://495145362c7ff1c9ca88c58bbbbcb412e3c2004406647412394486552ff6c278",
+            "dweb:/ipfs/QmNNCeng6d5eRPDn6tkWSQhjE39XWfQEfjA63rRwHmr1iH"
+          ]
+        },
+        "src/feelibs/FeeLibV1.sol": {
+          "keccak256": "0x6a337e85c8fd1ae27e8483bf86cb01828f72d12b7ebff1185c70c694253c5dae",
+          "license": "BUSL-1.1",
+          "urls": [
+            "bzz-raw://3069199d72ad1a13189829d3bba81e664a12f4e82443b70243daa6c05a6fbf93",
+            "dweb:/ipfs/QmNin4AMmvpJYy6E17pFgdCKTPaRMfB3Hgz7AonbSX6tRb"
+          ]
+        },
+        "src/interfaces/IStargate.sol": {
+          "keccak256": "0xc6d5d7f325811ceebb5e8bbc22a85d0d3a3960073d7263f5b746a6b3ac36f59a",
+          "license": "BUSL-1.1",
+          "urls": [
+            "bzz-raw://9a5a01f166996c6e1206c8a6090982652770dd3f13b309f041f1380748527089",
+            "dweb:/ipfs/QmRYWbdHDrnfAym3wJRdWdqzaht8RSu5v3jEtifNmE7vyD"
+          ]
+        },
+        "src/interfaces/IStargateFeeLib.sol": {
+          "keccak256": "0xb68a85b6c3907584364d7ce78ffe7f4aedf5ea7dd584fea7fef435a23337bf57",
+          "license": "BUSL-1.1",
+          "urls": [
+            "bzz-raw://ba147545bce5ac4587b7cce6f526a9503a62ae836706f87777d646976eaacd30",
+            "dweb:/ipfs/QmcwzbdrEjzgtdEejW9QcGe7B9pEGeLzonQPMRdsHfq7uo"
+          ]
+        }
+      },
+      "version": 1
+    },
+    "zk_version": "1.5.7"
+  },
+  "bytecode": "0x000300000000000200130000000000020000006003100270000000d403300197000200000031035500010000000103550000000100200190000000300000c13d0000008002000039000000400020043f000000040030008c000001a00000413d000000000201043b000000e002200270000000e00020009c000001590000613d000000e10020009c000000b20000613d000000e20020009c000001630000613d000000e30020009c000000da0000613d000000e40020009c000001790000613d000000e50020009c000001880000613d000000e60020009c0000011d0000613d000000e70020009c000001230000613d000000e80020009c000001280000613d000000e90020009c000001a00000c13d0000000001000416000000000001004b000001a00000c13d0000000001000412001300000001001d001200200000003d0000000001000415000000130110008a0000000501100210034b03120000040f000000020010008c000001a80000413d000000de01000041000003310000013d000000c004000039000000400040043f0000000002000416000000000002004b000001a00000c13d0000001f02300039000000d502200197000000c002200039000000400020043f0000001f0530018f000000d606300198000000c002600039000000420000613d000000000701034f000000007807043c0000000004840436000000000024004b0000003e0000c13d000000000005004b0000004f0000613d000000000161034f0000000304500210000000000502043300000000054501cf000000000545022f000000000101043b0000010004400089000000000141022f00000000014101cf000000000151019f0000000000120435000000200030008c000001a00000413d000000c00100043d000000d70010009c000001a00000213d000c00000001001d000000000100041a000000d8021001970000000006000411000000000262019f000000000020041b000000400200043d000d00000002001d0000000002000414000000d705100197000000d40020009c000000d402008041000000c001200210000000d9011001c70000800d020000390000000303000039000000da04000041034b03270000040f0000000c010000290000000100200190000001a00000613d000000d702100197000000800010043f000000db010000410000000d0300002900000000001304350000000001000414000000040020008c000000920000613d0000000d04000029034b02140000040f0000000d03000029000000000001004b000000920000c13d0000000204000367000000200100008a000000000200003100000000051201700000001f0620018f000000400100043d0000000003510019000000840000613d000000000704034f0000000008010019000000007907043c0000000008980436000000000038004b000000800000c13d000000000006004b000000910000613d000000000454034f0000000305600210000000000603043300000000065601cf000000000656022f000000000404043b0000010005500089000000000454022f00000000045401cf000000000464019f0000000000430435034b02ef0000040f0000000001000031000000200010008c000000200200003900000000020140190000001f02200039000000600420018f0000000002340019000000000042004b00000000040000390000000104004039000000dc0020009c000001a20000213d0000000100400190000001a20000c13d000000400020043f000000200010008c000001620000413d0000000001030433000000010010008c000001620000213d000000a00010043f000000800200043d0000014000000443000001600020044300000020020000390000018000200443000001a000100443000001000020044300000002010000390000012000100443000000dd010000410000034c0001042e000000240030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000401100370000000000101043b000000d40010009c000001a00000213d000000000010043f0000000101000039000000200010043f0000000001000019034b03010000040f000000000101041a000000ff001001900000000002000039000000010200c039000000800020043f0000000802100270000000dc02200197000000a00020043f0000004802100270000000dc02200197000000c00020043f0000008802100270000000ef02200197000000e00020043f000000a002100270000000ef02200197000001000020043f000000b802100270000000ef02200197000001200020043f000000d001100270000000ef01100197000001400010043f0000008001000039000000e0020000390000019e0000013d000000e40030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000402100370000000000302043b000000d40030009c000001a00000213d0000002402100370000000000402043b000000dc0040009c000001620000213d0000004402100370000000000502043b000000dc0050009c000001620000213d0000006402100370000000000602043b000000ef0060009c000001620000213d0000008402100370000000000702043b000000ef0070009c000001620000213d000000a402100370000000000202043b000000ef0020009c000001620000213d000000c401100370000000000101043b000c00000001001d000000ef0010009c000001620000213d000a00000002001d000b00000007001d000800000005001d000900000004001d000700000003001d000600000006001d000d00ef0060019b034b02980000040f0000000d01000029000000f00010009c000001190000213d0000000b01000029000000ef01100197000500000001001d000000f00010009c000001190000213d0000000a01000029000000ef01100197000400000001001d000000f00010009c000001190000213d0000000901000029000000dc021001970000000801000029000000dc01100197000300000001001d000200000002001d000000000021004b000001cf0000813d000000400100043d000000fa020000410000000000210435000001bf0000013d000000c40030008c000001a00000413d0000000001000416000000000001004b000001730000613d000001a00000013d0000000001000416000000000001004b000001a00000c13d000000000100041a000001830000013d000000440030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000402100370000000000202043b000000d40020009c000001a00000213d0000002401100370000000000301043b000000000003004b0000000001000039000000010100c039000000000013004b000001620000c13d000d00000002001d000c00000003001d034b02980000040f0000000d01000029000000000010043f0000000101000039000000200010043f0000000001000019034b03010000040f000001000200008a000000000301041a000000000223016f0000000c03000029000000000232019f000000000021041b000000400100043d000000200210003900000000003204350000000d020000290000000000210435000000d40010009c000000d40100804100000040011002100000000002000414000000d40020009c000000d402008041000000c002200210000000000112019f000000ed011001c70000800d020000390000000103000039000000ee04000041000001990000013d000000240030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000401100370000000000101043b000000d70010009c000001ab0000a13d000003410000013d000000c40030008c000001a00000413d0000000001000416000000000001004b000001a00000c13d0000000001000412001100000001001d001000000000003d0000000001000415000000110110008a0000000501100210034b03120000040f000000d7011001970000000002000411000000000012004b000001bc0000c13d034b02400000040f000000400300043d0000000000130435000000200200003900000000010300190000019e0000013d0000000001000416000000000001004b000001a00000c13d0000000001000412000f00000001001d000e00000000003d00000000010004150000000f0110008a0000000501100210034b03120000040f000000d701100197000000800010043f000000800100003900000020020000390000019e0000013d0000000001000416000000000001004b000001a00000c13d034b02980000040f000000000100041a000000d802100197000000000020041b0000000002000414000000d705100197000000d40020009c000000d402008041000000c001200210000000d9011001c70000800d020000390000000303000039000000da040000410000000006000019034b03270000040f0000000100200190000001a00000613d000000000100001900000000020000190000000003000019034b02f70000040f00000000010000190000034d00010430000000de01000041000000000010043f0000004101000039000000040010043f000000df010000410000034d00010430000000800010043f000000fc010000410000034c0001042e000d00d70010019b034b02980000040f0000000d06000029000000000006004b000001c10000c13d000000400100043d0000006402100039000000ea0300004100000000003204350000004402100039000000eb030000410000000000320435000000240210003900000026030000390000000000320435000000ec02000041000003370000013d000000fb01000041000000800010043f00000080010000390000000402000039034b02ef0000040f000000000100041a000000d802100197000000000262019f000000000020041b0000000002000414000000d705100197000000d40020009c000000d402008041000000c001200210000000d9011001c70000800d020000390000000303000039000000da04000041000001990000013d00000009010000290000000801100210000000f10110019700000008020000290000004802200210000000f202200197000000000112019f00000006020000290000008802200210000000f302200197000000000121019f0000000b02000029000000a002200210000000f402200197000000000121019f0000000a02000029000000b802200210000000f502200197000000000121019f0000000c02000029000000d002200210000000f602200197000c0000002101a30000000701000029000101e90000003d000003440000013d000000f7032001970000000c04000029000000000334019f000000000031041b000000ff002001900000000001000039000000010100c039000000400200043d0000002003200039000000000013043500000040012000390000000203000029000000000031043500000060012000390000000303000029000000000031043500000080012000390000000d030000290000000000310435000000a00120003900000005030000290000000000310435000000c00120003900000004030000290000000000310435000000d001400270000000e003200039000000000013043500000007010000290000000000120435000000d40020009c000000d40200804100000040012002100000000002000414000000d40020009c000000d402008041000000c002200210000000000112019f000000f8011001c70000800d020000390000000103000039000000f904000041000001580000013d0001000000000002000100000004001d000000d40010009c000000d401008041000000c001100210000000d40030009c000000d4030080410000004003300210000000000113019f000000fd011001c7034b032c0000040f00000001090000290000006003100270000000d403300197000000200030008c000000200400003900000000040340190000001f0540018f000000200640019000000000046900190000022e0000613d000000000701034f000000007807043c0000000009890436000000000049004b0000022a0000c13d000000010220018f000000000005004b0000023c0000613d000000000661034f0000000305500210000000000704043300000000075701cf000000000757022f000000000606043b0000010005500089000000000656022f00000000055601cf000000000575019f0000000000540435000000000003001f00020000000103550000000001020019000000000001042d0008000000000002000000010100036700060000000103530000002401100370000000000101043b000000fe0010009c000002890000813d000102490000003d000003440000013d000000ff002001900000028b0000c13d000400000002001d000200000001001d000000060200035f0000004401200370000000000101043b000500000001001d000001000010009c000002880000813d0000006401200370000000000101043b000600000001001d000000dc0010009c000002880000213d0000000001000412000800000001001d000700200000003d0000000001000415000000080110008a0000000501100210034b03120000040f000000020010008c000002900000813d00000000040100190000000502000029000000dc052001970000000401000029000000d001100270000000ef01100198000300000005001d0000027e0000613d0000000603000029000000dc033001980000027e0000613d000000010040008c0000027e0000613d000000000335004b000002830000a13d0000000602000029000600000003001d034b02ab0000040f00000006020000290000000301100029000500000001001d000001000010009c000002920000813d000000dc0020009c000002920000213d0000000201000029034b02bc0000040f0000000502000029000002810000013d0000000201000029034b02bc0000040f00000003020000290000000001120049000002850000013d034b02ab0000040f0000000301100029000000dc0010009c000002920000213d000000000001042d000003410000013d00000000010000190000034d00010430000000400100043d000000ff0200004100000000002104350000000402000039034b02ef0000040f000000de01000041000003310000013d000000de01000041000000000010043f0000001101000039000000040010043f000000df010000410000034d00010430000000000100041a000000d7011001970000000002000411000000000021004b0000029e0000c13d000000000001042d000000400100043d000000440210003900000101030000410000000000320435000000ec020000410000000000210435000000240210003900000020030000390000000000320435000000040210003900000000003204350000006402000039034b02ef0000040f0001000000000002000000dc02200198000002b90000613d000000ef0310019700000000013200a900000000022100d9000000000023004b000002ba0000613d000000de01000041000000000010043f0000001101000039000000040010043f000000df010000410000034d000104300000000001000019000000f00110012a0000033d0000013d0001000000000002000000dc02200197000000000101041a0000000803100270000000dc03300197000000000032004b000002c90000a13d0000004803100270000000dc03300197000000000032004b000000a003000039000000b803002039000002ca0000013d0000008803000039000000000002004b000002d70000613d000000000131022f000000ef041001980000000001000019000002d80000613d00000000032400a900000000022300d9000000000024004b000002d90000c13d000000f00130012a00000001011000390000033d0000013d0000000001000019000000000001042d000000de01000041000000000010043f0000001101000039000000040010043f000000df010000410000034d00010430000001000010009c000002e20000813d000000000001042d000000400100043d000000640210003900000102030000410000000000320435000000440210003900000103030000410000000000320435000000240210003900000026030000390000000000320435000000ec02000041000003370000013d000000000001042f000000d40010009c000000d4010080410000004001100210000000d40020009c000000d4020080410000006002200210000000000112019f0000034d00010430000000d40010009c000000d4010080410000004001100210000000d40020009c000000d4020080410000006002200210000000000112019f000000e002300210000000000121019f0000034c0001042e0000000002000414000000d40020009c000000d402008041000000c002200210000000d40010009c000000d4010080410000004001100210000000000121019f000000ed011001c70000801002000039034b032c0000040f0000000100200190000003100000613d000000000101043b000000000001042d00000000010000190000034d0001043000000104020000410000000000200443000000040200003900000005031002700000000003030031000000240020008c000000000232043a0000002001100039000003150000413d0000000001000414000000d40010009c000000d401008041000000c00110021000000105011001c70000800502000039034b032c0000040f0000000100200190000003260000613d000000000101043b000000000001042d000000000001042f0000032a002104210000000102000039000000000001042d0000000002000019000000000001042d0000032f002104230000000102000039000000000001042d0000000002000019000000000001042d000000000010043f0000002101000039000000040010043f00000024020000390000000001000019034b02ef0000040f00000000002104350000000402100039000000200300003900000000003204350000008402000039034b02ef0000040f000100000001001d034b02df0000040f0000000101000029000000000001042d00000000010000190000000002000019034b02ef0000040f000000000010043f0000000101000039000000200010043f0000000001000019034b03010000040f000000000201041a000000010000013b0000034b000004320000034c0001042e0000034d000104300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff00000000000000000000000000000000000000000000000000000001ffffffe000000000000000000000000000000000000000000000000000000000ffffffe0000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000008be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e016909bca00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffff00000002000000000000000000000000000000c00000010000000000000000004e487b7100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000000000000000000000f2fde38b000000000000000000000000000000000000000000000000000000002e80d7010000000000000000000000000000000000000000000000000000000043d9564d0000000000000000000000000000000000000000000000000000000068a78781000000000000000000000000000000000000000000000000000000006c099dee00000000000000000000000000000000000000000000000000000000715018a60000000000000000000000000000000000000000000000000000000081993cd0000000000000000000000000000000000000000000000000000000008da5cb5b00000000000000000000000000000000000000000000000000000000b8f1c4600000000000000000000000000000000000000000000000000000000016909bca64647265737300000000000000000000000000000000000000000000000000004f776e61626c653a206e6577206f776e657220697320746865207a65726f206108c379a00000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000400000000000000000000000000ec04394b19756dd5cac9bd350faf4aa4448cd0658118f0b86496179e726c4a10000000000000000000000000000000000000000000000000000000000ffffff00000000000000000000000000000000000000000000000000000000000f42400000000000000000000000000000000000000000000000ffffffffffffffff00000000000000000000000000000000ffffffffffffffff000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff00000000000000000000000000000000000000000000000000000000ff02000000000000000000000000000000000001000000000000000000000000003d36fffb5220a07a64c12b747423f0dc01a37a0a9d1b3ac2ae00325f688812d2cb1d3d2f0000000000000000000000000000000000000000000000000000000032cbf11b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000800000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000001000000001dd777660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000004f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572342062697473000000000000000000000000000000000000000000000000000053616665436173743a2076616c756520646f65736e27742066697420696e2036310ab089e4439a4c15d089f94afb7896ff553aecb10793d0ab882de59d99a32e0200000200000000000000000000000000000044000000000000000000000000fca83c2351f0e89ea236ed30d25fd32f9517d790161c44e4499498d40ae6154f",
+  "deployedBytecode": "0x000300000000000200130000000000020000006003100270000000d403300197000200000031035500010000000103550000000100200190000000300000c13d0000008002000039000000400020043f000000040030008c000001a00000413d000000000201043b000000e002200270000000e00020009c000001590000613d000000e10020009c000000b20000613d000000e20020009c000001630000613d000000e30020009c000000da0000613d000000e40020009c000001790000613d000000e50020009c000001880000613d000000e60020009c0000011d0000613d000000e70020009c000001230000613d000000e80020009c000001280000613d000000e90020009c000001a00000c13d0000000001000416000000000001004b000001a00000c13d0000000001000412001300000001001d001200200000003d0000000001000415000000130110008a0000000501100210034b03120000040f000000020010008c000001a80000413d000000de01000041000003310000013d000000c004000039000000400040043f0000000002000416000000000002004b000001a00000c13d0000001f02300039000000d502200197000000c002200039000000400020043f0000001f0530018f000000d606300198000000c002600039000000420000613d000000000701034f000000007807043c0000000004840436000000000024004b0000003e0000c13d000000000005004b0000004f0000613d000000000161034f0000000304500210000000000502043300000000054501cf000000000545022f000000000101043b0000010004400089000000000141022f00000000014101cf000000000151019f0000000000120435000000200030008c000001a00000413d000000c00100043d000000d70010009c000001a00000213d000c00000001001d000000000100041a000000d8021001970000000006000411000000000262019f000000000020041b000000400200043d000d00000002001d0000000002000414000000d705100197000000d40020009c000000d402008041000000c001200210000000d9011001c70000800d020000390000000303000039000000da04000041034b03270000040f0000000c010000290000000100200190000001a00000613d000000d702100197000000800010043f000000db010000410000000d0300002900000000001304350000000001000414000000040020008c000000920000613d0000000d04000029034b02140000040f0000000d03000029000000000001004b000000920000c13d0000000204000367000000200100008a000000000200003100000000051201700000001f0620018f000000400100043d0000000003510019000000840000613d000000000704034f0000000008010019000000007907043c0000000008980436000000000038004b000000800000c13d000000000006004b000000910000613d000000000454034f0000000305600210000000000603043300000000065601cf000000000656022f000000000404043b0000010005500089000000000454022f00000000045401cf000000000464019f0000000000430435034b02ef0000040f0000000001000031000000200010008c000000200200003900000000020140190000001f02200039000000600420018f0000000002340019000000000042004b00000000040000390000000104004039000000dc0020009c000001a20000213d0000000100400190000001a20000c13d000000400020043f000000200010008c000001620000413d0000000001030433000000010010008c000001620000213d000000a00010043f000000800200043d0000014000000443000001600020044300000020020000390000018000200443000001a000100443000001000020044300000002010000390000012000100443000000dd010000410000034c0001042e000000240030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000401100370000000000101043b000000d40010009c000001a00000213d000000000010043f0000000101000039000000200010043f0000000001000019034b03010000040f000000000101041a000000ff001001900000000002000039000000010200c039000000800020043f0000000802100270000000dc02200197000000a00020043f0000004802100270000000dc02200197000000c00020043f0000008802100270000000ef02200197000000e00020043f000000a002100270000000ef02200197000001000020043f000000b802100270000000ef02200197000001200020043f000000d001100270000000ef01100197000001400010043f0000008001000039000000e0020000390000019e0000013d000000e40030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000402100370000000000302043b000000d40030009c000001a00000213d0000002402100370000000000402043b000000dc0040009c000001620000213d0000004402100370000000000502043b000000dc0050009c000001620000213d0000006402100370000000000602043b000000ef0060009c000001620000213d0000008402100370000000000702043b000000ef0070009c000001620000213d000000a402100370000000000202043b000000ef0020009c000001620000213d000000c401100370000000000101043b000c00000001001d000000ef0010009c000001620000213d000a00000002001d000b00000007001d000800000005001d000900000004001d000700000003001d000600000006001d000d00ef0060019b034b02980000040f0000000d01000029000000f00010009c000001190000213d0000000b01000029000000ef01100197000500000001001d000000f00010009c000001190000213d0000000a01000029000000ef01100197000400000001001d000000f00010009c000001190000213d0000000901000029000000dc021001970000000801000029000000dc01100197000300000001001d000200000002001d000000000021004b000001cf0000813d000000400100043d000000fa020000410000000000210435000001bf0000013d000000c40030008c000001a00000413d0000000001000416000000000001004b000001730000613d000001a00000013d0000000001000416000000000001004b000001a00000c13d000000000100041a000001830000013d000000440030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000402100370000000000202043b000000d40020009c000001a00000213d0000002401100370000000000301043b000000000003004b0000000001000039000000010100c039000000000013004b000001620000c13d000d00000002001d000c00000003001d034b02980000040f0000000d01000029000000000010043f0000000101000039000000200010043f0000000001000019034b03010000040f000001000200008a000000000301041a000000000223016f0000000c03000029000000000232019f000000000021041b000000400100043d000000200210003900000000003204350000000d020000290000000000210435000000d40010009c000000d40100804100000040011002100000000002000414000000d40020009c000000d402008041000000c002200210000000000112019f000000ed011001c70000800d020000390000000103000039000000ee04000041000001990000013d000000240030008c000001a00000413d0000000002000416000000000002004b000001a00000c13d0000000401100370000000000101043b000000d70010009c000001ab0000a13d000003410000013d000000c40030008c000001a00000413d0000000001000416000000000001004b000001a00000c13d0000000001000412001100000001001d001000000000003d0000000001000415000000110110008a0000000501100210034b03120000040f000000d7011001970000000002000411000000000012004b000001bc0000c13d034b02400000040f000000400300043d0000000000130435000000200200003900000000010300190000019e0000013d0000000001000416000000000001004b000001a00000c13d0000000001000412000f00000001001d000e00000000003d00000000010004150000000f0110008a0000000501100210034b03120000040f000000d701100197000000800010043f000000800100003900000020020000390000019e0000013d0000000001000416000000000001004b000001a00000c13d034b02980000040f000000000100041a000000d802100197000000000020041b0000000002000414000000d705100197000000d40020009c000000d402008041000000c001200210000000d9011001c70000800d020000390000000303000039000000da040000410000000006000019034b03270000040f0000000100200190000001a00000613d000000000100001900000000020000190000000003000019034b02f70000040f00000000010000190000034d00010430000000de01000041000000000010043f0000004101000039000000040010043f000000df010000410000034d00010430000000800010043f000000fc010000410000034c0001042e000d00d70010019b034b02980000040f0000000d06000029000000000006004b000001c10000c13d000000400100043d0000006402100039000000ea0300004100000000003204350000004402100039000000eb030000410000000000320435000000240210003900000026030000390000000000320435000000ec02000041000003370000013d000000fb01000041000000800010043f00000080010000390000000402000039034b02ef0000040f000000000100041a000000d802100197000000000262019f000000000020041b0000000002000414000000d705100197000000d40020009c000000d402008041000000c001200210000000d9011001c70000800d020000390000000303000039000000da04000041000001990000013d00000009010000290000000801100210000000f10110019700000008020000290000004802200210000000f202200197000000000112019f00000006020000290000008802200210000000f302200197000000000121019f0000000b02000029000000a002200210000000f402200197000000000121019f0000000a02000029000000b802200210000000f502200197000000000121019f0000000c02000029000000d002200210000000f602200197000c0000002101a30000000701000029000101e90000003d000003440000013d000000f7032001970000000c04000029000000000334019f000000000031041b000000ff002001900000000001000039000000010100c039000000400200043d0000002003200039000000000013043500000040012000390000000203000029000000000031043500000060012000390000000303000029000000000031043500000080012000390000000d030000290000000000310435000000a00120003900000005030000290000000000310435000000c00120003900000004030000290000000000310435000000d001400270000000e003200039000000000013043500000007010000290000000000120435000000d40020009c000000d40200804100000040012002100000000002000414000000d40020009c000000d402008041000000c002200210000000000112019f000000f8011001c70000800d020000390000000103000039000000f904000041000001580000013d0001000000000002000100000004001d000000d40010009c000000d401008041000000c001100210000000d40030009c000000d4030080410000004003300210000000000113019f000000fd011001c7034b032c0000040f00000001090000290000006003100270000000d403300197000000200030008c000000200400003900000000040340190000001f0540018f000000200640019000000000046900190000022e0000613d000000000701034f000000007807043c0000000009890436000000000049004b0000022a0000c13d000000010220018f000000000005004b0000023c0000613d000000000661034f0000000305500210000000000704043300000000075701cf000000000757022f000000000606043b0000010005500089000000000656022f00000000055601cf000000000575019f0000000000540435000000000003001f00020000000103550000000001020019000000000001042d0008000000000002000000010100036700060000000103530000002401100370000000000101043b000000fe0010009c000002890000813d000102490000003d000003440000013d000000ff002001900000028b0000c13d000400000002001d000200000001001d000000060200035f0000004401200370000000000101043b000500000001001d000001000010009c000002880000813d0000006401200370000000000101043b000600000001001d000000dc0010009c000002880000213d0000000001000412000800000001001d000700200000003d0000000001000415000000080110008a0000000501100210034b03120000040f000000020010008c000002900000813d00000000040100190000000502000029000000dc052001970000000401000029000000d001100270000000ef01100198000300000005001d0000027e0000613d0000000603000029000000dc033001980000027e0000613d000000010040008c0000027e0000613d000000000335004b000002830000a13d0000000602000029000600000003001d034b02ab0000040f00000006020000290000000301100029000500000001001d000001000010009c000002920000813d000000dc0020009c000002920000213d0000000201000029034b02bc0000040f0000000502000029000002810000013d0000000201000029034b02bc0000040f00000003020000290000000001120049000002850000013d034b02ab0000040f0000000301100029000000dc0010009c000002920000213d000000000001042d000003410000013d00000000010000190000034d00010430000000400100043d000000ff0200004100000000002104350000000402000039034b02ef0000040f000000de01000041000003310000013d000000de01000041000000000010043f0000001101000039000000040010043f000000df010000410000034d00010430000000000100041a000000d7011001970000000002000411000000000021004b0000029e0000c13d000000000001042d000000400100043d000000440210003900000101030000410000000000320435000000ec020000410000000000210435000000240210003900000020030000390000000000320435000000040210003900000000003204350000006402000039034b02ef0000040f0001000000000002000000dc02200198000002b90000613d000000ef0310019700000000013200a900000000022100d9000000000023004b000002ba0000613d000000de01000041000000000010043f0000001101000039000000040010043f000000df010000410000034d000104300000000001000019000000f00110012a0000033d0000013d0001000000000002000000dc02200197000000000101041a0000000803100270000000dc03300197000000000032004b000002c90000a13d0000004803100270000000dc03300197000000000032004b000000a003000039000000b803002039000002ca0000013d0000008803000039000000000002004b000002d70000613d000000000131022f000000ef041001980000000001000019000002d80000613d00000000032400a900000000022300d9000000000024004b000002d90000c13d000000f00130012a00000001011000390000033d0000013d0000000001000019000000000001042d000000de01000041000000000010043f0000001101000039000000040010043f000000df010000410000034d00010430000001000010009c000002e20000813d000000000001042d000000400100043d000000640210003900000102030000410000000000320435000000440210003900000103030000410000000000320435000000240210003900000026030000390000000000320435000000ec02000041000003370000013d000000000001042f000000d40010009c000000d4010080410000004001100210000000d40020009c000000d4020080410000006002200210000000000112019f0000034d00010430000000d40010009c000000d4010080410000004001100210000000d40020009c000000d4020080410000006002200210000000000112019f000000e002300210000000000121019f0000034c0001042e0000000002000414000000d40020009c000000d402008041000000c002200210000000d40010009c000000d4010080410000004001100210000000000121019f000000ed011001c70000801002000039034b032c0000040f0000000100200190000003100000613d000000000101043b000000000001042d00000000010000190000034d0001043000000104020000410000000000200443000000040200003900000005031002700000000003030031000000240020008c000000000232043a0000002001100039000003150000413d0000000001000414000000d40010009c000000d401008041000000c00110021000000105011001c70000800502000039034b032c0000040f0000000100200190000003260000613d000000000101043b000000000001042d000000000001042f0000032a002104210000000102000039000000000001042d0000000002000019000000000001042d0000032f002104230000000102000039000000000001042d0000000002000019000000000001042d000000000010043f0000002101000039000000040010043f00000024020000390000000001000019034b02ef0000040f00000000002104350000000402100039000000200300003900000000003204350000008402000039034b02ef0000040f000100000001001d034b02df0000040f0000000101000029000000000001042d00000000010000190000000002000019034b02ef0000040f000000000010043f0000000101000039000000200010043f0000000001000019034b03010000040f000000000201041a000000010000013b0000034b000004320000034c0001042e0000034d000104300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff00000000000000000000000000000000000000000000000000000001ffffffe000000000000000000000000000000000000000000000000000000000ffffffe0000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000008be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e016909bca00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffff00000002000000000000000000000000000000c00000010000000000000000004e487b7100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002400000000000000000000000000000000000000000000000000000000000000000000000000000000f2fde38b000000000000000000000000000000000000000000000000000000002e80d7010000000000000000000000000000000000000000000000000000000043d9564d0000000000000000000000000000000000000000000000000000000068a78781000000000000000000000000000000000000000000000000000000006c099dee00000000000000000000000000000000000000000000000000000000715018a60000000000000000000000000000000000000000000000000000000081993cd0000000000000000000000000000000000000000000000000000000008da5cb5b00000000000000000000000000000000000000000000000000000000b8f1c4600000000000000000000000000000000000000000000000000000000016909bca64647265737300000000000000000000000000000000000000000000000000004f776e61626c653a206e6577206f776e657220697320746865207a65726f206108c379a00000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000400000000000000000000000000ec04394b19756dd5cac9bd350faf4aa4448cd0658118f0b86496179e726c4a10000000000000000000000000000000000000000000000000000000000ffffff00000000000000000000000000000000000000000000000000000000000f42400000000000000000000000000000000000000000000000ffffffffffffffff00000000000000000000000000000000ffffffffffffffff000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff0000000000000000000000000000000000000000000000000000ffffff00000000000000000000000000000000000000000000000000000000ff02000000000000000000000000000000000001000000000000000000000000003d36fffb5220a07a64c12b747423f0dc01a37a0a9d1b3ac2ae00325f688812d2cb1d3d2f0000000000000000000000000000000000000000000000000000000032cbf11b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000800000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000001000000001dd777660000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000004f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572342062697473000000000000000000000000000000000000000000000000000053616665436173743a2076616c756520646f65736e27742066697420696e2036310ab089e4439a4c15d089f94afb7896ff553aecb10793d0ab882de59d99a32e0200000200000000000000000000000000000044000000000000000000000000fca83c2351f0e89ea236ed30d25fd32f9517d790161c44e4499498d40ae6154f",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "applyFee((address,uint32,uint64,uint64,bool,bool))": {
+        "details": "Included to future proof the API to allow for fees to modify state.In the case of the FeeLibV1 implementation, state is not modified."
+      },
+      "applyFeeView((address,uint32,uint64,uint64,bool,bool))": {
+        "details": "Reverts with Paused if the path is paused.",
+        "params": {
+          "_params": "The transfer information, namely the amount and destination"
+        },
+        "returns": {
+          "amountOutSD": "The number of tokens the sender will receive on the destination chain, in shared decimals."
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "setFeeConfig(uint32,uint64,uint64,uint24,uint24,uint24,uint24)": {
+        "params": {
+          "_dstEid": "The destination endpoint ID",
+          "_rewardMillionth": "The reward in millionth",
+          "_zone1FeeMillionth": "The fee for the first zone in millionth",
+          "_zone1UpperBound": "The upper bound for the first zone",
+          "_zone2FeeMillionth": "The fee for the second zone in millionth",
+          "_zone2UpperBound": "The upper bound for the second zone",
+          "_zone3FeeMillionth": "The fee for the third zone in millionth"
+        }
+      },
+      "setPaused(uint32,bool)": {
+        "params": {
+          "_dstEid": "The destination LayerZero endpoint ID",
+          "_isPaused": "A flag indicating whether or not the destination is paused."
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "title": "FeeLibV1",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "applyFeeView((address,uint32,uint64,uint64,bool,bool))": {
+        "notice": "Apply fee to the request parameters and calculate the expected output amount on the destination chain"
+      },
+      "setFeeConfig(uint32,uint64,uint64,uint24,uint24,uint24,uint24)": {
+        "notice": "Set the new configuration for a destination."
+      },
+      "setPaused(uint32,bool)": {
+        "notice": "Pause fee calculation for a destination."
+      }
+    },
+    "notice": "An implementation of IStargateFeeLib used to calculate fees for Stargate transfers.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3649,
+        "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 12621,
+        "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+        "label": "feeConfigs",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_uint32,t_struct(FeeConfig)12600_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_uint32,t_struct(FeeConfig)12600_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint32",
+        "label": "mapping(uint32 => struct FeeConfig)",
+        "numberOfBytes": "32",
+        "value": "t_struct(FeeConfig)12600_storage"
+      },
+      "t_struct(FeeConfig)12600_storage": {
+        "encoding": "inplace",
+        "label": "struct FeeConfig",
+        "members": [
+          {
+            "astId": 12587,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "paused",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 12589,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "zone1UpperBound",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_uint64"
+          },
+          {
+            "astId": 12591,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "zone2UpperBound",
+            "offset": 9,
+            "slot": "0",
+            "type": "t_uint64"
+          },
+          {
+            "astId": 12593,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "zone1FeeMillionth",
+            "offset": 17,
+            "slot": "0",
+            "type": "t_uint24"
+          },
+          {
+            "astId": 12595,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "zone2FeeMillionth",
+            "offset": 20,
+            "slot": "0",
+            "type": "t_uint24"
+          },
+          {
+            "astId": 12597,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "zone3FeeMillionth",
+            "offset": 23,
+            "slot": "0",
+            "type": "t_uint24"
+          },
+          {
+            "astId": 12599,
+            "contract": "src/feelibs/FeeLibV1.sol:FeeLibV1",
+            "label": "rewardMillionth",
+            "offset": 26,
+            "slot": "0",
+            "type": "t_uint24"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_uint24": {
+        "encoding": "inplace",
+        "label": "uint24",
+        "numberOfBytes": "3"
+      },
+      "t_uint32": {
+        "encoding": "inplace",
+        "label": "uint32",
+        "numberOfBytes": "4"
+      },
+      "t_uint64": {
+        "encoding": "inplace",
+        "label": "uint64",
+        "numberOfBytes": "8"
+      }
+    }
+  }
+}
