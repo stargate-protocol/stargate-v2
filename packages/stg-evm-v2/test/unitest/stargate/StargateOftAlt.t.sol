@@ -13,10 +13,12 @@ import { OftCmdHelper } from "../../utils/OftCmdHelper.sol";
 import { ITokenMessaging } from "../../../src/interfaces/ITokenMessaging.sol";
 import { IStargateFeeLib } from "../../../src/interfaces/IStargateFeeLib.sol";
 import { Path } from "../../../src/libs/Path.sol";
-import { TokenMessaging } from "../../../src/messaging/TokenMessaging.sol";
+import { TokenMessagingAlt } from "../../../src/messaging/TokenMessagingAlt.sol";
 import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import { StargateOFTAlt } from "../../../src/StargateOFTAlt.sol";
 import { IStargate } from "../../../src/interfaces/IStargate.sol";
+
+import { EndpointV2Alt } from "@layerzerolabs/lz-evm-protocol-v2/contracts/EndpointV2Alt.sol";
 
 contract StargateOftAltTest is Test {
     address internal ALICE = makeAddr("alice");
@@ -40,10 +42,11 @@ contract StargateOftAltTest is Test {
     function _setUpStargate() internal virtual {
         token = new ERC20Token("Mock", "MCK", 6);
         feeToken = new AltFeeTokenMock();
+        address endpointAlt = address(new EndpointV2Alt(LOCAL_EID, address(this), address(feeToken)));
         stargate = new MockStargateOFTAlt(
             address(token),
             6, // shared decimals
-            LzUtil.deployEndpointV2Alt(LOCAL_EID, address(this), address(feeToken)),
+            endpointAlt,
             address(this) // owner
         );
     }
@@ -52,13 +55,13 @@ contract StargateOftAltTest is Test {
         uint16 assetId = 1;
         address tokenMessaging = stargate.getTokenMessaging();
         vm.prank(address(stargate));
-        TokenMessaging(tokenMessaging).setAssetId(address(stargate), assetId);
+        TokenMessagingAlt(tokenMessaging).setAssetId(address(stargate), assetId);
         vm.prank(address(stargate));
-        TokenMessaging(tokenMessaging).setGasLimit(DST_EID, 100000, 110000);
+        TokenMessagingAlt(tokenMessaging).setGasLimit(DST_EID, 100000, 110000);
         vm.prank(address(stargate));
-        TokenMessaging(tokenMessaging).setPeer(DST_EID, AddressCast.toBytes32(tokenMessaging));
+        TokenMessagingAlt(tokenMessaging).setPeer(DST_EID, AddressCast.toBytes32(tokenMessaging));
         vm.prank(address(stargate));
-        TokenMessaging(tokenMessaging).setPlanner(address(this));
+        TokenMessagingAlt(tokenMessaging).setPlanner(address(this));
         stargate.ensureCredit(DST_EID, 1_000_000); // give plenty of credit
     }
 
@@ -170,7 +173,7 @@ contract StargateOftAltTest is Test {
         MessagingFee memory mockMessagingFee = MessagingFee({ nativeFee: _mockNativeFee, lzTokenFee: 0 });
         MessagingReceipt memory mockReceipt = MessagingReceipt({ guid: "0", nonce: 1, fee: mockMessagingFee });
         vm.mockCall(
-            address(TokenMessaging(stargate.getTokenMessaging()).endpoint()),
+            address(TokenMessagingAlt(stargate.getTokenMessaging()).endpoint()),
             abi.encodeWithSelector(ILayerZeroEndpointV2.send.selector),
             abi.encode(mockReceipt)
         );
@@ -219,7 +222,7 @@ contract MockStargateOFTAlt is IMockStargate, StargateOFTAlt {
         address _endpoint,
         address _owner
     ) StargateOFTAlt(_token, _sharedDecimals, _endpoint, _owner) {
-        tokenMessaging = address(new TokenMessaging(_endpoint, _owner, 128));
+        tokenMessaging = address(new TokenMessagingAlt(_endpoint, _owner, 128));
         planner = _owner;
     }
 

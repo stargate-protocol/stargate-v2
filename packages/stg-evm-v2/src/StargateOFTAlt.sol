@@ -48,10 +48,6 @@ contract StargateOFTAlt is StargateOFT {
         // Push native ERC20 fee to the endpoint
         if (_messagingFee.nativeFee > 0) {
             Transfer.safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), _messagingFee.nativeFee);
-
-            // Zero nativeFee before calling TokenMessaging so no ETH is forwarded to EndpointV2Alt.
-            // ? a cleaner way might be to override TokenMessaging._payNative but it will need a dedicated contract, is it better?
-            _messagingFee.nativeFee = 0;
         }
 
         receipt = ITokenMessaging(tokenMessaging).taxi(
