@@ -129,8 +129,6 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ARBSEP_V2_TESTNET,
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ARBSEP_V2_TESTNET),
-        oneSigConfig: getOneSigConfig(EndpointId.ARBSEP_V2_TESTNET),
         useFeeData: true,
     },
     'avalanche-testnet': {
@@ -158,13 +156,17 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
         accounts: testnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.OPTSEP_V2_TESTNET),
-        oneSigConfig: getOneSigConfig(EndpointId.OPTSEP_V2_TESTNET),
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
+    },
+    'tempodev1-testnet': {
+        eid: EndpointId.TEMPODEV1_V2_TESTNET,
+        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.testnet.tempo.xyz',
+        accounts: testnetAccounts,
+        alt: true,
     },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
@@ -874,6 +876,12 @@ const getRpcUrl = (chainName: string): string | null => {
 const updateNetworkRpcUrls = (networks: NetworksUserConfig): NetworksUserConfig => {
     return Object.fromEntries(
         Object.entries(networks).map(([networkName, networkConfig]) => {
+            if (networkName === 'tempodev1-testnet') {
+                return [networkName, { ...networkConfig }]
+            }
+            if (networkName === 'arbsep-testnet') {
+                return [networkName, { ...networkConfig }]
+            }
             if (networkConfig && 'url' in networkConfig) {
                 const dynamicUrl = getRpcUrl(networkName)
                 return [networkName, { ...networkConfig, url: dynamicUrl ?? networkConfig.url }]
