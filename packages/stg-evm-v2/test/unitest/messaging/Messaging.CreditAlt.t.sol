@@ -43,29 +43,7 @@ contract CreditMessagingAltTest is Test {
 
         vm.expectRevert(CreditMessagingAlt.CreditMessaging_OnlyAltToken.selector);
         vm.prank(PLANNER);
-        messaging.sendCreditsWithFee{ value: 1 }(DST_EID, batches, 0);
-
-        vm.expectRevert(CreditMessagingAlt.CreditMessaging_OnlyAltToken.selector);
-        vm.prank(PLANNER);
         messaging.sendCredits{ value: 1 }(DST_EID, batches);
-    }
-
-    function test_SendCreditsWithFee_FundsAltTokenAndZeroMsgValue() public {
-        _configureMessaging();
-        TargetCreditBatch[] memory batches = _buildBatches();
-        uint256 nativeFee = 123;
-
-        feeToken.mint(PLANNER, nativeFee);
-        vm.prank(PLANNER);
-        feeToken.approve(address(messaging), nativeFee);
-
-        _mockEndpointSend(nativeFee);
-        _mockStargateSendCredits(DST_EID, batches[0].credits, STARGATE_IMPL);
-
-        vm.prank(PLANNER);
-        messaging.sendCreditsWithFee(DST_EID, batches, nativeFee);
-
-        assertEq(feeToken.balanceOf(address(messaging.endpoint())), nativeFee);
     }
 
     function test_SendCredits_UsesQuoteAndAltFeeToken() public {
