@@ -66,10 +66,14 @@ const testnetAccounts: HDAccountsUserConfig = {
     mnemonic: process.env.MNEMONIC_TESTNET || process.env.MNEMONIC || TEST_MNEMONIC,
 }
 
-const mainnetAccounts: HDAccountsUserConfig = {
-    // using Test mnemonic for mainnet to use it in the tests, in case they are not set in the env variable
-    mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
-}
+const PRIVATE_KEY = process.env.PRIVATE_KEY
+
+const mainnetAccounts = PRIVATE_KEY
+    ? [PRIVATE_KEY]
+    : {
+          // using Test mnemonic for mainnet to use it in the tests, in case they are not set in the env variable
+          mnemonic: process.env.MNEMONIC_MAINNET || process.env.MNEMONIC || TEST_MNEMONIC,
+      }
 
 const hardhatNamedAccounts: HardhatUserConfig = {
     namedAccounts: {
@@ -882,6 +886,10 @@ const updateNetworkRpcUrls = (networks: NetworksUserConfig): NetworksUserConfig 
     return Object.fromEntries(
         Object.entries(networks).map(([networkName, networkConfig]) => {
             if (networkConfig && 'url' in networkConfig) {
+                // Skip Redbelly, Hedera, Nibiru, and Botanix - they should always use their specific URLs
+                if (networkName === 'redbelly-mainnet') {
+                    return [networkName, networkConfig]
+                }
                 const dynamicUrl = getRpcUrl(networkName)
                 return [networkName, { ...networkConfig, url: dynamicUrl ?? networkConfig.url }]
             }
