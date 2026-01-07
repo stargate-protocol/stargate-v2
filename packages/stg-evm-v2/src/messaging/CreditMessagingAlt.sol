@@ -32,56 +32,11 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
     ) external payable override onlyPlanner {
         _assertNoNativeValue();
 
-        (bytes memory message, bytes memory options, bool hasBatches) = _buildMessageAndOptions(
-            _dstEid,
-            _creditBatches
-        );
-        if (hasBatches) {
-            // Quote fee in ALT token and fund the endpoint
-            MessagingFee memory fee = _quote(_dstEid, message, options, false);
-            // fund the endpoint with the ERC20 native fee
-            if (fee.nativeFee > 0) safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), fee.nativeFee);
-
-            _lzSend(_dstEid, message, options, fee, msg.sender);
-        }
-    }
-
-    /// @notice Send credits using a precomputed ALT native fee to avoid on-chain quote gas.
-    /// @dev Caller must supply the correct nativeFee (e.g., from an off-chain quote). No ETH accepted.
-    function sendCreditsWithFee(
-        uint32 _dstEid,
-        TargetCreditBatch[] calldata _creditBatches,
-        uint256 _nativeFee
-    ) external payable onlyPlanner {
-        _assertNoNativeValue();
-
-        (bytes memory message, bytes memory options, bool hasBatches) = _buildMessageAndOptions(
-            _dstEid,
-            _creditBatches
-        );
-        if (hasBatches) {
-            // fund the endpoint with the ERC20 native fee
-            if (_nativeFee > 0) safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), _nativeFee);
-            _lzSend(_dstEid, message, options, MessagingFee(_nativeFee, 0), msg.sender);
-        }
-    }
-
-    /// @dev Override native payment hook so endpoint.send is called with msg.value == 0.
-    function _payNative(uint256 /*_nativeFee*/) internal view override returns (uint256 nativeFee) {
-        _assertNoNativeValue();
-        nativeFee = 0;
-    }
-
-    /// @dev Build the message/options and indicate whether there is any batch to send.
-    function _buildMessageAndOptions(
-        uint32 _dstEid,
-        TargetCreditBatch[] calldata _creditBatches
-    ) internal returns (bytes memory message, bytes memory options, bool hasBatches) {
         CreditBatch[] memory batches = new CreditBatch[](_creditBatches.length);
         uint256 index = 0;
         uint128 totalCreditNum = 0; // total number of credits in all batches
 
-        for (uint256 i = 0; i < _creditBatches.length; ++i) {
+        for (uint256 i = 0; i < _creditBatches.length; i++) {
             TargetCreditBatch calldata targetBatch = _creditBatches[i];
             Credit[] memory actualCredits = ICreditMessagingHandler(_safeGetStargateImpl(targetBatch.assetId))
                 .sendCredits(_dstEid, targetBatch.credits);
@@ -96,10 +51,22 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
             assembly {
                 mstore(batches, index)
             }
-            message = CreditMsgCodec.encode(batches, totalCreditNum);
-            options = _buildOptions(_dstEid, totalCreditNum);
-            hasBatches = true;
+            bytes memory message = CreditMsgCodec.encode(batches, totalCreditNum);
+            bytes memory options = _buildOptions(_dstEid, totalCreditNum);
+
+            //  Quote fee in ALT token and fund the endpoint
+            MessagingFee memory fee = _quote(_dstEid, message, options, false);
+            // fund the endpoint with the ERC20 native fee
+            if (fee.nativeFee > 0) safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), fee.nativeFee);
+
+            _lzSend(_dstEid, message, options, fee, msg.sender);
         }
+    }
+
+    /// @dev Override native payment hook so endpoint.send is called with msg.value == 0.
+    function _payNative(uint256 /*_nativeFee*/) internal view override returns (uint256 nativeFee) {
+        _assertNoNativeValue();
+        nativeFee = 0;
     }
 
     function _assertNoNativeValue() internal view {
