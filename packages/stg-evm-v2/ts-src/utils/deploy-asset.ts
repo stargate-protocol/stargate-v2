@@ -94,6 +94,9 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
             const tokenSdk = await erc20Factory({ eid, address: tokenAddress, contractName: 'ERC20' })
             const tokenDecimals = await tokenSdk.decimals()
 
+            // Determine if the chain is ALT (EndpointV2Alt)
+            const isAlt = Boolean((hre.network.config as { alt?: boolean }).alt)
+
             switch (stargateType) {
                 case StargateType.Pool:
                     return deployPoolAsset(hre, logger, {
@@ -104,13 +107,18 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                         tokenDecimals,
                     })
 
-                case StargateType.Oft:
+                case StargateType.Oft: {
+                    // If ALT and the generic OFT is selected, switch to StargateOFTAlt.
+                    // USDC/EURC retain their specialized contracts even on ALT.
+                    const baseOftContract = getOFTContractName(tokenName)
+                    const oftContract = isAlt && baseOftContract === 'StargateOFT' ? 'StargateOFTAlt' : baseOftContract
                     return deployOFTAsset(hre, logger, {
                         ...tokenProperties,
-                        contractName: getOFTContractName(tokenName),
+                        contractName: oftContract,
                         deploymentName: getOFTAssetDeploymentName(tokenName),
                         tokenAddress,
                     })
+                }
             }
         })
     )
@@ -167,7 +175,7 @@ const getInternalTokenAddress = async (
 }
 
 interface DeployOFTAssetOptions {
-    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT'
+    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt'
     deploymentName: string
     tokenAddress: string
     sharedDecimals: number

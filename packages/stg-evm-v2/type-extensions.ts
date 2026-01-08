@@ -6,12 +6,20 @@ declare module 'hardhat/types/config' {
         useFeeData?: never
 
         oneSigConfig?: never
+        /**
+         * Marks the network as using EndpointV2Alt
+         */
+        alt?: boolean
     }
 
     interface HardhatNetworkConfig {
         useFeeData?: never
 
         oneSigConfig?: never
+        /**
+         * Marks the network as using EndpointV2Alt
+         */
+        alt?: boolean
     }
 
     interface HttpNetworkUserConfig {
@@ -25,6 +33,10 @@ declare module 'hardhat/types/config' {
         useFeeData?: boolean
 
         oneSigConfig?: OneSigConfig
+        /**
+         * Marks the network as using EndpointV2Alt
+         */
+        alt?: boolean
     }
 
     interface HttpNetworkConfig {
@@ -38,5 +50,9 @@ declare module 'hardhat/types/config' {
         useFeeData?: boolean
 
         oneSigConfig?: OneSigConfig
+        /**
+         * Marks the network as using EndpointV2Alt
+         */
+        alt?: boolean
     }
 }
