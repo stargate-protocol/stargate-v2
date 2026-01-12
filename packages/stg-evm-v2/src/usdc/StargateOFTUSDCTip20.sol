@@ -26,10 +26,10 @@ contract StargateOFTUSDCTip20 is StargateOFTAlt {
         IBridgedUSDCMinter(token).burn(_amountLD);
     }
 
-    /// @dev Mint USDC to the receiver on outflow (mirrors StargateOFTUSDC).
+    /// @dev TIP-20 mint function implementations do not return a boolean.
     function _outflow(address _to, uint256 _amountLD) internal virtual override returns (bool success) {
-        try IBridgedUSDCMinter(token).mint(_to, _amountLD) returns (bool s) {
-            success = s;
+        try IBridgedUSDCMinter(token).mint(_to, _amountLD) {
+            success = true;
         } catch {} // solhint-disable-line no-empty-blocks
     }
 }
