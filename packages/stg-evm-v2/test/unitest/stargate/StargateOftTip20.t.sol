@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import { StargateOftTest, IMockStargate } from "./StargateOft.t.sol";
 import { Tip20Token } from "../../../src/mocks/Tip20Token.sol";
 import { TokenMessagingAlt } from "../../../src/messaging/TokenMessagingAlt.sol";
-import { StargateOFTUSDCTip20 } from "../../../src/usdc/StargateOFTUSDCTip20.sol";
+import { StargateOFTTip20 } from "../../../src/tip20/StargateOFTTip20.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 import { Path } from "../../../src/libs/Path.sol";
 import { AltFeeTokenMock } from "../../layerzero/mocks/AltFeeTokenMock.sol";
@@ -12,7 +12,7 @@ import { Origin } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/OApp.sol";
 import { OFTLimit, OFTFeeDetail, OFTReceipt, SendParam, MessagingReceipt, MessagingFee, IOFT } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/AddressCast.sol";
 
-contract StargateOftUSDCTip20Test is StargateOftTest {
+contract StargateOftTip20Test is StargateOftTest {
     Tip20Token public tip20Token;
     AltFeeTokenMock public feeToken;
     bytes32 internal constant MOCK_GUID = bytes32(uint(1));
@@ -38,7 +38,7 @@ contract StargateOftUSDCTip20Test is StargateOftTest {
         // 2. Assert post-state: receiver balance increases by amountLD
         uint256 before = tip20Token.balanceOf(ALICE);
         vm.prank(stargate.getTokenMessaging());
-        MockStargateOFTUSDCTip20(address(stargate)).receiveTokenTaxi(origin, MOCK_GUID, ALICE, _amountInSD, bytes(""));
+        MockStargateOFTTip20(address(stargate)).receiveTokenTaxi(origin, MOCK_GUID, ALICE, _amountInSD, bytes(""));
         uint256 afterBalance = tip20Token.balanceOf(ALICE);
         assertEq(afterBalance, before + amountInLD);
     }
@@ -47,7 +47,7 @@ contract StargateOftUSDCTip20Test is StargateOftTest {
         tip20Token = new Tip20Token("Tip20Token", "T2T");
         feeToken = new AltFeeTokenMock();
 
-        stargate = new MockStargateOFTUSDCTip20(
+        stargate = new MockStargateOFTTip20(
             address(tip20Token),
             6,
             LzUtil.deployEndpointV2Alt(LOCAL_EID, address(this), address(feeToken)),
@@ -82,13 +82,13 @@ contract StargateOftUSDCTip20Test is StargateOftTest {
     }
 }
 
-contract MockStargateOFTUSDCTip20 is StargateOFTUSDCTip20, IMockStargate {
+contract MockStargateOFTTip20 is StargateOFTTip20, IMockStargate {
     constructor(
         address _token,
         uint8 _sharedDecimals,
         address _endpoint,
         address _owner
-    ) StargateOFTUSDCTip20(_token, _sharedDecimals, _endpoint, _owner) {
+    ) StargateOFTTip20(_token, _sharedDecimals, _endpoint, _owner) {
         tokenMessaging = address(new TokenMessagingAlt(_endpoint, _owner, 128));
         planner = _owner;
         treasurer = _owner;

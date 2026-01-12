@@ -8,9 +8,9 @@ import { ITokenMessaging, TaxiParams } from "../interfaces/ITokenMessaging.sol";
 import { StargateOFTAlt } from "../StargateOFTAlt.sol";
 import { Transfer } from "../libs/Transfer.sol";
 
-/// @dev OFT variant for bridged USDC with TIP-20 and ALT endpoints.
-/// - Transfers + Burns USDC on inflow and mints on outflow (same as StargateOFTUSDC).
-contract StargateOFTUSDCTip20 is StargateOFTAlt {
+/// @dev OFT variant for bridged stablecoin with TIP-20 and ALT endpoints.
+/// - Transfers + Burns stablecoin on inflow and mints on outflow
+contract StargateOFTTip20 is StargateOFTAlt {
     constructor(
         address _token,
         uint8 _sharedDecimals,
@@ -18,7 +18,7 @@ contract StargateOFTUSDCTip20 is StargateOFTAlt {
         address _owner
     ) StargateOFTAlt(_token, _sharedDecimals, _endpoint, _owner) {}
 
-    /// @dev Transfer USDC from the sender to this contract and burn it.
+    /// @dev Transfer stablecoin from the sender to this contract and burn it.
     function _inflow(address _from, uint256 _amountLD) internal virtual override returns (uint64 amountSD) {
         amountSD = _ld2sd(_amountLD);
         _amountLD = _sd2ld(amountSD); // remove dust
@@ -26,7 +26,7 @@ contract StargateOFTUSDCTip20 is StargateOFTAlt {
         ITip20Minter(token).burn(_amountLD);
     }
 
-    /// @dev Mint USDC to the receiver on outflow (mirrors StargateOFTUSDC).
+    /// @dev Mint stablecoin to the receiver on outflow
     /// @dev TIP-20 mint function implementations do not return a boolean.
     function _outflow(address _to, uint256 _amountLD) internal virtual override returns (bool success) {
         try ITip20Minter(token).mint(_to, _amountLD) {
