@@ -167,6 +167,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.testnet.tempo.xyz',
         accounts: testnetAccounts,
         alt: true,
+        usdcTip20: true,
     },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,

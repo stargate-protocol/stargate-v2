@@ -1027,6 +1027,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590',
                 type: StargateType.Pool,
             },
+            [EndpointId.TEMPODEV1_V2_TESTNET]: {
+                address: '0x20c0000000000000000000000000000000276b3c',
+                type: StargateType.Oft,
+            },
 
             //
             // SANDBOX

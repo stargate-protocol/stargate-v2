@@ -5,6 +5,10 @@ credit_messaging: true
 tokens:
   eth:
     type: oft
+  usdc:
+    type: oft
 treasurer:
   tokens:
     eth: true
+    usdc: true
+usdcTip20: true
