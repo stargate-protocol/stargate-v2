@@ -14,4 +14,4 @@ treasurer:
     eth: true
     usdc: true
     eurc: true
-usdcTip20: true
+isTip20: true

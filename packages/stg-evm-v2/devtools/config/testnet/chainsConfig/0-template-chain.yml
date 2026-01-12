@@ -27,3 +27,5 @@ treasurer: # list of tokens that support the treasurer in the chain
     eth: true
     usdc: true
     usdt: true
+isTip20: true # if the chain supports TIP-20 for stablecoin (USDC or EURC)
+
