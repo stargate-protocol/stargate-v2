@@ -108,10 +108,16 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                     })
 
                 case StargateType.Oft: {
-                    // If ALT and the generic OFT is selected, switch to StargateOFTAlt.
-                    // USDC/EURC retain their specialized contracts even on ALT.
+                    // If USDC + usdcTip20: true, use StargateOFTUSDCTip20
+                    // If ALT + StargateOFT, use StargateOFTAlt
+                    const useUsdcTip20 = Boolean((hre.network.config as { usdcTip20?: boolean }).usdcTip20)
                     const baseOftContract = getOFTContractName(tokenName)
-                    const oftContract = isAlt && baseOftContract === 'StargateOFT' ? 'StargateOFTAlt' : baseOftContract
+                    const oftContract =
+                        tokenName === TokenName.USDC && useUsdcTip20
+                            ? 'StargateOFTUSDCTip20'
+                            : isAlt && baseOftContract === 'StargateOFT'
+                              ? 'StargateOFTAlt'
+                              : baseOftContract
                     return deployOFTAsset(hre, logger, {
                         ...tokenProperties,
                         contractName: oftContract,
@@ -175,7 +181,7 @@ const getInternalTokenAddress = async (
 }
 
 interface DeployOFTAssetOptions {
-    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt'
+    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt' | 'StargateOFTUSDCTip20'
     deploymentName: string
     tokenAddress: string
     sharedDecimals: number

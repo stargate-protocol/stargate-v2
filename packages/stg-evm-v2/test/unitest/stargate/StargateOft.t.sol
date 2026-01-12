@@ -72,11 +72,11 @@ contract StargateOftTest is Test {
         _test_sendToken(1000, -100, true);
     }
 
-    function test_RideBus() public {
+    function test_RideBus() public virtual {
         _test_sendToken(1000, 0, false);
     }
 
-    function test_RideBusWithFee() public {
+    function test_RideBusWithFee() public virtual {
         _test_sendToken(1000, 100, false);
     }
 
@@ -204,10 +204,15 @@ contract StargateOftTest is Test {
 
 interface IMockStargate is IStargate {
     function getTokenMessaging() external view returns (address);
+
     function getFeeLib() external view returns (address);
+
     function ldToSd(uint256 _amountLD) external view returns (uint64);
+
     function sdToLd(uint64 _amountSD) external view returns (uint256);
+
     function getPaths(uint32 _eid) external view returns (Path memory);
+
     function ensureCredit(uint32 _eid, uint64 _amountSD) external;
 }
 
