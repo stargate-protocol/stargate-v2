@@ -118,10 +118,18 @@ export function getChainsThatSupportToken(tokenName: string): Chain[] {
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
 
-export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType): Chain[] {
+export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType, isTip20?: boolean): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
-    return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase())
+    const tt = chainsConfig.filter(
+        (chain) =>
+            chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase() &&
+            // if isTip20 is true, filter for chains that support TIP-20 for USDC,
+            // if isTip20 is false, filter for chains that do not support TIP-20 for USDC
+            (isTip20 ? chain.usdcTip20 : !chain.usdcTip20)
+    )
+
+    return tt
 }
 
 export function getChainsThatSupportRewarder(): Chain[] {
