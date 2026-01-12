@@ -15,7 +15,7 @@ import {
 import type { Tip20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 /**
- * Builds a TIP-20 USDC graph: includes only chains flagged with `usdcTip20: true`
+ * Builds a TIP-20 stablecoin graph: includes only chains flagged with `isTip20: true`
  * and binds directly to the token address using an existing ERC20 artifact.
  *
  * Node config includes:

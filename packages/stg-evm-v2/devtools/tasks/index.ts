@@ -461,7 +461,7 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
 /**
  * Wiring task for TIP-20 USDC contracts
  *
- * Loads a TIP-20 graph (only chains flagged with usdcTip20) and configures:
+ * Loads a TIP-20 graph (only chains flagged with isTip20) and configures:
  * - paused state
  * - supply cap
  * - transfer policy id

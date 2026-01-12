@@ -126,7 +126,7 @@ export function getChainsThatSupportTokenWithType(tokenName: string, type: Starg
             chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase() &&
             // if isTip20 is true, filter for chains that support TIP-20 for USDC,
             // if isTip20 is false, filter for chains that do not support TIP-20 for USDC
-            (isTip20 ? chain.usdcTip20 : !chain.usdcTip20)
+            (isTip20 ? chain.isTip20 : !chain.isTip20)
     )
 
     return tt
