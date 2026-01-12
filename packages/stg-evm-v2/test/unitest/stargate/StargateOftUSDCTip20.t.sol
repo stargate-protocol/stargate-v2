@@ -2,16 +2,20 @@
 pragma solidity ^0.8.0;
 
 import { StargateOftTest, IMockStargate } from "./StargateOft.t.sol";
-import { CircleFiatToken } from "../../../src/mocks/CircleFiatToken.sol";
+import { Tip20Token } from "../../../src/mocks/Tip20Token.sol";
 import { TokenMessagingAlt } from "../../../src/messaging/TokenMessagingAlt.sol";
 import { StargateOFTUSDCTip20 } from "../../../src/usdc/StargateOFTUSDCTip20.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 import { Path } from "../../../src/libs/Path.sol";
 import { AltFeeTokenMock } from "../../layerzero/mocks/AltFeeTokenMock.sol";
+import { Origin } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/OApp.sol";
+import { OFTLimit, OFTFeeDetail, OFTReceipt, SendParam, MessagingReceipt, MessagingFee, IOFT } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/AddressCast.sol";
 
 contract StargateOftUSDCTip20Test is StargateOftTest {
-    CircleFiatToken public tip20Token;
+    Tip20Token public tip20Token;
     AltFeeTokenMock public feeToken;
+    bytes32 internal constant MOCK_GUID = bytes32(uint(1));
 
     function test_RideBus() public override {
         // The ALT chain does not support bus mode
@@ -23,8 +27,24 @@ contract StargateOftUSDCTip20Test is StargateOftTest {
         vm.skip(true);
     }
 
+    function test_ReceiveTokenTaxi(uint32 _amountInSD, uint64 _nonce, bytes memory _composeMsg) public {
+        // Allow OFT to mint on receive
+        tip20Token.transferOwnership(address(stargate));
+
+        // 1. Set up a _composeMsg test case.
+        uint256 amountInLD = stargate.sdToLd(_amountInSD);
+        Origin memory origin = Origin({ srcEid: 2, sender: AddressCast.toBytes32(ALICE), nonce: _nonce });
+
+        // 2. Assert post-state: receiver balance increases by amountLD
+        uint256 before = tip20Token.balanceOf(ALICE);
+        vm.prank(stargate.getTokenMessaging());
+        MockStargateOFTUSDCTip20(address(stargate)).receiveTokenTaxi(origin, MOCK_GUID, ALICE, _amountInSD, bytes(""));
+        uint256 afterBalance = tip20Token.balanceOf(ALICE);
+        assertEq(afterBalance, before + amountInLD);
+    }
+
     function _setUpStargate() internal override {
-        tip20Token = new CircleFiatToken("Tip20Token", "T2T");
+        tip20Token = new Tip20Token("Tip20Token", "T2T");
         feeToken = new AltFeeTokenMock();
 
         stargate = new MockStargateOFTUSDCTip20(
