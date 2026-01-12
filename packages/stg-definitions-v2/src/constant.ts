@@ -1130,6 +1130,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xa6f01ccc347f07256bec0dc7d1a3b62adc3f1a68',
                 type: StargateType.Oft,
             },
+            [EndpointId.TEMPODEV1_V2_TESTNET]: {
+                address: '0x20c000000000000000000000000000000027c99b',
+                type: StargateType.Oft,
+            },
         },
     },
 }

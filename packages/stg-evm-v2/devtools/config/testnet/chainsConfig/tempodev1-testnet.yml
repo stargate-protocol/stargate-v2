@@ -7,8 +7,11 @@ tokens:
     type: oft
   usdc:
     type: oft
+  eurc:
+    type: oft
 treasurer:
   tokens:
     eth: true
     usdc: true
+    eurc: true
 usdcTip20: true
