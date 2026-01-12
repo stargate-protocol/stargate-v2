@@ -3,7 +3,7 @@ pragma solidity ^0.8.22;
 
 import { MessagingFee, MessagingReceipt, SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
-import { IBridgedUSDCMinter } from "../interfaces/IBridgedUSDCMinter.sol";
+import { ITip20Minter } from "../interfaces/ITip20Minter.sol";
 import { ITokenMessaging, TaxiParams } from "../interfaces/ITokenMessaging.sol";
 import { StargateOFTAlt } from "../StargateOFTAlt.sol";
 import { Transfer } from "../libs/Transfer.sol";
@@ -23,12 +23,13 @@ contract StargateOFTUSDCTip20 is StargateOFTAlt {
         amountSD = _ld2sd(_amountLD);
         _amountLD = _sd2ld(amountSD); // remove dust
         Transfer.safeTransferTokenFrom(token, _from, address(this), _amountLD);
-        IBridgedUSDCMinter(token).burn(_amountLD);
+        ITip20Minter(token).burn(_amountLD);
     }
 
+    /// @dev Mint USDC to the receiver on outflow (mirrors StargateOFTUSDC).
     /// @dev TIP-20 mint function implementations do not return a boolean.
     function _outflow(address _to, uint256 _amountLD) internal virtual override returns (bool success) {
-        try IBridgedUSDCMinter(token).mint(_to, _amountLD) {
+        try ITip20Minter(token).mint(_to, _amountLD) {
             success = true;
         } catch {} // solhint-disable-line no-empty-blocks
     }
