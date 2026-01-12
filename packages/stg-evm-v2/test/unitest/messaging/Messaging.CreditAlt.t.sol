@@ -95,7 +95,7 @@ contract CreditMessagingAltTest is Test {
 
     function _mockEndpointSend(uint256 fee) internal {
         MessagingFee memory mockMessagingFee = MessagingFee({ nativeFee: fee, lzTokenFee: 0 });
-        MessagingReceipt memory mockReceipt = MessagingReceipt({ guid: "0", nonce: 1, fee: mockMessagingFee });
+        MessagingReceipt memory mockReceipt = MessagingReceipt({ guid: bytes32(0), nonce: 1, fee: mockMessagingFee });
         vm.mockCall(
             address(messaging.endpoint()),
             abi.encodeWithSelector(ILayerZeroEndpointV2.send.selector),
