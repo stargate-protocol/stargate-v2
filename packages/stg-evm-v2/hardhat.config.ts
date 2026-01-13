@@ -606,6 +606,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.RARIBLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'redbelly-mainnet': {
+        eid: EndpointId.REDBELLY_V2_MAINNET,
+        url: process.env.RPC_URL_REDBELLY_MAINNET || 'https://governors.mainnet.redbelly.network',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.REDBELLY_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'rootstock-mainnet': {
         eid: EndpointId.ROOTSTOCK_V2_MAINNET,
         url: process.env.RPC_URL_ROOTSTOCK_V2_MAINNET || 'https://public-node.rsk.co',
