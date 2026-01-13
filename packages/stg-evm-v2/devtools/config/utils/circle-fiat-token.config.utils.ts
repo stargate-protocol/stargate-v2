@@ -28,7 +28,8 @@ export default async function buildCircleFiatTokenGraph(
     const validChains = filterValidProvidedChains(
         chainsList,
         // note: The newer USDC deployments (since December 2024, USDC is deployed and verified from Circle's repo)
-        getChainsThatSupportTokenWithType(tokenName, StargateType.Oft)
+        // note: will exclude chains that are TIP-20 for USDC and EURC
+        getChainsThatSupportTokenWithType(tokenName, StargateType.Oft, false)
     )
     printChains(`${tokenName} CHAINS_LIST:`, validChains)
 

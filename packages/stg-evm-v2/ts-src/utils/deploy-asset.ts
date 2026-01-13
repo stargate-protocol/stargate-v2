@@ -108,14 +108,14 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                     })
 
                 case StargateType.Oft: {
-                    // If USDC + usdcTip20: true, use StargateOFTTip20
-                    // If EURC + usdcTip20: true, use StargateOFTTip20
+                    // If USDC + isTip20: true, use StargateOFTTip20
+                    // If EURC + isTip20: true, use StargateOFTTip20
                     // If ALT + StargateOFT, use StargateOFTAlt
-                    // If usdcTip20 is false, use StargateOFTUSDC or StargateOFTEURC
-                    const useUsdcTip20 = Boolean((hre.network.config as { usdcTip20?: boolean }).usdcTip20)
+                    // If isTip20 is false, use StargateOFTUSDC or StargateOFTEURC
+                    const isTip20 = Boolean((hre.network.config as { isTip20?: boolean }).isTip20)
                     const baseOftContract = getOFTContractName(tokenName)
                     const oftContract =
-                        (tokenName === TokenName.USDC && useUsdcTip20) || (tokenName === TokenName.EURC && useUsdcTip20)
+                        (tokenName === TokenName.USDC || tokenName === TokenName.EURC) && isTip20
                             ? 'StargateOFTTip20'
                             : isAlt && baseOftContract === 'StargateOFT'
                               ? 'StargateOFTAlt'

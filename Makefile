@@ -8,11 +8,13 @@ HARDHAT=$(WORKSPACE) run hardhat
 
 # We define the configuration commands to keep things DRY
 TRANSFER_OWNERSHIP=$(HARDHAT) stg:ownable:transfer-ownership
+TRANSFER_TIP20_OWNERSHIP=$(HARDHAT) stg:wire::tip20-token:transfer-ownership
 CONFIGURE_ASSET=$(HARDHAT) stg:wire::asset
 CONFIGURE_OFT=$(HARDHAT) stg:wire::oft
 CONFIGURE_CIRCLE_TOKEN=$(HARDHAT) stg:wire::circle-token
 CONFIGURE_CIRCLE_TOKEN_SET_ADMIN=$(HARDHAT) stg:wire::circle-token:set-admin
 CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS=$(HARDHAT) stg:wire::circle-token:initialize-minters
+CONFIGURE_TIP20_TOKEN=$(HARDHAT) stg:wire::tip20-token
 CONFIGURE_CREDIT_MESSAGING=$(HARDHAT) stg:wire::credit-messaging
 CONFIGURE_TOKEN_MESSAGING=$(HARDHAT) stg:wire::token-messaging
 CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE=$(HARDHAT) stg:wire::token-messaging:initialize-storage
@@ -195,6 +197,10 @@ configure-testnet:
 
 	# Configure everything for EURC
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+		
+	# Configure TIP-20 tokens (USDC/EURC on TIP-20-enabled chains)
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -237,6 +243,10 @@ configure-testnet:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
+
+	# Transfer TIP-20 tokens ownership (set the new admin and current one renounce)
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 	# Configure treasurer
 	$(CONFIGURE_TREASURER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --signer deployer
@@ -284,6 +294,10 @@ preconfigure-mainnet:
 	# Configure everything else for USDC and EURC
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer --token-name usdc
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer --token-name eurc
+
+	# Configure TIP-20 tokens (USDC/EURC on TIP-20-enabled chains)
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 # 
 # This target will configure the mainnet contracts
@@ -343,6 +357,10 @@ transfer-mainnet:
 
 	# Transfer EURC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+
+	# Transfer TIP-20 tokens ownership (set the new admin and current one renounce)
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
