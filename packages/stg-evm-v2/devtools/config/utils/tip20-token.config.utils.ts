@@ -20,7 +20,7 @@ import type { Tip20NodeConfig } from '@stargatefinance/stg-devtools-v2'
  *
  * Node config includes:
  * - admin?: address to be set as token admin
- * - issuers?: array of OFT asset addresses to grant ISSUER_ROLE to
+ * - issuer?: address to grant ISSUER_ROLE to
  * - pauser?: address granted PAUSE_ROLE and UNPAUSE_ROLE
  * - burnBlocked?: address granted BURN_BLOCKED_ROLE
  */
@@ -66,8 +66,7 @@ export default async function buildTip20TokenGraph(
                 // Use a minimal TIP-20 ABI so role getters like PAUSE_ROLE() are available at runtime
                 contract: getContractWithEid(chain.eid, { address: tip20Address, contractName: 'ITIP20' }),
                 config: {
-                    // ...(stargateOnesig !== undefined ? { admin: stargateOnesig } : {}),
-                    admin: '0xF4A3838Ac477eBc92aD5F5540ffB0F8441Ef6791',
+                    ...(stargateOnesig !== undefined ? { admin: stargateOnesig } : {}),
                     issuer: assetAddresses[tokenName],
                     pauser: onesigRole,
                     burnBlocked: onesigRole,

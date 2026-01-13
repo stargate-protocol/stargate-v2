@@ -21,7 +21,7 @@ export class Tip20Token extends OmniSDK {
     }
     @AsyncRetriable()
     async getDefaultAdminRole(): Promise<string> {
-        return await this.contract.contract.DEFAULT_ADMIN_ROLE()
+        return '0x0000000000000000000000000000000000000000000000000000000000000000'
     }
 
     // --------- Role helpers -----------
@@ -67,9 +67,13 @@ export class Tip20Token extends OmniSDK {
         return this.grantRole('admin', adminRole, admin)
     }
     @AsyncRetriable()
-    async renounceAdmin(): Promise<OmniTransaction | undefined> {
+    async renounceAdmin(): Promise<OmniTransaction> {
         const adminRole = await this.getDefaultAdminRole()
-        return await this.contract.contract.renounceRole(adminRole)
+        const data = this.contract.contract.interface.encodeFunctionData('renounceRole', [adminRole])
+        return {
+            ...this.createTransaction(data),
+            description: `Renounce default admin role`,
+        }
     }
 
     // --------- Pauser controls ----------

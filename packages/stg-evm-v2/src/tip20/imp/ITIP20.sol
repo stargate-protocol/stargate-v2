@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
 
+import { ITIP20RolesAuth } from "./ITIP20RolesAuth.sol";
+
 /// This is only needed to get the TIP-20 abi on the wiring scripts. This contract was copied from
 /// [Tempo TIP-20 spec](https://github.com/tempoxyz/tempo/blob/3dbee269cabffa58c6942ece1d155783924e8b5e/docs/specs/src/interfaces/ITIP20.sol)
 
 /// @title The interface for TIP-20 compliant tokens
 /// @notice A token standard that extends ERC-20 with additional features including transfer policies, memo support, and pause functionality
-interface ITIP20 {
+interface ITIP20 is ITIP20RolesAuth {
     /// @notice Error when attempting an operation while the contract is paused.
     error ContractPaused();
 
@@ -239,8 +241,4 @@ interface ITIP20 {
     /// @param account The address to query pending rewards for.
     /// @return The total pending claimable reward amount.
     function getPendingRewards(address account) external view returns (uint256);
-
-    function grantRole(bytes32 role, address account) external;
-
-    function hasRole(address account, bytes32 role) external view returns (bool);
 }
