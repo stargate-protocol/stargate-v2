@@ -164,10 +164,10 @@ const networks: NetworksUserConfig = {
     },
     'tempodev1-testnet': {
         eid: EndpointId.TEMPODEV1_V2_TESTNET,
-        url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://rpc.testnet.tempo.xyz',
+        url: process.env.RPC_URL_TEMPO_TESTNET || 'https://rpc.testnet.tempo.xyz',
         accounts: testnetAccounts,
         alt: true,
-        usdcTip20: true,
+        isTip20: true,
     },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
@@ -884,12 +884,6 @@ const getRpcUrl = (chainName: string): string | null => {
 const updateNetworkRpcUrls = (networks: NetworksUserConfig): NetworksUserConfig => {
     return Object.fromEntries(
         Object.entries(networks).map(([networkName, networkConfig]) => {
-            if (networkName === 'tempodev1-testnet') {
-                return [networkName, { ...networkConfig }]
-            }
-            if (networkName === 'arbsep-testnet') {
-                return [networkName, { ...networkConfig }]
-            }
             if (networkConfig && 'url' in networkConfig) {
                 const dynamicUrl = getRpcUrl(networkName)
                 return [networkName, { ...networkConfig, url: dynamicUrl ?? networkConfig.url }]
