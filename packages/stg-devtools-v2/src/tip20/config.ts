@@ -107,10 +107,11 @@ const renounceDeployerAdmin: Tip20Configurator = createConfigureNodes(
         },
         {
             onStart: (logger, [{ config, point }]) =>
-                logger.verbose(`Configuring burnBlocked for ${formatOmniPoint(point)}: ${config.burnBlocked}`),
-            onSuccess: (logger, [{ point }]) => logger.verbose(`Configured burnBlocked for ${formatOmniPoint(point)}`),
+                logger.verbose(`Renouncing deployer admin for ${formatOmniPoint(point)} in favor of ${config.admin}`),
+            onSuccess: (logger, [{ point }]) =>
+                logger.verbose(`Renounced deployer admin for ${formatOmniPoint(point)}`),
             onError: (logger, [{ point }], error) =>
-                logger.error(`Failed to configure burnBlocked for ${formatOmniPoint(point)}: ${error}`),
+                logger.error(`Failed to renounce deployer admin for ${formatOmniPoint(point)}: ${error}`),
         }
     )
 )
