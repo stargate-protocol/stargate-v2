@@ -49,8 +49,6 @@ export default async function buildTip20TokenGraph(
     const contracts = await Promise.all(
         validChains.map(async (chain) => {
             const tip20Address = getAssetNetworkConfig(chain.eid, tokenName).address
-            // const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
-
             const stargateOnesig = getOneSigAddressMaybe(chain.eid)
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
 
