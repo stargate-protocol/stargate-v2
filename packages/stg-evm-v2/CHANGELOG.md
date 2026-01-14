@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-v2
 
+## 6.0.0
+
+### Major Changes
+
+- a3e8214: Done DVN migration 1st step: set LZ_Labs DVN and Stargate DVN as optional
+
+### Patch Changes
+
+- e5c5a98: Added Redbelly mainnet configuration
+- Updated dependencies [e5c5a98]
+- Updated dependencies [173cb95]
+- Updated dependencies [a3e8214]
+  - @stargatefinance/stg-definitions-v2@6.0.0
+
 ## 5.0.5
 
 ### Patch Changes
