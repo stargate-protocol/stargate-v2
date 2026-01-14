@@ -1,5 +1,16 @@
 # @stargatefinance/stg-definitions-v2
 
+## 6.0.0
+
+### Major Changes
+
+- a3e8214: Done DVN migration 1st step: set LZ_Labs DVN and Stargate DVN as optional
+
+### Patch Changes
+
+- e5c5a98: Added Redbelly mainnet configuration
+- 173cb95: Done DVN migration 2nd step: set LZ_Labs DVN as required, remove optional DVNs
+
 ## 5.0.4
 
 ### Patch Changes
