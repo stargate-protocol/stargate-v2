@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 6.0.1
+
+### Patch Changes
+
+- eb73e8a: Adding Redbelly deployment
+
 ## 6.0.0
 
 ### Major Changes

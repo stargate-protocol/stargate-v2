@@ -1,5 +1,12 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.2.6
+
+### Patch Changes
+
+- 927c8ea: Adding redbelly chain
+- eb73e8a: Adding Redbelly deployment
+
 ## 1.2.5
 
 ### Patch Changes
