@@ -1,5 +1,13 @@
 # @stargatefinance/stg-devtools-v2
 
+## 8.0.1
+
+### Patch Changes
+
+- eb73e8a: Adding Redbelly deployment
+- Updated dependencies [eb73e8a]
+  - @stargatefinance/stg-definitions-v2@6.0.1
+
 ## 8.0.0
 
 ### Patch Changes
