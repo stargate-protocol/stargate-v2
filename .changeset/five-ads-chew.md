@@ -7,4 +7,4 @@
 "@stargatefinance/stg-error-parser": patch
 ---
 
-Deploy wETH on Redbelly
+Configured and deployed wETH on Redbelly
