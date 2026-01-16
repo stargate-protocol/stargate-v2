@@ -25,6 +25,10 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     const logger = createModuleLogger(`Messaging Deployer @ ${network}`)
     const { creditMessaging, tokenMessaging } = getNetworkConfig(eid)
 
+    // Detect ALT endpoint networks via a custom hardhat network flag.
+    // Add `alt: true` on networks that use EndpointV2Alt (native fee ERC20-based).
+    const isAlt = Boolean((hre.network.config as { alt?: boolean }).alt)
+
     const endpointDeployment = await hre.deployments.get('EndpointV2')
     if (tokenMessaging != null) {
         const queueCapacity = tokenMessaging.queueCapacity
@@ -33,12 +37,13 @@ export default async function (hre: HardhatRuntimeEnvironment) {
             `Queue capacity must be a divisor of 2**16 (65536), got: ${queueCapacity}`
         )
 
-        logger.info(`Deploying TokenMessaging as: ${deployer}`)
-        logger.info(`Deploying TokenMessaging with endpoint: ${endpointDeployment.address}`)
-        logger.info(`Deploying TokenMessaging with queue capacity: ${queueCapacity}`)
+        const contractName = isAlt ? 'TokenMessagingAlt' : 'TokenMessaging'
+        logger.info(`Deploying ${contractName} on ${network} as: ${deployer}`)
+        logger.info(`Deploying ${contractName} with endpoint: ${endpointDeployment.address}`)
+        logger.info(`Deploying ${contractName} with queue capacity: ${queueCapacity}`)
 
         await deploy('TokenMessaging', {
-            contract: 'TokenMessaging',
+            contract: contractName,
             from: deployer,
             args: [endpointDeployment.address, deployer, queueCapacity],
             log: true,
@@ -49,9 +54,12 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     }
 
     if (creditMessaging != null) {
-        logger.info(`Deploying CreditMessaging as: ${deployer}`)
+        const contractName = isAlt ? 'CreditMessagingAlt' : 'CreditMessaging'
+        logger.info(
+            `Deploying ${contractName} on ${network} as: ${deployer} with endpoint: ${endpointDeployment.address}`
+        )
         await deploy('CreditMessaging', {
-            contract: 'CreditMessaging',
+            contract: contractName,
             from: deployer,
             args: [endpointDeployment.address, deployer],
             log: true,
