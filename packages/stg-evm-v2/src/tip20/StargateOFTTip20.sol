@@ -1,10 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.22;
 
-import { MessagingFee, MessagingReceipt, SendParam } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
-
 import { ITip20Minter } from "../interfaces/ITip20Minter.sol";
-import { ITokenMessaging, TaxiParams } from "../interfaces/ITokenMessaging.sol";
 import { StargateOFTAlt } from "../StargateOFTAlt.sol";
 import { Transfer } from "../libs/Transfer.sol";
 
