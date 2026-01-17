@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 8.0.2
+
+### Patch Changes
+
+- 39b37ae: Configured and deployed wETH on Redbelly
+- Updated dependencies [39b37ae]
+  - @stargatefinance/stg-definitions-v2@6.0.2
+  - @stargatefinance/stg-devtools-v2@8.0.2
+
 ## 8.0.1
 
 ### Patch Changes
