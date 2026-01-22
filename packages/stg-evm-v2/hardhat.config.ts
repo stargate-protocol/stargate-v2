@@ -162,9 +162,9 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
-    'tempodev1-testnet': {
-        eid: EndpointId.TEMPOFINAL_V2_TESTNET,
-        url: process.env.RPC_URL_TEMPOFINAL_TESTNET || 'rpc.moderato.tempo.xyz',
+    'moderato-testnet': {
+        eid: EndpointId.MODERATO_V2_TESTNET,
+        url: process.env.RPC_URL_MODERATO_TESTNET || 'https://rpc.moderato.tempo.xyz/',
         accounts: testnetAccounts,
         isTip20: true,
         alt: true,
