@@ -13,8 +13,8 @@ contract TokenMessagingAlt is TokenMessaging {
     ) TokenMessaging(_endpoint, _owner, _queueCapacity) {}
 
     /// @dev Alt endpoints accept ERC20 fees; block any native value from being forwarded.
-    function _payNative(uint256 /*_nativeFee*/) internal view override returns (uint256 nativeFee) {
-        if (msg.value != 0) revert TokenMessaging_OnlyAltToken();
+    /// @dev we don't need to check msg.value is not zero because only taxi mode is allowed and in the StargateOFTAlt._taxi we are already sending no msg.value
+    function _payNative(uint256 /*_nativeFee*/) internal pure override returns (uint256 nativeFee) {
         nativeFee = 0;
     }
 }

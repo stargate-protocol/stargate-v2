@@ -31,6 +31,8 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
         MessagingFee memory /*_fee*/,
         address _sender
     ) internal override returns (MessagingReceipt memory receipt) {
+        _assertNoNativeValue();
+
         // quote fee in ALT token and fund the endpoint
         MessagingFee memory fee = _quote(_dstEid, _message, _options, false);
         // fund the endpoint with the ERC20 native fee
@@ -40,8 +42,7 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
     }
 
     /// @dev Override native payment hook so endpoint.send is called with msg.value == 0.
-    function _payNative(uint256 /*_nativeFee*/) internal view override returns (uint256 nativeFee) {
-        _assertNoNativeValue();
+    function _payNative(uint256 /*_nativeFee*/) internal pure override returns (uint256 nativeFee) {
         nativeFee = 0;
     }
 
