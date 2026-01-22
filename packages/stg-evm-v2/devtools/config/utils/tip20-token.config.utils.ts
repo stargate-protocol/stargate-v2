@@ -36,7 +36,7 @@ export default async function buildTip20TokenGraph(
 
     const validChains = filterValidProvidedChains(
         chainsList,
-        // note: will only include chains that are TIP-20 for USDC
+        // note: will only include chains that are TIP-20 for the given token
         getChainsThatSupportTokenWithType(tokenName, StargateType.Oft, true)
     )
     printChains(`TIP20 ${tokenName} CHAINS_LIST:`, validChains)
