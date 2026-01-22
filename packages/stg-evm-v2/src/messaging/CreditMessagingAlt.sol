@@ -3,12 +3,10 @@ pragma solidity ^0.8.22;
 
 import { EndpointV2Alt } from "@layerzerolabs/lz-evm-protocol-v2/contracts/EndpointV2Alt.sol";
 import { MessagingFee } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
+import { MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
-import { TargetCreditBatch } from "../interfaces/ICreditMessaging.sol";
-import { ICreditMessagingHandler, Credit } from "../interfaces/ICreditMessagingHandler.sol";
-import { CreditMsgCodec, CreditBatch } from "../libs/CreditMsgCodec.sol";
-import { CreditMessaging } from "./CreditMessaging.sol";
 import { Transfer } from "../libs/Transfer.sol";
+import { CreditMessaging } from "./CreditMessaging.sol";
 
 /// @notice ALT variant for CreditMessaging where the "native" messaging fee is an ERC20 token.
 /// @dev Funds the endpoint with the ALT fee token and forces msg.value to be zero.
@@ -24,43 +22,20 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
         if (feeToken == address(0)) revert CreditMessaging_NotAnAltEndpoint();
     }
 
-    /// @notice Send credits using ALT endpoint fee token; no ETH accepted.
-    /// @dev This version quotes on-chain to determine the exact fee in the ALT token.
-    function sendCredits(
+    /// @dev Override _lzSend to quote fee in ALT token and fund the endpoint, then call super._lzSend.
+    function _lzSend(
         uint32 _dstEid,
-        TargetCreditBatch[] calldata _creditBatches
-    ) external payable override onlyPlanner {
-        _assertNoNativeValue();
+        bytes memory _message,
+        bytes memory _options,
+        MessagingFee memory _fee,
+        address _sender
+    ) internal override returns (MessagingReceipt memory receipt) {
+        // quote fee in ALT token and fund the endpoint
+        MessagingFee memory fee = _quote(_dstEid, _message, _options, false);
+        // fund the endpoint with the ERC20 native fee
+        if (fee.nativeFee > 0) safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), fee.nativeFee);
 
-        CreditBatch[] memory batches = new CreditBatch[](_creditBatches.length);
-        uint256 index = 0;
-        uint128 totalCreditNum = 0; // total number of credits in all batches
-
-        for (uint256 i = 0; i < _creditBatches.length; i++) {
-            TargetCreditBatch calldata targetBatch = _creditBatches[i];
-            Credit[] memory actualCredits = ICreditMessagingHandler(_safeGetStargateImpl(targetBatch.assetId))
-                .sendCredits(_dstEid, targetBatch.credits);
-            if (actualCredits.length > 0) {
-                batches[index++] = CreditBatch(targetBatch.assetId, actualCredits);
-                totalCreditNum += uint128(actualCredits.length); // safe cast
-            }
-        }
-
-        if (index != 0) {
-            // resize the array to the actual number of batches
-            assembly {
-                mstore(batches, index)
-            }
-            bytes memory message = CreditMsgCodec.encode(batches, totalCreditNum);
-            bytes memory options = _buildOptions(_dstEid, totalCreditNum);
-
-            // quote fee in ALT token and fund the endpoint
-            MessagingFee memory fee = _quote(_dstEid, message, options, false);
-            // fund the endpoint with the ERC20 native fee
-            if (fee.nativeFee > 0) safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), fee.nativeFee);
-
-            _lzSend(_dstEid, message, options, fee, msg.sender);
-        }
+        return super._lzSend(_dstEid, _message, _options, _fee, _sender);
     }
 
     /// @dev Override native payment hook so endpoint.send is called with msg.value == 0.
