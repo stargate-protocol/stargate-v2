@@ -8,7 +8,7 @@ import { MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/in
 import { Transfer } from "../libs/Transfer.sol";
 import { CreditMessaging } from "./CreditMessaging.sol";
 
-/// @notice ALT variant for CreditMessaging where the "native" messaging fee is an ERC20 token.
+/// @notice CreditMessaging variant for EndpointV2Alt chains where the "native" messaging fee is an ERC20 token.
 /// @dev Funds the endpoint with the ALT fee token and forces msg.value to be zero.
 contract CreditMessagingAlt is CreditMessaging, Transfer {
     /// @notice ERC20 token used by EndpointV2Alt as the "native" fee token on this chain.

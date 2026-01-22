@@ -5,8 +5,8 @@ import { ITIP20Minter } from "../interfaces/ITIP20Minter.sol";
 import { StargateOFTAlt } from "../StargateOFTAlt.sol";
 import { Transfer } from "../libs/Transfer.sol";
 
-/// @dev OFT variant for bridged stablecoin with TIP-20 and ALT endpoints.
-/// - Transfers + Burns stablecoin on inflow and mints on outflow
+/// @notice StargateOFT variant for bridged stablecoin with TIP-20 and ALT endpoints.
+/// @dev bus mode is not allowed in alt endpoints
 contract StargateOFTTIP20 is StargateOFTAlt {
     constructor(
         address _token,
