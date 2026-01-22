@@ -22,8 +22,10 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
         if (feeToken == address(0)) revert CreditMessaging_NotAnAltEndpoint();
     }
 
-    /// @dev Override _lzSend to quote fee in ALT token and fund the endpoint, then call super._lzSend.
-    /// @dev the _fee received will be { nativeFee: 0, lzTokenFee: 0 } because the msg.value is 0, so it should use the calculated one instead
+    /// @dev Override _lzSend to quote the messaging fee in the ALT fee token and fund the endpoint before calling super._lzSend.
+    /// @dev On EndpointV2Alt chains, msg.value must be zero and the "native" messaging fee is paid in an ERC20 token, so the _fee
+    ///      argument passed in (derived from msg.value) will always be { nativeFee: 0, lzTokenFee: 0 } and is therefore ignored;
+    ///      instead, this function re-quotes the fee on-chain in the ALT fee token and transfers that token to the endpoint.
     function _lzSend(
         uint32 _dstEid,
         bytes memory _message,
