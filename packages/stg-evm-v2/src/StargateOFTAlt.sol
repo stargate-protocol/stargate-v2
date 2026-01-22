@@ -36,7 +36,7 @@ contract StargateOFTAlt is StargateOFT {
         return 0;
     }
 
-    /// @dev Push native fee ERC20 token to TokenMessaging, and avoid calling taxi with ETH.
+    /// @dev Push native fee ERC20 token to Endpoint, and avoid sending ETH to TokenMessaging.taxi.
     function _taxi(
         SendParam calldata _sendParam,
         MessagingFee memory _messagingFee,
