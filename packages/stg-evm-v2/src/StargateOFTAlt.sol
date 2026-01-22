@@ -43,12 +43,12 @@ contract StargateOFTAlt is StargateOFT {
         uint64 _amountSD,
         address _refundAddress
     ) internal virtual override returns (MessagingReceipt memory receipt) {
-        if (_messagingFee.lzTokenFee > 0) _payLzToken(_messagingFee.lzTokenFee); // handle lz token fee
-
         // Push native ERC20 fee to the endpoint
         if (_messagingFee.nativeFee > 0) {
             Transfer.safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), _messagingFee.nativeFee);
         }
+
+        if (_messagingFee.lzTokenFee > 0) _payLzToken(_messagingFee.lzTokenFee); // handle lz token fee
 
         receipt = ITokenMessaging(tokenMessaging).taxi(
             TaxiParams({
