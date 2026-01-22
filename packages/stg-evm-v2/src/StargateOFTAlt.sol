@@ -10,7 +10,7 @@ import { Transfer } from "./libs/Transfer.sol";
 
 /// @notice OFT variant for EndpointV2Alt chains where the "native" messaging fee is an ERC20 token.
 /// @dev Reuses all OFT logic; only fee assertion, collection/refund, planner fee accounting, and taxi funding are overridden.
-/// @dev bus mode is not allowed in alt endpoints
+/// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode
 contract StargateOFTAlt is StargateOFT {
     /// @notice ERC20 token used by EndpointV2Alt as the "native" fee token on this chain.
     address public immutable feeToken;

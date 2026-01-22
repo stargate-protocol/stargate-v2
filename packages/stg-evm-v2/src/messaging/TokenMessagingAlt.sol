@@ -4,7 +4,7 @@ pragma solidity ^0.8.22;
 import { TokenMessaging } from "./TokenMessaging.sol";
 
 /// @notice TokenMessaging variant for EndpointV2Alt chains where the "native" messaging fee is an ERC20 token.
-/// @dev bus mode is not allowed in alt endpoints
+/// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode
 contract TokenMessagingAlt is TokenMessaging {
     constructor(
         address _endpoint,
