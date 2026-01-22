@@ -54,7 +54,7 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
             bytes memory message = CreditMsgCodec.encode(batches, totalCreditNum);
             bytes memory options = _buildOptions(_dstEid, totalCreditNum);
 
-            //  Quote fee in ALT token and fund the endpoint
+            // quote fee in ALT token and fund the endpoint
             MessagingFee memory fee = _quote(_dstEid, message, options, false);
             // fund the endpoint with the ERC20 native fee
             if (fee.nativeFee > 0) safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), fee.nativeFee);
