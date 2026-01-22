@@ -95,7 +95,7 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
             const tokenDecimals = await tokenSdk.decimals()
 
             // Determine if the chain is ALT (EndpointV2Alt)
-            const isAlt = Boolean((hre.network.config as { alt?: boolean }).alt)
+            const isAlt = hre.network.config.alt
 
             switch (stargateType) {
                 case StargateType.Pool:
