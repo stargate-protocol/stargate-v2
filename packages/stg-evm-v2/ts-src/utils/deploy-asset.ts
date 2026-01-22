@@ -115,7 +115,7 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                     const isTip20 = Boolean((hre.network.config as { isTip20?: boolean }).isTip20)
                     const baseOftContract = getOFTContractName(tokenName)
                     const oftContract =
-                        (tokenName === TokenName.USDC && useUsdcTip20) || (tokenName === TokenName.EURC && useUsdcTip20)
+                        (tokenName === TokenName.USDC && isTip20) || (tokenName === TokenName.EURC && isTip20)
                             ? 'StargateOFTTIP20'
                             : isAlt && baseOftContract === 'StargateOFT'
                               ? 'StargateOFTAlt'
