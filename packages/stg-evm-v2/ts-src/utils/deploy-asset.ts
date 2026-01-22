@@ -114,12 +114,7 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                     // If isTip20 is false, use StargateOFTUSDC or StargateOFTEURC
                     const isTip20 = Boolean((hre.network.config as { isTip20?: boolean }).isTip20)
                     const baseOftContract = getOFTContractName(tokenName)
-                    const oftContract =
-                        (tokenName === TokenName.USDC && isTip20) || (tokenName === TokenName.EURC && isTip20)
-                            ? 'StargateOFTTIP20'
-                            : isAlt && baseOftContract === 'StargateOFT'
-                              ? 'StargateOFTAlt'
-                              : baseOftContract
+                    const oftContract = resolveOftContractName(tokenName, isTip20, baseOftContract, isAlt)
                     return deployOFTAsset(hre, logger, {
                         ...tokenProperties,
                         contractName: oftContract,
@@ -140,6 +135,24 @@ const getOFTContractName = (tokenName: TokenName): 'StargateOFTUSDC' | 'Stargate
         return 'StargateOFTEURC'
     }
     return 'StargateOFT'
+}
+
+const resolveOftContractName = (
+    tokenName: TokenName,
+    isTip20: boolean,
+    baseOftContract: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT',
+    isAlt?: boolean
+): 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt' | 'StargateOFTTIP20' => {
+    // TIP-20 tokens USDC/EURC use StargateOFTTIP20 when isTip20 is enabled
+    if (isTip20 && (tokenName === TokenName.USDC || tokenName === TokenName.EURC)) {
+        return 'StargateOFTTIP20'
+    }
+    // On ALT chains, the generic StargateOFT becomes StargateOFTAlt
+    if (isAlt && baseOftContract === 'StargateOFT') {
+        return 'StargateOFTAlt'
+    }
+    // Otherwise, use the base contract derived from token name
+    return baseOftContract
 }
 
 const getPoolContractName = (
