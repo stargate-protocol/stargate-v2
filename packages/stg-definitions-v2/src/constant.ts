@@ -969,7 +969,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590',
                 type: StargateType.Pool,
             },
-            [EndpointId.TEMPODEV1_V2_TESTNET]: {
+            [EndpointId.TEMPOFINAL_V2_TESTNET]: {
                 address: '0x20C0000000000000000000009e8d7eB59B783726',
                 type: StargateType.Oft,
             },
@@ -1072,7 +1072,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xa6f01ccc347f07256bec0dc7d1a3b62adc3f1a68',
                 type: StargateType.Oft,
             },
-            [EndpointId.TEMPODEV1_V2_TESTNET]: {
+            [EndpointId.TEMPOFINAL_V2_TESTNET]: {
                 address: '0x20c000000000000000000000D72572838BbEe59C',
                 type: StargateType.Oft,
             },
@@ -1173,7 +1173,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.MONAD_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
         [EndpointId.SEPOLIA_V2_TESTNET]: {},
-        [EndpointId.TEMPODEV1_V2_TESTNET]: {},
+        [EndpointId.TEMPOFINAL_V2_TESTNET]: {},
         //
         // SANDBOX
         //
@@ -3451,7 +3451,7 @@ export const NETWORKS: NetworksConfig = {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
-    [EndpointId.TEMPODEV1_V2_TESTNET]: {
+    [EndpointId.TEMPOFINAL_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
