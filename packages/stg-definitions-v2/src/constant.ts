@@ -970,7 +970,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Pool,
             },
             [EndpointId.TEMPODEV1_V2_TESTNET]: {
-                address: '0x20c0000000000000000000000000000000276b3c', // todo
+                address: '0x20C0000000000000000000009e8d7eB59B783726',
                 type: StargateType.Oft,
             },
 
@@ -1073,7 +1073,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.TEMPODEV1_V2_TESTNET]: {
-                address: '0x20c000000000000000000000000000000027c99b', // todo
+                address: '0x20c000000000000000000000D72572838BbEe59C',
                 type: StargateType.Oft,
             },
         },
