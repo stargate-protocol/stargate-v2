@@ -31,11 +31,6 @@ contract StargateOFTAlt is StargateOFT {
 
     //  StargateBase Overrides
 
-    /// @dev Planner fee is not allowed in ALT because BUS is not allowed.
-    function _plannerFee() internal pure override returns (uint256) {
-        return 0;
-    }
-
     /// @dev Push native fee ERC20 token to Endpoint, and avoid sending ETH to TokenMessaging.taxi.
     function _taxi(
         SendParam calldata _sendParam,
