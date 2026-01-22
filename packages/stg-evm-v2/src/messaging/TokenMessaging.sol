@@ -284,7 +284,7 @@ contract TokenMessaging is Transfer, MessagingBase, TokenMessagingOptions, IToke
     }
 
     /// @dev The native coin is already checked in the stargate contract and transferred to this contract
-    function _payNative(uint256 _nativeFee) internal pure virtual override returns (uint256 nativeFee) {
+    function _payNative(uint256 _nativeFee) internal view virtual override returns (uint256 nativeFee) {
         nativeFee = _nativeFee;
     }
 
