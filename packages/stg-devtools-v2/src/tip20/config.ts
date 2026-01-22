@@ -19,7 +19,7 @@ const configureAdmin: Tip20Configurator = createConfigureNodes(
         async ({ config }, sdk) => {
             if (config.admin == null) return []
             const adminRole = await sdk.getDefaultAdminRole?.()
-            if (adminRole == null) return []
+            if (adminRole === undefined) return []
             const hasAdminRole = (await sdk.hasRole?.(config.admin, adminRole)) ?? false
             if (hasAdminRole) return []
             return [await sdk.setAdmin(config.admin)]
