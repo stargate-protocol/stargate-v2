@@ -38,8 +38,17 @@ contract CreditMessagingAltTest is Test {
     function test_RevertIf_SendCreditsWithEthValue() public {
         _configureMessaging();
         TargetCreditBatch[] memory batches = _buildBatches();
+        uint256 nativeFee = 321;
 
+        // deal eth, mint and approve fee token to PLANNER
         vm.deal(PLANNER, 1 ether);
+        feeToken.mint(PLANNER, nativeFee);
+        vm.prank(PLANNER);
+        feeToken.approve(address(messaging), nativeFee);
+
+        _mockEndpointQuote(nativeFee);
+        _mockEndpointSend(nativeFee);
+        _mockStargateSendCredits(DST_EID, batches[0].credits, STARGATE_IMPL);
 
         vm.expectRevert(CreditMessagingAlt.CreditMessaging_OnlyAltToken.selector);
         vm.prank(PLANNER);

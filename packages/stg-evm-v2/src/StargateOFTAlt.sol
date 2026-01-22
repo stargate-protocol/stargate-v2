@@ -31,24 +31,19 @@ contract StargateOFTAlt is StargateOFT {
 
     //  StargateBase Overrides
 
-    /// @dev Planner fee is not allowed in ALT because BUS is not allowed.
-    function _plannerFee() internal pure override returns (uint256) {
-        return 0;
-    }
-
-    /// @dev Taxi path: pull fee token from user to TokenMessaging, then send (no ETH).
+    /// @dev Push native fee ERC20 token to Endpoint, and avoid sending ETH to TokenMessaging.taxi.
     function _taxi(
         SendParam calldata _sendParam,
         MessagingFee memory _messagingFee,
         uint64 _amountSD,
         address _refundAddress
     ) internal virtual override returns (MessagingReceipt memory receipt) {
-        if (_messagingFee.lzTokenFee > 0) _payLzToken(_messagingFee.lzTokenFee); // handle lz token fee
-
         // Push native ERC20 fee to the endpoint
         if (_messagingFee.nativeFee > 0) {
             Transfer.safeTransferTokenFrom(feeToken, msg.sender, address(endpoint), _messagingFee.nativeFee);
         }
+
+        if (_messagingFee.lzTokenFee > 0) _payLzToken(_messagingFee.lzTokenFee); // handle lz token fee
 
         receipt = ITokenMessaging(tokenMessaging).taxi(
             TaxiParams({

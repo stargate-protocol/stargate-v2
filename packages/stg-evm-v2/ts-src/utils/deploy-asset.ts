@@ -95,7 +95,7 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
             const tokenDecimals = await tokenSdk.decimals()
 
             // Determine if the chain is ALT (EndpointV2Alt)
-            const isAlt = Boolean((hre.network.config as { alt?: boolean }).alt)
+            const isAlt = hre.network.config.alt
 
             switch (stargateType) {
                 case StargateType.Pool:
@@ -115,8 +115,8 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                     const isTip20 = Boolean((hre.network.config as { isTip20?: boolean }).isTip20)
                     const baseOftContract = getOFTContractName(tokenName)
                     const oftContract =
-                        (tokenName === TokenName.USDC || tokenName === TokenName.EURC) && isTip20
-                            ? 'StargateOFTTip20'
+                        (tokenName === TokenName.USDC && useUsdcTip20) || (tokenName === TokenName.EURC && useUsdcTip20)
+                            ? 'StargateOFTTIP20'
                             : isAlt && baseOftContract === 'StargateOFT'
                               ? 'StargateOFTAlt'
                               : baseOftContract
@@ -183,7 +183,7 @@ const getInternalTokenAddress = async (
 }
 
 interface DeployOFTAssetOptions {
-    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt' | 'StargateOFTTip20'
+    contractName: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt' | 'StargateOFTTIP20'
     deploymentName: string
     tokenAddress: string
     sharedDecimals: number

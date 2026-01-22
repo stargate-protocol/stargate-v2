@@ -27,7 +27,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
     // Detect ALT endpoint networks via a custom hardhat network flag.
     // Add `alt: true` on networks that use EndpointV2Alt (native fee ERC20-based).
-    const isAlt = Boolean((hre.network.config as { alt?: boolean }).alt)
+    const isAlt = hre.network.config.alt
 
     const endpointDeployment = await hre.deployments.get('EndpointV2')
     if (tokenMessaging != null) {
