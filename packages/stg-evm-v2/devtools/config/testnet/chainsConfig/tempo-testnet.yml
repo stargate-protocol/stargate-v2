@@ -1,0 +1,14 @@
+name: tempodev1-testnet
+eid: TEMPODEV1_V2_TESTNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdc:
+    type: oft
+  eurc:
+    type: oft
+treasurer:
+  tokens:
+    usdc: true
+    eurc: true
+isTip20: true
