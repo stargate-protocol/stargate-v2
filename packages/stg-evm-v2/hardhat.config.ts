@@ -162,13 +162,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
-    'tempodev1-testnet': {
-        eid: EndpointId.TEMPODEV1_V2_TESTNET,
-        url: process.env.RPC_URL_TEMPO_TESTNET || 'https://rpc.testnet.tempo.xyz',
-        accounts: testnetAccounts,
-        alt: true,
-        isTip20: true,
-    },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
         url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
