@@ -44,14 +44,10 @@ const buildMessagingAssetRemovalGraph = async (): Promise<OmniGraphHardhat<Messa
         },
     }))
 
-    const tt = {
+    return {
         contracts,
         connections: [],
     }
-
-    console.log(JSON.stringify(tt, null, 2))
-
-    return tt
 }
 
 export default buildMessagingAssetRemovalGraph

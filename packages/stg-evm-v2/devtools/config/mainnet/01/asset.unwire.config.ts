@@ -47,11 +47,7 @@ const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig
         ),
     ]
 
-    const tt = { contracts, connections }
-
-    console.log(JSON.stringify(tt, null, 2))
-
-    return tt
+    return { contracts, connections }
 }
 
 export default buildAssetUnwireGraph
