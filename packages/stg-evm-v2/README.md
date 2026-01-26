@@ -138,7 +138,7 @@ transfer.
 
 ## Unwiring an asset mesh
 
-This repo supports a YAML-driven unwire flow for removing an asset’s mesh paths and removing the assetId from messaging on specific chains without affecting other assets.
+This repo supports a YAML-driven unwire flow for unwiring a single asset from the mesh on specific chains—removing its mesh paths and assetId from messaging—without affecting other assets.
 
 ### YAML schema
 Create a YAML config (mainnet example in `devtools/config/mainnet/01/chainsConfig/unwire/unwire.asset.yml`):
