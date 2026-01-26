@@ -59,7 +59,7 @@ export function resolveUnwireChains(disconnectChains: string[], remainingChains:
 const resolveUnwireConfigPath = (baseDir: string): string => {
     const configPath = DEFAULT_CONFIG_RELATIVE_PATH
 
-    return path.isAbsolute(configPath) ? configPath : path.resolve(process.cwd(), configPath)
+    return path.isAbsolute(configPath) ? configPath : path.resolve(baseDir, configPath)
 }
 
 const normalizeChainList = (value: string[] | string | undefined, field: string, configPath: string): string[] => {
