@@ -333,6 +333,14 @@ configure-mainnet:
 	# Configure OFT Wrapper
 	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
+unwire-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+unwire-mainnet:
+	# Unwire asset paths (OFT reset)
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.unwire.config.ts --signer deployer
+	# Remove assetId on TokenMessaging/CreditMessaging for the unwired chains
+	MESSAGING_CONTRACT=TokenMessaging $(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging-asset-removal.config.ts --signer deployer
+	MESSAGING_CONTRACT=CreditMessaging $(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging-asset-removal.config.ts --signer deployer 
+
 transfer-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 transfer-mainnet:
 	# The OFTs
