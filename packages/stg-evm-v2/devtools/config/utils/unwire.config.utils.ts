@@ -19,7 +19,7 @@ export type ResolvedUnwireConfig = {
     configPath: string
 }
 
-const DEFAULT_CONFIG_RELATIVE_PATH = path.join('devtools/config/mainnet/01/chainsConfig', 'unwire', 'unwire.asset.yml')
+const DEFAULT_CONFIG_RELATIVE_PATH = path.join('chainsConfig', 'unwire', 'unwire.asset.yml')
 
 export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig {
     const configPath = resolveUnwireConfigPath(baseDir)
