@@ -3027,7 +3027,7 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.SOPHON_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET]],
+            requiredDVNs: [DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
         },
         tokenMessaging: {
