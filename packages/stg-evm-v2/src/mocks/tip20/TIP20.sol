@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import { TIP403Registry } from "./TIP403Registry.sol";
 import { TIP20RolesAuth } from "./abstracts/TIP20RolesAuth.sol";
-import { ITIP20 } from "./interfaces/ITIP20.sol";
+import { ITIP20 } from "../../interfaces/tip20/ITIP20.sol";
 
 /// @dev https://github.com/tempoxyz/tempo/blob/main/tips/ref-impls/src/TIP20.sol
 contract TIP20 is ITIP20, TIP20RolesAuth {

@@ -3,8 +3,8 @@ pragma solidity ^0.8.22;
 
 import { Transfer } from "../libs/Transfer.sol";
 import { StargateOFTAlt } from "../StargateOFTAlt.sol";
-import { ITIP20 } from "../mocks/tip20/interfaces/ITIP20.sol";
-import { ITIP20RolesAuth } from "../mocks/tip20/interfaces/ITIP20RolesAuth.sol";
+import { ITIP20 } from "../interfaces/tip20/ITIP20.sol";
+import { ITIP20RolesAuth } from "../interfaces/tip20/ITIP20RolesAuth.sol";
 
 /// @notice StargateOFT variant for bridged stablecoin with TIP-20 and EndpointV2Alt.
 /// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode, however is still possible to receive them.

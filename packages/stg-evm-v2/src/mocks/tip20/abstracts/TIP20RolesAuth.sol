@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import { ITIP20RolesAuth } from "../interfaces/ITIP20RolesAuth.sol";
+import { ITIP20RolesAuth } from "../../../interfaces/tip20/ITIP20RolesAuth.sol";
 
 /// @dev https://github.com/tempoxyz/tempo/blob/main/tips/ref-impls/src/abstracts/TIP20RolesAuth.sol
 abstract contract TIP20RolesAuth is ITIP20RolesAuth {
