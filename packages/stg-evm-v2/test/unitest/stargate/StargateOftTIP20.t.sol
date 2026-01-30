@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { StargateOftTest, IMockStargate } from "./StargateOft.t.sol";
-import { TIP20 } from "@tempo/TIP20.sol";
+import { TIP20 } from "../../../src/mocks/tip20/TIP20.sol";
 import { TokenMessagingAlt } from "../../../src/messaging/TokenMessagingAlt.sol";
 import { StargateOFTTIP20 } from "../../../src/tip20/StargateOFTTIP20.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";

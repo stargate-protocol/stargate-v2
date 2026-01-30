@@ -21,7 +21,6 @@ remappings = [
     '@layerzerolabs/=node_modules/@layerzerolabs/',
     '@openzeppelin/=node_modules/@openzeppelin/',
     '@uniswap/=node_modules/@uniswap/',
-    '@tempo/=src/mocks/tip20',
 ]
 
 gas_reports = [
