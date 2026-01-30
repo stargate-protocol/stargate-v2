@@ -3,8 +3,8 @@ pragma solidity ^0.8.22;
 
 import { Transfer } from "../libs/Transfer.sol";
 import { StargateOFTAlt } from "../StargateOFTAlt.sol";
-import { ITIP20Minter } from "../interfaces/ITIP20Minter.sol";
-import { ITIP20RolesAuth } from "../interfaces/ITIP20RolesAuth.sol";
+import { ITIP20 } from "@tempo/interfaces/ITIP20.sol";
+import { ITIP20RolesAuth } from "@tempo/interfaces/ITIP20RolesAuth.sol";
 
 /// @notice StargateOFT variant for bridged stablecoin with TIP-20 and EndpointV2Alt.
 /// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode, however is still possible to receive them.
@@ -23,13 +23,13 @@ contract StargateOFTTIP20 is StargateOFTAlt {
         amountSD = _ld2sd(_amountLD);
         _amountLD = _sd2ld(amountSD); // remove dust
         Transfer.safeTransferTokenFrom(token, _from, address(this), _amountLD);
-        ITIP20Minter(token).burn(_amountLD);
+        ITIP20(token).burn(_amountLD);
     }
 
     /// @dev Mint stablecoin to the receiver on outflow
     /// @dev TIP-20 mint function implementations do not return a boolean.
     function _outflow(address _to, uint256 _amountLD) internal virtual override returns (bool success) {
-        try ITIP20Minter(token).mint(_to, _amountLD) {
+        try ITIP20(token).mint(_to, _amountLD) {
             success = true;
         } catch {} // solhint-disable-line no-empty-blocks
     }
