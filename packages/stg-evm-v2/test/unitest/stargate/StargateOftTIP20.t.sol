@@ -13,6 +13,8 @@ import { OFTLimit, OFTFeeDetail, OFTReceipt, SendParam, MessagingReceipt, Messag
 import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/AddressCast.sol";
 
 contract StargateOftTIP20Test is StargateOftTest {
+    bytes32 internal constant DEFAULT_ADMIN_ROLE = bytes32(0);
+    bytes32 internal constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
     TIP20Token public tip20Token;
     AltFeeTokenMock public feeToken;
     bytes32 internal constant MOCK_GUID = bytes32(uint(1));
@@ -28,9 +30,6 @@ contract StargateOftTIP20Test is StargateOftTest {
     }
 
     function test_ReceiveTokenTaxi(uint32 _amountInSD, uint64 _nonce, bytes memory _composeMsg) public {
-        // Allow OFT to mint on receive
-        tip20Token.transferOwnership(address(stargate));
-
         // 1. Set up a _composeMsg test case.
         uint256 amountInLD = stargate.sdToLd(_amountInSD);
         Origin memory origin = Origin({ srcEid: 2, sender: AddressCast.toBytes32(ALICE), nonce: _nonce });
@@ -43,6 +42,18 @@ contract StargateOftTIP20Test is StargateOftTest {
         assertEq(afterBalance, before + amountInLD);
     }
 
+    function test_TransferTokenOwnership() public {
+        tip20Token.grantRole(DEFAULT_ADMIN_ROLE, address(stargate));
+
+        assertTrue(tip20Token.hasRole(DEFAULT_ADMIN_ROLE, address(stargate)));
+
+        address newOwner = address(this);
+        MockStargateOFTTIP20(address(stargate)).transferTokenOwnership(newOwner);
+
+        assertTrue(tip20Token.hasRole(DEFAULT_ADMIN_ROLE, newOwner));
+        assertFalse(tip20Token.hasRole(DEFAULT_ADMIN_ROLE, address(stargate)));
+    }
+
     function _setUpStargate() internal override {
         tip20Token = new TIP20Token("TIP20Token", "T2T");
         feeToken = new AltFeeTokenMock();
@@ -53,6 +64,7 @@ contract StargateOftTIP20Test is StargateOftTest {
             LzUtil.deployEndpointV2Alt(LOCAL_EID, address(this), address(feeToken)),
             address(this)
         );
+        tip20Token.grantRole(ISSUER_ROLE, address(stargate));
     }
 
     function _deal(address _to, uint256 _amount, uint256 _fee) internal override {
