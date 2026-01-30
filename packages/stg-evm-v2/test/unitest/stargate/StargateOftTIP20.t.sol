@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { StargateOftTest, IMockStargate } from "./StargateOft.t.sol";
-import { TIP20Token } from "../../../src/mocks/TIP20Token.sol";
+import { TIP20 } from "@tempo/TIP20.sol";
 import { TokenMessagingAlt } from "../../../src/messaging/TokenMessagingAlt.sol";
 import { StargateOFTTIP20 } from "../../../src/tip20/StargateOFTTIP20.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
@@ -15,7 +15,7 @@ import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/Ad
 contract StargateOftTIP20Test is StargateOftTest {
     bytes32 internal constant DEFAULT_ADMIN_ROLE = bytes32(0);
     bytes32 internal constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
-    TIP20Token public tip20Token;
+    TIP20 public tip20Token;
     AltFeeTokenMock public feeToken;
     bytes32 internal constant MOCK_GUID = bytes32(uint(1));
 
@@ -45,17 +45,17 @@ contract StargateOftTIP20Test is StargateOftTest {
     function test_TransferTokenOwnership() public {
         tip20Token.grantRole(DEFAULT_ADMIN_ROLE, address(stargate));
 
-        assertTrue(tip20Token.hasRole(DEFAULT_ADMIN_ROLE, address(stargate)));
+        assertTrue(tip20Token.hasRole(address(stargate), DEFAULT_ADMIN_ROLE));
 
         address newOwner = address(this);
         MockStargateOFTTIP20(address(stargate)).transferTokenOwnership(newOwner);
 
-        assertTrue(tip20Token.hasRole(DEFAULT_ADMIN_ROLE, newOwner));
-        assertFalse(tip20Token.hasRole(DEFAULT_ADMIN_ROLE, address(stargate)));
+        assertTrue(tip20Token.hasRole(newOwner, DEFAULT_ADMIN_ROLE));
+        assertFalse(tip20Token.hasRole(address(stargate), DEFAULT_ADMIN_ROLE));
     }
 
     function _setUpStargate() internal override {
-        tip20Token = new TIP20Token("TIP20Token", "T2T");
+        tip20Token = new TIP20("TIP20Token", "T2T", "USD", TIP20(address(0)), address(this), address(this));
         feeToken = new AltFeeTokenMock();
 
         stargate = new MockStargateOFTTIP20(
@@ -68,6 +68,7 @@ contract StargateOftTIP20Test is StargateOftTest {
     }
 
     function _deal(address _to, uint256 _amount, uint256 _fee) internal override {
+        vm.prank(address(stargate));
         tip20Token.mint(_to, _amount);
         // ALT endpoints use an ERC20 fee token instead of ETH; fund and approve it.
         if (_fee > 0) {
