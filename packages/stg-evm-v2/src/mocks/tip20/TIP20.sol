@@ -7,7 +7,8 @@ import { ITIP20 } from "../../interfaces/tip20/ITIP20.sol";
 
 /// @dev https://github.com/tempoxyz/tempo/blob/main/tips/ref-impls/src/TIP20.sol
 contract TIP20 is ITIP20, TIP20RolesAuth {
-    TIP403Registry internal constant TIP403_REGISTRY = TIP403Registry(0x403c000000000000000000000000000000000000);
+    // deploying it instead of using precompiles for mock purposes
+    TIP403Registry internal immutable TIP403_REGISTRY;
 
     address internal constant TIP_FEE_MANAGER_ADDRESS = 0xfeEC000000000000000000000000000000000000;
     address internal constant STABLECOIN_DEX_ADDRESS = 0xDEc0000000000000000000000000000000000000;
@@ -48,6 +49,7 @@ contract TIP20 is ITIP20, TIP20RolesAuth {
         address admin,
         address sender
     ) {
+        TIP403_REGISTRY = new TIP403Registry();
         name = _name;
         symbol = _symbol;
         currency = _currency;
