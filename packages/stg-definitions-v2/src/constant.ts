@@ -2293,7 +2293,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.HORIZEN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0003').toBigInt(),
+            nativeDropAmount: parseEther('0.125').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x643cfbc837ed1382f5ac4cb1b821aaeb00b65c75',
