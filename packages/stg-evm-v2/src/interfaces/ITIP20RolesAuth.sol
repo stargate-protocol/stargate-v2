@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity ^0.8.0;
+
+/// @title Interface for TIP-20 roles auth
+/// @dev https://github.com/tempoxyz/tempo/blob/3dbee269cabffa58c6942ece1d155783924e8b5e/docs/specs/src/interfaces/ITIP20RolesAuth.sol
+interface ITIP20RolesAuth {
+    function grantRole(bytes32 role, address account) external;
+
+    function renounceRole(bytes32 role) external;
+}

@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.22;
 
-import { ITIP20Minter } from "../interfaces/ITIP20Minter.sol";
-import { StargateOFTAlt } from "../StargateOFTAlt.sol";
 import { Transfer } from "../libs/Transfer.sol";
+import { StargateOFTAlt } from "../StargateOFTAlt.sol";
+import { ITIP20Minter } from "../interfaces/ITIP20Minter.sol";
+import { ITIP20RolesAuth } from "../interfaces/ITIP20RolesAuth.sol";
 
 /// @notice StargateOFT variant for bridged stablecoin with TIP-20 and EndpointV2Alt.
 /// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode
@@ -29,5 +30,18 @@ contract StargateOFTTIP20 is StargateOFTAlt {
         try ITIP20Minter(token).mint(_to, _amountLD) {
             success = true;
         } catch {} // solhint-disable-line no-empty-blocks
+    }
+
+    /// @notice Transfer the TIP-20 admin role to a new owner.
+    /// @dev Grants DEFAULT_ADMIN_ROLE to `_newOwner` and renounces it for the current admin.
+    /// @dev It mimics the transfer ownership functionality for the ERC20 tokens with roles.
+    /// @param _newOwner The account to receive the admin role.
+    function transferTokenOwnership(address _newOwner) external virtual override {
+        // default admin role defined in TIP20 referenced implementation
+        bytes32 defaultAdminRole = 0;
+
+        // grant the role to the new owner and renounce it to remove it from current
+        ITIP20RolesAuth(token).grantRole(defaultAdminRole, _newOwner);
+        ITIP20RolesAuth(token).renounceRole(defaultAdminRole);
     }
 }

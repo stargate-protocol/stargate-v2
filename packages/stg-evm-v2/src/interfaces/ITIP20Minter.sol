@@ -8,3 +8,9 @@ interface ITIP20Minter {
 
     function burn(uint256 amount) external;
 }
+
+interface ITIP20RolesAuth {
+    function grantRole(bytes32 role, address account) external;
+
+    function renounceRole(bytes32 role) external;
+}
