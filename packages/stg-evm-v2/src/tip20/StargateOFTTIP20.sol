@@ -9,6 +9,8 @@ import { ITIP20RolesAuth } from "../interfaces/ITIP20RolesAuth.sol";
 /// @notice StargateOFT variant for bridged stablecoin with TIP-20 and EndpointV2Alt.
 /// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode, however is still possible to receive them.
 contract StargateOFTTIP20 is StargateOFTAlt {
+    bytes32 internal constant DEFAULT_ADMIN_ROLE = 0;
+
     constructor(
         address _token,
         uint8 _sharedDecimals,
@@ -37,11 +39,8 @@ contract StargateOFTTIP20 is StargateOFTAlt {
     /// @dev It mimics the transfer ownership functionality for the ERC20 tokens with roles.
     /// @param _newOwner The account to receive the admin role.
     function transferTokenOwnership(address _newOwner) external virtual override {
-        // default admin role defined in TIP20 referenced implementation
-        bytes32 defaultAdminRole = 0;
-
         // grant the role to the new owner and renounce it to remove it from current
-        ITIP20RolesAuth(token).grantRole(defaultAdminRole, _newOwner);
-        ITIP20RolesAuth(token).renounceRole(defaultAdminRole);
+        ITIP20RolesAuth(token).grantRole(DEFAULT_ADMIN_ROLE, _newOwner);
+        ITIP20RolesAuth(token).renounceRole(DEFAULT_ADMIN_ROLE);
     }
 }
