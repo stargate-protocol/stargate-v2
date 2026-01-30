@@ -7,7 +7,7 @@ import { ITIP20Minter } from "../interfaces/ITIP20Minter.sol";
 import { ITIP20RolesAuth } from "../interfaces/ITIP20RolesAuth.sol";
 
 /// @notice StargateOFT variant for bridged stablecoin with TIP-20 and EndpointV2Alt.
-/// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode
+/// @dev Messages in EndpointV2Alt chains can not be delivered in bus mode, however is still possible to receive them.
 contract StargateOFTTIP20 is StargateOFTAlt {
     constructor(
         address _token,
