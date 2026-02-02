@@ -89,12 +89,12 @@ export class Tip20Token extends OmniSDK {
 
         return this.grantRole('pauser', pauserRole, pauser)
     }
-    async setUnpauser(pauser: OmniAddress): Promise<OmniTransaction | undefined> {
+    async setUnpauser(unpauser: OmniAddress): Promise<OmniTransaction | undefined> {
         const unpauserRole = await this.getUnpauseRole()
-        const hasUnpauserRole = await this.hasRole(pauser, unpauserRole)
+        const hasUnpauserRole = await this.hasRole(unpauser, unpauserRole)
         if (hasUnpauserRole) return undefined
 
-        return this.grantRole('unpauser', unpauserRole, pauser)
+        return this.grantRole('unpauser', unpauserRole, unpauser)
     }
 
     // --------- Burn blocked controls ----------
