@@ -143,11 +143,11 @@ The safe way of doing this though is
 ```bash
 # First the contracts are deployed
 make deploy-mainnet
-# The the OFT/USDC contracts are configured with a hot wallet
+# The OFT/USDC contracts are configured with a hot wallet
 make preconfigure-mainnet
 # Then the ownership is transferred to the multisig
 make transfer-mainnet
-# The the rest of the configuration is executed using a multisig
+# The rest of the configuration is executed using a multisig
 #
 # The LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND feature flag is used to reduce
 # the amount of transactions that need to be signed
