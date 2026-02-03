@@ -16,7 +16,7 @@ One of the biggest drawbacks in Stargate v1, was the gas costs to send a message
 
 ### Planner
 
-Stargate v1 utilized the Delta Algorithm for fully on chain credit allocation between asynchronous states across tens of blockchains. The algorithm although fully on chain requires a significant amount of capital to stay competitive in pricing among other bridges in the space. In Stargate v2, we introduce the concept of a Planner. A Planner is a trusted entity that can allocate credit between chains off chain, and then submit the credit allocation to the bridge. This allows for a significant reduction in capital requirements, and allows for the bridge to be more competitive in pricing. The Planner has no ability to steal funds, and can only allocate credits that have been sent to it via messaging. This allows Stargate v2 to be extremely competitive in it's pricing, while still maintaining the security of the bridge.
+Stargate v1 utilized the Delta Algorithm for fully on chain credit allocation between asynchronous states across tens of blockchains. The algorithm although fully on chain requires a significant amount of capital to stay competitive in pricing among other bridges in the space. In Stargate v2, we introduce the concept of a Planner. A Planner is a trusted entity that can allocate credit between chains off chain, and then submit the credit allocation to the bridge. This allows for a significant reduction in capital requirements, and allows for the bridge to be more competitive in pricing. The Planner has no ability to steal funds, and can only allocate credits that have been sent to it via messaging. This allows Stargate v2 to be extremely competitive in its pricing, while still maintaining the security of the bridge.
 
 ### Hydra
 
