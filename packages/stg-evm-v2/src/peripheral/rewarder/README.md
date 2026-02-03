@@ -19,7 +19,7 @@ It should be noted that `depositTo` can only be called by smart contracts, this 
 It should be noted that `withdrawToAndCall` can only be called to smart contracts and is supposed to be called by the depositing users. The smart contracts must implement the `IStakingReceiver` interface which defines the `onWithdrawalReceived` function. As another sanity check to avoid `withdrawToAndCall` from being called on non-compliant contracts, this function must return the selector of itself.
 
 ## Stargate Staking
-The staking contract is the interface for users. It allows them to deposit and withdrawal LP tokens. It furthermore allows them to claim emission rewards.
+The staking contract is the interface for users. It allows them to deposit and withdraw LP tokens. It furthermore allows them to claim emission rewards.
 
 The staking contract owner can configure the rewarder each individual pool is linked to. This rewarder is called whenever a deposit, depositTo, withdraw, claim or withdrawToAndCall is made on the specified pool, as to allow for reward indexation and distribution.
 
