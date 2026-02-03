@@ -20,7 +20,7 @@ Stargate v1 utilized the Delta Algorithm for fully on chain credit allocation be
 
 ### Hydra
 
-Almost a year to the date of Stargate v2 launch, Stargate discussed the creation of a wrapped asset bridge that would use the underlying asset from the bridge as POL (protocol owned liquidity) to reduce need for LP and overall costs on the protocol. Since then v2 has incorporated this idea as a built in way to do just that. Users can now bridge native assets from anywhere to a Stargate wrapped OFT that can transfer between each chain that does not have the native asset and be redeemed anywhere an native asset pool exists.
+Almost a year to the date of Stargate v2 launch, Stargate discussed the creation of a wrapped asset bridge that would use the underlying asset from the bridge as POL (protocol owned liquidity) to reduce need for LP and overall costs on the protocol. Since then v2 has incorporated this idea as a built in way to do just that. Users can now bridge native assets from anywhere to a Stargate wrapped OFT that can transfer between each chain that does not have the native asset and be redeemed anywhere a native asset pool exists.
 
 ### JIT Liquidity Intents
 
