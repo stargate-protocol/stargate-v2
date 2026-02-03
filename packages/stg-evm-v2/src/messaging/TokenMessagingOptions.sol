@@ -79,7 +79,7 @@ contract TokenMessagingOptions is OAppOptionsType3 {
         GasLimit memory g = gasLimits[_eid];
         gasLimit = g.gasLimit;
         nativeDropGasLimit = g.nativeDropGasLimit;
-        // dont require setting nativeDropGasLimit
+        // don't require setting nativeDropGasLimit
         if (gasLimit == 0) revert MessagingOptions_ZeroGasLimit();
     }
 }
