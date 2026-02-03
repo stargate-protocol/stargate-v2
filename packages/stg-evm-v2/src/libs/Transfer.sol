@@ -32,7 +32,7 @@ contract Transfer is Ownable {
     function transferNative(address _to, uint256 _value, bool _gasLimited) internal returns (bool success) {
         uint256 gasForCall = _gasLimited ? transferGasLimit : gasleft();
 
-        // @dev We dont care about the data returned here, only success or not.
+        // @dev We don't care about the data returned here, only success or not.
         assembly {
             success := call(gasForCall, _to, _value, 0, 0, 0, 0)
         }
