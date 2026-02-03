@@ -11,7 +11,7 @@ chains by message passing, with each message indicating the destination chain, a
 remote chain is then responsible for egressing the value/token from the contract into the destination account. Value is
 transferred from one chain to another through a Path. Paths are a pair of source and destination chains and have credit associated
 with them. Value can only be transferred through a Path that has enough credit, as credit represents the liquidity of the Path.
-The value can be send through different modes:
+The value can be sent through different modes:
 
 * Taxi, the fastest but most expensive one, which ensures the value is sent on its own cross-chain message.
 * Bus, the cheapest but potentially slowest one, which means the message is batched with other bus riders.
