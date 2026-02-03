@@ -39,7 +39,7 @@ contract StargateOFT is StargateBase {
         IERC20Minter(token).burnFrom(_from, _sd2ld(amountSD)); // remove dust and burn
     }
 
-    /// @notice Mint tokens to represent their lading into the local chain
+    /// @notice Mint tokens to represent their landing into the local chain
     /// @param _to The account to mint tokens for
     /// @param _amount The amount of tokens to mint
     /// @return success Whether the minting was successful
