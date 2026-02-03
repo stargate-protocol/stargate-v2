@@ -359,7 +359,7 @@ abstract contract FiatTokenRealMigrationTest is Test, StargateTestHelper {
         // When sending to an OFT contract, no credit is burned because there is no loss of liquidity on the OFT contract (since it can mint,
         // it has infinite liquidity). This also means that we have excess asset, but it is ok since the excess is in the Stargate contract.
         //  When switching to a Pool contract, we must "retroactively" burn the credit in the amount that has been
-        // transfered to this OFT contract, as well as burn the excess asset. That amount is exactly the total supply of tokens.
+        // transferred to this OFT contract, as well as burn the excess asset. That amount is exactly the total supply of tokens.
         // StargatePoolEURC/StargatePoolUSDC implements burnCredit which burns both credit and asset.
         StargatePoolUSDC(fixturePool.stargate).allowBurn(
             address(this),
