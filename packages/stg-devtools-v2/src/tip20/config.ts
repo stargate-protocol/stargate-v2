@@ -27,7 +27,13 @@ const configureAdmin: Tip20Configurator = createConfigureNodes(
         {
             onStart: (logger, [{ config, point }]) =>
                 logger.verbose(`Configuring admin for ${formatOmniPoint(point)}: ${config.admin}`),
-            onSuccess: (logger, [{ point }]) => logger.verbose(`Configured admin for ${formatOmniPoint(point)}`),
+            onSuccess: (logger, [{ config, point }], transactions) => {
+                if (transactions.length === 0) {
+                    logger.verbose(`Admin already configured for ${formatOmniPoint(point)}: ${config.admin}`)
+                    return
+                }
+                logger.verbose(`Configured admin for ${formatOmniPoint(point)}`)
+            },
             onError: (logger, [{ point }], error) =>
                 logger.error(`Failed to configure admin for ${formatOmniPoint(point)}: ${error}`),
         }
@@ -47,7 +53,13 @@ const configureIssuers: Tip20Configurator = createConfigureNodes(
         {
             onStart: (logger, [{ config, point }]) =>
                 logger.verbose(`Configuring issuers for ${formatOmniPoint(point)}: ${config.issuer}`),
-            onSuccess: (logger, [{ point }]) => logger.verbose(`Configured issuers for ${formatOmniPoint(point)}`),
+            onSuccess: (logger, [{ config, point }], transactions) => {
+                if (transactions.length === 0) {
+                    logger.verbose(`Issuer already configured for ${formatOmniPoint(point)}: ${config.issuer}`)
+                    return
+                }
+                logger.verbose(`Configured issuers for ${formatOmniPoint(point)}`)
+            },
             onError: (logger, [{ point }], error) =>
                 logger.error(`Failed to configure issuers for ${formatOmniPoint(point)}: ${error}`),
         }
@@ -69,7 +81,13 @@ const configurePauser: Tip20Configurator = createConfigureNodes(
         {
             onStart: (logger, [{ config, point }]) =>
                 logger.verbose(`Configuring pauser for ${formatOmniPoint(point)}: ${config.pauser}`),
-            onSuccess: (logger, [{ point }]) => logger.verbose(`Configured pauser for ${formatOmniPoint(point)}`),
+            onSuccess: (logger, [{ config, point }], transactions) => {
+                if (transactions.length === 0) {
+                    logger.verbose(`Pauser already configured for ${formatOmniPoint(point)}: ${config.pauser}`)
+                    return
+                }
+                logger.verbose(`Configured pauser for ${formatOmniPoint(point)}`)
+            },
             onError: (logger, [{ point }], error) =>
                 logger.error(`Failed to configure pauser for ${formatOmniPoint(point)}: ${error}`),
         }
@@ -89,7 +107,15 @@ const configureBurnBlocked: Tip20Configurator = createConfigureNodes(
         {
             onStart: (logger, [{ config, point }]) =>
                 logger.verbose(`Configuring burnBlocked for ${formatOmniPoint(point)}: ${config.burnBlocked}`),
-            onSuccess: (logger, [{ point }]) => logger.verbose(`Configured burnBlocked for ${formatOmniPoint(point)}`),
+            onSuccess: (logger, [{ config, point }], transactions) => {
+                if (transactions.length === 0) {
+                    logger.verbose(
+                        `BurnBlocked already configured for ${formatOmniPoint(point)}: ${config.burnBlocked}`
+                    )
+                    return
+                }
+                logger.verbose(`Configured burnBlocked for ${formatOmniPoint(point)}`)
+            },
             onError: (logger, [{ point }], error) =>
                 logger.error(`Failed to configure burnBlocked for ${formatOmniPoint(point)}: ${error}`),
         }
@@ -109,8 +135,15 @@ const renounceDeployerAdmin: Tip20Configurator = createConfigureNodes(
         {
             onStart: (logger, [{ config, point }]) =>
                 logger.verbose(`Renouncing deployer admin for ${formatOmniPoint(point)} in favor of ${config.admin}`),
-            onSuccess: (logger, [{ point }]) =>
-                logger.verbose(`Renounced deployer admin for ${formatOmniPoint(point)}`),
+            onSuccess: (logger, [{ config, point }], transactions) => {
+                if (transactions.length === 0) {
+                    logger.verbose(
+                        `Deployer admin already renounced for ${formatOmniPoint(point)} in favor of ${config.admin}`
+                    )
+                    return
+                }
+                logger.verbose(`Renounced deployer admin for ${formatOmniPoint(point)}`)
+            },
             onError: (logger, [{ point }], error) =>
                 logger.error(`Failed to renounce deployer admin for ${formatOmniPoint(point)}: ${error}`),
         }
