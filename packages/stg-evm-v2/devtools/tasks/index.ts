@@ -469,7 +469,6 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
  */
 wireTask(TASK_STG_WIRE_TIP20_TOKEN).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load TIP-20 config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
