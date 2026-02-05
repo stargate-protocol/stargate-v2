@@ -4,7 +4,7 @@ import { OmniSDK } from '@layerzerolabs/devtools-evm'
 // OpenZeppelin AccessControl DEFAULT_ADMIN_ROLE = bytes32(0)
 export const DEFAULT_ADMIN_ROLE = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
-export class Tip20Token extends OmniSDK {
+export class TIP20Token extends OmniSDK {
     // -------- Roles (read from contract to avoid hardcoding) ----------
     @AsyncRetriable()
     async getPauseRole(): Promise<string> {

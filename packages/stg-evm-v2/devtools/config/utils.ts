@@ -383,7 +383,7 @@ export interface Chain {
         tokens: Record<string, boolean>
     }
     status?: ChainStatus
-    isTip20?: boolean
+    isTIP20?: boolean
 }
 
 export function loadChainConfig(filePath: string): Chain {

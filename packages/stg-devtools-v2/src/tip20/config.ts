@@ -7,14 +7,14 @@ import {
 } from '@layerzerolabs/devtools'
 import { createModuleLogger, createWithAsyncLogger } from '@layerzerolabs/io-devtools'
 
-import type { ITip20, Tip20OmniGraph } from './types'
+import type { ITIP20, TIP20OmniGraph } from './types'
 
-export type Tip20Configurator = Configurator<Tip20OmniGraph, ITip20>
+export type TIP20Configurator = Configurator<TIP20OmniGraph, ITIP20>
 
-const createModuleLog = () => createModuleLogger('tip20')
+const createModuleLog = () => createModuleLogger('TIP20')
 const withAsyncLogger = createWithAsyncLogger(createModuleLog)
 
-const configureAdmin: Tip20Configurator = createConfigureNodes(
+const configureAdmin: TIP20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.admin == null || config.admin == undefined) return []
@@ -40,7 +40,7 @@ const configureAdmin: Tip20Configurator = createConfigureNodes(
     )
 )
 
-const configureIssuers: Tip20Configurator = createConfigureNodes(
+const configureIssuers: TIP20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.issuer == null || config.issuer == undefined) return []
@@ -66,7 +66,7 @@ const configureIssuers: Tip20Configurator = createConfigureNodes(
     )
 )
 
-const configurePauser: Tip20Configurator = createConfigureNodes(
+const configurePauser: TIP20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.pauser == null || config.pauser == undefined) return []
@@ -94,7 +94,7 @@ const configurePauser: Tip20Configurator = createConfigureNodes(
     )
 )
 
-const configureBurnBlocked: Tip20Configurator = createConfigureNodes(
+const configureBurnBlocked: TIP20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.burnBlocked == null || config.burnBlocked == undefined) return []
@@ -122,7 +122,7 @@ const configureBurnBlocked: Tip20Configurator = createConfigureNodes(
     )
 )
 
-const renounceDeployerAdmin: Tip20Configurator = createConfigureNodes(
+const renounceDeployerAdmin: TIP20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
             if (config.admin == null || config.admin == undefined) return []
@@ -150,10 +150,10 @@ const renounceDeployerAdmin: Tip20Configurator = createConfigureNodes(
     )
 )
 
-export const configureTip20: Tip20Configurator = createConfigureMultiple(
+export const configureTIP20: TIP20Configurator = createConfigureMultiple(
     configureIssuers,
     configurePauser,
     configureBurnBlocked
 )
 
-export const transferOwnership: Tip20Configurator = createConfigureMultiple(configureAdmin, renounceDeployerAdmin)
+export const transferOwnership: TIP20Configurator = createConfigureMultiple(configureAdmin, renounceDeployerAdmin)

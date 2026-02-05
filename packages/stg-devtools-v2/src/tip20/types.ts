@@ -1,17 +1,17 @@
 import type { OmniAddress, OmniGraph, OmniPoint, OmniSDKFactory, OmniTransaction } from '@layerzerolabs/devtools'
 
-export interface Tip20NodeConfig {
+export interface TIP20NodeConfig {
     admin?: OmniAddress
     issuer?: OmniAddress
     pauser?: OmniAddress
     burnBlocked?: OmniAddress
 }
 
-export type Tip20OmniGraph = OmniGraph<Tip20NodeConfig, unknown>
+export type TIP20OmniGraph = OmniGraph<TIP20NodeConfig, unknown>
 
-export type Tip20Factory<TTip20 extends ITip20 = ITip20, TOmniPoint = OmniPoint> = OmniSDKFactory<TTip20, TOmniPoint>
+export type TIP20Factory<TTIP20 extends ITIP20 = ITIP20, TOmniPoint = OmniPoint> = OmniSDKFactory<TTIP20, TOmniPoint>
 
-export interface ITip20 {
+export interface ITIP20 {
     getPauseRole?(): Promise<string>
     getUnpauseRole?(): Promise<string>
     getIssuerRole?(): Promise<string>
