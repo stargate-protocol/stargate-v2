@@ -37,7 +37,7 @@ contract StargateOFTTIP20 is StargateOFTAlt {
     }
 
     /// @notice Transfer the TIP-20 admin role to a new owner.
-    /// @dev Grants DEFAULT_ADMIN_ROLE to `_newOwner` and renounces it for the current admin.
+    /// @dev Grants `DEFAULT_ADMIN_ROLE` to `_newOwner` and renounces it for the current admin.
     /// @dev It mimics the transfer ownership functionality for the ERC20 tokens with roles.
     /// @param _newOwner The account to receive the admin role.
     function transferTokenOwnership(address _newOwner) external virtual override onlyOwner {
