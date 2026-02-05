@@ -14,6 +14,7 @@ import {
     RewarderOmniGraphHardhatSchema,
     RewarderRewardsOmniGraphHardhatSchema,
     StakingOmniGraphHardhatSchema,
+    Tip20OmniGraphHardhatSchema,
     TokenMessagingOmniGraphHardhatSchema,
     TreasurerOmniGraphHardhatSchema,
     createAssetFactory,
@@ -46,6 +47,7 @@ import {
     IPool,
     IRewarder,
     IStaking,
+    ITip20,
     ITokenMessaging,
     ITreasurer,
     MintableOmniGraph,
@@ -54,6 +56,7 @@ import {
     RewarderOmniGraph,
     RewarderRewardsOmniGraph,
     StakingOmniGraph,
+    Tip20OmniGraph,
     TokenMessagingOmniGraph,
     TreasurerOmniGraph,
     configureAsset,
@@ -213,13 +216,13 @@ wireTask(TASK_STG_WIRE_TIP20_TRANSFER_OWNERSHIP).setAction(async (args, hre) => 
         (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                schema: ERC20OmniGraphHardhatSchema,
+                schema: Tip20OmniGraphHardhatSchema,
             })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Transfer TIP-20 ownership',
-        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<Tip20OmniGraph, ITip20>, hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: transferOwnership as any,
@@ -472,14 +475,14 @@ wireTask(TASK_STG_WIRE_TIP20_TOKEN).setAction(async (args, hre) => {
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load TIP-20 config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
-            schema: ERC20OmniGraphHardhatSchema,
+            schema: Tip20OmniGraphHardhatSchema,
         })
     )
 
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure TIP-20',
-        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<Tip20OmniGraph, ITip20>, hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: configureTip20 as any,
