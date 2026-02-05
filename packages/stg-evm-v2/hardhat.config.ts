@@ -166,7 +166,7 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.MODERATO_V2_TESTNET,
         url: process.env.RPC_URL_MODERATO_TESTNET || 'https://rpc.moderato.tempo.xyz/',
         accounts: testnetAccounts,
-        isTip20: true,
+        isTIP20: true,
         alt: true,
     },
     'monad-testnet': {

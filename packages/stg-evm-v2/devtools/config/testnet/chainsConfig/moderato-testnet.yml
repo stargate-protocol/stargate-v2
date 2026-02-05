@@ -11,4 +11,4 @@ treasurer:
   tokens:
     usdc: true
     eurc: true
-isTip20: true
+isTIP20: true
