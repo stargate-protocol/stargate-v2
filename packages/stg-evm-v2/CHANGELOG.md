@@ -1,5 +1,35 @@
 # @stargatefinance/stg-evm-v2
 
+## 6.0.2
+
+### Patch Changes
+
+- 39b37ae: Configured and deployed wETH on Redbelly
+- Updated dependencies [39b37ae]
+  - @stargatefinance/stg-definitions-v2@6.0.2
+
+## 6.0.1
+
+### Patch Changes
+
+- eb73e8a: Adding Redbelly deployment
+- Updated dependencies [eb73e8a]
+  - @stargatefinance/stg-definitions-v2@6.0.1
+
+## 6.0.0
+
+### Major Changes
+
+- a3e8214: Done DVN migration 1st step: set LZ_Labs DVN and Stargate DVN as optional
+
+### Patch Changes
+
+- e5c5a98: Added Redbelly mainnet configuration
+- Updated dependencies [e5c5a98]
+- Updated dependencies [173cb95]
+- Updated dependencies [a3e8214]
+  - @stargatefinance/stg-definitions-v2@6.0.0
+
 ## 5.0.5
 
 ### Patch Changes

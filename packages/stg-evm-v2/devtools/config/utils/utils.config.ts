@@ -118,17 +118,23 @@ export function getChainsThatSupportToken(tokenName: string): Chain[] {
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
 
-export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType, isTip20?: boolean): Chain[] {
+export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType, isTIP20?: boolean): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
-    return chainsConfig.filter(
-        (chain) =>
-            chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase() &&
-            // if isTip20 is true, filter for chains that support TIP-20 for the stablecoin,
-            // if isTip20 is false, filter for chains that do not support TIP-20,
-            // if isTip20 is undefined, default to chains that do not support TIP-20
-            (isTip20 === undefined ? !chain.isTip20 : isTip20 ? chain.isTip20 : !chain.isTip20)
-    )
+    return chainsConfig.filter((chain) => {
+        if (chain.tokens?.[tokenName.toLowerCase()]?.type !== type.toLowerCase()) {
+            return false
+        }
+
+        // if isTIP20 is undefined, default to chains that do not support TIP-20
+        if (isTIP20 === undefined) {
+            return !chain.isTIP20
+        }
+
+        // if isTIP20 is true, filter for chains that support TIP-20 for the stablecoin,
+        // if isTIP20 is false, filter for chains that do not support TIP-20,
+        return isTIP20 ? chain.isTIP20 : !chain.isTIP20
+    })
 }
 
 export function getChainsThatSupportRewarder(): Chain[] {

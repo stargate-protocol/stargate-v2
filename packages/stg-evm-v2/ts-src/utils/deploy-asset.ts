@@ -108,13 +108,13 @@ export const createDeployAsset = ({ tokenName, tokenDeploymentName }: CreateDepl
                     })
 
                 case StargateType.Oft: {
-                    // If USDC + isTip20: true, use StargateOFTTip20
-                    // If EURC + isTip20: true, use StargateOFTTip20
+                    // If USDC + isTIP20: true, use StargateOFTTIP20
+                    // If EURC + isTIP20: true, use StargateOFTTIP20
                     // If ALT + StargateOFT, use StargateOFTAlt
-                    // If isTip20 is false, use StargateOFTUSDC or StargateOFTEURC
-                    const isTip20 = Boolean((hre.network.config as { isTip20?: boolean }).isTip20)
+                    // If isTIP20 is false, use StargateOFTUSDC or StargateOFTEURC
+                    const isTIP20 = Boolean((hre.network.config as { isTIP20?: boolean }).isTIP20)
                     const baseOftContract = getOFTContractName(tokenName)
-                    const oftContract = resolveOftContractName(tokenName, isTip20, baseOftContract, isAlt)
+                    const oftContract = resolveOftContractName(tokenName, isTIP20, baseOftContract, isAlt)
                     return deployOFTAsset(hre, logger, {
                         ...tokenProperties,
                         contractName: oftContract,
@@ -139,12 +139,12 @@ const getOFTContractName = (tokenName: TokenName): 'StargateOFTUSDC' | 'Stargate
 
 const resolveOftContractName = (
     tokenName: TokenName,
-    isTip20: boolean,
+    isTIP20: boolean,
     baseOftContract: 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT',
     isAlt?: boolean
 ): 'StargateOFTUSDC' | 'StargateOFTEURC' | 'StargateOFT' | 'StargateOFTAlt' | 'StargateOFTTIP20' => {
-    // TIP-20 tokens USDC/EURC use StargateOFTTIP20 when isTip20 is enabled
-    if (isTip20 && (tokenName === TokenName.USDC || tokenName === TokenName.EURC)) {
+    // TIP-20 tokens USDC/EURC use StargateOFTTIP20 when isTIP20 is enabled
+    if (isTIP20 && (tokenName === TokenName.USDC || tokenName === TokenName.EURC)) {
         return 'StargateOFTTIP20'
     }
     // On ALT chains, the generic StargateOFT becomes StargateOFTAlt

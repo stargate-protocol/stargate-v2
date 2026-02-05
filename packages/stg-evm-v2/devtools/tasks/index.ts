@@ -14,6 +14,7 @@ import {
     RewarderOmniGraphHardhatSchema,
     RewarderRewardsOmniGraphHardhatSchema,
     StakingOmniGraphHardhatSchema,
+    TIP20OmniGraphHardhatSchema,
     TokenMessagingOmniGraphHardhatSchema,
     TreasurerOmniGraphHardhatSchema,
     createAssetFactory,
@@ -26,7 +27,7 @@ import {
     createPoolFactory,
     createRewarderFactory,
     createStakingFactory,
-    createTip20TokenFactory,
+    createTIP20TokenFactory,
     createTokenMessagingFactory,
     createTreasurerFactory,
 } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
@@ -46,6 +47,7 @@ import {
     IPool,
     IRewarder,
     IStaking,
+    ITIP20,
     ITokenMessaging,
     ITreasurer,
     MintableOmniGraph,
@@ -54,6 +56,7 @@ import {
     RewarderOmniGraph,
     RewarderRewardsOmniGraph,
     StakingOmniGraph,
+    TIP20OmniGraph,
     TokenMessagingOmniGraph,
     TreasurerOmniGraph,
     configureAsset,
@@ -68,7 +71,7 @@ import {
     configureRewarder,
     configureRewards,
     configureStaking,
-    configureTip20,
+    configureTIP20,
     configureTokenMessaging,
     configureTreasurer,
     initializeBusQueueStorage,
@@ -213,17 +216,17 @@ wireTask(TASK_STG_WIRE_TIP20_TRANSFER_OWNERSHIP).setAction(async (args, hre) => 
         (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
             runSuper({
                 ...args,
-                schema: ERC20OmniGraphHardhatSchema,
+                schema: TIP20OmniGraphHardhatSchema,
             })
     )
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Transfer TIP-20 ownership',
-        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<TIP20OmniGraph, ITIP20>, hre, runSuper) =>
             runSuper({
                 ...args,
                 configurator: transferOwnership as any,
-                sdkFactory: createTip20TokenFactory(createConnectedContractFactory()) as any,
+                sdkFactory: createTIP20TokenFactory(createConnectedContractFactory()) as any,
             })
     )
     return hre.run(TASK_LZ_OAPP_WIRE, args)
@@ -459,9 +462,9 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
     })
 
 /**
- * Wiring task for TIP-20 USDC contracts
+ * Wiring task for TIP-20 USDC/EURC contracts
  *
- * Loads a TIP-20 graph (only chains flagged with isTip20) and configures:
+ * Loads a TIP-20 graph (only chains flagged with isTIP20) and configures:
  * - paused state
  * - supply cap
  * - transfer policy id
@@ -469,22 +472,21 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
  */
 wireTask(TASK_STG_WIRE_TIP20_TOKEN).setAction(async (args, hre) => {
     // Here we'll overwrite the config loading & configuration tasks just-in-time
-    //
     subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load TIP-20 config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
         runSuper({
             ...args,
-            schema: ERC20OmniGraphHardhatSchema,
+            schema: TIP20OmniGraphHardhatSchema,
         })
     )
 
     subtask(
         SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
         'Configure TIP-20',
-        (args: SubtaskConfigureTaskArgs<ERC20OmniGraph, IERC20>, hre, runSuper) =>
+        (args: SubtaskConfigureTaskArgs<TIP20OmniGraph, ITIP20>, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: configureTip20 as any,
-                sdkFactory: createTip20TokenFactory(createConnectedContractFactory()) as any,
+                configurator: configureTIP20 as any,
+                sdkFactory: createTIP20TokenFactory(createConnectedContractFactory()) as any,
             })
     )
 

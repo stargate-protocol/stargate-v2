@@ -1,5 +1,17 @@
 # @stargatefinance/stg-error-parser
 
+## 1.1.24
+
+### Patch Changes
+
+- 39b37ae: Configured and deployed wETH on Redbelly
+
+## 1.1.23
+
+### Patch Changes
+
+- eb73e8a: Adding Redbelly deployment
+
 ## 1.1.22
 
 ### Patch Changes

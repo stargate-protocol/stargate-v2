@@ -12,10 +12,10 @@ import {
     setStage,
 } from '../utils/utils.config'
 
-import type { Tip20NodeConfig } from '@stargatefinance/stg-devtools-v2'
+import type { TIP20NodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 /**
- * Builds a TIP-20 stablecoin graph: includes only chains flagged with `isTip20: true`
+ * Builds a TIP-20 stablecoin graph: includes only chains flagged with `isTIP20: true`
  * and binds directly to the token address using an existing ERC20 artifact.
  *
  * Node config includes:
@@ -24,10 +24,10 @@ import type { Tip20NodeConfig } from '@stargatefinance/stg-devtools-v2'
  * - pauser?: address granted PAUSE_ROLE and UNPAUSE_ROLE
  * - burnBlocked?: address granted BURN_BLOCKED_ROLE
  */
-export default async function buildTip20TokenGraph(
+export default async function buildTIP20TokenGraph(
     stage: Stage,
     tokenName: TokenName
-): Promise<OmniGraphHardhat<Tip20NodeConfig, unknown>> {
+): Promise<OmniGraphHardhat<TIP20NodeConfig, unknown>> {
     // Set the correct stage
     setStage(stage)
 
@@ -48,11 +48,11 @@ export default async function buildTip20TokenGraph(
 
     const contracts = await Promise.all(
         validChains.map(async (chain) => {
-            const tip20Address = getAssetNetworkConfig(chain.eid, tokenName).address
+            const TIP20Address = getAssetNetworkConfig(chain.eid, tokenName).address
             const stargateOnesig = getOneSigAddressMaybe(chain.eid)
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
 
-            // the role will be the stargate onesig if defined, otherwise it will be the testnet admin if it is a testnet chain
+            // the role will be the stargate onesig if defined, otherwise it will be the token admin if it is a testnet chain
             const onesigRole =
                 stargateOnesig !== undefined
                     ? stargateOnesig
@@ -62,7 +62,7 @@ export default async function buildTip20TokenGraph(
 
             return {
                 // Use a minimal TIP-20 ABI so role getters like PAUSE_ROLE() are available at runtime
-                contract: getContractWithEid(chain.eid, { address: tip20Address, contractName: 'ITIP20' }),
+                contract: getContractWithEid(chain.eid, { address: TIP20Address, contractName: 'ITIP20' }),
                 config: {
                     ...(stargateOnesig !== undefined ? { admin: stargateOnesig } : {}),
                     issuer: assetAddresses[tokenName],

@@ -1,14 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
-
-import { ITIP20RolesAuth } from "./ITIP20RolesAuth.sol";
-
-/// This is only needed to get the TIP-20 abi on the wiring scripts. This contract was copied from
-/// [Tempo TIP-20 spec](https://github.com/tempoxyz/tempo/blob/3dbee269cabffa58c6942ece1d155783924e8b5e/docs/specs/src/interfaces/ITIP20.sol)
+pragma solidity ^0.8.13;
 
 /// @title The interface for TIP-20 compliant tokens
 /// @notice A token standard that extends ERC-20 with additional features including transfer policies, memo support, and pause functionality
-interface ITIP20 is ITIP20RolesAuth {
+/// @dev https://github.com/tempoxyz/tempo/blob/3dbee269cabffa58c6942ece1d155783924e8b5e/docs/specs/src/interfaces/ITIP20.sol
+interface ITIP20 {
     /// @notice Error when attempting an operation while the contract is paused.
     error ContractPaused();
 
