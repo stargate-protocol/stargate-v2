@@ -52,7 +52,7 @@ export default async function buildTip20TokenGraph(
             const stargateOnesig = getOneSigAddressMaybe(chain.eid)
             const assetAddresses = await getAssetAddresses(chain.eid, [tokenName])
 
-            // the role will be the stargate onesig if defined, otherwise it will be the testnet admin if it is a testnet chain
+            // the role will be the stargate onesig if defined, otherwise it will be the token admin if it is a testnet chain
             const onesigRole =
                 stargateOnesig !== undefined
                     ? stargateOnesig
