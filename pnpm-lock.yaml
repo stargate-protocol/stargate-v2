@@ -207,8 +207,8 @@ importers:
         specifier: ~3.0.7
         version: 3.0.7
       '@stargatefinance/stg-evm-sdk-v2':
-        specifier: ~1.2.5
-        version: 1.2.7
+        specifier: ~1.2.7
+        version: link:../stg-evm-sdk-v2
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.12
@@ -5012,10 +5012,6 @@ packages:
 
   /@solidity-parser/parser@0.18.0:
     resolution: {integrity: sha512-yfORGUIPgLck41qyN7nbwJRAx17/jAIXCTanHOJZhB6PJ1iAk/84b/xlsVKFSyNyLXIj0dhppoE0+CRws7wlzA==}
-    dev: true
-
-  /@stargatefinance/stg-evm-sdk-v2@1.2.7:
-    resolution: {integrity: sha512-0ppTYKyP3Z2QsFviMosky55yKq+lA2OhJ3XWT703vMCVUHEWo9eSzR2lk5h9f9KyxyIHzESkOfP6OU+jTDeW2Q==}
     dev: true
 
   /@stargatefinance/stg-evm-v1@1.0.31:
