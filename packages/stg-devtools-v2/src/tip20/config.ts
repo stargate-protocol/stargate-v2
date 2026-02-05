@@ -17,7 +17,7 @@ const withAsyncLogger = createWithAsyncLogger(createModuleLog)
 const configureAdmin: Tip20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
-            if (config.admin == null) return []
+            if (config.admin == null || config.admin == undefined) return []
             const adminRole = await sdk.getDefaultAdminRole?.()
             if (adminRole === undefined) return []
             const hasAdminRole = (await sdk.hasRole?.(config.admin, adminRole)) ?? false
@@ -43,7 +43,7 @@ const configureAdmin: Tip20Configurator = createConfigureNodes(
 const configureIssuers: Tip20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
-            if (config.issuer == null) return []
+            if (config.issuer == null || config.issuer == undefined) return []
 
             const txs: OmniTransaction[] = []
             const tx = await sdk.setIssuer(config.issuer)
@@ -97,7 +97,7 @@ const configurePauser: Tip20Configurator = createConfigureNodes(
 const configureBurnBlocked: Tip20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
-            if (config.burnBlocked == null) return []
+            if (config.burnBlocked == null || config.burnBlocked == undefined) return []
 
             const txs: OmniTransaction[] = []
             const tx = await sdk.setBurnBlocked(config.burnBlocked)
@@ -125,7 +125,7 @@ const configureBurnBlocked: Tip20Configurator = createConfigureNodes(
 const renounceDeployerAdmin: Tip20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
-            if (config.admin == null) return []
+            if (config.admin == null || config.admin == undefined) return []
 
             const txs: OmniTransaction[] = []
             const tx = await sdk.renounceAdmin()
