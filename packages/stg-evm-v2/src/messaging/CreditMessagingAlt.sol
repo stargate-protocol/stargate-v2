@@ -8,7 +8,7 @@ import { MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/in
 import { Transfer } from "../libs/Transfer.sol";
 import { CreditMessaging } from "./CreditMessaging.sol";
 
-/// @notice ALT variant for CreditMessaging where the "native" messaging fee is an ERC20 token.
+/// @notice CreditMessaging variant for EndpointV2Alt chains where the "native" messaging fee is an ERC20 token.
 /// @dev Funds the endpoint with the ALT fee token and forces msg.value to be zero.
 contract CreditMessagingAlt is CreditMessaging, Transfer {
     /// @notice ERC20 token used by EndpointV2Alt as the "native" fee token on this chain.
@@ -22,8 +22,10 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
         if (feeToken == address(0)) revert CreditMessaging_NotAnAltEndpoint();
     }
 
-    /// @dev Override _lzSend to quote fee in ALT token and fund the endpoint, then call super._lzSend.
-    /// @dev the _fee received will be { nativeFee: 0, lzTokenFee: 0 } because the msg.value is 0, so it should use the calculated one instead
+    /// @dev Override _lzSend to quote the messaging fee in the ALT fee token and fund the endpoint before calling super._lzSend.
+    /// @dev On EndpointV2Alt chains, msg.value must be zero and the "native" messaging fee is paid in an ERC20 token, so the _fee
+    ///      argument passed in (derived from msg.value) will always be { nativeFee: 0, lzTokenFee: 0 } and is therefore ignored;
+    ///      instead, this function re-quotes the fee on-chain in the ALT fee token and transfers that token to the endpoint.
     function _lzSend(
         uint32 _dstEid,
         bytes memory _message,
@@ -31,6 +33,8 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
         MessagingFee memory /*_fee*/,
         address _sender
     ) internal override returns (MessagingReceipt memory receipt) {
+        _assertNoNativeValue();
+
         // quote fee in ALT token and fund the endpoint
         MessagingFee memory fee = _quote(_dstEid, _message, _options, false);
         // fund the endpoint with the ERC20 native fee
@@ -40,8 +44,7 @@ contract CreditMessagingAlt is CreditMessaging, Transfer {
     }
 
     /// @dev Override native payment hook so endpoint.send is called with msg.value == 0.
-    function _payNative(uint256 /*_nativeFee*/) internal view override returns (uint256 nativeFee) {
-        _assertNoNativeValue();
+    function _payNative(uint256 /*_nativeFee*/) internal pure override returns (uint256 nativeFee) {
         nativeFee = 0;
     }
 

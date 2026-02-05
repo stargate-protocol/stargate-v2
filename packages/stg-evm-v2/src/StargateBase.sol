@@ -185,7 +185,8 @@ abstract contract StargateBase is Transfer, IStargate, ITokenMessagingHandler, I
 
     /// @dev Recover tokens sent to this contract by mistake.
     /// @dev Only the treasurer can recover the token.
-    /// @dev Reverts with Stargate_RecoverTokenUnsupported if the treasurer attempts to withdraw StargateBase.token().
+    /// @dev Reverts with Stargate_RecoverTokenUnsupported if the treasurer attempts to withdraw zero address.
+    /// @dev It will allow to recover StargateBase.token(), StargatePool will only allow to recover the excess amount.
     /// @param _token the token to recover. if 0x0 then it is native token
     /// @param _to the address to send the token to
     /// @param _amount the amount to send

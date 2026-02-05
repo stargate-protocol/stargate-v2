@@ -406,6 +406,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.REDBELLY_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.ROOTSTOCK_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
@@ -885,7 +890,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.REDBELLY_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0xd6182773Bf646Fe65122B8542e2aeE646FD55E26',
+                address: '0xE08DED898D7782B085cD240d7B234063696765aD',
             },
             [EndpointId.ROOTSTOCK_V2_MAINNET]: {
                 type: StargateType.Oft,
