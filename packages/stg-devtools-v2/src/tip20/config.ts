@@ -69,7 +69,7 @@ const configureIssuers: Tip20Configurator = createConfigureNodes(
 const configurePauser: Tip20Configurator = createConfigureNodes(
     withAsyncLogger(
         async ({ config }, sdk) => {
-            if (config.pauser == null) return []
+            if (config.pauser == null || config.pauser == undefined) return []
 
             const txs = []
             const pauseTx = await sdk.setPauser(config.pauser)
