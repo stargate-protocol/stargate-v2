@@ -11,6 +11,8 @@ import { ITIP20RolesAuth } from "../interfaces/tip20/ITIP20RolesAuth.sol";
 contract StargateOFTTIP20 is StargateOFTAlt {
     bytes32 internal constant DEFAULT_ADMIN_ROLE = 0;
 
+    error StargateOFTTIP20_InvalidOwner(address _newOwner);
+
     constructor(
         address _token,
         uint8 _sharedDecimals,
@@ -39,6 +41,7 @@ contract StargateOFTTIP20 is StargateOFTAlt {
     /// @dev It mimics the transfer ownership functionality for the ERC20 tokens with roles.
     /// @param _newOwner The account to receive the admin role.
     function transferTokenOwnership(address _newOwner) external virtual override onlyOwner {
+        if (_newOwner == address(0)) revert StargateOFTTIP20_InvalidOwner(_newOwner);
         // grant the role to the new owner and renounce it to remove it from current
         ITIP20RolesAuth(token).grantRole(DEFAULT_ADMIN_ROLE, _newOwner);
         ITIP20RolesAuth(token).renounceRole(DEFAULT_ADMIN_ROLE);
