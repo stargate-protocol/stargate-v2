@@ -730,6 +730,15 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.TELOS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'tempo-mainnet': {
+        eid: EndpointId.TEMPO_V2_MAINNET,
+        url: process.env.RPC_URL_TEMPO_MAINNET || 'https://rpc.tempo.xyz', // todo there is no valid public rpc url
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.TEMPO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        isTIP20: true,
+        alt: true,
+    },
     'unichain-mainnet': {
         eid: EndpointId.UNICHAIN_V2_MAINNET,
         url: process.env.RPC_URL_UNICHAIN_MAINNET || 'https://mainnet.unichain.org',
