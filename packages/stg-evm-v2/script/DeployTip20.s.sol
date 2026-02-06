@@ -13,7 +13,6 @@ contract DeployTip20 is Script {
 
     // TIP-20 Factory precompile on Tempo mainnet
     address public constant TIP20_FACTORY = 0x20Fc000000000000000000000000000000000000;
-    address public constant PATH_USD = 0x20C0000000000000000000000000000000000000;
 
     function run(string memory asset) public {
         Tip20Config memory config = Tip20AssetsConfig.load(asset);
