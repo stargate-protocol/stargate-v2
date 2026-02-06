@@ -10,7 +10,7 @@ const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig
     setMainnetStage()
 
     const { tokenName, disconnectChains, remainingChains } = loadUnwireConfig(__dirname)
-    const { validFromChains, validToChains } = resolveUnwireChains(disconnectChains, remainingChains)
+    const { validFromChains, validToChains } = resolveUnwireChains(tokenName, disconnectChains, remainingChains)
 
     const getAssetPoint = createGetAssetOmniPoint(tokenName)
     const disconnectPoints = validFromChains.map((chain) => ensureContractName(getAssetPoint(chain.eid)))
@@ -27,6 +27,7 @@ const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig
     }))
 
     const connections = [
+        // disconnect the remaining points from the disconnect points
         ...disconnectPoints.flatMap((from) =>
             remainingPoints
                 .filter((to) => to.eid !== from.eid)
@@ -37,6 +38,16 @@ const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig
                 }))
         ),
         ...remainingPoints.flatMap((from) =>
+            disconnectPoints
+                .filter((to) => to.eid !== from.eid)
+                .map((to) => ({
+                    from,
+                    to,
+                    config: { isOFT: false },
+                }))
+        ),
+        // disconnect the disconnect points between themselves
+        ...disconnectPoints.flatMap((from) =>
             disconnectPoints
                 .filter((to) => to.eid !== from.eid)
                 .map((to) => ({

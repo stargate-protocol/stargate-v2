@@ -4,7 +4,7 @@ import path from 'path'
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import * as yaml from 'js-yaml'
 
-import { filterFromAndToChains, getAllChainsConfig, getTokenName, printChains } from './utils.config'
+import { filterFromAndToChains, getChainsThatSupportToken, getTokenName, printChains } from './utils.config'
 
 export type UnwireYamlConfig = {
     asset: string
@@ -38,6 +38,13 @@ export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig {
     const disconnectChains = normalizeChainList(rawConfig.disconnect_chains, 'disconnect_chains', configPath)
     const remainingChains = normalizeChainList(rawConfig.remaining_chains, 'remaining_chains', configPath)
 
+    // check disconnect and remaining are disjoint
+    const disconnectChainsSet = new Set(disconnectChains.map((chain) => chain.toLowerCase()))
+    const remainingChainsSet = new Set(remainingChains.map((chain) => chain.toLowerCase()))
+    if (disconnectChainsSet.size !== disconnectChains.length || remainingChainsSet.size !== remainingChains.length) {
+        throw new Error('Disconnect and remaining chains are not disjoint')
+    }
+
     return {
         tokenName,
         disconnectChains,
@@ -46,8 +53,8 @@ export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig {
     }
 }
 
-export function resolveUnwireChains(disconnectChains: string[], remainingChains: string[]) {
-    const supportedChains = getAllChainsConfig()
+export function resolveUnwireChains(tokenName: TokenName, disconnectChains: string[], remainingChains: string[]) {
+    const supportedChains = getChainsThatSupportToken(tokenName)
     const { validFromChains, validToChains } = filterFromAndToChains(disconnectChains, remainingChains, supportedChains)
 
     printChains(`unwire DISCONNECT_CHAINS:`, validFromChains)

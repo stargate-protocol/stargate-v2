@@ -29,7 +29,7 @@ const buildMessagingAssetRemovalGraph = async (): Promise<OmniGraphHardhat<Messa
     }
 
     const { tokenName, disconnectChains, remainingChains } = loadUnwireConfig(__dirname)
-    const { validFromChains } = resolveUnwireChains(disconnectChains, remainingChains)
+    const { validFromChains } = resolveUnwireChains(tokenName, disconnectChains, remainingChains)
 
     const assetId = ASSETS[tokenName].assetId
     const zeroAddress = makeZeroAddress()
