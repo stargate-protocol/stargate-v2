@@ -70,8 +70,11 @@ export class TIP20Token extends OmniSDK {
         return this.grantRole('admin', adminRole, admin)
     }
     @AsyncRetriable()
-    async renounceAdmin(): Promise<OmniTransaction> {
+    async renounceAdmin(): Promise<OmniTransaction | undefined> {
         const adminRole = await this.getDefaultAdminRole()
+        const caller = await this.contract.contract.signer.getAddress()
+        const hasAdminRole = await this.hasRole(caller, adminRole)
+        if (!hasAdminRole) return undefined
         const data = this.contract.contract.interface.encodeFunctionData('renounceRole', [adminRole])
         return {
             ...this.createTransaction(data),
