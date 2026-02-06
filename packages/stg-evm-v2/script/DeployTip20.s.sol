@@ -16,30 +16,30 @@ contract DeployTip20 is Script {
     address public constant PATH_USD = 0x20C0000000000000000000000000000000000000;
 
     function run(string memory asset) public {
-        Tip20Config memory cfg = Tip20AssetsConfig.load(asset);
+        Tip20Config memory config = Tip20AssetsConfig.load(asset);
 
         address owner = CALLER;
 
-        if (cfg.quote == address(0)) revert("Quote token missing");
+        if (config.quote == address(0)) revert("Quote token missing");
 
         console2.log("TIP-20 Factory:", TIP20_FACTORY);
         console2.log("Creating TIP-20 token:");
-        console2.log("  name:", cfg.name);
-        console2.log("  symbol:", cfg.symbol);
-        console2.log("  currency:", cfg.currency);
-        console2.log("  quoteToken:", cfg.quote);
+        console2.log("  name:", config.name);
+        console2.log("  symbol:", config.symbol);
+        console2.log("  currency:", config.currency);
+        console2.log("  quoteToken:", config.quote);
         console2.log("  owner:", owner);
-        console2.logBytes32(cfg.salt);
+        console2.logBytes32(config.salt);
 
         vm.startBroadcast(PK);
         // Deploy via factory and retrieve returned token address
         address deployed = ITip20Factory(TIP20_FACTORY).createToken(
-            cfg.name,
-            cfg.symbol,
-            cfg.currency,
-            cfg.quote,
+            config.name,
+            config.symbol,
+            config.currency,
+            config.quote,
             owner,
-            cfg.salt
+            config.salt
         );
         console2.log("createToken() returned:", deployed);
         vm.stopBroadcast();
