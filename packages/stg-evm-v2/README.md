@@ -135,3 +135,35 @@ transfer.
     The transference of value out of a Stargate contract. In the context of fees/rewards it also means the actual amount after applying fees/rewards
     but before applying any caps.
 * Compose
+
+## Unwiring an asset mesh
+
+This repo supports a YAML-driven unwire flow for unwiring a single asset from the mesh on specific chains—removing its mesh paths and assetId from messaging—without affecting other assets.
+
+### YAML schema
+Create a YAML config (mainnet example in `devtools/config/mainnet/01/chainsConfig/unwire/unwire.asset.yml`):
+```
+asset: eurc
+disconnect_chains:
+  - avalanche-mainnet
+  - base-mainnet
+remaining_chains:
+  - ethereum-mainnet
+  - bera-mainnet
+  - plumephoenix-mainnet
+```
+
+### What it does
+- `asset.unwire.config.ts` sets `setOFTPath(dstEid, false)` for all edges between `disconnect_chains` and `remaining_chains`, bidirectionally.
+- `messaging-asset-removal.config.ts` calls `setAssetId(address(0), assetId)` for `disconnect_chains` on TokenMessaging and CreditMessaging (via `MESSAGING_CONTRACT`).
+
+### Run the unwire flow
+Mainnet Makefile target:
+```
+make unwire-mainnet
+```
+
+Notes:
+- `setOFTPath(false)` only resets OFT paths; messaging asset removal is required to fully disable routing on-chain.
+- Only `disconnect_chains` are removed from messaging; `remaining_chains` remain active for the asset mesh.
+- Credits for pool paths should be set to zero by the planner
