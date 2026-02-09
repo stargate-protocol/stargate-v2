@@ -880,7 +880,7 @@ const getRpcUrl = (chainName: string): string | null => {
     const [chainRawName, chainType] = chainName.split('-', 2)
     if (!chainType || !chainRawName) return null
 
-    // use one defined in the env if any
+    // Use the env-defined RPC URL override, if present
     const chainEnvSuffix = chainRawName.toUpperCase().replace(/-/g, '_')
     const typeEnvSuffix = chainType.toUpperCase()
     const specificEnvKey = `RPC_URL_${chainEnvSuffix}_${typeEnvSuffix}`
