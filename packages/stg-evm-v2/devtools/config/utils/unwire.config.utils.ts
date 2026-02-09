@@ -38,7 +38,6 @@ export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig {
     const disconnectChains = normalizeChainList(rawConfig.disconnect_chains, 'disconnect_chains', configPath)
     const remainingChains = normalizeChainList(rawConfig.remaining_chains, 'remaining_chains', configPath)
 
-
     const disconnectChainsLower = disconnectChains.map((chain) => chain.toLowerCase())
     const remainingChainsLower = remainingChains.map((chain) => chain.toLowerCase())
 
