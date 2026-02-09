@@ -79,6 +79,7 @@ export const DVNS = {
         [EndpointId.SWELL_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TELOS_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
+        [EndpointId.TEMPO_V2_MAINNET]: '0xacde1f22eeab249d3ca6ba8805c8fee9f52a16e7',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x25e0e650a78e6304a3983fc4b7ffc6544b1beea6',
         [EndpointId.XDC_V2_MAINNET]: '0x1294e3347ec64fd63e1d0594dc1294247cd237c7',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xDd7B5E1dB4AaFd5C8EC3b764eFB8ed265Aa5445B',
@@ -144,6 +145,7 @@ export const DVNS = {
         [EndpointId.SWELL_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.TAIKO_V2_MAINNET]: '0xc097ab8cd7b053326dfe9fb3e3a31a0cce3b526f',
         [EndpointId.TELOS_V2_MAINNET]: '0x3c5575898f59c097681d1fc239c2c6ad36b7b41c',
+        [EndpointId.TEMPO_V2_MAINNET]: '0x306b9a8953b9462f8b826e6768a93c8ea7454965',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.XDC_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x129ee430cb2ff2708ccaddbdb408a88fe4ffd480',
@@ -219,6 +221,7 @@ export const EXECUTORS = {
         [EndpointId.SWELL_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TELOS_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
+        [EndpointId.TEMPO_V2_MAINNET]: '0x81a57678343cA220a9029523477715E00e4024bE',
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.XDC_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x0408804C5dcD9796F22558464E6fE5bDdF16A7c7',
@@ -949,6 +952,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
+            [EndpointId.TEMPO_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x20c000000000000000000000366306582855120C',
+            },
             [EndpointId.XDC_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xCc0587aeBDa397146cc828b445dB130a94486e74',
@@ -980,6 +987,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.SEPOLIA_V2_TESTNET]: {
                 address: '0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590',
                 type: StargateType.Pool,
+            },
+            [EndpointId.MODERATO_V2_TESTNET]: {
+                address: '0x20C0000000000000000000009e8d7eB59B783726',
+                type: StargateType.Oft,
             },
 
             //
@@ -1044,14 +1055,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             //
             // MAINNET
             //
-            [EndpointId.AVALANCHE_V2_MAINNET]: {
-                address: '0xc891eb4cbdeff6e073e859e987815ed1505c2acd',
-                type: StargateType.Pool,
-            },
-            [EndpointId.BASE_V2_MAINNET]: {
-                address: '0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42',
-                type: StargateType.Pool,
-            },
             [EndpointId.BERA_V2_MAINNET]: {
                 address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
                 type: StargateType.Oft,
@@ -1063,6 +1066,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {
                 address: '0x94DaD7d9f37C815Eb4dDC611E6460CC5F6617fA0',
                 type: StargateType.Oft,
+            },
+            [EndpointId.TEMPO_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x20c0000000000000000000003779cd7a81375505',
             },
 
             //
@@ -1078,6 +1085,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ARBSEP_V2_TESTNET]: {
                 address: '0xa6f01ccc347f07256bec0dc7d1a3b62adc3f1a68',
+                type: StargateType.Oft,
+            },
+            [EndpointId.MODERATO_V2_TESTNET]: {
+                address: '0x20c000000000000000000000D72572838BbEe59C',
                 type: StargateType.Oft,
             },
         },
@@ -1162,6 +1173,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SWELL_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
         [EndpointId.TELOS_V2_MAINNET]: {},
+        [EndpointId.TEMPO_V2_MAINNET]: {},
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XDC_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
@@ -1178,6 +1190,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.MONAD_V2_TESTNET]: {},
         [EndpointId.OPTSEP_V2_TESTNET]: {},
         [EndpointId.SEPOLIA_V2_TESTNET]: {},
+        [EndpointId.MODERATO_V2_TESTNET]: {},
         //
         // SANDBOX
         //
@@ -1391,12 +1404,6 @@ export const REWARDS: RewardsConfig = {
         networks: {
             //
             // Mainnet
-            [EndpointId.AVALANCHE_V2_MAINNET]: {
-                address: '0xc891eb4cbdeff6e073e859e987815ed1505c2acd',
-            },
-            [EndpointId.BASE_V2_MAINNET]: {
-                address: '0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42',
-            },
             [EndpointId.ETHEREUM_V2_MAINNET]: {
                 address: '0x1aBaEA1f7C830bD89Acc67eC4af516284b1bC33c',
             },
@@ -3326,6 +3333,23 @@ export const NETWORKS: NetworksConfig = {
             },
         },
     },
+    [EndpointId.TEMPO_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.TEMPO_V2_MAINNET], DVNS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.TEMPO_V2_MAINNET], DVNS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
+            nativeDropAmount: parseEther('0').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x09c865fafb64d8cbcbf673d61a11e066063e3a1f',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/tempo`,
+        },
+    },
     [EndpointId.UNICHAIN_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -3469,6 +3493,10 @@ export const NETWORKS: NetworksConfig = {
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },
     [EndpointId.SEPOLIA_V2_TESTNET]: {
+        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+    },
+    [EndpointId.MODERATO_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
         tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     },

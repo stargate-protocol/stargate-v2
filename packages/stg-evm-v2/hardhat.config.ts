@@ -162,6 +162,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
     },
+    'moderato-testnet': {
+        eid: EndpointId.MODERATO_V2_TESTNET,
+        url: process.env.RPC_URL_MODERATO_TESTNET || 'https://rpc.moderato.tempo.xyz/',
+        accounts: testnetAccounts,
+        isTIP20: true,
+        alt: true,
+    },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
         url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
@@ -729,6 +736,15 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.TELOS_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.TELOS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'tempo-mainnet': {
+        eid: EndpointId.TEMPO_V2_MAINNET,
+        url: process.env.RPC_URL_TEMPO_MAINNET || 'https://rpc.tempo.xyz', // todo there is no valid public rpc url
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.TEMPO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        isTIP20: true,
+        alt: true,
     },
     'unichain-mainnet': {
         eid: EndpointId.UNICHAIN_V2_MAINNET,
