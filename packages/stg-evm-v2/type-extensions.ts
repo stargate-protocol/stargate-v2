@@ -11,9 +11,9 @@ declare module 'hardhat/types/config' {
          */
         alt?: boolean
         /**
-         * Marks the network as using TIP-20 for USDC
+         * Marks the network as using TIP-20 for stablecoin (USDC or EURC)
          */
-        usdcTip20?: boolean
+        isTIP20?: boolean
     }
 
     interface HardhatNetworkConfig {
@@ -25,9 +25,9 @@ declare module 'hardhat/types/config' {
          */
         alt?: boolean
         /**
-         * Marks the network as using TIP-20 for USDC
+         * Marks the network as using TIP-20 for stablecoin (USDC or EURC)
          */
-        usdcTip20?: boolean
+        isTIP20?: boolean
     }
 
     interface HttpNetworkUserConfig {
@@ -46,9 +46,9 @@ declare module 'hardhat/types/config' {
          */
         alt?: boolean
         /**
-         * Marks the network as using TIP-20 for USDC
+         * Marks the network as using TIP-20 for stablecoin (USDC or EURC)
          */
-        usdcTip20?: boolean
+        isTIP20?: boolean
     }
 
     interface HttpNetworkConfig {
@@ -67,8 +67,8 @@ declare module 'hardhat/types/config' {
          */
         alt?: boolean
         /**
-         * Marks the network as using TIP-20 for USDC
+         * Marks the network as using TIP-20 for stablecoin (USDC or EURC)
          */
-        usdcTip20?: boolean
+        isTIP20?: boolean
     }
 }

@@ -10,6 +10,7 @@ import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
 import buildMessagingGraph from '../utils/messaging.config.utils'
 import buildRewarderGraph from '../utils/rewarder.config.utils'
 import buildStakingGraph from '../utils/staking.config.utils'
+import buildTIP20TokenGraph from '../utils/tip20-token.config.utils'
 import buildTreasurerGraph from '../utils/treasurer.config.utils'
 import buildUsdtTokenGraph from '../utils/usdt-token.config.utils'
 import { setStage } from '../utils/utils.config'
@@ -56,4 +57,8 @@ export function buildUsdtTokenGraphMainnet() {
 
 export function buildCircleFiatTokenGraphMainnet(tokenName: TokenName) {
     return buildCircleFiatTokenGraph(Stage.MAINNET, tokenName)
+}
+
+export function buildTIP20TokenGraphMainnet(tokenName: TokenName) {
+    return buildTIP20TokenGraph(Stage.MAINNET, tokenName)
 }
