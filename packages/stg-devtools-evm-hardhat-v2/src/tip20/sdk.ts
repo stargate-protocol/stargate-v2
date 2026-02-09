@@ -72,8 +72,26 @@ export class TIP20Token extends OmniSDK {
     @AsyncRetriable()
     async renounceAdmin(): Promise<OmniTransaction | undefined> {
         const adminRole = await this.getDefaultAdminRole()
-        const caller = await this.contract.contract.signer.getAddress()
-        const hasAdminRole = await this.hasRole(caller, adminRole)
+        const signer = this.contract.contract.signer
+        const provider = this.contract.contract.provider as {
+            getSigner?: () => { getAddress?: () => Promise<string> }
+        } | null
+        const providerSigner = provider?.getSigner?.()
+        const getAddressSafe = async (
+            candidate?: { getAddress?: () => Promise<string> } | null
+        ): Promise<string | undefined> => {
+            if (!candidate?.getAddress) return undefined
+            try {
+                return await candidate.getAddress()
+            } catch {
+                return undefined
+            }
+        }
+        const resolvedCaller = (await getAddressSafe(signer)) ?? (await getAddressSafe(providerSigner))
+        if (!resolvedCaller) {
+            throw new Error('No signer available on contract or provider.')
+        }
+        const hasAdminRole = await this.hasRole(resolvedCaller, adminRole)
         if (!hasAdminRole) return undefined
         const data = this.contract.contract.interface.encodeFunctionData('renounceRole', [adminRole])
         return {
