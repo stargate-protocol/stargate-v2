@@ -26,7 +26,7 @@ contract StargateOFT is StargateBase {
 
     /// @notice Transfer ownership of the token to a new owner.
     /// @param _newOwner The account to set as owner
-    function transferTokenOwnership(address _newOwner) external onlyOwner {
+    function transferTokenOwnership(address _newOwner) external virtual onlyOwner {
         Ownable(token).transferOwnership(_newOwner);
     }
 

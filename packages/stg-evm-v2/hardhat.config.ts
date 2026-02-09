@@ -129,8 +129,6 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ARBSEP_V2_TESTNET,
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ARBSEP_V2_TESTNET),
-        oneSigConfig: getOneSigConfig(EndpointId.ARBSEP_V2_TESTNET),
         useFeeData: true,
     },
     'avalanche-testnet': {
@@ -158,8 +156,6 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
         accounts: testnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.OPTSEP_V2_TESTNET),
-        oneSigConfig: getOneSigConfig(EndpointId.OPTSEP_V2_TESTNET),
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
@@ -427,6 +423,13 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.HEMI_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'horizen-mainnet': {
+        eid: EndpointId.HORIZEN_V2_MAINNET,
+        url: process.env.RPC_URL_HORIZEN_MAINNET || 'https://horizen.calderachain.xyz/http',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.HORIZEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ink-mainnet': {

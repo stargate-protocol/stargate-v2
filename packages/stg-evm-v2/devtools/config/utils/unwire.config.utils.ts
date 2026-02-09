@@ -38,11 +38,21 @@ export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig {
     const disconnectChains = normalizeChainList(rawConfig.disconnect_chains, 'disconnect_chains', configPath)
     const remainingChains = normalizeChainList(rawConfig.remaining_chains, 'remaining_chains', configPath)
 
-    // check disconnect and remaining are disjoint
-    const disconnectChainsSet = new Set(disconnectChains.map((chain) => chain.toLowerCase()))
-    const remainingChainsSet = new Set(remainingChains.map((chain) => chain.toLowerCase()))
-    if (disconnectChainsSet.size !== disconnectChains.length || remainingChainsSet.size !== remainingChains.length) {
-        throw new Error('Disconnect and remaining chains are not disjoint')
+    const disconnectChainsLower = disconnectChains.map((chain) => chain.toLowerCase())
+    const remainingChainsLower = remainingChains.map((chain) => chain.toLowerCase())
+
+    // check for duplicates within each list
+    if (new Set(disconnectChainsLower).size !== disconnectChains.length) {
+        throw new Error('disconnect_chains contains duplicate entries')
+    }
+    if (new Set(remainingChainsLower).size !== remainingChains.length) {
+        throw new Error('remaining_chains contains duplicate entries')
+    }
+
+    // check that disconnect and remaining chains don't overlap
+    const overlap = disconnectChainsLower.filter((chain) => remainingChainsLower.includes(chain))
+    if (overlap.length > 0) {
+        throw new Error(`disconnect_chains and remaining_chains must be disjoint, but share: ${overlap.join(', ')}`)
     }
 
     return {
