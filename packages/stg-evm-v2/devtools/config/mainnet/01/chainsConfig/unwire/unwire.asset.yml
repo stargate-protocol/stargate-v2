@@ -1,0 +1,10 @@
+# Asset mesh unwire config (mainnet)
+# This file is used by asset.unwire.config.ts and messaging-asset-removal.config.ts
+asset: eurc
+disconnect_chains:
+  - avalanche-mainnet
+  - base-mainnet
+remaining_chains:
+  - ethereum-mainnet
+  - bera-mainnet
+  - plumephoenix-mainnet
