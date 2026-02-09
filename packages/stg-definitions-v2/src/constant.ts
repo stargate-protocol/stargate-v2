@@ -46,6 +46,7 @@ export const DVNS = {
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
         [EndpointId.HEDERA_V2_MAINNET]: '0xecc3dc1cc45b1934ce713f8fb0d3d3852c01a5c1',
         [EndpointId.HEMI_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
+        [EndpointId.HORIZEN_V2_MAINNET]: '0x84a410a8a912e333b957680998a76e526f98e207',
         [EndpointId.INK_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.IOTA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.ISLANDER_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
@@ -110,6 +111,7 @@ export const DVNS = {
         [EndpointId.GRAVITY_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
         [EndpointId.HEDERA_V2_MAINNET]: '0xce8358bc28dd8296ce8caf1cd2b44787abd65887',
         [EndpointId.HEMI_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
+        [EndpointId.HORIZEN_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.INK_V2_MAINNET]: '0x174f2ba26f8adeafa82663bcf908288d5dbca649',
         [EndpointId.IOTA_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.ISLANDER_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
@@ -184,6 +186,7 @@ export const EXECUTORS = {
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.HEDERA_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.HEMI_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
+        [EndpointId.HORIZEN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.INK_V2_MAINNET]: '0xFEbCF17b11376C724AB5a5229803C6e838b6eAe5',
         [EndpointId.IOTA_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
         [EndpointId.ISLANDER_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -828,6 +831,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xad11a8BEb98bbf61dbb1aa0F6d6F2ECD87b35afA',
             },
+            [EndpointId.HORIZEN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x28f6D7ce0277efb648F24787E87dd922d7D55731',
+            },
             [EndpointId.INK_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
@@ -1125,6 +1132,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.GRAVITY_V2_MAINNET]: {},
         [EndpointId.HEDERA_V2_MAINNET]: {},
         [EndpointId.HEMI_V2_MAINNET]: {},
+        [EndpointId.HORIZEN_V2_MAINNET]: {},
         [EndpointId.INK_V2_MAINNET]: {},
         [EndpointId.IOTA_V2_MAINNET]: {},
         [EndpointId.ISLANDER_V2_MAINNET]: {},
@@ -2281,6 +2289,23 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
                 },
             },
+        },
+    },
+    [EndpointId.HORIZEN_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.HORIZEN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.HORIZEN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET],
+            nativeDropAmount: parseEther('0.125').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x643cfbc837ed1382f5ac4cb1b821aaeb00b65c75',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/horizen`,
         },
     },
     [EndpointId.INK_V2_MAINNET]: {
