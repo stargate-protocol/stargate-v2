@@ -1,5 +1,19 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.3.0
+
+### Minor Changes
+
+- d5447ca: Add support for Alt chains and TIP20 OFTs
+- aad46a8: Added support for unwiring single asset
+  Unwired EURC in avalanche and base mainnet
+
+### Patch Changes
+
+- ac41ca8: Deployed Tempo mainnet
+- df38b5c: Horizen deployment for USDC.e
+- eba6d0b: Configured and deployed tempo moderato testnet
+
 ## 1.2.7
 
 ### Patch Changes
