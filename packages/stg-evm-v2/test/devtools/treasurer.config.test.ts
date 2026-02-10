@@ -33,7 +33,7 @@ describe('treasurer.config', () => {
         process.env = originalEnv
     })
 
-    it.skip('should generate correct configuration for all chains (use all chains since no CHAINS_LIST is provided)', async () => {
+    it('should generate correct configuration for all chains (use all chains since no CHAINS_LIST is provided)', async () => {
         const supportedChains = getChainsThatSupportTreasurer()
 
         // Get treasurer config
@@ -81,7 +81,7 @@ describe('treasurer.config', () => {
         expect(config.contracts.length).to.equal(selectedChains.length)
     })
 
-    it.skip('should use the correct safe address for owner and admin', async () => {
+    it('should use the correct safe address for owner and admin', async () => {
         // Get treasurer config
         const config = await treasurerConfig()
 
