@@ -3344,6 +3344,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TEMPO_V2_MAINNET], DVNS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
             nativeDropAmount: parseEther('0').toBigInt(),
+            maxPassengerCount: 0, // bus mode is not supported for tempo since it is an alt chain
         },
         oneSigConfig: {
             oneSigAddress: '0x09c865fafb64d8cbcbf673d61a11e066063e3a1f',
