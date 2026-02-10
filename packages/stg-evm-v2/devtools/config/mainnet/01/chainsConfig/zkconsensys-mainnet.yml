@@ -5,14 +5,19 @@ credit_messaging: true
 tokens:
   eth:
     type: native
+  usdc:
+    type: pool
 rewarder:
   tokens:
     stg:
       allocation:
         eth: 10000
+        usdc: 0
 staking:
   tokens:
     eth: true
+    usdc: true
 treasurer:
   tokens:
     eth: true
+    usdc: true

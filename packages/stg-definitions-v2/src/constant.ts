@@ -960,6 +960,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xCc0587aeBDa397146cc828b445dB130a94486e74',
             },
+            [EndpointId.ZKCONSENSYS_V2_MAINNET]: {
+                type: StargateType.Pool,
+                address: '0x176211869cA2b568f2A7D4EE941E073a821EE1ff',
+            },
 
             //
             // TESTNET
