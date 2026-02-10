@@ -136,7 +136,7 @@ const toTokenMessagingEdgeConfig = (
     const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
     const optionalDVNThreshold = getOptionalDVNThreshold(fromConfig, toEid)
     return {
-        maxPassengers: toConfig.maxPassengerCount,
+        maxPassengers: fromConfig.busDisabled ? 0 : toConfig.maxPassengerCount, // if bus is disabled, set passengers to zero
         gasLimit: {
             gasLimit: toConfig.busRideGasLimit,
             nativeDropGasLimit: toConfig.nativeDropGasLimit,
