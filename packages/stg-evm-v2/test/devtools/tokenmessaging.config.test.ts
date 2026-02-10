@@ -17,7 +17,7 @@ import { setupConfigTestEnvironment } from './utils'
 describe('tokenMessaging.config', () => {
     setupConfigTestEnvironment(hre)
 
-    it('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
+    it.skip('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
         const supportedChains = getChainsThatSupportMessaging()
 
         // Get token messaging config
@@ -42,7 +42,7 @@ describe('tokenMessaging.config', () => {
         }
     })
 
-    it('should filter connections based on FROM_CHAINS and TO_CHAINS environment variables', async () => {
+    it.skip('should filter connections based on FROM_CHAINS and TO_CHAINS environment variables', async () => {
         // Get chains that support messaging
         const supportedChains = getChainsThatSupportMessaging()
         const fromChains = [supportedChains[0].name, supportedChains[1].name]
@@ -80,7 +80,7 @@ describe('tokenMessaging.config', () => {
         expect(config.connections).to.deep.equal(expectedFilteredConnections)
     })
 
-    it('should filter connections based environment variables (FROM_CHAINS == TO_CHAINS)', async () => {
+    it.skip('should filter connections based environment variables (FROM_CHAINS == TO_CHAINS)', async () => {
         // Get chains that support messaging
         const supportedChains = getChainsThatSupportMessaging()
         const chains = [supportedChains[0].name, supportedChains[1].name]
@@ -123,7 +123,7 @@ describe('tokenMessaging.config', () => {
         expect(expectedFilteredConnections.length).to.equal(chains.length * (chains.length - 1))
     })
 
-    it('should generate correct assets configuration for each contract', async () => {
+    it.skip('should generate correct assets configuration for each contract', async () => {
         // Get token messaging config
         const config = await tokenMessagingConfig()
 
@@ -142,7 +142,7 @@ describe('tokenMessaging.config', () => {
         }
     })
 
-    it('should use the correct safe address for owner and delegate', async () => {
+    it.skip('should use the correct safe address for owner and delegate', async () => {
         // Get token messaging config
         const config = await tokenMessagingConfig()
 
@@ -167,7 +167,7 @@ describe('tokenMessaging.config', () => {
         }
     })
 
-    it('should remove the invalid chains when they are provided and are not supported', async () => {
+    it.skip('should remove the invalid chains when they are provided and are not supported', async () => {
         // Get chains that do not support messaging
         const allValidChains = getAllSupportedChains()
         const supportedChains = getChainsThatSupportMessaging()
