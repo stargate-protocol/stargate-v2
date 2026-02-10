@@ -62,7 +62,7 @@ export default async function buildTIP20TokenGraph(
 
             return {
                 // Use a minimal TIP-20 ABI so role getters like PAUSE_ROLE() are available at runtime
-                contract: getContractWithEid(chain.eid, { address: TIP20Address, contractName: 'ITIP20' }),
+                contract: getContractWithEid(chain.eid, { address: TIP20Address, contractName: 'TIP20' }),
                 config: {
                     ...(stargateOnesig !== undefined ? { admin: stargateOnesig } : {}),
                     issuer: assetAddresses[tokenName],
