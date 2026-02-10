@@ -18,9 +18,9 @@ library Tip20AssetsConfig {
                 Tip20Config({
                     name: "Bridged USDC (Stargate)",
                     symbol: "USDC.e",
-                    currency: "USDC",
+                    currency: "USD",
                     quote: PATH_USD,
-                    salt: keccak256(bytes("StargateBridgedUSDC.e"))
+                    salt: keccak256(bytes("Stargate Bridged USDC.e"))
                 });
         }
         if (keccak256(bytes(asset)) == keccak256(bytes("eurc"))) {
@@ -28,9 +28,9 @@ library Tip20AssetsConfig {
                 Tip20Config({
                     name: "Bridged EURC (Stargate)",
                     symbol: "EURC.e",
-                    currency: "EURO",
+                    currency: "EUR",
                     quote: PATH_USD,
-                    salt: keccak256(bytes("StargateBridgedEURC.e"))
+                    salt: keccak256(bytes("Stargate Bridged EURC.e"))
                 });
         }
         revert("Invalid asset");

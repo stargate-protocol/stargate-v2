@@ -23,7 +23,7 @@ export interface ITIP20 {
     isIssuer(account: OmniAddress): Promise<boolean>
     setIssuer(account: OmniAddress): Promise<OmniTransaction | undefined>
     setAdmin(admin: OmniAddress): Promise<OmniTransaction>
-    renounceAdmin(): Promise<OmniTransaction>
+    renounceAdmin(): Promise<OmniTransaction | undefined>
     setPauser(pauser: OmniAddress): Promise<OmniTransaction | undefined>
     setUnpauser(pauser: OmniAddress): Promise<OmniTransaction | undefined>
     setBurnBlocked(burnBlocked: OmniAddress): Promise<OmniTransaction | undefined>

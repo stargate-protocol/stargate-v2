@@ -954,7 +954,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.TEMPO_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x20c000000000000000000000366306582855120C',
+                address: '0x20C000000000000000000000b9537d11c60E8b50',
             },
             [EndpointId.XDC_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -1069,7 +1069,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.TEMPO_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x20c0000000000000000000003779cd7a81375505',
+                address: '0x20c0000000000000000000001621e21F71CF12fb',
             },
 
             //
