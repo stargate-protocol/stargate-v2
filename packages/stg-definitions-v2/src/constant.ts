@@ -836,7 +836,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.HORIZEN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x28f6D7ce0277efb648F24787E87dd922d7D55731',
+                address: '0xDF7108f8B10F9b9eC1aba01CCa057268cbf86B6c',
             },
             [EndpointId.INK_V2_MAINNET]: {
                 type: StargateType.Oft,
