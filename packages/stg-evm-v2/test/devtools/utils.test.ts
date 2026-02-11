@@ -189,6 +189,10 @@ describe('devtools/utils', () => {
     })
 
     describe('filterConnections', () => {
+        beforeEach(() => {
+            setStage(Stage.TESTNET)
+        })
+
         const mockConnections = [
             { from: { eid: 1 }, to: { eid: 2 }, data: 'A' },
             { from: { eid: 2 }, to: { eid: 3 }, data: 'B' },
