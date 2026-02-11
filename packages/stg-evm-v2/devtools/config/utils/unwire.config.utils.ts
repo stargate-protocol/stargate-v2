@@ -21,8 +21,12 @@ export type ResolvedUnwireConfig = {
 
 const DEFAULT_CONFIG_RELATIVE_PATH = path.join('chainsConfig', 'unwire', 'unwire.asset.yml')
 
-export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig {
+export function loadUnwireConfig(baseDir: string): ResolvedUnwireConfig | undefined {
     const configPath = resolveUnwireConfigPath(baseDir)
+    if (!fs.existsSync(configPath)) {
+        return undefined
+    }
+
     const fileContents = fs.readFileSync(configPath, 'utf8')
     const rawConfig = yaml.load(fileContents) as Partial<UnwireYamlConfig> | undefined
 

@@ -21,6 +21,11 @@ type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
 const buildMessagingAssetRemovalGraph = async (): Promise<OmniGraphHardhat<MessagingNode, MessagingEdge>> => {
     setMainnetStage()
 
+    const unwireConfig = loadUnwireConfig(__dirname)
+    if (!unwireConfig) {
+        return { contracts: [], connections: [] }
+    }
+
     const contractName = process.env.MESSAGING_CONTRACT
     if (contractName !== 'TokenMessaging' && contractName !== 'CreditMessaging') {
         throw new Error(
@@ -28,7 +33,7 @@ const buildMessagingAssetRemovalGraph = async (): Promise<OmniGraphHardhat<Messa
         )
     }
 
-    const { tokenName, disconnectChains, remainingChains } = loadUnwireConfig(__dirname)
+    const { tokenName, disconnectChains, remainingChains } = unwireConfig
     const { validFromChains } = resolveUnwireChains(tokenName, disconnectChains, remainingChains)
 
     const assetId = ASSETS[tokenName].assetId

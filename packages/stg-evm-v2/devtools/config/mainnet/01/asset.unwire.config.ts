@@ -9,7 +9,12 @@ import { setMainnetStage } from '../utils'
 const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
     setMainnetStage()
 
-    const { tokenName, disconnectChains, remainingChains } = loadUnwireConfig(__dirname)
+    const unwireConfig = loadUnwireConfig(__dirname)
+    if (!unwireConfig) {
+        return { contracts: [], connections: [] }
+    }
+
+    const { tokenName, disconnectChains, remainingChains } = unwireConfig
     const { validFromChains, validToChains } = resolveUnwireChains(tokenName, disconnectChains, remainingChains)
 
     const getAssetPoint = createGetAssetOmniPoint(tokenName)
