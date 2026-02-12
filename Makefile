@@ -1,5 +1,7 @@
 # None of the targets actually build any binaries so we make them all as phony
-.PHONY: build deploy configure deploy-sandbox start-sandbox
+.PHONY: build deploy configure deploy-sandbox start-sandbox \
+	mainnet-connections-summary testnet-connections-summary \
+	unwire-messaging-mainnet unwire-messaging-testnet
 
 # To make the code bit more DRY we'll isolate the commonly used stuff into variables
 PACKAGE=@stargatefinance/stg-evm-v2
@@ -349,13 +351,9 @@ configure-mainnet:
 	# Configure OFT Wrapper
 	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
-unwire-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
-unwire-mainnet:
-	# Unwire asset paths (OFT reset)
-	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.unwire.config.ts --signer deployer
-	# Remove assetId on TokenMessaging/CreditMessaging for the unwired chains
-	MESSAGING_CONTRACT=TokenMessaging $(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging-asset-removal.config.ts --signer deployer
-	MESSAGING_CONTRACT=CreditMessaging $(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging-asset-removal.config.ts --signer deployer
+# 
+# This target will transfer the ownership of the mainnet contracts
+# 
 
 transfer-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 transfer-mainnet:
@@ -424,7 +422,10 @@ transfer-mainnet:
 mainnet: deploy-mainnet preconfigure-mainnet transfer-mainnet configure-mainnet
 
 
-# Check configuration targets
+# 
+# This target will check if the mainnet/testnet configuration onchain is the same as defined in the config files
+# 
+
 network ?= mainnet
 ifeq ($(network),mainnet)
     CONFIG_BASE_PATH=./devtools/config/mainnet/01
@@ -474,10 +475,37 @@ check-token-messaging:
 check-credit-messaging:
 	$(HARDHAT) stg:check::credit-messaging --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts
 
-# Connections summary
+# 
+# This target will generate connections summary JSON for mainnet/testnet
+# 
 mainnet-connections-summary:
-	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONNECTIONS_SUMMARY_DIR)/mainnet/01/connections.mainnet.json
+	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONFIG_BASE_PATH)connections.mainnet.json
 
 testnet-connections-summary:
 	mkdir -p $(CONNECTIONS_SUMMARY_DIR)
-	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONNECTIONS_SUMMARY_DIR)/testnet/connections.testnet.json
+	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONFIG_BASE_PATH)connections.testnet.json
+
+
+# ==============UNWIRE TARGETS==============
+#
+# This target will unwire token and credit messaging paths for mainnet/testnet
+#
+unwire-messaging-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+unwire-messaging-mainnet:
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+
+unwire-messaging-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
+unwire-messaging-testnet:
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging.unwire.config.ts --signer deployer
+
+
+
+unwire-asset-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+unwire-asset-mainnet:
+	# Unwire asset paths (OFT reset)
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.unwire.config.ts --signer deployer
+	# Remove assetId on TokenMessaging/CreditMessaging for the unwired chains
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging-asset.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging-asset.unwire.config.ts --signer deployer

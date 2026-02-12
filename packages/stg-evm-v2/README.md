@@ -136,12 +136,19 @@ transfer.
     but before applying any caps.
 * Compose
 
-## Unwiring an asset mesh
+## Unwiring messaging paths or an asset mesh
 
-This repo supports a YAML-driven unwire flow for unwiring a single asset from the mesh on specific chains—removing its mesh paths and assetId from messaging—without affecting other assets.
+This repo supports two YAML-driven unwire flows:
+- **Messaging path unwire**: disable specific TokenMessaging/CreditMessaging paths between chains.
+- **Asset mesh unwire**: remove a single asset from the mesh on specific chains by disabling OFT paths and clearing its
+  assetId on messaging contracts.
 
-### YAML schema
-Create a YAML config (mainnet example in `devtools/config/mainnet/01/chainsConfig/unwire/unwire.asset.yml`):
+### YAML schemas and templates
+Templates live in:
+- `devtools/config/mainnet/01/chainsConfig/unwire/template-unwire.asset.yml`
+- `devtools/config/mainnet/01/chainsConfig/unwire/template-unwire.messaging.yml`
+
+Asset unwire YAML example (mainnet):
 ```
 asset: eurc
 disconnect_chains:
@@ -153,14 +160,29 @@ remaining_chains:
   - plumephoenix-mainnet
 ```
 
-### What it does
-- `asset.unwire.config.ts` sets `setOFTPath(dstEid, false)` for all edges between `disconnect_chains` and `remaining_chains`, bidirectionally.
-- `messaging-asset-removal.config.ts` calls `setAssetId(address(0), assetId)` for `disconnect_chains` on TokenMessaging and CreditMessaging (via `MESSAGING_CONTRACT`).
-
-### Run the unwire flow
-Mainnet Makefile target:
+Messaging unwire YAML example (mainnet):
 ```
-make unwire-mainnet
+rules:
+  - chain: avalanche-mainnet
+    allowed_peers:
+      - ethereum-mainnet
+```
+
+### What it does
+- **Messaging path unwire**:
+  - `token-messaging.unwire.config.ts` and `credit-messaging.unwire.config.ts` disable messaging paths based on
+    `messaging.unwire.yml` rules.
+- **Asset mesh unwire**:
+  - `asset.unwire.config.ts` sets `setOFTPath(dstEid, false)` for all edges between `disconnect_chains` and
+    `remaining_chains`, bidirectionally.
+  - `token-messaging-asset.unwire.config.ts` and `credit-messaging-asset.unwire.config.ts` call
+    `setAssetId(address(0), assetId)` for `disconnect_chains` on TokenMessaging and CreditMessaging.
+
+### Run the unwire flows
+Makefile targets:
+```
+make unwire-messaging-mainnet
+make unwire-asset-mainnet
 ```
 
 Notes:
