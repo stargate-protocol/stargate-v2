@@ -29,6 +29,8 @@ CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
 
 VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
 
+CONNECTIONS_SUMMARY_DIR=devtools/config/
+
 SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
 ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
 ARTIFACTS_ZK_DIR=packages/stg-evm-v2/artifacts-zk/
@@ -471,3 +473,11 @@ check-token-messaging:
 
 check-credit-messaging:
 	$(HARDHAT) stg:check::credit-messaging --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts
+
+# Connections summary
+mainnet-connections-summary:
+	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONNECTIONS_SUMMARY_DIR)/mainnet/01/connections.mainnet.json
+
+testnet-connections-summary:
+	mkdir -p $(CONNECTIONS_SUMMARY_DIR)
+	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONNECTIONS_SUMMARY_DIR)/testnet/connections.testnet.json

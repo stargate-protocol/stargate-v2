@@ -31,6 +31,7 @@ export const TASK_STG_WIRE_STAKING = `stg:wire::staking`
 export const TASK_STG_WIRE_OFT_WRAPPER = `stg:wire::oft-wrapper`
 
 export const TASK_STG_GET_CONFIG_HASHES = `stg:get::config-hashes`
+export const TASK_STG_GRAPH_CONNECTIONS = `stg:graph::connections`
 
 export const TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP = 'lz:ownable:transfer-ownership'
 export const TASK_STG_OWNABLE_TRANSFER_OWNERSHIP = 'stg:ownable:transfer-ownership'
