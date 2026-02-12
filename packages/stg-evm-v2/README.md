@@ -165,8 +165,10 @@ Messaging unwire YAML example (mainnet):
 rules:
   - chain: avalanche-mainnet
     allowed_peers:
-      - ethereum-mainnet
+      - avalanche-mainnet
 ```
+
+Note: `allowed_peers` must be non-empty. Use the same chain name to effectively remove all external paths for that chain.
 
 ### What it does
 - **Messaging path unwire**:

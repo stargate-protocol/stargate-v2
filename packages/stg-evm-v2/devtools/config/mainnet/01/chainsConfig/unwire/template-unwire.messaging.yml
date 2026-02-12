@@ -1,6 +1,8 @@
 # Messaging unwire config (mainnet)
 # Disconnect chain from all peers except allowed_peers.
+# Note: allowed_peers must be non-empty; use the same chain name
+# to effectively remove all external paths for that chain.
 rules:
-  - chain: metis-mainnet
-    allowed_peers:
-      - ethereum-mainnet
+  - chain: CHAIN_NAME
+    allowed_peers: 
+      - CHAIN_NAME
