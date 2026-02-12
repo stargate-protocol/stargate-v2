@@ -1,0 +1,6 @@
+# Messaging unwire config (mainnet)
+# Disconnect chain from all peers except allowed_peers.
+rules:
+  - chain: metis-mainnet
+    allowed_peers:
+      - ethereum-mainnet
