@@ -22,6 +22,8 @@ import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
 
+import { getAllChainsConfig } from './utils/utils.config'
+
 /**
  * Generates a mesh of connections based on points without any loopbacks
  *
@@ -331,13 +333,22 @@ export function getContractsInChain(
     return chains.map((chain) => getContractWithEid(chainEids[chain.trim() as keyof typeof chainEids], contract))
 }
 
-export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
-    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
-    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
+export function filterConnections<TEdgeConfig>(
+    connections: OmniEdgeHardhat<TEdgeConfig>[],
+    fromContracts: Array<{ eid: EndpointId }>,
+    toContracts: Array<{ eid: EndpointId }>
+): OmniEdgeHardhat<TEdgeConfig>[] {
+    const fromEids = new Set(fromContracts.map((contract) => contract.eid))
+    const toEids = new Set(toContracts.map((contract) => contract.eid))
 
-    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
-        return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
-    })
+    const chainByEid = new Map(getAllChainsConfig().map((chain) => [chain.eid, chain]))
+
+    return connections.filter(
+        (connection) =>
+            fromEids.has(connection.from.eid) &&
+            toEids.has(connection.to.eid) &&
+            isAllowedPeerConnection(connection, chainByEid)
+    )
 }
 
 export function getContractWithEid(eid: EndpointId, contract: any) {
@@ -352,6 +363,29 @@ export function getContractWithEid(eid: EndpointId, contract: any) {
  */
 export function setsDifference(setA: Set<string>, setB: Set<string>): Set<string> {
     return new Set<string>([...setA].filter((x) => !setB.has(x)))
+}
+
+function isPeerAllowed(chain: { allowed_peers?: string[] }, peerName: string): boolean {
+    const allowedPeers = chain.allowed_peers
+    return !allowedPeers || allowedPeers.length === 0 ? true : allowedPeers.includes(peerName)
+}
+
+function isAllowedPeerConnection<TEdgeConfig>(
+    connection: OmniEdgeHardhat<TEdgeConfig>,
+    chainByEid?: Map<EndpointId, Chain>
+): boolean {
+    if (!chainByEid) {
+        return true
+    }
+
+    const fromChain = chainByEid.get(connection.from.eid)
+    const toChain = chainByEid.get(connection.to.eid)
+
+    if (!fromChain || !toChain) {
+        return true
+    }
+
+    return isPeerAllowed(fromChain, toChain.name) && isPeerAllowed(toChain, fromChain.name)
 }
 
 interface Token {
@@ -372,6 +406,7 @@ export interface Chain {
     eid: any
     token_messaging: boolean
     credit_messaging: boolean
+    allowed_peers?: string[]
     tokens?: Record<string, Token>
     rewarder?: {
         tokens: Record<string, RewarderToken>
