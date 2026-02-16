@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 6.1.1
+
+### Patch Changes
+
+- 00dafd8: Redeployed Tempo mainnet
+
 ## 6.1.0
 
 ### Minor Changes

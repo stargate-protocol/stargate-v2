@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 6.1.1
+
+### Patch Changes
+
+- 00dafd8: Redeployed Tempo mainnet
+- Updated dependencies [00dafd8]
+  - @stargatefinance/stg-definitions-v2@6.1.1
+
 ## 6.1.0
 
 ### Minor Changes

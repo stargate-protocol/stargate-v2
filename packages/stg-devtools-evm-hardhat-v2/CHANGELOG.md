@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 9.0.1
+
+### Patch Changes
+
+- 00dafd8: Redeployed Tempo mainnet
+- Updated dependencies [00dafd8]
+  - @stargatefinance/stg-definitions-v2@6.1.1
+  - @stargatefinance/stg-devtools-v2@9.0.1
+
 ## 9.0.0
 
 ### Minor Changes
