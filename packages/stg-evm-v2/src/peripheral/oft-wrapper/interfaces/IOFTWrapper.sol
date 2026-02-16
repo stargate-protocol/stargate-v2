@@ -6,6 +6,13 @@ import { IOFTV2 } from "@layerzerolabs/solidity-examples/contracts/token/oft/v2/
 import { MessagingFee as MessagingFeeEpv2, SendParam as SendParamEpv2 } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 
 interface IOFTWrapper {
+    enum OFTVersion {
+        Epv1OFTv1,
+        Epv1OFTv2,
+        Epv1FeeOFTv2,
+        Epv2OFT
+    }
+
     event CallerBpsCapSet(uint256 bps);
     event DefaultBpsSet(uint256 bps);
     event OFTBpsSet(address indexed token, uint256 bps);
@@ -16,6 +23,47 @@ interface IOFTWrapper {
         uint256 callerBps;
         address caller;
         bytes2 partnerId;
+    }
+
+    struct QuoteInput {
+        OFTVersion version;
+        address token;
+        uint16 dstEid;
+        uint256 amountLD;
+        uint256 minAmountLD;
+        bytes32 toAddress;
+        bytes extraOptions;
+    }
+
+    struct QuoteOFTInput {
+        OFTVersion version;
+        address token;
+        uint16 dstEid;
+        uint256 amountLD;
+        uint256 minAmountLD;
+        bytes32 toAddress;
+        FeeObj feeObj;
+        QuoteResult quoteResult;
+        uint256 amountAfterWrapperFees;
+        uint256 wrapperAndCallersFees;
+        QuoteFee wrapperFee;
+        QuoteFee callerFee;
+        bytes extraOptions;
+    }
+
+    struct QuoteFee {
+        string fee;
+        int256 amount;
+        address token;
+    }
+
+    struct QuoteResult {
+        uint256 srcAmount;
+        uint256 amountReceivedLD;
+        uint256 srcAmountMin;
+        uint256 srcAmountMax;
+        uint64 confirmations;
+        QuoteFee[] fees;
     }
 
     function sendOFT(
@@ -152,4 +200,9 @@ interface IOFTWrapper {
         bool _payInLzToken,
         FeeObj calldata _feeObj
     ) external view returns (MessagingFeeEpv2 memory);
+
+    function quote(
+        QuoteInput calldata _input,
+        FeeObj calldata _feeObj
+    ) external view returns (QuoteResult memory result);
 }
