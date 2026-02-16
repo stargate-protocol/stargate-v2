@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.2.1
+
+### Patch Changes
+
+- 00dafd8: Redeployed Tempo mainnet
+
 ## 1.2.0
 
 ### Minor Changes
