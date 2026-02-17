@@ -439,6 +439,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.HORIZEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'injectiveevm-mainnet': {
+        eid: EndpointId.INJECTIVEEVM_V2_MAINNET,
+        url: process.env.RPC_URL_INJECTIVEEVM_MAINNET || 'https://injectiveevm-rpc.polkachu.com',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.INJECTIVEEVM_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'ink-mainnet': {
         eid: EndpointId.INK_V2_MAINNET,
         url: process.env.RPC_URL_INK_MAINNET || 'https://rpc-gel.inkonchain.com',
