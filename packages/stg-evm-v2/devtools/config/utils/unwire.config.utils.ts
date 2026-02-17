@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { TokenName } from '@stargatefinance/stg-definitions-v2'
+import { ASSETS, TokenName } from '@stargatefinance/stg-definitions-v2'
 import {
     CreditMessagingEdgeConfig,
     CreditMessagingNodeConfig,
@@ -30,6 +30,7 @@ import {
     getSupportedTokensByEid,
     getTokenName,
     printChains,
+    requireStage,
     setStage,
 } from './utils.config'
 
@@ -72,8 +73,9 @@ export type ResolvedAssetUnwireConfig = {
     configPath: string
 }
 
-// Load the messaging unwire rules for a specific config directory.
-export function loadMessagingUnwireConfig(stage: Stage): ResolvedMessagingUnwireConfig | undefined {
+// Load the messaging unwire rules for the current stage (requires stage to be set).
+export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | undefined {
+    const stage = requireStage()
     const configPath = path.join(chainsToUnwireConfigDir[stage], DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH)
     if (!fs.existsSync(configPath)) {
         return undefined
@@ -101,8 +103,9 @@ export function loadMessagingUnwireConfig(stage: Stage): ResolvedMessagingUnwire
     return { rules, configPath }
 }
 
-// Load asset unwire config (disconnect/remaining chains) from the provided directory.
-export function loadAssetUnwireConfig(stage: Stage): ResolvedAssetUnwireConfig | undefined {
+// Load asset unwire config (disconnect/remaining chains) for the current stage (requires stage to be set).
+export function loadAssetUnwireConfig(): ResolvedAssetUnwireConfig | undefined {
+    const stage = requireStage()
     const configPath = path.join(chainsToUnwireConfigDir[stage], DEFAULT_ASSET_CONFIG_RELATIVE_PATH)
     if (!fs.existsSync(configPath)) {
         return undefined
@@ -159,15 +162,57 @@ export function resolveAssetUnwireChains(tokenName: TokenName, disconnectChains:
     return { validFromChains, validToChains }
 }
 
-// Build an omni graph that disables messaging edges per unwire rules.
+// Build an omni graph for asset messaging unwire (zero-asset config). Sets stage then loads config from current stage.
+export function buildAssetMessagingUnwireGraph(
+    stage: Stage,
+    contractName: 'TokenMessaging' | 'CreditMessaging',
+    defaultPlanner: string
+): OmniGraphHardhat<MessagingNode, MessagingEdge> {
+    setStage(stage)
+
+    const assetUnwireConfig = loadAssetUnwireConfig()
+    if (!assetUnwireConfig) {
+        return { contracts: [], connections: [] }
+    }
+
+    const { validFromChains } = resolveAssetUnwireChains(
+        assetUnwireConfig.tokenName,
+        assetUnwireConfig.disconnectChains,
+        assetUnwireConfig.remainingChains
+    )
+
+    const assetId = ASSETS[assetUnwireConfig.tokenName].assetId
+    const zeroAddress = makeZeroAddress()
+
+    const contracts = validFromChains.map((chain) => ({
+        contract: getContractWithEid(chain.eid, { contractName }),
+        config: {
+            planner: defaultPlanner,
+            assets: {
+                [zeroAddress]: assetId,
+            },
+        },
+    }))
+
+    return {
+        contracts,
+        connections: [],
+    }
+}
+
+// Build an omni graph that disables messaging edges per unwire rules. Sets stage then loads config from current stage.
 export async function buildMessagingUnwireGraph(
     stage: Stage,
     contract: { contractName: string },
     defaultPlanner: string,
-    generateMessagingConfig: (points: OmniPointHardhat[]) => OmniEdgeHardhat<MessagingEdge>[],
-    unwireConfig: ResolvedMessagingUnwireConfig
+    generateMessagingConfig: (points: OmniPointHardhat[]) => OmniEdgeHardhat<MessagingEdge>[]
 ): Promise<OmniGraphHardhat<MessagingNode, MessagingEdge>> {
     setStage(stage)
+
+    const unwireConfig = loadMessagingUnwireConfig()
+    if (!unwireConfig) {
+        return { contracts: [], connections: [] }
+    }
 
     const supportedChains = getChainsThatSupportMessaging()
     const chainByName = new Map(supportedChains.map((chain) => [chain.name, chain]))

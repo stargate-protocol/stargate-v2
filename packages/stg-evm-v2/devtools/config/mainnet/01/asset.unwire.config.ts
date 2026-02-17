@@ -1,16 +1,15 @@
 import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-v2'
 
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
-import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { createGetAssetOmniPoint } from '../../../utils'
+import { setMainnetStage } from '../../mainnet/utils'
 import { loadAssetUnwireConfig, resolveAssetUnwireChains } from '../../utils/unwire.config.utils'
-import { setMainnetStage } from '../utils'
 
 const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
-    setMainnetStage()
+    setMainnetStage
 
-    const assetUnwireConfig = loadAssetUnwireConfig(Stage.MAINNET)
+    const assetUnwireConfig = loadAssetUnwireConfig()
     if (!assetUnwireConfig) {
         return { contracts: [], connections: [] }
     }
