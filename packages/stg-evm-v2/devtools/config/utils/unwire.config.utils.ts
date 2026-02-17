@@ -18,6 +18,7 @@ import {
     createGetHreByEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
+import { getDeployedContractAddress } from '@layerzerolabs/lz-evm-sdk-v2'
 
 import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
@@ -103,7 +104,6 @@ export function loadMessagingUnwireConfig(stage: Stage): ResolvedMessagingUnwire
 // Load asset unwire config (disconnect/remaining chains) from the provided directory.
 export function loadAssetUnwireConfig(stage: Stage): ResolvedAssetUnwireConfig | undefined {
     const configPath = path.join(chainsToUnwireConfigDir[stage], DEFAULT_ASSET_CONFIG_RELATIVE_PATH)
-    console.log('configPath', configPath)
     if (!fs.existsSync(configPath)) {
         return undefined
     }
@@ -171,6 +171,7 @@ export async function buildMessagingUnwireGraph(
 
     const supportedChains = getChainsThatSupportMessaging()
     const chainByName = new Map(supportedChains.map((chain) => [chain.name, chain]))
+    const deadDvnByEid = loadDeadDvnByEid(supportedChains)
 
     const disallowedEdges = new Set<string>()
     const involvedChainNames = new Set<string>()
@@ -204,7 +205,7 @@ export async function buildMessagingUnwireGraph(
     const allConnections = generateMessagingConfig(contracts)
     const connections = allConnections
         .filter((edge) => disallowedEdges.has(`${edge.from.eid}:${edge.to.eid}`))
-        .map((edge) => disableMessagingEdge(edge))
+        .map((edge) => disableMessagingEdge(edge, deadDvnByEid))
 
     const getEnvironment = createGetHreByEid()
     const contractConfigs = await Promise.all(
@@ -249,11 +250,25 @@ const normalizeChainList = (
     return normalized
 }
 
-// Disable a messaging edge by zeroing executor/DVN settings.
-const disableMessagingEdge = (edge: OmniEdgeHardhat<MessagingEdge>): OmniEdgeHardhat<MessagingEdge> => {
-    const zeroAddress = makeZeroAddress()
-    const maxMessageSize = edge.config.sendConfig?.executorConfig?.maxMessageSize ?? 0
+const loadDeadDvnByEid = (chains: Array<{ name: string; eid: number }>): Map<number, string> => {
+    const deadDvnByEid = new Map<number, string>()
+    chains.forEach((chain) => {
+        deadDvnByEid.set(chain.eid, getDeployedContractAddress(chain.name, 'DeadDVN'))
+    })
+    return deadDvnByEid
+}
 
+// Disable a messaging edge by zeroing executor settings and switching to LZ Dead DVN.
+const disableMessagingEdge = (
+    edge: OmniEdgeHardhat<MessagingEdge>,
+    deadDvnByEid: Map<number, string>
+): OmniEdgeHardhat<MessagingEdge> => {
+    const zeroAddress = makeZeroAddress()
+    const fromDeadDvn = deadDvnByEid.get(edge.from.eid)
+    const toDeadDvn = deadDvnByEid.get(edge.to.eid)
+    if (!fromDeadDvn || !toDeadDvn) {
+        throw new Error(`Missing DeadDVN for edge ${edge.from.eid} -> ${edge.to.eid}`)
+    }
     return {
         ...edge,
         config: {
@@ -261,13 +276,12 @@ const disableMessagingEdge = (edge: OmniEdgeHardhat<MessagingEdge>): OmniEdgeHar
             sendConfig: {
                 ...edge.config.sendConfig,
                 executorConfig: {
-                    maxMessageSize,
+                    maxMessageSize: edge.config.sendConfig?.executorConfig?.maxMessageSize ?? 0,
                     executor: zeroAddress,
                 },
                 ulnConfig: {
                     ...edge.config.sendConfig?.ulnConfig,
-                    requiredDVNs: [zeroAddress],
-                    optionalDVNs: [zeroAddress],
+                    requiredDVNs: [fromDeadDvn],
                     optionalDVNThreshold: 0,
                 },
             },
@@ -275,8 +289,7 @@ const disableMessagingEdge = (edge: OmniEdgeHardhat<MessagingEdge>): OmniEdgeHar
                 ...edge.config.receiveConfig,
                 ulnConfig: {
                     ...edge.config.receiveConfig?.ulnConfig,
-                    requiredDVNs: [zeroAddress],
-                    optionalDVNs: [zeroAddress],
+                    requiredDVNs: [toDeadDvn],
                     optionalDVNThreshold: 0,
                 },
             },
