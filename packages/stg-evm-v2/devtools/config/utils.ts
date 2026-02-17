@@ -22,7 +22,7 @@ import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
 
-import { getAllChainsConfig } from './utils/utils.config'
+import { getChainByEidMap } from './utils/utils.config'
 
 /**
  * Generates a mesh of connections based on points without any loopbacks
@@ -341,7 +341,7 @@ export function filterConnections<TEdgeConfig>(
     const fromEids = new Set(fromContracts.map((contract) => contract.eid))
     const toEids = new Set(toContracts.map((contract) => contract.eid))
 
-    const chainByEid = new Map(getAllChainsConfig().map((chain) => [chain.eid, chain]))
+    const chainByEid = getChainByEidMap()
 
     return connections.filter(
         (connection) =>
