@@ -370,7 +370,7 @@ function isPeerAllowed(chain: { allowed_peers?: string[] }, peerName: string): b
     return !allowedPeers || allowedPeers.length === 0 ? true : allowedPeers.includes(peerName)
 }
 
-function isAllowedPeerConnection<TEdgeConfig>(
+export function isAllowedPeerConnection<TEdgeConfig>(
     connection: OmniEdgeHardhat<TEdgeConfig>,
     chainByEid?: Map<EndpointId, Chain>
 ): boolean {
