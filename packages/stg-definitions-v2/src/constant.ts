@@ -355,7 +355,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.INJECTIVEEVM_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: 'TODO', // todo: deploy
+                address: '0xe9aBA835f813ca05E50A6C0ce65D0D74390F7dE7',
             },
             [EndpointId.IOTA_V2_MAINNET]: {
                 symbol: 'WETH',
