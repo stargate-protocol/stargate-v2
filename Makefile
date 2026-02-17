@@ -497,8 +497,8 @@ unwire-messaging-mainnet:
 
 unwire-messaging-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 unwire-messaging-testnet:
-	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging.unwire.config.ts --signer deployer
-	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/messaging.unwire.config.ts --signer deployer
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 
 
