@@ -11,6 +11,7 @@ import { Chain, loadChainConfig } from '../utils'
 
 let CURRENT_STAGE: Stage | undefined
 let SUPPORTED_CHAINS: Chain[] | undefined
+let CHAIN_BY_EID: Map<EndpointId, Chain> | undefined
 
 const chainsToChainsDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig'),
@@ -27,6 +28,7 @@ export function setStage(stage: Stage) {
     // Reset the supported chains cache when stage changes
     if (CURRENT_STAGE !== stage) {
         SUPPORTED_CHAINS = undefined
+        CHAIN_BY_EID = undefined
     }
 
     CURRENT_STAGE = stage
@@ -104,6 +106,16 @@ export function getAllChainsConfig(): Chain[] {
     // check that all chains have a deployment folder
     SUPPORTED_CHAINS = _filterChainsWithDeployments(SUPPORTED_CHAINS!)
     return SUPPORTED_CHAINS
+}
+
+/** Cached map of eid -> Chain, invalidated when stage or SUPPORTED_CHAINS changes. Reuse across filterConnections etc. */
+export function getChainByEidMap(): Map<EndpointId, Chain> {
+    if (CHAIN_BY_EID !== undefined) {
+        return CHAIN_BY_EID
+    }
+    const chains = getAllChainsConfig()
+    CHAIN_BY_EID = new Map(chains.map((chain) => [chain.eid, chain]))
+    return CHAIN_BY_EID
 }
 
 export function getAllSupportedChains(): string[] {
@@ -249,4 +261,5 @@ function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
 export function __resetUtilsConfigStateForTests(): void {
     CURRENT_STAGE = undefined
     SUPPORTED_CHAINS = undefined
+    CHAIN_BY_EID = undefined
 }
