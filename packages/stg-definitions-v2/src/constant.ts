@@ -3338,6 +3338,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.TEMPO_V2_MAINNET], DVNS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
+            sendCreditGasLimit: 1_000_000n + 10n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
@@ -3345,6 +3346,7 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
             nativeDropAmount: parseEther('0').toBigInt(),
             busDisabled: true, // bus mode is not supported for tempo since it is an alt chain
+            taxiGasLimit: 10n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
         },
         oneSigConfig: {
             oneSigAddress: '0x09c865fafb64d8cbcbf673d61a11e066063e3a1f',
