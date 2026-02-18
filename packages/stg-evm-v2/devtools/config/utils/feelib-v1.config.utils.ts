@@ -7,7 +7,13 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import { getFeeLibV1DeployName } from '../../../ops/util'
 import { getContractWithEid } from '../utils'
 
-import { filterValidProvidedChains, getChainsThatSupportToken, printChains, setStage } from './utils.config'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportToken,
+    getExcludeNodeConfigChains,
+    printChains,
+    setStage,
+} from './utils.config'
 
 export default async function buildFeeLibV1DeploymentGraph(
     stage: Stage,
@@ -27,7 +33,9 @@ export default async function buildFeeLibV1DeploymentGraph(
     }
 
     // get valid chains config in the chainsList
-    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportToken(tokenName))
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportToken(tokenName)).filter(
+        (c) => !getExcludeNodeConfigChains().includes(c.name)
+    )
 
     printChains(`feelib_v1.${tokenName} CHAINS_LIST:`, validChains)
 

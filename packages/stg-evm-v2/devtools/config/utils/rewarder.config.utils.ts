@@ -11,6 +11,7 @@ import { getLPTokenAddress } from './shared'
 import {
     filterValidProvidedChains,
     getChainsThatSupportRewarder,
+    getExcludeNodeConfigChains,
     getRewardTokenName,
     getTokenName,
     setStage,
@@ -29,7 +30,9 @@ export default async function buildRewarderGraph(
     const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     // get valid chains config in the chainsList
-    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder())
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder()).filter(
+        (c) => !getExcludeNodeConfigChains().includes(c.name)
+    )
 
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
 

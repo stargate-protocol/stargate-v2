@@ -7,7 +7,13 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../utils'
 import { filterConnections, generateAssetConfig } from '../utils'
 
-import { filterFromAndToChains, getChainsThatSupportToken, printChains, setStage } from './utils.config'
+import {
+    filterFromAndToChains,
+    getChainsThatSupportToken,
+    getExcludeNodeConfigChains,
+    printChains,
+    setStage,
+} from './utils.config'
 
 export default async function buildAssetDeploymentGraph(
     stage: Stage,
@@ -59,8 +65,13 @@ export default async function buildAssetDeploymentGraph(
         toContracts.map((c) => c.contract)
     )
 
+    const excludeNodeConfigChains = getExcludeNodeConfigChains()
+    const excludeEids = new Set(
+        [...validFromChains, ...validToChains].filter((c) => excludeNodeConfigChains.includes(c.name)).map((c) => c.eid)
+    )
+
     return {
-        contracts: Array.from(contractMap.values()),
+        contracts: Array.from(contractMap.values()).filter((c) => !excludeEids.has(c.contract.eid)),
         connections,
     }
 }

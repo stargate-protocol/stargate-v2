@@ -257,6 +257,10 @@ function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
     return chains.filter((chain) => deploymentDirs.includes(chain.name))
 }
 
+export function getExcludeNodeConfigChains(): string[] {
+    return process.env.EXCLUDE_NODE_CONFIG_CHAINS?.split(',').filter(Boolean) ?? []
+}
+
 // Test-only utility for clearing internal module state between test cases
 export function __resetUtilsConfigStateForTests(): void {
     CURRENT_STAGE = undefined

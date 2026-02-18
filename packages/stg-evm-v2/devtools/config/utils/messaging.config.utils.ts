@@ -19,6 +19,7 @@ import { getAssetsConfig } from './shared'
 import {
     filterFromAndToChains,
     getChainsThatSupportMessaging,
+    getExcludeNodeConfigChains,
     getSupportedTokensByEid,
     printChains,
     setStage,
@@ -83,8 +84,13 @@ export default async function buildMessagingGraph(
         })
     )
 
+    const excludeNodeConfigChains = getExcludeNodeConfigChains()
+    const excludeEids = new Set(
+        [...validFromChains, ...validToChains].filter((c) => excludeNodeConfigChains.includes(c.name)).map((c) => c.eid)
+    )
+
     return {
-        contracts,
+        contracts: contracts.filter((c) => !excludeEids.has(c.contract.eid)),
         connections: filteredConnections,
     }
 }
