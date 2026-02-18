@@ -1,5 +1,5 @@
 # Asset mesh unwire config (mainnet)
-# This file is used by asset.unwire.config.ts and messaging-asset-removal.config.ts
+# This file is used by asset.unwire.config.ts, token-messaging-asset.unwire.config.ts and credit-messaging-asset.unwire.config.ts
 # Replace <token> with a single asset symbol. Allowed values: eurc, usdc, usdt, eth.
 asset: <token>
 disconnect_chains: # chains that will be disconnected from the asset mesh
