@@ -482,7 +482,6 @@ mainnet-connections-summary:
 	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONFIG_BASE_PATH)connections.mainnet.json
 
 testnet-connections-summary:
-	mkdir -p $(CONNECTIONS_SUMMARY_DIR)
 	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONFIG_BASE_PATH)connections.testnet.json
 
 
