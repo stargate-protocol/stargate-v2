@@ -477,12 +477,12 @@ check-credit-messaging:
 
 # 
 # This target will generate connections summary JSON for mainnet/testnet
-# 
-mainnet-connections-summary:
-	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONFIG_BASE_PATH)connections.mainnet.json
+mainnet-connections-summary: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONFIG_BASE_PATH)/connections.mainnet.json
 
-testnet-connections-summary:
-	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONFIG_BASE_PATH)connections.testnet.json
+testnet-connections-summary: CONFIG_BASE_PATH=./devtools/config/testnet
+	mkdir -p $(CONNECTIONS_SUMMARY_DIR)
+	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONFIG_BASE_PATH)/connections.testnet.json
 
 
 # ==============UNWIRE TARGETS==============
