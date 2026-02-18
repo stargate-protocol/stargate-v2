@@ -7,7 +7,7 @@ import { setMainnetStage } from '../../mainnet/utils'
 import { loadAssetUnwireConfig, resolveAssetUnwireChains } from '../../utils/unwire.config.utils'
 
 const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
-    setMainnetStage
+    setMainnetStage()
 
     const assetUnwireConfig = loadAssetUnwireConfig()
     if (!assetUnwireConfig) {
