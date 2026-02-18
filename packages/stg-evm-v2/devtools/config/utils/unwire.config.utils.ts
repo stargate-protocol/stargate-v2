@@ -327,6 +327,7 @@ const disableMessagingEdge = (
                 ulnConfig: {
                     ...edge.config.sendConfig?.ulnConfig,
                     requiredDVNs: [fromDeadDvn],
+                    optionalDVNs: [],
                     optionalDVNThreshold: 0,
                 },
             },
@@ -335,6 +336,7 @@ const disableMessagingEdge = (
                 ulnConfig: {
                     ...edge.config.receiveConfig?.ulnConfig,
                     requiredDVNs: [toDeadDvn],
+                    optionalDVNs: [],
                     optionalDVNThreshold: 0,
                 },
             },
