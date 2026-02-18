@@ -90,6 +90,7 @@ import {
     inheritTask,
     types,
 } from '@layerzerolabs/devtools-evm-hardhat'
+import { Stage } from '@layerzerolabs/lz-definitions'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 import { type IOApp, type OAppOmniGraph, configureOAppDelegates } from '@layerzerolabs/ua-devtools'
 import { createOAppFactory } from '@layerzerolabs/ua-devtools-evm'
@@ -101,7 +102,7 @@ import {
     TASK_LZ_OAPP_WIRE,
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
 
-import { getAllChainsConfig } from '../config/utils/utils.config'
+import { getAllChainsConfig, setStage } from '../config/utils/utils.config'
 import { createOneSigSignerFactory } from '../onesig'
 
 import {
@@ -925,6 +926,7 @@ task(TASK_STG_GRAPH_CONNECTIONS, 'Generate connections summary')
                 ? await (await import('../config/mainnet/01/token-messaging.config')).default()
                 : await (await import('../config/testnet/token-messaging.config')).default()
 
+        setStage(args.stage === 'mainnet' ? Stage.MAINNET : Stage.TESTNET)
         const chainNameByEid = new Map(getAllChainsConfig().map((chain) => [chain.eid, chain.name]))
         const toShortName = (name: string) => name.replace(/-(mainnet|testnet)$/i, '')
         const getName = (eid: number) => chainNameByEid.get(eid) ?? formatEid(eid)
