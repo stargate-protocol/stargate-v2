@@ -499,8 +499,9 @@ unwire-messaging-testnet:
 	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
 	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
-
-
+#
+# This target will unwire the asset mesh
+#
 unwire-asset-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 unwire-asset-mainnet:
 	# Unwire asset paths (OFT reset)
