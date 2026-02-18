@@ -19,6 +19,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 import { getDeployedContractAddress } from '@layerzerolabs/lz-evm-sdk-v2'
+import { createLogger } from '@layerzerolabs/lz-utilities'
 
 import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
@@ -51,6 +52,15 @@ type ResolvedMessagingUnwireConfig = {
     configPath: string
 }
 
+function logMessagingUnwireChains(rules: Array<{ chain: string; allowedPeers: string[] }>): void {
+    const supportedChains = getChainsThatSupportMessaging()
+    const keepNames = new Set(rules.flatMap((r) => r.allowedPeers))
+    const chainsToKeep = supportedChains.filter((c) => keepNames.has(c.name))
+    const chainsToUnwire = supportedChains.filter((c) => !keepNames.has(c.name))
+    printChains('Messaging unwire CHAINS (to keep):', chainsToKeep)
+    printChains('Messaging unwire CHAINS (to unwire):', chainsToUnwire)
+}
+
 const DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH = path.join('messaging.unwire.yml')
 const DEFAULT_ASSET_CONFIG_RELATIVE_PATH = path.join('asset.unwire.yml')
 
@@ -75,9 +85,11 @@ export type ResolvedAssetUnwireConfig = {
 
 // Load the messaging unwire rules for the current stage (requires stage to be set).
 export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | undefined {
+    const logger = createLogger(process.env.LOG_LEVEL || 'info')
     const stage = requireStage()
     const configPath = path.join(chainsToUnwireConfigDir[stage], DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH)
     if (!fs.existsSync(configPath)) {
+        logger.warn(`No messaging unwire config file at ${configPath}, chains list empty`)
         return undefined
     }
 
@@ -89,6 +101,7 @@ export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | und
     }
 
     if (!rawConfig.rules.length) {
+        logger.warn(`Messaging unwire config has no rules at ${configPath}, chains list empty`)
         return undefined
     }
 
@@ -100,14 +113,19 @@ export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | und
         return { chain: rule.chain, allowedPeers }
     })
 
+    // print the chains to unwire and keep
+    logMessagingUnwireChains(rules)
+
     return { rules, configPath }
 }
 
 // Load asset unwire config (disconnect/remaining chains) for the current stage (requires stage to be set).
 export function loadAssetUnwireConfig(): ResolvedAssetUnwireConfig | undefined {
+    const logger = createLogger(process.env.LOG_LEVEL || 'info')
     const stage = requireStage()
     const configPath = path.join(chainsToUnwireConfigDir[stage], DEFAULT_ASSET_CONFIG_RELATIVE_PATH)
     if (!fs.existsSync(configPath)) {
+        logger.warn(`No asset unwire config file at ${configPath}, chains list empty`)
         return undefined
     }
 
@@ -156,8 +174,8 @@ export function resolveAssetUnwireChains(tokenName: TokenName, disconnectChains:
     const supportedChains = getChainsThatSupportToken(tokenName)
     const { validFromChains, validToChains } = filterFromAndToChains(disconnectChains, remainingChains, supportedChains)
 
-    printChains(`unwire DISCONNECT_CHAINS:`, validFromChains)
-    printChains(`unwire REMAINING_CHAINS:`, validToChains)
+    printChains(`Asset unwire DISCONNECT_CHAINS:`, validFromChains)
+    printChains(`Asset unwire REMAINING_CHAINS:`, validToChains)
 
     return { validFromChains, validToChains }
 }
