@@ -163,11 +163,11 @@ export function resolveAssetUnwireChains(tokenName: TokenName, disconnectChains:
 }
 
 // Build an omni graph for asset messaging unwire (zero-asset config). Sets stage then loads config from current stage.
-export function buildAssetMessagingUnwireGraph(
+export async function buildAssetMessagingUnwireGraph(
     stage: Stage,
     contractName: 'TokenMessaging' | 'CreditMessaging',
     defaultPlanner: string
-): OmniGraphHardhat<MessagingNode, MessagingEdge> {
+): Promise<OmniGraphHardhat<MessagingNode, MessagingEdge>> {
     setStage(stage)
 
     const assetUnwireConfig = loadAssetUnwireConfig()

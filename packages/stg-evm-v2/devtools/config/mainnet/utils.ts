@@ -44,9 +44,7 @@ export function buildMessagingGraphMainnet(
 type MessagingNode = TokenMessagingNodeConfig | CreditMessagingNodeConfig
 type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
 
-export function buildAssetMessagingUnwireGraphMainnet(
-    contractName: 'TokenMessaging' | 'CreditMessaging'
-): OmniGraphHardhat<MessagingNode, MessagingEdge> {
+export function buildAssetMessagingUnwireGraphMainnet(contractName: 'TokenMessaging' | 'CreditMessaging') {
     return buildAssetMessagingUnwireGraph(Stage.MAINNET, contractName, DEFAULT_PLANNER)
 }
 
