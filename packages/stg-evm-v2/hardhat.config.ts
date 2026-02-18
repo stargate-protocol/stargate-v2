@@ -444,7 +444,7 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_INJECTIVEEVM_MAINNET || 'https://injectiveevm-rpc.polkachu.com',
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.INJECTIVEEVM_V2_MAINNET),
-        useFeeData: true,
+        gasPrice: 160000000,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ink-mainnet': {
