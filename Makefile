@@ -1,7 +1,7 @@
 # None of the targets actually build any binaries so we make them all as phony
 .PHONY: build deploy configure deploy-sandbox start-sandbox \
 	mainnet-connections-summary testnet-connections-summary \
-	unwire-messaging-mainnet unwire-messaging-testnet
+	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet
 
 # To make the code bit more DRY we'll isolate the commonly used stuff into variables
 PACKAGE=@stargatefinance/stg-evm-v2
