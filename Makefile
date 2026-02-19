@@ -31,8 +31,6 @@ CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
 
 VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
 
-CONNECTIONS_SUMMARY_DIR=devtools/config/
-
 SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
 ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
 ARTIFACTS_ZK_DIR=packages/stg-evm-v2/artifacts-zk/
