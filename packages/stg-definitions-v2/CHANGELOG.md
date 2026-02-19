@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 6.1.2
+
+### Patch Changes
+
+- ba99d64: InjectiveEVM mainnet deployment
+- 238f281: Added InjectiveEVM network mainnet config
+
 ## 6.1.1
 
 ### Patch Changes

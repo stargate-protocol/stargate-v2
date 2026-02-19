@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 1.2.2
+
+### Patch Changes
+
+- ba99d64: InjectiveEVM mainnet deployment
+
 ## 1.2.1
 
 ### Patch Changes
