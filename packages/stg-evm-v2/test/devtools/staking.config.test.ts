@@ -5,7 +5,11 @@ import hre from 'hardhat'
 
 import stakingConfig from '../../devtools/config/mainnet/01/staking.config'
 import { getOneSigAddress } from '../../devtools/config/utils'
-import { getAllSupportedChains, getChainsThatSupportStaking } from '../../devtools/config/utils/utils.config'
+import {
+    getAllSupportedChains,
+    getChainsThatSupportStaking,
+    getNewChainEid,
+} from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 
@@ -106,5 +110,19 @@ describe('staking.config', () => {
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
+    })
+
+    it('should only include the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportStaking()
+        if (supportedChains.length < 1) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await stakingConfig()
+        const newChainEid = getNewChainEid()
+
+        expect(config.contracts.length).to.equal(1)
+        expect(config.contracts[0].contract.eid).to.equal(newChainEid)
     })
 })

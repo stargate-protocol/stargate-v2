@@ -22,6 +22,8 @@ import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
 
+import { getNewChainEid } from './utils/utils.config'
+
 /**
  * Generates a mesh of connections based on points without any loopbacks
  *
@@ -332,9 +334,16 @@ export function getContractsInChain(
 }
 
 export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
+    const newChainEid = getNewChainEid()
+
+    if (newChainEid !== undefined) {
+        return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
+            return connection.from.eid === newChainEid || connection.to.eid === newChainEid
+        })
+    }
+
     const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
     const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
-
     return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
         return fromEids.has(connection.from.eid) && toEids.has(connection.to.eid)
     })

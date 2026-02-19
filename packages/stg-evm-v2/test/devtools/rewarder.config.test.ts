@@ -5,7 +5,11 @@ import hre from 'hardhat'
 
 import rewarderConfig from '../../devtools/config/mainnet/01/rewarder.config'
 import { getOneSigAddress } from '../../devtools/config/utils'
-import { getAllSupportedChains, getChainsThatSupportRewarder } from '../../devtools/config/utils/utils.config'
+import {
+    getAllSupportedChains,
+    getChainsThatSupportRewarder,
+    getNewChainEid,
+} from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 
@@ -126,5 +130,19 @@ describe('rewarder.config', () => {
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
+    })
+
+    it('should only include the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportRewarder()
+        if (supportedChains.length < 1) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await rewarderConfig()
+        const newChainEid = getNewChainEid()
+
+        expect(config.contracts.length).to.equal(1)
+        expect(config.contracts[0].contract.eid).to.equal(newChainEid)
     })
 })

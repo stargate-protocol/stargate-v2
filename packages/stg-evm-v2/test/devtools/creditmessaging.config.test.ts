@@ -9,6 +9,7 @@ import { filterConnections, generateCreditMessagingConfig, getOneSigAddress } fr
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
+    getNewChainEid,
     getSupportedTokensByEid,
 } from '../../devtools/config/utils/utils.config'
 
@@ -185,6 +186,32 @@ describe('creditMessaging.config', () => {
         // check the config has no contracts for the unsupported chains
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
+        }
+    })
+
+    it('should generate connections for only the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportMessaging()
+        if (supportedChains.length < 2) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await creditMessagingConfig()
+        const newChainEid = getNewChainEid()
+
+        // Should have exactly 1 contract (node config only for the new chain)
+        expect(config.contracts.length).to.equal(1)
+        expect(config.contracts[0].contract.eid).to.equal(newChainEid)
+
+        // All connections should involve the new chain
+        const N = supportedChains.length
+        expect(config.connections.length).to.equal(2 * (N - 1))
+
+        for (const connection of config.connections) {
+            expect(
+                connection.from.eid === newChainEid || connection.to.eid === newChainEid,
+                'connection involves new chain'
+            ).to.be.true
         }
     })
 })
