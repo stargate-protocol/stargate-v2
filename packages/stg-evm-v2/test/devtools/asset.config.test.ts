@@ -15,7 +15,11 @@ import assetUsdcConfig from '../../devtools/config/mainnet/01/asset.usdc.config'
 import assetUsdtConfig from '../../devtools/config/mainnet/01/asset.usdt.config'
 import { DEFAULT_PLANNER } from '../../devtools/config/mainnet/01/constants'
 import { filterConnections, generateAssetConfig } from '../../devtools/config/utils'
-import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/utils/utils.config'
+import {
+    getAllSupportedChains,
+    getChainsThatSupportToken,
+    getNewChainEid,
+} from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 
@@ -214,5 +218,46 @@ function testAssetConfig(
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
+    })
+
+    it('should generate connections for only the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportToken(tokenName)
+        if (supportedChains.length < 2) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await assetConfig()
+        const newChainEid = getNewChainEid()
+
+        // Should have exactly 1 contract (node config only for the new chain)
+        expect(config.contracts.length, 'contracts length').to.equal(1)
+        expect(config.contracts[0].contract.eid, 'contract eid').to.equal(newChainEid)
+
+        // All connections should involve the new chain
+        const N = supportedChains.length
+        expect(config.connections.length, 'connections length').to.equal(2 * (N - 1))
+
+        for (const connection of config.connections) {
+            expect(
+                connection.from.eid === newChainEid || connection.to.eid === newChainEid,
+                'connection involves new chain'
+            ).to.be.true
+        }
+    })
+
+    it('should return empty graph when NEW_CHAIN does not support the token', async () => {
+        const allValidChains = getAllSupportedChains()
+        const supportedChains = getChainsThatSupportToken(tokenName)
+        const supportedChainNames = supportedChains.map((chain) => chain.name)
+        const unsupportedChains = allValidChains.filter((chainName) => !supportedChainNames.includes(chainName))
+
+        if (unsupportedChains.length === 0) return
+
+        process.env.NEW_CHAIN = unsupportedChains[0]
+
+        const config = await assetConfig()
+        expect(config.contracts.length, 'contracts length').to.equal(0)
+        expect(config.connections.length, 'connections length').to.equal(0)
     })
 }

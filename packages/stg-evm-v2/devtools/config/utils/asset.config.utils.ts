@@ -7,13 +7,7 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../utils'
 import { filterConnections, generateAssetConfig } from '../utils'
 
-import {
-    filterFromAndToChains,
-    getChainsThatSupportToken,
-    getExcludeNodeConfigChains,
-    printChains,
-    setStage,
-} from './utils.config'
+import { filterFromAndToChains, getChainsThatSupportToken, getNewChain, printChains, setStage } from './utils.config'
 
 export default async function buildAssetDeploymentGraph(
     stage: Stage,
@@ -25,14 +19,35 @@ export default async function buildAssetDeploymentGraph(
 
     const getAssetPoint = createGetAssetOmniPoint(tokenName)
     const getAddressConfig = getDefaultAddressConfig(tokenName, { planner: defaultPlanner })
-
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
-
     const getAssetNode = createGetAssetNode(tokenName, undefined, undefined, getAddressConfig)
 
     // Check if provided chains are valid
     const supportedChains = getChainsThatSupportToken(tokenName)
+
+    // NEW_CHAIN mode: generate all connections to/from the new chain, node config only for the new chain
+    const newChainName = getNewChain()
+    if (newChainName) {
+        const newChain = supportedChains.find((c) => c.name === newChainName)
+        if (!newChain) {
+            // Chain doesn't support this token — return empty graph
+            return { contracts: [], connections: [] }
+        }
+
+        const allPoints = supportedChains.map((chain) => getAssetPoint(chain.eid))
+        const allConnections = generateAssetConfig(tokenName, allPoints)
+        const connections = filterConnections(allConnections, [], [])
+
+        const newChainPoint = getAssetPoint(newChain.eid)
+        const newChainContract = await getAssetNode(newChainPoint)
+
+        return {
+            contracts: [newChainContract],
+            connections,
+        }
+    }
+
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     // Get valid chains config for the chains in the fromChains and toChains
     const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
@@ -65,13 +80,8 @@ export default async function buildAssetDeploymentGraph(
         toContracts.map((c) => c.contract)
     )
 
-    const excludeNodeConfigChains = getExcludeNodeConfigChains()
-    const excludeEids = new Set(
-        [...validFromChains, ...validToChains].filter((c) => excludeNodeConfigChains.includes(c.name)).map((c) => c.eid)
-    )
-
     return {
-        contracts: Array.from(contractMap.values()).filter((c) => !excludeEids.has(c.contract.eid)),
+        contracts: Array.from(contractMap.values()),
         connections,
     }
 }

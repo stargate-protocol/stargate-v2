@@ -11,7 +11,7 @@ import { getLPTokenAddress } from './shared'
 import {
     filterValidProvidedChains,
     getChainsThatSupportRewarder,
-    getExcludeNodeConfigChains,
+    getNewChain,
     getRewardTokenName,
     getTokenName,
     setStage,
@@ -27,12 +27,11 @@ export default async function buildRewarderGraph(
     // First let's create the HardhatRuntimeEnvironment objects for all networks
     const getEnvironment = createGetHreByEid()
 
-    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+    const newChain = getNewChain()
+    const chainsList = newChain ? [newChain] : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     // get valid chains config in the chainsList
-    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder()).filter(
-        (c) => !getExcludeNodeConfigChains().includes(c.name)
-    )
+    const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportRewarder())
 
     const getRewardTokenAddresses = createGetRewardTokenAddresses(getEnvironment)
 

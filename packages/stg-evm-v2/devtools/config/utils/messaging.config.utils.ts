@@ -19,7 +19,7 @@ import { getAssetsConfig } from './shared'
 import {
     filterFromAndToChains,
     getChainsThatSupportMessaging,
-    getExcludeNodeConfigChains,
+    getNewChain,
     getSupportedTokensByEid,
     printChains,
     setStage,
@@ -42,11 +42,48 @@ export default async function buildMessagingGraph(
     // Set the correct stage
     setStage(stage)
 
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
-
     // check if all chains are valid
     const supportedChains = getChainsThatSupportMessaging()
+
+    // NEW_CHAIN mode: generate all connections to/from the new chain, node config only for the new chain
+    const newChainName = getNewChain()
+    if (newChainName) {
+        const newChain = supportedChains.find((c) => c.name === newChainName)
+        if (!newChain) {
+            // Chain doesn't support messaging — return empty graph
+            return { contracts: [], connections: [] }
+        }
+
+        const allContracts = supportedChains.map((chain) => getContractWithEid(chain.eid, contract))
+        const allConnections = generateMessagingConfig(allContracts)
+        const filteredConnections = filterConnections(allConnections, [], [])
+
+        const getEnvironment = createGetHreByEid()
+        const newChainContract = getContractWithEid(newChain.eid, contract)
+        const stargateOnesig = getOneSigAddressMaybe(newChainContract.eid)
+
+        const newChainNode = {
+            contract: newChainContract,
+            config: {
+                ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
+                ...(stargateOnesig !== undefined ? { delegate: stargateOnesig } : {}),
+                planner: defaultPlanner,
+                assets: await getAssetsConfig(
+                    getEnvironment,
+                    newChainContract.eid,
+                    getSupportedTokensByEid(newChainContract.eid)
+                ),
+            },
+        }
+
+        return {
+            contracts: [newChainNode],
+            connections: filteredConnections,
+        }
+    }
+
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     // Get valid chains config for the chains in the fromChains and toChains
     const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
@@ -84,13 +121,8 @@ export default async function buildMessagingGraph(
         })
     )
 
-    const excludeNodeConfigChains = getExcludeNodeConfigChains()
-    const excludeEids = new Set(
-        [...validFromChains, ...validToChains].filter((c) => excludeNodeConfigChains.includes(c.name)).map((c) => c.eid)
-    )
-
     return {
-        contracts: contracts.filter((c) => !excludeEids.has(c.contract.eid)),
+        contracts,
         connections: filteredConnections,
     }
 }

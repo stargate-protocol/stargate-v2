@@ -257,8 +257,22 @@ function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
     return chains.filter((chain) => deploymentDirs.includes(chain.name))
 }
 
-export function getExcludeNodeConfigChains(): string[] {
-    return process.env.EXCLUDE_NODE_CONFIG_CHAINS?.split(',').filter(Boolean) ?? []
+export function getNewChain(): string | undefined {
+    const newChain = process.env.NEW_CHAIN?.trim()
+    return newChain || undefined
+}
+
+export function getChainByName(chainName: string): Chain {
+    const allChains = getAllChainsConfig()
+    const chain = allChains.find((c) => c.name === chainName)
+    if (!chain) throw new Error(`Chain '${chainName}' not found in supported chains`)
+    return chain
+}
+
+export function getNewChainEid(): EndpointId | undefined {
+    const newChainName = getNewChain()
+    if (!newChainName) return undefined
+    return getChainByName(newChainName).eid
 }
 
 // Test-only utility for clearing internal module state between test cases
