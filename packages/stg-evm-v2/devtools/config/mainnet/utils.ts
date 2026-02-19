@@ -1,7 +1,12 @@
 import { TokenName } from '@stargatefinance/stg-definitions-v2'
-import { CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
+import {
+    CreditMessagingEdgeConfig,
+    CreditMessagingNodeConfig,
+    TokenMessagingEdgeConfig,
+    TokenMessagingNodeConfig,
+} from '@stargatefinance/stg-devtools-v2'
 
-import { OmniEdgeHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
+import { OmniEdgeHardhat, OmniGraphHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 
 import buildAssetDeploymentGraph from '../utils/asset.config.utils'
@@ -12,6 +17,7 @@ import buildRewarderGraph from '../utils/rewarder.config.utils'
 import buildStakingGraph from '../utils/staking.config.utils'
 import buildTIP20TokenGraph from '../utils/tip20-token.config.utils'
 import buildTreasurerGraph from '../utils/treasurer.config.utils'
+import { buildAssetMessagingUnwireGraph, buildMessagingUnwireGraph } from '../utils/unwire.config.utils'
 import buildUsdtTokenGraph from '../utils/usdt-token.config.utils'
 import { setStage } from '../utils/utils.config'
 
@@ -33,6 +39,22 @@ export function buildMessagingGraphMainnet(
     ) => OmniEdgeHardhat<TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>[]
 ) {
     return buildMessagingGraph(Stage.MAINNET, contract, messagingType, DEFAULT_PLANNER, generateMessagingConfig)
+}
+
+type MessagingNode = TokenMessagingNodeConfig | CreditMessagingNodeConfig
+type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
+
+export function buildAssetMessagingUnwireGraphMainnet(contractName: 'TokenMessaging' | 'CreditMessaging') {
+    return buildAssetMessagingUnwireGraph(Stage.MAINNET, contractName, DEFAULT_PLANNER)
+}
+
+export async function buildMessagingUnwireGraphMainnet(
+    contract: { contractName: 'TokenMessaging' | 'CreditMessaging' },
+    generateMessagingConfig: (points: OmniPointHardhat[]) => OmniEdgeHardhat<MessagingEdge>[]
+): Promise<OmniGraphHardhat<MessagingNode, MessagingEdge>> {
+    return buildMessagingUnwireGraph(Stage.MAINNET, contract, DEFAULT_PLANNER, generateMessagingConfig) as Promise<
+        OmniGraphHardhat<MessagingNode, MessagingEdge>
+    >
 }
 
 export function buildFeeLibV1DeploymentGraphMainnet(tokenName: TokenName) {
