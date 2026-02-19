@@ -308,6 +308,27 @@ describe('devtools/utils', () => {
             expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
         })
 
+        it('should allow connection when from chain defines allowed_peers and to chain has none (backward compat)', () => {
+            const chainWithPeersA = { ...chainA, allowed_peers: ['chain-b'] }
+            const chainWithoutPeersB = { ...chainB }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithPeersA],
+                [eidB, chainWithoutPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when to chain defines allowed_peers and from chain has none (backward compat)', () => {
+            const chainWithoutPeersA = { ...chainA }
+            const chainWithPeersB = { ...chainB, allowed_peers: ['chain-a'] }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithoutPeersA],
+                [eidB, chainWithPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
         it('should reject connection when from chain does not allow to chain', () => {
             const chainWithPeersA = { ...chainA, allowed_peers: ['chain-c'] } // A allows only C, not B
             const chainWithPeersB = { ...chainB, allowed_peers: ['chain-a'] }
