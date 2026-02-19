@@ -145,9 +145,10 @@ This repo supports two YAML-driven unwire flows:
 
 ### YAML schemas and templates
 Templates live in:
-- `devtools/config/mainnet/01/chainsConfig/unwire/template-unwire.asset.yml`
-- `devtools/config/mainnet/01/chainsConfig/unwire/template-unwire.messaging.yml`
+- `devtools/config/mainnet/01/chainsConfig/unwire/0-template-asset.unwire.yml`
+- `devtools/config/mainnet/01/chainsConfig/unwire/0-template-messaging.unwire.yml`
 
+Copy these templates to `asset.unwire.yml` and `messaging.unwire.yml` (in the same directory) for use by the unwire flows.
 Asset unwire YAML example (mainnet):
 ```
 asset: eurc
