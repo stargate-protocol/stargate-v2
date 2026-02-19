@@ -65,7 +65,6 @@ export enum RewardTokenName {
     ETH = 'ETH',
     S = 'S',
     MANTA = 'MANTA',
-    USDC = 'USDC',
     EURC = 'EURC',
 }
 
