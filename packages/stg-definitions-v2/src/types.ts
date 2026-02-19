@@ -125,6 +125,7 @@ export interface TokenMessagingNetworkConfig {
     busRideGasLimit: bigint
     nativeDropGasLimit: bigint
     maxPassengerCount: number
+    busDisabled?: boolean // if true, bus mode is disabled
     requiredDVNs?: string[] // default required DVNs used for all paths
     perPathRequiredDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific required DVNs
     optionalDVNs?: string[] // default optional DVNs used for all paths

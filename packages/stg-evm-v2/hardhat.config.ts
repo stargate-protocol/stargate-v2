@@ -129,8 +129,6 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.ARBSEP_V2_TESTNET,
         url: process.env.RPC_URL_ARBITRUM_TESTNET || 'https://sepolia-rollup.arbitrum.io/rpc',
         accounts: testnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ARBSEP_V2_TESTNET),
-        oneSigConfig: getOneSigConfig(EndpointId.ARBSEP_V2_TESTNET),
         useFeeData: true,
     },
     'avalanche-testnet': {
@@ -158,13 +156,18 @@ const networks: NetworksUserConfig = {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
         accounts: testnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.OPTSEP_V2_TESTNET),
-        oneSigConfig: getOneSigConfig(EndpointId.OPTSEP_V2_TESTNET),
     },
     'sepolia-testnet': {
         eid: EndpointId.SEPOLIA_V2_TESTNET,
         url: process.env.RPC_URL_ETHEREUM_TESTNET || 'https://sepolia.gateway.tenderly.co',
         accounts: testnetAccounts,
+    },
+    'moderato-testnet': {
+        eid: EndpointId.MODERATO_V2_TESTNET,
+        url: process.env.RPC_URL_MODERATO_TESTNET || 'https://rpc.moderato.tempo.xyz/',
+        accounts: testnetAccounts,
+        isTIP20: true,
+        alt: true,
     },
     'monad-testnet': {
         eid: EndpointId.MONAD_V2_TESTNET,
@@ -427,6 +430,21 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.HEMI_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'horizen-mainnet': {
+        eid: EndpointId.HORIZEN_V2_MAINNET,
+        url: process.env.RPC_URL_HORIZEN_MAINNET || 'https://horizen.calderachain.xyz/http',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.HORIZEN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'injectiveevm-mainnet': {
+        eid: EndpointId.INJECTIVEEVM_V2_MAINNET,
+        url: process.env.RPC_URL_INJECTIVEEVM_MAINNET || 'https://injectiveevm-rpc.polkachu.com',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.INJECTIVEEVM_V2_MAINNET),
+        gasPrice: 160000000,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ink-mainnet': {
@@ -717,6 +735,15 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.TELOS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'tempo-mainnet': {
+        eid: EndpointId.TEMPO_V2_MAINNET,
+        url: process.env.RPC_URL_TEMPO_MAINNET || 'https://rpc.tempo.xyz', // todo there is no valid public rpc url
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.TEMPO_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        isTIP20: true,
+        alt: true,
+    },
     'unichain-mainnet': {
         eid: EndpointId.UNICHAIN_V2_MAINNET,
         url: process.env.RPC_URL_UNICHAIN_MAINNET || 'https://mainnet.unichain.org',
@@ -850,6 +877,14 @@ const hardhatConfig: Partial<HardhatUserConfig> = {
 const getRpcUrl = (chainName: string): string | null => {
     const [chainRawName, chainType] = chainName.split('-', 2)
     if (!chainType || !chainRawName) return null
+
+    // Use the env-defined RPC URL override, if present
+    const chainEnvSuffix = chainRawName.toUpperCase()
+    const typeEnvSuffix = chainType.toUpperCase()
+    const specificEnvKey = `RPC_URL_${chainEnvSuffix}_${typeEnvSuffix}`
+    const specificUrl = process.env[specificEnvKey]
+
+    if (specificUrl) return specificUrl
 
     let templateUrl
 

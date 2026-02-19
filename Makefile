@@ -1,5 +1,7 @@
 # None of the targets actually build any binaries so we make them all as phony
-.PHONY: build deploy configure deploy-sandbox start-sandbox
+.PHONY: build deploy configure deploy-sandbox start-sandbox \
+	mainnet-connections-summary testnet-connections-summary \
+	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet
 
 # To make the code bit more DRY we'll isolate the commonly used stuff into variables
 PACKAGE=@stargatefinance/stg-evm-v2
@@ -8,11 +10,13 @@ HARDHAT=$(WORKSPACE) run hardhat
 
 # We define the configuration commands to keep things DRY
 TRANSFER_OWNERSHIP=$(HARDHAT) stg:ownable:transfer-ownership
+TRANSFER_TIP20_OWNERSHIP=$(HARDHAT) stg:wire::tip20-token:transfer-ownership
 CONFIGURE_ASSET=$(HARDHAT) stg:wire::asset
 CONFIGURE_OFT=$(HARDHAT) stg:wire::oft
 CONFIGURE_CIRCLE_TOKEN=$(HARDHAT) stg:wire::circle-token
 CONFIGURE_CIRCLE_TOKEN_SET_ADMIN=$(HARDHAT) stg:wire::circle-token:set-admin
 CONFIGURE_CIRCLE_TOKEN_INITIALIZE_MINTERS=$(HARDHAT) stg:wire::circle-token:initialize-minters
+CONFIGURE_TIP20_TOKEN=$(HARDHAT) stg:wire::tip20-token
 CONFIGURE_CREDIT_MESSAGING=$(HARDHAT) stg:wire::credit-messaging
 CONFIGURE_TOKEN_MESSAGING=$(HARDHAT) stg:wire::token-messaging
 CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE=$(HARDHAT) stg:wire::token-messaging:initialize-storage
@@ -195,6 +199,10 @@ configure-testnet:
 
 	# Configure everything for EURC
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+		
+	# Configure TIP-20 tokens (USDC/EURC on TIP-20-enabled chains)
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 	# Transfer USDC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer
@@ -237,6 +245,10 @@ configure-testnet:
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eurc.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.usdt.config.ts --signer deployer
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/feelib-v1.eth.config.ts --signer deployer
+
+	# Transfer TIP-20 tokens ownership (set the new admin and current one renounce)
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 	# Configure treasurer
 	$(CONFIGURE_TREASURER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts --signer deployer
@@ -284,6 +296,10 @@ preconfigure-mainnet:
 	# Configure everything else for USDC and EURC
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-token.config.ts --signer deployer --token-name usdc
 	$(CONFIGURE_CIRCLE_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer --token-name eurc
+
+	# Configure TIP-20 tokens (USDC/EURC on TIP-20-enabled chains)
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(CONFIGURE_TIP20_TOKEN) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 # 
 # This target will configure the mainnet contracts
@@ -333,6 +349,10 @@ configure-mainnet:
 	# Configure OFT Wrapper
 	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
+# 
+# This target will transfer the ownership of the mainnet contracts
+# 
+
 transfer-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 transfer-mainnet:
 	# The OFTs
@@ -343,6 +363,10 @@ transfer-mainnet:
 
 	# Transfer EURC ownership
 	$(TRANSFER_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-token.config.ts --signer deployer
+
+	# Transfer TIP-20 tokens ownership (set the new admin and current one renounce)
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/usdc-tip20-token.config.ts --signer deployer
+	$(TRANSFER_TIP20_OWNERSHIP) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/eurc-tip20-token.config.ts --signer deployer
 
 	# Copy TetherTokenV2.sol directory to the artifacts directory
 	cp -r $(SOURCE_TETHER_DIR) $(ARTIFACTS_DIR)
@@ -396,7 +420,10 @@ transfer-mainnet:
 mainnet: deploy-mainnet preconfigure-mainnet transfer-mainnet configure-mainnet
 
 
-# Check configuration targets
+# 
+# This target will check if the mainnet/testnet configuration onchain is the same as defined in the config files
+# 
+
 network ?= mainnet
 ifeq ($(network),mainnet)
     CONFIG_BASE_PATH=./devtools/config/mainnet/01
@@ -445,3 +472,40 @@ check-token-messaging:
 
 check-credit-messaging:
 	$(HARDHAT) stg:check::credit-messaging --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.config.ts
+
+# 
+# This target will generate connections summary JSON for mainnet/testnet
+# 
+mainnet-connections-summary: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+mainnet-connections-summary:
+	$(HARDHAT) stg:graph::connections --stage mainnet --output $(CONFIG_BASE_PATH)/connections.mainnet.json
+
+testnet-connections-summary: CONFIG_BASE_PATH=./devtools/config/testnet
+testnet-connections-summary:
+	$(HARDHAT) stg:graph::connections --stage testnet --output $(CONFIG_BASE_PATH)/connections.testnet.json
+
+
+# ==============UNWIRE TARGETS==============
+#
+# This target will unwire token and credit messaging paths for mainnet/testnet
+#
+unwire-messaging-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+unwire-messaging-mainnet:
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+
+unwire-messaging-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
+unwire-messaging-testnet:
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+
+#
+# This target will unwire the asset mesh
+#
+unwire-asset-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+unwire-asset-mainnet:
+	# Unwire asset paths (OFT reset)
+	$(CONFIGURE_ASSET) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/asset.unwire.config.ts --signer deployer
+	# Remove assetId on TokenMessaging/CreditMessaging for the unwired chains
+	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging-asset.unwire.config.ts --signer deployer
+	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging-asset.unwire.config.ts --signer deployer

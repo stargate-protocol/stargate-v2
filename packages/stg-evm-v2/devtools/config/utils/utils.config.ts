@@ -11,6 +11,7 @@ import { Chain, loadChainConfig } from '../utils'
 
 let CURRENT_STAGE: Stage | undefined
 let SUPPORTED_CHAINS: Chain[] | undefined
+let CHAIN_BY_EID: Map<EndpointId, Chain> | undefined
 
 const chainsToChainsDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig'),
@@ -27,6 +28,7 @@ export function setStage(stage: Stage) {
     // Reset the supported chains cache when stage changes
     if (CURRENT_STAGE !== stage) {
         SUPPORTED_CHAINS = undefined
+        CHAIN_BY_EID = undefined
     }
 
     CURRENT_STAGE = stage
@@ -106,6 +108,16 @@ export function getAllChainsConfig(): Chain[] {
     return SUPPORTED_CHAINS
 }
 
+/** Cached map of eid -> Chain, invalidated when stage or SUPPORTED_CHAINS changes. Reuse across filterConnections etc. */
+export function getChainByEidMap(): Map<EndpointId, Chain> {
+    if (CHAIN_BY_EID !== undefined) {
+        return CHAIN_BY_EID
+    }
+    const chains = getAllChainsConfig()
+    CHAIN_BY_EID = new Map(chains.map((chain) => [chain.eid, chain]))
+    return CHAIN_BY_EID
+}
+
 export function getAllSupportedChains(): string[] {
     const chainsConfig = getAllChainsConfig()
 
@@ -118,10 +130,23 @@ export function getChainsThatSupportToken(tokenName: string): Chain[] {
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
 
-export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType): Chain[] {
+export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType, isTIP20?: boolean): Chain[] {
     const chainsConfig = getAllChainsConfig()
 
-    return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()]?.type === type.toLowerCase())
+    return chainsConfig.filter((chain) => {
+        if (chain.tokens?.[tokenName.toLowerCase()]?.type !== type.toLowerCase()) {
+            return false
+        }
+
+        // if isTIP20 is undefined, default to chains that do not support TIP-20
+        if (isTIP20 === undefined) {
+            return !chain.isTIP20
+        }
+
+        // if isTIP20 is true, filter for chains that support TIP-20 for the stablecoin,
+        // if isTIP20 is false, filter for chains that do not support TIP-20,
+        return isTIP20 ? chain.isTIP20 : !chain.isTIP20
+    })
 }
 
 export function getChainsThatSupportRewarder(): Chain[] {
@@ -236,4 +261,5 @@ function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
 export function __resetUtilsConfigStateForTests(): void {
     CURRENT_STAGE = undefined
     SUPPORTED_CHAINS = undefined
+    CHAIN_BY_EID = undefined
 }

@@ -14,6 +14,7 @@ import {
     RewarderOmniGraphHardhatSchema,
     RewarderRewardsOmniGraphHardhatSchema,
     StakingOmniGraphHardhatSchema,
+    TIP20OmniGraphHardhatSchema,
     TokenMessagingOmniGraphHardhatSchema,
     TreasurerOmniGraphHardhatSchema,
     createAssetFactory,
@@ -26,6 +27,7 @@ import {
     createPoolFactory,
     createRewarderFactory,
     createStakingFactory,
+    createTIP20TokenFactory,
     createTokenMessagingFactory,
     createTreasurerFactory,
 } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
@@ -45,6 +47,7 @@ import {
     IPool,
     IRewarder,
     IStaking,
+    ITIP20,
     ITokenMessaging,
     ITreasurer,
     MintableOmniGraph,
@@ -53,6 +56,7 @@ import {
     RewarderOmniGraph,
     RewarderRewardsOmniGraph,
     StakingOmniGraph,
+    TIP20OmniGraph,
     TokenMessagingOmniGraph,
     TreasurerOmniGraph,
     configureAsset,
@@ -67,13 +71,16 @@ import {
     configureRewarder,
     configureRewards,
     configureStaking,
+    configureTIP20,
     configureTokenMessaging,
     configureTreasurer,
     initializeBusQueueStorage,
     initializeMinters,
+    transferOwnership,
 } from '@stargatefinance/stg-devtools-v2'
 import { subtask, task } from 'hardhat/config'
 
+import { formatEid } from '@layerzerolabs/devtools'
 import { SignerDefinition } from '@layerzerolabs/devtools-evm'
 import {
     SUBTASK_LZ_SIGN_AND_SEND,
@@ -83,6 +90,7 @@ import {
     inheritTask,
     types,
 } from '@layerzerolabs/devtools-evm-hardhat'
+import { Stage } from '@layerzerolabs/lz-definitions'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 import { type IOApp, type OAppOmniGraph, configureOAppDelegates } from '@layerzerolabs/ua-devtools'
 import { createOAppFactory } from '@layerzerolabs/ua-devtools-evm'
@@ -94,6 +102,7 @@ import {
     TASK_LZ_OAPP_WIRE,
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
 
+import { getAllChainsConfig, setStage } from '../config/utils/utils.config'
 import { createOneSigSignerFactory } from '../onesig'
 
 import {
@@ -108,6 +117,7 @@ import {
     TASK_STG_CHECK_TOKEN_MESSAGING,
     TASK_STG_CHECK_TREASURER,
     TASK_STG_GET_CONFIG_HASHES,
+    TASK_STG_GRAPH_CONNECTIONS,
     TASK_STG_OWNABLE_TRANSFER_OWNERSHIP,
     TASK_STG_SET_MINT_ALLOWANCE,
     TASK_STG_SET_REWARDS,
@@ -122,6 +132,8 @@ import {
     TASK_STG_WIRE_OFT_WRAPPER,
     TASK_STG_WIRE_REWARDER,
     TASK_STG_WIRE_STAKING,
+    TASK_STG_WIRE_TIP20_TOKEN,
+    TASK_STG_WIRE_TIP20_TRANSFER_OWNERSHIP,
     TASK_STG_WIRE_TOKEN_MESSAGING,
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
@@ -195,6 +207,32 @@ wireTask(TASK_STG_WIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
             })
     )
 
+    return hre.run(TASK_LZ_OAPP_WIRE, args)
+})
+
+/**
+ * Wiring task for TIP-20 transfer ownership (set new admin, then renounce)
+ */
+wireTask(TASK_STG_WIRE_TIP20_TRANSFER_OWNERSHIP).setAction(async (args, hre) => {
+    subtask(
+        SUBTASK_LZ_OAPP_CONFIG_LOAD,
+        'Load TIP-20 transferOwnership config',
+        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+            runSuper({
+                ...args,
+                schema: TIP20OmniGraphHardhatSchema,
+            })
+    )
+    subtask(
+        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+        'Transfer TIP-20 ownership',
+        (args: SubtaskConfigureTaskArgs<TIP20OmniGraph, ITIP20>, hre, runSuper) =>
+            runSuper({
+                ...args,
+                configurator: transferOwnership as any,
+                sdkFactory: createTIP20TokenFactory(createConnectedContractFactory()) as any,
+            })
+    )
     return hre.run(TASK_LZ_OAPP_WIRE, args)
 })
 
@@ -426,6 +464,38 @@ wireTask(TASK_STG_WIRE_CIRCLE_TOKEN)
 
         return hre.run(TASK_LZ_OAPP_WIRE, args)
     })
+
+/**
+ * Wiring task for TIP-20 USDC/EURC contracts
+ *
+ * Loads a TIP-20 graph (only chains flagged with isTIP20) and configures:
+ * - paused state
+ * - supply cap
+ * - transfer policy id
+ * - quote token / completion
+ */
+wireTask(TASK_STG_WIRE_TIP20_TOKEN).setAction(async (args, hre) => {
+    // Here we'll overwrite the config loading & configuration tasks just-in-time
+    subtask(SUBTASK_LZ_OAPP_CONFIG_LOAD, 'Load TIP-20 config', (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+        runSuper({
+            ...args,
+            schema: TIP20OmniGraphHardhatSchema,
+        })
+    )
+
+    subtask(
+        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+        'Configure TIP-20',
+        (args: SubtaskConfigureTaskArgs<TIP20OmniGraph, ITIP20>, hre, runSuper) =>
+            runSuper({
+                ...args,
+                configurator: configureTIP20 as any,
+                sdkFactory: createTIP20TokenFactory(createConnectedContractFactory()) as any,
+            })
+    )
+
+    return hre.run(TASK_LZ_OAPP_WIRE, args)
+})
 
 /**
  * Wiring task for USDC contract to add the asset contract to minters with a high allowance
@@ -839,6 +909,72 @@ task(TASK_STG_GET_CONFIG_HASHES, 'get config for a token')
             logger.error('Error reading directory:', error)
             return []
         }
+    })
+
+task(TASK_STG_GRAPH_CONNECTIONS, 'Generate connections summary')
+    .addParam('stage', 'Chain stage. One of: mainnet, testnet', undefined, types.stage, true)
+    .addOptionalParam('output', 'Output file path', undefined, types.string)
+    .setAction(async (args) => {
+        const logger = createLogger(process.env.LOG_LEVEL || 'info')
+
+        if (args.stage !== 'mainnet' && args.stage !== 'testnet') {
+            throw new Error(`Invalid stage: ${args.stage}`)
+        }
+
+        const graph =
+            args.stage === 'mainnet'
+                ? await (await import('../config/mainnet/01/token-messaging.config')).default()
+                : await (await import('../config/testnet/token-messaging.config')).default()
+
+        setStage(args.stage === 'mainnet' ? Stage.MAINNET : Stage.TESTNET)
+        const chainNameByEid = new Map(getAllChainsConfig().map((chain) => [chain.eid, chain.name]))
+        const toShortName = (name: string) => name.replace(/-(mainnet|testnet)$/i, '')
+        const getName = (eid: number) => chainNameByEid.get(eid) ?? formatEid(eid)
+
+        const chains = new Set<string>()
+        const toMap = new Map<string, Set<string>>()
+
+        graph.contracts.forEach((contract: any) => {
+            chains.add(toShortName(getName(contract.contract.eid)))
+        })
+
+        graph.connections.forEach((connection: any) => {
+            const from = toShortName(getName(connection.from.eid))
+            const to = toShortName(getName(connection.to.eid))
+            chains.add(from)
+            chains.add(to)
+            if (!toMap.has(from)) toMap.set(from, new Set())
+            toMap.get(from)!.add(to)
+        })
+
+        const summary: Record<string, { connections: { toTotalCount: number; toChains: string[] } }> & {
+            _summary?: { totalChains: number }
+        } = {}
+
+        const chainList = Array.from(chains).sort()
+        summary._summary = { totalChains: chainList.length }
+
+        chainList.forEach((name) => {
+            const toChains = Array.from(toMap.get(name) ?? []).sort()
+            summary[name] = {
+                connections: {
+                    toTotalCount: toChains.length,
+                    toChains,
+                },
+            }
+        })
+
+        const output = JSON.stringify(summary, null, 2)
+
+        if (args.output) {
+            const outputDir = path.dirname(args.output)
+            if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true })
+            await fs.promises.writeFile(args.output, output, 'utf8')
+            logger.info(`Wrote connections summary to ${args.output}`)
+            return
+        }
+
+        process.stdout.write(output)
     })
 
 /**

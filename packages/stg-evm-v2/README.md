@@ -135,3 +135,60 @@ transfer.
     The transference of value out of a Stargate contract. In the context of fees/rewards it also means the actual amount after applying fees/rewards
     but before applying any caps.
 * Compose
+
+## Unwiring messaging paths or an asset mesh
+
+This repo supports two YAML-driven unwire flows:
+- **Messaging path unwire**: disable specific TokenMessaging/CreditMessaging paths between chains.
+- **Asset mesh unwire**: remove a single asset from the mesh on specific chains by disabling OFT paths and clearing its
+  assetId on messaging contracts.
+
+### YAML schemas and templates
+Templates live in:
+- `devtools/config/mainnet/01/chainsConfig/unwire/0-template-asset.unwire.yml`
+- `devtools/config/mainnet/01/chainsConfig/unwire/0-template-messaging.unwire.yml`
+
+Copy these templates to `asset.unwire.yml` and `messaging.unwire.yml` (in the same directory) for use by the unwire flows.
+Asset unwire YAML example (mainnet):
+```
+asset: eurc
+disconnect_chains:
+  - avalanche-mainnet
+  - base-mainnet
+remaining_chains:
+  - ethereum-mainnet
+  - bera-mainnet
+  - plumephoenix-mainnet
+```
+
+Messaging unwire YAML example (mainnet):
+```
+rules:
+  - chain: avalanche-mainnet
+    allowed_peers:
+      - avalanche-mainnet
+```
+
+Note: `allowed_peers` must be non-empty. Use the same chain name to effectively remove all external paths for that chain.
+
+### What it does
+- **Messaging path unwire**:
+  - `token-messaging.unwire.config.ts` and `credit-messaging.unwire.config.ts` disable messaging paths based on
+    `messaging.unwire.yml` rules.
+- **Asset mesh unwire**:
+  - `asset.unwire.config.ts` sets `setOFTPath(dstEid, false)` for all edges between `disconnect_chains` and
+    `remaining_chains`, bidirectionally.
+  - `token-messaging-asset.unwire.config.ts` and `credit-messaging-asset.unwire.config.ts` call
+    `setAssetId(address(0), assetId)` for `disconnect_chains` on TokenMessaging and CreditMessaging.
+
+### Run the unwire flows
+Makefile targets:
+```
+make unwire-messaging-mainnet
+make unwire-asset-mainnet
+```
+
+Notes:
+- `setOFTPath(false)` only resets OFT paths; messaging asset removal is required to fully disable routing on-chain.
+- Only `disconnect_chains` are removed from messaging; `remaining_chains` remain active for the asset mesh.
+- Credits for pool paths should be set to zero by the planner

@@ -7,7 +7,13 @@ import { assertHardhatDeploy, createGetHreByEid } from '@layerzerolabs/devtools-
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
 import { setMainnetStage } from '../../devtools/config/mainnet/utils'
-import { filterConnections, getContractWithEid, getContractsInChain, setsDifference } from '../../devtools/config/utils'
+import {
+    filterConnections,
+    getContractWithEid,
+    getContractsInChain,
+    isAllowedPeerConnection,
+    setsDifference,
+} from '../../devtools/config/utils'
 import {
     __resetUtilsConfigStateForTests,
     getAllChainsConfig,
@@ -27,6 +33,8 @@ import {
     validateChains,
 } from '../../devtools/config/utils/utils.config'
 import { createGetAssetAddresses, createGetLPTokenAddresses, getAddress } from '../../ts-src/utils/util'
+
+import type { Chain } from '../../devtools/config/utils'
 
 describe('devtools/utils', () => {
     before(() => {
@@ -189,6 +197,10 @@ describe('devtools/utils', () => {
     })
 
     describe('filterConnections', () => {
+        beforeEach(() => {
+            setStage(Stage.TESTNET)
+        })
+
         const mockConnections = [
             { from: { eid: 1 }, to: { eid: 2 }, data: 'A' },
             { from: { eid: 2 }, to: { eid: 3 }, data: 'B' },
@@ -245,6 +257,130 @@ describe('devtools/utils', () => {
             expect(result).to.deep.include({ from: { eid: 1 }, to: { eid: 4 } })
             expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 3 } })
             expect(result).to.deep.include({ from: { eid: 2 }, to: { eid: 4 } })
+        })
+    })
+
+    describe('isAllowedPeerConnection', () => {
+        const eidA = 100 as EndpointId
+        const eidB = 101 as EndpointId
+
+        const chainA: Chain = {
+            name: 'chain-a',
+            eid: eidA,
+            token_messaging: true,
+            credit_messaging: true,
+        }
+        const chainB: Chain = {
+            name: 'chain-b',
+            eid: eidB,
+            token_messaging: true,
+            credit_messaging: true,
+        }
+
+        it('should allow connection when allowed_peers is undefined on both chains', () => {
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainA],
+                [eidB, chainB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when allowed_peers is empty on both chains (empty array means all)', () => {
+            const chainWithEmptyPeersA = { ...chainA, allowed_peers: [] }
+            const chainWithEmptyPeersB = { ...chainB, allowed_peers: [] }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithEmptyPeersA],
+                [eidB, chainWithEmptyPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when both chains list each other in allowed_peers', () => {
+            const chainWithPeersA = { ...chainA, allowed_peers: ['chain-b'] }
+            const chainWithPeersB = { ...chainB, allowed_peers: ['chain-a'] }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithPeersA],
+                [eidB, chainWithPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when from chain defines allowed_peers and to chain has none (backward compat)', () => {
+            const chainWithPeersA = { ...chainA, allowed_peers: ['chain-b'] }
+            const chainWithoutPeersB = { ...chainB }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithPeersA],
+                [eidB, chainWithoutPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when to chain defines allowed_peers and from chain has none (backward compat)', () => {
+            const chainWithoutPeersA = { ...chainA }
+            const chainWithPeersB = { ...chainB, allowed_peers: ['chain-a'] }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithoutPeersA],
+                [eidB, chainWithPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+        it('should reject connection when from chain does not allow to chain', () => {
+            const chainWithPeersA = { ...chainA, allowed_peers: ['chain-c'] } // A allows only C, not B
+            const chainWithPeersB = { ...chainB, allowed_peers: ['chain-a'] }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithPeersA],
+                [eidB, chainWithPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.false
+        })
+
+        it('should reject connection when to chain does not allow from chain (reverse direction check)', () => {
+            const chainWithPeersA = { ...chainA, allowed_peers: ['chain-b'] }
+            const chainWithPeersB = { ...chainB, allowed_peers: ['chain-c'] } // B allows only C, not A
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithPeersA],
+                [eidB, chainWithPeersB],
+            ])
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.false
+        })
+
+        it('should allow connection when chainByEid is undefined', () => {
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, undefined)).to.be.true
+        })
+
+        it('should allow connection when from chain is not found in chainByEid', () => {
+            const chainByEid = new Map<EndpointId, Chain>([[eidB, chainB]])
+
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when to chain is not found in chainByEid', () => {
+            const chainByEid = new Map<EndpointId, Chain>([[eidA, chainA]])
+
+            const connection = { from: { eid: eidA }, to: { eid: eidB } }
+            expect(isAllowedPeerConnection(connection, chainByEid)).to.be.true
+        })
+
+        it('should allow connection when both chains have allowed_peers and include each other (symmetric)', () => {
+            const chainWithPeersA = { ...chainA, allowed_peers: ['chain-b', 'chain-c'] }
+            const chainWithPeersB = { ...chainB, allowed_peers: ['chain-a', 'chain-c'] }
+            const chainByEid = new Map<EndpointId, Chain>([
+                [eidA, chainWithPeersA],
+                [eidB, chainWithPeersB],
+            ])
+            const connectionAtoB = { from: { eid: eidA }, to: { eid: eidB } }
+            const connectionBtoA = { from: { eid: eidB }, to: { eid: eidA } }
+            expect(isAllowedPeerConnection(connectionAtoB, chainByEid)).to.be.true
+            expect(isAllowedPeerConnection(connectionBtoA, chainByEid)).to.be.true
         })
     })
 

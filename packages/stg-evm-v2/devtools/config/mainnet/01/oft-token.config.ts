@@ -10,6 +10,7 @@ import {
     filterValidProvidedChains,
     getChainsThatSupportTokenWithType,
     getChainsThatSupportsUsdtOftByDeployment,
+    isExternalDeployment,
     printChains,
 } from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
@@ -49,7 +50,9 @@ export default async (): Promise<OmniGraphHardhat<MintableNodeConfig, unknown>> 
     // ETH contract pointers (for all WETH OFT)
     const validChainETH = filterValidProvidedChains(
         chainsList,
-        getChainsThatSupportTokenWithType(TokenName.ETH, StargateType.Oft)
+        getChainsThatSupportTokenWithType(TokenName.ETH, StargateType.Oft).filter(
+            (chain) => !isExternalDeployment(chain, TokenName.ETH)
+        )
     )
     printChains(`oft.token ETH CHAINS_LIST:`, validChainETH)
 

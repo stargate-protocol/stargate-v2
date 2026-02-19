@@ -1,0 +1,14 @@
+name: tempo-mainnet
+eid: TEMPO_V2_MAINNET
+token_messaging: true 
+credit_messaging: true
+tokens: 
+  usdc:
+    type: oft
+  eurc:
+    type: oft
+treasurer:
+  tokens:
+    usdc: true
+    eurc: true
+isTIP20: true

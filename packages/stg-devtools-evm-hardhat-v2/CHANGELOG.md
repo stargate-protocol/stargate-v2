@@ -1,5 +1,48 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 9.0.2
+
+### Patch Changes
+
+- ba99d64: InjectiveEVM mainnet deployment
+- Updated dependencies [ba99d64]
+- Updated dependencies [238f281]
+  - @stargatefinance/stg-definitions-v2@6.1.2
+  - @stargatefinance/stg-devtools-v2@9.0.2
+
+## 9.0.1
+
+### Patch Changes
+
+- 00dafd8: Redeployed Tempo mainnet
+- Updated dependencies [00dafd8]
+  - @stargatefinance/stg-definitions-v2@6.1.1
+  - @stargatefinance/stg-devtools-v2@9.0.1
+
+## 9.0.0
+
+### Minor Changes
+
+- d5447ca: Add support for Alt chains and TIP20 OFTs
+- aad46a8: Added support for unwiring single asset
+  Unwired EURC in avalanche and base mainnet
+
+### Patch Changes
+
+- ac41ca8: Deployed Tempo mainnet
+- 2531c88: Configured Tempo mainnet
+- df38b5c: Horizen deployment for USDC.e
+- eba6d0b: Configured and deployed tempo moderato testnet
+- Updated dependencies [ac41ca8]
+- Updated dependencies [961ff5a]
+- Updated dependencies [d5447ca]
+- Updated dependencies [2531c88]
+- Updated dependencies [aad46a8]
+- Updated dependencies [df38b5c]
+- Updated dependencies [eba6d0b]
+  - @stargatefinance/stg-definitions-v2@6.1.0
+  - @stargatefinance/stg-devtools-v2@9.0.0
+
 ## 8.0.2
 
 ### Patch Changes

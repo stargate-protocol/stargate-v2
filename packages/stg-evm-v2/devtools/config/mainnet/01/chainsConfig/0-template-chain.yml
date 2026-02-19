@@ -2,6 +2,7 @@ name: template-chain
 eid: TEMPLATE_V2_MAINNET
 token_messaging: true # if the chain supports token messaging
 credit_messaging: true # if the chain supports credit messaging
+allowed_peers: [] # optional allowlist of chain names for wiring; empty means all
 tokens: # list of tokens supported by the chain and each token has a type (native, pool, oft)
   eth:
     type: native/pool/oft

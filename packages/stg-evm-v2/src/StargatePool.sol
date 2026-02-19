@@ -282,12 +282,12 @@ contract StargatePool is StargateBase, IStargatePool {
 
     // ---------------------------------- Only Treasurer ------------------------------------------
 
+    /// @dev only allow to recover the excess of poolBalanceSD + treasuryFee if the token is the pool token
     function recoverToken(
         address _token,
         address _to,
         uint256 _amount
     ) public virtual override onlyCaller(treasurer) returns (uint256) {
-        // only allow to recover the excess of poolBalanceSD + treasuryFee if the token is the pool token
         if (_token == token) {
             uint256 cap = _thisBalance() - _sd2ld(poolBalanceSD + treasuryFee);
             _amount = _amount > cap ? cap : _amount;
