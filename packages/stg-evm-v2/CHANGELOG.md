@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 6.1.2
+
+### Patch Changes
+
+- ba99d64: InjectiveEVM mainnet deployment
+- aa5924e: Added scripts that allow us to unwire the OApps on specific paths
+- 238f281: Added InjectiveEVM network mainnet config
+- Updated dependencies [ba99d64]
+- Updated dependencies [238f281]
+  - @stargatefinance/stg-definitions-v2@6.1.2
+
 ## 6.1.1
 
 ### Patch Changes

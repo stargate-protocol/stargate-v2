@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-v2
 
+## 9.0.2
+
+### Patch Changes
+
+- ba99d64: InjectiveEVM mainnet deployment
+- Updated dependencies [ba99d64]
+- Updated dependencies [238f281]
+  - @stargatefinance/stg-definitions-v2@6.1.2
+
 ## 9.0.1
 
 ### Patch Changes

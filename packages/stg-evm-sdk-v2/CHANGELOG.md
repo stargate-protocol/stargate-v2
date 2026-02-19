@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 1.3.2
+
+### Patch Changes
+
+- ba99d64: InjectiveEVM mainnet deployment
+
 ## 1.3.1
 
 ### Patch Changes
