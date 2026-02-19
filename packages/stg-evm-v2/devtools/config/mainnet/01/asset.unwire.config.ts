@@ -3,16 +3,24 @@ import { AssetEdgeConfig, AssetNodeConfig } from '@stargatefinance/stg-devtools-
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { createGetAssetOmniPoint } from '../../../utils'
-import { loadUnwireConfig, resolveUnwireChains } from '../../utils/unwire.config.utils'
-import { setMainnetStage } from '../utils'
+import { setMainnetStage } from '../../mainnet/utils'
+import { loadAssetUnwireConfig, resolveAssetUnwireChains } from '../../utils/unwire.config.utils'
 
 const buildAssetUnwireGraph = async (): Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>> => {
     setMainnetStage()
 
-    const { tokenName, disconnectChains, remainingChains } = loadUnwireConfig(__dirname)
-    const { validFromChains, validToChains } = resolveUnwireChains(tokenName, disconnectChains, remainingChains)
+    const assetUnwireConfig = loadAssetUnwireConfig()
+    if (!assetUnwireConfig) {
+        return { contracts: [], connections: [] }
+    }
 
-    const getAssetPoint = createGetAssetOmniPoint(tokenName)
+    const { validFromChains, validToChains } = resolveAssetUnwireChains(
+        assetUnwireConfig.tokenName,
+        assetUnwireConfig.disconnectChains,
+        assetUnwireConfig.remainingChains
+    )
+
+    const getAssetPoint = createGetAssetOmniPoint(assetUnwireConfig.tokenName)
     const disconnectPoints = validFromChains.map((chain) => ensureContractName(getAssetPoint(chain.eid)))
     const remainingPoints = validToChains.map((chain) => ensureContractName(getAssetPoint(chain.eid)))
 

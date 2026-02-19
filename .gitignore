@@ -52,3 +52,6 @@ transactions.csv
 
 # Changesets files
 .netrc
+
+# Generated connections config
+packages/stg-evm-v2/devtools/config/mainnet/01/connections.mainnet.json
