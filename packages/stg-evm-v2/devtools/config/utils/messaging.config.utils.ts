@@ -58,26 +58,26 @@ export default async function buildMessagingGraph(
         const allConnections = generateMessagingConfig(allContracts)
         const filteredConnections = filterConnections(allConnections, [], [])
 
+        // Include ALL contracts so edges can reference them in the graph.
+        // The framework will only generate transactions for actual config differences.
         const getEnvironment = createGetHreByEid()
-        const newChainContract = getContractWithEid(newChain.eid, contract)
-        const stargateOnesig = getOneSigAddressMaybe(newChainContract.eid)
-
-        const newChainNode = {
-            contract: newChainContract,
-            config: {
-                ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
-                ...(stargateOnesig !== undefined ? { delegate: stargateOnesig } : {}),
-                planner: defaultPlanner,
-                assets: await getAssetsConfig(
-                    getEnvironment,
-                    newChainContract.eid,
-                    getSupportedTokensByEid(newChainContract.eid)
-                ),
-            },
-        }
+        const contracts = await Promise.all(
+            allContracts.map(async (c) => {
+                const stargateOnesig = getOneSigAddressMaybe(c.eid)
+                return {
+                    contract: c,
+                    config: {
+                        ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
+                        ...(stargateOnesig !== undefined ? { delegate: stargateOnesig } : {}),
+                        planner: defaultPlanner,
+                        assets: await getAssetsConfig(getEnvironment, c.eid, getSupportedTokensByEid(c.eid)),
+                    },
+                }
+            })
+        )
 
         return {
-            contracts: [newChainNode],
+            contracts,
             connections: filteredConnections,
         }
     }

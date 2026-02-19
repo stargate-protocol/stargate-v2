@@ -37,11 +37,12 @@ export default async function buildAssetDeploymentGraph(
         const allConnections = generateAssetConfig(tokenName, allPoints)
         const connections = filterConnections(allConnections, [], [])
 
-        const newChainPoint = getAssetPoint(newChain.eid)
-        const newChainContract = await getAssetNode(newChainPoint)
+        // Include ALL contracts so edges can reference them in the graph.
+        // The framework will only generate transactions for actual config differences.
+        const allContracts = await Promise.all(allPoints.map(async (point) => await getAssetNode(point)))
 
         return {
-            contracts: [newChainContract],
+            contracts: allContracts,
             connections,
         }
     }
