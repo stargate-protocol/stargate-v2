@@ -1,0 +1,10 @@
+name: injectiveevm-mainnet
+eid: INJECTIVEEVM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  eth:
+    type: oft
+treasurer:
+  tokens:
+    eth: true
