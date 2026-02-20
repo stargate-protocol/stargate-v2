@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 7.0.0
+
+### Major Changes
+
+- 5ab3414: Shutdown sophon mainnet
+
+### Patch Changes
+
+- Updated dependencies [5ab3414]
+  - @stargatefinance/stg-definitions-v2@7.0.0
+
 ## 6.1.2
 
 ### Patch Changes

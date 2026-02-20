@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 2.0.0
+
+### Major Changes
+
+- 5ab3414: Shutdown sophon mainnet
+
 ## 1.3.2
 
 ### Patch Changes
