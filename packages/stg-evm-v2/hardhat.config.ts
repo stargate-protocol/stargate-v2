@@ -662,16 +662,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.SHIMMER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'sophon-mainnet': {
-        eid: EndpointId.SOPHON_V2_MAINNET,
-        url: process.env.RPC_URL_SOPHON_MAINNET || 'https://rpc.sophon.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.SOPHON_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.SOPHON_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        zksync: true,
-        ethNetwork: 'ethereum-mainnet',
-    },
     'somnia-mainnet': {
         eid: EndpointId.SOMNIA_V2_MAINNET,
         url: process.env.RPC_URL_SOMNIA_MAINNET || 'https://api.infra.mainnet.somnia.network/',

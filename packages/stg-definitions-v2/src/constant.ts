@@ -70,7 +70,6 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
         [EndpointId.SEI_V2_MAINNET]: '0xd24972c11f91c1bb9eaee97ec96bb9c33cf7af24',
-        [EndpointId.SOPHON_V2_MAINNET]: '0xa1a31d9ddf919e87a23a1416b0aa0b600d32435d',
         [EndpointId.SOMNIA_V2_MAINNET]: '0x5fa12ebc08e183c1f5d44678cf897edefe68738b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0x5cc4e4d2cdf15795dc5ea383b8768ec91a587719',
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
@@ -137,7 +136,6 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.SCROLL_V2_MAINNET]: '0xbe0d08a85eebfcc6eda0a843521f7cbb1180d2e2',
         [EndpointId.SEI_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
-        [EndpointId.SOPHON_V2_MAINNET]: '0x07fd0e370b49919ca8da0ce842b8177263c0e12c',
         [EndpointId.SOMNIA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xfdfa2330713a8e2eac6e4f15918f11937ffa4dbe',
         [EndpointId.SONIC_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
@@ -214,7 +212,6 @@ export const EXECUTORS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
         [EndpointId.SEI_V2_MAINNET]: '0xc097ab8CD7b053326DFe9fB3E3a31a0CCe3B526f',
-        [EndpointId.SOPHON_V2_MAINNET]: '0x553313dB58dEeFa3D55B1457D27EAB3Fe5EC87E8',
         [EndpointId.SOMNIA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xAE3C661292bb4D0AEEe0588b4404778DF1799EE6',
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
@@ -436,12 +433,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
-            },
-            [EndpointId.SOPHON_V2_MAINNET]: {
-                symbol: 'ETH',
-                name: 'Ether',
-                type: StargateType.Pool,
-                address: '0x72af9F169B619D85A47Dfa8fefbCD39dE55c567D',
             },
             [EndpointId.SOMNIA_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -922,10 +913,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1',
                 type: StargateType.Pool,
             },
-            [EndpointId.SOPHON_V2_MAINNET]: {
-                type: StargateType.Pool,
-                address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
-            },
             [EndpointId.SOMNIA_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x28bec7e30e6faee657a03e19bf1128aad7632a00',
@@ -1171,7 +1158,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SCROLL_V2_MAINNET]: {},
         [EndpointId.SEI_V2_MAINNET]: {},
         [EndpointId.SHIMMER_V2_MAINNET]: {},
-        [EndpointId.SOPHON_V2_MAINNET]: {},
         [EndpointId.SOMNIA_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
         [EndpointId.SONIC_V2_MAINNET]: {},
@@ -1394,16 +1380,6 @@ export const REWARDS: RewardsConfig = {
             // Mainnet
             [EndpointId.MANTA_V2_MAINNET]: {
                 address: '0x95CeF13441Be50d20cA4558CC0a27B601aC544E5',
-            },
-        },
-    },
-    [RewardTokenName.USDC]: {
-        name: 'USDC',
-        networks: {
-            //
-            // Mainnet
-            [EndpointId.SOPHON_V2_MAINNET]: {
-                address: '0x9Aa0F72392B5784Ad86c6f3E899bCc053D00Db4F',
             },
         },
     },
@@ -3082,39 +3058,6 @@ export const NETWORKS: NetworksConfig = {
                     createCallAddress: '0x9b35Af71d77eaf8d7e40252370304687390A1A52',
                     signMessageLibAddress: '0xd53cd0aB83D845Ac265BE939c57F53AD838012c9',
                     simulateTxAccessorAddress: '0x3d4BA2E0884aa488718476ca2FB8Efc291A46199',
-                },
-            },
-        },
-    },
-    [EndpointId.SOPHON_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.SOPHON_V2_MAINNET], DVNS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET]],
-            executor: EXECUTORS.LZ_LABS[EndpointId.SOPHON_V2_MAINNET],
-            nativeDropAmount: parseEther('3').toBigInt(),
-        },
-        oneSigConfig: {
-            oneSigAddress: '0x82fb702e0cbbd87fd1a046858c4a56dbaa63b2c4',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/sophon`,
-        },
-        safeConfig: {
-            safeAddress: '0x676e341775964245f414149D1d343F75E9b5B887',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/sophon`,
-            contractNetworks: {
-                [50104]: {
-                    multiSendAddress: '0x0dFcccB95225ffB03c6FBB2559B530C2B7C8A912',
-                    multiSendCallOnlyAddress: '0xf220D3b4DFb23C4ade8C88E526C1353AbAcbC38F',
-                    safeMasterCopyAddress: '0x1727c2c531cf966f902E5927b98490fDFb3b2b70',
-                    safeProxyFactoryAddress: '0xDAec33641865E4651fB43181C6DB6f7232Ee91c2',
-                    fallbackHandlerAddress: '0x2f870a80647BbC554F3a0EBD093f11B4d2a7492A',
-                    createCallAddress: '0xcB8e5E438c5c2b45FbE17B02Ca9aF91509a8ad56',
-                    signMessageLibAddress: '0x357147caf9C0cCa67DfA0CF5369318d8193c8407',
-                    simulateTxAccessorAddress: '0x4191E2e12E8BC5002424CE0c51f9947b02675a44',
                 },
             },
         },
