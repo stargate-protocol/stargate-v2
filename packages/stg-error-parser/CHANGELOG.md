@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 2.0.0
+
+### Major Changes
+
+- 5ab3414: Shutdown sophon mainnet
+
 ## 1.2.2
 
 ### Patch Changes

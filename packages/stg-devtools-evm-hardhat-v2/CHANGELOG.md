@@ -1,5 +1,17 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 10.0.0
+
+### Major Changes
+
+- 5ab3414: Shutdown sophon mainnet
+
+### Patch Changes
+
+- Updated dependencies [5ab3414]
+  - @stargatefinance/stg-definitions-v2@7.0.0
+  - @stargatefinance/stg-devtools-v2@10.0.0
+
 ## 9.0.2
 
 ### Patch Changes
