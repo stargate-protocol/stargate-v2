@@ -3,6 +3,16 @@ import { backOff } from 'exponential-backoff'
 export const errorString = 'error'
 export const timeoutString = 'timeout'
 
+export interface DeploymentWarning {
+    check: string
+    assetId: string
+    srcChain: string
+    dstChain: string
+    reason: string
+}
+
+export const deploymentWarnings: DeploymentWarning[] = []
+
 type ByPathConfig = {
     [fromChainName: string]: {
         [toChainName: string]: Record<string, string | number>

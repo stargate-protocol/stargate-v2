@@ -6,6 +6,7 @@ import { getStargateV2TokenMessagingContract } from '../stargate-contracts'
 
 import {
     ByAssetPathConfig,
+    deploymentWarnings,
     errorString,
     parseTargets,
     printByPathAndAssetFlattenConfig,
@@ -81,6 +82,17 @@ export const getQuotesState = async (args: {
                                     `busQueues(${toChainId})`
                                 )
                                 const maxNumPassengers: number = busQueue.maxNumPassengers
+
+                                if (maxNumPassengers === 0) {
+                                    deploymentWarnings.push({
+                                        check: 'quotesState',
+                                        assetId,
+                                        srcChain: fromChainName,
+                                        dstChain: toChainName,
+                                        reason: 'bus disabled',
+                                    })
+                                    return
+                                }
 
                                 const [busFare, busFareWithNativeDrop] = await valueOrTimeout(
                                     () =>
