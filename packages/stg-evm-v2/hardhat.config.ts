@@ -519,6 +519,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.METIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'moca-mainnet': {
+        eid: EndpointId.MOCA_V2_MAINNET,
+        url: process.env.RPC_URL_MOCA_MAINNET || 'https://rpc.mocachain.org',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.MOCA_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'mode-mainnet': {
         eid: EndpointId.MODE_V2_MAINNET,
         url: process.env.RPC_URL_MODE_MAINNET || 'https://mainnet.mode.network',
