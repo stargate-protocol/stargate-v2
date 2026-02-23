@@ -7,7 +7,7 @@ import { getOwnerState } from './ownerState'
 import { getPlannerNativeBalanceState } from './plannerNativeBalanceState'
 import { getPlannerPermissionsState } from './plannerPermissionsState'
 import { getQuotesState } from './quotesState'
-import { errorString, timeoutString } from './utils'
+import { deploymentWarnings, errorString, timeoutString } from './utils'
 
 const args = parse({
     header: 'Check Deployment State',
@@ -69,6 +69,29 @@ const getErrorOnlyObject = (obj: any): any => {
     )
 }
 
+const formatWarnings = (): string[] => {
+    // Group by (check, assetId, srcChain, reason)
+    const groups = new Map<string, string[]>()
+    for (const w of deploymentWarnings) {
+        const key = `${w.check}|${w.assetId}|${w.srcChain}|${w.reason}`
+        if (!groups.has(key)) groups.set(key, [])
+        groups.get(key)!.push(w.dstChain)
+    }
+
+    const lines: string[] = []
+    let currentCheck = ''
+    for (const [key, dsts] of groups) {
+        const [check, assetId, srcChain, reason] = key.split('|')
+        if (check !== currentCheck) {
+            currentCheck = check
+            lines.push(`${check}:`)
+        }
+        lines.push(`  Asset ${assetId}: ${srcChain} -> ${dsts.sort().join(', ')} : ${reason}`)
+    }
+
+    return lines
+}
+
 const main = async () => {
     const numConcurrentChecks = 3
 
@@ -114,9 +137,16 @@ const main = async () => {
 
     console.log('\n\n')
 
+    if (deploymentWarnings.length) {
+        console.warn(
+            '🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡 Warnings found in deployment state 🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡🟡'
+        )
+        console.warn(formatWarnings().join('\n'))
+    }
+
     if (Object.keys(errorsOnlyObject).length) {
         console.error(
-            '⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ Errors found in deployment state ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️'
+            '🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 Errors found in deployment state 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴'
         )
         console.error(`${JSON.stringify(errorsOnlyObject, null, 2)}`)
 
