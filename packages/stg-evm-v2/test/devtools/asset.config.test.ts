@@ -230,9 +230,13 @@ function testAssetConfig(
         const config = await assetConfig()
         const newChainEid = getNewChainEid()
 
-        // Should have exactly 1 contract (node config only for the new chain)
-        expect(config.contracts.length, 'contracts length').to.equal(1)
-        expect(config.contracts[0].contract.eid, 'contract eid').to.equal(newChainEid)
+        // Should have contracts for all supported chains (node configs are needed for all chains)
+        expect(config.contracts.length, 'contracts length').to.equal(supportedChains.length)
+        // The new chain should be among the contracts
+        expect(
+            config.contracts.some((c) => c.contract.eid === newChainEid),
+            'new chain contract present'
+        ).to.be.true
 
         // All connections should involve the new chain
         const N = supportedChains.length
