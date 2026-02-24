@@ -71,9 +71,9 @@ This is what it does under the hood, if you would like to play around with the i
     - One common issue is that the `busMaxNumPassengers * nativeDropAmounts > executor.nativeCap`, which will cause the bus quotes to revert.
     - If you desire to run the above checks for a specific chain or chains, use the `pnpm run check:deployment:custom` command with custom parameters:
         - Examples:
-          - `pnpm run check:deployment:custom -- -e mainnet -t "mantle,hemi"`
-          - `pnpm run check:deployment:custom -- -e testnet --numRetries 30`
-          - `pnpm run check:deployment:custom -- -e mainnet -t "ethereum,arbitrum" --numRetries 20`
+          - `pnpm run check:deployment:custom -e mainnet -t "mantle,hemi"`
+          - `pnpm run check:deployment:custom -e testnet --numRetries 30`
+          - `pnpm run check:deployment:custom -e mainnet -t "ethereum,arbitrum" --numRetries 20`
         - Available flags:
           - `-e <environment>` to specify environment (mainnet, testnet, etc.)
           - `-t "<chains>"` to target specific chains (comma-separated)

@@ -2775,8 +2775,8 @@ export const NETWORKS: NetworksConfig = {
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             nativeDropAmount: parseEther('0.1').toBigInt(),
             taxiGasLimit: 190000n,
-            busGasLimit: 70000n,
-            busRideGasLimit: 65000n,
+            busGasLimit: 80000n,
+            busRideGasLimit: 75000n,
             nativeDropGasLimit: 45000n,
         },
         oneSigConfig: {
