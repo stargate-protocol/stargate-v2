@@ -873,7 +873,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.MOCA_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x164A2dE1bc5dc56F329909F7c97Bae929CaE557B',
+                address: '0x9560AbcCAfC1159A8772AFef9Ae85d455454a6aA',
             },
             [EndpointId.NIBIRU_V2_MAINNET]: {
                 type: StargateType.Oft,
