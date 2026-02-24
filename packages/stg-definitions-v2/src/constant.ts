@@ -154,6 +154,18 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xd3333aa4fa669d3eb036676ec01cb0acaaec0cc0',
         [EndpointId.BSC_V2_MAINNET]: '0x9188b373378d284c9174ae474c2b0a937924b34b',
     } satisfies Partial<Record<EndpointId, string>>,
+    BERA: {
+        [EndpointId.BERA_V2_MAINNET]: '0x10473bd2f7320476b5e5e59649e3dc129d9d0029',
+        [EndpointId.ETHEREUM_V2_MAINNET]: '0xe2e558c85e00b4d7529433c1cc78ab678cf62538',
+    } satisfies Partial<Record<EndpointId, string>>,
+    USDT0: {
+        [EndpointId.BERA_V2_MAINNET]: '0xd01ae6905d48315f7be10c7330aecf8360ef5b12',
+        [EndpointId.ETHEREUM_V2_MAINNET]: '0x3b0531eb02ab4ad72e7a531180beef9493a00dd2',
+    } satisfies Partial<Record<EndpointId, string>>,
+    CANARY: {
+        [EndpointId.BERA_V2_MAINNET]: '0x06e8042729cef3ae6d6db5350f48f9d736c3675d',
+        [EndpointId.ETHEREUM_V2_MAINNET]: '0xa4fe5a5b9a846458a70cd0748228aed3bf65c2cd',
+    } satisfies Partial<Record<EndpointId, string>>,
 }
 
 export const EXECUTORS = {
@@ -1621,11 +1633,39 @@ export const NETWORKS: NetworksConfig = {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET]],
+            },
+            perPathOptionalDVNs: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
+                    DVNS.BERA[EndpointId.BERA_V2_MAINNET],
+                    DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                ],
+            },
+            perPathOptionalDVNsThreshold: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: 2,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET], DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET]],
+            perPathRequiredDVNs: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET]],
+            },
+            perPathOptionalDVNs: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
+                    DVNS.BERA[EndpointId.BERA_V2_MAINNET],
+                    DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                ],
+            },
+            perPathOptionalDVNsThreshold: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: 2,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
             nativeDropAmount: parseEther('0.001').toBigInt(),
             busGasLimit: 60000n,
@@ -1896,6 +1936,20 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET]],
+            },
+            perPathOptionalDVNs: {
+                [EndpointId.BERA_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.BERA[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.USDT0[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.ETHEREUM_V2_MAINNET],
+                ],
+            },
+            perPathOptionalDVNsThreshold: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: 2,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
         },
         tokenMessaging: {
@@ -1904,6 +1958,20 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
             ],
+            perPathRequiredDVNs: {
+                [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET]],
+            },
+            perPathOptionalDVNs: {
+                [EndpointId.BERA_V2_MAINNET]: [
+                    DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.BERA[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.USDT0[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.ETHEREUM_V2_MAINNET],
+                ],
+            },
+            perPathOptionalDVNsThreshold: {
+                [EndpointId.ETHEREUM_V2_MAINNET]: 2,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
