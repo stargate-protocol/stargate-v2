@@ -2311,6 +2311,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
+            sendCreditGasLimit: 2n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
@@ -2320,6 +2321,7 @@ export const NETWORKS: NetworksConfig = {
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
             nativeDropAmount: parseEther('0.25').toBigInt(),
+            taxiGasLimit: 2n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
         },
         oneSigConfig: {
             oneSigAddress: '0x44143b3de2f977b92c054c6f32fdbd3b3cb74120',
