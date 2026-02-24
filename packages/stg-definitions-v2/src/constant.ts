@@ -1948,7 +1948,7 @@ export const NETWORKS: NetworksConfig = {
                 ],
             },
             perPathOptionalDVNsThreshold: {
-                [EndpointId.ETHEREUM_V2_MAINNET]: 2,
+                [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
         },
@@ -1970,7 +1970,7 @@ export const NETWORKS: NetworksConfig = {
                 ],
             },
             perPathOptionalDVNsThreshold: {
-                [EndpointId.ETHEREUM_V2_MAINNET]: 2,
+                [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
             nativeDropAmount: parseEther('0.0042').toBigInt(),
