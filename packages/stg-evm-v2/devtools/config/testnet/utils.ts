@@ -2,6 +2,8 @@ import { TokenName } from '@stargatefinance/stg-definitions-v2'
 import {
     CreditMessagingEdgeConfig,
     CreditMessagingNodeConfig,
+    FeeLibV1EdgeConfig,
+    FeeLibV1NodeConfig,
     TokenMessagingEdgeConfig,
     TokenMessagingNodeConfig,
 } from '@stargatefinance/stg-devtools-v2'
@@ -56,7 +58,9 @@ export async function buildMessagingUnwireGraphTestnet(
     >
 }
 
-export function buildFeeLibV1DeploymentGraphTestnet(tokenName: TokenName) {
+export function buildFeeLibV1DeploymentGraphTestnet(
+    tokenName: TokenName
+): Promise<OmniGraphHardhat<FeeLibV1NodeConfig, FeeLibV1EdgeConfig>> {
     return buildFeeLibV1DeploymentGraph(Stage.TESTNET, tokenName, DEFAULT_PLANNER)
 }
 
