@@ -7,7 +7,13 @@ import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 import { createGetAssetAddresses, createGetDeployer } from '../../../ts-src/utils/util'
 import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
-import { filterValidProvidedChains, getChainsThatSupportTreasurer, getTokenName, setStage } from './utils.config'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportTreasurer,
+    getNewChain,
+    getTokenName,
+    setStage,
+} from './utils.config'
 
 export default async function buildTreasurerGraph(
     stage: Stage,
@@ -22,7 +28,8 @@ export default async function buildTreasurerGraph(
     const getDeployer = createGetDeployer(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
-    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+    const newChain = getNewChain()
+    const chainsList = newChain ? [newChain] : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     // get valid chains config in the chainsList
     const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportTreasurer())
