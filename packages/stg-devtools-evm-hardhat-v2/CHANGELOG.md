@@ -1,5 +1,11 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 11.0.0
+
+### Major Changes
+
+- ed5d4fa: Updated `@layerzerolabs/protocol-devtools-evm` to `~5.0.3` and updated peer dependencies to satisfy its requirements: `@layerzerolabs/devtools-evm` to `~3.0.2`, `@layerzerolabs/protocol-devtools` to `~3.0.2`, and `@layerzerolabs/devtools-evm-hardhat` to `^4.0.0`.
+
 ## 10.0.0
 
 ### Major Changes
