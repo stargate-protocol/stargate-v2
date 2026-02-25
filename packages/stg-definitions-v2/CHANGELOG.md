@@ -1,5 +1,15 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.0
+
+### Major Changes
+
+- 5ab3414: Shutdown sophon mainnet
+
+### Patch Changes
+
+- b22f8d8: Moca Mainnet Config and Deployments
+
 ## 6.1.2
 
 ### Patch Changes
