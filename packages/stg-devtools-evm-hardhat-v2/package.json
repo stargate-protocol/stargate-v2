@@ -1,6 +1,6 @@
 {
   "name": "@stargatefinance/stg-devtools-evm-hardhat-v2",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "license": "BUSL-1.1",
   "exports": {
     ".": {

@@ -255,7 +255,7 @@ importers:
         specifier: ^4.8.1
         version: 4.9.6
       '@stargatefinance/stg-evm-v2':
-        specifier: ~7.0.0
+        specifier: ~8.0.0
         version: link:../stg-evm-v2
       '@typechain/ethers-v5':
         specifier: ^10.2.0
@@ -463,7 +463,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@stargatefinance/stg-devtools-evm-hardhat-v2':
-        specifier: ~10.0.0
+        specifier: ~11.0.0
         version: link:../stg-devtools-evm-hardhat-v2
       '@stargatefinance/stg-devtools-v2':
         specifier: ~10.0.0
@@ -4744,10 +4744,10 @@ packages:
     dependencies:
       '@ethersproject/address': 5.7.0
       '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/solidity': 5.8.0
-      '@safe-global/safe-deployments': 1.37.0
+      '@ethersproject/solidity': 5.7.0
+      '@safe-global/safe-deployments': 1.36.0
       ethereumjs-util: 7.1.5
-      semver: 7.7.3
+      semver: 7.6.2
       web3: 1.10.4
       web3-core: 1.10.4
       web3-utils: 1.10.4
@@ -4791,7 +4791,7 @@ packages:
       semver: 7.7.3
       viem: 2.46.2(typescript@5.6.3)(zod@3.22.5)
     optionalDependencies:
-      '@noble/curves': 1.8.2
+      '@noble/curves': 1.9.1
       '@peculiar/asn1-schema': 2.6.0
     transitivePeerDependencies:
       - bufferutil
