@@ -57,6 +57,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
+        [EndpointId.MOCA_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.OG_V2_MAINNET]: '0x95729ea44326f8add8a9b1d987279dbdc1dd3dff',
@@ -123,6 +124,7 @@ export const DVNS = {
         [EndpointId.MANTA_V2_MAINNET]: '0xa09db5142654e3eb5cf547d66833fae7097b21c3',
         [EndpointId.MANTLE_V2_MAINNET]: '0x28b6140ead70cb2fb669705b3598ffb4beaa060b',
         [EndpointId.METIS_V2_MAINNET]: '0x32d4f92437454829b3fe7bebfece5d0523deb475',
+        [EndpointId.MOCA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.NIBIRU_V2_MAINNET]: '0x5727e81a40015961145330d91cc27b5e189ff3e1',
         [EndpointId.OG_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x6a02d83e8d433304bba74ef1c427913958187142',
@@ -199,6 +201,7 @@ export const EXECUTORS = {
         [EndpointId.MANTA_V2_MAINNET]: '0x8DD9197E51dC6082853aD71D35912C53339777A7',
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
+        [EndpointId.MOCA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.NIBIRU_V2_MAINNET]: '0x6A02D83e8d433304bba74EF1c427913958187142',
         [EndpointId.OG_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
@@ -386,6 +389,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Pool,
                 address: '0x420000000000000000000000000000000000000a',
+            },
+            [EndpointId.MOCA_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.NIBIRU_V2_MAINNET]: {
                 symbol: 'WETH',
@@ -863,6 +871,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9',
                 type: StargateType.Pool,
             },
+            [EndpointId.MOCA_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x9560AbcCAfC1159A8772AFef9Ae85d455454a6aA',
+            },
             [EndpointId.NIBIRU_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x0829F361A05D993d5CEb035cA6DF3446b060970b',
@@ -1140,6 +1152,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.MANTA_V2_MAINNET]: {},
         [EndpointId.MANTLE_V2_MAINNET]: {},
         [EndpointId.METIS_V2_MAINNET]: {},
+        [EndpointId.MOCA_V2_MAINNET]: {},
         [EndpointId.MODE_V2_MAINNET]: {},
         [EndpointId.MOONBEAM_V2_MAINNET]: {},
         [EndpointId.MOONRIVER_V2_MAINNET]: {},
@@ -2298,6 +2311,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
+            sendCreditGasLimit: 2n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
@@ -2306,7 +2320,10 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.25').toBigInt(), // TODO: confirm
+            nativeDropAmount: parseEther('0.25').toBigInt(),
+            taxiGasLimit: 3n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
+            busGasLimit: 5n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.busGasLimit,
+            busRideGasLimit: 5n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.busRideGasLimit,
         },
         oneSigConfig: {
             oneSigAddress: '0x44143b3de2f977b92c054c6f32fdbd3b3cb74120',
@@ -2576,6 +2593,23 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x90c3DFD4Ea593336DBB9F925f73413e6EE84c90E',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/metis`,
+        },
+    },
+    [EndpointId.MOCA_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.MOCA_V2_MAINNET], DVNS.LZ_LABS[EndpointId.MOCA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.MOCA_V2_MAINNET], DVNS.LZ_LABS[EndpointId.MOCA_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
+            nativeDropAmount: parseEther('0.2').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0xd486d534f4c937c81b9bedf748ba4f3d0dd5b83e',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/moca`,
         },
     },
     [EndpointId.MODE_V2_MAINNET]: {
