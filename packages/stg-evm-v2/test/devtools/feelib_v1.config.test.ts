@@ -14,7 +14,11 @@ import feelibMethConfig from '../../devtools/config/mainnet/01/feelib-v1.meth.co
 import feelibMetisConfig from '../../devtools/config/mainnet/01/feelib-v1.metis.config'
 import feelibUsdcConfig from '../../devtools/config/mainnet/01/feelib-v1.usdc.config'
 import feelibUsdtConfig from '../../devtools/config/mainnet/01/feelib-v1.usdt.config'
-import { getAllSupportedChains, getChainsThatSupportToken } from '../../devtools/config/utils/utils.config'
+import {
+    getAllSupportedChains,
+    getChainsThatSupportToken,
+    getNewChainEid,
+} from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
 
@@ -136,5 +140,19 @@ function testFeeLibConfig(
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
+    })
+
+    it('should only include the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportToken(tokenName)
+        if (supportedChains.length < 1) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await feeLibConfig()
+        const newChainEid = getNewChainEid()
+
+        expect(config.contracts.length, 'contracts length').to.equal(1)
+        expect(config.contracts[0].contract.eid, 'contract eid').to.equal(newChainEid)
     })
 }

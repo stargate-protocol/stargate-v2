@@ -22,7 +22,7 @@ import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
 
-import { getChainByEidMap } from './utils/utils.config'
+import { getChainByEidMap, getNewChainEid } from './utils/utils.config'
 
 /**
  * Generates a mesh of connections based on points without any loopbacks
@@ -333,22 +333,27 @@ export function getContractsInChain(
     return chains.map((chain) => getContractWithEid(chainEids[chain.trim() as keyof typeof chainEids], contract))
 }
 
-export function filterConnections<TEdgeConfig>(
-    connections: OmniEdgeHardhat<TEdgeConfig>[],
-    fromContracts: Array<{ eid: EndpointId }>,
-    toContracts: Array<{ eid: EndpointId }>
-): OmniEdgeHardhat<TEdgeConfig>[] {
-    const fromEids = new Set(fromContracts.map((contract) => contract.eid))
-    const toEids = new Set(toContracts.map((contract) => contract.eid))
+export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
+    const newChainEid = getNewChainEid()
+
+    if (newChainEid !== undefined) {
+        return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
+            return connection.from.eid === newChainEid || connection.to.eid === newChainEid
+        })
+    }
+
+    const fromEids = new Set(fromContracts.map((contract: { eid: any }) => contract.eid))
+    const toEids = new Set(toContracts.map((contract: { eid: any }) => contract.eid))
 
     const chainByEid = getChainByEidMap()
 
-    return connections.filter(
-        (connection) =>
+    return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
+        return (
             fromEids.has(connection.from.eid) &&
             toEids.has(connection.to.eid) &&
             isAllowedPeerConnection(connection, chainByEid)
-    )
+        )
+    })
 }
 
 export function getContractWithEid(eid: EndpointId, contract: any) {

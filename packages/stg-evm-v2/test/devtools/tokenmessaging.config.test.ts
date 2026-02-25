@@ -9,6 +9,7 @@ import { filterConnections, generateTokenMessagingConfig, getOneSigAddress } fro
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
+    getNewChainEid,
     getSupportedTokensByEid,
 } from '../../devtools/config/utils/utils.config'
 
@@ -185,6 +186,33 @@ describe('tokenMessaging.config', () => {
         // check the config has no contracts for the unsupported chains
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
+        }
+    })
+
+    it('should generate connections for only the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportMessaging()
+        if (supportedChains.length < 2) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await tokenMessagingConfig()
+        const newChainEid = getNewChainEid()
+
+        // Should have contracts for all supported chains (node configs are needed for all chains)
+        expect(config.contracts.length).to.equal(supportedChains.length)
+        // The new chain should be among the contracts
+        expect(config.contracts.some((c) => c.contract.eid === newChainEid)).to.be.true
+
+        // All connections should involve the new chain
+        const N = supportedChains.length
+        expect(config.connections.length).to.equal(2 * (N - 1))
+
+        for (const connection of config.connections) {
+            expect(
+                connection.from.eid === newChainEid || connection.to.eid === newChainEid,
+                'connection involves new chain'
+            ).to.be.true
         }
     })
 })

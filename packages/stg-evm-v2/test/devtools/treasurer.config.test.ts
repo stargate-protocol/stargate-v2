@@ -5,7 +5,11 @@ import hre from 'hardhat'
 
 import treasurerConfig from '../../devtools/config/mainnet/01/treasurer.config'
 import { getOneSigAddress } from '../../devtools/config/utils'
-import { getAllSupportedChains, getChainsThatSupportTreasurer } from '../../devtools/config/utils/utils.config'
+import {
+    getAllSupportedChains,
+    getChainsThatSupportTreasurer,
+    getNewChainEid,
+} from '../../devtools/config/utils/utils.config'
 
 describe('treasurer.config', () => {
     let originalEnv: NodeJS.ProcessEnv
@@ -123,5 +127,19 @@ describe('treasurer.config', () => {
         for (const contract of config.contracts) {
             expect([...fromChainEids, ...toChainEids]).to.include(contract.contract.eid)
         }
+    })
+
+    it('should only include the new chain when NEW_CHAIN is set', async () => {
+        const supportedChains = getChainsThatSupportTreasurer()
+        if (supportedChains.length < 1) return
+
+        const newChainName = supportedChains[0].name
+        process.env.NEW_CHAIN = newChainName
+
+        const config = await treasurerConfig()
+        const newChainEid = getNewChainEid()
+
+        expect(config.contracts.length).to.equal(1)
+        expect(config.contracts[0].contract.eid).to.equal(newChainEid)
     })
 })

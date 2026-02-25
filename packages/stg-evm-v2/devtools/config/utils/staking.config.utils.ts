@@ -12,7 +12,13 @@ import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getLPTokenAddress } from './shared'
-import { filterValidProvidedChains, getChainsThatSupportStaking, getTokenName, setStage } from './utils.config'
+import {
+    filterValidProvidedChains,
+    getChainsThatSupportStaking,
+    getNewChain,
+    getTokenName,
+    setStage,
+} from './utils.config'
 
 export default async function buildStakingGraph(
     stage: Stage,
@@ -25,7 +31,8 @@ export default async function buildStakingGraph(
     const getEnvironment = createGetHreByEid()
     const contractFactory = createConnectedContractFactory(createContractFactory(getEnvironment))
 
-    const chainsList = process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+    const newChain = getNewChain()
+    const chainsList = newChain ? [newChain] : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     // get valid chains config in the chainsList
     const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportStaking())
