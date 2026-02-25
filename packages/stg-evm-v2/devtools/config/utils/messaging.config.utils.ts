@@ -19,6 +19,7 @@ import { getAssetsConfig } from './shared'
 import {
     filterFromAndToChains,
     getChainsThatSupportMessaging,
+    getNewChain,
     getSupportedTokensByEid,
     printChains,
     setStage,
@@ -41,11 +42,48 @@ export default async function buildMessagingGraph(
     // Set the correct stage
     setStage(stage)
 
-    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
-    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
-
     // check if all chains are valid
     const supportedChains = getChainsThatSupportMessaging()
+
+    // NEW_CHAIN mode: generate all connections to/from the new chain, node config only for the new chain
+    const newChainName = getNewChain()
+    if (newChainName) {
+        const newChain = supportedChains.find((c) => c.name === newChainName)
+        if (!newChain) {
+            // Chain doesn't support messaging — return empty graph
+            return { contracts: [], connections: [] }
+        }
+
+        const allContracts = supportedChains.map((chain) => getContractWithEid(chain.eid, contract))
+        const allConnections = generateMessagingConfig(allContracts)
+        const filteredConnections = filterConnections(allConnections, [], [])
+
+        // Include ALL contracts so edges can reference them in the graph.
+        // The framework will only generate transactions for actual config differences.
+        const getEnvironment = createGetHreByEid()
+        const contracts = await Promise.all(
+            allContracts.map(async (c) => {
+                const stargateOnesig = getOneSigAddressMaybe(c.eid)
+                return {
+                    contract: c,
+                    config: {
+                        ...(stargateOnesig !== undefined ? { owner: stargateOnesig } : {}),
+                        ...(stargateOnesig !== undefined ? { delegate: stargateOnesig } : {}),
+                        planner: defaultPlanner,
+                        assets: await getAssetsConfig(getEnvironment, c.eid, getSupportedTokensByEid(c.eid)),
+                    },
+                }
+            })
+        )
+
+        return {
+            contracts,
+            connections: filteredConnections,
+        }
+    }
+
+    const fromChains = process.env.FROM_CHAINS ? process.env.FROM_CHAINS.split(',') : []
+    const toChains = process.env.TO_CHAINS ? process.env.TO_CHAINS.split(',') : []
 
     // Get valid chains config for the chains in the fromChains and toChains
     const { validFromChains, validToChains } = filterFromAndToChains(fromChains, toChains, supportedChains)
