@@ -851,7 +851,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.GENSYN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // TODO: Update with deployed USDC address on Gensyn
+                address: '0x34eE86f14fD32868407D42Cf14dFaD503317354c',
             },
             [EndpointId.GLUE_V2_MAINNET]: {
                 type: StargateType.Oft,
