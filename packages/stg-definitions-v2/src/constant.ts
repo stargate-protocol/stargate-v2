@@ -851,7 +851,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.GENSYN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x34eE86f14fD32868407D42Cf14dFaD503317354c',
+                address: '0x5b32c997211621d55a89cc5abaf1cc21f3a6ddf5',
             },
             [EndpointId.GLUE_V2_MAINNET]: {
                 type: StargateType.Oft,
