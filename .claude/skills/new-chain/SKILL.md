@@ -14,13 +14,27 @@ description: >
 # Stargate V2 — New Chain Configuration & Deployment
 
 You are helping configure and deploy a new chain for Stargate V2. The flow is:
+0. Create a branch `deployments/<chain-name>`
 1. Ask the user for the info you need upfront (in a single message)
 2. Auto-fetch everything possible from LayerZero APIs + calculate nativeDropAmount
 3. Generate all 3 config files
-4. Present follow-up checklist for deployment
+4. Commit the changes and open a PR
+5. Present follow-up checklist for deployment
 
 The chain name is passed as an argument: `/new-chain <chain-name>` (e.g. `/new-chain sonic`).
 If no argument was given, ask for the chain name before doing anything else.
+
+---
+
+## Step 0 — Create branch
+
+Before asking for any info, create the branch:
+
+```bash
+git checkout -b deployments/<chain-name>
+```
+
+If the branch already exists, check it out instead. Confirm to the user that the branch is ready before continuing.
 
 ---
 
@@ -92,10 +106,15 @@ Find the entry whose key matches `<chain-name>` (case-insensitive). From the v2 
 | **Native currency symbol** | `chainDetails.nativeCurrency.symbol` |
 | **Native currency decimals** | `chainDetails.nativeCurrency.decimals` |
 
+> ⚠️ **API truncation**: The deployments API response is very large and WebFetch may return a truncated version that cuts off newer chains. If the chain is not found in the response, the executor address is still reliable — look it up by using `chainKey: "<chain-name>", stage: "mainnet"` in the JSON. If you cannot retrieve it, note the address as a TODO and let the user know they can find it at:
+> `https://metadata.layerzero-api.com/v1/metadata/deployments` → search for `"chainKey": "<chain-name>"`
+
 The EndpointId constant follows the pattern `<CHAIN_UPPER>_V2_MAINNET` (e.g. `SONIC_V2_MAINNET` for eid 30332). Verify it exists by running:
 ```bash
 grep '<CHAIN_UPPER>_V2_MAINNET' node_modules/@layerzerolabs/lz-definitions/dist/index.d.ts 2>/dev/null || echo "NOT_FOUND"
 ```
+
+If `NOT_FOUND`, the constant is not yet in the installed package version. **Proceed anyway** using the constant name (e.g. `EndpointId.GENSYN_V2_MAINNET`) and add a note to the follow-up checklist that a package version bump is required before building.
 
 ### 2b. DVN API
 
@@ -149,7 +168,7 @@ else
 fi
 ```
 
-If RPC is not configured, try a public RPC for the chain (search chainid.network or use a well-known endpoint). Express the result as `parseEther('<value>').toBigInt()`, rounded to 1-4 significant figures (e.g. `parseEther('0.001')`, `parseEther('0.015')`).
+If RPC is not configured, find a public RPC on **https://chainlist.org/** (search by chain name or chain ID). Express the result as `parseEther('<value>').toBigInt()`, rounded to 1-4 significant figures (e.g. `parseEther('0.001')`, `parseEther('0.015')`).
 
 ### 2d. Generate configuration files
 
@@ -190,10 +209,16 @@ For **ETH** (inside `ASSETS[TokenName.ETH].networks`):
 
 For **USDC** (inside `ASSETS[TokenName.USDC].networks`):
 - Pool: `[EndpointId.<CHAIN>_V2_MAINNET]: { address: '<addr>', type: StargateType.Pool },`
-- OFT with address: `[EndpointId.<CHAIN>_V2_MAINNET]: { type: StargateType.Oft, address: '<addr>' },`
-- OFT without address: `[EndpointId.<CHAIN>_V2_MAINNET]: { type: StargateType.Oft },`
+- OFT with known address: `[EndpointId.<CHAIN>_V2_MAINNET]: { type: StargateType.Oft, address: '<addr>' },`
+- OFT not yet deployed: always add a zero-address placeholder with a TODO — **never omit the `address` field**:
+  ```ts
+  [EndpointId.<CHAIN>_V2_MAINNET]: {
+      type: StargateType.Oft,
+      address: '0x0000000000000000000000000000000000000000', // TODO: Update with deployed USDC address on <Chain>
+  },
+  ```
 
-Same pattern for **USDT** and **EURC**.
+Same pattern for **USDT** and **EURC** OFTs that haven't been deployed yet.
 
 **f) NETWORKS_CONFIG** — the main config block:
 ```ts
@@ -208,7 +233,7 @@ Same pattern for **USDT** and **EURC**.
         ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
         requiredDVNs: [DVNS.NETHERMIND[EndpointId.<CHAIN>_V2_MAINNET], DVNS.LZ_LABS[EndpointId.<CHAIN>_V2_MAINNET]],
         executor: EXECUTORS.LZ_LABS[EndpointId.<CHAIN>_V2_MAINNET],
-        nativeDropAmount: parseEther('<X>').toBigInt(), // TODO: Confirm with Angus
+        nativeDropAmount: parseEther('<X>').toBigInt(), // TODO: Double check this value
     },
     oneSigConfig: {
         oneSigAddress: '<onesig-address>', // TODO: Confirm
@@ -281,7 +306,91 @@ Add `rewarder:` and `staking:` sections if the user requested them.
 
 ---
 
-## Step 3 — Follow-up checklist
+## Step 4 — Commit and open PR
+
+Once all config files are generated, stage and commit the changes, push the branch, and open a PR.
+
+### Changeset
+
+Create a changeset file at `.changeset/deploy-<chain-name>-<stage>.md` covering both modified packages:
+
+```md
+---
+"@stargatefinance/stg-definitions-v2": patch
+"@stargatefinance/stg-devtools-evm-hardhat-v2": patch
+"@stargatefinance/stg-devtools-v2": patch
+"@stargatefinance/stg-error-parser": patch
+"@stargatefinance/stg-evm-sdk-v2": patch
+"@stargatefinance/stg-evm-v2": patch
+---
+
+Configured and deployed <Chain Name> Mainnet
+```
+
+(Replace `Mainnet` with `Testnet` for testnet deployments.)
+
+### Commit
+
+Stage the config files and the changeset:
+```bash
+git add packages/stg-definitions-v2/src/constant.ts \
+        packages/stg-evm-v2/hardhat.config.ts \
+        packages/stg-evm-v2/devtools/config/mainnet/01/chainsConfig/<chain>-mainnet.yml \
+        .changeset/deploy-<chain-name>-mainnet.md
+git commit -m "feat: add <chain-name> mainnet config"
+git push -u origin deployments/<chain-name>
+```
+
+### PR
+
+Open the PR with `gh pr create` using this exact format:
+
+**Title:** `📤 [deploy] <Chain Name> Mainnet` (or `Testnet` if it's a testnet deployment)
+- `<Chain Name>` is the human-readable name, properly capitalised (e.g. `Gensyn`, `InjectiveEVM`, `Sonic`)
+
+**Body:**
+```
+### In this PR:
+
+Config for <Chain Name> Mainnet (<chain-id>) based on:
+- <asset> - <type>
+- <asset> - <type>
+
+TODO:
+
+- [ ] [caleb] Wire protocol for <chain-name>
+- [ ] [ravina] Deploy <token description and link if known> (only include if there are OFT assets with a zero-address placeholder)
+- [ ] [angus] confirm native drop amount
+```
+
+Rules for the TODO list — derive items directly from the `// TODO:` comments left in the generated code. Do not add any names or owners. Each TODO comment in the code becomes one PR checklist item:
+- If any asset has `// TODO: Update with deployed <ASSET> address on <Chain>` → add `- [ ] Update <ASSET> address on <Chain Name> once deployed`
+- If `nativeDropAmount` has `// TODO: Double check this value` → add `- [ ] Double check native drop amount value`
+- Any other `// TODO:` comments in the generated files → include them as-is
+
+Example `gh` command:
+```bash
+gh pr create \
+  --title "📤 [deploy] <Chain Name> Mainnet" \
+  --body "$(cat <<'EOF'
+### In this PR:
+
+Config for <Chain Name> Mainnet (<chain-id>) based on:
+- <asset> - <type>
+
+TODO:
+
+- [ ] Update USDC address on <Chain Name> once deployed
+- [ ] Double check native drop amount value
+EOF
+)"
+```
+
+Return the PR URL to the user once it is created.
+
+---
+
+## Step 5 — Follow-up checklist
 
 After all config files are generated, present the deployment checklist. Use checkboxes so the user can track progress.
 
@@ -290,9 +399,10 @@ After all config files are generated, present the deployment checklist. Use chec
 
 ### Before deploying
 - [ ] Review generated config — confirm all addresses (OneSig, DVNs, tokens)
-- [ ] Confirm nativeDropAmount with Angus (gas_price × 500K × 3)
+- [ ] Double check nativeDropAmount with the team (gas_price × 500K × 3)
 - [ ] Set `RPC_URL_<CHAIN_UPPER>_MAINNET` in `.env.local`
-- [ ] Deploy tokens first if needed (USDC.e via stablecoin-evm)
+- [ ] If `EndpointId.<CHAIN>_V2_MAINNET` was NOT_FOUND in the package, bump `@layerzerolabs/lz-definitions` to a version that includes it before building
+- [ ] Deploy tokens first if needed (OFT addresses from that deployment replace the zero-address placeholders in `constant.ts`)
 - [ ] If per-path DVNs configured, verify bidirectional config is correct
 
 ### Build and deploy
@@ -301,8 +411,7 @@ After all config files are generated, present the deployment checklist. Use chec
 - [ ] Verify contracts:
       `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> -k <key> --api-url <url>`
 
-### Create PR and get it reviewed
-- [ ] Create PR with config + deployment artifacts (include changesets for all modified packages)
+### Get PR reviewed and merged
 - [ ] Get PR reviewed and merged
 - [ ] Check and merge the "Version packages" PR from stargate-bot
 
