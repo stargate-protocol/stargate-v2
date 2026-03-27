@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.1
+
+### Patch Changes
+
+- 0a225b2: Updated Berachain confiugration to have LZ_Labs as required and Bera, Nethermind, USDT0,Canary as 2/4 optionals
+
 ## 7.0.0
 
 ### Major Changes
