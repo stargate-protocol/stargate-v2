@@ -2351,7 +2351,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.GENSYN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0000015').toBigInt(), // TODO: Double check this value
+            nativeDropAmount: parseEther('0.0000015').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x34eE86f14fD32868407D42Cf14dFaD503317354c',
