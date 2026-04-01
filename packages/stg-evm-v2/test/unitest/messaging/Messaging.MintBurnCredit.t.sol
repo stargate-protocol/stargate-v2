@@ -5,6 +5,7 @@ import { Test } from "forge-std/Test.sol";
 import { TargetCredit, TargetCreditBatch } from "../../../src/interfaces/ICreditMessaging.sol";
 import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
 import { MintBurnCreditMessaging } from "../../../src/messaging/MintBurnCreditMessaging.sol";
+import { IMintBurnCreditMessaging } from "../../../src/interfaces/IMintBurnCreditMessaging.sol";
 import { CreditMessaging, MessagingBase } from "../../../src/messaging/CreditMessaging.sol";
 import { CreditMessagingOptions } from "../../../src/messaging/CreditMessagingOptions.sol";
 import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
@@ -61,7 +62,7 @@ contract MintBurnCreditMessagingTest is Test {
 
         CreditBatch[] memory batches = _buildMintBatches(_srcEid, _amount);
         vm.expectEmit(false, false, false, false);
-        emit MintBurnCreditMessaging.CreditsMinted(DST_EID, batches, "restoring lost credits");
+        emit IMintBurnCreditMessaging.CreditsMinted(DST_EID, batches, "restoring lost credits");
         messaging.mintCredits(DST_EID, batches, "restoring lost credits");
     }
 
@@ -108,7 +109,7 @@ contract MintBurnCreditMessagingTest is Test {
         vm.expectEmit(false, false, false, false);
         Credit[] memory burned = new Credit[](1);
         burned[0] = Credit(_srcEid, _amount);
-        emit MintBurnCreditMessaging.CreditsBurned(ASSET_ID, burned, "correcting over-minted credits");
+        emit IMintBurnCreditMessaging.CreditsBurned(ASSET_ID, burned, "correcting over-minted credits");
         messaging.burnCredits(batches, "correcting over-minted credits");
     }
 
