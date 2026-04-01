@@ -50,14 +50,14 @@ contract MintBurnCreditMessagingTest is Test {
         vm.assume(_nonOwner != OWNER);
         CreditBatch[] memory batches = new CreditBatch[](0);
         vm.prank(_nonOwner);
-        vm.expectRevert();
+        vm.expectRevert("Ownable: caller is not the owner");
         messaging.mintCredits(DST_EID, batches, "test");
     }
 
     function test_RevertIf_MintCredits_PlannerCannotMint() public {
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
         vm.prank(PLANNER);
-        vm.expectRevert();
+        vm.expectRevert("Ownable: caller is not the owner");
         messaging.mintCredits(DST_EID, batches, "test");
     }
 
