@@ -116,7 +116,7 @@ contract MintBurnCreditMessagingTest is Test {
     ) public {
         vm.assume(_amount > 0 && _minAmount <= _amount);
         TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount, _minAmount);
-        _mockStargateSendCredits(batches[0].credits);
+        _mockStargateSendCredits(0, batches[0].credits);
 
         vm.expectEmit(false, false, false, false);
         Credit[] memory burned = new Credit[](1);
@@ -130,7 +130,7 @@ contract MintBurnCreditMessagingTest is Test {
     function test_SendCredits_StillAccessibleByPlanner(uint32 _srcEid, uint64 _amount) public {
         vm.assume(_amount > 0);
         TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount, 0);
-        _mockStargateSendCredits(batches[0].credits);
+        _mockStargateSendCredits(DST_EID, batches[0].credits);
         _mockEndpointSend(100);
 
         vm.prank(PLANNER);
@@ -168,14 +168,14 @@ contract MintBurnCreditMessagingTest is Test {
         batches[0] = TargetCreditBatch(_assetId, credits);
     }
 
-    function _mockStargateSendCredits(TargetCredit[] memory _credits) internal {
+    function _mockStargateSendCredits(uint32 _dstEid, TargetCredit[] memory _credits) internal {
         Credit[] memory actual = new Credit[](_credits.length);
         for (uint256 i = 0; i < _credits.length; i++) {
             actual[i] = Credit(_credits[i].srcEid, _credits[i].amount);
         }
         vm.mockCall(
             STARGATE_IMPL,
-            abi.encodeWithSelector(ICreditMessagingHandler.sendCredits.selector, uint32(0), _credits),
+            abi.encodeWithSelector(ICreditMessagingHandler.sendCredits.selector, _dstEid, _credits),
             abi.encode(actual)
         );
     }
