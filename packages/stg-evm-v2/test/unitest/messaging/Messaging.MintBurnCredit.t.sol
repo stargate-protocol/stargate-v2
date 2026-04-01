@@ -175,7 +175,7 @@ contract MintBurnCreditMessagingTest is Test {
         }
         vm.mockCall(
             STARGATE_IMPL,
-            abi.encodeWithSelector(ICreditMessagingHandler.sendCredits.selector),
+            abi.encodeWithSelector(ICreditMessagingHandler.sendCredits.selector, uint32(0), _credits),
             abi.encode(actual)
         );
     }
