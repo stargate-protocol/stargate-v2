@@ -11,6 +11,8 @@ import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/Ad
 import { MessagingFee, MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
+import { IMintBurnCreditMessaging } from "../../../src/interfaces/IMintBurnCreditMessaging.sol";
+import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
 
 contract CreditMessagingTest is Test {
     address internal ALICE = makeAddr("alice");
@@ -260,20 +262,17 @@ contract CreditMessagingTest is Test {
     // ---------------------------------- mintCredits / burnCredits not available ------------------------------------------
 
     function test_MintCredits_NotAvailableOnCreditMessaging() public {
+        CreditBatch[] memory batches = new CreditBatch[](0);
         (bool success, ) = address(messaging).call(
-            abi.encodeWithSignature(
-                "mintCredits(uint32,(uint16,(uint32,uint64)[])[]memory,string)",
-                0,
-                new bytes(0),
-                ""
-            )
+            abi.encodeWithSelector(IMintBurnCreditMessaging.mintCredits.selector, uint32(0), batches, "")
         );
         assertFalse(success);
     }
 
     function test_BurnCredits_NotAvailableOnCreditMessaging() public {
+        TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
         (bool success, ) = address(messaging).call(
-            abi.encodeWithSignature("burnCredits((uint16,(uint32,uint64,uint64)[])[],string)", new bytes(0), "")
+            abi.encodeWithSelector(IMintBurnCreditMessaging.burnCredits.selector, batches, "")
         );
         assertFalse(success);
     }
