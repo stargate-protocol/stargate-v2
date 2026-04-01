@@ -257,6 +257,29 @@ contract CreditMessagingTest is Test {
         );
     }
 
+    // ---------------------------------- mintCredits / burnCredits not available ------------------------------------------
+
+    function test_MintCredits_NotAvailableOnCreditMessaging() public {
+        (bool success, ) = address(messaging).call(
+            abi.encodeWithSignature(
+                "mintCredits(uint32,(uint16,(uint32,uint64)[])[]memory,string)",
+                0,
+                new bytes(0),
+                ""
+            )
+        );
+        assertFalse(success);
+    }
+
+    function test_BurnCredits_NotAvailableOnCreditMessaging() public {
+        (bool success, ) = address(messaging).call(
+            abi.encodeWithSignature("burnCredits((uint16,(uint32,uint64,uint64)[])[],string)", new bytes(0), "")
+        );
+        assertFalse(success);
+    }
+
+    // ---------------------------------- Helpers ------------------------------------------
+
     function _mockEndpointSend(uint256 fee) internal {
         MessagingFee memory mockMessagingFee = MessagingFee({ nativeFee: fee, lzTokenFee: 0 });
         MessagingReceipt memory mockReceipt = MessagingReceipt({ guid: "0", nonce: 1, fee: mockMessagingFee });
