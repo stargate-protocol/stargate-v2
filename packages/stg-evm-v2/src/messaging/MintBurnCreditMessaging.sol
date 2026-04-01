@@ -10,6 +10,8 @@ import { IMintBurnCreditMessaging } from "../interfaces/IMintBurnCreditMessaging
 import { ICreditMessagingHandler, Credit } from "../interfaces/ICreditMessagingHandler.sol";
 
 contract MintBurnCreditMessaging is CreditMessaging, IMintBurnCreditMessaging {
+    error MintBurnCreditMessaging_EmptyReason();
+
     constructor(address _endpoint, address _owner) CreditMessaging(_endpoint, _owner) {}
 
     // ---------------------------------- Only Owner ------------------------------------------
@@ -20,6 +22,7 @@ contract MintBurnCreditMessaging is CreditMessaging, IMintBurnCreditMessaging {
         CreditBatch[] calldata _batches,
         string calldata _reason
     ) external payable onlyOwner {
+        if (bytes(_reason).length == 0) revert MintBurnCreditMessaging_EmptyReason();
         (bytes memory message, bytes memory options) = _buildMessagePayload(_dstEid, _batches);
         _lzSend(_dstEid, message, options, MessagingFee(msg.value, 0), msg.sender);
         emit CreditsMinted(_dstEid, _batches, _reason);
@@ -27,6 +30,7 @@ contract MintBurnCreditMessaging is CreditMessaging, IMintBurnCreditMessaging {
 
     /// @dev Credits are deducted on the current chain without sending an LZ message to any other chain.
     function burnCredits(TargetCreditBatch[] calldata _creditBatches, string calldata _reason) external onlyOwner {
+        if (bytes(_reason).length == 0) revert MintBurnCreditMessaging_EmptyReason();
         for (uint256 i = 0; i < _creditBatches.length; i++) {
             TargetCreditBatch calldata targetBatch = _creditBatches[i];
             Credit[] memory burned = ICreditMessagingHandler(_safeGetStargateImpl(targetBatch.assetId)).sendCredits(
