@@ -54,7 +54,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     }
 
     if (creditMessaging != null) {
-        const contractName = isAlt ? 'CreditMessagingAlt' : 'CreditMessaging'
+        const contractName = isAlt ? 'CreditMessagingAlt' : 'MintBurnCreditMessaging'
         logger.info(
             `Deploying ${contractName} on ${network} as: ${deployer} with endpoint: ${endpointDeployment.address}`
         )
