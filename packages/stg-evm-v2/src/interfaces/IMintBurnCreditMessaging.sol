@@ -22,7 +22,7 @@ interface IMintBurnCreditMessaging {
     /// @param _dstEid The destination LayerZero endpoint ID.
     /// @param _batches The credit batches to mint. Set srcEid = dstEid to restore local redemption credits.
     /// @param _reason Plain-text explanation emitted on-chain for auditability.
-    function mintCredits(uint32 _dstEid, CreditBatch[] memory _batches, string calldata _reason) external payable;
+    function mintCredits(uint32 _dstEid, CreditBatch[] calldata _batches, string calldata _reason) external payable;
 
     /// @notice Quotes the LZ messaging fee for a mintCredits call.
     /// @param _dstEid The destination LayerZero endpoint ID.
@@ -30,7 +30,7 @@ interface IMintBurnCreditMessaging {
     /// @return fee The native fee required.
     function quoteMintCredits(
         uint32 _dstEid,
-        CreditBatch[] memory _batches
+        CreditBatch[] calldata _batches
     ) external view returns (MessagingFee memory fee);
 
     /// @notice Burns credits locally without sending an LZ message.
