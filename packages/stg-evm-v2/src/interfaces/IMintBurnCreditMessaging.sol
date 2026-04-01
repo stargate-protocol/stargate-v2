@@ -5,12 +5,19 @@ import { MessagingFee } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interf
 
 import { CreditBatch } from "../libs/CreditMsgCodec.sol";
 import { TargetCreditBatch } from "./ICreditMessaging.sol";
+import { Credit } from "./ICreditMessagingHandler.sol";
 
 /// @title MintBurnCreditMessaging API
 /// @dev Defines the emergency credit management functions available only to the contract owner.
 ///      These functions are intentionally separate from the standard ICreditMessaging interface
 ///      to make clear that they bypass normal credit validation and must be used with care.
 interface IMintBurnCreditMessaging {
+    /// @notice Emitted when credits are minted to a destination chain without local deduction.
+    event CreditsMinted(uint32 dstEid, CreditBatch[] batches, string reason);
+
+    /// @notice Emitted when credits are burned locally without sending an LZ message.
+    event CreditsBurned(uint16 assetId, Credit[] credits, string reason);
+
     /// @notice Mints credits on a destination chain without consuming local credits.
     /// @param _dstEid The destination LayerZero endpoint ID.
     /// @param _batches The credit batches to mint. Set srcEid = dstEid to restore local redemption credits.

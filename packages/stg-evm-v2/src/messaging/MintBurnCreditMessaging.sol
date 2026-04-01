@@ -10,9 +10,6 @@ import { IMintBurnCreditMessaging } from "../interfaces/IMintBurnCreditMessaging
 import { ICreditMessagingHandler, Credit } from "../interfaces/ICreditMessagingHandler.sol";
 
 contract MintBurnCreditMessaging is CreditMessaging, IMintBurnCreditMessaging {
-    event CreditsMinted(uint32 dstEid, CreditBatch[] batches, string reason);
-    event CreditsBurned(uint16 assetId, Credit[] credits, string reason);
-
     constructor(address _endpoint, address _owner) CreditMessaging(_endpoint, _owner) {}
 
     // ---------------------------------- Only Owner ------------------------------------------
