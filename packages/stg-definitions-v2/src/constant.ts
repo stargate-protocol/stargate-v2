@@ -1169,6 +1169,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FUSE_V2_MAINNET]: {},
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GATELAYER_V2_MAINNET]: {},
+        [EndpointId.GENSYN_V2_MAINNET]: {},
         [EndpointId.GLUE_V2_MAINNET]: {},
         [EndpointId.GNOSIS_V2_MAINNET]: {},
         [EndpointId.GOAT_V2_MAINNET]: {},
