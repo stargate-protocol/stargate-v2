@@ -10,8 +10,6 @@ import { IMintBurnCreditMessaging } from "../interfaces/IMintBurnCreditMessaging
 import { ICreditMessagingHandler, Credit } from "../interfaces/ICreditMessagingHandler.sol";
 
 contract MintBurnCreditMessaging is CreditMessaging, IMintBurnCreditMessaging {
-    error MintBurnCreditMessaging_EmptyReason();
-
     constructor(address _endpoint, address _owner) CreditMessaging(_endpoint, _owner) {}
 
     // ---------------------------------- Only Owner ------------------------------------------

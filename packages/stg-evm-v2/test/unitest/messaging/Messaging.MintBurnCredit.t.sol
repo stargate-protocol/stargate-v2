@@ -36,13 +36,13 @@ contract MintBurnCreditMessagingTest is Test {
 
     function test_RevertIf_MintCredits_EmptyReason() public {
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
-        vm.expectRevert(MintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
+        vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
         messaging.mintCredits(DST_EID, batches, "");
     }
 
     function test_RevertIf_BurnCredits_EmptyReason() public {
         TargetCreditBatch[] memory batches = _buildBurnBatchesForAsset(ASSET_ID, 100, 0);
-        vm.expectRevert(MintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
+        vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
         messaging.burnCredits(batches, "");
     }
 

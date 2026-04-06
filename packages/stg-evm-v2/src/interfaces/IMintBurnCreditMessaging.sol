@@ -12,6 +12,9 @@ import { Credit } from "./ICreditMessagingHandler.sol";
 ///      These functions are intentionally separate from the standard ICreditMessaging interface
 ///      to make clear that they bypass normal credit validation and must be used with care.
 interface IMintBurnCreditMessaging {
+    /// @notice Thrown when mintCredits or burnCredits is called with an empty reason string.
+    error MintBurnCreditMessaging_EmptyReason();
+
     /// @notice Emitted when credits are minted to a destination chain without local deduction.
     event CreditsMinted(uint32 dstEid, CreditBatch[] batches, string reason);
 
