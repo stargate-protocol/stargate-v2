@@ -261,20 +261,22 @@ contract CreditMessagingTest is Test {
 
     // ---------------------------------- mintCredits / burnCredits not available ------------------------------------------
 
-    function test_MintCredits_NotAvailableOnCreditMessaging() public {
+    function test_MintCredits_NotAvailableOnCreditMessaging() public virtual {
         CreditBatch[] memory batches = new CreditBatch[](0);
-        (bool success, ) = address(messaging).call(
+        (bool success, bytes memory data) = address(messaging).call(
             abi.encodeWithSelector(ICreditMessagingRecovery.mintCredits.selector, uint32(0), batches, "")
         );
         assertFalse(success);
+        assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
     }
 
-    function test_BurnCredits_NotAvailableOnCreditMessaging() public {
+    function test_BurnCredits_NotAvailableOnCreditMessaging() public virtual {
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
-        (bool success, ) = address(messaging).call(
+        (bool success, bytes memory data) = address(messaging).call(
             abi.encodeWithSelector(ICreditMessagingRecovery.burnCredits.selector, batches, "")
         );
         assertFalse(success);
+        assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
     }
 
     // ---------------------------------- Helpers ------------------------------------------
