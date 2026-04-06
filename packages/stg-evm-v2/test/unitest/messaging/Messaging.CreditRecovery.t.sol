@@ -79,6 +79,54 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         _assertNoLzMessageSent();
     }
 
+    function test_MintCredits_MultipleBatchesWithMultipleCreditsEach(uint64 _amount) public {
+        _amount = uint64(bound(_amount, 1, type(uint64).max));
+        address stargate2 = makeAddr("stargateImpl2");
+        uint16 assetId2 = ASSET_ID + 1;
+        messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
+        messaging.setAssetId(stargate2, assetId2);
+
+        Credit[] memory credits1 = new Credit[](2);
+        credits1[0] = Credit(1, _amount);
+        credits1[1] = Credit(2, _amount);
+        Credit[] memory credits2 = new Credit[](2);
+        credits2[0] = Credit(3, _amount);
+        credits2[1] = Credit(4, _amount);
+        CreditBatch[] memory batches = new CreditBatch[](2);
+        batches[0] = CreditBatch(ASSET_ID, credits1);
+        batches[1] = CreditBatch(assetId2, credits2);
+
+        _mockStargateReceiveCredits(STARGATE_IMPL, credits1);
+        _mockStargateReceiveCredits(stargate2, credits2);
+
+        vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, credits1)));
+        vm.expectCall(stargate2, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, credits2)));
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, credits1, MINT_REASON);
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsMinted(assetId2, credits2, MINT_REASON);
+
+        vm.recordLogs();
+        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        _assertNoLzMessageSent();
+    }
+
+    function test_MintCredits_EmptyCreditsArray() public {
+        messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
+
+        Credit[] memory emptyCredits = new Credit[](0);
+        CreditBatch[] memory batches = new CreditBatch[](1);
+        batches[0] = CreditBatch(ASSET_ID, emptyCredits);
+
+        _mockStargateReceiveCredits(emptyCredits);
+
+        vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, emptyCredits)));
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, emptyCredits, MINT_REASON);
+
+        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+    }
+
     // ---------------------------------- burnCredits ------------------------------------------
 
     function test_RevertIf_BurnCredits_EmptyReason() public {
@@ -132,6 +180,90 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         _assertNoLzMessageSent();
     }
 
+    function test_BurnCredits_MultipleBatchesWithMultipleCreditsEach(uint64 _amount) public {
+        _amount = uint64(bound(_amount, 1, type(uint64).max));
+        address stargate2 = makeAddr("stargateImpl2");
+        uint16 assetId2 = ASSET_ID + 1;
+        messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
+        messaging.setAssetId(stargate2, assetId2);
+
+        TargetCredit[] memory targets1 = new TargetCredit[](2);
+        targets1[0] = TargetCredit(1, _amount, _amount);
+        targets1[1] = TargetCredit(2, _amount, _amount);
+        TargetCredit[] memory targets2 = new TargetCredit[](2);
+        targets2[0] = TargetCredit(3, _amount, _amount);
+        targets2[1] = TargetCredit(4, _amount, _amount);
+        TargetCreditBatch[] memory batches = new TargetCreditBatch[](2);
+        batches[0] = TargetCreditBatch(ASSET_ID, targets1);
+        batches[1] = TargetCreditBatch(assetId2, targets2);
+
+        _mockStargateSendCredits(0, targets1, STARGATE_IMPL);
+        _mockStargateSendCredits(0, targets2, stargate2);
+
+        Credit[] memory burned1 = new Credit[](2);
+        burned1[0] = Credit(1, _amount);
+        burned1[1] = Credit(2, _amount);
+        Credit[] memory burned2 = new Credit[](2);
+        burned2[0] = Credit(3, _amount);
+        burned2[1] = Credit(4, _amount);
+
+        vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets1)));
+        vm.expectCall(stargate2, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets2)));
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, burned1, BURN_REASON);
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsBurned(assetId2, burned2, BURN_REASON);
+
+        vm.recordLogs();
+        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        _assertNoLzMessageSent();
+    }
+
+    function test_BurnCredits_EmitsActualBurnedAmounts_WhenHandlerReturnsPartial(
+        uint32 _srcEid,
+        uint64 _amount
+    ) public {
+        _amount = uint64(bound(_amount, 2, type(uint64).max));
+        messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
+
+        TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount);
+        TargetCredit[] memory targets = batches[0].credits;
+
+        uint64 partialAmount = _amount / 2;
+        Credit[] memory partialBurned = new Credit[](1);
+        partialBurned[0] = Credit(_srcEid, partialAmount);
+        vm.mockCall(
+            STARGATE_IMPL,
+            abi.encodeWithSelector(ICreditMessagingHandler.sendCredits.selector, uint32(0), targets),
+            abi.encode(partialBurned)
+        );
+
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, partialBurned, BURN_REASON);
+
+        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+    }
+
+    function test_BurnCredits_EmitsEmptyArray_WhenHandlerReturnsNothing(uint32 _srcEid, uint64 _amount) public {
+        _amount = uint64(bound(_amount, 1, type(uint64).max));
+        messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
+
+        TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount);
+        TargetCredit[] memory targets = batches[0].credits;
+
+        Credit[] memory noBurned = new Credit[](0);
+        vm.mockCall(
+            STARGATE_IMPL,
+            abi.encodeWithSelector(ICreditMessagingHandler.sendCredits.selector, uint32(0), targets),
+            abi.encode(noBurned)
+        );
+
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, noBurned, BURN_REASON);
+
+        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+    }
+
     // ---------------------------------- inherited negative tests overridden ------------------------------------------
 
     function test_MintCredits_NotAvailableOnCreditMessaging() public override {
@@ -164,7 +296,11 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     }
 
     function _mockStargateReceiveCredits(Credit[] memory _credits) internal {
-        vm.mockCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, _credits)), "");
+        _mockStargateReceiveCredits(STARGATE_IMPL, _credits);
+    }
+
+    function _mockStargateReceiveCredits(address _stargate, Credit[] memory _credits) internal {
+        vm.mockCall(_stargate, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, _credits)), "");
     }
 
     function _assertNoLzMessageSent() internal {
