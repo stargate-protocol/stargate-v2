@@ -72,7 +72,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, batches[0].credits)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, batches[0].credits, MINT_REASON);
+        emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
 
         vm.recordLogs();
         CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
@@ -102,9 +102,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, credits1)));
         vm.expectCall(stargate2, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, credits2)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, credits1, MINT_REASON);
-        vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(assetId2, credits2, MINT_REASON);
+        emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
 
         vm.recordLogs();
         CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
@@ -122,7 +120,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, emptyCredits)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, emptyCredits, MINT_REASON);
+        emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
 
         CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
     }
@@ -171,9 +169,11 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        Credit[] memory burned = new Credit[](1);
-        burned[0] = Credit(_srcEid, _amount);
-        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, burned, BURN_REASON);
+        Credit[] memory burnedCredits = new Credit[](1);
+        burnedCredits[0] = Credit(_srcEid, _amount);
+        CreditBatch[] memory burnedBatches = new CreditBatch[](1);
+        burnedBatches[0] = CreditBatch(ASSET_ID, burnedCredits);
+        emit ICreditMessagingRecovery.CreditsBurned(burnedBatches, BURN_REASON);
 
         vm.recordLogs();
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
@@ -206,13 +206,14 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         Credit[] memory burned2 = new Credit[](2);
         burned2[0] = Credit(3, _amount);
         burned2[1] = Credit(4, _amount);
+        CreditBatch[] memory burnedBatches = new CreditBatch[](2);
+        burnedBatches[0] = CreditBatch(ASSET_ID, burned1);
+        burnedBatches[1] = CreditBatch(assetId2, burned2);
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets1)));
         vm.expectCall(stargate2, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets2)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, burned1, BURN_REASON);
-        vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(assetId2, burned2, BURN_REASON);
+        emit ICreditMessagingRecovery.CreditsBurned(burnedBatches, BURN_REASON);
 
         vm.recordLogs();
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
@@ -238,8 +239,10 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
             abi.encode(partialBurned)
         );
 
+        CreditBatch[] memory partialBurnedBatches = new CreditBatch[](1);
+        partialBurnedBatches[0] = CreditBatch(ASSET_ID, partialBurned);
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, partialBurned, BURN_REASON);
+        emit ICreditMessagingRecovery.CreditsBurned(partialBurnedBatches, BURN_REASON);
 
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
     }
@@ -258,8 +261,10 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
             abi.encode(noBurned)
         );
 
+        CreditBatch[] memory noBurnedBatches = new CreditBatch[](1);
+        noBurnedBatches[0] = CreditBatch(ASSET_ID, noBurned);
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, noBurned, BURN_REASON);
+        emit ICreditMessagingRecovery.CreditsBurned(noBurnedBatches, BURN_REASON);
 
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
     }
