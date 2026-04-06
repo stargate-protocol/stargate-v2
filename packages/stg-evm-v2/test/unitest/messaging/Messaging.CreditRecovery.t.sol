@@ -7,6 +7,7 @@ import { CreditMessagingRecovery } from "../../../src/messaging/CreditMessagingR
 import { ICreditMessagingRecovery } from "../../../src/interfaces/ICreditMessagingRecovery.sol";
 import { CreditMessaging, MessagingBase } from "../../../src/messaging/CreditMessaging.sol";
 import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
+import { Vm } from "forge-std/Vm.sol";
 import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/AddressCast.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 import { CreditMessagingTest } from "./Messaging.Credit.t.sol";
@@ -15,7 +16,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     address internal immutable OWNER = address(this);
     uint16 internal constant ASSET_ID = 1;
     uint32 internal constant DST_EID = 7;
-    string internal constant OWNABLE_ERROR = "Ownable: caller is not the owner";
+    bytes internal constant OWNABLE_ERROR = "Ownable: caller is not the owner";
     string internal constant MINT_REASON = "restoring lost credits";
     string internal constant BURN_REASON = "correcting over-minted credits";
 
@@ -73,7 +74,9 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         vm.expectEmit(true, true, true, true, address(messaging));
         emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, batches[0].credits, MINT_REASON);
 
+        vm.recordLogs();
         CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        _assertNoLzMessageSent();
     }
 
     // ---------------------------------- burnCredits ------------------------------------------
@@ -124,7 +127,9 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         burned[0] = Credit(_srcEid, _amount);
         emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, burned, BURN_REASON);
 
+        vm.recordLogs();
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        _assertNoLzMessageSent();
     }
 
     // ---------------------------------- inherited negative tests overridden ------------------------------------------
@@ -160,5 +165,15 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
     function _mockStargateReceiveCredits(Credit[] memory _credits) internal {
         vm.mockCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, _credits)), "");
+    }
+
+    function _assertNoLzMessageSent() internal {
+        bytes32 packetSentTopic = keccak256("PacketSent(bytes,bytes,address)");
+        Vm.Log[] memory logs = vm.getRecordedLogs();
+        for (uint256 i = 0; i < logs.length; i++) {
+            if (logs[i].emitter == address(messaging.endpoint())) {
+                assertNotEq(logs[i].topics[0], packetSentTopic, "unexpected LZ PacketSent event");
+            }
+        }
     }
 }
