@@ -57,7 +57,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     function test_RevertIf_MintCredits_UnavailableAsset(uint16 _assetId) public {
         _assetId = uint16(bound(_assetId, ASSET_ID + 1, type(uint16).max));
         Credit[] memory credits = new Credit[](1);
-        credits[0] = Credit(1, 100);
+        credits[0] = Credit({ srcEid: 1, amount: 100 });
         CreditBatch[] memory batches = new CreditBatch[](1);
         batches[0] = CreditBatch(_assetId, credits);
         vm.expectRevert(MessagingBase.Messaging_Unavailable.selector);
@@ -153,7 +153,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     function test_RevertIf_BurnCredits_UnavailableAsset(uint16 _assetId) public {
         _assetId = uint16(bound(_assetId, ASSET_ID + 1, type(uint16).max));
         TargetCredit[] memory credits = new TargetCredit[](1);
-        credits[0] = TargetCredit(1, 100, 100);
+        credits[0] = TargetCredit({ srcEid: 1, amount: 100, minAmount: 100 });
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](1);
         batches[0] = TargetCreditBatch(_assetId, credits);
         vm.expectRevert(MessagingBase.Messaging_Unavailable.selector);
