@@ -138,7 +138,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         vm.assume(_nonOwner != OWNER);
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
         vm.prank(_nonOwner);
-        vm.expectRevert();
+        vm.expectRevert(OWNABLE_ERROR);
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
@@ -146,7 +146,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
         TargetCreditBatch[] memory batches = _buildBurnBatches(1, 100);
         vm.prank(PLANNER);
-        vm.expectRevert();
+        vm.expectRevert(OWNABLE_ERROR);
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
