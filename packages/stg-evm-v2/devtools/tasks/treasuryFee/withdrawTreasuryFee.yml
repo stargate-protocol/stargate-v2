@@ -1,0 +1,23 @@
+# Treasurer: withdraw treasury fee then transfer to recipient.
+#
+# Each entry generates two transactions:
+#   1. withdrawTreasuryFee(stargate, amount)  — pool -> treasurer
+#   2. transfer(token, to, amount)            — treasurer -> recipient
+#
+# Run from packages/stg-evm-v2:
+#   pnpm exec hardhat stg:propose:withdraw-treasury-fee --onesig
+#   pnpm exec hardhat stg:propose:withdraw-treasury-fee --safe
+#
+# Fields:
+#   chain   Hardhat network name (e.g. ethereum-mainnet).
+#   asset   TokenName (USDC, ETH, USDT, …) — resolves Stargate pool/OFT.
+#   amount  Decimal integer string.
+#   to      Recipient address.
+#
+# Batched One Sig: export LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND=true
+
+actions:
+  - chain: ethereum-mainnet
+    asset: USDC
+    amount: '1000000'
+    to: '0x0000000000000000000000000000000000000001'

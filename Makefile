@@ -1,7 +1,8 @@
 # None of the targets actually build any binaries so we make them all as phony
 .PHONY: build deploy configure deploy-sandbox start-sandbox \
 	mainnet-connections-summary testnet-connections-summary \
-	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet
+	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet \
+	withdraw-treasury-fee
 
 # To make the code bit more DRY we'll isolate the commonly used stuff into variables
 PACKAGE=@stargatefinance/stg-evm-v2
@@ -26,6 +27,7 @@ CONFIGURE_REWARDER_REWARDS=$(HARDHAT) stg:set::rewards
 CONFIGURE_STAKING=$(HARDHAT) stg:wire::staking
 CONFIGURE_OFT_WRAPPER=$(HARDHAT) stg:wire::oft-wrapper
 CONFIGURE_TREASURER=$(HARDHAT) stg:wire::treasurer
+WITHDRAW_TREASURY_FEE=$(HARDHAT) stg:propose:withdraw-treasury-fee
 CONFIGURE_MINT_ALLOWANCE=$(HARDHAT) stg:set::mint-allowance
 CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
 
@@ -455,6 +457,9 @@ endif
 
 check-treasurer:
 	$(HARDHAT) stg:check::treasurer --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts
+
+withdraw-treasury-fee:
+	$(WITHDRAW_TREASURY_FEE) $(CONFIGURE_ARGS_COMMON)
 
 check-staking:
 	$(HARDHAT) stg:check::staking --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts
