@@ -5,13 +5,13 @@ import { TargetCreditBatch } from "./ICreditMessaging.sol";
 import { CreditBatch } from "../libs/CreditMsgCodec.sol";
 import { Credit } from "./ICreditMessagingHandler.sol";
 
-/// @title MintBurnCreditMessaging API
+/// @title CreditMessagingRecovery API
 /// @dev Defines the emergency credit management functions available only to the contract owner.
 ///      These functions are intentionally separate from the standard ICreditMessaging interface
 ///      to make clear that they bypass normal credit validation and must be used with care.
-interface IMintBurnCreditMessaging {
+interface ICreditMessagingRecovery {
     /// @notice Thrown when mintCredits or burnCredits is called with an empty reason string.
-    error MintBurnCreditMessaging_EmptyReason();
+    error CreditMessagingRecovery_EmptyReason();
 
     /// @notice Emitted when credits are minted locally without a corresponding debit on a source chain.
     event CreditsMinted(uint16 assetId, Credit[] credits, string reason);

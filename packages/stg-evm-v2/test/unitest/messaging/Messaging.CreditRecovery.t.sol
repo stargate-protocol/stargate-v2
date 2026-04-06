@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import { Test } from "forge-std/Test.sol";
 import { TargetCredit, TargetCreditBatch } from "../../../src/interfaces/ICreditMessaging.sol";
 import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
-import { MintBurnCreditMessaging } from "../../../src/messaging/MintBurnCreditMessaging.sol";
-import { IMintBurnCreditMessaging } from "../../../src/interfaces/IMintBurnCreditMessaging.sol";
+import { CreditMessagingRecovery } from "../../../src/messaging/CreditMessagingRecovery.sol";
+import { ICreditMessagingRecovery } from "../../../src/interfaces/ICreditMessagingRecovery.sol";
 import { CreditMessaging, MessagingBase } from "../../../src/messaging/CreditMessaging.sol";
 import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
 import { IOAppCore } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppCore.sol";
@@ -14,17 +14,17 @@ import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-protocol-v2/contract
 import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/AddressCast.sol";
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 
-contract MintBurnCreditMessagingTest is Test {
+contract CreditMessagingRecoveryTest is Test {
     address internal OWNER = address(this);
     address internal PLANNER = makeAddr("planner");
     address internal STARGATE_IMPL = makeAddr("stargateImpl");
     uint32 internal constant DST_EID = 7;
     uint16 internal constant ASSET_ID = 1;
 
-    MintBurnCreditMessaging public messaging;
+    CreditMessagingRecovery public messaging;
 
     function setUp() public {
-        messaging = new MintBurnCreditMessaging(LzUtil.deployEndpointV2(1, address(this)), OWNER);
+        messaging = new CreditMessagingRecovery(LzUtil.deployEndpointV2(1, address(this)), OWNER);
         messaging.setPlanner(PLANNER);
         messaging.setGasLimit(DST_EID, 500_000);
         messaging.setPeer(DST_EID, AddressCast.toBytes32(address(this)));
@@ -35,7 +35,7 @@ contract MintBurnCreditMessagingTest is Test {
 
     function test_RevertIf_MintCredits_EmptyReason() public {
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
-        vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
+        vm.expectRevert(ICreditMessagingRecovery.CreditMessagingRecovery_EmptyReason.selector);
         messaging.mintCredits(batches, "");
     }
 
@@ -71,7 +71,7 @@ contract MintBurnCreditMessagingTest is Test {
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, batches[0].credits)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit IMintBurnCreditMessaging.CreditsMinted(ASSET_ID, batches[0].credits, "restoring lost credits");
+        emit ICreditMessagingRecovery.CreditsMinted(ASSET_ID, batches[0].credits, "restoring lost credits");
 
         messaging.mintCredits(batches, "restoring lost credits");
     }
@@ -80,7 +80,7 @@ contract MintBurnCreditMessagingTest is Test {
 
     function test_RevertIf_BurnCredits_EmptyReason() public {
         TargetCreditBatch[] memory batches = _buildBurnBatches(1, 100);
-        vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
+        vm.expectRevert(ICreditMessagingRecovery.CreditMessagingRecovery_EmptyReason.selector);
         messaging.burnCredits(batches, "");
     }
 
@@ -119,7 +119,7 @@ contract MintBurnCreditMessagingTest is Test {
         vm.expectEmit(true, true, true, true, address(messaging));
         Credit[] memory burned = new Credit[](1);
         burned[0] = Credit(_srcEid, _amount);
-        emit IMintBurnCreditMessaging.CreditsBurned(ASSET_ID, burned, "correcting over-minted credits");
+        emit ICreditMessagingRecovery.CreditsBurned(ASSET_ID, burned, "correcting over-minted credits");
 
         messaging.burnCredits(batches, "correcting over-minted credits");
     }
