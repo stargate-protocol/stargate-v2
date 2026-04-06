@@ -118,7 +118,6 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
         _mockStargateReceiveCredits(emptyCredits);
 
-        vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, emptyCredits)));
         vm.expectEmit(true, true, true, true, address(messaging));
         emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
 
@@ -305,7 +304,9 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     }
 
     function _mockStargateReceiveCredits(address _stargate, Credit[] memory _credits) internal {
-        vm.mockCall(_stargate, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, _credits)), "");
+        bytes memory callData = abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, _credits));
+        vm.mockCall(_stargate, callData, "");
+        vm.expectCall(_stargate, callData);
     }
 
     function _assertNoLzMessageSent() internal {
