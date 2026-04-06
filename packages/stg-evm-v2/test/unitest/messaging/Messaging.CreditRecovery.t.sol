@@ -51,7 +51,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     }
 
     function test_RevertIf_MintCredits_UnavailableAsset(uint16 _assetId) public {
-        vm.assume(_assetId != ASSET_ID && _assetId > 0);
+        _assetId = uint16(bound(_assetId, ASSET_ID + 1, type(uint16).max));
         Credit[] memory credits = new Credit[](1);
         credits[0] = Credit(1, 100);
         CreditBatch[] memory batches = new CreditBatch[](1);
@@ -61,7 +61,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     }
 
     function test_MintCredits_CallsReceiveCreditsAndDoesNotSendLzMessage(uint32 _srcEid, uint64 _amount) public {
-        vm.assume(_amount > 0);
+        _amount = uint64(bound(_amount, 1, type(uint64).max));
         messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
         CreditBatch[] memory batches = _buildMintBatches(_srcEid, _amount);
         _mockStargateReceiveCredits(batches[0].credits);
@@ -99,7 +99,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     }
 
     function test_RevertIf_BurnCredits_UnavailableAsset(uint16 _assetId) public {
-        vm.assume(_assetId != ASSET_ID && _assetId > 0);
+        _assetId = uint16(bound(_assetId, ASSET_ID + 1, type(uint16).max));
         TargetCredit[] memory credits = new TargetCredit[](1);
         credits[0] = TargetCredit(1, 100, 100);
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](1);
@@ -109,7 +109,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     }
 
     function test_BurnCredits_CallsSendCreditsAndDoesNotSendLzMessage(uint32 _srcEid, uint64 _amount) public {
-        vm.assume(_amount > 0);
+        _amount = uint64(bound(_amount, 1, type(uint64).max));
         messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
         TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount);
         TargetCredit[] memory targets = batches[0].credits;
