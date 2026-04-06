@@ -7,7 +7,6 @@ import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICredit
 import { MintBurnCreditMessaging } from "../../../src/messaging/MintBurnCreditMessaging.sol";
 import { IMintBurnCreditMessaging } from "../../../src/interfaces/IMintBurnCreditMessaging.sol";
 import { CreditMessaging, MessagingBase } from "../../../src/messaging/CreditMessaging.sol";
-import { CreditMessagingOptions } from "../../../src/messaging/CreditMessagingOptions.sol";
 import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
 import { IOAppCore } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oapp/interfaces/IOAppCore.sol";
 import { MessagingFee, MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
@@ -37,13 +36,7 @@ contract MintBurnCreditMessagingTest is Test {
     function test_RevertIf_MintCredits_EmptyReason() public {
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
         vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
-        messaging.mintCredits(DST_EID, batches, "");
-    }
-
-    function test_RevertIf_BurnCredits_EmptyReason() public {
-        TargetCreditBatch[] memory batches = _buildBurnBatchesForAsset(ASSET_ID, 100, 0);
-        vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
-        messaging.burnCredits(batches, "");
+        messaging.mintCredits(batches, "");
     }
 
     function test_RevertIf_MintCreditsByNonOwner(address _nonOwner) public {
@@ -51,41 +44,45 @@ contract MintBurnCreditMessagingTest is Test {
         CreditBatch[] memory batches = new CreditBatch[](0);
         vm.prank(_nonOwner);
         vm.expectRevert("Ownable: caller is not the owner");
-        messaging.mintCredits(DST_EID, batches, "test");
+        messaging.mintCredits(batches, "test");
     }
 
     function test_RevertIf_MintCredits_PlannerCannotMint() public {
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
         vm.prank(PLANNER);
         vm.expectRevert("Ownable: caller is not the owner");
-        messaging.mintCredits(DST_EID, batches, "test");
+        messaging.mintCredits(batches, "test");
     }
 
-    function test_RevertIf_MintCreditsWithoutGasLimit(uint32 _dstEid) public {
-        vm.assume(_dstEid != DST_EID);
-        CreditBatch[] memory batches = _buildMintBatches(1, 100);
-        vm.expectRevert(CreditMessagingOptions.MessagingOptions_ZeroGasLimit.selector);
-        messaging.mintCredits(_dstEid, batches, "test");
+    function test_RevertIf_MintCredits_UnavailableAsset(uint16 _assetId) public {
+        vm.assume(_assetId != ASSET_ID && _assetId > 0);
+        Credit[] memory credits = new Credit[](1);
+        credits[0] = Credit(1, 100);
+        CreditBatch[] memory batches = new CreditBatch[](1);
+        batches[0] = CreditBatch(_assetId, credits);
+        vm.expectRevert(MessagingBase.Messaging_Unavailable.selector);
+        messaging.mintCredits(batches, "test");
     }
 
-    function test_MintCredits_EmitsEventAndSendsLzMessage(uint32 _srcEid, uint64 _amount) public {
+    function test_MintCredits_CallsReceiveCreditsAndDoesNotSendLzMessage(uint32 _srcEid, uint64 _amount) public {
         vm.assume(_amount > 0);
-        _mockEndpointSend(100);
-
         CreditBatch[] memory batches = _buildMintBatches(_srcEid, _amount);
-        vm.expectEmit(false, false, false, false);
-        emit IMintBurnCreditMessaging.CreditsMinted(DST_EID, batches, "restoring lost credits");
-        messaging.mintCredits(DST_EID, batches, "restoring lost credits");
-    }
+        _mockStargateReceiveCredits(batches[0].credits);
 
-    function test_QuoteMintCredits(uint256 _nativeFee) public {
-        _mockEndpointQuote(_nativeFee);
-        CreditBatch[] memory batches = _buildMintBatches(1, 100);
-        MessagingFee memory fee = messaging.quoteMintCredits(DST_EID, batches);
-        assertEq(fee.nativeFee, _nativeFee);
+        vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, batches[0].credits)));
+        vm.expectEmit(true, true, true, true, address(messaging));
+        emit IMintBurnCreditMessaging.CreditsMinted(ASSET_ID, batches[0].credits, "restoring lost credits");
+
+        messaging.mintCredits(batches, "restoring lost credits");
     }
 
     // ---------------------------------- burnCredits ------------------------------------------
+
+    function test_RevertIf_BurnCredits_EmptyReason() public {
+        TargetCreditBatch[] memory batches = _buildBurnBatches(1, 100);
+        vm.expectRevert(IMintBurnCreditMessaging.MintBurnCreditMessaging_EmptyReason.selector);
+        messaging.burnCredits(batches, "");
+    }
 
     function test_RevertIf_BurnCreditsByNonOwner(address _nonOwner) public {
         vm.assume(_nonOwner != OWNER);
@@ -96,7 +93,7 @@ contract MintBurnCreditMessagingTest is Test {
     }
 
     function test_RevertIf_BurnCredits_PlannerCannotBurn() public {
-        TargetCreditBatch[] memory batches = _buildBurnBatchesForAsset(uint16(1), uint64(100), uint64(0));
+        TargetCreditBatch[] memory batches = _buildBurnBatches(1, 100);
         vm.prank(PLANNER);
         vm.expectRevert();
         messaging.burnCredits(batches, "test");
@@ -104,24 +101,26 @@ contract MintBurnCreditMessagingTest is Test {
 
     function test_RevertIf_BurnCredits_UnavailableAsset(uint16 _assetId) public {
         vm.assume(_assetId != ASSET_ID && _assetId > 0);
-        TargetCreditBatch[] memory batches = _buildBurnBatchesForAsset(_assetId, uint64(100), uint64(0));
+        TargetCredit[] memory credits = new TargetCredit[](1);
+        credits[0] = TargetCredit(1, 100, 100);
+        TargetCreditBatch[] memory batches = new TargetCreditBatch[](1);
+        batches[0] = TargetCreditBatch(_assetId, credits);
         vm.expectRevert(MessagingBase.Messaging_Unavailable.selector);
         messaging.burnCredits(batches, "test");
     }
 
-    function test_BurnCredits_EmitsEventAndDoesNotSendLzMessage(
-        uint32 _srcEid,
-        uint64 _amount,
-        uint64 _minAmount
-    ) public {
-        vm.assume(_amount > 0 && _minAmount <= _amount);
-        TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount, _minAmount);
-        _mockStargateSendCredits(0, batches[0].credits);
+    function test_BurnCredits_CallsSendCreditsAndDoesNotSendLzMessage(uint32 _srcEid, uint64 _amount) public {
+        vm.assume(_amount > 0);
+        TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount);
+        TargetCredit[] memory targets = batches[0].credits;
+        _mockStargateSendCredits(0, targets);
 
-        vm.expectEmit(false, false, false, false);
+        vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets)));
+        vm.expectEmit(true, true, true, true, address(messaging));
         Credit[] memory burned = new Credit[](1);
         burned[0] = Credit(_srcEid, _amount);
         emit IMintBurnCreditMessaging.CreditsBurned(ASSET_ID, burned, "correcting over-minted credits");
+
         messaging.burnCredits(batches, "correcting over-minted credits");
     }
 
@@ -129,12 +128,16 @@ contract MintBurnCreditMessagingTest is Test {
 
     function test_SendCredits_StillAccessibleByPlanner(uint32 _srcEid, uint64 _amount) public {
         vm.assume(_amount > 0);
-        TargetCreditBatch[] memory batches = _buildBurnBatches(_srcEid, _amount, 0);
-        _mockStargateSendCredits(DST_EID, batches[0].credits);
+        TargetCredit[] memory credits = new TargetCredit[](1);
+        credits[0] = TargetCredit(_srcEid, _amount, 0);
+        TargetCreditBatch[] memory batches = new TargetCreditBatch[](1);
+        batches[0] = TargetCreditBatch(ASSET_ID, credits);
+        _mockStargateSendCredits(DST_EID, credits);
         _mockEndpointSend(100);
 
-        vm.prank(PLANNER);
-        messaging.sendCredits(DST_EID, batches);
+        // deal + prank planner
+        hoax(PLANNER, 100);
+        messaging.sendCredits{ value: 100 }(DST_EID, batches); // DST_EID is the only configured destination
     }
 
     // ---------------------------------- Helpers ------------------------------------------
@@ -148,24 +151,16 @@ contract MintBurnCreditMessagingTest is Test {
 
     function _buildBurnBatches(
         uint32 _srcEid,
-        uint64 _amount,
-        uint64 _minAmount
+        uint64 _amount
     ) internal pure returns (TargetCreditBatch[] memory batches) {
         batches = new TargetCreditBatch[](1);
         TargetCredit[] memory credits = new TargetCredit[](1);
-        credits[0] = TargetCredit(_srcEid, _amount, _minAmount);
+        credits[0] = TargetCredit(_srcEid, _amount, _amount);
         batches[0] = TargetCreditBatch(ASSET_ID, credits);
     }
 
-    function _buildBurnBatchesForAsset(
-        uint16 _assetId,
-        uint64 _amount,
-        uint64 _minAmount
-    ) internal pure returns (TargetCreditBatch[] memory batches) {
-        batches = new TargetCreditBatch[](1);
-        TargetCredit[] memory credits = new TargetCredit[](1);
-        credits[0] = TargetCredit(1, _amount, _minAmount);
-        batches[0] = TargetCreditBatch(_assetId, credits);
+    function _mockStargateReceiveCredits(Credit[] memory _credits) internal {
+        vm.mockCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, _credits)), "");
     }
 
     function _mockStargateSendCredits(uint32 _dstEid, TargetCredit[] memory _credits) internal {
@@ -187,14 +182,6 @@ contract MintBurnCreditMessagingTest is Test {
             address(messaging.endpoint()),
             abi.encodeWithSelector(ILayerZeroEndpointV2.send.selector),
             abi.encode(mockReceipt)
-        );
-    }
-
-    function _mockEndpointQuote(uint256 fee) internal {
-        vm.mockCall(
-            address(messaging.endpoint()),
-            abi.encodeWithSelector(ILayerZeroEndpointV2.quote.selector),
-            abi.encode(MessagingFee(fee, 0))
         );
     }
 }
