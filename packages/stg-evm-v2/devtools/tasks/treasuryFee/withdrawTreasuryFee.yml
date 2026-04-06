@@ -19,5 +19,5 @@
 actions:
   - chain: base-mainnet
     asset: USDC
-    amount: '241538000000'
+    amount: '169087000000'
     to: '0x18b3Bf351B161E3DE0d9d47Efa80d9f474bDd5D1'
