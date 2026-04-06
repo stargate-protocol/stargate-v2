@@ -13,11 +13,11 @@ interface ICreditMessagingRecovery {
     /// @notice Thrown when mintCredits or burnCredits is called with an empty reason string.
     error CreditMessagingRecovery_EmptyReason();
 
-    /// @notice Emitted when credits are minted locally without a corresponding debit on a source chain.
-    event CreditsMinted(uint16 assetId, Credit[] credits, string reason);
+    /// @notice Emitted by mintCredits function with all batches that were applied.
+    event CreditsMinted(CreditBatch[] batches, string reason);
 
-    /// @notice Emitted when credits are burned locally without sending an LZ message.
-    event CreditsBurned(uint16 assetId, Credit[] credits, string reason);
+    /// @notice Emitted by burnCredits function with the actual credits removed by the handler.
+    event CreditsBurned(CreditBatch[] batches, string reason);
 
     /// @notice Mints credits on the current chain by calling receiveCredits locally.
     /// @param _batches The credit batches to mint. Set srcEid = localEid to restore local redemption credits.

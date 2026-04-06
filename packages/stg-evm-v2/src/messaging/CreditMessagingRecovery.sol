@@ -19,21 +19,22 @@ contract CreditMessagingRecovery is CreditMessaging, ICreditMessagingRecovery {
         for (uint256 i = 0; i < _batches.length; i++) {
             CreditBatch calldata batch = _batches[i];
             ICreditMessagingHandler(_safeGetStargateImpl(batch.assetId)).receiveCredits(0, batch.credits);
-            emit CreditsMinted(batch.assetId, batch.credits, _reason);
         }
+        emit CreditsMinted(_batches, _reason);
     }
 
     /// @dev Credits are deducted on the current chain by calling sendCredits locally with minAmount = amount,
     ///      making it all-or-nothing. No LZ message is sent to any other chain.
     function burnCredits(TargetCreditBatch[] calldata _batches, string calldata _reason) external onlyOwner {
         if (bytes(_reason).length == 0) revert CreditMessagingRecovery_EmptyReason();
+        CreditBatch[] memory burned = new CreditBatch[](_batches.length);
         for (uint256 i = 0; i < _batches.length; i++) {
             TargetCreditBatch calldata batch = _batches[i];
-            Credit[] memory burned = ICreditMessagingHandler(_safeGetStargateImpl(batch.assetId)).sendCredits(
-                0,
-                batch.credits
+            burned[i] = CreditBatch(
+                batch.assetId,
+                ICreditMessagingHandler(_safeGetStargateImpl(batch.assetId)).sendCredits(0, batch.credits)
             );
-            emit CreditsBurned(batch.assetId, burned, _reason);
         }
+        emit CreditsBurned(burned, _reason);
     }
 }
