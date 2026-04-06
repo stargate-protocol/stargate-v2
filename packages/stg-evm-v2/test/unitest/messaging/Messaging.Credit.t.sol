@@ -55,7 +55,7 @@ contract CreditMessagingTest is Test {
         return creditBatches;
     }
 
-    function setUp() public {
+    function setUp() public virtual {
         messaging = new CreditMessaging(LzUtil.deployEndpointV2(1, address(this)), address(this));
         messaging.setPlanner(PLANNER);
     }
