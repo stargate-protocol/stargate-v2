@@ -458,8 +458,9 @@ endif
 check-treasurer:
 	$(HARDHAT) stg:check::treasurer --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts
 
+TREASURY_FEE_SIGNER ?= --onesig
 withdraw-treasury-fee:
-	$(WITHDRAW_TREASURY_FEE) $(CONFIGURE_ARGS_COMMON)
+	$(WITHDRAW_TREASURY_FEE) $(TREASURY_FEE_SIGNER) $(CONFIGURE_ARGS_COMMON)
 
 check-staking:
 	$(HARDHAT) stg:check::staking --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts

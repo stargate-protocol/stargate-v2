@@ -29,8 +29,6 @@ const TREASURER_DEPLOYMENT = 'Treasurer'
 const DEPLOYER_SIGNER: SignerDefinition = { type: 'named', name: 'deployer' }
 const TOKEN_NAME_VALUES = new Set<string>(Object.values(TokenName))
 
-const treasurerFactory = createTreasurerFactory(createConnectedContractFactory())
-
 // ——— YAML types ———
 
 interface TreasuryActionYml {
@@ -98,6 +96,7 @@ async function resolveStargate(
 // ——— Transaction builder ———
 
 async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTransaction[]> {
+    const treasurerFactory = createTreasurerFactory(createConnectedContractFactory())
     const out: OmniTransaction[] = []
     for (let i = 0; i < config.actions.length; i++) {
         const action = config.actions[i]
