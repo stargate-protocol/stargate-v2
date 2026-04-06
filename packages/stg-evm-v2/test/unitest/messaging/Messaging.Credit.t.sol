@@ -264,7 +264,7 @@ contract CreditMessagingTest is Test {
     function test_MintCredits_NotAvailableOnCreditMessaging() public virtual {
         CreditBatch[] memory batches = new CreditBatch[](0);
         (bool success, bytes memory data) = address(messaging).call(
-            abi.encodeWithSelector(ICreditMessagingRecovery.mintCredits.selector, uint32(0), batches, "")
+            abi.encodeWithSelector(ICreditMessagingRecovery.mintCredits.selector, batches, "")
         );
         assertFalse(success);
         assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
