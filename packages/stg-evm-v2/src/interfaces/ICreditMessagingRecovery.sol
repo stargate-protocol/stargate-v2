@@ -25,8 +25,7 @@ interface ICreditMessagingRecovery {
     function mintCredits(CreditBatch[] calldata _batches, string calldata _reason) external;
 
     /// @notice Burns credits on the current chain by calling sendCredits locally without sending an LZ message.
-    ///         Uses minAmount = amount making it all-or-nothing — reverts if the path has insufficient credits.
-    /// @param _batches The credit batches to burn. minAmount must equal amount for each credit entry.
+    /// @param _batches The credit batches to burn.
     /// @param _reason Plain-text explanation emitted on-chain for auditability.
     function burnCredits(TargetCreditBatch[] calldata _batches, string calldata _reason) external;
 }

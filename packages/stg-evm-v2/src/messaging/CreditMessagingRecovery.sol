@@ -23,8 +23,9 @@ contract CreditMessagingRecovery is CreditMessaging, ICreditMessagingRecovery {
         emit CreditsMinted(_batches, _reason);
     }
 
-    /// @dev Credits are deducted on the current chain by calling sendCredits locally with minAmount = amount,
-    ///      making it all-or-nothing. No LZ message is sent to any other chain.
+    /// @dev Credits are deducted on the current chain by calling sendCredits locally. No LZ message is sent.
+    ///      Each TargetCredit.minAmount is forwarded as minKept: the handler burns at most (currentCredit - minAmount)
+    ///      and returns 0 silently if currentCredit <= minAmount.
     function burnCredits(TargetCreditBatch[] calldata _batches, string calldata _reason) external onlyOwner {
         if (bytes(_reason).length == 0) revert CreditMessagingRecovery_EmptyReason();
         CreditBatch[] memory burned = new CreditBatch[](_batches.length);
