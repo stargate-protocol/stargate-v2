@@ -113,10 +113,18 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const amount = parseBigInt(action.amount, label)
         const to = ethers.utils.getAddress(action.to.trim())
 
+        // Read the underlying token from the Stargate pool/OFT (StargateBase.token)
+        const stargateContract = new ethers.Contract(
+            stargate,
+            ['function token() view returns (address)'],
+            hre.ethers.provider
+        )
+        const underlyingToken: string = await stargateContract.token()
+
         const withdrawTx = await sdk.withdrawTreasuryFee(stargate, amount)
         out.push({ ...withdrawTx, description: action.description ?? withdrawTx.description })
 
-        const transferTx = await sdk.transferToken(stargate, to, amount)
+        const transferTx = await sdk.transferToken(underlyingToken, to, amount)
         out.push({ ...transferTx, description: action.description ?? transferTx.description })
     }
     return out
