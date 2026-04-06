@@ -38,7 +38,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditMessagingRecovery(address(messaging)).mintCredits(batches, "");
     }
 
-    function test_RevertIf_MintCreditsByNonOwner(address _nonOwner) public {
+    function test_RevertIf_MintCredits_ByNonOwner(address _nonOwner) public {
         vm.assume(_nonOwner != OWNER);
         CreditBatch[] memory batches = new CreditBatch[](0);
         vm.prank(_nonOwner);
@@ -88,7 +88,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditMessagingRecovery(address(messaging)).burnCredits(batches, "");
     }
 
-    function test_RevertIf_BurnCreditsByNonOwner(address _nonOwner) public {
+    function test_RevertIf_BurnCredits_ByNonOwner(address _nonOwner) public {
         vm.assume(_nonOwner != OWNER);
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
         vm.prank(_nonOwner);
