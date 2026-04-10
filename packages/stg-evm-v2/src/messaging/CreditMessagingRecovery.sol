@@ -12,6 +12,7 @@ contract CreditMessagingRecovery is CreditMessaging, ICreditMessagingRecovery {
 
     // ---------------------------------- Only Owner ------------------------------------------
 
+    /// @inheritdoc ICreditMessagingRecovery
     /// @dev Credits are applied directly on the current chain by calling receiveCredits locally,
     ///      without deducting credits from any source or sending an LZ message.
     function mintCredits(CreditBatch[] calldata _batches, string calldata _reason) external onlyOwner {
@@ -23,6 +24,7 @@ contract CreditMessagingRecovery is CreditMessaging, ICreditMessagingRecovery {
         emit CreditsMinted(_batches, _reason);
     }
 
+    /// @inheritdoc ICreditMessagingRecovery
     /// @dev Credits are deducted on the current chain by calling sendCredits locally. No LZ message is sent.
     ///      Each TargetCredit.minAmount is forwarded as minKept: the handler burns at most (currentCredit - minAmount)
     ///      and returns 0 silently if currentCredit <= minAmount.
