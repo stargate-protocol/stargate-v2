@@ -52,15 +52,15 @@ export class Treasurer extends Ownable implements ITreasurer {
     }
 
     @AsyncRetriable()
-    async transferToken(token: OmniAddress, to: OmniAddress, amount: bigint): Promise<OmniTransaction> {
+    async transferToken(token: OmniAddress, to: OmniAddress, amountLD: bigint): Promise<OmniTransaction> {
         const maxUint256 = (1n << 256n) - 1n
-        if (amount < 0n || amount > maxUint256) {
-            throw new Error(`transferToken: amount must be uint256, got ${amount}`)
+        if (amountLD < 0n || amountLD > maxUint256) {
+            throw new Error(`transferToken: amountLD must be uint256, got ${amountLD}`)
         }
-        const data = this.contract.contract.interface.encodeFunctionData('transfer', [token, to, amount.toString()])
+        const data = this.contract.contract.interface.encodeFunctionData('transfer', [token, to, amountLD.toString()])
         return {
             ...this.createTransaction(data),
-            description: `Treasurer transfer token ${token} -> ${to}, amount ${amount}`,
+            description: `Treasurer transfer token ${token} -> ${to}, amountLD ${amountLD}`,
         }
     }
 }
