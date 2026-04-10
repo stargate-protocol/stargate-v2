@@ -1,0 +1,23 @@
+# Treasurer: withdraw treasury fee then transfer to recipient.
+#
+# Each entry generates two transactions:
+#   1. withdrawTreasuryFee(stargate, amount)  — pool -> treasurer
+#   2. transfer(token, to, amount)            — treasurer -> recipient
+#
+# Run from repo root (defaults to --onesig):
+#   make withdraw-treasury-fee
+#   make withdraw-treasury-fee TREASURY_FEE_SIGNER="--safe"
+#
+# Fields:
+#   chain   Hardhat network name (e.g. ethereum-mainnet).
+#   asset   TokenName (USDC, ETH, USDT, …) — resolves Stargate pool/OFT.
+#   amount  Shared decimals (6 decimals). e.g. '1000000' = 1 USDC.
+#   to      Recipient address.
+#
+# Batched One Sig: export LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND=true
+
+actions:
+  - chain: base-mainnet
+    asset: USDC
+    amount: '169087000000'
+    to: '0x18b3Bf351B161E3DE0d9d47Efa80d9f474bDd5D1'

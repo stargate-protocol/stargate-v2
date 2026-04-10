@@ -34,4 +34,33 @@ export class Treasurer extends Ownable implements ITreasurer {
             description: `Setting the following Asset ${asset}: managed: ${managed}`,
         }
     }
+
+    @AsyncRetriable()
+    async withdrawTreasuryFee(stargate: OmniAddress, amountSD: bigint): Promise<OmniTransaction> {
+        const max = 0xffffffffffffffffn
+        if (amountSD < 0n || amountSD > max) {
+            throw new Error(`withdrawTreasuryFee: amountSD must be uint64, got ${amountSD}`)
+        }
+        const data = this.contract.contract.interface.encodeFunctionData('withdrawTreasuryFee', [
+            stargate,
+            amountSD.toString(),
+        ])
+        return {
+            ...this.createTransaction(data),
+            description: `Withdraw treasury fee from ${stargate}, amountSD ${amountSD}`,
+        }
+    }
+
+    @AsyncRetriable()
+    async transferToken(token: OmniAddress, to: OmniAddress, amountLD: bigint): Promise<OmniTransaction> {
+        const maxUint256 = (1n << 256n) - 1n
+        if (amountLD < 0n || amountLD > maxUint256) {
+            throw new Error(`transferToken: amountLD must be uint256, got ${amountLD}`)
+        }
+        const data = this.contract.contract.interface.encodeFunctionData('transfer', [token, to, amountLD.toString()])
+        return {
+            ...this.createTransaction(data),
+            description: `Treasurer transfer token ${token} -> ${to}, amountLD ${amountLD}`,
+        }
+    }
 }
