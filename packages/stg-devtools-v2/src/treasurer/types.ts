@@ -19,5 +19,5 @@ export interface ITreasurer extends IOmniSDK, IOwnable {
     getAsset(stargate: OmniAddress): Promise<boolean>
     setAsset(stargate: OmniAddress, managed: boolean): Promise<OmniTransaction>
     withdrawTreasuryFee(stargate: OmniAddress, amountSD: bigint): Promise<OmniTransaction>
-    transferToken(token: OmniAddress, to: OmniAddress, amount: bigint): Promise<OmniTransaction>
+    transferToken(token: OmniAddress, to: OmniAddress, amountLD: bigint): Promise<OmniTransaction>
 }
