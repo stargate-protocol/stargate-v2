@@ -14,9 +14,13 @@ interface ICreditMessagingRecovery {
     error CreditMessagingRecovery_EmptyReason();
 
     /// @notice Emitted by mintCredits function with all batches that were applied.
+    /// @param batches The list of credit batches that were minted.
+    /// @param reason The reason for the minting.
     event CreditsMinted(CreditBatch[] batches, string reason);
 
     /// @notice Emitted by burnCredits function with the actual credits removed by the handler.
+    /// @param batches The list of credit batches that were burned.
+    /// @param reason The reason for the burning.
     event CreditsBurned(CreditBatch[] batches, string reason);
 
     /// @notice Mints credits on the current chain by calling receiveCredits locally.
