@@ -14,10 +14,10 @@
 #   amount  Shared decimals (6 decimals). e.g. '1000000' = 1 USDC.
 #   to      Recipient address.
 #
-# Batched One Sig: export LZ_ENABLE_EXPERIMENTAL_BATCHED_SEND=true
+# Example action (intentionally commented out; copy into `actions:` when needed):
+# - chain: base-mainnet
+#   asset: USDC
+#   amountSD: '169087000000'
+#   to: '0x18b3Bf351B161E3DE0d9d47Efa80d9f474bDd5D1'
 
-actions:
-  - chain: base-mainnet
-    asset: USDC
-    amount: '169087000000'
-    to: '0x18b3Bf351B161E3DE0d9d47Efa80d9f474bDd5D1'
+actions: []
