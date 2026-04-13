@@ -113,21 +113,23 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const amountSD = parseBigInt(action.amountSD, label)
         const to = ethers.utils.getAddress(action.to.trim())
 
-        // Read the underlying token from the Stargate pool/OFT (StargateBase.token)
         const stargateContract = new ethers.Contract(
             stargate,
-            [
-                'function token() view returns (address)',
-                'function sharedDecimals() view returns (uint8)',
-                'function decimals() view returns (uint8)',
-            ],
+            ['function token() view returns (address)', 'function sharedDecimals() view returns (uint8)'],
             hre.ethers.provider
         )
-        const [underlyingToken, sharedDecimals, tokenDecimals]: [string, number, number] = await Promise.all([
+        const [underlyingToken, sharedDecimals]: [string, number] = await Promise.all([
             stargateContract.token(),
             stargateContract.sharedDecimals(),
-            stargateContract.decimals(),
         ])
+        const isNative = underlyingToken === ethers.constants.AddressZero
+        const tokenDecimals = isNative
+            ? 18
+            : await new ethers.Contract(
+                  underlyingToken,
+                  ['function decimals() view returns (uint8)'],
+                  hre.ethers.provider
+              ).decimals()
 
         // SD -> LD: amountLD = amountSD * 10^(tokenDecimals - sharedDecimals)
         const convertRate = 10n ** BigInt(tokenDecimals - sharedDecimals)
