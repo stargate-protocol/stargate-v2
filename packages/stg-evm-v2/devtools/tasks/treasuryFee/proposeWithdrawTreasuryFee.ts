@@ -102,7 +102,7 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const action = config.actions[i]
         const label = `actions[${i}] (chain=${action.chain})`
         if (!action.chain) throw new Error(`${label}: chain is required`)
-        if (action.amountSD === undefined) throw new Error(`${label}: amount is required`)
+        if (action.amountSD === undefined) throw new Error(`${label}: amountSD is required`)
         if (!action.to?.trim()) throw new Error(`${label}: to is required`)
 
         const hre = await getHreByNetworkName(action.chain)
