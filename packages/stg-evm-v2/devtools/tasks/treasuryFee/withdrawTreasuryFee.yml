@@ -11,7 +11,7 @@
 # Fields:
 #   chain   Hardhat network name (e.g. ethereum-mainnet).
 #   asset   TokenName (USDC, ETH, USDT, …) — resolves Stargate pool/OFT.
-#   amount  Shared decimals (6 decimals). e.g. '1000000' = 1 USDC.
+#   amountSD  Shared decimals (6 decimals). e.g. '1000000' = 1 USDC.
 #   to      Recipient address.
 #
 # Example action (intentionally commented out; copy into `actions:` when needed):
