@@ -36,7 +36,7 @@ interface TreasuryActionYml {
     asset?: string
     stargate?: string
     stargateDeployment?: string
-    amount: string | number
+    amountSD: string | number
     to: string
     description?: string
 }
@@ -102,7 +102,7 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const action = config.actions[i]
         const label = `actions[${i}] (chain=${action.chain})`
         if (!action.chain) throw new Error(`${label}: chain is required`)
-        if (action.amount === undefined) throw new Error(`${label}: amount is required`)
+        if (action.amountSD === undefined) throw new Error(`${label}: amount is required`)
         if (!action.to?.trim()) throw new Error(`${label}: to is required`)
 
         const hre = await getHreByNetworkName(action.chain)
@@ -110,21 +110,33 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const treasurer = await hre.deployments.get(TREASURER_DEPLOYMENT)
         const sdk = await treasurerFactory({ eid, address: treasurer.address })
         const stargate = await resolveStargate(hre, eid, action, label)
-        const amount = parseBigInt(action.amount, label)
+        const amountSD = parseBigInt(action.amountSD, label)
         const to = ethers.utils.getAddress(action.to.trim())
 
         // Read the underlying token from the Stargate pool/OFT (StargateBase.token)
         const stargateContract = new ethers.Contract(
             stargate,
-            ['function token() view returns (address)'],
+            [
+                'function token() view returns (address)',
+                'function sharedDecimals() view returns (uint8)',
+                'function decimals() view returns (uint8)',
+            ],
             hre.ethers.provider
         )
-        const underlyingToken: string = await stargateContract.token()
+        const [underlyingToken, sharedDecimals, tokenDecimals]: [string, number, number] = await Promise.all([
+            stargateContract.token(),
+            stargateContract.sharedDecimals(),
+            stargateContract.decimals(),
+        ])
 
-        const withdrawTx = await sdk.withdrawTreasuryFee(stargate, amount)
+        // SD -> LD: amountLD = amountSD * 10^(tokenDecimals - sharedDecimals)
+        const convertRate = 10n ** BigInt(tokenDecimals - sharedDecimals)
+        const amountLD = amountSD * convertRate
+
+        const withdrawTx = await sdk.withdrawTreasuryFee(stargate, amountSD)
         out.push({ ...withdrawTx, description: action.description ?? withdrawTx.description })
 
-        const transferTx = await sdk.transferToken(underlyingToken, to, amount)
+        const transferTx = await sdk.transferToken(underlyingToken, to, amountLD)
         out.push({ ...transferTx, description: action.description ?? transferTx.description })
     }
     return out
