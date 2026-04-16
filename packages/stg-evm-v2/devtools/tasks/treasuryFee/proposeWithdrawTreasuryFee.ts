@@ -59,7 +59,7 @@ function loadConfig(configPath: string): TreasuryFeeConfigYml {
 function parseBigInt(value: string | number, label: string): bigint {
     const s = String(value).trim()
     if (!/^\d+$/.test(s)) {
-        throw new Error(`${label}: amount must be a non-negative integer string, got ${JSON.stringify(value)}`)
+        throw new Error(`${label}: amountSD must be a non-negative integer string, got ${JSON.stringify(value)}`)
     }
     return BigInt(s)
 }
