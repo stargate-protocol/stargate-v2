@@ -131,6 +131,12 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
                   hre.ethers.provider
               ).decimals()
 
+        if (tokenDecimals < sharedDecimals) {
+            throw new Error(
+                `${label}: invalid Stargate/token decimals for SD->LD conversion (stargate=${stargate}, tokenDecimals=${tokenDecimals}, sharedDecimals=${sharedDecimals})`
+            )
+        }
+
         // SD -> LD: amountLD = amountSD * 10^(tokenDecimals - sharedDecimals)
         const convertRate = 10n ** BigInt(tokenDecimals - sharedDecimals)
         const amountLD = amountSD * convertRate
