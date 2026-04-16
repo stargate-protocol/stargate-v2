@@ -793,7 +793,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.AULT_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // TODO: Update with deployed USDC address on Ault
+                address: '0x5b58c971AF1EE0Fe5D5f772d68Ab3829262DFD2b',
             },
             [EndpointId.AURORA_V2_MAINNET]: {
                 address: '0x368ebb46aca6b8d0787c96b2b20bd3cc3f2c45f7',
@@ -996,7 +996,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.SUBTENSOREVM_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // TODO: Update with deployed USDC address on SubtensorEVM
+                address: '0x9001dbe4D68d36ab87923A2a9Dfb0c745fd25001',
             },
             [EndpointId.SUPERPOSITION_V2_MAINNET]: {
                 type: StargateType.Oft,
