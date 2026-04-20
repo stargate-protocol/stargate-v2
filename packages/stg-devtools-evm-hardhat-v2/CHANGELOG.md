@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 11.0.1
+
+### Patch Changes
+
+- 8b9ff76: deployed SubtensorEVM Mainnet and Ault Mainnet
+- Updated dependencies [8b9ff76]
+  - @stargatefinance/stg-definitions-v2@7.0.2
+  - @stargatefinance/stg-devtools-v2@10.0.2
+
 ## 11.0.0
 
 ### Major Changes
