@@ -19,7 +19,7 @@ import { getAssetsConfig } from './shared'
 import {
     filterFromAndToChains,
     getChainsThatSupportMessaging,
-    getNewChain,
+    getNewChains,
     getSupportedTokensByEid,
     printChains,
     setStage,
@@ -45,12 +45,16 @@ export default async function buildMessagingGraph(
     // check if all chains are valid
     const supportedChains = getChainsThatSupportMessaging()
 
-    // NEW_CHAIN mode: generate all connections to/from the new chain, node config only for the new chain
-    const newChainName = getNewChain()
-    if (newChainName) {
-        const newChain = supportedChains.find((c) => c.name === newChainName)
-        if (!newChain) {
-            // Chain doesn't support messaging — return empty graph
+    // NEW_CHAIN mode: generate all connections to/from each new chain (and between
+    // new chains, without duplicating them). Node config is emitted for all chains
+    // so the edge graph can reference them; txs are only generated where on-chain
+    // state diverges from config.
+    const newChainNames = getNewChains()
+    if (newChainNames.length > 0) {
+        const newChainNameSet = new Set(newChainNames)
+        const newChains = supportedChains.filter((c) => newChainNameSet.has(c.name))
+        if (newChains.length === 0) {
+            // None of the requested new chains support messaging — empty graph
             return { contracts: [], connections: [] }
         }
 

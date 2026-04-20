@@ -10,7 +10,7 @@ import { getContractWithEid } from '../utils'
 import {
     filterValidProvidedChains,
     getChainsThatSupportToken,
-    getNewChain,
+    getNewChains,
     printChains,
     setStage,
 } from './utils.config'
@@ -26,8 +26,9 @@ export default async function buildFeeLibV1DeploymentGraph(
     const contract = { contractName: getFeeLibV1DeployName(tokenName) }
 
     // only use the chains defined in the env variable if it is set
-    const newChain = getNewChain()
-    const chainsList = newChain ? [newChain] : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+    const newChains = getNewChains()
+    const chainsList =
+        newChains.length > 0 ? newChains : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
 
     const defaultNodeConfig = {
         owner: defaultPlanner,
