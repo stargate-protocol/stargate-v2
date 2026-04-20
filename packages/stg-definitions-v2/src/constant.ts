@@ -23,6 +23,7 @@ export const DVNS = {
         [EndpointId.APE_V2_MAINNET]: '0x07653d28b0f53d4c54b70eb1f9025795b23a9d6e',
         [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x70bf42c69173d6e33b834f59630dac592c70b369',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
+        [EndpointId.AULT_V2_MAINNET]: '0x78203678d264063815dac114ea810e9837cd80f7',
         [EndpointId.AURORA_V2_MAINNET]: '0x34730f2570e6cff8b1c91faabf37d0dd917c4367',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
@@ -77,6 +78,7 @@ export const DVNS = {
         [EndpointId.SONIC_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.STABLE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
+        [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.SWELL_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -91,6 +93,7 @@ export const DVNS = {
         [EndpointId.APE_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x2f55c492897526677c5b68fb199ea31e2c126416',
+        [EndpointId.AULT_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.AURORA_V2_MAINNET]: '0xd4a903930f2c9085586cda0b11d9681eecb20d2f',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x962f502a63f5fbeb44dc9ab932122648e8352959',
         [EndpointId.BASE_V2_MAINNET]: '0x9e059a54699a285714207b43b055483e78faac25',
@@ -145,6 +148,7 @@ export const DVNS = {
         [EndpointId.SONIC_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.STABLE_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
         [EndpointId.STORY_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
+        [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.SWELL_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.TAIKO_V2_MAINNET]: '0xc097ab8cd7b053326dfe9fb3e3a31a0cce3b526f',
@@ -196,6 +200,7 @@ export const EXECUTORS = {
         [EndpointId.APE_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.ARBITRUM_V2_MAINNET]: '0x31CAe3B7fB82d847621859fb1585353c5720660D',
+        [EndpointId.AULT_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.AURORA_V2_MAINNET]: '0xA2b402FFE8dd7460a8b425644B6B9f50667f0A61',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
@@ -250,6 +255,7 @@ export const EXECUTORS = {
         [EndpointId.SONIC_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STABLE_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
+        [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.SWELL_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -299,6 +305,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.ARBITRUM_V2_MAINNET]: {
                 type: StargateType.Native,
+            },
+            [EndpointId.AULT_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
             },
             [EndpointId.BASE_V2_MAINNET]: {
                 type: StargateType.Native,
@@ -780,6 +791,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0xaf88d065e77c8cc2239327c5edb3a432268e5831',
                 type: StargateType.Pool,
             },
+            [EndpointId.AULT_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x5b58c971AF1EE0Fe5D5f772d68Ab3829262DFD2b',
+            },
             [EndpointId.AURORA_V2_MAINNET]: {
                 address: '0x368ebb46aca6b8d0787c96b2b20bd3cc3f2c45f7',
                 type: StargateType.Pool,
@@ -979,6 +994,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xF1815bd50389c46847f0Bda824eC8da914045D14',
             },
+            [EndpointId.SUBTENSOREVM_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x9001dbe4D68d36ab87923A2a9Dfb0c745fd25001',
+            },
             [EndpointId.SUPERPOSITION_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x6c030c5CC283F791B26816f325b9C632d964F8A1',
@@ -1148,6 +1167,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: {},
         [EndpointId.ARBITRUM_V2_MAINNET]: {},
         [EndpointId.ASTAR_V2_MAINNET]: {},
+        [EndpointId.AULT_V2_MAINNET]: {},
         [EndpointId.AURORA_V2_MAINNET]: {},
         [EndpointId.AVALANCHE_V2_MAINNET]: {},
         [EndpointId.BASE_V2_MAINNET]: {},
@@ -1211,6 +1231,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.SONIC_V2_MAINNET]: {},
         [EndpointId.STABLE_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
+        [EndpointId.SUBTENSOREVM_V2_MAINNET]: {},
         [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.SWELL_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
@@ -1608,6 +1629,23 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x5d3917b47e963ec703ed66da6637c701365ff500',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/astar`,
+        },
+    },
+    [EndpointId.AULT_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET], DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET], DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
+            nativeDropAmount: parseEther('0').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x80e6ab28c9da544c8f876162d6ee9e00e9366456',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/ault`,
         },
     },
     [EndpointId.AURORA_V2_MAINNET]: {
@@ -3518,6 +3556,29 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0x3d4BA2E0884aa488718476ca2FB8Efc291A46199',
                 },
             },
+        },
+    },
+    [EndpointId.SUBTENSOREVM_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.SUBTENSOREVM_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.SUBTENSOREVM_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
+            nativeDropAmount: parseEther('0.015').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x349c9b918a02e81d0a358eaac9c63f902d95e2da',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/subtensorevm`,
         },
     },
     [EndpointId.SUPERPOSITION_V2_MAINNET]: {
