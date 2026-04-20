@@ -9,7 +9,7 @@ import { filterConnections, generateCreditMessagingConfig, getOneSigAddress } fr
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
-    getNewChainEid,
+    getNewChainEids,
     getSupportedTokensByEid,
 } from '../../devtools/config/utils/utils.config'
 
@@ -197,7 +197,8 @@ describe('creditMessaging.config', () => {
         process.env.NEW_CHAIN = newChainName
 
         const config = await creditMessagingConfig()
-        const newChainEid = getNewChainEid()
+        const newChainEids = getNewChainEids()
+        const [newChainEid] = newChainEids
 
         // Should have contracts for all supported chains (node configs are needed for all chains)
         expect(config.contracts.length).to.equal(supportedChains.length)
@@ -214,5 +215,33 @@ describe('creditMessaging.config', () => {
                 'connection involves new chain'
             ).to.be.true
         }
+    })
+
+    it('should generate connections involving any new chain without duplicating edges between them when NEW_CHAIN is a comma-separated list', async () => {
+        const supportedChains = getChainsThatSupportMessaging()
+        if (supportedChains.length < 3) return
+
+        const newChainNames = [supportedChains[0].name, supportedChains[1].name]
+        process.env.NEW_CHAIN = newChainNames.join(',')
+
+        const config = await creditMessagingConfig()
+        const newChainEids = getNewChainEids()
+
+        expect(config.contracts.length).to.equal(supportedChains.length)
+
+        for (const connection of config.connections) {
+            expect(
+                newChainEids.has(connection.from.eid) || newChainEids.has(connection.to.eid),
+                'connection involves a new chain'
+            ).to.be.true
+        }
+
+        const N = supportedChains.length
+        const K = newChainNames.length
+        expect(config.connections.length).to.equal(2 * K * (N - 1) - K * (K - 1))
+
+        const [eidA, eidB] = Array.from(newChainEids)
+        expect(config.connections.filter((c) => c.from.eid === eidA && c.to.eid === eidB).length).to.equal(1)
+        expect(config.connections.filter((c) => c.from.eid === eidB && c.to.eid === eidA).length).to.equal(1)
     })
 })

@@ -257,9 +257,19 @@ function _filterChainsWithDeployments(chains: Chain[]): Chain[] {
     return chains.filter((chain) => deploymentDirs.includes(chain.name))
 }
 
-export function getNewChain(): string | undefined {
-    const newChain = process.env.NEW_CHAIN?.trim()
-    return newChain || undefined
+/**
+ * Returns the list of chain names from the NEW_CHAIN env var.
+ *
+ * Supports either a single chain (`NEW_CHAIN=foo-mainnet`) or a comma-separated
+ * list (`NEW_CHAIN=foo-mainnet,bar-mainnet`). Returns an empty array when the
+ * var is unset or blank.
+ */
+export function getNewChains(): string[] {
+    return (
+        process.env.NEW_CHAIN?.split(',')
+            .map((c) => c.trim())
+            .filter((c) => c.length > 0) ?? []
+    )
 }
 
 export function getChainByName(chainName: string): Chain {
@@ -269,10 +279,15 @@ export function getChainByName(chainName: string): Chain {
     return chain
 }
 
-export function getNewChainEid(): EndpointId | undefined {
-    const newChainName = getNewChain()
-    if (!newChainName) return undefined
-    return getChainByName(newChainName).eid
+/**
+ * Returns the set of EndpointIds corresponding to NEW_CHAIN entries.
+ *
+ * Used by `filterConnections` to keep only edges where at least one endpoint
+ * is a new chain. A set guarantees each edge is kept at most once even when
+ * both endpoints are new chains (e.g. wiring two new chains together).
+ */
+export function getNewChainEids(): Set<EndpointId> {
+    return new Set(getNewChains().map((name) => getChainByName(name).eid))
 }
 
 // Test-only utility for clearing internal module state between test cases

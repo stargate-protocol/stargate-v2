@@ -7,7 +7,7 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import { createGetAssetNode, createGetAssetOmniPoint, getDefaultAddressConfig } from '../../utils'
 import { filterConnections, generateAssetConfig } from '../utils'
 
-import { filterFromAndToChains, getChainsThatSupportToken, getNewChain, printChains, setStage } from './utils.config'
+import { filterFromAndToChains, getChainsThatSupportToken, getNewChains, printChains, setStage } from './utils.config'
 
 export default async function buildAssetDeploymentGraph(
     stage: Stage,
@@ -24,12 +24,15 @@ export default async function buildAssetDeploymentGraph(
     // Check if provided chains are valid
     const supportedChains = getChainsThatSupportToken(tokenName)
 
-    // NEW_CHAIN mode: generate all connections to/from the new chain, node config only for the new chain
-    const newChainName = getNewChain()
-    if (newChainName) {
-        const newChain = supportedChains.find((c) => c.name === newChainName)
-        if (!newChain) {
-            // Chain doesn't support this token — return empty graph
+    // NEW_CHAIN mode: generate all connections to/from each new chain (and between
+    // new chains, without duplicating them). Node config is emitted for all chains;
+    // the framework only generates txs where on-chain state diverges from config.
+    const newChainNames = getNewChains()
+    if (newChainNames.length > 0) {
+        const newChainNameSet = new Set(newChainNames)
+        const newChains = supportedChains.filter((c) => newChainNameSet.has(c.name))
+        if (newChains.length === 0) {
+            // None of the requested new chains support this token — empty graph
             return { contracts: [], connections: [] }
         }
 
