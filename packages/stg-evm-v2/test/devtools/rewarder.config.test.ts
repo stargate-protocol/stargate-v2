@@ -8,7 +8,7 @@ import { getOneSigAddress } from '../../devtools/config/utils'
 import {
     getAllSupportedChains,
     getChainsThatSupportRewarder,
-    getNewChainEid,
+    getNewChainEids,
 } from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
@@ -140,9 +140,25 @@ describe('rewarder.config', () => {
         process.env.NEW_CHAIN = newChainName
 
         const config = await rewarderConfig()
-        const newChainEid = getNewChainEid()
+        const [newChainEid] = getNewChainEids()
 
         expect(config.contracts.length).to.equal(1)
         expect(config.contracts[0].contract.eid).to.equal(newChainEid)
+    })
+
+    it('should include every new chain when NEW_CHAIN is a comma-separated list', async () => {
+        const supportedChains = getChainsThatSupportRewarder()
+        if (supportedChains.length < 2) return
+
+        const newChainNames = [supportedChains[0].name, supportedChains[1].name]
+        process.env.NEW_CHAIN = newChainNames.join(',')
+
+        const config = await rewarderConfig()
+        const newChainEids = getNewChainEids()
+
+        expect(config.contracts.length).to.equal(newChainNames.length)
+        for (const contract of config.contracts) {
+            expect(newChainEids.has(contract.contract.eid)).to.be.true
+        }
     })
 })

@@ -9,7 +9,7 @@ import { filterConnections, generateTokenMessagingConfig, getOneSigAddress } fro
 import {
     getAllSupportedChains,
     getChainsThatSupportMessaging,
-    getNewChainEid,
+    getNewChainEids,
     getSupportedTokensByEid,
 } from '../../devtools/config/utils/utils.config'
 
@@ -197,7 +197,8 @@ describe('tokenMessaging.config', () => {
         process.env.NEW_CHAIN = newChainName
 
         const config = await tokenMessagingConfig()
-        const newChainEid = getNewChainEid()
+        const newChainEids = getNewChainEids()
+        const [newChainEid] = newChainEids
 
         // Should have contracts for all supported chains (node configs are needed for all chains)
         expect(config.contracts.length).to.equal(supportedChains.length)
@@ -214,5 +215,45 @@ describe('tokenMessaging.config', () => {
                 'connection involves new chain'
             ).to.be.true
         }
+    })
+
+    it('should generate connections involving any new chain without duplicating edges between them when NEW_CHAIN is a comma-separated list', async () => {
+        const supportedChains = getChainsThatSupportMessaging()
+        if (supportedChains.length < 3) return
+
+        const newChainNames = [supportedChains[0].name, supportedChains[1].name]
+        process.env.NEW_CHAIN = newChainNames.join(',')
+
+        const config = await tokenMessagingConfig()
+        const newChainEids = getNewChainEids()
+
+        // Node configs are still emitted for every supported chain
+        expect(config.contracts.length).to.equal(supportedChains.length)
+        for (const name of newChainNames) {
+            const eid = supportedChains.find((c) => c.name === name)?.eid
+            expect(config.contracts.some((c) => c.contract.eid === eid)).to.be.true
+        }
+
+        // Every kept edge must touch at least one new chain
+        for (const connection of config.connections) {
+            expect(
+                newChainEids.has(connection.from.eid) || newChainEids.has(connection.to.eid),
+                'connection involves a new chain'
+            ).to.be.true
+        }
+
+        // Expected count: for each new chain Ni, edges Ni↔X for all X ≠ Ni → 2·(N−1) edges
+        // Edges between new chains are shared between Ni and Nj counts, so with K new chains:
+        //   2·K·(N−1) − K·(K−1) directed edges
+        const N = supportedChains.length
+        const K = newChainNames.length
+        expect(config.connections.length).to.equal(2 * K * (N - 1) - K * (K - 1))
+
+        // Confirm edges between the two new chains are not duplicated
+        const [eidA, eidB] = Array.from(newChainEids)
+        const aToB = config.connections.filter((c) => c.from.eid === eidA && c.to.eid === eidB)
+        const bToA = config.connections.filter((c) => c.from.eid === eidB && c.to.eid === eidA)
+        expect(aToB.length).to.equal(1)
+        expect(bToA.length).to.equal(1)
     })
 })

@@ -17,7 +17,7 @@ import feelibUsdtConfig from '../../devtools/config/mainnet/01/feelib-v1.usdt.co
 import {
     getAllSupportedChains,
     getChainsThatSupportToken,
-    getNewChainEid,
+    getNewChainEids,
 } from '../../devtools/config/utils/utils.config'
 
 import { setupConfigTestEnvironment } from './utils'
@@ -150,9 +150,25 @@ function testFeeLibConfig(
         process.env.NEW_CHAIN = newChainName
 
         const config = await feeLibConfig()
-        const newChainEid = getNewChainEid()
+        const [newChainEid] = getNewChainEids()
 
         expect(config.contracts.length, 'contracts length').to.equal(1)
         expect(config.contracts[0].contract.eid, 'contract eid').to.equal(newChainEid)
+    })
+
+    it('should include every new chain when NEW_CHAIN is a comma-separated list', async () => {
+        const supportedChains = getChainsThatSupportToken(tokenName)
+        if (supportedChains.length < 2) return
+
+        const newChainNames = [supportedChains[0].name, supportedChains[1].name]
+        process.env.NEW_CHAIN = newChainNames.join(',')
+
+        const config = await feeLibConfig()
+        const newChainEids = getNewChainEids()
+
+        expect(config.contracts.length, 'contracts length').to.equal(newChainNames.length)
+        for (const contract of config.contracts) {
+            expect(newChainEids.has(contract.contract.eid)).to.be.true
+        }
     })
 }
