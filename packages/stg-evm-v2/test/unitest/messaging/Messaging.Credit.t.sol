@@ -11,6 +11,8 @@ import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/Ad
 import { MessagingFee, MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
+import { ICreditMessagingRecovery } from "../../../src/interfaces/ICreditMessagingRecovery.sol";
+import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
 
 contract CreditMessagingTest is Test {
     address internal ALICE = makeAddr("alice");
@@ -53,7 +55,7 @@ contract CreditMessagingTest is Test {
         return creditBatches;
     }
 
-    function setUp() public {
+    function setUp() public virtual {
         messaging = new CreditMessaging(LzUtil.deployEndpointV2(1, address(this)), address(this));
         messaging.setPlanner(PLANNER);
     }
@@ -256,6 +258,28 @@ contract CreditMessagingTest is Test {
             abi.encode(MessagingFee(fee, 0))
         );
     }
+
+    // ---------------------------------- mintCredits / burnCredits not available ------------------------------------------
+
+    function test_MintCredits_NotAvailableOnCreditMessaging() public virtual {
+        CreditBatch[] memory batches = new CreditBatch[](0);
+        (bool success, bytes memory data) = address(messaging).call(
+            abi.encodeWithSelector(ICreditMessagingRecovery.mintCredits.selector, batches, "")
+        );
+        assertFalse(success);
+        assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
+    }
+
+    function test_BurnCredits_NotAvailableOnCreditMessaging() public virtual {
+        TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
+        (bool success, bytes memory data) = address(messaging).call(
+            abi.encodeWithSelector(ICreditMessagingRecovery.burnCredits.selector, batches, "")
+        );
+        assertFalse(success);
+        assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
+    }
+
+    // ---------------------------------- Helpers ------------------------------------------
 
     function _mockEndpointSend(uint256 fee) internal {
         MessagingFee memory mockMessagingFee = MessagingFee({ nativeFee: fee, lzTokenFee: 0 });
