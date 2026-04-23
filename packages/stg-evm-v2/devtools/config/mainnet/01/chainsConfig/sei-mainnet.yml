@@ -24,3 +24,5 @@ treasurer:
     eth: true
     usdt: true
     usdc: true
+allowed_peers:
+  - ethereum-mainnet
