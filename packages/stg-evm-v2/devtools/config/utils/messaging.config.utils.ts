@@ -11,8 +11,9 @@ import {
     OmniPointHardhat,
     createGetHreByEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
-import { Stage } from '@layerzerolabs/lz-definitions'
+import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
+import { EndpointV2__factory } from '../../../ts-src/typechain-types'
 import { filterConnections, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getAssetsConfig } from './shared'
@@ -24,6 +25,51 @@ import {
     printChains,
     setStage,
 } from './utils.config'
+
+type DefaultLibraries = { sendLibrary: string; receiveLibrary: string }
+
+async function fetchDefaultLibraries(
+    contracts: OmniPointHardhat[],
+    getEnvironment: ReturnType<typeof createGetHreByEid>
+): Promise<Map<EndpointId, DefaultLibraries>> {
+    // Use the first other eid as a reference — LZ uses the same send/receive lib for all destinations per chain
+    const referenceEid = contracts[1]?.eid ?? contracts[0]?.eid ?? 0
+
+    const entries = await Promise.all(
+        contracts.map(async (contract) => {
+            const hre = await getEnvironment(contract.eid)
+            const endpointDeployment = await hre.deployments.get('EndpointV2')
+            const provider = (hre as any).ethers.provider
+            const endpoint = EndpointV2__factory.connect(endpointDeployment.address, provider)
+            const otherEid = contract.eid === referenceEid ? contracts[0]?.eid ?? 0 : referenceEid
+            const [sendLibrary, receiveLibrary] = await Promise.all([
+                endpoint.defaultSendLibrary(otherEid),
+                endpoint.defaultReceiveLibrary(otherEid),
+            ])
+            return [contract.eid, { sendLibrary, receiveLibrary }] as const
+        })
+    )
+
+    return new Map(entries)
+}
+
+function enrichConnectionsWithLibraries<T extends TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>(
+    connections: OmniEdgeHardhat<T>[],
+    libraryMap: Map<EndpointId, DefaultLibraries>
+): OmniEdgeHardhat<T>[] {
+    return connections.map((edge) => {
+        const libs = libraryMap.get(edge.from.eid)
+        if (!libs) return edge
+        return {
+            ...edge,
+            config: {
+                ...edge.config,
+                sendLibrary: libs.sendLibrary,
+                receiveLibraryConfig: { receiveLibrary: libs.receiveLibrary, gracePeriod: 0n },
+            },
+        }
+    })
+}
 
 export default async function buildMessagingGraph(
     stage: Stage,
@@ -55,12 +101,13 @@ export default async function buildMessagingGraph(
         }
 
         const allContracts = supportedChains.map((chain) => getContractWithEid(chain.eid, contract))
-        const allConnections = generateMessagingConfig(allContracts)
-        const filteredConnections = filterConnections(allConnections, [], [])
-
         // Include ALL contracts so edges can reference them in the graph.
         // The framework will only generate transactions for actual config differences.
         const getEnvironment = createGetHreByEid()
+        const libraryMap = await fetchDefaultLibraries(allContracts, getEnvironment)
+        const allConnections = enrichConnectionsWithLibraries(generateMessagingConfig(allContracts), libraryMap)
+        const filteredConnections = filterConnections(allConnections, [], [])
+
         const contracts = await Promise.all(
             allContracts.map(async (c) => {
                 const stargateOnesig = getOneSigAddressMaybe(c.eid)
@@ -100,10 +147,10 @@ export default async function buildMessagingGraph(
     toContracts.forEach((contract) => contractMap.set(contract.eid, contract))
 
     const allContracts = Array.from(contractMap.values())
-    const allConnections = generateMessagingConfig(allContracts)
-    const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
-
     const getEnvironment = createGetHreByEid()
+    const libraryMap = await fetchDefaultLibraries(allContracts, getEnvironment)
+    const allConnections = enrichConnectionsWithLibraries(generateMessagingConfig(allContracts), libraryMap)
+    const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
 
     const contracts = await Promise.all(
         allContracts.map(async (contract) => {
