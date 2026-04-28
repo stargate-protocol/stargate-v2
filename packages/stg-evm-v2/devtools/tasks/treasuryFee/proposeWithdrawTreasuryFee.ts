@@ -144,11 +144,19 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const convertRate = 10n ** BigInt(tokenDecimals - sharedDecimals)
         const amountLD = amountSD * convertRate
 
+        const descSuffix = action.description ? ` | ${action.description}` : ''
+
         const withdrawTx = await sdk.withdrawTreasuryFee(stargate, amountSD)
-        out.push({ ...withdrawTx, description: action.description ?? withdrawTx.description })
+        out.push({
+            ...withdrawTx,
+            description: `${withdrawTx.description ?? ''}${descSuffix}`,
+        })
 
         const transferTx = await sdk.transferToken(underlyingToken, to, amountLD)
-        out.push({ ...transferTx, description: action.description ?? transferTx.description })
+        out.push({
+            ...transferTx,
+            description: `${transferTx.description ?? ''}${descSuffix}`,
+        })
     }
     return out
 }
