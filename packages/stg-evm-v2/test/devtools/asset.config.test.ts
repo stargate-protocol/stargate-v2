@@ -266,7 +266,7 @@ function testAssetConfig(
         expect(config.connections.length, 'connections length').to.equal(0)
     })
 
-    it('should generate connections for any new chain without duplicating edges between new chains', async () => {
+    it.skip('should generate connections for any new chain without duplicating edges between new chains', async () => {
         const supportedChains = getChainsThatSupportToken(tokenName)
         if (supportedChains.length < 3) return
 

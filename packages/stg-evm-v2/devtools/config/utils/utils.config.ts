@@ -272,6 +272,28 @@ export function getNewChains(): string[] {
     )
 }
 
+/**
+ * Returns the list of chain names to operate on (prefers NEW_CHAIN over CHAINS_LIST).
+ */
+export function getChainsList(): string[] {
+    const newChains = getNewChains()
+    return newChains.length > 0 ? newChains : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+}
+
+/**
+ * NEW_CHAIN mode helper: tells you whether NEW_CHAIN is set and which of the provided
+ * `supportedChains` match it.
+ */
+export function getNewSupportedChains(supportedChains: Chain[]): { newChainMode: boolean; newChains: Chain[] } {
+    const newChainNames = getNewChains()
+    const newChainMode = newChainNames.length > 0
+
+    const nameSet = new Set(newChainNames) // trims + filters empty already
+    if (nameSet.size === 0) return { newChainMode, newChains: [] }
+
+    return { newChainMode, newChains: supportedChains.filter((c) => nameSet.has(c.name)) }
+}
+
 export function getChainByName(chainName: string): Chain {
     const allChains = getAllChainsConfig()
     const chain = allChains.find((c) => c.name === chainName)
