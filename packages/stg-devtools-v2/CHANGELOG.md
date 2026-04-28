@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-v2
 
+## 10.0.1
+
+### Patch Changes
+
+- d48ebfb: Configured and deployed Gensyn Mainnet
+- Updated dependencies [d48ebfb]
+- Updated dependencies [0a225b2]
+  - @stargatefinance/stg-definitions-v2@7.0.1
+
 ## 10.0.0
 
 ### Major Changes

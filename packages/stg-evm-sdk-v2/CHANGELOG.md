@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 2.0.1
+
+### Patch Changes
+
+- d48ebfb: Configured and deployed Gensyn Mainnet
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,19 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 11.0.0
+
+### Major Changes
+
+- ed5d4fa: Updated `@layerzerolabs/protocol-devtools-evm` to `~5.0.3` and updated peer dependencies to satisfy its requirements: `@layerzerolabs/devtools-evm` to `~3.0.2`, `@layerzerolabs/protocol-devtools` to `~3.0.2`, and `@layerzerolabs/devtools-evm-hardhat` to `^4.0.0`.
+
+### Patch Changes
+
+- d48ebfb: Configured and deployed Gensyn Mainnet
+- Updated dependencies [d48ebfb]
+- Updated dependencies [0a225b2]
+  - @stargatefinance/stg-definitions-v2@7.0.1
+  - @stargatefinance/stg-devtools-v2@10.0.1
+
 ## 10.0.0
 
 ### Major Changes

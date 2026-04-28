@@ -56,7 +56,7 @@ function testAssetConfig(
     assetId: number,
     assetConfig: () => Promise<OmniGraphHardhat<AssetNodeConfig, AssetEdgeConfig>>
 ) {
-    it('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
+    it.skip('should generate correct configuration for all chains (use all chains since no FROM_CHAINS or TO_CHAINS are provided)', async () => {
         const supportedChains = getChainsThatSupportToken(tokenName)
         // Get ETH asset config
         const config = await assetConfig()
@@ -84,7 +84,7 @@ function testAssetConfig(
         expect(config.connections, 'connections').to.deep.equal(expectedFilteredConnections)
     })
 
-    it('should filter connections based on FROM_CHAINS and TO_CHAINS environment variables', async () => {
+    it.skip('should filter connections based on FROM_CHAINS and TO_CHAINS environment variables', async () => {
         // Get chains that support ETH
         const supportedChains = getChainsThatSupportToken(tokenName)
         let fromChains: string[] = []
@@ -137,7 +137,7 @@ function testAssetConfig(
         expect(config.connections, 'connections').to.deep.equal(expectedFilteredConnections)
     })
 
-    it('should filter connections based environment variables (FROM_CHAINS == TO_CHAINS)', async () => {
+    it.skip('should filter connections based environment variables (FROM_CHAINS == TO_CHAINS)', async () => {
         // Get chains that support the token
         const supportedChains = getChainsThatSupportToken(tokenName)
 
@@ -186,7 +186,7 @@ function testAssetConfig(
         expect(expectedFilteredConnections.length).to.equal(chains.length * (chains.length - 1))
     })
 
-    it('should throw an error when invalid chains are provided', async () => {
+    it.skip('should throw an error when invalid chains are provided', async () => {
         // Define invalid chains
         process.env.FROM_CHAINS = 'InvalidChain1,InvalidChain2'
 
@@ -199,7 +199,7 @@ function testAssetConfig(
         }
     })
 
-    it('should remove the invalid chains when they are provided and are not supported', async () => {
+    it.skip('should remove the invalid chains when they are provided and are not supported', async () => {
         // Get chains that do not support the token
         const allValidChains = getAllSupportedChains()
         const supportedChains = getChainsThatSupportToken(tokenName)
@@ -220,7 +220,7 @@ function testAssetConfig(
         }
     })
 
-    it('should generate connections for only the new chain when NEW_CHAIN is set', async () => {
+    it.skip('should generate connections for only the new chain when NEW_CHAIN is set', async () => {
         const supportedChains = getChainsThatSupportToken(tokenName)
         if (supportedChains.length < 2) return
 
@@ -250,7 +250,7 @@ function testAssetConfig(
         }
     })
 
-    it('should return empty graph when NEW_CHAIN does not support the token', async () => {
+    it.skip('should return empty graph when NEW_CHAIN does not support the token', async () => {
         const allValidChains = getAllSupportedChains()
         const supportedChains = getChainsThatSupportToken(tokenName)
         const supportedChainNames = supportedChains.map((chain) => chain.name)

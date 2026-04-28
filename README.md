@@ -38,3 +38,7 @@ pnpm clean
 pnpm build
 pnpm test
 ```
+
+## Related LayerZero Contracts
+
+Stargate transactions may interact with LayerZero Value Transfer API contracts, including `LZMultiCall`. For the canonical list and addresses, see the [LayerZero Value Transfer API overview](https://docs.layerzero.network/v2/developers/value-transfer-api/contracts/overview#lzmulticall-wrapper).

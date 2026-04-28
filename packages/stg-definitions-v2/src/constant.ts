@@ -40,6 +40,7 @@ export const DVNS = {
         [EndpointId.FLOW_V2_MAINNET]: '0x3c61aad6d402d867c653f603558f4b8f91abe952',
         [EndpointId.FUSE_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x54dd79f5ce72b51fcbbcb170dd01e32034323565',
+        [EndpointId.GENSYN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.GLUE_V2_MAINNET]: '0xaa3099f91912e07976c2dd1598dc740d81bd3fea',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.GOAT_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
@@ -107,6 +108,7 @@ export const DVNS = {
         [EndpointId.FLOW_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.FUSE_V2_MAINNET]: '0x795f8325af292ff6e58249361d1954893be15aff',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.GENSYN_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.GLUE_V2_MAINNET]: '0xce8358bc28dd8296ce8caf1cd2b44787abd65887',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x11bb2991882a86dc3e38858d922559a385d506ba',
         [EndpointId.GOAT_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
@@ -211,6 +213,7 @@ export const EXECUTORS = {
         [EndpointId.FLOW_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.FUSE_V2_MAINNET]: '0xc905E74BEb8229E258c3C6E5bC0D6Cc54C534688',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
+        [EndpointId.GENSYN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.GLUE_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x38340337f9ADF5D76029Ab3A667d34E5a032F7BA',
         [EndpointId.GOAT_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
@@ -846,6 +849,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x8a2b28364102bea189d99a475c494330ef2bdd0b',
             },
+            [EndpointId.GENSYN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x5b32c997211621d55a89cc5abaf1cc21f3a6ddf5',
+            },
             [EndpointId.GLUE_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xEe45ed3f6c675F319BB9de62991C1E78B484e0B8',
@@ -1162,6 +1169,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FUSE_V2_MAINNET]: {},
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GATELAYER_V2_MAINNET]: {},
+        [EndpointId.GENSYN_V2_MAINNET]: {},
         [EndpointId.GLUE_V2_MAINNET]: {},
         [EndpointId.GNOSIS_V2_MAINNET]: {},
         [EndpointId.GOAT_V2_MAINNET]: {},
@@ -2332,6 +2340,23 @@ export const NETWORKS: NetworksConfig = {
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/gatelayer`,
+        },
+    },
+    [EndpointId.GENSYN_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.GENSYN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [DVNS.NETHERMIND[EndpointId.GENSYN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET]],
+            executor: EXECUTORS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
+            nativeDropAmount: parseEther('0.0000015').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x34eE86f14fD32868407D42Cf14dFaD503317354c',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/gensyn`,
         },
     },
     [EndpointId.GLUE_V2_MAINNET]: {

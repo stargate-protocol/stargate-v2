@@ -384,6 +384,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.GATELAYER_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'gensyn-mainnet': {
+        eid: EndpointId.GENSYN_V2_MAINNET,
+        url: process.env.RPC_URL_GENSYN_MAINNET || 'https://gensyn-mainnet.g.alchemy.com/public',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'glue-mainnet': {
         eid: EndpointId.GLUE_V2_MAINNET,
         url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
