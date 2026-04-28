@@ -164,7 +164,7 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
 // ——— Hardhat task ———
 
 interface TaskArgs {
-    config?: string
+    configPath?: string
     safe: boolean
     onesig: boolean
 }
@@ -173,7 +173,7 @@ task(
     TASK_STG_PROPOSE_WITHDRAW_TREASURY_FEE,
     'Propose Treasurer ops from YAML — devtools/tasks/treasuryFee/withdrawTreasuryFee.yml'
 )
-    .addOptionalParam('config', 'Path to YAML config file', DEFAULT_YML)
+    .addOptionalParam('configPath', 'Path to YAML config file', DEFAULT_YML)
     .addFlag('safe', 'Sign with Gnosis Safe')
     .addFlag('onesig', 'Sign with One Sig')
     .setAction(async (args: TaskArgs, hre) => {
@@ -181,9 +181,9 @@ task(
             throw new Error('Specify exactly one of --safe or --onesig')
         }
 
-        const cfg = loadConfig(args.config ?? DEFAULT_YML)
+        const cfg = loadConfig(args.configPath ?? DEFAULT_YML)
         if (cfg.actions.length === 0) {
-            throw new Error(`No actions in ${args.config ?? DEFAULT_YML}; add at least one action.`)
+            throw new Error(`No actions in ${args.configPath ?? DEFAULT_YML}; add at least one action.`)
         }
 
         const transactions = await buildTransactions(cfg)
