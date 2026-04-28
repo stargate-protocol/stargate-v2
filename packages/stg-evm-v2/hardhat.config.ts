@@ -220,13 +220,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.ASTAR_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'ault-mainnet': {
-        eid: EndpointId.AULT_V2_MAINNET,
-        url: process.env.RPC_URL_AULT_MAINNET || '', // TODO: No public RPC available yet — set RPC_URL_AULT_MAINNET in .env
-        accounts: mainnetAccounts,
-        oneSigConfig: getOneSigConfig(EndpointId.AULT_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'aurora-mainnet': {
         eid: EndpointId.AURORA_V2_MAINNET,
         url: process.env.RPC_URL_AURORA_MAINNET || 'https://aurora.drpc.org',
@@ -721,13 +714,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.STORY_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.STORY_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'subtensorevm-mainnet': {
-        eid: EndpointId.SUBTENSOREVM_V2_MAINNET,
-        url: process.env.RPC_URL_SUBTENSOREVM_MAINNET || 'https://lite.chain.opentensor.ai',
-        accounts: mainnetAccounts,
-        oneSigConfig: getOneSigConfig(EndpointId.SUBTENSOREVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'superposition-mainnet': {
