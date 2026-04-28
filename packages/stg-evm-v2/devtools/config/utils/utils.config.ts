@@ -272,6 +272,14 @@ export function getNewChains(): string[] {
     )
 }
 
+/**
+ * Returns the list of chain names to operate on (prefers NEW_CHAIN over CHAINS_LIST).
+ */
+export function getChainsList(): string[] {
+    const newChains = getNewChains()
+    return newChains.length > 0 ? newChains : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+}
+
 export function getChainByName(chainName: string): Chain {
     const allChains = getAllChainsConfig()
     const chain = allChains.find((c) => c.name === chainName)
