@@ -3,6 +3,16 @@ import { ITreasurer } from '@stargatefinance/stg-devtools-v2'
 import { AsyncRetriable, OmniAddress, type OmniTransaction } from '@layerzerolabs/devtools'
 import { Ownable } from '@layerzerolabs/ua-devtools-evm'
 
+const EVM_ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+const EVM_DEAD_ADDRESS = '0x000000000000000000000000000000000000dead'
+
+function normalizeEvmAddressMaybe(address: OmniAddress): string | undefined {
+    if (typeof address !== 'string') return undefined
+    const trimmed = address.trim()
+    if (!trimmed.startsWith('0x')) return undefined
+    return trimmed.toLowerCase()
+}
+
 export class Treasurer extends Ownable implements ITreasurer {
     @AsyncRetriable()
     async getAdmin(): Promise<OmniAddress> {
@@ -32,6 +42,45 @@ export class Treasurer extends Ownable implements ITreasurer {
         return {
             ...this.createTransaction(data),
             description: `Setting the following Asset ${asset}: managed: ${managed}`,
+        }
+    }
+
+    @AsyncRetriable()
+    async withdrawTreasuryFee(stargate: OmniAddress, amountSD: bigint): Promise<OmniTransaction> {
+        const max = 0xffffffffffffffffn
+        if (amountSD < 0n || amountSD > max) {
+            throw new Error(`withdrawTreasuryFee: amountSD must be uint64, got ${amountSD}`)
+        }
+        const data = this.contract.contract.interface.encodeFunctionData('withdrawTreasuryFee', [
+            stargate,
+            amountSD.toString(),
+        ])
+        return {
+            ...this.createTransaction(data),
+            description: `Withdraw treasury fee from ${stargate}, amountSD ${amountSD}`,
+        }
+    }
+
+    @AsyncRetriable()
+    async transferToken(token: OmniAddress, to: OmniAddress, amountLD: bigint): Promise<OmniTransaction> {
+        const toNorm = normalizeEvmAddressMaybe(to)
+        if (toNorm != null) {
+            if (toNorm.length !== 42) {
+                throw new Error(`transferToken: to must be a 20-byte EVM address, got ${to}`)
+            }
+            if (toNorm === EVM_ZERO_ADDRESS || toNorm === EVM_DEAD_ADDRESS) {
+                throw new Error(`transferToken: to must not be zero/dead address, got ${to}`)
+            }
+        }
+
+        const maxUint256 = (1n << 256n) - 1n
+        if (amountLD < 0n || amountLD > maxUint256) {
+            throw new Error(`transferToken: amountLD must be uint256, got ${amountLD}`)
+        }
+        const data = this.contract.contract.interface.encodeFunctionData('transfer', [token, to, amountLD.toString()])
+        return {
+            ...this.createTransaction(data),
+            description: `Treasurer transfer token ${token} -> ${to}, amountLD ${amountLD}`,
         }
     }
 }
