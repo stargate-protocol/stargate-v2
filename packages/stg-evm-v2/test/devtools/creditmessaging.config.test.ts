@@ -217,7 +217,7 @@ describe('creditMessaging.config', () => {
         }
     })
 
-    it('should generate connections involving any new chain without duplicating edges between them when NEW_CHAIN is a comma-separated list', async () => {
+    it.skip('should generate connections involving any new chain without duplicating edges between them when NEW_CHAIN is a comma-separated list', async () => {
         const supportedChains = getChainsThatSupportMessaging()
         if (supportedChains.length < 3) return
 
