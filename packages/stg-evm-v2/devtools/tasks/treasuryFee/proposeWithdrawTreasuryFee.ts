@@ -111,6 +111,9 @@ async function buildTransactions(config: TreasuryFeeConfigYml): Promise<OmniTran
         const sdk = await treasurerFactory({ eid, address: treasurer.address })
         const stargate = await resolveStargate(hre, eid, action, label)
         const amountSD = parseBigInt(action.amountSD, label)
+        if (amountSD === 0n) {
+            throw new Error(`${label}: amountSD must be greater than zero`)
+        }
         const to = ethers.utils.getAddress(action.to.trim())
 
         const stargateContract = new ethers.Contract(
