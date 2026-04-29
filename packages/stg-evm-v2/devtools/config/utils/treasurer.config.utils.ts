@@ -9,8 +9,8 @@ import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import {
     filterValidProvidedChains,
+    getChainsList,
     getChainsThatSupportTreasurer,
-    getNewChain,
     getTokenName,
     setStage,
 } from './utils.config'
@@ -28,8 +28,7 @@ export default async function buildTreasurerGraph(
     const getDeployer = createGetDeployer(getEnvironment)
     const getAssetAddresses = createGetAssetAddresses(getEnvironment)
 
-    const newChain = getNewChain()
-    const chainsList = newChain ? [newChain] : process.env.CHAINS_LIST ? process.env.CHAINS_LIST.split(',') : []
+    const chainsList = getChainsList()
 
     // get valid chains config in the chainsList
     const validChains = filterValidProvidedChains(chainsList, getChainsThatSupportTreasurer())
