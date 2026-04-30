@@ -5,6 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import {
     type AssetConfig,
     CreditMessagingNetworkConfig,
+    type MessageLibVersion,
     NetworksConfig,
     OftWrapperConfig,
     RewardTokenName,
@@ -13,6 +14,17 @@ import {
     TokenMessagingNetworkConfig,
     TokenName,
 } from './types'
+
+/**
+ * The MessageLib version Stargate has reviewed and approved for use across the mesh.
+ * The messaging config script asserts every chain's on-chain default send/receive
+ * library matches this before pinning it.
+ */
+export const EXPECTED_MESSAGE_LIB_VERSION: MessageLibVersion = {
+    major: 3n,
+    minor: 0,
+    endpointVersion: 2,
+}
 
 export const DVNS = {
     //

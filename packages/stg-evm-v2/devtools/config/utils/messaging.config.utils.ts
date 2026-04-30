@@ -1,3 +1,4 @@
+import { EXPECTED_MESSAGE_LIB_VERSION } from '@stargatefinance/stg-definitions-v2'
 import {
     CreditMessagingEdgeConfig,
     CreditMessagingNodeConfig,
@@ -13,7 +14,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
-import { EndpointV2__factory } from '../../../ts-src/typechain-types'
+import { EndpointV2__factory, IMessageLib__factory } from '../../../ts-src/typechain-types'
 import { filterConnections, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getAssetsConfig } from './shared'
@@ -28,29 +29,67 @@ import {
 
 type DefaultLibraries = { sendLibrary: string; receiveLibrary: string }
 
-async function fetchDefaultLibraries(
+async function fetchAndValidateDefaultLibraries(
     contracts: OmniPointHardhat[],
     getEnvironment: ReturnType<typeof createGetHreByEid>
 ): Promise<Map<EndpointId, DefaultLibraries>> {
-    // Use the first other eid as a reference — LZ uses the same send/receive lib for all destinations per chain
-    const referenceEid = contracts[1]?.eid ?? contracts[0]?.eid ?? 0
-
     const entries = await Promise.all(
         contracts.map(async (contract) => {
+            // `defaultSendLibrary(dstEid)` / `defaultReceiveLibrary(srcEid)` need a peer eid.
+            // Querying a chain's default for itself isn't a real concept, so pick any other
+            // chain in scope. (LZ today uses the same lib across all destinations per chain.)
+            const peer = contracts.find((c) => c.eid !== contract.eid)
+            if (!peer) {
+                throw new Error(
+                    `Cannot fetch default message libraries for eid ${contract.eid}: at least one other chain must be in scope.`
+                )
+            }
+
             const hre = await getEnvironment(contract.eid)
             const endpointDeployment = await hre.deployments.get('EndpointV2')
             const provider = (hre as any).ethers.provider
             const endpoint = EndpointV2__factory.connect(endpointDeployment.address, provider)
-            const otherEid = contract.eid === referenceEid ? contracts[0]?.eid ?? 0 : referenceEid
+
             const [sendLibrary, receiveLibrary] = await Promise.all([
-                endpoint.defaultSendLibrary(otherEid),
-                endpoint.defaultReceiveLibrary(otherEid),
+                endpoint.defaultSendLibrary(peer.eid),
+                endpoint.defaultReceiveLibrary(peer.eid),
             ])
+
+            await Promise.all([
+                assertLibraryVersion(provider, sendLibrary, contract.eid, 'send'),
+                assertLibraryVersion(provider, receiveLibrary, contract.eid, 'receive'),
+            ])
+
             return [contract.eid, { sendLibrary, receiveLibrary }] as const
         })
     )
 
     return new Map(entries)
+}
+
+async function assertLibraryVersion(
+    provider: unknown,
+    libraryAddress: string,
+    eid: EndpointId,
+    kind: 'send' | 'receive'
+): Promise<void> {
+    const lib = IMessageLib__factory.connect(libraryAddress, provider as never)
+    const onChain = await lib.version()
+    const expected = EXPECTED_MESSAGE_LIB_VERSION
+
+    const matches =
+        onChain.major.toBigInt() === expected.major &&
+        onChain.minor === expected.minor &&
+        onChain.endpointVersion === expected.endpointVersion
+
+    if (!matches) {
+        const actual = `${onChain.major.toString()}.${onChain.minor}.${onChain.endpointVersion}`
+        const want = `${expected.major}.${expected.minor}.${expected.endpointVersion}`
+        throw new Error(
+            `Default ${kind} library on eid ${eid} (${libraryAddress}) is on version ${actual}, expected ${want}. ` +
+                `If LayerZero shipped a new default and Stargate has reviewed it, bump EXPECTED_MESSAGE_LIB_VERSION in stg-definitions-v2 to opt in mesh-wide.`
+        )
+    }
 }
 
 function enrichConnectionsWithLibraries<T extends TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>(
@@ -104,7 +143,7 @@ export default async function buildMessagingGraph(
         // Include ALL contracts so edges can reference them in the graph.
         // The framework will only generate transactions for actual config differences.
         const getEnvironment = createGetHreByEid()
-        const libraryMap = await fetchDefaultLibraries(allContracts, getEnvironment)
+        const libraryMap = await fetchAndValidateDefaultLibraries(allContracts, getEnvironment)
         const allConnections = enrichConnectionsWithLibraries(generateMessagingConfig(allContracts), libraryMap)
         const filteredConnections = filterConnections(allConnections, [], [])
 
@@ -148,7 +187,7 @@ export default async function buildMessagingGraph(
 
     const allContracts = Array.from(contractMap.values())
     const getEnvironment = createGetHreByEid()
-    const libraryMap = await fetchDefaultLibraries(allContracts, getEnvironment)
+    const libraryMap = await fetchAndValidateDefaultLibraries(allContracts, getEnvironment)
     const allConnections = enrichConnectionsWithLibraries(generateMessagingConfig(allContracts), libraryMap)
     const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
 

@@ -3,6 +3,16 @@ import type { ContractNetworksConfig } from '@safe-global/protocol-kit/dist/src/
 
 export const OPTIONAL_DVN_THRESHOLD = 0
 
+/**
+ * On-chain version metadata returned by `IMessageLib.version()` —
+ * the tuple `(uint64 major, uint8 minor, uint8 endpointVersion)`.
+ */
+export interface MessageLibVersion {
+    major: bigint
+    minor: number
+    endpointVersion: number
+}
+
 export enum StargateType {
     Pool = 'Pool',
     Oft = 'OFT',
