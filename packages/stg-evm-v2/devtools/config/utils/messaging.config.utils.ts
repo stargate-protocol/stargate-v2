@@ -35,35 +35,59 @@ type PinnedLibraries = { sendLibrary: string; receiveLibrary: string }
 
 /**
  * Finds the send and receive libraries matching EXPECTED_MESSAGE_LIB_VERSION
- * from the endpoint's registered libraries. Throws if no match found.
+ * from the endpoint's registered libraries. Uses first match if multiple found.
  */
 async function findExpectedVersionLibraries(provider: any, registeredLibraries: string[]): Promise<PinnedLibraries> {
+    const version = EXPECTED_MESSAGE_LIB_VERSION
+    const versionStr = `${version.major}.${version.minor}.${version.endpointVersion}`
+
     const versioned = await Promise.all(
         registeredLibraries.map(async (address) => {
             const lib = IMessageLib__factory.connect(address, provider)
-            const [{ major, endpointVersion }, libType] = await Promise.all([lib.version(), lib.messageLibType()])
-            return { address, major: Number(major), endpointVersion: Number(endpointVersion), libType: Number(libType) }
+            const [{ major, minor, endpointVersion }, libType] = await Promise.all([
+                lib.version(),
+                lib.messageLibType(),
+            ])
+            return {
+                address,
+                major: Number(major),
+                minor: Number(minor),
+                endpointVersion: Number(endpointVersion),
+                libType: Number(libType),
+            }
         })
     )
 
     const matchingLibs = versioned.filter(
         (l) =>
-            l.major === Number(EXPECTED_MESSAGE_LIB_VERSION.major) &&
-            l.endpointVersion === EXPECTED_MESSAGE_LIB_VERSION.endpointVersion
+            l.major === Number(version.major) &&
+            l.minor === version.minor &&
+            l.endpointVersion === version.endpointVersion
     )
 
-    const sendLibrary = matchingLibs.find((l) => l.libType === MESSAGE_LIB_TYPE_SEND)?.address
-    const receiveLibrary = matchingLibs.find((l) => l.libType === MESSAGE_LIB_TYPE_RECEIVE)?.address
+    const sendLibs = matchingLibs.filter((l) => l.libType === MESSAGE_LIB_TYPE_SEND)
+    const receiveLibs = matchingLibs.filter((l) => l.libType === MESSAGE_LIB_TYPE_RECEIVE)
 
-    if (!sendLibrary || !receiveLibrary) {
-        throw new Error(
-            `No library matching version major=${EXPECTED_MESSAGE_LIB_VERSION.major}, endpointVersion=${EXPECTED_MESSAGE_LIB_VERSION.endpointVersion} found in registered libraries. ` +
-                `Matching libs: ${JSON.stringify(matchingLibs)}. ` +
-                `All registered: ${registeredLibraries.join(', ')}`
+    if (!sendLibs[0]) throw new Error(`No send library matching version ${versionStr} found in registered libraries.`)
+    if (!receiveLibs[0])
+        throw new Error(`No receive library matching version ${versionStr} found in registered libraries.`)
+
+    if (sendLibs.length > 1)
+        console.warn(
+            `[warn] Multiple send libraries match version ${versionStr}. Using ${sendLibs[0].address}, ignoring: ${sendLibs
+                .slice(1)
+                .map((l) => l.address)
+                .join(', ')}.`
         )
-    }
+    if (receiveLibs.length > 1)
+        console.warn(
+            `[warn] Multiple receive libraries match version ${versionStr}. Using ${receiveLibs[0].address}, ignoring: ${receiveLibs
+                .slice(1)
+                .map((l) => l.address)
+                .join(', ')}.`
+        )
 
-    return { sendLibrary, receiveLibrary }
+    return { sendLibrary: sendLibs[0].address, receiveLibrary: receiveLibs[0].address }
 }
 
 /**
