@@ -5,6 +5,7 @@ import { EndpointId } from '@layerzerolabs/lz-definitions'
 import {
     type AssetConfig,
     CreditMessagingNetworkConfig,
+    type MessageLibVersion,
     NetworksConfig,
     OftWrapperConfig,
     RewardTokenName,
@@ -13,6 +14,12 @@ import {
     TokenMessagingNetworkConfig,
     TokenName,
 } from './types'
+
+export const EXPECTED_MESSAGE_LIB_VERSION: MessageLibVersion = {
+    major: 3n,
+    minor: 0,
+    endpointVersion: 2,
+}
 
 export const DVNS = {
     //
