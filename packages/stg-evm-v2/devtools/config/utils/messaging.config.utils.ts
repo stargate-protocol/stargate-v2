@@ -1,3 +1,4 @@
+import { EXPECTED_MESSAGE_LIB_VERSION } from '@stargatefinance/stg-definitions-v2'
 import {
     CreditMessagingEdgeConfig,
     CreditMessagingNodeConfig,
@@ -13,7 +14,7 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
-import { EndpointV2__factory } from '../../../ts-src/typechain-types'
+import { EndpointV2__factory, IMessageLib__factory } from '../../../ts-src/typechain-types'
 import { filterConnections, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getAssetsConfig } from './shared'
@@ -26,36 +27,75 @@ import {
     setStage,
 } from './utils.config'
 
-type DefaultLibraries = { sendLibrary: string; receiveLibrary: string }
+// messageLibType() enum values from IMessageLib
+const MESSAGE_LIB_TYPE_SEND = 0
+const MESSAGE_LIB_TYPE_RECEIVE = 1
 
-async function fetchDefaultLibraries(
+type PinnedLibraries = { sendLibrary: string; receiveLibrary: string }
+
+/**
+ * Finds the send and receive libraries matching EXPECTED_MESSAGE_LIB_VERSION
+ * from the endpoint's registered libraries. Throws if no match found.
+ */
+async function findExpectedVersionLibraries(provider: any, registeredLibraries: string[]): Promise<PinnedLibraries> {
+    const versioned = await Promise.all(
+        registeredLibraries.map(async (address) => {
+            const lib = IMessageLib__factory.connect(address, provider)
+            const [{ major, endpointVersion }, libType] = await Promise.all([lib.version(), lib.messageLibType()])
+            return { address, major: Number(major), endpointVersion: Number(endpointVersion), libType: Number(libType) }
+        })
+    )
+
+    const matchingLibs = versioned.filter(
+        (l) =>
+            l.major === Number(EXPECTED_MESSAGE_LIB_VERSION.major) &&
+            l.endpointVersion === EXPECTED_MESSAGE_LIB_VERSION.endpointVersion
+    )
+
+    const sendLibrary = matchingLibs.find((l) => l.libType === MESSAGE_LIB_TYPE_SEND)?.address
+    const receiveLibrary = matchingLibs.find((l) => l.libType === MESSAGE_LIB_TYPE_RECEIVE)?.address
+
+    if (!sendLibrary || !receiveLibrary) {
+        throw new Error(
+            `No library matching version major=${EXPECTED_MESSAGE_LIB_VERSION.major}, endpointVersion=${EXPECTED_MESSAGE_LIB_VERSION.endpointVersion} found in registered libraries. ` +
+                `Matching libs: ${JSON.stringify(matchingLibs)}. ` +
+                `All registered: ${registeredLibraries.join(', ')}`
+        )
+    }
+
+    return { sendLibrary, receiveLibrary }
+}
+
+/**
+ * For each contract, queries the endpoint's registered libraries and pins
+ * the send/receive library matching EXPECTED_MESSAGE_LIB_VERSION.
+ */
+async function fetchExpectedVersionLibraries(
     contracts: OmniPointHardhat[],
     getEnvironment: ReturnType<typeof createGetHreByEid>
-): Promise<Map<EndpointId, DefaultLibraries>> {
-    // Use the first other eid as a reference — LZ uses the same send/receive lib for all destinations per chain
-    const referenceEid = contracts[1]?.eid ?? contracts[0]?.eid ?? 0
-
+): Promise<Map<EndpointId, PinnedLibraries>> {
     const entries = await Promise.all(
         contracts.map(async (contract) => {
             const hre = await getEnvironment(contract.eid)
             const endpointDeployment = await hre.deployments.get('EndpointV2')
             const provider = (hre as any).ethers.provider
             const endpoint = EndpointV2__factory.connect(endpointDeployment.address, provider)
-            const otherEid = contract.eid === referenceEid ? contracts[0]?.eid ?? 0 : referenceEid
-            const [sendLibrary, receiveLibrary] = await Promise.all([
-                endpoint.defaultSendLibrary(otherEid),
-                endpoint.defaultReceiveLibrary(otherEid),
-            ])
-            return [contract.eid, { sendLibrary, receiveLibrary }] as const
+            const registeredLibraries = await endpoint.getRegisteredLibraries()
+            const libraries = await findExpectedVersionLibraries(provider, registeredLibraries)
+            return [contract.eid, libraries] as const
         })
     )
 
     return new Map(entries)
 }
 
-function enrichConnectionsWithLibraries<T extends TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>(
+/**
+ * Enriches connections with the pinned send/receive libraries so they are
+ * explicitly set to the expected version instead of falling back to the endpoint default.
+ */
+function pinLibrariesOnConnections<T extends TokenMessagingEdgeConfig | CreditMessagingEdgeConfig>(
     connections: OmniEdgeHardhat<T>[],
-    libraryMap: Map<EndpointId, DefaultLibraries>
+    libraryMap: Map<EndpointId, PinnedLibraries>
 ): OmniEdgeHardhat<T>[] {
     return connections.map((edge) => {
         const libs = libraryMap.get(edge.from.eid)
@@ -104,8 +144,8 @@ export default async function buildMessagingGraph(
         // Include ALL contracts so edges can reference them in the graph.
         // The framework will only generate transactions for actual config differences.
         const getEnvironment = createGetHreByEid()
-        const libraryMap = await fetchDefaultLibraries(allContracts, getEnvironment)
-        const allConnections = enrichConnectionsWithLibraries(generateMessagingConfig(allContracts), libraryMap)
+        const libraryMap = await fetchExpectedVersionLibraries(allContracts, getEnvironment)
+        const allConnections = pinLibrariesOnConnections(generateMessagingConfig(allContracts), libraryMap)
         const filteredConnections = filterConnections(allConnections, [], [])
 
         const contracts = await Promise.all(
@@ -148,8 +188,8 @@ export default async function buildMessagingGraph(
 
     const allContracts = Array.from(contractMap.values())
     const getEnvironment = createGetHreByEid()
-    const libraryMap = await fetchDefaultLibraries(allContracts, getEnvironment)
-    const allConnections = enrichConnectionsWithLibraries(generateMessagingConfig(allContracts), libraryMap)
+    const libraryMap = await fetchExpectedVersionLibraries(allContracts, getEnvironment)
+    const allConnections = pinLibrariesOnConnections(generateMessagingConfig(allContracts), libraryMap)
     const filteredConnections = filterConnections(allConnections, fromContracts, toContracts)
 
     const contracts = await Promise.all(
