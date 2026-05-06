@@ -49,18 +49,36 @@ const OAPP_DEPLOYMENT_BY_FLAG: Record<string, string> = {
     'credit-messaging': 'CreditMessaging',
 }
 
+const MAX_CHAIN_RETRIES = 3
+const RETRY_DELAY_MS = 2000
+
+async function withRetry<T>(fn: () => Promise<T>, retries: number, delayMs: number): Promise<T> {
+    let lastError: unknown
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            return await fn()
+        } catch (e) {
+            lastError = e
+            if (attempt < retries) {
+                await new Promise((resolve) => setTimeout(resolve, delayMs * attempt))
+            }
+        }
+    }
+    throw lastError
+}
+
 interface PinnedLibs {
     sendLibrary: string
     receiveLibrary: string
 }
 
-async function resolveExpectedLibraries(provider: any, endpointAddress: string): Promise<PinnedLibs> {
-    const endpoint = EndpointV2__factory.connect(endpointAddress, provider)
+async function resolveExpectedLibraries(signerOrProvider: any, endpointAddress: string): Promise<PinnedLibs> {
+    const endpoint = EndpointV2__factory.connect(endpointAddress, signerOrProvider)
     const registered = await endpoint.getRegisteredLibraries()
 
     const versioned = await Promise.all(
         registered.map(async (address) => {
-            const lib = IMessageLib__factory.connect(address, provider)
+            const lib = IMessageLib__factory.connect(address, signerOrProvider)
             const [{ major, minor, endpointVersion }, libType] = await Promise.all([
                 lib.version(),
                 lib.messageLibType(),
@@ -140,36 +158,52 @@ task(TASK_STG_PROPOSE_PIN_MESSAGING_LIBS, 'Pin send/receive messaging libs on al
         for (const chain of chains) {
             let hreChain: Awaited<ReturnType<typeof getHreByNetworkName>>
             try {
-                hreChain = await getHreByNetworkName(chain.name)
+                hreChain = await withRetry(
+                    async () => getHreByNetworkName(chain.name),
+                    MAX_CHAIN_RETRIES,
+                    RETRY_DELAY_MS
+                )
             } catch (e) {
-                logger.warn(`[${chain.name}] Could not get HRE, skipping: ${e}`)
+                logger.warn(`[${chain.name}] Could not get HRE after ${MAX_CHAIN_RETRIES} attempts, skipping: ${e}`)
                 continue
             }
 
             const eid = getEidForNetworkName(chain.name, hreChain)
-            const provider = hreChain.ethers.provider
+            // Use deployer signer so eth_call from= is a known address on chains like Hedera
+            const { deployer: deployerAddress } = await hreChain.getNamedAccounts()
+            const deployer = await hreChain.ethers.getSigner(deployerAddress)
 
             let endpointAddress: string
             try {
-                endpointAddress = (await hreChain.deployments.get('EndpointV2')).address
+                endpointAddress = (
+                    await withRetry(() => hreChain.deployments.get('EndpointV2'), MAX_CHAIN_RETRIES, RETRY_DELAY_MS)
+                ).address
             } catch {
-                logger.warn(`[${chain.name}] No EndpointV2 deployment, skipping`)
+                logger.warn(`[${chain.name}] No EndpointV2 deployment after ${MAX_CHAIN_RETRIES} attempts, skipping`)
                 continue
             }
 
             let libs: PinnedLibs
             try {
-                libs = await resolveExpectedLibraries(provider, endpointAddress)
+                libs = await withRetry(
+                    () => resolveExpectedLibraries(deployer, endpointAddress),
+                    MAX_CHAIN_RETRIES,
+                    RETRY_DELAY_MS
+                )
             } catch (e) {
-                logger.warn(`[${chain.name}] Could not resolve expected libs: ${e}`)
+                logger.warn(`[${chain.name}] Could not resolve expected libs after ${MAX_CHAIN_RETRIES} attempts: ${e}`)
                 continue
             }
 
             let oappAddress: string
             try {
-                oappAddress = (await hreChain.deployments.get(oappDeployment)).address
+                oappAddress = (
+                    await withRetry(() => hreChain.deployments.get(oappDeployment), MAX_CHAIN_RETRIES, RETRY_DELAY_MS)
+                ).address
             } catch {
-                logger.verbose(`[${chain.name}] No ${oappDeployment} deployment, skipping`)
+                logger.verbose(
+                    `[${chain.name}] No ${oappDeployment} deployment after ${MAX_CHAIN_RETRIES} attempts, skipping`
+                )
                 continue
             }
 
