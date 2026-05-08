@@ -5,6 +5,7 @@ Use the repository docs as context when reviewing PRs:
 - `README.md` for the project entry point.
 - `ARCHITECTURE.md` for package and protocol boundaries.
 - `AGENTS.md` for agent workflow and guardrails.
+- `WORKFLOW.md` for Symphony's unattended PR workflow.
 - `docs/` for focused workflow maps.
 - `skills/` for shared task workflows.
 

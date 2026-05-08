@@ -7,6 +7,7 @@ Use the shared repo docs as the source of truth:
 - `AGENTS.md` for agent workflow, commands, and guardrails.
 - `docs/` for focused workflow maps.
 - `skills/` for shared task workflows.
+- `WORKFLOW.md` and `docs/07-SYMPHONY.md` for Symphony automation.
 
 Claude-specific skill wrappers live under `.claude/skills`. Those wrappers point to canonical shared workflows in `skills/`; for new-chain deployment/configuration work, read `skills/new-chain/SKILL.md`.
 

@@ -26,6 +26,9 @@ Use `docs/` for narrow workflow maps:
 - `docs/04-DEPLOYMENT.md` for deployment and generated artifacts.
 - `docs/05-CHAIN_AND_ASSET_ONBOARDING.md` for chain/asset checklists.
 - `docs/06-SECURITY.md` for trust boundaries and operational risk.
+- `docs/07-SYMPHONY.md` for the unattended Linear-to-Codex workflow.
+
+Symphony uses `WORKFLOW.md` as its repo-local workflow contract.
 
 Shared task workflows live under `skills/`. Codex does not load them as native skills automatically; when a task matches one, read the relevant `skills/*/SKILL.md` as repo-local task guidance unless a Codex-native skill exists.
 

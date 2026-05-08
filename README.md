@@ -8,7 +8,7 @@
 
 Stargate v2 is an omnichain liquidity transport protocol built on LayerZero. This repository contains the EVM contracts, deployment/configuration tooling, TypeScript SDK packages, generated deployment data, and validation scripts used to build and operate Stargate v2.
 
-For a compact map of the codebase, read `ARCHITECTURE.md`. For coding-agent instructions, read `AGENTS.md`.
+For a compact map of the codebase, read `ARCHITECTURE.md`. For coding-agent instructions, read `AGENTS.md`. For unattended Symphony runs, read `WORKFLOW.md`.
 
 ## Protocol Concepts
 
@@ -54,6 +54,7 @@ pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate
 
 - `ARCHITECTURE.md` maps packages, protocol boundaries, OApps, credit, deployment/configuration flow, and common change locations.
 - `AGENTS.md` is the concise guide for coding agents.
+- `WORKFLOW.md` configures the Symphony Linear-to-Codex workflow.
 - `skills/` contains shared task workflows referenced by agent-specific wrappers.
 - `docs/01-ONBOARDING.md` covers local setup.
 - `docs/02-TESTING.md` explains validation choices.
@@ -61,6 +62,7 @@ pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate
 - `docs/04-DEPLOYMENT.md` maps deployment and generated artifacts.
 - `docs/05-CHAIN_AND_ASSET_ONBOARDING.md` lists chain and asset onboarding checks.
 - `docs/06-SECURITY.md` summarizes trust boundaries and operational risk.
+- `docs/07-SYMPHONY.md` explains the local Symphony setup.
 
 ## Related LayerZero Contracts
 
