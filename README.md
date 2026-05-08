@@ -6,38 +6,61 @@
 
 # stargate-v2
 
-## Introduction
+Stargate v2 is an omnichain liquidity transport protocol built on LayerZero. This repository contains the EVM contracts, deployment/configuration tooling, TypeScript SDK packages, generated deployment data, and validation scripts used to build and operate Stargate v2.
 
-Stargate v2 introduces new features to Stargate that both dramatically reduce cost, and significantly increase capital efficiency while still maintaining IGF (Instant Guarantee of Finality), Unified Pools of Liquidity, and Native to Native asset swaps. The following subsections are a brief overview of the new features within Stargate v2.
+For a compact map of the codebase, read `ARCHITECTURE.md`. For coding-agent instructions, read `AGENTS.md`.
 
-### Bus
+## Protocol Concepts
 
-One of the biggest drawbacks in Stargate v1, was the gas costs to send a message, book fees, and update pools using the novel Delta Algorithm. In Stargate v2, we introduce the concept of Buses. Buses are Stargate swaps that settle locally (via IGF), but wait to be sent to the destination chain when a "bus" full of typically 3-5 transactions to a given destination is full and ready to be sent, or an eager rider pays extra to send the bus early. This dramatically reduces cumulative gas cost for a given transaction from ~550k Local and ~220k remote to ~100k local only resulting in a massive reduction in gas costs.
+Stargate assets are represented by OFT or Hydra asset implementations on each supported chain. These contracts handle source-chain token movement, fees, rewards, path credit, and delivery into destination-chain assets.
 
-### Planner
+LayerZero message flow is isolated in Stargate OApps:
 
-Stargate v1 utilized the Delta Algorithm for fully on chain credit allocation between asynchronous states across tens of blockchains. The algorithm although fully on chain requires a significant amount of capital to stay competitive in pricing among other bridges in the space. In Stargate v2, we introduce the concept of a Planner. A Planner is a trusted entity that can allocate credit between chains off chain, and then submit the credit allocation to the bridge. This allows for a significant reduction in capital requirements, and allows for the bridge to be more competitive in pricing. The Planner has no ability to steal funds, and can only allocate credits that have been sent to it via messaging. This allows Stargate v2 to be extremely competitive in it's pricing, while still maintaining the security of the bridge.
+- `TokenMessaging` sends value-transfer messages. It supports taxi sends for direct delivery and bus sends for batched delivery.
+- `CreditMessaging` sends credit-allocation messages. Credit is the per-path send capacity in shared decimals; a send consumes credit so the destination side can honor Stargate's delivery guarantee.
 
-### Hydra
+The planner is a trusted liveness and rebalancing role. It can allocate credit, tune bus parameters, pause assets, and adjust pool targets, but it should not have a path to steal user funds.
 
-Almost a year to the date of Stargate v2 launch, Stargate discussed the creation of a wrapped asset bridge that would use the underlying asset from the bridge as POL (protocol owned liquidity) to reduce need for LP and overall costs on the protocol. Since then v2 has incorporated this idea as a built in way to do just that. Users can now bridge native assets from anywhere to a Stargate wrapped OFT that can transfer between each chain that does not have the native asset and be redeemed anywhere an native asset pool exists.
+Hydra lets native assets bridge through Stargate-wrapped OFTs on chains where the native asset is not deployed, then redeem where a native asset pool exists.
 
-### JIT Liquidity Intents
+JIT liquidity intents coordinate with the planner to move credit where liquidity is needed for swaps and redemptions.
 
-Stargate v2 also comes with intent based swaps and redemptions both onchain and offchain to coordinate with the planner to move Just in Time liquidity (via credits) to the origin chain allowing the user to experience a seamless swap where liquidity doesn't exist.
+## Repository Map
 
-### End Game
+- `packages/stg-evm-v2` contains Solidity contracts, Hardhat/Foundry config, deployment scripts, tests, deployment data, and operational tasks.
+- `packages/stg-definitions-v2` contains shared asset, network, DVN, executor, OneSig, legacy Safe, and messaging definitions.
+- `packages/stg-devtools-v2` contains chain-agnostic configuration models and configurators.
+- `packages/stg-devtools-evm-hardhat-v2` converts desired configuration into EVM/Hardhat transactions.
+- `packages/stg-evm-sdk-v2` contains SDK helpers, TypeChain bindings, deployment checks, and generated config.
+- `packages/stg-error-parser` wraps LayerZero error parsing with Stargate's generated error data.
 
-Welcome to the end game of bridges, with hyper optimized smart contracts built to reduce every ounce of gas we could find, an offchain planner that can set and lower fees to stay competitive with other bridges, and a bus system that allows for a 91% reduction in gas costs, Hydra OFTs, and JIT Liquidity Intents Stargate v2 is primed to be the most efficient bridge in the space.
-
-## Installation
+## Setup
 
 ```shell
 pnpm install
-pnpm clean
 pnpm build
 pnpm test
 ```
+
+Useful package-level commands:
+
+```shell
+pnpm --filter @stargatefinance/stg-evm-v2 test:forge
+pnpm --filter @stargatefinance/stg-evm-v2 test:hardhat
+pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate
+```
+
+## Documentation
+
+- `ARCHITECTURE.md` maps packages, protocol boundaries, OApps, credit, deployment/configuration flow, and common change locations.
+- `AGENTS.md` is the concise guide for coding agents.
+- `skills/` contains shared task workflows referenced by agent-specific wrappers.
+- `docs/01-ONBOARDING.md` covers local setup.
+- `docs/02-TESTING.md` explains validation choices.
+- `docs/03-CONFIGURATION.md` maps configuration source-of-truth paths.
+- `docs/04-DEPLOYMENT.md` maps deployment and generated artifacts.
+- `docs/05-CHAIN_AND_ASSET_ONBOARDING.md` lists chain and asset onboarding checks.
+- `docs/06-SECURITY.md` summarizes trust boundaries and operational risk.
 
 ## Related LayerZero Contracts
 
