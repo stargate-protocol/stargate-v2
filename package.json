@@ -50,6 +50,7 @@
       "@layerzerolabs/io-devtools": "~0.3.0"
     },
     "patchedDependencies": {
+      "@layerzerolabs/protocol-devtools-evm@5.0.1": "patches/@layerzerolabs__protocol-devtools-evm@5.0.1.patch",
       "@matterlabs/hardhat-zksync-deploy@0.9.0": "patches/@matterlabs__hardhat-zksync-deploy@0.9.0.patch",
       "hardhat-contract-sizer@2.10.0": "patches/hardhat-contract-sizer@2.10.0.patch"
     }
