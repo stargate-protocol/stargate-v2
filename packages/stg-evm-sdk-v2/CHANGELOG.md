@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 2.0.2
+
+### Patch Changes
+
+- ed0be06: deployed SubtensorEVM Mainnet and Ault Mainnet
+
 ## 2.0.1
 
 ### Patch Changes
