@@ -467,11 +467,12 @@ After all config files are generated, present the deployment checklist. Use chec
 
 ### Verify deployment
 - [ ] Verify deployment outputs were generated for `<chain-name>-mainnet`
+- [ ] `pnpm --filter @stargatefinance/stg-definitions-v2 build`
 - [ ] `pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment`
 - [ ] Verify contracts:
-      `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> -k <key> --api-url <url>`
+      `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> --api-url <url>`
 
-If contract verification is handled by an agent after a human deploy, the task must provide the explorer API key or environment variable and API URL. If either is missing, leave a handoff note instead of guessing. Contract verification may call explorer APIs, but it must not run transaction-sending commands.
+If contract verification is handled by an agent after a human deploy, prefer an explicit explorer API URL from the task or comments. If missing, the agent may derive the API URL from Chainlist or LayerZero deployments metadata only when the endpoint is obvious, such as a Blockscout-compatible explorer URL plus `/api`. Treat explorer UI URLs like `/home` as hints, not as API URLs. If no public HTTPS API URL can be identified confidently, leave a handoff note instead of guessing. Contract verification may call explorer APIs, but it must not run transaction-sending commands.
 
 ### Get PR reviewed and merged
 - [ ] Get PR reviewed and merged

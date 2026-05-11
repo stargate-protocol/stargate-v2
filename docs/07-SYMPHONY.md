@@ -33,5 +33,6 @@ mise exec -- ./bin/symphony \
 - New workspaces clone `git@github.com:clauBv23/stargate-v2.git` for testing.
 - Agents use the Codex app-server binary from `/Applications/Codex.app/Contents/Resources/codex` with `workspace-write` sandboxing.
 - PR publishing uses Symphony's local `github_publisher` dynamic tool. The tool allows only the configured fork, `symphony/` branches, explicit commit paths, configured allowed paths, and configured denied path segments.
-- External reads use Symphony's local `external_access` dynamic tool for approved HTTP JSON URLs and approved commands such as `cast gas-price` against public HTTPS RPC URLs.
-- Keep Linear statuses aligned with `WORKFLOW.md`: `Todo`, `In Progress`, `Rework`, `Human Review`, `Merging`, and terminal states.
+- External reads and approved host commands use Symphony's local `external_access` dynamic tool. Post-deploy verification commands are allowed only while the Linear issue is in `Deployed`.
+- Keep Linear statuses aligned with `WORKFLOW.md`: `Todo`, `In Progress`, `Rework`, `Human Review`, `Merging`, `Deployed`, optional `Post-Deploy Review`, and terminal states.
+- Contract verification does not require an explorer API key. Include the explorer API URL in the Linear issue or comments when possible; otherwise the agent may derive it from Chainlist or LayerZero deployments metadata only when the endpoint is obvious.

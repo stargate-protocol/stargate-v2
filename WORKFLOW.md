@@ -9,6 +9,7 @@ tracker:
     - In Progress
     - Merging
     - Rework
+    - Deployed
   terminal_states:
     - Closed
     - Cancelled
@@ -44,6 +45,33 @@ external_access:
       args:
         - gas-price
         - --rpc-url
+        - "<public_https_url>"
+    - command: pnpm
+      working_directory: .
+      allowed_states:
+        - Deployed
+      args:
+        - --filter
+        - "@stargatefinance/stg-definitions-v2"
+        - build
+    - command: pnpm
+      working_directory: .
+      allowed_states:
+        - Deployed
+      args:
+        - --filter
+        - "@stargatefinance/stg-evm-sdk-v2"
+        - check:deployment
+    - command: pnpm
+      working_directory: packages/stg-evm-v2
+      allowed_states:
+        - Deployed
+      args:
+        - exec
+        - "@layerzerolabs/verify-contract"
+        - --network
+        - "<safe_slug>"
+        - --api-url
         - "<public_https_url>"
 github_publisher:
   enabled: true
@@ -128,13 +156,24 @@ No description provided.
 - For docs-only tasks, inspect only the target doc plus `README.md` or `AGENTS.md` if needed for consistency.
 - For new-chain deployment config PR tasks, read `skills/new-chain/SKILL.md` and use the issue description as the required input source.
 - For new-chain metadata, use the `external_access` tool. Do not use shell `curl` for LayerZero/Chainlist metadata or shell `cast gas-price`.
+- If the issue status is `Deployed`, do only post-deploy verification:
+  - Do not edit deployment config.
+  - Do not run deploy, preconfigure, configure, wire, transfer-ownership, or any command that signs or sends transactions.
+  - Read the issue description and prior Linear comments for the chain name, PR/branch, explicit explorer API URL, explorer UI URL hints, and deployment notes.
+  - Run `external_access` `command_run` with `command: "pnpm"` and `args: ["--filter", "@stargatefinance/stg-definitions-v2", "build"]` to restore the local definitions artifact required by SDK checks.
+  - Run `external_access` `command_run` with `command: "pnpm"` and `args: ["--filter", "@stargatefinance/stg-evm-sdk-v2", "check:deployment"]`.
+  - Resolve the explorer API URL before verification. Prefer an explicit public HTTPS API URL from the issue or comments. If missing, use `external_access` `http_get_json` for Chainlist, match the chain by chain name, human name, or chain ID, inspect `explorers`, and derive an API URL only when it is obvious, such as a Blockscout-compatible explorer URL plus `/api` or an API URL already present in metadata.
+  - If the issue comments include only an explorer UI URL, or Chainlist does not include a usable explorer, use the UI URL as a hint and use `external_access` `http_get_json` for LayerZero deployments metadata, match `<chain>-mainnet` or the chain key plus stage, and inspect explorer fields such as `blockExplorers`. Treat URLs ending in UI routes like `/home` as explorer UI URLs, not API URLs; normalize to the explorer origin before deriving an API endpoint.
+  - If no public HTTPS explorer API URL can be identified confidently, leave a concise Linear handoff note instead of guessing.
+  - If an explorer API URL is available, run `external_access` `command_run` with `command: "pnpm"` and `args: ["exec", "@layerzerolabs/verify-contract", "--network", "<chain-name>", "--api-url", "<explorer-api-url>"]`.
+  - Leave a concise Linear comment with verification results. Move the issue to `Post-Deploy Review` if that status exists; otherwise move it to `Human Review` if that status exists so blocked or completed post-deploy checks leave active polling.
 - Make the smallest change that satisfies the acceptance criteria.
 - Run the validation command from the issue. If none is provided for docs-only work, run `pnpm prettier --check <changed-md-files>`.
 - Use the `github_publisher` tool for Git/GitHub work. Do not run shell `git commit`, `git push`, or `gh pr create`.
 - Start one `symphony/` branch before editing if the issue needs a PR.
 - Commit after validation using explicit changed paths. Use multiple commits when changes are logically separate.
 - Push the branch and create the PR with `github_publisher`.
-- Leave a concise Linear handoff note with the validation result and PR URL, then move the issue to `Human Review` if that status exists.
+- For non-`Deployed` tasks, leave a concise Linear handoff note with the validation result and PR URL, then move the issue to `Human Review` if that status exists.
 - Do not continue into extra cleanup, broad review, or unrelated improvements.
 
 ## Stargate Safety Reminders
