@@ -1707,12 +1707,20 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.AULT_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET], DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET]],
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
+                DVNS.CANARY[EndpointId.AULT_V2_MAINNET],
+            ],
             executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET], DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET]],
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
+                DVNS.CANARY[EndpointId.AULT_V2_MAINNET],
+            ],
             executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
             nativeDropAmount: parseEther('0').toBigInt(),
         },
