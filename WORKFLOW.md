@@ -1,7 +1,9 @@
 ---
 tracker:
   kind: linear
-  project_slug: "TODO_REPLACE_WITH_LINEAR_PROJECT_SLUG"
+  api_key: $LINEAR_API_KEY
+  # project_slug: "contracts-a1be6c60e96d"
+  project_slug: "contracts-42d37ebdeddf"
   active_states:
     - Todo
     - In Progress
@@ -19,12 +21,14 @@ workspace:
   root: ~/code/stargate-v2-symphony-workspaces
 hooks:
   after_create: |
-    git clone --depth 1 git@github.com:stargate-protocol/stargate-v2.git .
+    git clone --depth 1 git@github.com:clauBv23/stargate-v2.git .
     if command -v corepack >/dev/null 2>&1; then
       corepack enable
     fi
     if command -v pnpm >/dev/null 2>&1; then
       pnpm install --frozen-lockfile --prefer-offline || pnpm install --frozen-lockfile
+    elif command -v corepack >/dev/null 2>&1; then
+      corepack pnpm install --frozen-lockfile --prefer-offline || corepack pnpm install --frozen-lockfile
     else
       echo "pnpm not found; install dependencies before running validation"
     fi

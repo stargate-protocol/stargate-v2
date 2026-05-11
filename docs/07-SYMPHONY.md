@@ -11,7 +11,7 @@ This repository is prepared for the prototype Symphony runner from `openai/symph
 ## Setup
 
 1. Create a Linear personal API key and export `LINEAR_API_KEY`.
-2. Replace `TODO_REPLACE_WITH_LINEAR_PROJECT_SLUG` in `WORKFLOW.md` with the Linear project slug.
+2. Confirm `WORKFLOW.md` points at the intended Linear `project_slug`.
 3. Install and run Symphony from the upstream repository:
 
 ```shell
@@ -21,12 +21,15 @@ mise trust
 mise install
 mise exec -- mix setup
 mise exec -- mix build
-mise exec -- ./bin/symphony /path/to/stargate-v2/WORKFLOW.md --port 4000
+mise exec -- ./bin/symphony \
+  --i-understand-that-this-will-be-running-without-the-usual-guardrails \
+  /path/to/stargate-v2/WORKFLOW.md \
+  --port 4000
 ```
 
 ## Local Choices
 
 - Workspaces are created under `~/code/stargate-v2-symphony-workspaces`.
-- New workspaces clone `git@github.com:stargate-protocol/stargate-v2.git`.
+- New workspaces clone `git@github.com:clauBv23/stargate-v2.git` for testing.
 - Agents use Codex app-server with `workspace-write` sandboxing and no approval prompts.
 - Keep Linear statuses aligned with `WORKFLOW.md`: `Todo`, `In Progress`, `Rework`, `Human Review`, `Merging`, and terminal states.
