@@ -138,6 +138,7 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
 } from './constants'
+import './treasuryFee/proposeWithdrawTreasuryFee'
 import { checkResult } from './utils'
 
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'

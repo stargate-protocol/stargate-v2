@@ -199,6 +199,8 @@ describe('devtools/utils', () => {
     describe('filterConnections', () => {
         beforeEach(() => {
             setStage(Stage.TESTNET)
+            // Ensure NEW_CHAIN doesn't leak in from .env and collide with the testnet stage
+            delete process.env.NEW_CHAIN
         })
 
         const mockConnections = [
