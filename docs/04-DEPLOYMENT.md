@@ -31,3 +31,14 @@ Use OneSig for new deployments and new chains. Safe config is deprecated for new
 pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment
 pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate
 ```
+
+## Contract Verification
+
+After a human deploys contracts, verify deployment outputs and explorer metadata before wiring or ownership transfer:
+
+```shell
+cd packages/stg-evm-v2
+npx @layerzerolabs/verify-contract --network <chain-name> -k <explorer-api-key> --api-url <explorer-api-url>
+```
+
+`preconfigure`, `configure`, wiring, and ownership-transfer commands send transactions. Keep them human-run unless a dedicated deploy workflow explicitly allows them.

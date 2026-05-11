@@ -115,6 +115,7 @@ In Symphony runs, fetch data with `external_access` instead of shell network com
 - `external_access` action `http_get_json` for `https://metadata.layerzero-api.com/v1/metadata/dvns?chainNames=<chain-name>`
 - `external_access` action `http_get_json` for `https://chainid.network/chains.json`
 - Select a usable public HTTPS RPC from the Chainlist result, then call `external_access` action `command_run` with `command: "cast"` and `args: ["gas-price", "--rpc-url", "<selected-rpc-url>"]`
+- If Chainlist has no usable RPC and the task provides a public RPC URL, use the task-provided RPC only for `cast gas-price`. Never write a task-provided RPC URL into repository config.
 
 If a tool call fails, leave a TODO for that value and include the failure in the Linear handoff note.
 
@@ -162,7 +163,9 @@ If a DVN is missing, mark it as `⚠ NOT FOUND — needs manual resolution` and 
 
 Always calculate automatically using the formula: `gas_price * 500_000 * 3`.
 
-In Symphony runs, select a usable public HTTPS RPC URL from Chainlist and call `external_access` action `command_run` with `command: "cast"` and `args: ["gas-price", "--rpc-url", "<selected-rpc-url>"]`. Calculate nativeDropAmount from the returned gas price.
+In Symphony runs, select a usable public HTTPS RPC URL from Chainlist and call `external_access` action `command_run` with `command: "cast"` and `args: ["gas-price", "--rpc-url", "<selected-rpc-url>"]`. If Chainlist has no usable RPC and the task provides a public RPC URL, use the task-provided RPC only for this gas-price call. Calculate nativeDropAmount from the returned gas price.
+
+Never persist a task-provided RPC URL. Task-provided RPC URLs are temporary inputs for gas probing only.
 
 Resolve the RPC URL using the same logic as `getRpcUrl` in `packages/stg-evm-v2/hardhat.config.ts`:
 
@@ -200,7 +203,7 @@ else
 fi
 ```
 
-If RPC is not configured, find a public RPC on **https://chainlist.org/** (search by chain name or chain ID). Express the result as `parseEther('<value>').toBigInt()`, rounded to 1-4 significant figures (e.g. `parseEther('0.001')`, `parseEther('0.015')`).
+If no Chainlist RPC or task-provided RPC is available, leave `nativeDropAmount` as a TODO and mention the missing RPC in the Linear handoff. Express successful results as `parseEther('<value>').toBigInt()`, rounded to 1-4 significant figures (e.g. `parseEther('0.001')`, `parseEther('0.015')`).
 
 ### 2d. Generate configuration files
 
@@ -315,14 +318,20 @@ Add in the `// Mainnet` section, **alphabetical order**:
 ```ts
 '<chain>-mainnet': {
     eid: EndpointId.<CHAIN>_V2_MAINNET,
-    url: process.env.RPC_URL_<CHAIN_UPPER>_MAINNET || '<public-rpc-url>',
+    url: process.env.RPC_URL_<CHAIN_UPPER>_MAINNET || '<chainlist-public-rpc-or-empty-string>',
     accounts: mainnetAccounts,
     oneSigConfig: getOneSigConfig(EndpointId.<CHAIN>_V2_MAINNET),
     timeout: DEFAULT_NETWORK_TIMEOUT,
 },
 ```
 
-For the public RPC fallback: fetch from `https://chainid.network/chains.json` or use a well-known endpoint. Add extra flags if specified by user.
+For the public RPC fallback, use only a public RPC URL returned by `https://chainid.network/chains.json`. If Chainlist has no usable RPC, set the fallback to an empty string:
+
+```ts
+url: process.env.RPC_URL_<CHAIN_UPPER>_MAINNET || '',
+```
+
+Never write an RPC URL provided in the task description into `hardhat.config.ts`; that URL is only allowed for temporary gas-price probing. Add extra flags if specified by user.
 
 #### File 3: `packages/stg-evm-v2/devtools/config/mainnet/01/chainsConfig/<chain>-mainnet.yml`
 
@@ -455,8 +464,14 @@ After all config files are generated, present the deployment checklist. Use chec
 ### Build and deploy
 - [ ] `pnpm build`
 - [ ] `make deploy-mainnet DEPLOY_ARGS_COMMON="--ci"`
+
+### Verify deployment
+- [ ] Verify deployment outputs were generated for `<chain-name>-mainnet`
+- [ ] `pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment`
 - [ ] Verify contracts:
       `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> -k <key> --api-url <url>`
+
+If contract verification is handled by an agent after a human deploy, the task must provide the explorer API key or environment variable and API URL. If either is missing, leave a handoff note instead of guessing. Contract verification may call explorer APIs, but it must not run transaction-sending commands.
 
 ### Get PR reviewed and merged
 - [ ] Get PR reviewed and merged
@@ -466,6 +481,8 @@ After all config files are generated, present the deployment checklist. Use chec
 - [ ] `make preconfigure-mainnet CONFIGURE_ARGS_COMMON=--ci`
 - [ ] `make transfer-mainnet CONFIGURE_ARGS_COMMON=--ci`
 - [ ] `NEW_CHAIN=<chain-name> make configure-mainnet CONFIGURE_ARGS_COMMON="--onesig --ci"`
+
+These wiring and ownership commands send transactions. They are human-run unless a dedicated deploy workflow explicitly allows them.
 
 ### Post-deployment
 - [ ] Run the offchain checker (GitHub Action) to verify configs
