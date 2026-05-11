@@ -470,7 +470,8 @@ After all config files are generated, present the deployment checklist. Use chec
 - [ ] `pnpm --filter @stargatefinance/stg-definitions-v2 build`
 - [ ] `pnpm --filter @stargatefinance/stg-devtools-v2 build`
 - [ ] `pnpm --filter @stargatefinance/stg-devtools-evm-hardhat-v2 build`
-- [ ] `pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment`
+- [ ] `pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate`
+- [ ] Optional narrow rerun after `validate`: `pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment`
 - [ ] Verify contracts:
       `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> --api-url <url>`
 

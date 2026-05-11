@@ -36,6 +36,7 @@ hooks:
 external_access:
   enabled: true
   allowed_http_urls:
+    - https://metadata.layerzero-api.com/v1/metadata
     - https://metadata.layerzero-api.com/v1/metadata/deployments
     - https://metadata.layerzero-api.com/v1/metadata/dvns
     - https://chainid.network/chains.json
@@ -70,6 +71,14 @@ external_access:
         - --filter
         - "@stargatefinance/stg-devtools-evm-hardhat-v2"
         - build
+    - command: pnpm
+      working_directory: .
+      allowed_states:
+        - Deployed
+      args:
+        - --filter
+        - "@stargatefinance/stg-evm-sdk-v2"
+        - validate
     - command: pnpm
       working_directory: .
       allowed_states:
@@ -180,7 +189,9 @@ No description provided.
     - `command: "pnpm"`, `args: ["--filter", "@stargatefinance/stg-definitions-v2", "build"]`
     - `command: "pnpm"`, `args: ["--filter", "@stargatefinance/stg-devtools-v2", "build"]`
     - `command: "pnpm"`, `args: ["--filter", "@stargatefinance/stg-devtools-evm-hardhat-v2", "build"]`
-  - Run `external_access` `command_run` with `command: "pnpm"` and `args: ["--filter", "@stargatefinance/stg-evm-sdk-v2", "check:deployment"]`.
+  - Run `external_access` `command_run` with `command: "pnpm"` and `args: ["--filter", "@stargatefinance/stg-evm-sdk-v2", "validate"]`. This is the SDK's documented post-deploy validation path and runs typechain setup, generated config refresh, and deployment checks.
+  - Do not hand-edit generated SDK config. If `validate` cannot generate `src/generated-configs` because network metadata is unavailable, leave a concise handoff note.
+  - Use `check:deployment` only for a narrow rerun after `validate` has already restored generated config in the same workspace.
   - Resolve the explorer API URL before verification. Prefer an explicit public HTTPS API URL from the issue or comments. If missing, use `external_access` `http_get_json` for Chainlist, match the chain by chain name, human name, or chain ID, inspect `explorers`, and derive an API URL only when it is obvious, such as a Blockscout-compatible explorer URL plus `/api` or an API URL already present in metadata.
   - If the issue comments include only an explorer UI URL, or Chainlist does not include a usable explorer, use the UI URL as a hint and use `external_access` `http_get_json` for LayerZero deployments metadata, match `<chain>-mainnet` or the chain key plus stage, and inspect explorer fields such as `blockExplorers`. Treat URLs ending in UI routes like `/home` as explorer UI URLs, not API URLs; normalize to the explorer origin before deriving an API endpoint.
   - If no public HTTPS explorer API URL can be identified confidently, leave a concise Linear handoff note instead of guessing.

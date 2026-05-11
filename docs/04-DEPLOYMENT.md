@@ -31,9 +31,10 @@ Use OneSig for new deployments and new chains. Safe config is deprecated for new
 pnpm --filter @stargatefinance/stg-definitions-v2 build
 pnpm --filter @stargatefinance/stg-devtools-v2 build
 pnpm --filter @stargatefinance/stg-devtools-evm-hardhat-v2 build
-pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment
 pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate
 ```
+
+After `validate` has restored generated config in the workspace, `pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment` can be used for a narrow rerun.
 
 ## Contract Verification
 
@@ -44,6 +45,6 @@ cd packages/stg-evm-v2
 npx @layerzerolabs/verify-contract --network <chain-name> --api-url <explorer-api-url>
 ```
 
-Use an explicit explorer API URL when available. If it is missing, derive it from Chainlist or LayerZero deployments metadata only when the endpoint is obvious, such as a Blockscout-compatible explorer URL plus `/api`. Treat explorer UI URLs like `/home` as hints, not as API URLs.
+Use an explicit explorer API URL when available. If it is missing, derive it from Chainlist or LayerZero metadata only when the endpoint is obvious, such as a Blockscout-compatible explorer URL plus `/api`. Treat explorer UI URLs like `/home` as hints, not as API URLs.
 
 `preconfigure`, `configure`, wiring, and ownership-transfer commands send transactions. Keep them human-run unless a dedicated deploy workflow explicitly allows them.
