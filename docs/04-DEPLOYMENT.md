@@ -29,6 +29,8 @@ Use OneSig for new deployments and new chains. Safe config is deprecated for new
 
 ```shell
 pnpm --filter @stargatefinance/stg-definitions-v2 build
+pnpm --filter @stargatefinance/stg-devtools-v2 build
+pnpm --filter @stargatefinance/stg-devtools-evm-hardhat-v2 build
 pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment
 pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate
 ```
