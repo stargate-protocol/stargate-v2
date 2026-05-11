@@ -1761,9 +1761,8 @@ export const NETWORKS: NetworksConfig = {
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET]],
                 [EndpointId.BSC_V2_MAINNET]: [
-                    // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
-                    DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
@@ -1790,9 +1789,8 @@ export const NETWORKS: NetworksConfig = {
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET]],
                 [EndpointId.BSC_V2_MAINNET]: [
-                    // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
-                    DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
@@ -2064,7 +2062,7 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
-                    DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET]],
             },
@@ -2092,7 +2090,7 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
-                    DVNS.EIGEN_ZERO[EndpointId.BSC_V2_MAINNET],
+                    DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET]],
             },
