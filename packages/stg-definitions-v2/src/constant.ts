@@ -235,7 +235,7 @@ export const DVNS = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
         [EndpointId.SCROLL_V2_MAINNET]: '0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d',
         [EndpointId.SEI_V2_MAINNET]: '0x33051ad47157a50bb49a646256b854c60f707c86',
-        [EndpointId.SOMNIA_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: needs to be deployed
+        [EndpointId.SOMNIA_V2_MAINNET]: '0xc9ca319f6da263910fd9b037ec3d817a814ef3d8',
         [EndpointId.SONEIUM_V2_MAINNET]: '0xdd1564f68aa802e30819f9e8043664584a8a3e87',
         [EndpointId.SONIC_V2_MAINNET]: '0xb2c7832aa8dda878de6f949485f927e9e532e92c',
         [EndpointId.STABLE_V2_MAINNET]: '0x8d6cc20d84fbeb5733c60436ceb8957da2ac02c8',
@@ -1764,6 +1764,7 @@ export const NETWORKS: NetworksConfig = {
                     // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNs: {
@@ -1792,6 +1793,7 @@ export const NETWORKS: NetworksConfig = {
                     // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.EIGEN_ZERO[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNs: {
