@@ -467,16 +467,9 @@ After all config files are generated, present the deployment checklist. Use chec
 
 ### Verify deployment
 - [ ] Verify deployment outputs were generated for `<chain-name>-mainnet`
-- [ ] Start Symphony or the local shell with `RPC_URL_MAINNET` set to the repo-supported LayerZero proxy RPC template
-- [ ] `pnpm --filter @stargatefinance/stg-definitions-v2 build`
-- [ ] `pnpm --filter @stargatefinance/stg-devtools-v2 build`
-- [ ] `pnpm --filter @stargatefinance/stg-devtools-evm-hardhat-v2 build`
-- [ ] `pnpm --filter @stargatefinance/stg-evm-sdk-v2 validate`
-- [ ] Optional narrow rerun after `validate`: `pnpm --filter @stargatefinance/stg-evm-sdk-v2 check:deployment`
-- [ ] Verify contracts:
-      `cd packages/stg-evm-v2 && pnpm dlx @layerzerolabs/verify-contract --network <chain-name> --api-url <url>`
-
-If contract verification is handled by an agent after a human deploy, prefer an explicit explorer API URL from the task or comments. If missing, the agent may derive the API URL from Chainlist or LayerZero deployments metadata only when the endpoint is obvious, such as a Blockscout-compatible explorer URL plus `/api`. Treat explorer UI URLs like `/home` as hints, not as API URLs. If no public HTTPS API URL can be identified confidently, leave a handoff note instead of guessing. Contract verification may call explorer APIs, but it must not run transaction-sending commands.
+- [ ] Follow `docs/04-DEPLOYMENT.md#validation`
+- [ ] Follow `docs/04-DEPLOYMENT.md#contract-verification`
+- [ ] If an agent handles post-deploy verification, missing `RPC_URL_MAINNET`, deployment folder, or explorer API URL means leave a handoff; do not send transactions or hand-edit generated config.
 
 ### Get PR reviewed and merged
 - [ ] Get PR reviewed and merged

@@ -44,8 +44,10 @@ After a human deploys contracts, verify deployment outputs and explorer metadata
 
 ```shell
 cd packages/stg-evm-v2
-pnpm dlx @layerzerolabs/verify-contract --network <chain-name> --api-url <explorer-api-url>
+pnpm dlx @layerzerolabs/verify-contract --network <deployment-network> --api-url <explorer-api-url>
 ```
+
+Use the deployment folder name for `<deployment-network>`, for example `ault-mainnet`, not the bare LayerZero chain key `ault`.
 
 Use an explicit explorer API URL when available. If it is missing, derive it from Chainlist or LayerZero metadata only when the endpoint is obvious, such as a Blockscout-compatible explorer URL plus `/api`. Treat explorer UI URLs like `/home` as hints, not as API URLs.
 
