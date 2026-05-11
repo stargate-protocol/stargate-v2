@@ -32,5 +32,6 @@ mise exec -- ./bin/symphony \
 - Workspaces are created under `~/code/stargate-v2-symphony-workspaces`.
 - New workspaces clone `git@github.com:clauBv23/stargate-v2.git` for testing.
 - Agents use the Codex app-server binary from `/Applications/Codex.app/Contents/Resources/codex` with `workspace-write` sandboxing.
-- PR publishing uses Symphony's local `github_publisher` dynamic tool. The tool allows only the configured fork, `symphony/` branches, explicit commit paths, and the configured path allowlist.
+- PR publishing uses Symphony's local `github_publisher` dynamic tool. The tool allows only the configured fork, `symphony/` branches, explicit commit paths, configured allowed paths, and configured denied path segments.
+- External reads use Symphony's local `external_access` dynamic tool for approved HTTP JSON URLs and approved commands such as `cast gas-price` against public HTTPS RPC URLs.
 - Keep Linear statuses aligned with `WORKFLOW.md`: `Todo`, `In Progress`, `Rework`, `Human Review`, `Merging`, and terminal states.

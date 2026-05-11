@@ -32,12 +32,36 @@ hooks:
     else
       echo "pnpm not found; install dependencies before running validation"
     fi
+external_access:
+  enabled: true
+  allowed_http_urls:
+    - https://metadata.layerzero-api.com/v1/metadata/deployments
+    - https://metadata.layerzero-api.com/v1/metadata/dvns
+    - https://chainid.network/chains.json
+  allowed_commands:
+    - command: cast
+      executable: ~/.foundry/bin/cast
+      args:
+        - gas-price
+        - --rpc-url
+        - "<public_https_url>"
 github_publisher:
   enabled: true
   repo: clauBv23/stargate-v2
   origin: git@github.com:clauBv23/stargate-v2.git
   base_branch: main
   branch_prefix: symphony/
+  denied_path_segments:
+    - artifacts
+    - artifacts-zk
+    - cache
+    - deployed
+    - deployments
+    - deployments-zk
+    - dist
+    - node_modules
+    - out
+    - typechain-types
   allowed_paths:
     - .changeset/
     - .claude/
@@ -103,6 +127,7 @@ No description provided.
 - Read only the issue, target files, and one supporting doc when needed. Do not read `ARCHITECTURE.md`, `skills/`, contracts, generated outputs, or package internals unless the issue explicitly requires them.
 - For docs-only tasks, inspect only the target doc plus `README.md` or `AGENTS.md` if needed for consistency.
 - For new-chain deployment config PR tasks, read `skills/new-chain/SKILL.md` and use the issue description as the required input source.
+- For new-chain metadata, use the `external_access` tool. Do not use shell `curl` for LayerZero/Chainlist metadata or shell `cast gas-price`.
 - Make the smallest change that satisfies the acceptance criteria.
 - Run the validation command from the issue. If none is provided for docs-only work, run `pnpm prettier --check <changed-md-files>`.
 - Use the `github_publisher` tool for Git/GitHub work. Do not run shell `git commit`, `git push`, or `gh pr create`.

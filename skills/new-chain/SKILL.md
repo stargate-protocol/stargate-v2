@@ -25,7 +25,7 @@ You are helping configure and deploy a new chain for Stargate V2. The flow is: 0
 The chain name is passed as an argument: `/new-chain <chain-name>` (e.g. `/new-chain sonic`).
 If no argument was given, ask for the chain name before doing anything else in interactive runs. In Symphony runs, read the chain name from the Linear issue and stop with a concise handoff note if it is missing.
 
-For Symphony runs, use the `github_publisher` tool for branch, commit, push, and PR creation. Do not run shell `git commit`, `git push`, or `gh pr create`.
+For Symphony runs, use `external_access` for approved HTTP JSON reads and approved commands. Use `github_publisher` for branch, commit, push, and PR creation. Do not run shell `curl`, `cast gas-price`, `git commit`, `git push`, or `gh pr create`.
 
 ---
 
@@ -109,6 +109,15 @@ Bidirectional: yes
 
 Once the user provides their answers, fetch all data **in parallel** and then immediately generate the config files — no need to stop and show the fetched data separately.
 
+In Symphony runs, fetch data with `external_access` instead of shell network commands:
+
+- `external_access` action `http_get_json` for `https://metadata.layerzero-api.com/v1/metadata/deployments`
+- `external_access` action `http_get_json` for `https://metadata.layerzero-api.com/v1/metadata/dvns?chainNames=<chain-name>`
+- `external_access` action `http_get_json` for `https://chainid.network/chains.json`
+- Select a usable public HTTPS RPC from the Chainlist result, then call `external_access` action `command_run` with `command: "cast"` and `args: ["gas-price", "--rpc-url", "<selected-rpc-url>"]`
+
+If a tool call fails, leave a TODO for that value and include the failure in the Linear handoff note.
+
 ### 2a. Deployments API
 
 ```
@@ -152,6 +161,8 @@ If a DVN is missing, mark it as `⚠ NOT FOUND — needs manual resolution` and 
 ### 2c. Calculate nativeDropAmount
 
 Always calculate automatically using the formula: `gas_price * 500_000 * 3`.
+
+In Symphony runs, select a usable public HTTPS RPC URL from Chainlist and call `external_access` action `command_run` with `command: "cast"` and `args: ["gas-price", "--rpc-url", "<selected-rpc-url>"]`. Calculate nativeDropAmount from the returned gas price.
 
 Resolve the RPC URL using the same logic as `getRpcUrl` in `packages/stg-evm-v2/hardhat.config.ts`:
 
