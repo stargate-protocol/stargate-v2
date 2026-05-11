@@ -35,4 +35,5 @@ mise exec -- ./bin/symphony \
 - PR publishing uses Symphony's local `github_publisher` dynamic tool. The tool allows only the configured fork, `symphony/` branches, explicit commit paths, configured allowed paths, and configured denied path segments.
 - External reads and approved host commands use Symphony's local `external_access` dynamic tool. Post-deploy verification commands are allowed only while the Linear issue is in `Deployed`.
 - Keep Linear statuses aligned with `WORKFLOW.md`: `Todo`, `In Progress`, `Rework`, `Human Review`, `Merging`, `Deployed`, optional `Post-Deploy Review`, and terminal states.
+- Post-deploy SDK validation requires Symphony to be started with `RPC_URL_MAINNET` set to the repo-supported LayerZero proxy RPC template.
 - Contract verification does not require an explorer API key. Include the explorer API URL in the Linear issue or comments when possible; otherwise the agent may derive it from Chainlist or LayerZero deployments metadata only when the endpoint is obvious.

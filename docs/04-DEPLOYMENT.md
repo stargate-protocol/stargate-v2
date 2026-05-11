@@ -27,6 +27,8 @@ Use OneSig for new deployments and new chains. Safe config is deprecated for new
 
 ## Validation
 
+Set `RPC_URL_MAINNET` before running SDK validation. It must be the repo-supported LayerZero proxy RPC template for all checked mainnet chains.
+
 ```shell
 pnpm --filter @stargatefinance/stg-definitions-v2 build
 pnpm --filter @stargatefinance/stg-devtools-v2 build
@@ -42,7 +44,7 @@ After a human deploys contracts, verify deployment outputs and explorer metadata
 
 ```shell
 cd packages/stg-evm-v2
-npx @layerzerolabs/verify-contract --network <chain-name> --api-url <explorer-api-url>
+pnpm dlx @layerzerolabs/verify-contract --network <chain-name> --api-url <explorer-api-url>
 ```
 
 Use an explicit explorer API URL when available. If it is missing, derive it from Chainlist or LayerZero metadata only when the endpoint is obvious, such as a Blockscout-compatible explorer URL plus `/api`. Treat explorer UI URLs like `/home` as hints, not as API URLs.

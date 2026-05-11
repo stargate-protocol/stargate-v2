@@ -92,7 +92,7 @@ external_access:
       allowed_states:
         - Deployed
       args:
-        - exec
+        - dlx
         - "@layerzerolabs/verify-contract"
         - --network
         - "<safe_slug>"
@@ -185,17 +185,19 @@ No description provided.
   - Do not edit deployment config.
   - Do not run deploy, preconfigure, configure, wire, transfer-ownership, or any command that signs or sends transactions.
   - Read the issue description and prior Linear comments for the chain name, PR/branch, explicit explorer API URL, explorer UI URL hints, and deployment notes.
+  - SDK validation requires `RPC_URL_MAINNET` in the Symphony process environment. It should be the repo-supported LayerZero proxy RPC template that can serve every checked mainnet chain. Do not guess this value from Chainlist and do not write `.env.local` during post-deploy verification.
   - Run these `external_access` `command_run` build preflights in order to restore local workspace artifacts required by SDK checks:
     - `command: "pnpm"`, `args: ["--filter", "@stargatefinance/stg-definitions-v2", "build"]`
     - `command: "pnpm"`, `args: ["--filter", "@stargatefinance/stg-devtools-v2", "build"]`
     - `command: "pnpm"`, `args: ["--filter", "@stargatefinance/stg-devtools-evm-hardhat-v2", "build"]`
   - Run `external_access` `command_run` with `command: "pnpm"` and `args: ["--filter", "@stargatefinance/stg-evm-sdk-v2", "validate"]`. This is the SDK's documented post-deploy validation path and runs typechain setup, generated config refresh, and deployment checks.
+  - If validation reports `No RPC URL found` or `No chains with valid RPC URLs found`, stop and leave a handoff note that Symphony must be restarted with `RPC_URL_MAINNET` set.
   - Do not hand-edit generated SDK config. If `validate` cannot generate `src/generated-configs` because network metadata is unavailable, leave a concise handoff note.
   - Use `check:deployment` only for a narrow rerun after `validate` has already restored generated config in the same workspace.
   - Resolve the explorer API URL before verification. Prefer an explicit public HTTPS API URL from the issue or comments. If missing, use `external_access` `http_get_json` for Chainlist, match the chain by chain name, human name, or chain ID, inspect `explorers`, and derive an API URL only when it is obvious, such as a Blockscout-compatible explorer URL plus `/api` or an API URL already present in metadata.
   - If the issue comments include only an explorer UI URL, or Chainlist does not include a usable explorer, use the UI URL as a hint and use `external_access` `http_get_json` for LayerZero deployments metadata, match `<chain>-mainnet` or the chain key plus stage, and inspect explorer fields such as `blockExplorers`. Treat URLs ending in UI routes like `/home` as explorer UI URLs, not API URLs; normalize to the explorer origin before deriving an API endpoint.
   - If no public HTTPS explorer API URL can be identified confidently, leave a concise Linear handoff note instead of guessing.
-  - If an explorer API URL is available, run `external_access` `command_run` with `command: "pnpm"` and `args: ["exec", "@layerzerolabs/verify-contract", "--network", "<chain-name>", "--api-url", "<explorer-api-url>"]`.
+  - If an explorer API URL is available, run `external_access` `command_run` with `command: "pnpm"` and `args: ["dlx", "@layerzerolabs/verify-contract", "--network", "<chain-name>", "--api-url", "<explorer-api-url>"]`.
   - Leave a concise Linear comment with verification results. Move the issue to `Post-Deploy Review` if that status exists; otherwise move it to `Human Review` if that status exists so blocked or completed post-deploy checks leave active polling.
 - Make the smallest change that satisfies the acceptance criteria.
 - Run the validation command from the issue. If none is provided for docs-only work, run `pnpm prettier --check <changed-md-files>`.
