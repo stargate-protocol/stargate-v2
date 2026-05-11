@@ -158,10 +158,6 @@ export const DVNS = {
         [EndpointId.XDC_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x129ee430cb2ff2708ccaddbdb408a88fe4ffd480',
     } satisfies Partial<Record<EndpointId, string>>,
-    EIGEN_ZERO: {
-        [EndpointId.AVALANCHE_V2_MAINNET]: '0xd3333aa4fa669d3eb036676ec01cb0acaaec0cc0',
-        [EndpointId.BSC_V2_MAINNET]: '0x9188b373378d284c9174ae474c2b0a937924b34b',
-    } satisfies Partial<Record<EndpointId, string>>,
     BERA: {
         [EndpointId.ARBITRUM_V2_MAINNET]: '0xf2e89ed7e342c708ba8cd79b293ad9244f5fccb3',
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xf18f2c3d86ec9a350d5e10cb67c614201f210d3d',
@@ -2070,9 +2066,9 @@ export const NETWORKS: NetworksConfig = {
             ],
             perPathRequiredDVNs: {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
-                    // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET]],
             },
@@ -2098,9 +2094,9 @@ export const NETWORKS: NetworksConfig = {
             ],
             perPathRequiredDVNs: {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
-                    // todo comunicate with client and define the desired configuration
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
+                    DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET]],
             },
