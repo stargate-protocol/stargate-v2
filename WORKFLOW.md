@@ -32,15 +32,43 @@ hooks:
     else
       echo "pnpm not found; install dependencies before running validation"
     fi
+github_publisher:
+  enabled: true
+  repo: clauBv23/stargate-v2
+  origin: git@github.com:clauBv23/stargate-v2.git
+  base_branch: main
+  branch_prefix: symphony/
+  allowed_paths:
+    - .changeset/
+    - .claude/
+    - .github/
+    - AGENTS.md
+    - ARCHITECTURE.md
+    - CLAUDE.md
+    - LICENSE
+    - Makefile
+    - README.md
+    - WORKFLOW.md
+    - audits/
+    - docs/
+    - example.metadata.json
+    - install-dependencies
+    - package.json
+    - packages/
+    - patches/
+    - pnpm-lock.yaml
+    - pnpm-workspace.yaml
+    - scripts/
+    - skills/
+    - tsconfig.json
+    - turbo.json
 agent:
-  max_concurrent_agents: 3
-  max_turns: 20
+  max_concurrent_agents: 1
+  max_turns: 1
 codex:
-  command: codex --config shell_environment_policy.inherit=all --config 'model="gpt-5.5"' --config model_reasoning_effort=xhigh app-server
+  command: /Applications/Codex.app/Contents/Resources/codex --config shell_environment_policy.inherit=all --config 'model="gpt-5.5"' --config model_reasoning_effort=medium app-server
   approval_policy: never
   thread_sandbox: workspace-write
-  turn_sandbox_policy:
-    type: workspaceWrite
 ---
 
 You are working on Linear ticket `{{ issue.identifier }}` in the Stargate v2 repository.
@@ -68,86 +96,24 @@ Description:
 No description provided.
 {% endif %}
 
-## Operating Rules
+## Test-Mode Rules
 
+- This is a low-token Symphony test run. Keep context small.
 - Work only inside the provided repository copy.
-- Do not ask for human follow-up unless blocked by missing required auth, secrets, or permissions.
-- Keep one Linear workpad comment headed `## Codex Workpad`; update it in place.
-- Read `README.md`, `AGENTS.md`, `ARCHITECTURE.md`, and `docs/02-TESTING.md` before editing.
-- For deployment/config/security-sensitive work, also read the relevant focused doc in `docs/`.
-- For new chain or asset work, read `skills/new-chain/SKILL.md` before editing.
-- Use repo-local Symphony skills when they apply: `skills/pull`, `skills/commit`, `skills/push`, `skills/land`, and `skills/linear`.
-- Preserve unrelated user changes. Stage and commit only the files required for this ticket.
+- Read only the issue, target files, and one supporting doc when needed. Do not read `ARCHITECTURE.md`, `skills/`, contracts, generated outputs, or package internals unless the issue explicitly requires them.
+- For docs-only tasks, inspect only the target doc plus `README.md` or `AGENTS.md` if needed for consistency.
+- For new-chain deployment config PR tasks, read `skills/new-chain/SKILL.md` and use the issue description as the required input source.
+- Make the smallest change that satisfies the acceptance criteria.
+- Run the validation command from the issue. If none is provided for docs-only work, run `pnpm prettier --check <changed-md-files>`.
+- Use the `github_publisher` tool for Git/GitHub work. Do not run shell `git commit`, `git push`, or `gh pr create`.
+- Start one `symphony/` branch before editing if the issue needs a PR.
+- Commit after validation using explicit changed paths. Use multiple commits when changes are logically separate.
+- Push the branch and create the PR with `github_publisher`.
+- Leave a concise Linear handoff note with the validation result and PR URL, then move the issue to `Human Review` if that status exists.
+- Do not continue into extra cleanup, broad review, or unrelated improvements.
 
-## Status Map
+## Stargate Safety Reminders
 
-- `Backlog`: out of scope. Do not modify.
-- `Todo`: move to `In Progress`, create or refresh the workpad, then execute.
-- `In Progress`: continue execution from the workpad.
-- `Human Review`: do not code. Poll for review decisions or new feedback.
-- `Rework`: re-read the ticket and PR feedback, make a fresh plan, then execute.
-- `Merging`: follow `skills/land/SKILL.md`.
-- `Done`, `Closed`, `Cancelled`, `Canceled`, `Duplicate`: terminal. Do nothing.
-
-## Execution Flow
-
-1. Fetch the issue, current state, comments, links, attachments, and existing PR if any.
-2. Create or update the `## Codex Workpad` comment with plan, acceptance criteria, validation, notes, and an environment stamp.
-3. Capture a concrete reproduction or baseline signal before changing code when behavior is involved.
-4. Sync from `origin/main` using `skills/pull/SKILL.md` and record the result in the workpad.
-5. Implement the smallest coherent change that satisfies the ticket.
-6. Run targeted validation first. Broaden to package or root checks when the blast radius warrants it.
-7. Commit with `skills/commit/SKILL.md`.
-8. Push and open or update the PR with `skills/push/SKILL.md`.
-9. Attach the PR to the Linear issue with `skills/linear/SKILL.md`.
-10. Sweep all PR feedback: top-level comments, inline review comments, review states, bot feedback, and failing checks.
-11. Move the issue to `Human Review` only when the completion bar is met.
-
-## Completion Bar
-
-- Workpad plan, acceptance criteria, and validation are current and checked off.
-- Required ticket validation has run and passed, or the blocker is documented.
-- PR feedback sweep has no outstanding actionable comments.
-- Branch is pushed and the PR is linked on the Linear issue.
-- Generated outputs were regenerated by the established scripts or intentionally left untouched.
-- The final response reports completed actions and blockers only.
-
-## Stargate Guardrails
-
-- `TokenMessaging` and `CreditMessaging` are LayerZero OApps; keep token delivery and credit allocation concerns separated.
-- Credit is per-path send capacity in shared decimals. Sends consume credit so destination delivery can be honored.
-- New deployments and new chains use OneSig. Do not add new `safeConfig` entries unless the ticket explicitly targets legacy Safe support.
-- Treat generated outputs as generated: `dist`, `out`, `cache`, `artifacts`, `artifacts-zk`, `deployed`, `deployments`, `deployments-zk`, and `ts-src/typechain-types`.
-- If validation requires RPC credentials or external chain state, record the exact missing requirement in the workpad and final response.
-
-## Workpad Template
-
-````md
-## Codex Workpad
-
-```text
-<hostname>:<abs-path>@<short-sha>
-```
-
-### Plan
-
-- [ ] 1. Parent task
-- [ ] 2. Parent task
-
-### Acceptance Criteria
-
-- [ ] Criterion 1
-- [ ] Criterion 2
-
-### Validation
-
-- [ ] targeted tests: `<command>`
-
-### Notes
-
-- <timestamped progress note>
-
-### Confusions
-
-- <only include if something was unclear>
-````
+- New deployments and new chains use OneSig; do not add new `safeConfig` entries.
+- Do not hand-edit generated outputs.
+- For OApp, credit, deployment, or protocol behavior changes, stop and read `ARCHITECTURE.md`, `AGENTS.md`, and the relevant `docs/` or `skills/` workflow before editing.

@@ -8,7 +8,8 @@ description: >
   DVN addresses, and executor from LayerZero APIs, calculates nativeDropAmount via
   cast gas-price, and generates all required config files (constant.ts, hardhat.config.ts,
   chain YAML). Trigger even if the user just says "add <chain>" or "deploy to <chain>".
-  IMPORTANT: Always ask the user for confirmation before proceeding with the skill.
+  IMPORTANT: In interactive runs, ask the user for confirmation before proceeding. In Symphony runs,
+  treat the Linear issue description as confirmation and stop only if required inputs are missing.
 ---
 
 # Stargate V2 — New Chain Configuration & Deployment
@@ -22,25 +23,37 @@ You are helping configure and deploy a new chain for Stargate V2. The flow is: 0
 5. Present follow-up checklist for deployment
 
 The chain name is passed as an argument: `/new-chain <chain-name>` (e.g. `/new-chain sonic`).
-If no argument was given, ask for the chain name before doing anything else.
+If no argument was given, ask for the chain name before doing anything else in interactive runs. In Symphony runs, read the chain name from the Linear issue and stop with a concise handoff note if it is missing.
+
+For Symphony runs, use the `github_publisher` tool for branch, commit, push, and PR creation. Do not run shell `git commit`, `git push`, or `gh pr create`.
 
 ---
 
 ## Step 0 — Create branch
 
-Before asking for any info, create the branch:
+Before asking for any info, create the branch.
+
+Interactive branch:
 
 ```bash
 git checkout -b deployments/<chain-name>
 ```
 
-If the branch already exists, check it out instead. Confirm to the user that the branch is ready before continuing.
+Symphony branch:
+
+```text
+github_publisher start_branch branch=symphony/deployments/<chain-name>
+```
+
+If the branch already exists, check it out instead. Confirm that the branch is ready before continuing.
 
 ---
 
 ## Step 1 — Ask for info upfront
 
 In a **single message**, tell the user you're about to configure `<chain-name>` and ask for everything you need before proceeding. This avoids multiple back-and-forth exchanges. The OneSig URL slug defaults to the chain name — don't ask for it.
+
+In Symphony runs, do not ask follow-up questions. Extract the required inputs from the Linear issue description. If any required input is absent, leave a Linear handoff note listing exactly what is missing and do not edit files.
 
 Do not ask for or add Safe config for new chains. Safe multisig support is legacy compatibility for chains that already support it; new deployments use OneSig only.
 
@@ -349,7 +362,7 @@ Configured and deployed <Chain Name> Mainnet
 
 ### Commit
 
-Stage the config files and the changeset:
+Stage the config files and the changeset. In Symphony runs, commit with `github_publisher` using the same explicit paths.
 
 ```bash
 git add packages/stg-definitions-v2/src/constant.ts \
@@ -362,7 +375,7 @@ git push -u origin deployments/<chain-name>
 
 ### PR
 
-Open the PR with `gh pr create` using this exact format:
+Open the PR with `gh pr create` in interactive runs, or `github_publisher create_pr` in Symphony runs, using this exact format:
 
 **Title:** `📤 [deploy] <Chain Name> Mainnet` (or `Testnet` if it's a testnet deployment)
 
