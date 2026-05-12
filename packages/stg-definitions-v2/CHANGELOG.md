@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.3
+
+### Patch Changes
+
+- 45c5cab: Add canary DVN to the paths toward a 3/3 DVN configuration, with existing per-path overrides preserved
+
 ## 7.0.2
 
 ### Patch Changes
