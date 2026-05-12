@@ -50,7 +50,6 @@
     "clean": "rm -rf cache out artifacts dist deployed ts-src/typechain-types",
     "compile": "concurrently 'pnpm:compile:*'",
     "compile:forge": "forge build",
-    "compile:hardhat": "$npm_execpath hardhat compile",
     "compile:hardhat:evm": "$npm_execpath hardhat compile",
     "compile:hardhat:zksync": "$npm_execpath hardhat compile --network abstract-mainnet",
     "coverage:forge": "forge coverage --no-match-path ./test/invariant/StargateInvariantTest.t.sol --report lcov",
