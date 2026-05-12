@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.2
+
+### Patch Changes
+
+- ed0be06: deployed SubtensorEVM Mainnet and Ault Mainnet
+
 ## 7.0.1
 
 ### Patch Changes
