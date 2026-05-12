@@ -5,15 +5,14 @@ import { task } from 'hardhat/config'
 
 import { SUBTASK_LZ_SIGN_AND_SEND, createGnosisSignerFactory } from '@layerzerolabs/devtools-evm-hardhat'
 
-import { createOneSigSignerFactory } from '../onesig'
-
-import { TASK_STG_PROPOSE_TRANSACTIONS } from './constants'
+import { createOneSigSignerFactory } from '../../onesig'
+import { TASK_STG_PROPOSE_TRANSACTIONS } from '../constants'
 
 import type { OmniTransaction, SignAndSendResult } from '@layerzerolabs/devtools'
 import type { SignerDefinition } from '@layerzerolabs/devtools-evm'
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
-const DEFAULT_TRANSACTIONS_PATH = join(process.cwd(), 'transactions.json')
+const DEFAULT_TRANSACTIONS_PATH = join(__dirname, 'transactions.example.json')
 
 const DEPLOYER_SIGNER: SignerDefinition = { type: 'named', name: 'deployer' }
 
