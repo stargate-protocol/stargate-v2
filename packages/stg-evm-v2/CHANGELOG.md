@@ -1,5 +1,14 @@
 # @stargatefinance/stg-evm-v2
 
+## 8.0.1
+
+### Patch Changes
+
+- 8556e53: Fixing duplicate transactions when configuring more than one chain
+- ed0be06: deployed SubtensorEVM Mainnet and Ault Mainnet
+- Updated dependencies [ed0be06]
+  - @stargatefinance/stg-definitions-v2@7.0.2
+
 ## 8.0.0
 
 ### Major Changes
