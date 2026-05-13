@@ -20,13 +20,8 @@ import { createLogger } from '@layerzerolabs/lz-utilities'
 
 import { getChainsThatSupportMessaging, setStage } from '../../config/utils/utils.config'
 import { TASK_STG_VALIDATE_PINNED_LIBS } from '../constants'
-import {
-    MAX_CHAIN_RETRIES,
-    PinnedLibs,
-    RETRY_DELAY_MS,
-    resolveExpectedLibraries,
-    withRetry,
-} from '../pinMessagingLibs/expectedLibraries'
+
+import { MAX_CHAIN_RETRIES, PinnedLibs, RETRY_DELAY_MS, resolveExpectedLibraries, withRetry } from './expectedLibraries'
 
 const STAGE_BY_FLAG: Record<string, Stage> = {
     mainnet: Stage.MAINNET,
