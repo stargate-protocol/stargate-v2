@@ -139,7 +139,6 @@ import {
     TASK_STG_WIRE_TREASURER,
 } from './constants'
 import './treasuryFee/proposeWithdrawTreasuryFee'
-import './pinMessagingLibs/proposeMessagingLibsPin'
 import { checkResult } from './utils'
 
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
