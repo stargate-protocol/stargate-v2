@@ -1,0 +1,11 @@
+[
+  {
+    "point": {
+      "eid": 30101,
+      "address": "0x0000000000000000000000000000000000000000"
+    },
+    "data": "0x",
+    "value": "0",
+    "description": "Example tx: replace point.eid/address with target chain eid and contract address, and data with the encoded calldata"
+  }
+]

@@ -1,0 +1,58 @@
+diff --git a/dist/index.js b/dist/index.js
+index b981c536631542a1bb86d3dbb4f96e3a04509581..c4d748a372ad331fe39e09606b657c5f67d2796a 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -6988,13 +6988,18 @@ var EndpointV2 = class extends devtoolsEvm.OmniSDK {
+   }
+   async setConfig(oapp, uln, setConfigParam) {
+     this.logger.debug(`Setting config for OApp ${oapp} to ULN ${uln} with config ${ioDevtools.printJson(setConfigParam)}`);
+-    const data = this.contract.contract.interface.encodeFunctionData("setConfig", [oapp, uln, setConfigParam]);
+-    return [
+-      {
++    const CONFIG_BATCH_SIZE = 10;
++    const chunks = [];
++    for (let i = 0; i < setConfigParam.length; i += CONFIG_BATCH_SIZE) {
++      chunks.push(setConfigParam.slice(i, i + CONFIG_BATCH_SIZE));
++    }
++    return chunks.map((chunk) => {
++      const data = this.contract.contract.interface.encodeFunctionData("setConfig", [oapp, uln, chunk]);
++      return {
+         ...this.createTransaction(data),
+-        description: `Setting config for ULN ${uln} to ${ioDevtools.printJson(setConfigParam)}`
+-      }
+-    ];
++        description: `Setting config for ULN ${uln} to ${ioDevtools.printJson(chunk)}`
++      };
++    });
+   }
+   async setUlnConfig(oapp, uln, setUlnConfig) {
+     this.logger.debug(`Setting ULN config for OApp ${oapp} to ULN ${uln} with config ${ioDevtools.printJson(setUlnConfig)}`);
+diff --git a/dist/index.mjs b/dist/index.mjs
+index ab36c7c3acbc2591ba9e0e0402dc0aba643a4bfa..0996c8ce02b89c8721c768222a726f529ec9e1c4 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -6981,13 +6981,18 @@ var EndpointV2 = class extends OmniSDK {
+   }
+   async setConfig(oapp, uln, setConfigParam) {
+     this.logger.debug(`Setting config for OApp ${oapp} to ULN ${uln} with config ${printJson(setConfigParam)}`);
+-    const data = this.contract.contract.interface.encodeFunctionData("setConfig", [oapp, uln, setConfigParam]);
+-    return [
+-      {
++    const CONFIG_BATCH_SIZE = 10;
++    const chunks = [];
++    for (let i = 0; i < setConfigParam.length; i += CONFIG_BATCH_SIZE) {
++      chunks.push(setConfigParam.slice(i, i + CONFIG_BATCH_SIZE));
++    }
++    return chunks.map((chunk) => {
++      const data = this.contract.contract.interface.encodeFunctionData("setConfig", [oapp, uln, chunk]);
++      return {
+         ...this.createTransaction(data),
+-        description: `Setting config for ULN ${uln} to ${printJson(setConfigParam)}`
+-      }
+-    ];
++        description: `Setting config for ULN ${uln} to ${printJson(chunk)}`
++      };
++    });
+   }
+   async setUlnConfig(oapp, uln, setUlnConfig) {
+     this.logger.debug(`Setting ULN config for OApp ${oapp} to ULN ${uln} with config ${printJson(setUlnConfig)}`);
