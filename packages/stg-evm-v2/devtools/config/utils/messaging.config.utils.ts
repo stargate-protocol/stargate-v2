@@ -13,6 +13,7 @@ import {
     createGetHreByEid,
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
+import { createLogger } from '@layerzerolabs/lz-utilities'
 
 import { filterConnections, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
@@ -25,6 +26,8 @@ import {
     printChains,
     setStage,
 } from './utils.config'
+
+const logger = createLogger(process.env.LOG_LEVEL ?? 'info')
 
 // messageLibType() enum values from IMessageLib
 const MESSAGE_LIB_TYPE_SEND = 0
@@ -82,15 +85,15 @@ async function findExpectedVersionLibraries(provider: any, registeredLibraries: 
         throw new Error(`No receive library matching version ${versionStr} found in registered libraries.`)
 
     if (sendLibs.length > 1)
-        console.warn(
-            `[warn] Multiple send libraries match version ${versionStr}. Using ${sendLibs[0].address}, ignoring: ${sendLibs
+        logger.warn(
+            `Multiple send libraries match version ${versionStr}. Using ${sendLibs[0].address}, ignoring: ${sendLibs
                 .slice(1)
                 .map((l) => l.address)
                 .join(', ')}.`
         )
     if (receiveLibs.length > 1)
-        console.warn(
-            `[warn] Multiple receive libraries match version ${versionStr}. Using ${receiveLibs[0].address}, ignoring: ${receiveLibs
+        logger.warn(
+            `Multiple receive libraries match version ${versionStr}. Using ${receiveLibs[0].address}, ignoring: ${receiveLibs
                 .slice(1)
                 .map((l) => l.address)
                 .join(', ')}.`
