@@ -47,17 +47,22 @@ async function findExpectedVersionLibraries(provider: any, registeredLibraries: 
 
     const versioned = await Promise.all(
         registeredLibraries.map(async (address) => {
-            const lib = IMessageLib__factory.connect(address, provider)
-            const [{ major, minor, endpointVersion }, libType] = await Promise.all([
-                lib.version(),
-                lib.messageLibType(),
-            ])
-            return {
-                address,
-                major: Number(major),
-                minor: Number(minor),
-                endpointVersion: Number(endpointVersion),
-                libType: Number(libType),
+            try {
+                const lib = IMessageLib__factory.connect(address, provider)
+                const [{ major, minor, endpointVersion }, libType] = await Promise.all([
+                    lib.version(),
+                    lib.messageLibType(),
+                ])
+                return {
+                    address,
+                    major: Number(major),
+                    minor: Number(minor),
+                    endpointVersion: Number(endpointVersion),
+                    libType: Number(libType),
+                }
+            } catch (err) {
+                const reason = err instanceof Error ? err.message : String(err)
+                throw new Error(`Failed to read version/type from registered library ${address}: ${reason}`)
             }
         })
     )
@@ -109,13 +114,23 @@ async function fetchExpectedVersionLibraries(
 
     const entries = await Promise.all(
         contracts.map(async (contract) => {
-            const hre = await getEnvironment(contract.eid)
-            const endpointDeployment = await hre.deployments.get('EndpointV2')
-            const provider = (hre as any).ethers.provider
-            const endpoint = EndpointV2__factory.connect(endpointDeployment.address, provider)
-            const registeredLibraries = await endpoint.getRegisteredLibraries()
-            const libraries = await findExpectedVersionLibraries(provider, registeredLibraries)
-            return [contract.eid, libraries] as const
+            let endpointAddress: string | undefined
+            try {
+                const hre = await getEnvironment(contract.eid)
+                const endpointDeployment = await hre.deployments.get('EndpointV2')
+                endpointAddress = endpointDeployment.address
+                const provider = (hre as any).ethers.provider
+                const endpoint = EndpointV2__factory.connect(endpointDeployment.address, provider)
+                const registeredLibraries = await endpoint.getRegisteredLibraries()
+                const libraries = await findExpectedVersionLibraries(provider, registeredLibraries)
+                return [contract.eid, libraries] as const
+            } catch (err) {
+                const reason = err instanceof Error ? err.message : String(err)
+                const endpointInfo = endpointAddress ? ` (EndpointV2 ${endpointAddress})` : ''
+                throw new Error(
+                    `Failed to fetch expected message library version for eid ${contract.eid}${endpointInfo}: ${reason}`
+                )
+            }
         })
     )
 
