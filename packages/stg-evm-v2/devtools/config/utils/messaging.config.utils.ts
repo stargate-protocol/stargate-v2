@@ -14,7 +14,6 @@ import {
 } from '@layerzerolabs/devtools-evm-hardhat'
 import { EndpointId, Stage } from '@layerzerolabs/lz-definitions'
 
-import { EndpointV2__factory, IMessageLib__factory } from '../../../ts-src/typechain-types'
 import { filterConnections, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getAssetsConfig } from './shared'
@@ -38,6 +37,11 @@ type PinnedLibraries = { sendLibrary: string; receiveLibrary: string }
  * from the endpoint's registered libraries. Uses first match if multiple found.
  */
 async function findExpectedVersionLibraries(provider: any, registeredLibraries: string[]): Promise<PinnedLibraries> {
+    // The tasks need to import the TypeChain types dynamically
+    // otherwise we end up in a chicken-egg scenario where compile will error out
+    // since the TypeChain is not there but TypeChain needs compile
+    const { IMessageLib__factory } = await import('../../../ts-src/typechain-types')
+
     const version = EXPECTED_MESSAGE_LIB_VERSION
     const versionStr = `${version.major}.${version.minor}.${version.endpointVersion}`
 
@@ -98,6 +102,11 @@ async function fetchExpectedVersionLibraries(
     contracts: OmniPointHardhat[],
     getEnvironment: ReturnType<typeof createGetHreByEid>
 ): Promise<Map<EndpointId, PinnedLibraries>> {
+    // The tasks need to import the TypeChain types dynamically
+    // otherwise we end up in a chicken-egg scenario where compile will error out
+    // since the TypeChain is not there but TypeChain needs compile
+    const { EndpointV2__factory } = await import('../../../ts-src/typechain-types')
+
     const entries = await Promise.all(
         contracts.map(async (contract) => {
             const hre = await getEnvironment(contract.eid)
