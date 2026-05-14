@@ -60,7 +60,7 @@ function summarizeError(e: unknown): string {
 interface TaskArgs {
     stage: string
     chains?: string
-    verbose?: boolean
+    verboseErrors?: boolean
 }
 
 interface Mismatch {
@@ -85,7 +85,7 @@ interface ChainError {
 task(TASK_STG_VALIDATE_PINNED_LIBS, 'Validate that messaging libs are pinned to expected version on all chains')
     .addParam('stage', 'mainnet | testnet | sandbox')
     .addOptionalParam('chains', 'Comma-separated chain names to validate (default: all messaging chains)')
-    .addFlag('verbose', 'Print full per-pair error messages instead of just bucketed counts')
+    .addFlag('verboseErrors', 'Print full per-pair error messages instead of just bucketed counts')
     .setAction(async (args: TaskArgs) => {
         const stage = STAGE_BY_FLAG[args.stage]
         if (stage === undefined) throw new Error(`--stage must be one of: ${Object.keys(STAGE_BY_FLAG).join(', ')}`)
@@ -349,7 +349,7 @@ task(TASK_STG_VALIDATE_PINNED_LIBS, 'Validate that messaging libs are pinned to 
                     .map(([reason, n]) => `${n}× ${reason}`)
                     .join(', ')
                 lines.push(`  [${chainKey}] ${errs.length} error(s): ${summary}`)
-                if (args.verbose) {
+                if (args.verboseErrors) {
                     for (const err of errs) {
                         lines.push(`    ${err.message}`)
                     }
