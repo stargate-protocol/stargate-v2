@@ -1721,6 +1721,7 @@ export const NETWORKS: NetworksConfig = {
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
             nativeDropAmount: parseEther('0').toBigInt(),
+            busDisabled: true, // bus mode is not supported for ault until price is available, so native drops can be enabled
         },
         oneSigConfig: {
             oneSigAddress: '0x80e6ab28c9da544c8f876162d6ee9e00e9366456',
