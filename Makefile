@@ -353,6 +353,14 @@ configure-mainnet:
 	# Configure OFT Wrapper
 	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
+#
+# This target will validate the mainnet configuration onchain.
+#
+# Run this AFTER the multisig has executed the proposals from configure-mainnet —
+# before execution, the messaging libs are not yet pinned and validation will fail.
+#
+
+validate-mainnet:
 	# Validate that all messaging libs are pinned to the expected version on every chain
 	$(VALIDATE_PINNED_LIBS) $(VALIDATE_PINNED_LIBS_ARGS) --config ./hardhat.config.ts --stage mainnet
 
