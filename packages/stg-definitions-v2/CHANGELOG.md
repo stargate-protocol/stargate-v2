@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.4
+
+### Patch Changes
+
+- cc19c4c: Disabling bus for ault
+
 ## 7.0.3
 
 ### Patch Changes
