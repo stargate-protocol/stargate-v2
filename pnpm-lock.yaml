@@ -8,7 +8,7 @@ overrides:
   '@layerzerolabs/devtools': ~2.0.1
   '@layerzerolabs/io-devtools': ~0.3.0
   '@layerzerolabs/lz-definitions': ~3.1.0
-  '@layerzerolabs/lz-evm-sdk-v2': 3.0.167
+  '@layerzerolabs/lz-evm-sdk-v2': ~3.1.0
   '@layerzerolabs/lz-v2-utilities': ~3.0.167
   es5-ext: https://github.com/LayerZero-Labs/es5-ext
 
@@ -246,8 +246,8 @@ importers:
         specifier: ~3.1.0
         version: 3.1.2
       '@layerzerolabs/lz-evm-sdk-v2':
-        specifier: 3.0.167
-        version: 3.0.167
+        specifier: ~3.1.0
+        version: 3.1.2
       '@layerzerolabs/tsup-config-next':
         specifier: ~3.0.7
         version: 3.0.7(ts-node@10.9.2)(typescript@5.6.3)
@@ -321,8 +321,8 @@ importers:
         specifier: 2.0.11
         version: 2.0.11(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.4)(solidity-bytes-utils@0.8.4)
       '@layerzerolabs/lz-evm-sdk-v2':
-        specifier: 3.0.167
-        version: 3.0.167
+        specifier: ~3.1.0
+        version: 3.1.2
       '@layerzerolabs/lz-evm-v1-0.7':
         specifier: ~3.0.7
         version: 3.0.7(@openzeppelin/contracts-upgradeable@4.9.6)(@openzeppelin/contracts@4.9.6)(hardhat-deploy@0.12.4)
@@ -3052,8 +3052,8 @@ packages:
       - typescript
     dev: true
 
-  /@layerzerolabs/evm-sdks-core@3.0.167:
-    resolution: {integrity: sha512-TUWk4fNtHjtbm36NVp1AFeRYi/L8XghnAZEJVfsDm2JSa2bTRqlCmgmVYFpM7V0Z/Hx/qSctksmtblG2JWlE6g==}
+  /@layerzerolabs/evm-sdks-core@3.0.168:
+    resolution: {integrity: sha512-FJlUjD8zq/GFwQ665lasdnn0e5tHpGsVWDaZFF2uTSFqCSSsgCLi1c5yYHAbQ3+EM2iB0mMbiDMDHewRP/XfiA==}
     dependencies:
       ethers: 5.8.0
     transitivePeerDependencies:
@@ -3225,10 +3225,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@layerzerolabs/lz-evm-sdk-v2@3.0.167:
-    resolution: {integrity: sha512-ZXVMFABKqQZvgIEVENzkZeFTkA+ZstuQuDBsz/B6+mkM6OSr+VDfR1sWDRDFWBszqDeLWVjnahAxHQbuFYiR3Q==}
+  /@layerzerolabs/lz-evm-sdk-v2@3.1.2:
+    resolution: {integrity: sha512-fitIZCQkwEcwoA8exgc0mBd/s9yaa1n54/nYhnnPsorCkQW2LlcfMUJg2sJpOQexTnsfN7N2nw8mcaokhZEewA==}
     dependencies:
-      '@layerzerolabs/evm-sdks-core': 3.0.167
+      '@layerzerolabs/evm-sdks-core': 3.0.168
       ethers: 5.8.0
     transitivePeerDependencies:
       - bufferutil
@@ -3502,7 +3502,7 @@ packages:
       '@layerzerolabs/io-devtools': 0.3.0(ink-gradient@2.0.0)(ink-table@3.1.0)(ink@3.2.0)(react@17.0.2)(yoga-layout-prebuilt@1.10.0)(zod@3.22.5)
       '@layerzerolabs/lz-definitions': 3.1.2
       '@layerzerolabs/lz-evm-sdk-v1': 3.0.77
-      '@layerzerolabs/lz-evm-sdk-v2': 3.0.167
+      '@layerzerolabs/lz-evm-sdk-v2': 3.1.2
       '@layerzerolabs/lz-v2-utilities': 3.0.167
       '@layerzerolabs/protocol-devtools': 1.1.6(@layerzerolabs/devtools@2.0.1)(@layerzerolabs/io-devtools@0.3.0)(@layerzerolabs/lz-definitions@3.1.2)(zod@3.22.5)
       '@layerzerolabs/protocol-devtools-evm': 3.0.8(@ethersproject/abstract-provider@5.7.0)(@ethersproject/abstract-signer@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/constants@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/providers@5.7.2)(@layerzerolabs/devtools-evm@1.0.6)(@layerzerolabs/devtools@2.0.1)(@layerzerolabs/io-devtools@0.3.0)(@layerzerolabs/lz-definitions@3.1.2)(@layerzerolabs/protocol-devtools@1.1.6)(zod@3.22.5)
