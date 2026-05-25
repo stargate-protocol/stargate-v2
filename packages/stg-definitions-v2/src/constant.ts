@@ -1020,7 +1020,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.RAYLS_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // TODO: Update with deployed USDC address on Rayls
+                address: '0x9001dbe4D68d36ab87923A2a9Dfb0c745fd25001',
             },
             [EndpointId.REDBELLY_V2_MAINNET]: {
                 type: StargateType.Oft,
@@ -3690,7 +3690,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.RAYLS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
-            nativeDropAmount: parseEther('0.13').toBigInt(), // TODO: Double check this value
+            nativeDropAmount: parseEther('0.13').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x44143B3dE2F977B92c054c6F32fdbD3b3Cb74120',
