@@ -69,6 +69,7 @@ export const DVNS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x882a1ee8891c7d22310dedf032ef9653785532b8',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
+        [EndpointId.RAYLS_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x6d4fc4bd9f9c29086e2aa67d4c81f32d2e0f285c',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x446755349101cB20c582C224462c3912d3584dCE',
@@ -139,6 +140,7 @@ export const DVNS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x4208d6e27538189bb48e603d6123a94b8abe0a0b',
         [EndpointId.POLYGON_V2_MAINNET]: '0x23de2fe932d9043291f870324b74f820e11dc81a',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x0b5e5452d0c9da1bb5fb0664f48313e9667d7820',
+        [EndpointId.RAYLS_V2_MAINNET]: '0x396dc0a78f789586e2982fccd830c5954c193f3c',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.SCROLL_V2_MAINNET]: '0xbe0d08a85eebfcc6eda0a843521f7cbb1180d2e2',
@@ -227,6 +229,7 @@ export const DVNS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x395b14700812cccc38b8e64f0a06ce2045fe9ba3',
         [EndpointId.POLYGON_V2_MAINNET]: '0x13feb7234ff60a97af04477d6421415766753ba3',
         [EndpointId.RARIBLE_V2_MAINNET]: '0xb77b8b65ca4a91f211ba54babc733ca8c09f324f',
+        [EndpointId.RAYLS_V2_MAINNET]: '0xd01ae6905d48315f7be10c7330aecf8360ef5b12',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x41ef29f974fc9f6772654f005271c64210425391',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
         [EndpointId.SCROLL_V2_MAINNET]: '0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d',
@@ -303,6 +306,7 @@ export const EXECUTORS = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
         [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
+        [EndpointId.RAYLS_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.SCROLL_V2_MAINNET]: '0x581b26F362AD383f7B51eF8A165Efa13DDe398a4',
@@ -1014,6 +1018,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'Bridged USDC (Stargate)',
                 symbol: 'USDC.e',
             },
+            [EndpointId.RAYLS_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x9001dbe4D68d36ab87923A2a9Dfb0c745fd25001',
+            },
             [EndpointId.REDBELLY_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xE08DED898D7782B085cD240d7B234063696765aD',
@@ -1278,6 +1286,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
         [EndpointId.RARIBLE_V2_MAINNET]: {},
+        [EndpointId.RAYLS_V2_MAINNET]: {},
         [EndpointId.REDBELLY_V2_MAINNET]: {},
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
@@ -3661,6 +3670,31 @@ export const NETWORKS: NetworksConfig = {
                     simulateTxAccessorAddress: '0xf96B7814BA740fd56511dc698257c41d52683517',
                 },
             },
+        },
+    },
+    [EndpointId.RAYLS_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.RAYLS_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
+                DVNS.CANARY[EndpointId.RAYLS_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.RAYLS_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
+                DVNS.CANARY[EndpointId.RAYLS_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
+            nativeDropAmount: parseEther('0.13').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x44143B3dE2F977B92c054c6F32fdbD3b3Cb74120',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/rayls`,
         },
     },
     [EndpointId.REDBELLY_V2_MAINNET]: {
