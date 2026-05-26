@@ -1,5 +1,14 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 11.0.2
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+- Updated dependencies [fadb7d3]
+  - @stargatefinance/stg-definitions-v2@7.0.5
+  - @stargatefinance/stg-devtools-v2@10.0.3
+
 ## 11.0.1
 
 ### Patch Changes

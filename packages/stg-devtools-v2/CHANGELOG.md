@@ -1,5 +1,13 @@
 # @stargatefinance/stg-devtools-v2
 
+## 10.0.3
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+- Updated dependencies [fadb7d3]
+  - @stargatefinance/stg-definitions-v2@7.0.5
+
 ## 10.0.2
 
 ### Patch Changes

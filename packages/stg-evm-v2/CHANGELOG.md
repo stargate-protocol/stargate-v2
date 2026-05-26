@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 8.0.2
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+- Updated dependencies [fadb7d3]
+  - @stargatefinance/stg-definitions-v2@7.0.5
+
 ## 8.0.1
 
 ### Patch Changes
