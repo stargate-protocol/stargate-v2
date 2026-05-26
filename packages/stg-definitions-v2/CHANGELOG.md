@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.5
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+
 ## 7.0.4
 
 ### Patch Changes
