@@ -526,6 +526,11 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 name: 'WETH',
                 type: StargateType.Oft,
             },
+            [EndpointId.RAYLS_V2_MAINNET]: {
+                symbol: 'WETH',
+                name: 'WETH',
+                type: StargateType.Oft,
+            },
             [EndpointId.REDBELLY_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
