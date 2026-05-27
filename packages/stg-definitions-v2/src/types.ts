@@ -147,3 +147,9 @@ export interface OftWrapperNetworkConfig {
     bps?: bigint
     callerBpsCap?: bigint
 }
+
+export interface MessageLibVersion {
+    major: bigint
+    minor: number
+    endpointVersion: number
+}

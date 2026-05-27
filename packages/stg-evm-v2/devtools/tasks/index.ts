@@ -140,6 +140,7 @@ import {
 } from './constants'
 import './proposeTransactions/proposeTransactions'
 import './treasuryFee/proposeWithdrawTreasuryFee'
+import './validatePinnedLibs/validatePinnedLibs'
 import { checkResult } from './utils'
 
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'

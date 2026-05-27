@@ -47,4 +47,5 @@ export const TASK_STG_CHECK_OFT_WRAPPER = `stg:check::oft-wrapper`
 
 export const TASK_STG_PROPOSE_WITHDRAW_TREASURY_FEE = `stg:propose:withdraw-treasury-fee`
 
+export const TASK_STG_VALIDATE_PINNED_LIBS = `stg:validate::pinned-libs`
 export const TASK_STG_PROPOSE_TRANSACTIONS = `stg:propose:transactions`
