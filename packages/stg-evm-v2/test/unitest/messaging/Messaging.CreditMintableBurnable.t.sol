@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import { TargetCredit, TargetCreditBatch } from "../../../src/interfaces/ICreditMessaging.sol";
 import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
-import { CreditMessagingRecovery } from "../../../src/messaging/CreditMessagingRecovery.sol";
-import { ICreditMessagingRecovery } from "../../../src/interfaces/ICreditMessagingRecovery.sol";
+import { CreditMessagingMintableBurnable } from "../../../src/messaging/CreditMessagingMintableBurnable.sol";
+import { ICreditMessagingMintableBurnable } from "../../../src/interfaces/ICreditMessagingMintableBurnable.sol";
 import { CreditMessaging, MessagingBase } from "../../../src/messaging/CreditMessaging.sol";
 import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
 import { Vm } from "forge-std/Vm.sol";
@@ -12,7 +12,7 @@ import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/Ad
 import { LzUtil } from "../../layerzero/LzUtil.sol";
 import { CreditMessagingTest } from "./Messaging.Credit.t.sol";
 
-contract CreditMessagingRecoveryTest is CreditMessagingTest {
+contract CreditMessagingMintableBurnableTest is CreditMessagingTest {
     address internal immutable OWNER = address(this);
     uint16 internal constant ASSET_ID = 1;
     uint32 internal constant DST_EID = 7;
@@ -21,12 +21,12 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     string internal constant BURN_REASON = "correcting over-minted credits";
 
     function setUp() public override {
-        CreditMessagingRecovery recoveryMessaging = new CreditMessagingRecovery(
+        CreditMessagingMintableBurnable mintableBurnableMessaging = new CreditMessagingMintableBurnable(
             LzUtil.deployEndpointV2(1, OWNER),
             OWNER
         );
-        recoveryMessaging.setPlanner(PLANNER);
-        messaging = recoveryMessaging;
+        mintableBurnableMessaging.setPlanner(PLANNER);
+        messaging = mintableBurnableMessaging;
     }
 
     // ---------------------------------- mintCredits ------------------------------------------
@@ -34,8 +34,8 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     function test_RevertIf_MintCredits_EmptyReason() public {
         messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
-        vm.expectRevert(ICreditMessagingRecovery.CreditMessagingRecovery_EmptyReason.selector);
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, "");
+        vm.expectRevert(ICreditMessagingMintableBurnable.CreditMessagingMintableBurnable_EmptyReason.selector);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, "");
     }
 
     function test_RevertIf_MintCredits_ByNonOwner(address _nonOwner) public {
@@ -43,7 +43,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditBatch[] memory batches = new CreditBatch[](0);
         vm.prank(_nonOwner);
         vm.expectRevert(OWNABLE_ERROR);
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, MINT_REASON);
     }
 
     function test_RevertIf_MintCredits_PlannerCannotMint() public {
@@ -51,7 +51,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditBatch[] memory batches = _buildMintBatches(1, 100);
         vm.prank(PLANNER);
         vm.expectRevert(OWNABLE_ERROR);
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, MINT_REASON);
     }
 
     function test_RevertIf_MintCredits_UnavailableAsset(uint16 _assetId) public {
@@ -61,7 +61,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditBatch[] memory batches = new CreditBatch[](1);
         batches[0] = CreditBatch(_assetId, credits);
         vm.expectRevert(MessagingBase.Messaging_Unavailable.selector);
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, MINT_REASON);
     }
 
     function test_MintCredits_CallsReceiveCreditsAndDoesNotSendLzMessage(uint32 _srcEid, uint64 _amount) public {
@@ -72,10 +72,10 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, batches[0].credits)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsMinted(batches, MINT_REASON);
 
         vm.recordLogs();
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, MINT_REASON);
         _assertNoLzMessageSent();
     }
 
@@ -102,10 +102,10 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, credits1)));
         vm.expectCall(stargate2, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, credits2)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsMinted(batches, MINT_REASON);
 
         vm.recordLogs();
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, MINT_REASON);
         _assertNoLzMessageSent();
     }
 
@@ -120,9 +120,9 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
 
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.receiveCredits, (0, emptyCredits)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsMinted(batches, MINT_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsMinted(batches, MINT_REASON);
 
-        CreditMessagingRecovery(address(messaging)).mintCredits(batches, MINT_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).mintCredits(batches, MINT_REASON);
     }
 
     // ---------------------------------- burnCredits ------------------------------------------
@@ -130,8 +130,8 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
     function test_RevertIf_BurnCredits_EmptyReason() public {
         messaging.setAssetId(STARGATE_IMPL, ASSET_ID);
         TargetCreditBatch[] memory batches = _buildBurnBatches(1, 100);
-        vm.expectRevert(ICreditMessagingRecovery.CreditMessagingRecovery_EmptyReason.selector);
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, "");
+        vm.expectRevert(ICreditMessagingMintableBurnable.CreditMessagingMintableBurnable_EmptyReason.selector);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, "");
     }
 
     function test_RevertIf_BurnCredits_ByNonOwner(address _nonOwner) public {
@@ -139,7 +139,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
         vm.prank(_nonOwner);
         vm.expectRevert(OWNABLE_ERROR);
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
     function test_RevertIf_BurnCredits_PlannerCannotBurn() public {
@@ -147,7 +147,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         TargetCreditBatch[] memory batches = _buildBurnBatches(1, 100);
         vm.prank(PLANNER);
         vm.expectRevert(OWNABLE_ERROR);
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
     function test_RevertIf_BurnCredits_UnavailableAsset(uint16 _assetId) public {
@@ -157,7 +157,7 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](1);
         batches[0] = TargetCreditBatch(_assetId, credits);
         vm.expectRevert(MessagingBase.Messaging_Unavailable.selector);
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
     function test_BurnCredits_CallsSendCreditsAndDoesNotSendLzMessage(uint32 _srcEid, uint64 _amount) public {
@@ -173,10 +173,10 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         burnedCredits[0] = Credit(_srcEid, _amount);
         CreditBatch[] memory burnedBatches = new CreditBatch[](1);
         burnedBatches[0] = CreditBatch(ASSET_ID, burnedCredits);
-        emit ICreditMessagingRecovery.CreditsBurned(burnedBatches, BURN_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsBurned(burnedBatches, BURN_REASON);
 
         vm.recordLogs();
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
         _assertNoLzMessageSent();
     }
 
@@ -213,10 +213,10 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         vm.expectCall(STARGATE_IMPL, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets1)));
         vm.expectCall(stargate2, abi.encodeCall(ICreditMessagingHandler.sendCredits, (0, targets2)));
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(burnedBatches, BURN_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsBurned(burnedBatches, BURN_REASON);
 
         vm.recordLogs();
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
         _assertNoLzMessageSent();
     }
 
@@ -242,9 +242,9 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditBatch[] memory partialBurnedBatches = new CreditBatch[](1);
         partialBurnedBatches[0] = CreditBatch(ASSET_ID, partialBurned);
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(partialBurnedBatches, BURN_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsBurned(partialBurnedBatches, BURN_REASON);
 
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
     function test_BurnCredits_EmitsEmptyArray_WhenHandlerReturnsNothing(uint32 _srcEid, uint64 _amount) public {
@@ -264,20 +264,20 @@ contract CreditMessagingRecoveryTest is CreditMessagingTest {
         CreditBatch[] memory noBurnedBatches = new CreditBatch[](1);
         noBurnedBatches[0] = CreditBatch(ASSET_ID, noBurned);
         vm.expectEmit(true, true, true, true, address(messaging));
-        emit ICreditMessagingRecovery.CreditsBurned(noBurnedBatches, BURN_REASON);
+        emit ICreditMessagingMintableBurnable.CreditsBurned(noBurnedBatches, BURN_REASON);
 
-        CreditMessagingRecovery(address(messaging)).burnCredits(batches, BURN_REASON);
+        CreditMessagingMintableBurnable(address(messaging)).burnCredits(batches, BURN_REASON);
     }
 
     // ---------------------------------- inherited negative tests overridden ------------------------------------------
 
     function test_MintCredits_NotAvailableOnCreditMessaging() public override {
-        // skip this test since the function is available in CreditMessagingRecovery
+        // skip this test since the function is available in CreditMessagingMintableBurnable
         vm.skip(true);
     }
 
     function test_BurnCredits_NotAvailableOnCreditMessaging() public override {
-        // skip this test since the function is available in CreditMessagingRecovery
+        // skip this test since the function is available in CreditMessagingMintableBurnable
         vm.skip(true);
     }
 

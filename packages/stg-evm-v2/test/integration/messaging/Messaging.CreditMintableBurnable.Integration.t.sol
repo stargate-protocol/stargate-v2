@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import { Test, Vm } from "forge-std/Test.sol";
 import { TargetCredit, TargetCreditBatch } from "../../../src/interfaces/ICreditMessaging.sol";
 import { Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
-import { CreditMessagingRecovery } from "../../../src/messaging/CreditMessagingRecovery.sol";
+import { CreditMessagingMintableBurnable } from "../../../src/messaging/CreditMessagingMintableBurnable.sol";
 import { StargateBase } from "../../../src/StargateBase.sol";
 import { StargatePool } from "../../../src/StargatePool.sol";
 import { StargateOFT } from "../../../src/StargateOFT.sol";
@@ -14,17 +14,17 @@ import { OFTTokenERC20 } from "../../../src/utils/OFTTokenERC20.sol";
 import { LzFixture } from "../../layerzero/LzTestHelper.sol";
 import { StargateTestHelper } from "../../StargateTestHelper.sol";
 
-/// @notice Integration tests for CreditMessagingRecovery wired to real StargatePool and StargateOFT instances.
+/// @notice Integration tests for CreditMessagingMintableBurnable wired to real StargatePool and StargateOFT instances.
 ///         These tests verify that paths[eid].credit actually changes after mintCredits/burnCredits,
 ///         and that the LZ endpoint emits no events — confirming all operations are strictly local.
-contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
+contract CreditMessagingMintableBurnableIntegrationTest is Test, StargateTestHelper {
     uint16 internal constant ASSET_ID_POOL = 1;
     uint16 internal constant ASSET_ID_OFT = 2;
     uint32 internal constant SRC_EID = 10;
     string internal constant MINT_REASON = "restoring lost credits";
     string internal constant BURN_REASON = "correcting over-minted credits";
 
-    CreditMessagingRecovery internal recoveryMessaging;
+    CreditMessagingMintableBurnable internal mintableBurnableMessaging;
     StargatePool internal pool;
     StargateOFT internal oft;
 
@@ -32,7 +32,7 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
         LzFixture[] memory fixtures = setUpEndpoints(1);
         address endpoint = address(fixtures[0].endpoint);
 
-        recoveryMessaging = new CreditMessagingRecovery(endpoint, address(this));
+        mintableBurnableMessaging = new CreditMessagingMintableBurnable(endpoint, address(this));
 
         PoolToken poolToken = new PoolToken("Pool Token", "PT");
         pool = new StargatePool(
@@ -50,11 +50,11 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
                 planner: address(0),
                 treasurer: address(0),
                 tokenMessaging: address(0),
-                creditMessaging: address(recoveryMessaging),
+                creditMessaging: address(mintableBurnableMessaging),
                 lzToken: address(0)
             })
         );
-        recoveryMessaging.setAssetId(address(pool), ASSET_ID_POOL);
+        mintableBurnableMessaging.setAssetId(address(pool), ASSET_ID_POOL);
 
         OFTTokenERC20 oftToken = new OFTTokenERC20("OFT Token", "OFT", 18);
         oft = new StargateOFT(address(oftToken), 6, endpoint, address(this));
@@ -65,11 +65,11 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
                 planner: address(0),
                 treasurer: address(0),
                 tokenMessaging: address(0),
-                creditMessaging: address(recoveryMessaging),
+                creditMessaging: address(mintableBurnableMessaging),
                 lzToken: address(0)
             })
         );
-        recoveryMessaging.setAssetId(address(oft), ASSET_ID_OFT);
+        mintableBurnableMessaging.setAssetId(address(oft), ASSET_ID_OFT);
     }
 
     // ---------------------------------- mintCredits ------------------------------------------
@@ -81,7 +81,7 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
         assertEq(pool.paths(SRC_EID), 0);
 
         VM.recordLogs();
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _amount), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _amount), MINT_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(pool.paths(SRC_EID), _amount);
@@ -93,7 +93,7 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
         assertEq(oft.paths(SRC_EID), 0);
 
         VM.recordLogs();
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_OFT, _amount), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_OFT, _amount), MINT_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(oft.paths(SRC_EID), _amount);
@@ -104,11 +104,11 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
         _secondAmount = uint64(bound(_secondAmount, 1, type(uint64).max / 2));
 
         VM.recordLogs();
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _firstAmount), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _firstAmount), MINT_REASON);
         _assertNoLzEndpointActivity();
 
         VM.recordLogs();
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _secondAmount), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _secondAmount), MINT_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(pool.paths(SRC_EID), _firstAmount + _secondAmount);
@@ -121,11 +121,11 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
         _initialCredit = uint64(bound(_initialCredit, 2, type(uint64).max - 1));
         _burnAmount = uint64(bound(_burnAmount, 1, _initialCredit - 1));
 
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _initialCredit), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _initialCredit), MINT_REASON);
         assertEq(pool.paths(SRC_EID), _initialCredit);
 
         VM.recordLogs();
-        recoveryMessaging.burnCredits(_buildBurnBatches(ASSET_ID_POOL, _burnAmount, 0), BURN_REASON);
+        mintableBurnableMessaging.burnCredits(_buildBurnBatches(ASSET_ID_POOL, _burnAmount, 0), BURN_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(pool.paths(SRC_EID), _initialCredit - _burnAmount);
@@ -135,11 +135,11 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
         _initialCredit = uint64(bound(_initialCredit, 2, type(uint64).max - 1));
         _burnAmount = uint64(bound(_burnAmount, 1, _initialCredit - 1));
 
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_OFT, _initialCredit), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_OFT, _initialCredit), MINT_REASON);
         assertEq(oft.paths(SRC_EID), _initialCredit);
 
         VM.recordLogs();
-        recoveryMessaging.burnCredits(_buildBurnBatches(ASSET_ID_OFT, _burnAmount, 0), BURN_REASON);
+        mintableBurnableMessaging.burnCredits(_buildBurnBatches(ASSET_ID_OFT, _burnAmount, 0), BURN_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(oft.paths(SRC_EID), _initialCredit - _burnAmount);
@@ -148,11 +148,11 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
     function test_BurnCredits_DoesNotChangeCredit_WhenCreditIsBelowMinAmount_Pool(uint64 _credit) public {
         _credit = uint64(bound(_credit, 1, type(uint64).max - 1));
 
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _credit), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_POOL, _credit), MINT_REASON);
 
         // minAmount >= currentCredit: tryDecreaseCredit returns 0 without changing state
         VM.recordLogs();
-        recoveryMessaging.burnCredits(_buildBurnBatches(ASSET_ID_POOL, _credit, _credit), BURN_REASON);
+        mintableBurnableMessaging.burnCredits(_buildBurnBatches(ASSET_ID_POOL, _credit, _credit), BURN_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(pool.paths(SRC_EID), _credit);
@@ -161,10 +161,10 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
     function test_BurnCredits_DoesNotChangeCredit_WhenCreditIsBelowMinAmount_OFT(uint64 _credit) public {
         _credit = uint64(bound(_credit, 1, type(uint64).max - 1));
 
-        recoveryMessaging.mintCredits(_buildMintBatches(ASSET_ID_OFT, _credit), MINT_REASON);
+        mintableBurnableMessaging.mintCredits(_buildMintBatches(ASSET_ID_OFT, _credit), MINT_REASON);
 
         VM.recordLogs();
-        recoveryMessaging.burnCredits(_buildBurnBatches(ASSET_ID_OFT, _credit, _credit), BURN_REASON);
+        mintableBurnableMessaging.burnCredits(_buildBurnBatches(ASSET_ID_OFT, _credit, _credit), BURN_REASON);
         _assertNoLzEndpointActivity();
 
         assertEq(oft.paths(SRC_EID), _credit);
@@ -193,7 +193,7 @@ contract CreditMessagingRecoveryIntegrationTest is Test, StargateTestHelper {
     /// @dev Asserts that the LZ endpoint emitted no events, proving no send, receive,
     ///      or any other endpoint interaction occurred during the operation.
     function _assertNoLzEndpointActivity() internal {
-        address endpoint = address(recoveryMessaging.endpoint());
+        address endpoint = address(mintableBurnableMessaging.endpoint());
         Vm.Log[] memory logs = VM.getRecordedLogs();
         for (uint256 i = 0; i < logs.length; i++) {
             assertNotEq(logs[i].emitter, endpoint, "unexpected event emitted by LZ endpoint");

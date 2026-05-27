@@ -11,7 +11,7 @@ import { AddressCast } from "@layerzerolabs/lz-evm-protocol-v2/contracts/libs/Ad
 import { MessagingFee, MessagingReceipt } from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/interfaces/IOFT.sol";
 import { ILayerZeroEndpointV2 } from "@layerzerolabs/lz-evm-protocol-v2/contracts/interfaces/ILayerZeroEndpointV2.sol";
 import { ICreditMessagingHandler, Credit } from "../../../src/interfaces/ICreditMessagingHandler.sol";
-import { ICreditMessagingRecovery } from "../../../src/interfaces/ICreditMessagingRecovery.sol";
+import { ICreditMessagingMintableBurnable } from "../../../src/interfaces/ICreditMessagingMintableBurnable.sol";
 import { CreditBatch } from "../../../src/libs/CreditMsgCodec.sol";
 
 contract CreditMessagingTest is Test {
@@ -264,7 +264,7 @@ contract CreditMessagingTest is Test {
     function test_MintCredits_NotAvailableOnCreditMessaging() public virtual {
         CreditBatch[] memory batches = new CreditBatch[](0);
         (bool success, bytes memory data) = address(messaging).call(
-            abi.encodeWithSelector(ICreditMessagingRecovery.mintCredits.selector, batches, "")
+            abi.encodeWithSelector(ICreditMessagingMintableBurnable.mintCredits.selector, batches, "")
         );
         assertFalse(success);
         assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
@@ -273,7 +273,7 @@ contract CreditMessagingTest is Test {
     function test_BurnCredits_NotAvailableOnCreditMessaging() public virtual {
         TargetCreditBatch[] memory batches = new TargetCreditBatch[](0);
         (bool success, bytes memory data) = address(messaging).call(
-            abi.encodeWithSelector(ICreditMessagingRecovery.burnCredits.selector, batches, "")
+            abi.encodeWithSelector(ICreditMessagingMintableBurnable.burnCredits.selector, batches, "")
         );
         assertFalse(success);
         assertEq(data.length, 0, "expected empty revert data - function should not exist on CreditMessaging");
