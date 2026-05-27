@@ -1,5 +1,11 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 2.0.3
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+
 ## 2.0.2
 
 ### Patch Changes

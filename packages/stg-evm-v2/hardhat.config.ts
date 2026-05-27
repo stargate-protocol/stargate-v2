@@ -642,6 +642,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.RARIBLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'rayls-mainnet': {
+        eid: EndpointId.RAYLS_V2_MAINNET,
+        url: process.env.RPC_URL_RAYLS_MAINNET || 'https://mainnet-rpc.rayls.com',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.RAYLS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'redbelly-mainnet': {
         eid: EndpointId.REDBELLY_V2_MAINNET,
         url: process.env.RPC_URL_REDBELLY_MAINNET || 'https://governors.mainnet.redbelly.network',

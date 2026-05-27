@@ -138,6 +138,7 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
 } from './constants'
+import './proposeTransactions/proposeTransactions'
 import './treasuryFee/proposeWithdrawTreasuryFee'
 import './validatePinnedLibs/validatePinnedLibs'
 import { checkResult } from './utils'

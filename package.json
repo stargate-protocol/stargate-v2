@@ -22,8 +22,8 @@
   "resolutions": {
     "@layerzerolabs/devtools": "~2.0.1",
     "@layerzerolabs/io-devtools": "~0.3.0",
-    "@layerzerolabs/lz-definitions": "~3.0.167",
-    "@layerzerolabs/lz-evm-sdk-v2": "3.0.167",
+    "@layerzerolabs/lz-definitions": "~3.1.0",
+    "@layerzerolabs/lz-evm-sdk-v2": "~3.1.0",
     "@layerzerolabs/lz-v2-utilities": "~3.0.167",
     "es5-ext": "https://github.com/LayerZero-Labs/es5-ext"
   },
@@ -50,6 +50,7 @@
       "@layerzerolabs/io-devtools": "~0.3.0"
     },
     "patchedDependencies": {
+      "@layerzerolabs/protocol-devtools-evm@5.0.1": "patches/@layerzerolabs__protocol-devtools-evm@5.0.1.patch",
       "@matterlabs/hardhat-zksync-deploy@0.9.0": "patches/@matterlabs__hardhat-zksync-deploy@0.9.0.patch",
       "hardhat-contract-sizer@2.10.0": "patches/hardhat-contract-sizer@2.10.0.patch"
     }
