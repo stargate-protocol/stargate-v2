@@ -42,6 +42,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 }
 
 // Skip during normal deployments — only runs when explicitly triggered with:
-// npx hardhat deploy --tags credit-messaging-mintable-burnable
+// DEPLOY_MINTABLE_BURNABLE=true npx hardhat deploy --tags credit-messaging-mintable-burnable
 exports.default.skip = async () => process.env.DEPLOY_MINTABLE_BURNABLE !== 'true'
 exports.default.tags = CONTRACT_CREDIT_MESSAGING_MINTABLE_BURNABLE_TAGS
