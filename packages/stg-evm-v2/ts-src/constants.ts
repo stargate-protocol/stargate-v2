@@ -2,6 +2,7 @@ export const CONTRACT_PACKAGE_NAME = require('../package.json').name
 export const CONTRACT_MOCK_TAGS = ['mocks']
 export const CONTRACT_MOCKERC20_TAGS = ['mock-erc20']
 export const CONTRACT_MESSAGING_TAGS = ['messaging']
+export const CONTRACT_CREDIT_MESSAGING_MINTABLE_BURNABLE_TAGS = ['credit-messaging-mintable-burnable']
 export const CONTRACT_FEE_LIB_TAGS = ['feeLib']
 export const CONTRACT_POOL_TAGS = ['pool']
 export const CONTRACT_OFT_TAGS = ['oft']
