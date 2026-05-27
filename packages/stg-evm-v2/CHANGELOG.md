@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 8.0.3
+
+### Patch Changes
+
+- 967e5c0: Rayls WETH deployment
+- Updated dependencies [967e5c0]
+  - @stargatefinance/stg-definitions-v2@7.0.6
+
 ## 8.0.2
 
 ### Patch Changes

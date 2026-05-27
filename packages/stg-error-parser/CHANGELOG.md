@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 2.0.4
+
+### Patch Changes
+
+- 967e5c0: Rayls WETH deployment
+
 ## 2.0.3
 
 ### Patch Changes

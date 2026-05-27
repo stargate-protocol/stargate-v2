@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.6
+
+### Patch Changes
+
+- 967e5c0: Rayls WETH deployment
+
 ## 7.0.5
 
 ### Patch Changes
