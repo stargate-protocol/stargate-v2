@@ -5,13 +5,13 @@ import { TargetCreditBatch } from "./ICreditMessaging.sol";
 import { CreditBatch } from "../libs/CreditMsgCodec.sol";
 import { Credit } from "./ICreditMessagingHandler.sol";
 
-/// @title CreditMessagingRecovery API
+/// @title CreditMessagingMintableBurnable API
 /// @dev Defines the emergency credit management functions available only to the contract owner.
 ///      These functions are intentionally separate from the standard ICreditMessaging interface
 ///      to make clear that they bypass normal credit validation and must be used with care.
-interface ICreditMessagingRecovery {
+interface ICreditMessagingMintableBurnable {
     /// @notice Thrown when mintCredits or burnCredits is called with an empty reason string.
-    error CreditMessagingRecovery_EmptyReason();
+    error CreditMessagingMintableBurnable_EmptyReason();
 
     /// @notice Emitted by mintCredits function with all batches that were applied.
     /// @param batches The list of credit batches that were minted.
