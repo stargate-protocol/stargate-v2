@@ -1,7 +1,8 @@
 # None of the targets actually build any binaries so we make them all as phony
 .PHONY: build deploy configure deploy-sandbox start-sandbox \
 	mainnet-connections-summary testnet-connections-summary \
-	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet
+	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet \
+	withdraw-treasury-fee
 
 # To make the code bit more DRY we'll isolate the commonly used stuff into variables
 PACKAGE=@stargatefinance/stg-evm-v2
@@ -26,10 +27,12 @@ CONFIGURE_REWARDER_REWARDS=$(HARDHAT) stg:set::rewards
 CONFIGURE_STAKING=$(HARDHAT) stg:wire::staking
 CONFIGURE_OFT_WRAPPER=$(HARDHAT) stg:wire::oft-wrapper
 CONFIGURE_TREASURER=$(HARDHAT) stg:wire::treasurer
+WITHDRAW_TREASURY_FEE=$(HARDHAT) stg:propose:withdraw-treasury-fee
 CONFIGURE_MINT_ALLOWANCE=$(HARDHAT) stg:set::mint-allowance
 CONFIGURE_LIQUIDITY=$(HARDHAT) stg:add::liquidity
 
 VALIDATE_RPCS = $(HARDHAT) lz:healthcheck:validate:rpcs
+VALIDATE_PINNED_LIBS = $(HARDHAT) stg:validate::pinned-libs
 
 SOURCE_TETHER_DIR=packages/stg-evm-v2/TetherTokenV2.sol
 ARTIFACTS_DIR=packages/stg-evm-v2/artifacts/
@@ -54,6 +57,7 @@ CONFIGURE_ARGS_COMMON=
 # 
 # These allow consumers of this script to pass flags like --continue
 VALIDATE_RPCS_ARGS=
+VALIDATE_PINNED_LIBS_ARGS=
 
 
 # 
@@ -349,9 +353,20 @@ configure-mainnet:
 	# Configure OFT Wrapper
 	$(CONFIGURE_OFT_WRAPPER) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/oft-wrapper.config.ts --signer deployer
 
-# 
+#
+# This target will validate the mainnet configuration onchain.
+#
+# Run this AFTER the multisig has executed the proposals from configure-mainnet —
+# before execution, the messaging libs are not yet pinned and validation will fail.
+#
+
+validate-mainnet:
+	# Validate that all messaging libs are pinned to the expected version on every chain
+	$(VALIDATE_PINNED_LIBS) $(VALIDATE_PINNED_LIBS_ARGS) --config ./hardhat.config.ts --stage mainnet
+
+#
 # This target will transfer the ownership of the mainnet contracts
-# 
+#
 
 transfer-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 transfer-mainnet:
@@ -455,6 +470,10 @@ endif
 
 check-treasurer:
 	$(HARDHAT) stg:check::treasurer --oapp-config $(CONFIG_BASE_PATH)/treasurer.config.ts
+
+TREASURY_FEE_SIGNER ?= --onesig
+withdraw-treasury-fee:
+	$(WITHDRAW_TREASURY_FEE) $(TREASURY_FEE_SIGNER) $(CONFIGURE_ARGS_COMMON)
 
 check-staking:
 	$(HARDHAT) stg:check::staking --oapp-config $(CONFIG_BASE_PATH)/staking.config.ts

@@ -22,7 +22,7 @@ import { ExecutorOptionType } from '@layerzerolabs/lz-v2-utilities'
 
 import { getAssetNetworkConfig } from '../../ts-src/utils/util'
 
-import { getChainByEidMap, getNewChainEid } from './utils/utils.config'
+import { getChainByEidMap, getNewChainEids } from './utils/utils.config'
 
 /**
  * Generates a mesh of connections based on points without any loopbacks
@@ -334,11 +334,15 @@ export function getContractsInChain(
 }
 
 export function filterConnections(connections: any[], fromContracts: any[], toContracts: any[]) {
-    const newChainEid = getNewChainEid()
+    const newChainEids = getNewChainEids()
 
-    if (newChainEid !== undefined) {
+    if (newChainEids.size > 0) {
+        // Keep each directed edge (from → to) exactly once if either endpoint is a
+        // new chain. Since the base graph generates one edge per ordered pair,
+        // set-membership filtering cannot produce duplicates even when both
+        // endpoints are new chains.
         return connections.filter((connection: { from: { eid: any }; to: { eid: any } }) => {
-            return connection.from.eid === newChainEid || connection.to.eid === newChainEid
+            return newChainEids.has(connection.from.eid) || newChainEids.has(connection.to.eid)
         })
     }
 

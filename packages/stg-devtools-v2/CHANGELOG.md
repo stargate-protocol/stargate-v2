@@ -1,5 +1,38 @@
 # @stargatefinance/stg-devtools-v2
 
+## 10.0.4
+
+### Patch Changes
+
+- 967e5c0: Rayls WETH deployment
+- Updated dependencies [967e5c0]
+  - @stargatefinance/stg-definitions-v2@7.0.6
+
+## 10.0.3
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+- Updated dependencies [fadb7d3]
+  - @stargatefinance/stg-definitions-v2@7.0.5
+
+## 10.0.2
+
+### Patch Changes
+
+- ed0be06: deployed SubtensorEVM Mainnet and Ault Mainnet
+- Updated dependencies [ed0be06]
+  - @stargatefinance/stg-definitions-v2@7.0.2
+
+## 10.0.1
+
+### Patch Changes
+
+- d48ebfb: Configured and deployed Gensyn Mainnet
+- Updated dependencies [d48ebfb]
+- Updated dependencies [0a225b2]
+  - @stargatefinance/stg-definitions-v2@7.0.1
+
 ## 10.0.0
 
 ### Major Changes

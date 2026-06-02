@@ -1,5 +1,46 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 11.0.3
+
+### Patch Changes
+
+- 967e5c0: Rayls WETH deployment
+- Updated dependencies [967e5c0]
+  - @stargatefinance/stg-definitions-v2@7.0.6
+  - @stargatefinance/stg-devtools-v2@10.0.4
+
+## 11.0.2
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+- Updated dependencies [fadb7d3]
+  - @stargatefinance/stg-definitions-v2@7.0.5
+  - @stargatefinance/stg-devtools-v2@10.0.3
+
+## 11.0.1
+
+### Patch Changes
+
+- ed0be06: deployed SubtensorEVM Mainnet and Ault Mainnet
+- Updated dependencies [ed0be06]
+  - @stargatefinance/stg-definitions-v2@7.0.2
+  - @stargatefinance/stg-devtools-v2@10.0.2
+
+## 11.0.0
+
+### Major Changes
+
+- ed5d4fa: Updated `@layerzerolabs/protocol-devtools-evm` to `~5.0.3` and updated peer dependencies to satisfy its requirements: `@layerzerolabs/devtools-evm` to `~3.0.2`, `@layerzerolabs/protocol-devtools` to `~3.0.2`, and `@layerzerolabs/devtools-evm-hardhat` to `^4.0.0`.
+
+### Patch Changes
+
+- d48ebfb: Configured and deployed Gensyn Mainnet
+- Updated dependencies [d48ebfb]
+- Updated dependencies [0a225b2]
+  - @stargatefinance/stg-definitions-v2@7.0.1
+  - @stargatefinance/stg-devtools-v2@10.0.1
+
 ## 10.0.0
 
 ### Major Changes

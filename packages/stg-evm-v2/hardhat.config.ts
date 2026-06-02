@@ -220,6 +220,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.ASTAR_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'ault-mainnet': {
+        eid: EndpointId.AULT_V2_MAINNET,
+        url: process.env.RPC_URL_AULT_MAINNET || '', // TODO: No public RPC available yet — set RPC_URL_AULT_MAINNET in .env
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.AULT_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'aurora-mainnet': {
         eid: EndpointId.AURORA_V2_MAINNET,
         url: process.env.RPC_URL_AURORA_MAINNET || 'https://aurora.drpc.org',
@@ -382,6 +389,13 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GATELAYER_MAINNET || 'https://gatelayer-mainnet.gatenode.cc',
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.GATELAYER_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'gensyn-mainnet': {
+        eid: EndpointId.GENSYN_V2_MAINNET,
+        url: process.env.RPC_URL_GENSYN_MAINNET || 'https://gensyn-mainnet.g.alchemy.com/public',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'glue-mainnet': {
@@ -628,6 +642,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.RARIBLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'rayls-mainnet': {
+        eid: EndpointId.RAYLS_V2_MAINNET,
+        url: process.env.RPC_URL_RAYLS_MAINNET || 'https://mainnet-rpc.rayls.com',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.RAYLS_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'redbelly-mainnet': {
         eid: EndpointId.REDBELLY_V2_MAINNET,
         url: process.env.RPC_URL_REDBELLY_MAINNET || 'https://governors.mainnet.redbelly.network',
@@ -707,6 +728,13 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.STORY_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.STORY_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'subtensorevm-mainnet': {
+        eid: EndpointId.SUBTENSOREVM_V2_MAINNET,
+        url: process.env.RPC_URL_SUBTENSOREVM_MAINNET || 'https://lite.chain.opentensor.ai',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.SUBTENSOREVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'superposition-mainnet': {

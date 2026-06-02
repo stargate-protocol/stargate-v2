@@ -1,5 +1,29 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 2.0.4
+
+### Patch Changes
+
+- 967e5c0: Rayls WETH deployment
+
+## 2.0.3
+
+### Patch Changes
+
+- fadb7d3: Rayls Deployment
+
+## 2.0.2
+
+### Patch Changes
+
+- ed0be06: deployed SubtensorEVM Mainnet and Ault Mainnet
+
+## 2.0.1
+
+### Patch Changes
+
+- d48ebfb: Configured and deployed Gensyn Mainnet
+
 ## 2.0.0
 
 ### Major Changes
