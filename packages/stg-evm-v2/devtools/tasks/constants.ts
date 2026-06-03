@@ -54,3 +54,5 @@ export const TASK_STG_PROPOSE_TRANSACTIONS = `stg:propose:transactions`
 export const TASK_STG_UNWIRE_TOKEN_MESSAGING = `stg:unwire::token-messaging`
 export const TASK_STG_UNWIRE_CREDIT_MESSAGING = `stg:unwire::credit-messaging`
 export const TASK_STG_UNWIRE_MESSAGING_BY_EID = `stg:unwire::messaging:by-eid`
+
+export const TASK_STG_CHECK_MESSAGING_DISCONNECTED = `stg:check::messaging:disconnected`
