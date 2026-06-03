@@ -2,9 +2,11 @@ import {
     type Configurator,
     type OmniTransaction,
     areBytes32Equal,
+    createConfigureEdges,
     createConfigureMultiple,
     createConfigureNodes,
     formatOmniPoint,
+    formatOmniVector,
 } from '@layerzerolabs/devtools'
 import { createModuleLogger, createWithAsyncLogger } from '@layerzerolabs/io-devtools'
 import { configureOApp } from '@layerzerolabs/ua-devtools'
@@ -79,5 +81,41 @@ export const configureMessaging: MessagingConfigurator = withAsyncLogger(
         onStart: (logger) => logger.info(`Configuring`),
         onSuccess: (logger) => logger.info(`Configured`),
         onError: (logger, _, error) => logger.error(`Failed to configure: ${error}`),
+    }
+)
+
+/**
+ * Unpeers edges by calling setPeer(eid, null) = setPeer(eid, bytes32(0)).
+ *
+ * Intentionally separate from configureMessaging — this must NOT be combined with
+ * configureOAppPeers (which only sets peers and would conflict with unpeering intent).
+ *
+ * Use with the unwire graph config to selectively remove peers between chains.
+ */
+export const configureUnpeerEdges: MessagingConfigurator = withAsyncLogger(
+    createConfigureEdges(
+        withAsyncLogger(
+            async ({ vector: { to } }, sdk) => {
+                // hasPeer(eid, null) returns true when the peer is already bytes32(0)
+                const alreadyUnpeered = await sdk.hasPeer(to.eid, null)
+                if (alreadyUnpeered) return []
+
+                return [await sdk.setPeer(to.eid, null)]
+            },
+            {
+                onStart: (logger, [{ vector }]) => logger.verbose(`Checking peer for ${formatOmniVector(vector)}`),
+                onSuccess: (logger, [{ vector }], transactions) =>
+                    logger.verbose(
+                        `Checked peer for ${formatOmniVector(vector)}: ${formatNumberOfTransactions(transactions)}`
+                    ),
+                onError: (logger, [{ vector }], error) =>
+                    logger.error(`Failed to unpeer ${formatOmniVector(vector)}: ${error}`),
+            }
+        )
+    ),
+    {
+        onStart: (logger) => logger.info(`Unpeering edges`),
+        onSuccess: (logger) => logger.info(`Unpeered edges`),
+        onError: (logger, _, error) => logger.error(`Failed to unpeer edges: ${error}`),
     }
 )

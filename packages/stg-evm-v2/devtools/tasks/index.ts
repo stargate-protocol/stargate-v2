@@ -140,6 +140,7 @@ import {
 } from './constants'
 import './proposeTransactions/proposeTransactions'
 import './treasuryFee/proposeWithdrawTreasuryFee'
+import './unwireMessaging/unwireMessaging'
 import './validatePinnedLibs/validatePinnedLibs'
 import { checkResult } from './utils'
 

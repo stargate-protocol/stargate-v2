@@ -1,6 +1,7 @@
 export const TASK_STG_WIRE_CREDIT_MESSAGING = `stg:wire::credit-messaging`
 
 export const TASK_STG_WIRE_TOKEN_MESSAGING = `stg:wire::token-messaging`
+
 export const TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE = `stg:wire::token-messaging:initialize-storage`
 
 export const TASK_STG_WIRE_MESSAGING_DELEGATE = `stg:wire::messaging:delegate`
@@ -49,3 +50,7 @@ export const TASK_STG_PROPOSE_WITHDRAW_TREASURY_FEE = `stg:propose:withdraw-trea
 
 export const TASK_STG_VALIDATE_PINNED_LIBS = `stg:validate::pinned-libs`
 export const TASK_STG_PROPOSE_TRANSACTIONS = `stg:propose:transactions`
+
+export const TASK_STG_UNWIRE_TOKEN_MESSAGING = `stg:unwire::token-messaging`
+export const TASK_STG_UNWIRE_CREDIT_MESSAGING = `stg:unwire::credit-messaging`
+export const TASK_STG_UNWIRE_MESSAGING_BY_EID = `stg:unwire::messaging:by-eid`
