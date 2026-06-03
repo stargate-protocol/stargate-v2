@@ -110,61 +110,74 @@ wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
  * currently supporting messaging and calls setPeer(deadEid, bytes32(0)) on both
  * TokenMessaging and CreditMessaging contracts where the peer is still set.
  *
- * Usage: STAGE=mainnet npx hardhat stg:unwire::messaging:by-eid --dead-eid <eid> [--dry-run]
+ * Usage: STAGE=mainnet npx hardhat stg:unwire::messaging:by-eid --dead-eids 30318,30101 [--dry-run]
  */
 task(TASK_STG_UNWIRE_MESSAGING_BY_EID)
-    .addParam('deadEid', 'Endpoint ID of the chain to unpeer from all live chains', undefined, types.int)
+    .addParam(
+        'deadEids',
+        'Comma-separated endpoint IDs of chains to unpeer from all live chains',
+        undefined,
+        types.string
+    )
     .addFlag('dryRun', 'Print transactions without sending')
-    .setAction(async ({ deadEid, dryRun }: { deadEid: number; dryRun: boolean }, hre) => {
+    .setAction(async ({ deadEids, dryRun }: { deadEids: string; dryRun: boolean }, hre) => {
         const logger = createLogger(process.env.LOG_LEVEL ?? 'info')
         const stage = process.env.STAGE
         if (!stage) throw new Error('STAGE env var required (mainnet|testnet|sandbox)')
 
         setStage(stage as Parameters<typeof setStage>[0])
 
+        const deadEidList = deadEids.split(',').map((s) => {
+            const eid = parseInt(s.trim(), 10)
+            if (isNaN(eid)) throw new Error(`Invalid EID: "${s.trim()}"`)
+            return eid
+        })
+
         const liveChains = getChainsThatSupportMessaging()
         const contractFactory = createConnectedContractFactory()
         const tokenMessagingFactory = createTokenMessagingFactory(contractFactory)
         const creditMessagingFactory = createCreditMessagingFactory(contractFactory)
 
-        logger.info(`Unpeering EID ${deadEid} from ${liveChains.length} live chains`)
+        logger.info(`Unpeering EIDs [${deadEidList.join(', ')}] from ${liveChains.length} live chains`)
 
         for (const chain of liveChains) {
             const point = getContractWithEid(chain.eid, { contractName: 'TokenMessaging' })
             const creditPoint = getContractWithEid(chain.eid, { contractName: 'CreditMessaging' })
 
-            // TokenMessaging
-            try {
-                const tokenSdk = await tokenMessagingFactory(point)
-                const alreadyUnpeeredToken = await tokenSdk.hasPeer(deadEid, null)
-                if (alreadyUnpeeredToken) {
-                    logger.verbose(`[${chain.name}] TokenMessaging: already unpeered`)
-                } else if (dryRun) {
-                    logger.info(`[${chain.name}] TokenMessaging: would setPeer(${deadEid}, bytes32(0))`)
-                } else {
-                    const tx = await tokenSdk.setPeer(deadEid, null)
-                    logger.info(`[${chain.name}] TokenMessaging: setPeer tx ${JSON.stringify(tx)}`)
+            for (const deadEid of deadEidList) {
+                // TokenMessaging
+                try {
+                    const tokenSdk = await tokenMessagingFactory(point)
+                    const alreadyUnpeeredToken = await tokenSdk.hasPeer(deadEid, null)
+                    if (alreadyUnpeeredToken) {
+                        logger.verbose(`[${chain.name}] TokenMessaging: already unpeered from EID ${deadEid}`)
+                    } else if (dryRun) {
+                        logger.info(`[${chain.name}] TokenMessaging: would setPeer(${deadEid}, bytes32(0))`)
+                    } else {
+                        const tx = await tokenSdk.setPeer(deadEid, null)
+                        logger.info(`[${chain.name}] TokenMessaging: setPeer(${deadEid}) tx ${JSON.stringify(tx)}`)
+                    }
+                } catch (e) {
+                    logger.warn(`[${chain.name}] TokenMessaging: failed for EID ${deadEid} — ${e}`)
                 }
-            } catch (e) {
-                logger.warn(`[${chain.name}] TokenMessaging: failed — ${e}`)
-            }
 
-            // CreditMessaging
-            try {
-                const creditSdk = await creditMessagingFactory(creditPoint)
-                const alreadyUnpeeredCredit = await creditSdk.hasPeer(deadEid, null)
-                if (alreadyUnpeeredCredit) {
-                    logger.verbose(`[${chain.name}] CreditMessaging: already unpeered`)
-                } else if (dryRun) {
-                    logger.info(`[${chain.name}] CreditMessaging: would setPeer(${deadEid}, bytes32(0))`)
-                } else {
-                    const tx = await creditSdk.setPeer(deadEid, null)
-                    logger.info(`[${chain.name}] CreditMessaging: setPeer tx ${JSON.stringify(tx)}`)
+                // CreditMessaging
+                try {
+                    const creditSdk = await creditMessagingFactory(creditPoint)
+                    const alreadyUnpeeredCredit = await creditSdk.hasPeer(deadEid, null)
+                    if (alreadyUnpeeredCredit) {
+                        logger.verbose(`[${chain.name}] CreditMessaging: already unpeered from EID ${deadEid}`)
+                    } else if (dryRun) {
+                        logger.info(`[${chain.name}] CreditMessaging: would setPeer(${deadEid}, bytes32(0))`)
+                    } else {
+                        const tx = await creditSdk.setPeer(deadEid, null)
+                        logger.info(`[${chain.name}] CreditMessaging: setPeer(${deadEid}) tx ${JSON.stringify(tx)}`)
+                    }
+                } catch (e) {
+                    logger.warn(`[${chain.name}] CreditMessaging: failed for EID ${deadEid} — ${e}`)
                 }
-            } catch (e) {
-                logger.warn(`[${chain.name}] CreditMessaging: failed — ${e}`)
             }
         }
 
-        logger.info(`Done unpeering EID ${deadEid}`)
+        logger.info(`Done unpeering EIDs [${deadEidList.join(', ')}]`)
     })
