@@ -1,7 +1,8 @@
 # None of the targets actually build any binaries so we make them all as phony
 .PHONY: build deploy configure deploy-sandbox start-sandbox \
 	mainnet-connections-summary testnet-connections-summary \
-	unwire-messaging-mainnet unwire-messaging-testnet unwire-asset-mainnet \
+	unwire-chain-mainnet unwire-chain-testnet unwire-chain-by-eid unwire-asset-mainnet \
+	check-messaging-disconnected \
 	withdraw-treasury-fee
 
 # To make the code bit more DRY we'll isolate the commonly used stuff into variables
@@ -21,6 +22,10 @@ CONFIGURE_TIP20_TOKEN=$(HARDHAT) stg:wire::tip20-token
 CONFIGURE_CREDIT_MESSAGING=$(HARDHAT) stg:wire::credit-messaging
 CONFIGURE_TOKEN_MESSAGING=$(HARDHAT) stg:wire::token-messaging
 CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE=$(HARDHAT) stg:wire::token-messaging:initialize-storage
+UNWIRE_TOKEN_MESSAGING=$(HARDHAT) stg:unwire::token-messaging
+UNWIRE_CREDIT_MESSAGING=$(HARDHAT) stg:unwire::credit-messaging
+UNWIRE_MESSAGING_BY_EID=$(HARDHAT) stg:unwire::messaging:by-eid
+CHECK_MESSAGING_DISCONNECTED=$(HARDHAT) stg:check::messaging:disconnected
 CONFIGURE_FEELIB_V1=$(HARDHAT) stg:wire::feelib-v1
 CONFIGURE_REWARDER=$(HARDHAT) stg:wire::rewarder
 CONFIGURE_REWARDER_REWARDS=$(HARDHAT) stg:set::rewards
@@ -506,17 +511,18 @@ testnet-connections-summary:
 
 # ==============UNWIRE TARGETS==============
 #
-# This target will unwire token and credit messaging paths for mainnet/testnet
+# Full chain unwire: disables executor/DVN and removes all peer relationships in one pass.
+# Requires a messaging.unwire.yml defining which chains to unwire.
 #
-unwire-messaging-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
-unwire-messaging-mainnet:
-	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
-	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+unwire-chain-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
+unwire-chain-mainnet:
+	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
-unwire-messaging-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
-unwire-messaging-testnet:
-	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
-	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+unwire-chain-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
+unwire-chain-testnet:
+	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 #
 # This target will unwire the asset mesh
@@ -528,3 +534,11 @@ unwire-asset-mainnet:
 	# Remove assetId on TokenMessaging/CreditMessaging for the unwired chains
 	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging-asset.unwire.config.ts --signer deployer
 	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging-asset.unwire.config.ts --signer deployer
+
+unwire-chain-by-eid:
+	$(UNWIRE_MESSAGING_BY_EID) $(CONFIGURE_ARGS_COMMON) --dead-eids $(DEAD_EIDS)
+
+# Verify that deprecated chains are fully disconnected (hasPeer = false) from all active chains.
+# Reads deprecated EIDs and optional active chain list from chainsConfig/unwire/messaging.disconnected-check.yml
+check-messaging-disconnected:
+	$(CHECK_MESSAGING_DISCONNECTED) $(CONFIGURE_ARGS_COMMON)
