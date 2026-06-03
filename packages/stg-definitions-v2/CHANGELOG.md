@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 7.0.7
+
+### Patch Changes
+
+- e4fa3e0: Deploy Mintable Burnable Credit Messaging in Ethereum
+
 ## 7.0.6
 
 ### Patch Changes
