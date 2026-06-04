@@ -174,7 +174,9 @@ task(TASK_STG_UNWIRE_MESSAGING_BY_EID)
                             logger.info(`[${chain.name}] TokenMessaging: would setPeer(${deadEid}, bytes32(0))`)
                         } else {
                             const tx = await tokenSdk.setPeer(deadEid, null)
-                            logger.info(`[${chain.name}] TokenMessaging: setPeer(${deadEid}) tx ${JSON.stringify(tx)}`)
+                            logger.info(
+                                `[${chain.name}] TokenMessaging: setPeer(${deadEid}) tx ${JSON.stringify(tx, (_key, value) => (typeof value === 'bigint' ? value.toString() : value))}`
+                            )
                         }
                     } catch (e) {
                         const msg = `[${chain.name}] TokenMessaging: failed for EID ${deadEid} — ${e}`
@@ -192,7 +194,9 @@ task(TASK_STG_UNWIRE_MESSAGING_BY_EID)
                             logger.info(`[${chain.name}] CreditMessaging: would setPeer(${deadEid}, bytes32(0))`)
                         } else {
                             const tx = await creditSdk.setPeer(deadEid, null)
-                            logger.info(`[${chain.name}] CreditMessaging: setPeer(${deadEid}) tx ${JSON.stringify(tx)}`)
+                            logger.info(
+                                `[${chain.name}] CreditMessaging: setPeer(${deadEid}) tx ${JSON.stringify(tx, (_key, value) => (typeof value === 'bigint' ? value.toString() : value))}`
+                            )
                         }
                     } catch (e) {
                         const msg = `[${chain.name}] CreditMessaging: failed for EID ${deadEid} — ${e}`

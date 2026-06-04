@@ -47,11 +47,7 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
 
         setStage(stage as Parameters<typeof setStage>[0])
 
-        const checkConfig = loadDisconnectedCheckConfig()
-        if (!checkConfig)
-            throw new Error('No disconnected check config found. Create messaging.disconnected-check.yml.')
-
-        const { deprecatedEids, activeChains, configPath } = checkConfig
+        const { deprecatedEids, activeChains, configPath } = loadDisconnectedCheckConfig()
         logger.info(`Loaded disconnected check config from ${configPath}`)
 
         const allLiveChains = getChainsThatSupportMessaging()
