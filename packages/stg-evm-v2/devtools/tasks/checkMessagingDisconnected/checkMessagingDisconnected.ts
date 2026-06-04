@@ -143,8 +143,8 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
             }
         }
 
-        const failures = results.filter(
-            (r) => r.tokenMessaging !== 'disconnected' || r.creditMessaging !== 'disconnected'
+        const stillPeered = results.filter(
+            (r) => r.tokenMessaging === 'still-peered' || r.creditMessaging === 'still-peered'
         )
         const successes = results.filter(
             (r) => r.tokenMessaging === 'disconnected' && r.creditMessaging === 'disconnected'
@@ -153,12 +153,12 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
         logger.info(`\n=== Disconnection Check Results ===`)
         logger.info(GREEN(`✓ Fully disconnected: ${successes.length} / ${results.length}`))
 
-        if (failures.length > 0) {
-            logger.info(YELLOW(`✗ Still peered: ${failures.length} / ${results.length}\n`))
+        if (stillPeered.length > 0) {
+            logger.info(YELLOW(`✗ Still peered: ${stillPeered.length} / ${results.length}\n`))
 
-            // Group failures by deprecated EID for readability
+            // Group by deprecated EID for readability
             const byEid = new Map<number, ChainConnectionStatus[]>()
-            for (const r of failures) {
+            for (const r of stillPeered) {
                 const group = byEid.get(r.deprecatedEid) ?? []
                 group.push(r)
                 byEid.set(r.deprecatedEid, group)
@@ -174,7 +174,7 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
             }
 
             throw new Error(
-                `${failures.length} peer relationship(s) still active. Run unwire-chain-mainnet or unwire-chain-by-eid to remove them.`
+                `${stillPeered.length} peer relationship(s) still active. Run unwire-chain-mainnet or unwire-chain-by-eid to remove them.`
             )
         }
 
