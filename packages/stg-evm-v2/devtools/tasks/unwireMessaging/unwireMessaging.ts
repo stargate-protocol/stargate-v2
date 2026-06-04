@@ -16,7 +16,7 @@ import {
 import { subtask, task } from 'hardhat/config'
 
 import { createConfigureMultiple } from '@layerzerolabs/devtools'
-import { createConnectedContractFactory, inheritTask, types } from '@layerzerolabs/devtools-evm-hardhat'
+import { createConnectedContractFactory, types } from '@layerzerolabs/devtools-evm-hardhat'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 import {
     SUBTASK_LZ_OAPP_CONFIG_LOAD,
@@ -33,8 +33,7 @@ import {
     TASK_STG_UNWIRE_MESSAGING_BY_EID,
     TASK_STG_UNWIRE_TOKEN_MESSAGING,
 } from '../constants'
-
-const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
+import { wireTask } from '../wireTaskSetup'
 
 /**
  * Full unwire task for token messaging contracts.
