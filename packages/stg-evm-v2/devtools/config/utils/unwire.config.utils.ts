@@ -39,7 +39,7 @@ type MessagingNode = TokenMessagingNodeConfig | CreditMessagingNodeConfig
 type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
 
 /** Controls which direction(s) of edges are disabled for a given unwire rule.
- *  - `both`: disable chain→peers AND peers→chain
+ *  - `both` (default): disable chain→peers AND peers→chain
  *  - `from`: disable only chain→peers (the named chain stops sending to peers)
  *  - `to`: disable only peers→chain (peers stop sending to the named chain)
  */
@@ -121,12 +121,13 @@ export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | und
             throw new Error(`Messaging unwire rule missing 'chain' at ${configPath} (index ${index})`)
         }
         const allowedPeers = normalizeChainList(rule.allowed_peers, 'allowed_peers', configPath, 'Messaging unwire')
-        if (!isUnwireDirection(rule.direction)) {
+        const direction = rule.direction ?? 'both'
+        if (!isUnwireDirection(direction)) {
             throw new Error(
-                `Invalid direction "${String(rule.direction)}" for chain "${rule.chain}" at ${configPath}. Must be one of: ${VALID_DIRECTIONS.join(', ')}`
+                `Invalid direction "${String(direction)}" for chain "${rule.chain}" at ${configPath}. Must be one of: ${VALID_DIRECTIONS.join(', ')}`
             )
         }
-        return { chain: rule.chain, allowedPeers, direction: rule.direction }
+        return { chain: rule.chain, allowedPeers, direction }
     })
 
     // print the chains to unwire and keep
@@ -275,7 +276,7 @@ export async function buildMessagingUnwireGraph(
             }
             // 'from': chain → peer only (named chain stops sending to peers)
             // 'to':   peer → chain only (peers stop sending to named chain)
-            // 'both': both directions
+            // 'both': both directions (default)
             if (rule.direction !== 'to') {
                 disallowedEdges.add(`${chain.eid}:${peer.eid}`)
                 involvedChainNames.add(chain.name)
