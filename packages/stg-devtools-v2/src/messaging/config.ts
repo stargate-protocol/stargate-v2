@@ -87,8 +87,9 @@ export const configureMessaging: MessagingConfigurator = withAsyncLogger(
 /**
  * Unpeers edges by calling setPeer(eid, null) = setPeer(eid, bytes32(0)).
  *
- * Intentionally separate from configureMessaging — this must NOT be combined with
- * configureOAppPeers (which only sets peers and would conflict with unpeering intent).
+ * Intended to be combined with configureTokenMessaging / configureCreditMessaging via
+ * createConfigureMultiple — do NOT combine with configureOAppPeers (which only sets peers
+ * and would conflict with unpeering intent).
  *
  * Use with the unwire graph config to selectively remove peers between chains.
  */

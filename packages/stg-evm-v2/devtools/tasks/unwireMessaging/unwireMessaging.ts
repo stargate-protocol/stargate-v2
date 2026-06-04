@@ -107,7 +107,7 @@ wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
  * Use when a chain has already been scrubbed from definitions (YAML + constant.ts deleted)
  * so the normal graph-based unwire cannot include it. This task iterates all chains
  * currently supporting messaging and calls setPeer(deadEid, bytes32(0)) on both
- * TokenMessaging and CreditMessaging contracts where hasPeer(deadEid, null) = true
+ * TokenMessaging and CreditMessaging contracts where hasPeer(deadEid, null) = false
  * (i.e. the peer is not yet zeroed out).
  *
  * Usage: STAGE=mainnet npx hardhat stg:unwire::messaging:by-eid --dead-eids 30318,30101 [--dry-run]
@@ -128,9 +128,9 @@ task(TASK_STG_UNWIRE_MESSAGING_BY_EID)
         setStage(stage as Parameters<typeof setStage>[0])
 
         const deadEidList = deadEids.split(',').map((s) => {
-            const eid = parseInt(s.trim(), 10)
-            if (isNaN(eid)) throw new Error(`Invalid EID: "${s.trim()}"`)
-            return eid
+            const trimmed = s.trim()
+            if (!/^\d+$/.test(trimmed)) throw new Error(`Invalid EID: "${trimmed}" — must be a positive integer`)
+            return Number(trimmed)
         })
 
         const liveChains = getChainsThatSupportMessaging()

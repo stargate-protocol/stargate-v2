@@ -172,10 +172,13 @@ rules:
 Note: `allowed_peers` must be non-empty. Use the same chain name to effectively remove all external paths for that chain.
 
 ### What it does
-- **Messaging path unwire**:
-  - `token-messaging.unwire.config.ts` and `credit-messaging.unwire.config.ts` disable messaging paths based on
-    `messaging.unwire.yml` rules.
-- **Asset mesh unwire**:
+- **Messaging path unwire** (`unwire-chain-mainnet`):
+  - `token-messaging.unwire.config.ts` and `credit-messaging.unwire.config.ts` run three operations in a single pass
+    for every edge defined in `messaging.unwire.yml`:
+    1. Set executor to `address(0)` — disables message execution.
+    2. Set DVN to DeadDVN — ensures no valid verification can occur.
+    3. Call `setPeer(eid, bytes32(0))` — removes the peer relationship entirely.
+- **Asset mesh unwire** (`unwire-asset-mainnet`):
   - `asset.unwire.config.ts` sets `setOFTPath(dstEid, false)` for all edges between `disconnect_chains` and
     `remaining_chains`, bidirectionally.
   - `token-messaging-asset.unwire.config.ts` and `credit-messaging-asset.unwire.config.ts` call
@@ -184,8 +187,13 @@ Note: `allowed_peers` must be non-empty. Use the same chain name to effectively 
 ### Run the unwire flows
 Makefile targets:
 ```
-make unwire-messaging-mainnet
+make unwire-chain-mainnet
 make unwire-asset-mainnet
+```
+
+For chains already scrubbed from the repo (no hardhat config), use the by-EID task to remove stale peer pointers from all live chains:
+```
+make unwire-chain-by-eid DEAD_EIDS=30318,30101
 ```
 
 Notes:
