@@ -538,7 +538,7 @@ unwire-asset-mainnet:
 unwire-chain-by-eid:
 	$(UNWIRE_MESSAGING_BY_EID) $(CONFIGURE_ARGS_COMMON) --dead-eids $(DEAD_EIDS)
 
-# Verify that deprecated chains are fully disconnected (hasPeer = false) from all active chains.
-# Reads deprecated EIDs and optional active chain list from chainsConfig/unwire/messaging.disconnected-check.yml
+# Verify that deprecated chains are fully disconnected (hasPeer(eid, null) = true) from all active chains.
+# Reads deprecated EIDs and optional active chain list from tasks/checkMessagingDisconnected/messaging.disconnected-check.yml
 check-messaging-disconnected:
 	$(CHECK_MESSAGING_DISCONNECTED) $(CONFIGURE_ARGS_COMMON)
