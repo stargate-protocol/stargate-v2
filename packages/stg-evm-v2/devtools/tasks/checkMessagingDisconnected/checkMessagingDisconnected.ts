@@ -35,12 +35,12 @@ interface ChainConnectionStatus {
  *   # default — progress line per chain + final report
  *   STAGE=mainnet make check-messaging-disconnected
  *
- *   # verbose — per-chain per-EID status during checks
- *   STAGE=mainnet make check-messaging-disconnected CONFIGURE_ARGS_COMMON=--verbose
+ *   # logs — per-chain per-EID status during checks
+ *   STAGE=mainnet make check-messaging-disconnected CONFIGURE_ARGS_COMMON=--logs
  */
 task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are disconnected from all active chains')
-    .addFlag('verbose', 'Print per-chain per-EID status as checks run')
-    .setAction(async ({ verbose }: { verbose: boolean }, hre) => {
+    .addFlag('logs', 'Print per-chain per-EID status as checks run')
+    .setAction(async ({ logs }: { logs: boolean }, hre) => {
         const logger = createLogger(process.env.LOG_LEVEL ?? 'info')
         const stage = process.env.STAGE
         if (!stage) throw new Error('STAGE env var required (mainnet|testnet|sandbox)')
@@ -85,7 +85,7 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
             const creditPoint = getContractWithEid(chain.eid, { contractName: 'CreditMessaging' })
 
             for (const deprecatedEid of deprecatedEids) {
-                if (verbose) logger.info(`  EID ${deprecatedEid}:`)
+                if (logs) logger.info(`  EID ${deprecatedEid}:`)
                 let tokenStatus: ChainConnectionStatus['tokenMessaging'] = 'error'
                 let creditStatus: ChainConnectionStatus['creditMessaging'] = 'error'
 
@@ -93,7 +93,7 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
                     const tokenSdk = await tokenMessagingFactory(tokenPoint)
                     const tokenUnpeered = await tokenSdk.hasPeer(deprecatedEid, null)
                     tokenStatus = tokenUnpeered ? 'disconnected' : 'still-peered'
-                    if (verbose)
+                    if (logs)
                         logger.info(
                             `    TokenMessaging:  ${tokenUnpeered ? GREEN('✓ disconnected') : YELLOW('✗ still-peered')}`
                         )
@@ -105,7 +105,7 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
                     const creditSdk = await creditMessagingFactory(creditPoint)
                     const creditUnpeered = await creditSdk.hasPeer(deprecatedEid, null)
                     creditStatus = creditUnpeered ? 'disconnected' : 'still-peered'
-                    if (verbose)
+                    if (logs)
                         logger.info(
                             `    CreditMessaging: ${creditUnpeered ? GREEN('✓ disconnected') : YELLOW('✗ still-peered')}`
                         )
