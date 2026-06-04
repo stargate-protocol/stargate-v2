@@ -1,5 +1,13 @@
 # @stargatefinance/stg-evm-v2
 
+## 8.0.4
+
+### Patch Changes
+
+- e4fa3e0: Deploy Mintable Burnable Credit Messaging in Ethereum
+- Updated dependencies [e4fa3e0]
+  - @stargatefinance/stg-definitions-v2@7.0.7
+
 ## 8.0.3
 
 ### Patch Changes
