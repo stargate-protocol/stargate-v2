@@ -45,12 +45,24 @@ export function loadDisconnectedCheckConfig(): ResolvedDisconnectedCheckConfig {
         throw new Error(`Disconnected check config 'deprecated_eids' must not be empty at ${CONFIG_PATH}`)
     }
 
-    const activeChains =
-        rawConfig.active_chains == null
-            ? undefined
-            : (Array.isArray(rawConfig.active_chains) ? rawConfig.active_chains : [rawConfig.active_chains])
-                  .map((s) => s.trim())
-                  .filter(Boolean)
+    let activeChains: string[] | undefined
+    if (rawConfig.active_chains != null) {
+        const rawList = Array.isArray(rawConfig.active_chains) ? rawConfig.active_chains : [rawConfig.active_chains]
+        for (const entry of rawList) {
+            if (typeof entry !== 'string' || entry.trim() === '') {
+                throw new Error(
+                    `Invalid entry "${entry}" in active_chains at ${CONFIG_PATH} — all entries must be non-empty strings`
+                )
+            }
+        }
+        const normalized = rawList.map((s) => s.trim())
+        if (normalized.length === 0) {
+            throw new Error(
+                `Disconnected check config 'active_chains' must not be empty when present at ${CONFIG_PATH}`
+            )
+        }
+        activeChains = normalized
+    }
 
     return { deprecatedEids, activeChains, configPath: CONFIG_PATH }
 }

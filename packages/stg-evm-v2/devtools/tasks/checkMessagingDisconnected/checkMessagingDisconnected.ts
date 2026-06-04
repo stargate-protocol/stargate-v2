@@ -27,7 +27,7 @@ interface ChainConnectionStatus {
  *   devtools/tasks/checkMessagingDisconnected/messaging.disconnected-check.yml
  *
  * For each deprecated EID, checks every active chain's TokenMessaging and CreditMessaging
- * contracts to confirm hasPeer(deprecatedEid) returns false (peer is bytes32(0)).
+ * contracts to confirm hasPeer(deprecatedEid, null) = true (peer is bytes32(0)).
  *
  * Exits with a non-zero code if any peer relationship is still active.
  *
@@ -78,39 +78,64 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
         const creditMessagingFactory = createCreditMessagingFactory(contractFactory)
 
         const results: ChainConnectionStatus[] = []
+        const errors: string[] = []
 
         for (const [chainIndex, chain] of chainsToCheck.entries()) {
             logger.info(`[${chainIndex + 1}/${chainsToCheck.length}] Checking ${chain.name}...`)
             const tokenPoint = getContractWithEid(chain.eid, { contractName: 'TokenMessaging' })
             const creditPoint = getContractWithEid(chain.eid, { contractName: 'CreditMessaging' })
 
+            // Create SDKs once per chain, shared across all deprecated EIDs
+            let tokenSdk: Awaited<ReturnType<typeof tokenMessagingFactory>> | undefined
+            let creditSdk: Awaited<ReturnType<typeof creditMessagingFactory>> | undefined
+            try {
+                tokenSdk = await tokenMessagingFactory(tokenPoint)
+            } catch (e) {
+                const msg = `[${chain.name}] TokenMessaging: failed to create SDK — ${e}`
+                logger.warn(msg)
+                errors.push(msg)
+            }
+            try {
+                creditSdk = await creditMessagingFactory(creditPoint)
+            } catch (e) {
+                const msg = `[${chain.name}] CreditMessaging: failed to create SDK — ${e}`
+                logger.warn(msg)
+                errors.push(msg)
+            }
+
             for (const deprecatedEid of deprecatedEids) {
                 if (logs) logger.info(`  EID ${deprecatedEid}:`)
                 let tokenStatus: ChainConnectionStatus['tokenMessaging'] = 'error'
                 let creditStatus: ChainConnectionStatus['creditMessaging'] = 'error'
 
-                try {
-                    const tokenSdk = await tokenMessagingFactory(tokenPoint)
-                    const tokenUnpeered = await tokenSdk.hasPeer(deprecatedEid, null)
-                    tokenStatus = tokenUnpeered ? 'disconnected' : 'still-peered'
-                    if (logs)
-                        logger.info(
-                            `    TokenMessaging:  ${tokenUnpeered ? GREEN('✓ disconnected') : YELLOW('✗ still-peered')}`
-                        )
-                } catch (e) {
-                    logger.warn(`[${chain.name}] TokenMessaging check failed for EID ${deprecatedEid}: ${e}`)
+                if (tokenSdk) {
+                    try {
+                        const tokenUnpeered = await tokenSdk.hasPeer(deprecatedEid, null)
+                        tokenStatus = tokenUnpeered ? 'disconnected' : 'still-peered'
+                        if (logs)
+                            logger.info(
+                                `    TokenMessaging:  ${tokenUnpeered ? GREEN('✓ disconnected') : YELLOW('✗ still-peered')}`
+                            )
+                    } catch (e) {
+                        const msg = `[${chain.name}] TokenMessaging check failed for EID ${deprecatedEid}: ${e}`
+                        logger.warn(msg)
+                        errors.push(msg)
+                    }
                 }
 
-                try {
-                    const creditSdk = await creditMessagingFactory(creditPoint)
-                    const creditUnpeered = await creditSdk.hasPeer(deprecatedEid, null)
-                    creditStatus = creditUnpeered ? 'disconnected' : 'still-peered'
-                    if (logs)
-                        logger.info(
-                            `    CreditMessaging: ${creditUnpeered ? GREEN('✓ disconnected') : YELLOW('✗ still-peered')}`
-                        )
-                } catch (e) {
-                    logger.warn(`[${chain.name}] CreditMessaging check failed for EID ${deprecatedEid}: ${e}`)
+                if (creditSdk) {
+                    try {
+                        const creditUnpeered = await creditSdk.hasPeer(deprecatedEid, null)
+                        creditStatus = creditUnpeered ? 'disconnected' : 'still-peered'
+                        if (logs)
+                            logger.info(
+                                `    CreditMessaging: ${creditUnpeered ? GREEN('✓ disconnected') : YELLOW('✗ still-peered')}`
+                            )
+                    } catch (e) {
+                        const msg = `[${chain.name}] CreditMessaging check failed for EID ${deprecatedEid}: ${e}`
+                        logger.warn(msg)
+                        errors.push(msg)
+                    }
                 }
 
                 results.push({
@@ -155,6 +180,10 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
             throw new Error(
                 `${failures.length} peer relationship(s) still active. Run unwire-chain-mainnet or unwire-chain-by-eid to remove them.`
             )
+        }
+
+        if (errors.length > 0) {
+            throw new Error(`${errors.length} check error(s) occurred:\n${errors.join('\n')}`)
         }
 
         logger.info(GREEN(`\nAll deprecated EIDs are fully disconnected from all active chains.`))
