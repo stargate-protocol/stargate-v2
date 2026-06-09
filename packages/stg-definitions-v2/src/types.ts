@@ -114,6 +114,8 @@ export interface CreditMessagingNetworkConfig {
     perPathOptionalDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific optional DVNs
     optionalDVNThreshold?: number // default optional DVN threshold used for all paths
     perPathOptionalDVNsThreshold?: Partial<Record<EndpointId, number>> // per-path specific optional DVN threshold
+    maxMessageSize?: number // default max message size used for all paths
+    perPathMaxMessageSize?: Partial<Record<EndpointId, number>> // per-path specific max message size
     executor?: string
     confirmations?: bigint
 }
@@ -132,6 +134,8 @@ export interface TokenMessagingNetworkConfig {
     perPathOptionalDVNs?: Partial<Record<EndpointId, string[]>> // per-path specific optional DVNs
     optionalDVNThreshold?: number // default optional DVN threshold used for all paths
     perPathOptionalDVNsThreshold?: Partial<Record<EndpointId, number>> // per-path specific optional DVN threshold
+    maxMessageSize?: number // default max message size used for all paths
+    perPathMaxMessageSize?: Partial<Record<EndpointId, number>> // per-path specific max message size
     executor?: string
     queueCapacity: number
     confirmations?: bigint

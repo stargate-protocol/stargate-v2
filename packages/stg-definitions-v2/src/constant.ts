@@ -335,10 +335,13 @@ export const EXECUTORS = {
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
+export const DEFAULT_MAX_MESSAGE_SIZE = 10000
+
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
     creditGasLimit: 40000n, // fixed gas limit for creditMessaging
     sendCreditGasLimit: 40000n, // marginal gasLimit for sending credit
+    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE,
 }
 
 // TokenMessaging constants
@@ -350,6 +353,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     nativeDropGasLimit: 25000n,
     maxPassengerCount: 20,
     queueCapacity: 512,
+    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE,
 }
 
 export const ASSETS: Record<TokenName, AssetConfig> = {
@@ -1853,6 +1857,9 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.BASE_V2_MAINNET],
             ],
+            perPathMaxMessageSize: {
+                [EndpointId.FLARE_V2_MAINNET]: 20000,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
         },
         tokenMessaging: {
@@ -1862,6 +1869,9 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.BASE_V2_MAINNET],
             ],
+            perPathMaxMessageSize: {
+                [EndpointId.FLARE_V2_MAINNET]: 20000,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
             nativeDropAmount: parseEther('0.00005').toBigInt(),
             busGasLimit: 60000n,
@@ -2445,6 +2455,9 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
             ],
+            perPathMaxMessageSize: {
+                [EndpointId.BASE_V2_MAINNET]: 20000,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
         },
         tokenMessaging: {
@@ -2454,6 +2467,9 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
             ],
+            perPathMaxMessageSize: {
+                [EndpointId.BASE_V2_MAINNET]: 20000,
+            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
             nativeDropAmount: parseEther('3').toBigInt(),
             busGasLimit: 60000n,
