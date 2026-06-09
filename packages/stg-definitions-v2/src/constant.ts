@@ -1809,10 +1809,6 @@ export const NETWORKS: NetworksConfig = {
             perPathOptionalDVNsThreshold: {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
-            perPathMaxMessageSize: {
-                [EndpointId.FLARE_V2_MAINNET]: 20000,
-                [EndpointId.STABLE_V2_MAINNET]: 20000,
-            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
         },
         tokenMessaging: {
@@ -2457,10 +2453,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
             ],
-            perPathMaxMessageSize: {
-                [EndpointId.AVALANCHE_V2_MAINNET]: 20000,
-                [EndpointId.STABLE_V2_MAINNET]: 20000,
-            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
         },
         tokenMessaging: {
@@ -3885,10 +3877,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.STABLE_V2_MAINNET],
             ],
-            perPathMaxMessageSize: {
-                [EndpointId.AVALANCHE_V2_MAINNET]: 20000,
-                [EndpointId.FLARE_V2_MAINNET]: 20000,
-            },
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
         },
         tokenMessaging: {
