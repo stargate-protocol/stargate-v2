@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": patch
 ---
 
-Allowed to define the max msg size per path
+Allow defining the max message size per path
