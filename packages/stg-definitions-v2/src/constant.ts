@@ -335,7 +335,8 @@ export const EXECUTORS = {
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
-export const DEFAULT_MAX_MESSAGE_SIZE = 10000
+// 20KB
+export const DEFAULT_MAX_MESSAGE_SIZE = 20000
 
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
@@ -1837,10 +1838,6 @@ export const NETWORKS: NetworksConfig = {
             perPathOptionalDVNsThreshold: {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
-            perPathMaxMessageSize: {
-                [EndpointId.FLARE_V2_MAINNET]: 20000,
-                [EndpointId.STABLE_V2_MAINNET]: 20000,
-            },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
             nativeDropAmount: parseEther('0.018').toBigInt(),
         },
@@ -2462,10 +2459,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
             ],
-            perPathMaxMessageSize: {
-                [EndpointId.AVALANCHE_V2_MAINNET]: 20000,
-                [EndpointId.STABLE_V2_MAINNET]: 20000,
-            },
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
             nativeDropAmount: parseEther('3').toBigInt(),
             busGasLimit: 60000n,
@@ -3886,10 +3879,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
                 DVNS.CANARY[EndpointId.STABLE_V2_MAINNET],
             ],
-            perPathMaxMessageSize: {
-                [EndpointId.AVALANCHE_V2_MAINNET]: 20000,
-                [EndpointId.FLARE_V2_MAINNET]: 20000,
-            },
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
             nativeDropAmount: parseEther('2').toBigInt(),
         },
