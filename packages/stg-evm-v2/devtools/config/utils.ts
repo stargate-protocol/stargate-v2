@@ -3,6 +3,7 @@ import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
+    DEFAULT_MAX_MESSAGE_SIZE,
     OPTIONAL_DVN_THRESHOLD,
     OneSigConfig,
     SafeConfig,
@@ -79,6 +80,7 @@ const toCreditMessagingEdgeConfig = (
     const requiredDVNs = getRequiredDVNsForPath(fromConfig, toEid)
     const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
     const optionalDVNThreshold = getOptionalDVNThreshold(fromConfig, toEid)
+    const maxMessageSize = getMaxMessageSizeForPath(fromConfig, toEid)
     return {
         gasLimit: toConfig.sendCreditGasLimit, // marginal gas limit
         enforcedOptions: [
@@ -91,7 +93,7 @@ const toCreditMessagingEdgeConfig = (
         sendConfig: {
             executorConfig: fromConfig.executor
                 ? {
-                      maxMessageSize: 10000,
+                      maxMessageSize,
                       executor: fromConfig.executor,
                   }
                 : undefined,
@@ -137,6 +139,7 @@ const toTokenMessagingEdgeConfig = (
     const requiredDVNs = getRequiredDVNsForPath(fromConfig, toEid)
     const optionalDVNs = getOptionalDVNsForPath(fromConfig, toEid)
     const optionalDVNThreshold = getOptionalDVNThreshold(fromConfig, toEid)
+    const maxMessageSize = getMaxMessageSizeForPath(fromConfig, toEid)
     return {
         maxPassengers: fromConfig.busDisabled ? 0 : toConfig.maxPassengerCount, // if bus is disabled, set passengers to zero
         gasLimit: {
@@ -159,7 +162,7 @@ const toTokenMessagingEdgeConfig = (
         sendConfig: {
             executorConfig: fromConfig.executor
                 ? {
-                      maxMessageSize: 10000,
+                      maxMessageSize,
                       executor: fromConfig.executor,
                   }
                 : undefined,
@@ -212,6 +215,17 @@ const getOptionalDVNThreshold = (
         return perPathOptionalDVNsThreshold
     }
     return config.optionalDVNThreshold ?? OPTIONAL_DVN_THRESHOLD
+}
+
+const getMaxMessageSizeForPath = (
+    config: CreditMessagingNetworkConfig | TokenMessagingNetworkConfig,
+    toEid: EndpointId
+): number => {
+    const perPathMaxMessageSize = config.perPathMaxMessageSize?.[toEid]
+    if (perPathMaxMessageSize !== undefined) {
+        return perPathMaxMessageSize
+    }
+    return config.maxMessageSize ?? DEFAULT_MAX_MESSAGE_SIZE
 }
 
 /**
