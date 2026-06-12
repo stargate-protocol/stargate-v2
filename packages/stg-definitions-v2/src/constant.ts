@@ -336,13 +336,14 @@ export const EXECUTORS = {
 }
 
 // 20KB
-export const DEFAULT_MAX_MESSAGE_SIZE = 20000
+export const DEFAULT_MAX_MESSAGE_SIZE_TM = 20000 // TokenMessaging needs 20KB
+export const DEFAULT_MAX_MESSAGE_SIZE_CM = 10000
 
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
     creditGasLimit: 40000n, // fixed gas limit for creditMessaging
     sendCreditGasLimit: 40000n, // marginal gasLimit for sending credit
-    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE,
+    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE_CM,
 }
 
 // TokenMessaging constants
@@ -354,7 +355,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     nativeDropGasLimit: 25000n,
     maxPassengerCount: 20,
     queueCapacity: 512,
-    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE,
+    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE_TM,
 }
 
 export const ASSETS: Record<TokenName, AssetConfig> = {

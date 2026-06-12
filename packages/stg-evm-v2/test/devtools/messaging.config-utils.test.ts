@@ -1,6 +1,6 @@
 import {
     type CreditMessagingNetworkConfig,
-    DEFAULT_MAX_MESSAGE_SIZE,
+    DEFAULT_MAX_MESSAGE_SIZE_CM,
     NETWORKS,
     type NetworkConfig,
     type TokenMessagingNetworkConfig,
@@ -70,7 +70,7 @@ describe('devtools/config utils messaging config generation', () => {
             networkMaxMessageSize
         )
         expect(getExecutorMaxMessageSize(connections, sourceWithDefaultsEid, perPathDestinationEid)).to.equal(
-            DEFAULT_MAX_MESSAGE_SIZE
+            DEFAULT_MAX_MESSAGE_SIZE_CM
         )
     })
 
@@ -84,7 +84,7 @@ describe('devtools/config utils messaging config generation', () => {
             networkMaxMessageSize
         )
         expect(getExecutorMaxMessageSize(connections, sourceWithDefaultsEid, perPathDestinationEid)).to.equal(
-            DEFAULT_MAX_MESSAGE_SIZE
+            DEFAULT_MAX_MESSAGE_SIZE_CM
         )
     })
 

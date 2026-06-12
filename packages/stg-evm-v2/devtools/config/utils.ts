@@ -3,7 +3,7 @@ import * as fs from 'fs'
 
 import {
     CreditMessagingNetworkConfig,
-    DEFAULT_MAX_MESSAGE_SIZE,
+    DEFAULT_MAX_MESSAGE_SIZE_CM,
     OPTIONAL_DVN_THRESHOLD,
     OneSigConfig,
     SafeConfig,
@@ -225,7 +225,7 @@ const getMaxMessageSizeForPath = (
     if (perPathMaxMessageSize !== undefined) {
         return perPathMaxMessageSize
     }
-    return config.maxMessageSize ?? DEFAULT_MAX_MESSAGE_SIZE
+    return config.maxMessageSize ?? DEFAULT_MAX_MESSAGE_SIZE_CM
 }
 
 /**
