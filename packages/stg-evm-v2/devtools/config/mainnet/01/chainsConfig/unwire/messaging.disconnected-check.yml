@@ -2,6 +2,8 @@
 # Run with: STAGE=mainnet make check-messaging-disconnected
 #
 # deprecated_eids: EIDs of chains that should no longer be peered with anyone.
+#   Deprecated chains are identified by EID because their chainsConfig/*.yml and
+#   deployment artifacts may no longer be present.
 #   Can be a single value or a list.
 #
 # active_chains (optional): names of chains to check against.

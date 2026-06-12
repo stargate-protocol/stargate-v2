@@ -23,8 +23,11 @@ interface ChainConnectionStatus {
 /**
  * Verifies that deprecated chains are fully disconnected from all active chains.
  *
- * Reads deprecated EIDs and optional active chain list from:
- *   devtools/tasks/checkMessagingDisconnected/messaging.disconnected-check.yml
+ * Reads deprecated EIDs and optional active chain list from the current stage's
+ * chainsConfig/unwire directory.
+ *
+ * Deprecated chains are identified by EID because their chainsConfig/*.yml or
+ * deployment artifacts may no longer be present.
  *
  * For each deprecated EID, checks every active chain's TokenMessaging and CreditMessaging
  * contracts to confirm hasPeer(deprecatedEid, null) = true (peer is bytes32(0)).
