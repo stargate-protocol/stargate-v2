@@ -9,7 +9,17 @@ import {
     formatOmniVector,
 } from '@layerzerolabs/devtools'
 import { createModuleLogger, createWithAsyncLogger } from '@layerzerolabs/io-devtools'
-import { configureOApp } from '@layerzerolabs/ua-devtools'
+import {
+    configureCallerBpsCap,
+    configureEnforcedOptions,
+    configureOApp,
+    configureOAppDelegates,
+    configureReceiveConfig,
+    configureReceiveLibraries,
+    configureReceiveLibraryTimeouts,
+    configureSendConfig,
+    configureSendLibraries,
+} from '@layerzerolabs/ua-devtools'
 
 import { formatNumberOfTransactions } from '../utils/logger'
 
@@ -84,12 +94,38 @@ export const configureMessaging: MessagingConfigurator = withAsyncLogger(
     }
 )
 
+const configureOAppWithoutPeers = createConfigureMultiple(
+    configureOAppDelegates,
+    configureSendLibraries,
+    configureReceiveLibraries,
+    configureReceiveLibraryTimeouts,
+    configureSendConfig,
+    configureReceiveConfig,
+    configureEnforcedOptions,
+    configureCallerBpsCap
+)
+
+/**
+ * Configures messaging and OApp settings without setting OApp peers.
+ *
+ * Unwire flows need to update executor/DVN settings while removing peer relationships.
+ * Full configureOApp includes configureOAppPeers, which can recreate a peer before
+ * configureUnpeerEdges runs.
+ */
+export const configureMessagingWithoutPeers: MessagingConfigurator = withAsyncLogger(
+    createConfigureMultiple(configurePlanner, configureMaxAssetId, configureAssets, configureOAppWithoutPeers),
+    {
+        onStart: (logger) => logger.info(`Configuring without peers`),
+        onSuccess: (logger) => logger.info(`Configured without peers`),
+        onError: (logger, _, error) => logger.error(`Failed to configure without peers: ${error}`),
+    }
+)
+
 /**
  * Unpeers edges by calling setPeer(eid, null) = setPeer(eid, bytes32(0)).
  *
- * Intended to be combined with configureTokenMessaging / configureCreditMessaging via
- * createConfigureMultiple — do NOT combine with configureOAppPeers (which only sets peers
- * and would conflict with unpeering intent).
+ * Intended to be combined with configureMessagingWithoutPeers or other configurators
+ * that do not include configureOAppPeers.
  *
  * Use with the unwire graph config to selectively remove peers between chains.
  */

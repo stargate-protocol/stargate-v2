@@ -9,8 +9,12 @@ import {
     ICreditMessaging,
     ITokenMessaging,
     TokenMessagingOmniGraph,
-    configureCreditMessaging,
-    configureTokenMessaging,
+    configureCreditMessagingGasLimit,
+    configureFares,
+    configureMaxNumPassengers,
+    configureMessagingWithoutPeers,
+    configureNativeDropAmount,
+    configureTokenMessagingGasLimit,
     configureUnpeerEdges,
 } from '@stargatefinance/stg-devtools-v2'
 import { subtask, task } from 'hardhat/config'
@@ -46,12 +50,26 @@ import type { OmniTransaction, SignAndSendResult } from '@layerzerolabs/devtools
 import type { SignerDefinition } from '@layerzerolabs/devtools-evm'
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
+const configureTokenMessagingUnwire = createConfigureMultiple(
+    configureMessagingWithoutPeers,
+    configureTokenMessagingGasLimit,
+    configureMaxNumPassengers,
+    configureFares,
+    configureNativeDropAmount,
+    configureUnpeerEdges
+)
+
+const configureCreditMessagingUnwire = createConfigureMultiple(
+    configureMessagingWithoutPeers,
+    configureCreditMessagingGasLimit,
+    configureUnpeerEdges
+)
+
 /**
  * Full unwire task for token messaging contracts.
  *
- * Runs both steps in a single pass over the unwire config:
- *   1. configureTokenMessaging — sets executor to zero address and DVN to DeadDVN
- *   2. configureUnpeerEdges    — calls setPeer(eid, bytes32(0)) to remove peer relationships
+ * Configures executor/DVN without recreating peers, then calls setPeer(eid, bytes32(0))
+ * to remove peer relationships.
  *
  * Use with a token-messaging.unwire.config.ts that defines the edges to disable.
  */
@@ -71,7 +89,7 @@ wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
         (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: createConfigureMultiple(configureTokenMessaging, configureUnpeerEdges),
+                configurator: configureTokenMessagingUnwire,
                 sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
             })
     )
@@ -82,9 +100,8 @@ wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
 /**
  * Full unwire task for credit messaging contracts.
  *
- * Runs both steps in a single pass over the unwire config:
- *   1. configureCreditMessaging — sets executor to zero address and DVN to DeadDVN
- *   2. configureUnpeerEdges     — calls setPeer(eid, bytes32(0)) to remove peer relationships
+ * Configures executor/DVN without recreating peers, then calls setPeer(eid, bytes32(0))
+ * to remove peer relationships.
  *
  * Use with a credit-messaging.unwire.config.ts that defines the edges to disable.
  */
@@ -104,7 +121,7 @@ wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
         (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
             runSuper({
                 ...args,
-                configurator: createConfigureMultiple(configureCreditMessaging, configureUnpeerEdges),
+                configurator: configureCreditMessagingUnwire,
                 sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
             })
     )

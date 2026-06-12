@@ -6,14 +6,20 @@ import {
     TokenMessagingEdgeConfig,
     TokenMessagingNodeConfig,
     TokenMessagingOmniGraph,
+    configureFares,
+    configureMaxNumPassengers,
+    configureMessagingWithoutPeers,
+    configureNativeDropAmount,
     configureTokenMessaging,
+    configureTokenMessagingGasLimit,
+    configureUnpeerEdges,
     initializeBusQueueStorage,
 } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
 
-import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
+import { OmniGraphBuilder, OmniPoint, createConfigureMultiple } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 const busSize = 128
@@ -22,6 +28,14 @@ const busAndNativeDropFare = 200n
 const maxAssetId = 10
 const nativeDropAmount = 100000000000000000n
 const dstEid = EndpointId.APTOS_SANDBOX
+const configureTokenMessagingUnwire = createConfigureMultiple(
+    configureMessagingWithoutPeers,
+    configureTokenMessagingGasLimit,
+    configureMaxNumPassengers,
+    configureFares,
+    configureNativeDropAmount,
+    configureUnpeerEdges
+)
 
 describe('TokenMessaging/configurator', () => {
     // Declaration of variables to be used in the test suite
@@ -248,5 +262,62 @@ describe('TokenMessaging/configurator', () => {
         }
 
         expect(await configureTokenMessaging(graph, sdkFactory)).to.be.empty
+    })
+
+    it('should unwire without recreating an already-zero peer', async () => {
+        const sdkFactory = createTokenMessagingFactory(({ eid, address }: OmniPoint) => ({
+            eid,
+            contract: myTokenMessaging.attach(address),
+        }))
+
+        const myPoint: OmniPoint = {
+            eid: EndpointId.ETHEREUM_V2_SANDBOX,
+            address: myTokenMessaging.address,
+        }
+        const remotePoint: OmniPoint = {
+            eid: dstEid,
+            address: otherTokenMessaging.address,
+        }
+        const graph: TokenMessagingOmniGraph = new OmniGraphBuilder<
+            TokenMessagingNodeConfig,
+            TokenMessagingEdgeConfig
+        >()
+            .addNodes({
+                point: myPoint,
+                config: {
+                    planner: owner.address,
+                },
+            })
+            .addEdges({
+                vector: {
+                    from: myPoint,
+                    to: remotePoint,
+                },
+                config: {
+                    gasLimit: {
+                        gasLimit: 150000n,
+                        nativeDropGasLimit: 150000n,
+                    },
+                },
+            }).graph
+
+        const sdk = await sdkFactory(myPoint)
+        expect(await sdk.hasPeer(dstEid, null)).to.equal(true)
+
+        const configTxs = await configureTokenMessagingUnwire(graph, sdkFactory)
+        for (const tx of configTxs) {
+            await owner
+                .sendTransaction({
+                    to: tx.point.address,
+                    data: tx.data,
+                })
+                .then((r) => r.wait())
+        }
+
+        expect(await sdk.hasPeer(dstEid, null)).to.equal(true)
+        expect(await sdk.getGasLimit(dstEid)).to.eql({
+            gasLimit: 150000n,
+            nativeDropGasLimit: 150000n,
+        })
     })
 })
