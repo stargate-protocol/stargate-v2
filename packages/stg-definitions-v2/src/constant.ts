@@ -335,15 +335,15 @@ export const EXECUTORS = {
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
-// 20KB
-export const DEFAULT_MAX_MESSAGE_SIZE_TM = 20000 // TokenMessaging needs 20KB
-export const DEFAULT_MAX_MESSAGE_SIZE_CM = 10000
+// 10KB is the shared fallback; TokenMessaging opts into 20KB through its default network config.
+export const DEFAULT_MAX_MESSAGE_SIZE = 10000
+export const TOKEN_MESSAGING_MAX_MESSAGE_SIZE = 20000
 
 // CreditMessaging constants
 export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConfig = {
     creditGasLimit: 40000n, // fixed gas limit for creditMessaging
     sendCreditGasLimit: 40000n, // marginal gasLimit for sending credit
-    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE_CM,
+    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE,
 }
 
 // TokenMessaging constants
@@ -355,7 +355,7 @@ export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig
     nativeDropGasLimit: 25000n,
     maxPassengerCount: 20,
     queueCapacity: 512,
-    maxMessageSize: DEFAULT_MAX_MESSAGE_SIZE_TM,
+    maxMessageSize: TOKEN_MESSAGING_MAX_MESSAGE_SIZE,
 }
 
 export const ASSETS: Record<TokenName, AssetConfig> = {

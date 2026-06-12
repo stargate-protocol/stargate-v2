@@ -1,8 +1,11 @@
 import {
     type CreditMessagingNetworkConfig,
-    DEFAULT_MAX_MESSAGE_SIZE_CM,
+    DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+    DEFAULT_MAX_MESSAGE_SIZE,
+    DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
     NETWORKS,
     type NetworkConfig,
+    TOKEN_MESSAGING_MAX_MESSAGE_SIZE,
     type TokenMessagingNetworkConfig,
 } from '@stargatefinance/stg-definitions-v2'
 import { expect } from 'chai'
@@ -70,7 +73,7 @@ describe('devtools/config utils messaging config generation', () => {
             networkMaxMessageSize
         )
         expect(getExecutorMaxMessageSize(connections, sourceWithDefaultsEid, perPathDestinationEid)).to.equal(
-            DEFAULT_MAX_MESSAGE_SIZE_CM
+            DEFAULT_MAX_MESSAGE_SIZE
         )
     })
 
@@ -84,8 +87,16 @@ describe('devtools/config utils messaging config generation', () => {
             networkMaxMessageSize
         )
         expect(getExecutorMaxMessageSize(connections, sourceWithDefaultsEid, perPathDestinationEid)).to.equal(
-            DEFAULT_MAX_MESSAGE_SIZE_CM
+            DEFAULT_MAX_MESSAGE_SIZE
         )
+    })
+
+    it('keeps 10k as the shared default and applies the 20k TokenMessaging override', () => {
+        expect(DEFAULT_MAX_MESSAGE_SIZE).to.equal(10000)
+        expect(TOKEN_MESSAGING_MAX_MESSAGE_SIZE).to.equal(20000)
+
+        expect(DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.maxMessageSize).to.equal(DEFAULT_MAX_MESSAGE_SIZE)
+        expect(DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.maxMessageSize).to.equal(TOKEN_MESSAGING_MAX_MESSAGE_SIZE)
     })
 
     const createNetworkConfig = (overrides?: {
