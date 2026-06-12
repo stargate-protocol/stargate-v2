@@ -56,6 +56,12 @@ deprecated_eids:
       Was connected to all active chains at the time of shutdown.
       Also connected to cronoszkevm-mainnet (30360, also sunset).
 
+  - eid: 30342
+    chain: glue-mainnet
+    notes: >
+      Shut down (PR #567) — had ETH OFT, USDC OFT, and USDT OFT.
+      Was connected to all active chains at the time of shutdown.
+
   - eid: 30360
     chain: cronoszkevm-mainnet
     notes: >
