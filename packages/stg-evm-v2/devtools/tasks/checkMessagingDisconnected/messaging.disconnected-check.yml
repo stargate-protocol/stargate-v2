@@ -1,4 +1,4 @@
-# Verifies that the listed deprecated chains are fully disconnected from all active chains.
+# Config for checking that the listed deprecated chains are fully disconnected from active chains.
 # Run with: STAGE=mainnet make check-messaging-disconnected
 #
 # deprecated_eids: EIDs of chains that should no longer be peered with anyone.
