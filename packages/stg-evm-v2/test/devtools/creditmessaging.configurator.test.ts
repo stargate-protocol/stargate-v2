@@ -7,17 +7,25 @@ import {
     CreditMessagingNodeConfig,
     CreditMessagingOmniGraph,
     configureCreditMessaging,
+    configureCreditMessagingGasLimit,
+    configureMessagingWithoutPeers,
+    configureUnpeerEdges,
 } from '@stargatefinance/stg-devtools-v2'
 import { expect } from 'chai'
 import { Contract, ContractFactory } from 'ethers'
 import { deployments, ethers } from 'hardhat'
 
-import { OmniGraphBuilder, OmniPoint } from '@layerzerolabs/devtools'
+import { OmniGraphBuilder, OmniPoint, createConfigureMultiple } from '@layerzerolabs/devtools'
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 const gasLimit = 2n
 const maxAssetId = 10
 const dstEid = EndpointId.APTOS_SANDBOX
+const configureCreditMessagingUnwire = createConfigureMultiple(
+    configureMessagingWithoutPeers,
+    configureCreditMessagingGasLimit,
+    configureUnpeerEdges
+)
 
 describe('CreditMessaging/configurator', () => {
     // Declaration of variables to be used in the test suite
@@ -162,5 +170,56 @@ describe('CreditMessaging/configurator', () => {
         }
 
         expect(await configureCreditMessaging(graph, sdkFactory)).to.be.empty
+    })
+
+    it('should unwire without recreating an already-zero peer', async () => {
+        const sdkFactory = createCreditMessagingFactory(({ eid, address }: OmniPoint) => ({
+            eid,
+            contract: myCreditMessaging.attach(address),
+        }))
+
+        const myPoint: OmniPoint = {
+            eid: EndpointId.ETHEREUM_V2_SANDBOX,
+            address: myCreditMessaging.address,
+        }
+        const remotePoint: OmniPoint = {
+            eid: dstEid,
+            address: otherCreditMessaging.address,
+        }
+        const graph: CreditMessagingOmniGraph = new OmniGraphBuilder<
+            CreditMessagingNodeConfig,
+            CreditMessagingEdgeConfig
+        >()
+            .addNodes({
+                point: myPoint,
+                config: {
+                    planner: owner.address,
+                },
+            })
+            .addEdges({
+                vector: {
+                    from: myPoint,
+                    to: remotePoint,
+                },
+                config: {
+                    gasLimit,
+                },
+            }).graph
+
+        const sdk = await sdkFactory(myPoint)
+        expect(await sdk.hasPeer(dstEid, null)).to.equal(true)
+
+        const configTxs = await configureCreditMessagingUnwire(graph, sdkFactory)
+        for (const tx of configTxs) {
+            await owner
+                .sendTransaction({
+                    to: tx.point.address,
+                    data: tx.data,
+                })
+                .then((r) => r.wait())
+        }
+
+        expect(await sdk.hasPeer(dstEid, null)).to.equal(true)
+        expect(await sdk.getGasLimit(dstEid)).to.equal(gasLimit)
     })
 })

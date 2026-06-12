@@ -38,9 +38,17 @@ import {
 type MessagingNode = TokenMessagingNodeConfig | CreditMessagingNodeConfig
 type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
 
+/** Controls which direction(s) of edges are disabled for a given unwire rule.
+ *  - `both`: disable chain→peers AND peers→chain
+ *  - `from`: disable only chain→peers (the named chain stops sending to peers)
+ *  - `to`: disable only peers→chain (peers stop sending to the named chain)
+ */
+type UnwireDirection = 'from' | 'to' | 'both'
+
 type MessagingUnwireRule = {
     chain: string
     allowed_peers: string[] | string
+    direction?: unknown
 }
 
 type MessagingUnwireYamlConfig = {
@@ -48,7 +56,7 @@ type MessagingUnwireYamlConfig = {
 }
 
 type ResolvedMessagingUnwireConfig = {
-    rules: Array<{ chain: string; allowedPeers: string[] }>
+    rules: Array<{ chain: string; allowedPeers: string[]; direction: UnwireDirection }>
     configPath: string
 }
 
@@ -63,6 +71,9 @@ function logMessagingUnwireChains(rules: Array<{ chain: string; allowedPeers: st
 
 const DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH = path.join('messaging.unwire.yml')
 const DEFAULT_ASSET_CONFIG_RELATIVE_PATH = path.join('asset.unwire.yml')
+const VALID_DIRECTIONS: UnwireDirection[] = ['from', 'to', 'both']
+const isUnwireDirection = (direction: unknown): direction is UnwireDirection =>
+    typeof direction === 'string' && VALID_DIRECTIONS.includes(direction as UnwireDirection)
 
 const chainsToUnwireConfigDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig', 'unwire'),
@@ -110,7 +121,12 @@ export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | und
             throw new Error(`Messaging unwire rule missing 'chain' at ${configPath} (index ${index})`)
         }
         const allowedPeers = normalizeChainList(rule.allowed_peers, 'allowed_peers', configPath, 'Messaging unwire')
-        return { chain: rule.chain, allowedPeers }
+        if (!isUnwireDirection(rule.direction)) {
+            throw new Error(
+                `Invalid direction "${String(rule.direction)}" for chain "${rule.chain}" at ${configPath}. Must be one of: ${VALID_DIRECTIONS.join(', ')}`
+            )
+        }
+        return { chain: rule.chain, allowedPeers, direction: rule.direction }
     })
 
     // print the chains to unwire and keep
@@ -250,10 +266,19 @@ export async function buildMessagingUnwireGraph(
             if (peer.name === chain.name || allowedPeers.has(peer.name)) {
                 return
             }
-            disallowedEdges.add(`${chain.eid}:${peer.eid}`)
-            disallowedEdges.add(`${peer.eid}:${chain.eid}`)
-            involvedChainNames.add(chain.name)
-            involvedChainNames.add(peer.name)
+            // 'from': chain → peer only (named chain stops sending to peers)
+            // 'to':   peer → chain only (peers stop sending to named chain)
+            // 'both': both directions
+            if (rule.direction !== 'to') {
+                disallowedEdges.add(`${chain.eid}:${peer.eid}`)
+                involvedChainNames.add(chain.name)
+                involvedChainNames.add(peer.name)
+            }
+            if (rule.direction !== 'from') {
+                disallowedEdges.add(`${peer.eid}:${chain.eid}`)
+                involvedChainNames.add(chain.name)
+                involvedChainNames.add(peer.name)
+            }
         })
     })
 

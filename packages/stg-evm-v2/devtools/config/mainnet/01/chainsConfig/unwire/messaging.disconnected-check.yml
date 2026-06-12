@@ -1,0 +1,24 @@
+# Config for checking that the listed deprecated chains are fully disconnected from active chains.
+# Run with: STAGE=mainnet make check-messaging-disconnected
+#
+# deprecated_eids: EIDs of chains that should no longer be peered with anyone.
+#   Deprecated chains are identified by EID because their chainsConfig/*.yml and
+#   deployment artifacts may no longer be present.
+#   Can be a single value or a list.
+#
+# active_chains (optional): names of chains to check against.
+#   If omitted, all chains currently supporting messaging are checked.
+
+deprecated_eids:
+  - 30334 # sophon-mainnet
+  - 30323 # codex-mainnet
+  - 30360 # cronoszkevm-mainnet
+  - 30291 # xchain-mainnet
+  - 30318 # plume-mainnet
+  - 30257 # zkatana-mainnet
+  - 30282 # ebi-mainnet
+  - 30165 # zksync-mainnet
+
+# active_chains:
+#   - ethereum-mainnet
+#   - arbitrum-mainnet

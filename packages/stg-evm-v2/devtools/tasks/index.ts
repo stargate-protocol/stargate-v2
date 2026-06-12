@@ -81,15 +81,7 @@ import {
 import { subtask, task } from 'hardhat/config'
 
 import { formatEid } from '@layerzerolabs/devtools'
-import { SignerDefinition } from '@layerzerolabs/devtools-evm'
-import {
-    SUBTASK_LZ_SIGN_AND_SEND,
-    createConnectedContractFactory,
-    createGnosisSignerFactory,
-    createSignerFactory,
-    inheritTask,
-    types,
-} from '@layerzerolabs/devtools-evm-hardhat'
+import { createConnectedContractFactory, types } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 import { type IOApp, type OAppOmniGraph, configureOAppDelegates } from '@layerzerolabs/ua-devtools'
@@ -103,7 +95,6 @@ import {
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
 
 import { getAllChainsConfig, setStage } from '../config/utils/utils.config'
-import { createOneSigSignerFactory } from '../onesig'
 
 import {
     TASK_LZ_OWNABLE_TRANSFER_OWNERSHIP,
@@ -138,49 +129,13 @@ import {
     TASK_STG_WIRE_TOKEN_MESSAGING_INITIALIZE_STORAGE,
     TASK_STG_WIRE_TREASURER,
 } from './constants'
+import './checkMessagingDisconnected/checkMessagingDisconnected'
 import './proposeTransactions/proposeTransactions'
 import './treasuryFee/proposeWithdrawTreasuryFee'
+import './unwireMessaging/unwireMessaging'
 import './validatePinnedLibs/validatePinnedLibs'
 import { checkResult } from './utils'
-
-import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
-
-/**
- * Extends the TASK_LZ_OAPP_WIRE task by adding a custom `--onesig` flag to control how transactions are proposed.
- * Overrides the sign-and-send logic to select the appropriate signer based on whether to use 'safe', 'onesig', or 'eoa'.
- * Executes the original task action via `runSuper()` after injecting the custom signer behavior.
- */
-
-task(TASK_LZ_OAPP_WIRE)
-    .addFlag('onesig', 'Whether to use oneSig for the transactions')
-    .setAction(async (args, hre, runSuper) => {
-        overrideSignAndSendTask(args.safe, args.onesig, args.signer)
-        return runSuper(args)
-    })
-
-const wireTask = inheritTask(TASK_LZ_OAPP_WIRE)
-
-function overrideSignAndSendTask(safe: boolean, onesig: boolean, signer: SignerDefinition) {
-    if (safe && onesig) {
-        throw new Error('Safe and oneSig cannot be used together')
-    }
-
-    // if safe, use gnosis signer
-    // if onesig, use oneSig signer
-    // otherwise, use eoa factory
-    const createSigner = safe
-        ? createGnosisSignerFactory(signer)
-        : onesig
-          ? createOneSigSignerFactory(signer)
-          : createSignerFactory(signer)
-
-    subtask(SUBTASK_LZ_SIGN_AND_SEND, 'Sign and send transactions', (args: SignAndSendTaskArgs, _hre, runSuper) => {
-        return runSuper({
-            ...args,
-            createSigner,
-        })
-    })
-}
+import { overrideSignAndSendTask, wireTask } from './wireTaskSetup'
 
 /**
  * Wiring task for credit messaging contracts
