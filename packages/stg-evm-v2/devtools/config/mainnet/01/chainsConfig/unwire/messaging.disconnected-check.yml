@@ -1,23 +1,46 @@
 # Config for checking that the listed deprecated chains are fully disconnected from active chains.
 # Run with: STAGE=mainnet make check-messaging-disconnected
 #
-# deprecated_eids: EIDs of chains that should no longer be peered with anyone.
-#   Deprecated chains are identified by EID because their chainsConfig/*.yml and
-#   deployment artifacts may no longer be present.
-#   Can be a single value or a list.
+# deprecated_eids: list of chains that should no longer be peered with anyone.
+#   - eid:    endpoint ID of the deprecated chain
+#   - chain:  human-readable chain name
+#   - reason: why this chain was removed from the mesh
 #
 # active_chains (optional): names of chains to check against.
 #   If omitted, all chains currently supporting messaging are checked.
 
 deprecated_eids:
-  - 30334 # sophon-mainnet
-  - 30323 # codex-mainnet
-  - 30360 # cronoszkevm-mainnet
-  - 30291 # xchain-mainnet
-  - 30318 # plume-mainnet
-  - 30257 # zkatana-mainnet
-  - 30282 # ebi-mainnet
-  - 30165 # zksync-mainnet
+  - eid: 30165
+    chain: zksync-mainnet
+    reason: Chain shut down and removed from the mesh
+
+  - eid: 30257
+    chain: zkatana-mainnet
+    reason: Chain shut down — PR #356
+
+  - eid: 30282
+    chain: ebi-mainnet
+    reason: Chain shut down — PR #291
+
+  - eid: 30291
+    chain: xchain-mainnet
+    reason: Chain shut down — PR #411
+
+  - eid: 30318
+    chain: plume-mainnet
+    reason: Plume (legacy) chain shut down — PR #381
+
+  - eid: 30323
+    chain: codex-mainnet
+    reason: Chain shut down — PR #415
+
+  - eid: 30334
+    chain: sophon-mainnet
+    reason: Chain shut down — executor and DVNs disabled, peers removed — PR #485
+
+  - eid: 30360
+    chain: cronoszkevm-mainnet
+    reason: Chain shut down — PR #414
 
 # active_chains:
 #   - ethereum-mainnet

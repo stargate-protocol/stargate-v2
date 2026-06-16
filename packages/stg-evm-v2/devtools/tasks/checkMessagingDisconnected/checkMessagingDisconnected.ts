@@ -102,8 +102,8 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
                 errors.push(msg)
             }
 
-            for (const deprecatedEid of deprecatedEids) {
-                if (logs) logger.info(`  EID ${deprecatedEid}:`)
+            for (const { eid: deprecatedEid, chain: deprecatedChain } of deprecatedEids) {
+                if (logs) logger.info(`  EID ${deprecatedEid} (${deprecatedChain}):`)
                 let tokenStatus: ChainConnectionStatus['tokenMessaging'] = 'error'
                 let creditStatus: ChainConnectionStatus['creditMessaging'] = 'error'
 

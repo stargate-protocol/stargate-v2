@@ -7,13 +7,25 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 
 import { requireStage } from '../../config/utils/utils.config'
 
+type DeprecatedEidEntry = {
+    eid: number
+    chain: string
+    reason: string
+}
+
 type DisconnectedCheckYamlConfig = {
-    deprecated_eids: number[] | number
+    deprecated_eids: DeprecatedEidEntry[]
     active_chains?: string[] | string
 }
 
+export type ResolvedDeprecatedEid = {
+    eid: number
+    chain: string
+    reason: string
+}
+
 export type ResolvedDisconnectedCheckConfig = {
-    deprecatedEids: number[]
+    deprecatedEids: ResolvedDeprecatedEid[]
     activeChains: string[] | undefined
     configPath: string
 }
@@ -52,13 +64,22 @@ export function loadDisconnectedCheckConfig(): ResolvedDisconnectedCheckConfig {
         throw new Error(`Disconnected check config missing 'deprecated_eids' at ${configPath}`)
     }
 
-    const deprecatedEids = (
-        Array.isArray(rawConfig.deprecated_eids) ? rawConfig.deprecated_eids : [rawConfig.deprecated_eids]
-    ).map((eid) => {
-        if (typeof eid !== 'number' || !Number.isInteger(eid)) {
-            throw new Error(`Invalid EID "${eid}" in deprecated_eids at ${configPath}`)
+    const rawList = Array.isArray(rawConfig.deprecated_eids) ? rawConfig.deprecated_eids : [rawConfig.deprecated_eids]
+
+    const deprecatedEids = rawList.map((entry, i) => {
+        if (typeof entry !== 'object' || entry == null) {
+            throw new Error(`deprecated_eids[${i}] must be an object with eid, chain, and reason at ${configPath}`)
         }
-        return eid
+        if (typeof entry.eid !== 'number' || !Number.isInteger(entry.eid)) {
+            throw new Error(`deprecated_eids[${i}].eid must be an integer at ${configPath}`)
+        }
+        if (typeof entry.chain !== 'string' || entry.chain.trim() === '') {
+            throw new Error(`deprecated_eids[${i}].chain must be a non-empty string at ${configPath}`)
+        }
+        if (typeof entry.reason !== 'string' || entry.reason.trim() === '') {
+            throw new Error(`deprecated_eids[${i}].reason must be a non-empty string at ${configPath}`)
+        }
+        return { eid: entry.eid, chain: entry.chain.trim(), reason: entry.reason.trim() }
     })
 
     if (!deprecatedEids.length) {
