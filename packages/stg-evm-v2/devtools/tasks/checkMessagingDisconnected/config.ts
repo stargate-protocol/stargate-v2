@@ -10,7 +10,7 @@ import { requireStage } from '../../config/utils/utils.config'
 type DeprecatedEidEntry = {
     eid: number
     chain: string
-    reason: string
+    notes: string
 }
 
 type DisconnectedCheckYamlConfig = {
@@ -21,7 +21,7 @@ type DisconnectedCheckYamlConfig = {
 export type ResolvedDeprecatedEid = {
     eid: number
     chain: string
-    reason: string
+    notes: string
 }
 
 export type ResolvedDisconnectedCheckConfig = {
@@ -68,7 +68,7 @@ export function loadDisconnectedCheckConfig(): ResolvedDisconnectedCheckConfig {
 
     const deprecatedEids = rawList.map((entry, i) => {
         if (typeof entry !== 'object' || entry == null) {
-            throw new Error(`deprecated_eids[${i}] must be an object with eid, chain, and reason at ${configPath}`)
+            throw new Error(`deprecated_eids[${i}] must be an object with eid, chain, and notes at ${configPath}`)
         }
         if (typeof entry.eid !== 'number' || !Number.isInteger(entry.eid)) {
             throw new Error(`deprecated_eids[${i}].eid must be an integer at ${configPath}`)
@@ -76,10 +76,10 @@ export function loadDisconnectedCheckConfig(): ResolvedDisconnectedCheckConfig {
         if (typeof entry.chain !== 'string' || entry.chain.trim() === '') {
             throw new Error(`deprecated_eids[${i}].chain must be a non-empty string at ${configPath}`)
         }
-        if (typeof entry.reason !== 'string' || entry.reason.trim() === '') {
-            throw new Error(`deprecated_eids[${i}].reason must be a non-empty string at ${configPath}`)
+        if (typeof entry.notes !== 'string' || entry.notes.trim() === '') {
+            throw new Error(`deprecated_eids[${i}].notes must be a non-empty string at ${configPath}`)
         }
-        return { eid: entry.eid, chain: entry.chain.trim(), reason: entry.reason.trim() }
+        return { eid: entry.eid, chain: entry.chain.trim(), notes: entry.notes.trim() }
     })
 
     if (!deprecatedEids.length) {
