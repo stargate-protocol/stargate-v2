@@ -5,6 +5,7 @@ credit_messaging: true
 tokens:
   eth:
     type: oft
+unwired_tokens:
   usdc:
     type: pool
   usdt:
@@ -15,12 +16,6 @@ rewarder:
       allocation:
         usdc: 5000
         usdt: 5000
-staking:
-  tokens:
-    usdc: true
-    usdt: true
 treasurer:
   tokens:
     eth: true
-    usdt: true
-    usdc: true
