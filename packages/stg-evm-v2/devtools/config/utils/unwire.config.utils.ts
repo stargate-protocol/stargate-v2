@@ -84,7 +84,7 @@ const chainsToUnwireConfigDir: Record<Stage, string> = {
 export type AssetUnwireYamlConfig = {
     asset: string
     disconnect_chains: string[] | string
-    remaining_chains: string[] | string
+    remaining_chains?: string[] | string
 }
 
 export type ResolvedAssetUnwireConfig = {
@@ -158,7 +158,14 @@ export function loadAssetUnwireConfig(): ResolvedAssetUnwireConfig | undefined {
 
     const tokenName = getTokenName(rawConfig.asset.toLowerCase())
     const disconnectChains = normalizeChainList(rawConfig.disconnect_chains, 'disconnect_chains', configPath, 'Unwire')
-    const remainingChains = normalizeChainList(rawConfig.remaining_chains, 'remaining_chains', configPath, 'Unwire')
+    const remainingChainsInput = normalizeOptionalChainList(rawConfig.remaining_chains)
+    const remainingChains = resolveAssetRemainingChains(tokenName, disconnectChains, remainingChainsInput, configPath)
+
+    if (remainingChainsInput.length === 0) {
+        logger.info(
+            `remaining_chains is empty at ${configPath}; using all ${remainingChains.length} other ${tokenName} chains`
+        )
+    }
 
     const disconnectChainsLower = disconnectChains.map((chain) => chain.toLowerCase())
     const remainingChainsLower = remainingChains.map((chain) => chain.toLowerCase())
@@ -315,6 +322,41 @@ export async function buildMessagingUnwireGraph(
         contracts: contractConfigs,
         connections,
     }
+}
+
+// When remaining_chains is empty or omitted, use every other chain that supports the asset.
+const resolveAssetRemainingChains = (
+    tokenName: TokenName,
+    disconnectChains: string[],
+    remainingChainsInput: string[],
+    configPath: string
+): string[] => {
+    if (remainingChainsInput.length > 0) {
+        return remainingChainsInput
+    }
+
+    const disconnectSet = new Set(disconnectChains.map((chain) => chain.toLowerCase()))
+    const remainingChains = getChainsThatSupportToken(tokenName)
+        .map((chain) => chain.name)
+        .filter((name) => !disconnectSet.has(name.toLowerCase()))
+
+    if (remainingChains.length === 0) {
+        throw new Error(
+            `No remaining chains for asset "${tokenName}" after excluding disconnect_chains at ${configPath}`
+        )
+    }
+
+    return remainingChains
+}
+
+// Normalize a string or list of strings into a clean chain list. Empty or omitted values return [].
+const normalizeOptionalChainList = (value: string[] | string | undefined): string[] => {
+    if (value == null) {
+        return []
+    }
+
+    const list = Array.isArray(value) ? value : [value]
+    return list.map((entry) => entry.trim()).filter(Boolean)
 }
 
 // Normalize a string or list of strings into a clean chain list.

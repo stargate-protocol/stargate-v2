@@ -6,7 +6,4 @@ asset: <token>
 disconnect_chains: # chains that will be disconnected from the asset mesh
   - chainA
   - chainB
-remaining_chains: # chains that will remain active for the asset mesh
-  - chainC
-  - chainD
-  - chainE
+remaining_chains: [] # optional; when empty or omitted, all other asset-supported chains stay in the mesh
