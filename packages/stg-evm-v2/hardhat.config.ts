@@ -398,14 +398,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'glue-mainnet': {
-        eid: EndpointId.GLUE_V2_MAINNET,
-        url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GLUE_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'gnosis-mainnet': {
         eid: EndpointId.GNOSIS_V2_MAINNET,
         url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://gnosis.drpc.org',

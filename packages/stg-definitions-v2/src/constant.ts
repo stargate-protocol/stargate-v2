@@ -49,7 +49,6 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x54dd79f5ce72b51fcbbcb170dd01e32034323565',
         [EndpointId.GENSYN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
-        [EndpointId.GLUE_V2_MAINNET]: '0xaa3099f91912e07976c2dd1598dc740d81bd3fea',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
         [EndpointId.GOAT_V2_MAINNET]: '0xe6cd8c2e46ef396df88048449e5b1c75172b40c3',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
@@ -120,7 +119,6 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x795f8325af292ff6e58249361d1954893be15aff',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.GENSYN_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
-        [EndpointId.GLUE_V2_MAINNET]: '0xce8358bc28dd8296ce8caf1cd2b44787abd65887',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x11bb2991882a86dc3e38858d922559a385d506ba',
         [EndpointId.GOAT_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.GRAVITY_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
@@ -209,7 +207,6 @@ export const DVNS = {
         [EndpointId.FUSE_V2_MAINNET]: '0x7a3d18e2324536294cd6f054cdde7c994f40391a',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x05df4949f0b4dc4c4b1adc0e01700bc669e935c3',
         [EndpointId.GENSYN_V2_MAINNET]: '0x796e526de6ebb62b006ea680e52175a22eadbff7',
-        [EndpointId.GLUE_V2_MAINNET]: '0xe4e65d80deb0e2c8391215bcba4b5f7603420407',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x90ee303d4743f460b9a38415e09f3799b85a4efc',
         [EndpointId.GOAT_V2_MAINNET]: '0x396dc0a78f789586e2982fccd830c5954c193f3c',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xe9c24dd582e37faaca7d44c799530688de92da73',
@@ -286,7 +283,6 @@ export const EXECUTORS = {
         [EndpointId.FUSE_V2_MAINNET]: '0xc905E74BEb8229E258c3C6E5bC0D6Cc54C534688',
         [EndpointId.GATELAYER_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.GENSYN_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
-        [EndpointId.GLUE_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.GNOSIS_V2_MAINNET]: '0x38340337f9ADF5D76029Ab3A667d34E5a032F7BA',
         [EndpointId.GOAT_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.GRAVITY_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -435,11 +431,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
             },
             [EndpointId.GATELAYER_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
-            },
-            [EndpointId.GLUE_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -703,10 +694,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x3695Dd1D1D43B794C0B13eb8be8419Eb3ac22bf7',
             },
-            [EndpointId.GLUE_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '0xE1AD845D93853fff44990aE0DcecD8575293681e',
-            },
             [EndpointId.GOAT_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xE1AD845D93853fff44990aE0DcecD8575293681e',
@@ -946,10 +933,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             [EndpointId.GENSYN_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x5b32c997211621d55a89cc5abaf1cc21f3a6ddf5',
-            },
-            [EndpointId.GLUE_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '0xEe45ed3f6c675F319BB9de62991C1E78B484e0B8',
             },
             [EndpointId.GNOSIS_V2_MAINNET]: {
                 type: StargateType.Pool,
@@ -1273,7 +1256,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.FRAXTAL_V2_MAINNET]: {},
         [EndpointId.GATELAYER_V2_MAINNET]: {},
         [EndpointId.GENSYN_V2_MAINNET]: {},
-        [EndpointId.GLUE_V2_MAINNET]: {},
         [EndpointId.GNOSIS_V2_MAINNET]: {},
         [EndpointId.GOAT_V2_MAINNET]: {},
         [EndpointId.GRAVITY_V2_MAINNET]: {},
@@ -2626,52 +2608,6 @@ export const NETWORKS: NetworksConfig = {
         oneSigConfig: {
             oneSigAddress: '0x34eE86f14fD32868407D42Cf14dFaD503317354c',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/gensyn`,
-        },
-    },
-    [EndpointId.GLUE_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.GLUE_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
-            sendCreditGasLimit: 255000n,
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.GLUE_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.GLUE_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.GLUE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.5').toBigInt(),
-            taxiGasLimit: 350000n,
-            busGasLimit: 2200000n,
-            busRideGasLimit: 145000n,
-            nativeDropGasLimit: 145000n,
-        },
-        oneSigConfig: {
-            oneSigAddress: '0x51fe95869bf8a4a5183043e1eecaaf9dc6908647',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/glue`,
-        },
-        safeConfig: {
-            safeAddress: '0x6C0d029292f48068f576515c79Fc6bCDec5F58DA',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/glue`,
-            contractNetworks: {
-                ['1300']: {
-                    multiSendAddress: '0x1E999A606771577f10AFee9111b6263cCF176a1D',
-                    multiSendCallOnlyAddress: '0x3BE538f8E6a8809892a1a9618bda69C518a14a8a',
-                    safeMasterCopyAddress: '0xB79F7E683E365E21B150812b86f1e0D60512D168',
-                    safeProxyFactoryAddress: '0x73aFaC05744f1246Ac94d5Ee92d56be5a7298ecC',
-                    fallbackHandlerAddress: '0x1B01E51e3ff9D83DD245D8320c5007b6a3dBF91c',
-                    createCallAddress: '0xF83E45c8575b7317686d4bbeE489bB6a93E6C4E3',
-                    signMessageLibAddress: '0x34A62CbF94d5dF170CA67C4ECB335453117d4515',
-                    simulateTxAccessorAddress: '0x9D59A44Ae2BF3A5A9751463BD4EC77b172eFa9B0',
-                },
-            },
         },
     },
     [EndpointId.GNOSIS_V2_MAINNET]: {
