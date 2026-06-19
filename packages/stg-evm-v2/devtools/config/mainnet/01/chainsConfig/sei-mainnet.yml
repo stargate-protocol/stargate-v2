@@ -10,12 +10,6 @@ unwired_tokens:
     type: pool
   usdt:
     type: pool
-rewarder:
-  tokens:
-    sei:
-      allocation:
-        usdc: 5000
-        usdt: 5000
 treasurer:
   tokens:
     eth: true
