@@ -6,6 +6,9 @@ allowed_peers: [] # optional allowlist of chain names for wiring; empty means al
 tokens: # list of tokens supported by the chain and each token has a type (native, pool, oft)
   eth:
     type: native/pool/oft
+unwired_tokens: # optional historical list of asset-level unwires; ignored by config generation
+  usdt:
+    type: native/pool/oft
 rewarder:
   tokens: # list of reward tokens supported by the chain and each reward token's allocation
     arb:

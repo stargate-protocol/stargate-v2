@@ -1,0 +1,69 @@
+# Config for checking that the listed deprecated chains are fully disconnected from active chains.
+# Run with: STAGE=mainnet make check-messaging-disconnected
+#
+# deprecated_eids: list of chains that should no longer be peered with anyone.
+#   - eid:    endpoint ID of the deprecated chain
+#   - chain:  human-readable chain name
+#   - notes:  context on why and what was connected at shutdown
+#
+# active_chains (optional): names of chains to check against.
+#   If omitted, all chains currently supporting messaging are checked.
+
+deprecated_eids:
+  - eid: 30165
+    chain: zksync-mainnet
+    notes: >
+      Shut down — only OFTWrapper deployed, no pool/OFT assets active.
+      Was connected to all active chains at the time of shutdown.
+
+  - eid: 30257
+    chain: zkatana-mainnet
+    notes: >
+      Shut down (PR #356) — only OFTWrapper deployed, no pool/OFT assets active.
+      Was connected to all active chains at the time of shutdown.
+
+  - eid: 30282
+    chain: ebi-mainnet
+    notes: >
+      Shut down (PR #291) — had USDT OFT.
+      Was connected to all active chains at the time of shutdown.
+
+  - eid: 30291
+    chain: xchain-mainnet
+    notes: >
+      Shut down (PR #411) — had USDC OFT.
+      Was connected to all active chains at the time of shutdown.
+      Also connected to plume-mainnet (30318, also sunset) and ebi-mainnet (30282, also sunset).
+
+  - eid: 30318
+    chain: plume-mainnet
+    notes: >
+      Plume (legacy) shut down (PR #381) — had USDC OFT and USDT OFT.
+      Was connected to all active chains at the time of shutdown.
+      Also connected to xchain-mainnet (30291, also sunset) and ebi-mainnet (30282, also sunset).
+
+  - eid: 30323
+    chain: codex-mainnet
+    notes: >
+      Shut down (PR #415) — had USDC OFT.
+      Was connected to all active chains at the time of shutdown.
+      Also connected to xchain-mainnet (30291, also sunset) and plume-mainnet (30318, also sunset).
+
+  - eid: 30334
+    chain: sophon-mainnet
+    notes: >
+      Shut down (PR #485) — had ETH pool and USDC pool.
+      Was connected to all active chains at the time of shutdown.
+      Also connected to cronoszkevm-mainnet (30360, also sunset).
+
+  - eid: 30360
+    chain: cronoszkevm-mainnet
+    notes: >
+      Shut down (PR #414) — had ETH pool and USDC pool.
+      Was connected to all active chains at the time of shutdown.
+      Also connected to xchain-mainnet (30291, also sunset), plume-mainnet (30318, also sunset),
+      and codex-mainnet (30323, also sunset).
+
+# active_chains:
+#   - ethereum-mainnet
+#   - arbitrum-mainnet

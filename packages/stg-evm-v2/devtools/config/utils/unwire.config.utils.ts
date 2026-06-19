@@ -38,9 +38,17 @@ import {
 type MessagingNode = TokenMessagingNodeConfig | CreditMessagingNodeConfig
 type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
 
+/** Controls which direction(s) of edges are disabled for a given unwire rule.
+ *  - `both`: disable chain→peers AND peers→chain
+ *  - `from`: disable only chain→peers (the named chain stops sending to peers)
+ *  - `to`: disable only peers→chain (peers stop sending to the named chain)
+ */
+type UnwireDirection = 'from' | 'to' | 'both'
+
 type MessagingUnwireRule = {
     chain: string
     allowed_peers: string[] | string
+    direction?: unknown
 }
 
 type MessagingUnwireYamlConfig = {
@@ -48,7 +56,7 @@ type MessagingUnwireYamlConfig = {
 }
 
 type ResolvedMessagingUnwireConfig = {
-    rules: Array<{ chain: string; allowedPeers: string[] }>
+    rules: Array<{ chain: string; allowedPeers: string[]; direction: UnwireDirection }>
     configPath: string
 }
 
@@ -63,6 +71,9 @@ function logMessagingUnwireChains(rules: Array<{ chain: string; allowedPeers: st
 
 const DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH = path.join('messaging.unwire.yml')
 const DEFAULT_ASSET_CONFIG_RELATIVE_PATH = path.join('asset.unwire.yml')
+const VALID_DIRECTIONS: UnwireDirection[] = ['from', 'to', 'both']
+const isUnwireDirection = (direction: unknown): direction is UnwireDirection =>
+    typeof direction === 'string' && VALID_DIRECTIONS.includes(direction as UnwireDirection)
 
 const chainsToUnwireConfigDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig', 'unwire'),
@@ -73,7 +84,7 @@ const chainsToUnwireConfigDir: Record<Stage, string> = {
 export type AssetUnwireYamlConfig = {
     asset: string
     disconnect_chains: string[] | string
-    remaining_chains: string[] | string
+    remaining_chains?: string[] | string
 }
 
 export type ResolvedAssetUnwireConfig = {
@@ -110,7 +121,12 @@ export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | und
             throw new Error(`Messaging unwire rule missing 'chain' at ${configPath} (index ${index})`)
         }
         const allowedPeers = normalizeChainList(rule.allowed_peers, 'allowed_peers', configPath, 'Messaging unwire')
-        return { chain: rule.chain, allowedPeers }
+        if (!isUnwireDirection(rule.direction)) {
+            throw new Error(
+                `Invalid direction "${String(rule.direction)}" for chain "${rule.chain}" at ${configPath}. Must be one of: ${VALID_DIRECTIONS.join(', ')}`
+            )
+        }
+        return { chain: rule.chain, allowedPeers, direction: rule.direction }
     })
 
     // print the chains to unwire and keep
@@ -142,7 +158,14 @@ export function loadAssetUnwireConfig(): ResolvedAssetUnwireConfig | undefined {
 
     const tokenName = getTokenName(rawConfig.asset.toLowerCase())
     const disconnectChains = normalizeChainList(rawConfig.disconnect_chains, 'disconnect_chains', configPath, 'Unwire')
-    const remainingChains = normalizeChainList(rawConfig.remaining_chains, 'remaining_chains', configPath, 'Unwire')
+    const remainingChainsInput = normalizeOptionalChainList(rawConfig.remaining_chains)
+    const remainingChains = resolveAssetRemainingChains(tokenName, disconnectChains, remainingChainsInput, configPath)
+
+    if (remainingChainsInput.length === 0) {
+        logger.info(
+            `remaining_chains is empty at ${configPath}; using all ${remainingChains.length} other ${tokenName} chains`
+        )
+    }
 
     const disconnectChainsLower = disconnectChains.map((chain) => chain.toLowerCase())
     const remainingChainsLower = remainingChains.map((chain) => chain.toLowerCase())
@@ -250,10 +273,19 @@ export async function buildMessagingUnwireGraph(
             if (peer.name === chain.name || allowedPeers.has(peer.name)) {
                 return
             }
-            disallowedEdges.add(`${chain.eid}:${peer.eid}`)
-            disallowedEdges.add(`${peer.eid}:${chain.eid}`)
-            involvedChainNames.add(chain.name)
-            involvedChainNames.add(peer.name)
+            // 'from': chain → peer only (named chain stops sending to peers)
+            // 'to':   peer → chain only (peers stop sending to named chain)
+            // 'both': both directions
+            if (rule.direction !== 'to') {
+                disallowedEdges.add(`${chain.eid}:${peer.eid}`)
+                involvedChainNames.add(chain.name)
+                involvedChainNames.add(peer.name)
+            }
+            if (rule.direction !== 'from') {
+                disallowedEdges.add(`${peer.eid}:${chain.eid}`)
+                involvedChainNames.add(chain.name)
+                involvedChainNames.add(peer.name)
+            }
         })
     })
 
@@ -290,6 +322,41 @@ export async function buildMessagingUnwireGraph(
         contracts: contractConfigs,
         connections,
     }
+}
+
+// When remaining_chains is empty or omitted, use every other chain that supports the asset.
+const resolveAssetRemainingChains = (
+    tokenName: TokenName,
+    disconnectChains: string[],
+    remainingChainsInput: string[],
+    configPath: string
+): string[] => {
+    if (remainingChainsInput.length > 0) {
+        return remainingChainsInput
+    }
+
+    const disconnectSet = new Set(disconnectChains.map((chain) => chain.toLowerCase()))
+    const remainingChains = getChainsThatSupportToken(tokenName)
+        .map((chain) => chain.name)
+        .filter((name) => !disconnectSet.has(name.toLowerCase()))
+
+    if (remainingChains.length === 0) {
+        throw new Error(
+            `No remaining chains for asset "${tokenName}" after excluding disconnect_chains at ${configPath}`
+        )
+    }
+
+    return remainingChains
+}
+
+// Normalize a string or list of strings into a clean chain list. Empty or omitted values return [].
+const normalizeOptionalChainList = (value: string[] | string | undefined): string[] => {
+    if (value == null) {
+        return []
+    }
+
+    const list = Array.isArray(value) ? value : [value]
+    return list.map((entry) => entry.trim()).filter(Boolean)
 }
 
 // Normalize a string or list of strings into a clean chain list.

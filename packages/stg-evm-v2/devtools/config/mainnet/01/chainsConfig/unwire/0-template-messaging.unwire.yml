@@ -3,7 +3,13 @@
 # Disconnect chain from all peers except allowed_peers.
 # Note: allowed_peers must be non-empty; use the same chain name
 # to effectively remove all external paths for that chain.
+#
+# direction:
+#   both - disable CHAIN_NAME→peers AND peers→CHAIN_NAME
+#   from - disable only CHAIN_NAME→peers (named chain stops sending to peers)
+#   to   - disable only peers→CHAIN_NAME (peers stop sending to named chain)
 rules:
   - chain: CHAIN_NAME
+    direction: both # from | to | both
     allowed_peers:
       - CHAIN_NAME

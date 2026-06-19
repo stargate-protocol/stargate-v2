@@ -431,6 +431,7 @@ export interface Chain {
     credit_messaging: boolean
     allowed_peers?: string[]
     tokens?: Record<string, Token>
+    unwired_tokens?: Record<string, Token>
     rewarder?: {
         tokens: Record<string, RewarderToken>
     }
@@ -448,9 +449,23 @@ export function loadChainConfig(filePath: string): Chain {
     try {
         const fileContents = fs.readFileSync(filePath, 'utf8')
         const chain = yaml.load(fileContents) as Chain
+        validateChainConfig(chain, filePath)
         return chain
     } catch (e) {
         console.error('Error loading YAML file:', e)
         throw e
+    }
+}
+
+function validateChainConfig(chain: Chain, filePath: string): void {
+    const activeTokens = new Set(Object.keys(chain.tokens ?? {}).map((token) => token.toLowerCase()))
+    const duplicateTokens = Object.keys(chain.unwired_tokens ?? {}).filter((token) =>
+        activeTokens.has(token.toLowerCase())
+    )
+
+    if (duplicateTokens.length > 0) {
+        throw new Error(
+            `Invalid chain config ${filePath}: token(s) ${duplicateTokens.join(', ')} cannot be defined in both tokens and unwired_tokens`
+        )
     }
 }

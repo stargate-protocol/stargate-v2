@@ -1,3 +1,7 @@
+import fs from 'fs'
+import os from 'os'
+import path from 'path'
+
 import { RewardTokenName, StargateType, TokenName } from '@stargatefinance/stg-definitions-v2'
 import { Asset } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { expect } from 'chai'
@@ -12,6 +16,7 @@ import {
     getContractWithEid,
     getContractsInChain,
     isAllowedPeerConnection,
+    loadChainConfig,
     setsDifference,
 } from '../../devtools/config/utils'
 import {
@@ -513,6 +518,102 @@ describe('devtools/utils', () => {
             expect(result.length).to.be.lessThan(allChains.length)
             expect(result.map((r) => r.name)).to.include.members(chainsThatSupportUSDTOft)
             expect(result.map((r) => r.name)).to.not.include.members(chainsThatSupportUSDTPool)
+        })
+
+        it('should ignore unwired_tokens when returning chains that support a token', () => {
+            const readdirSyncStub = sinon.stub(fs, 'readdirSync')
+            const readFileSyncStub = sinon.stub(fs, 'readFileSync')
+
+            readdirSyncStub.callsFake((dirPath: fs.PathLike) => {
+                const dir = dirPath.toString()
+
+                if (dir.endsWith(path.join('mainnet', '01', 'chainsConfig'))) {
+                    return ['active-mainnet.yml', 'unwired-mainnet.yml'] as any
+                }
+
+                if (dir.endsWith('deployments')) {
+                    return [
+                        { name: 'active-mainnet', isDirectory: () => true },
+                        { name: 'unwired-mainnet', isDirectory: () => true },
+                    ] as any
+                }
+
+                return [] as any
+            })
+
+            readFileSyncStub.callsFake((filePath: fs.PathOrFileDescriptor) => {
+                const file = filePath.toString()
+
+                if (file.endsWith('active-mainnet.yml')) {
+                    return `
+name: active-mainnet
+eid: ETHEREUM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdt:
+    type: pool
+`
+                }
+
+                if (file.endsWith('unwired-mainnet.yml')) {
+                    return `
+name: unwired-mainnet
+eid: AVALANCHE_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+unwired_tokens:
+  usdt:
+    type: pool
+`
+                }
+
+                return ''
+            })
+
+            try {
+                __resetUtilsConfigStateForTests()
+                setStage(Stage.MAINNET)
+
+                const result = getChainsThatSupportToken(TokenName.USDT)
+
+                expect(result.map((r) => r.name)).to.eql(['active-mainnet'])
+                expect(getSupportedTokensByEid(EndpointId.AVALANCHE_V2_MAINNET)).to.eql([])
+            } finally {
+                readdirSyncStub.restore()
+                readFileSyncStub.restore()
+            }
+        })
+
+        it('should reject a chain config that defines the same token in tokens and unwired_tokens', () => {
+            const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'chain-config-'))
+            const filePath = path.join(tmpDir, 'chain.yml')
+            const consoleErrorStub = sinon.stub(console, 'error')
+
+            try {
+                fs.writeFileSync(
+                    filePath,
+                    `
+name: invalid-mainnet
+eid: ETHEREUM_V2_MAINNET
+token_messaging: true
+credit_messaging: true
+tokens:
+  usdt:
+    type: pool
+unwired_tokens:
+  usdt:
+    type: pool
+`
+                )
+
+                expect(() => loadChainConfig(filePath)).to.throw(
+                    `Invalid chain config ${filePath}: token(s) usdt cannot be defined in both tokens and unwired_tokens`
+                )
+            } finally {
+                consoleErrorStub.restore()
+                fs.rmSync(tmpDir, { recursive: true, force: true })
+            }
         })
 
         it('should return all chains that support usdt by deployment (external or not)', () => {

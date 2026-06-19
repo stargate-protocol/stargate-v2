@@ -2,12 +2,24 @@ import {
     type Configurator,
     type OmniTransaction,
     areBytes32Equal,
+    createConfigureEdges,
     createConfigureMultiple,
     createConfigureNodes,
     formatOmniPoint,
+    formatOmniVector,
 } from '@layerzerolabs/devtools'
 import { createModuleLogger, createWithAsyncLogger } from '@layerzerolabs/io-devtools'
-import { configureOApp } from '@layerzerolabs/ua-devtools'
+import {
+    configureCallerBpsCap,
+    configureEnforcedOptions,
+    configureOApp,
+    configureOAppDelegates,
+    configureReceiveConfig,
+    configureReceiveLibraries,
+    configureReceiveLibraryTimeouts,
+    configureSendConfig,
+    configureSendLibraries,
+} from '@layerzerolabs/ua-devtools'
 
 import { formatNumberOfTransactions } from '../utils/logger'
 
@@ -79,5 +91,68 @@ export const configureMessaging: MessagingConfigurator = withAsyncLogger(
         onStart: (logger) => logger.info(`Configuring`),
         onSuccess: (logger) => logger.info(`Configured`),
         onError: (logger, _, error) => logger.error(`Failed to configure: ${error}`),
+    }
+)
+
+const configureOAppWithoutPeers = createConfigureMultiple(
+    configureOAppDelegates,
+    configureSendLibraries,
+    configureReceiveLibraries,
+    configureReceiveLibraryTimeouts,
+    configureSendConfig,
+    configureReceiveConfig,
+    configureEnforcedOptions,
+    configureCallerBpsCap
+)
+
+/**
+ * Configures messaging and OApp settings without setting OApp peers.
+ *
+ * Unwire flows need to update executor/DVN settings while removing peer relationships.
+ * Full configureOApp includes configureOAppPeers, which can recreate a peer before
+ * configureUnpeerEdges runs.
+ */
+export const configureMessagingWithoutPeers: MessagingConfigurator = withAsyncLogger(
+    createConfigureMultiple(configurePlanner, configureMaxAssetId, configureAssets, configureOAppWithoutPeers),
+    {
+        onStart: (logger) => logger.info(`Configuring without peers`),
+        onSuccess: (logger) => logger.info(`Configured without peers`),
+        onError: (logger, _, error) => logger.error(`Failed to configure without peers: ${error}`),
+    }
+)
+
+/**
+ * Unpeers edges by calling setPeer(eid, null) = setPeer(eid, bytes32(0)).
+ *
+ * Intended to be combined with configureMessagingWithoutPeers or other configurators
+ * that do not include configureOAppPeers.
+ *
+ * Use with the unwire graph config to selectively remove peers between chains.
+ */
+export const configureUnpeerEdges: MessagingConfigurator = withAsyncLogger(
+    createConfigureEdges(
+        withAsyncLogger(
+            async ({ vector: { to } }, sdk) => {
+                // hasPeer(eid, null) returns true when the peer is already bytes32(0)
+                const alreadyUnpeered = await sdk.hasPeer(to.eid, null)
+                if (alreadyUnpeered) return []
+
+                return [await sdk.setPeer(to.eid, null)]
+            },
+            {
+                onStart: (logger, [{ vector }]) => logger.verbose(`Checking peer for ${formatOmniVector(vector)}`),
+                onSuccess: (logger, [{ vector }], transactions) =>
+                    logger.verbose(
+                        `Checked peer for ${formatOmniVector(vector)}: ${formatNumberOfTransactions(transactions)}`
+                    ),
+                onError: (logger, [{ vector }], error) =>
+                    logger.error(`Failed to unpeer ${formatOmniVector(vector)}: ${error}`),
+            }
+        )
+    ),
+    {
+        onStart: (logger) => logger.info(`Unpeering edges`),
+        onSuccess: (logger) => logger.info(`Unpeered edges`),
+        onError: (logger, _, error) => logger.error(`Failed to unpeer edges: ${error}`),
     }
 )
