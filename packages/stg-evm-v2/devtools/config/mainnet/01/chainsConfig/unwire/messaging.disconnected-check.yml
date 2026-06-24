@@ -63,6 +63,7 @@ deprecated_eids:
       Was connected to all active chains at the time of shutdown.
       Also connected to xchain-mainnet (30291, also sunset), plume-mainnet (30318, also sunset),
       and codex-mainnet (30323, also sunset).
+      
   - eid: 30335
     chain: swell-mainnet
     notes: >
