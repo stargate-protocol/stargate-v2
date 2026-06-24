@@ -66,7 +66,7 @@ deprecated_eids:
   - eid: 30335
     chain: swell-mainnet
     notes: >
-      Shut down (PR #todo) — had ETH native pool.
+      Shut down (PR #568) — had ETH native pool.
       Was connected to all active chains at the time of shutdown.
       Chain was sunset on June 23, 2026.
 
