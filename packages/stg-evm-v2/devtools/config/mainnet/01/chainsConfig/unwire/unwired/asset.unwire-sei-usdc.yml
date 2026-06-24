@@ -1,0 +1,4 @@
+asset: usdc
+disconnect_chains: 
+  - sei-mainnet
+remaining_chains: []
