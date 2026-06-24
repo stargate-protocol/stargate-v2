@@ -1,0 +1,5 @@
+rules:
+  - chain: glue-mainnet
+    direction: to 
+    allowed_peers:
+      - glue-mainnet
