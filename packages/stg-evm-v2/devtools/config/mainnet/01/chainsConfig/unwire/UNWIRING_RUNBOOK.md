@@ -1,29 +1,37 @@
 # Stargate Unwiring Runbook
 
-This runbook describes the stage-local YAML inputs for Stargate unwire flows.
-Use it when an asset is removed from a subset of chains, when a chain is fully
-retired from messaging, or when a specific messaging direction must be disabled.
+This runbook describes the stage-local inputs and review process for Stargate
+asset and messaging unwires. Run all `make` commands from the repository root.
 
-Run `make` commands from the repository root.
+Active inputs:
 
-The active files are:
-
-- `asset.unwire.yml`: active asset mesh unwire input.
-- `messaging.disconnected-check.yml`: persistent checker input for deprecated EIDs.
-- `chainsConfig/<chain>.yml`: chain-level messaging unwire input under `unwire`.
-- `unwired/`: archive of completed one-off asset unwire inputs.
+- `chainsConfig/unwire/asset.unwire.yml`: one active asset unwire at a time.
+- `chainsConfig/<chain>.yml`: chain config, including messaging unwire rules
+  under `unwire`.
+- `chainsConfig/unwire/messaging.disconnected-check.yml`: persistent checker
+  input for fully deprecated EIDs.
+- `chainsConfig/unwire/unwired/`: archive for completed one-off asset unwire
+  inputs.
 
 Templates:
 
-- `0-template-asset.unwire.yml`
+- `chainsConfig/unwire/0-template-asset.unwire.yml`
 - `chainsConfig/0-template-chain.yml`
+
+General rules:
+
+- Always dry-run first.
+- Do not remove chain config, deployments, definitions, or Hardhat network
+  entries before graph-based unwire is done.
+- Mark chain sunsets as `status: DEPRECATED` before normal wire/configure can
+  re-include them.
 
 ## Asset Unwire
 
 Use asset unwire when one token should stop being routable on one or more
-chains, but the chains themselves still exist.
+chains, while the chain may still participate in other assets or messaging.
 
-Example:
+Example `chainsConfig/unwire/asset.unwire.yml`:
 
 ```yaml
 asset: usdc
@@ -33,40 +41,66 @@ remaining_chains: []
 ```
 
 `remaining_chains` is optional. When empty or omitted, the flow uses every other
-chain that supports the asset.
+active chain that supports the asset.
 
-The target is:
+Run:
 
 ```bash
 STAGE=mainnet make unwire-asset-mainnet CONFIGURE_ARGS_COMMON=--dry-run
 STAGE=mainnet make unwire-asset-mainnet
 ```
 
-What it does:
+### Files
 
-- `asset.unwire.config.ts` builds all asset edges between:
-  - `disconnect_chains -> remaining_chains`
-  - `remaining_chains -> disconnect_chains`
-  - `disconnect_chains -> disconnect_chains`
-- Those edges configure `setOFTPath(dstEid, false)`.
-- `token-messaging-asset.unwire.config.ts` and
-  `credit-messaging-asset.unwire.config.ts` configure
-  `setAssetId(address(0), assetId)` on the disconnected chains.
+Add:
 
-What it does not do:
+- `chainsConfig/unwire/asset.unwire.yml`
 
-- It does not remove OApp peers.
-- It does not change LayerZero send/receive libraries.
-- It does not change executor or DVN config.
-- It does not remove credits. Pool credits should be drained or set to zero by
-  the planner or the relevant operational process.
+Keep until the asset unwire transactions land:
+
+- the asset under `tokens:` in `chainsConfig/<chain>.yml`
+- asset entries in `packages/stg-definitions-v2/src/constant.ts`
+- asset deployments under `packages/stg-evm-v2/deployments/<chain>/`
+- SDK asset deployments under `packages/stg-evm-sdk-v2/deployments/<chain>/`
+
+After the transactions land:
+
+- remove the asset from `tokens:` in `chainsConfig/<chain>.yml`, or move it to
+  `unwired_tokens:` if historical visibility is useful
+- archive `chainsConfig/unwire/asset.unwire.yml` under
+  `chainsConfig/unwire/unwired/`
+- remove the active `chainsConfig/unwire/asset.unwire.yml`
+- remove asset-specific entries from `packages/stg-definitions-v2/src/constant.ts`
+  only if no remaining config path uses them
+
+Do not remove chain-level messaging, Hardhat, Safe, OneSig, or deployment config
+for an asset-only unwire.
+
+### Expected Transactions
+
+Expect:
+
+- `setOFTPath(dstEid, false)` on asset contracts for the disconnected asset.
+- `setAssetId(address(0), assetId)` on TokenMessaging for each disconnected
+  chain.
+- `setAssetId(address(0), assetId)` on CreditMessaging for each disconnected
+  chain.
+
+Do not expect:
+
+- `setPeer(...)`.
+- Send or receive DVN changes.
+- Executor changes.
+- LayerZero send or receive library changes.
+- `setOFTPath(..., true)`.
+- Asset ID changes on remaining chains.
 
 ## Messaging Unwire
 
 Use messaging unwire when TokenMessaging and CreditMessaging paths should be
-disabled. This can be a full chain shutdown or a directional block.
+disabled for a chain.
 
-Example:
+Messaging unwire is configured in `chainsConfig/<chain>.yml`:
 
 ```yaml
 name: swell-mainnet
@@ -88,7 +122,8 @@ normal wire/configure graphs.
 
 `allowed_peers` is the keep-list for that messaging contract. Every active
 messaging chain that is not the unwire chain and not in `allowed_peers` is
-treated as a peer to unwire.
+treated as a peer to unwire. The field is required; for a full deprecation, use
+the chain itself as the only allowed peer.
 
 `direction` is required:
 
@@ -96,23 +131,21 @@ treated as a peer to unwire.
 - `from`: disable only `chain -> peers`.
 - `to`: disable only `peers -> chain`.
 
-Run:
+Run both TokenMessaging and CreditMessaging once with the chain target:
 
 ```bash
 STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet
+STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
 ```
 
-The target runs TokenMessaging first and CreditMessaging second:
-
-1. `stg:unwire::token-messaging`
-2. `stg:unwire::credit-messaging`
-
-To run only one messaging contract:
+Or call each messaging contract separately when reviewing or executing a split
+operation:
 
 ```bash
 STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
 STAGE=mainnet make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
 ```
 
 ### Edge Semantics
@@ -129,35 +162,190 @@ sending to that remote and local receive validation from that remote. For any
 one-way unwire where the opposite direction must keep working, transaction
 review must be strict.
 
-For a full shutdown, `direction: both` is the normal choice.
+### Pool Chain Messaging Unwire
 
-For a one-way unwire:
+Use the pool chain flow when a pool chain is being deprecated and the deployed
+assets no longer hold user funds. This is usually safe for pool chains
+because funds and credits are drained before the messaging unwire happens, so no
+user exit path needs to stay open through TokenMessaging.
 
-- `direction: from` means the named chain should stop sending to non-allowed
-  peers. The opposite `peers -> chain` path is expected to keep working.
-- `direction: to` means non-allowed peers should stop sending to the named
-  chain. The opposite `chain -> peers` path is expected to keep working.
+This flow executes a full unwire for incoming and outgoing paths on both OApps:
+TokenMessaging and CreditMessaging. It is safe only after credits and funds are
+fully drained, because no funds should be lost when both directions are
+disconnected at once.
 
-For one-way Glue-style unwires, do not accept receive DVN transactions that set
-the still-needed reverse path to DeadDVN. That is the failure mode that causes
-LayerZero config errors such as probable DVN mismatch when Glue sends back to
-the other chain.
+Config:
 
-## By-EID Unwire
+```yaml
+status: DEPRECATED
 
-Use by-EID unwire when a deprecated chain has already been scrubbed from active
-YAML or deployments, so the graph can no longer resolve it by chain name.
-
-```bash
-STAGE=mainnet make unwire-chain-by-eid DEAD_EIDS=30318,30101 CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-by-eid DEAD_EIDS=30318,30101
+unwire:
+  token_messaging:
+    # Pool chains use both after funds are drained because users no longer need
+    # a TokenMessaging exit path from the deprecated chain.
+    direction: both
+    allowed_peers:
+      - <chain>
+  credit_messaging:
+    # CreditMessaging can be fully unwired once credits are drained/.
+    direction: both
+    allowed_peers:
+      - <chain>
 ```
 
-This iterates active messaging chains and calls `setPeer(deadEid, bytes32(0))`
-on TokenMessaging and CreditMessaging where the peer is still present.
+Order:
 
-It does not configure executor, DVNs, send libraries, receive libraries, or
-asset state. It is only a stale-peer cleanup tool.
+1. Drain or account for all pool funds and credits.
+2. Mark the chain `status: DEPRECATED`.
+3. Add `direction: both` for TokenMessaging and CreditMessaging.
+4. Run `make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run`
+   and verify transactions to propose match the expected transaction list.
+5. Propose the unwire transactions through OneSig with
+   `make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig`.
+6. Wait for the OneSig transactions to be executed on-chain.
+7. Add the EID to `messaging.disconnected-check.yml`.
+8. Run `make check-messaging-disconnected`.
+9. Remove chain-level config only after the checker passes.
+
+Expected transactions for `direction: both`:
+
+- Send ULN config to local DeadDVN.
+- Send executor config to `address(0)`.
+- Receive ULN config to local DeadDVN.
+- `setPeer(remoteEid, bytes32(0))`.
+
+Do not expect:
+
+- `setPeer(remoteEid, nonzeroPeer)`.
+- Normal production DVNs on a path intended to be disabled.
+- New peer creation.
+- Asset path or fee-lib changes from the messaging unwire target.
+- Owner, delegate, planner, or asset config changes as part of the unwire. If
+  they appear, they are config drift and should be reviewed separately.
+
+Keep until the disconnected checker passes:
+
+- `chainsConfig/<chain>.yml`
+- `packages/stg-evm-v2/deployments/<chain>/`
+- `packages/stg-evm-sdk-v2/deployments/<chain>/`
+- chain entries in `packages/stg-definitions-v2/src/constant.ts`
+- the chain network entry in `packages/stg-evm-v2/hardhat.config.ts`
+
+After the checker passes:
+
+Keep these files for traceability:
+- `chainsConfig/<chain>.yml`
+- `packages/stg-evm-v2/deployments/<chain>/`
+- `packages/stg-evm-sdk-v2/deployments/<chain>/`
+
+Remove the chain from active config:
+- chain-level entries in `packages/stg-definitions-v2/src/constant.ts`
+  - DVNs and executor for the EID
+  - `NETWORKS[EndpointId.<CHAIN>_V2_MAINNET]`
+  - asset entries for the EID
+  - OFT wrapper, treasurer, rewarder, staking, or other chain-specific entries
+- the chain network entry in `packages/stg-evm-v2/hardhat.config.ts`
+
+### Hydra Chain Messaging Unwire
+
+Use the Hydra flow when users still need time to exit funds. Hydra needs two
+messaging phases because TokenMessaging outbound paths may still be needed while
+new inbound flow into the deprecated chain should be stopped.
+
+CreditMessaging can be fully unwired in phase 1 only after credits are drained.
+
+#### Phase 1: Stop New Inbound TokenMessaging
+
+Config:
+
+```yaml
+status: DEPRECATED
+
+unwire:
+  token_messaging:
+    # Only unwire paths going to the deprecated chain. Outgoing paths remain
+    # active so users can get funds out of the chain.
+    direction: to
+    allowed_peers:
+      - <chain>
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - <chain>
+```
+
+Run:
+
+```bash
+STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
+```
+
+Expected TokenMessaging transactions:
+
+- Only local send-side DeadDVN changes on peers sending to the Hydra chain.
+- No receive ULN config changes.
+- No executor zeroing.
+- No `setPeer(remoteEid, bytes32(0))`.
+
+Expected CreditMessaging transactions:
+
+- Full `direction: both` unwire transactions, because credits were drained
+  before this phase.
+
+Do not expect for TokenMessaging phase 1:
+
+- Receive ULN config changing to DeadDVN.
+- Executor config changing to `address(0)`.
+- Peer removal.
+- Any transaction that disables the reverse path needed for users to exit.
+
+Do not remove files in phase 1. Keep chain config, deployments, definitions, and
+Hardhat network entries so phase 2 and any checks can still resolve the chain.
+Do not use `messaging.disconnected-check.yml` as the success criterion for this
+phase, because TokenMessaging may intentionally remain peered.
+
+#### Phase 2: Full TokenMessaging Disconnect
+
+Run this after pending messages are safe and user exit flow no longer needs the
+Hydra TokenMessaging paths.
+
+Update:
+
+```yaml
+unwire:
+  token_messaging:
+    # Final phase: disable all remaining TokenMessaging paths in both directions.
+    direction: both
+    allowed_peers:
+      - <chain>
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - <chain>
+```
+
+Run:
+
+```bash
+STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
+```
+
+Then add the EID to `messaging.disconnected-check.yml` and run:
+
+```bash
+STAGE=mainnet make check-messaging-disconnected
+```
+
+Expected TokenMessaging transactions are the same as full `direction: both`:
+
+- Send ULN config to local DeadDVN.
+- Send executor config to `address(0)`.
+- Receive ULN config to local DeadDVN.
+- `setPeer(remoteEid, bytes32(0))`.
+
+After the checker passes, use the same cleanup list as the pool chain flow.
 
 ## Disconnected Checker
 
@@ -196,99 +384,25 @@ What it does not check:
 
 - DVN config.
 - Executor config.
-- Send/receive libraries.
+- Send or receive libraries.
 - Asset `setOFTPath`.
 - Messaging asset IDs.
 - Credits or liquidity.
 
-Use the checker for full deprecated-chain disconnections. Do not use it as the
-success criterion for a one-way messaging unwire, because one-way paths may
-intentionally keep a peer or receive path alive.
+Use the checker for full deprecated-chain disconnections. Do not use it for
+Hydra phase 1 or any other one-way messaging unwire.
 
-## Repair: Glue Receive DVNs
+## By-EID Unwire
 
-If a one-way Glue unwire accidentally set live chains' receive config from Glue
-to DeadDVN, restore those receive DVNs with:
-
-```bash
-STAGE=mainnet pnpm --filter @stargatefinance/stg-evm-v2 run hardhat stg:restore::glue-receive-dvns --messaging token --dry-run
-STAGE=mainnet pnpm --filter @stargatefinance/stg-evm-v2 run hardhat stg:restore::glue-receive-dvns --messaging token --onesig
-```
-
-Use `--messaging credit` or omit `--messaging` to process both token and credit.
-
-Expected restore transactions are receive-config `setConfig` calls only. Do not
-expect send-config, executor, or `setPeer` transactions from this repair task.
-
-## Transaction Review Checklist
-
-Always dry-run first. The dry run is the safety gate.
+Use by-EID unwire only when a deprecated chain has already been removed from
+active YAML or deployments, so the graph can no longer resolve it by chain name.
 
 ```bash
-STAGE=mainnet make unwire-asset-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-chain-by-eid DEAD_EIDS=30318,30101 CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-chain-by-eid DEAD_EIDS=30318,30101
 ```
 
-### Asset Unwire Expected Transactions
-
-Expect:
-
-- `setOFTPath(dstEid, false)` on asset contracts for the disconnected asset.
-- `setAssetId(address(0), assetId)` on TokenMessaging for each disconnected
-  chain.
-- `setAssetId(address(0), assetId)` on CreditMessaging for each disconnected
-  chain.
-- `setPlanner(...)` only if the planner is already drifted from config.
-
-Do not expect:
-
-- `setPeer(...)`.
-- Send/receive DVN changes.
-- Executor changes.
-- LayerZero send/receive library changes.
-- `setOFTPath(..., true)`.
-- Asset ID changes on remaining chains.
-
-### Full Messaging Unwire Expected Transactions
-
-For `direction: both`, expect some or all of these on both sides of each
-disconnected path:
-
-- Send ULN config to local DeadDVN.
-- Send executor config to `address(0)`.
-- Receive ULN config to local DeadDVN.
-- `setPeer(remoteEid, bytes32(0))`.
-- Owner, delegate, planner, or asset config transactions only if those values
-  have drifted from the generated graph.
-
-Do not expect:
-
-- `setPeer(remoteEid, nonzeroPeer)`.
-- Normal production DVNs on a path intended to be disabled.
-- New peer creation.
-- Asset path or fee-lib changes from the messaging unwire target.
-
-### One-Way Messaging Unwire Expected Transactions
-
-For `direction: from`, the intended disabled path is named chain to peers.
-
-For `direction: to`, the intended disabled path is peers to named chain.
-
-If the opposite direction must continue working, expect only the local send-side
-disable for the direction being unwired. Treat these as stop-and-review items:
-
-- A receive ULN config changing to DeadDVN for a path that must keep receiving.
-- `setPeer(remoteEid, bytes32(0))` on a local contract that must still send to
-  or receive from that remote.
-- Any transaction touching the reverse path that the runbook says should remain
-  live.
-
-If any stop-and-review item appears, do not submit the batch. Fix the graph or
-split the operation before signing.
-
-### By-EID Expected Transactions
-
-Expect only:
+Expected transactions:
 
 - `setPeer(deadEid, bytes32(0))` on TokenMessaging.
 - `setPeer(deadEid, bytes32(0))` on CreditMessaging.
@@ -299,62 +413,5 @@ Do not expect:
 - Asset config changes.
 - Any transaction involving an active chain EID as the dead EID.
 
-## File Order
-
-For a full chain sunset:
-
-1. Keep the chain YAML and deployments available. The graph-based unwire needs
-   them to resolve contracts and generated paths.
-2. Mark the chain `status: DEPRECATED` and add `unwire.token_messaging` /
-   `unwire.credit_messaging` to the chain YAML. Normal wire skips deprecated
-   chains; unwire still resolves them with `UNWIRE_CHAIN=<chain>`.
-3. If the chain has active assets, create `asset.unwire.yml` from the template
-   and dry-run `make unwire-asset-mainnet`.
-4. Review and submit the asset unwire transactions.
-5. Dry-run the relevant messaging target with `UNWIRE_CHAIN=<chain>`.
-6. Review and submit TokenMessaging and CreditMessaging unwire transactions.
-7. Add the deprecated EID to `messaging.disconnected-check.yml`.
-8. Run `make check-messaging-disconnected`.
-9. Archive active asset YAML inputs into `unwired/` with descriptive names, for
-   example:
-   - `unwired/asset.unwire-swell-eth.yml`
-10. Remove the active one-off `asset.unwire.yml`.
-11. Only after the checker passes, remove the chain from active config files.
-    For a full chain removal this usually includes the chain's
-    `chainsConfig/<chain>.yml` and any active references that would make normal
-    graph generation include it.
-
-If the chain files were removed before peers were cleared, use
-`make unwire-chain-by-eid DEAD_EIDS=...` and then run the checker.
-
-For an asset-only removal:
-
-1. Keep the asset in the chain YAML until the asset unwire transactions are
-   generated and submitted.
-2. Create and run `asset.unwire.yml`.
-3. After successful execution, remove or update the asset entry from the
-   disconnected chain's YAML if the asset is no longer supported there.
-4. Archive the active asset unwire file under `unwired/`.
-5. Remove the active `asset.unwire.yml`.
-
-For a one-way messaging change:
-
-1. Add the narrowest possible `unwire.<messaging>` section to the chain YAML.
-2. Dry-run the messaging target with `UNWIRE_CHAIN=<chain>`.
-3. Review the transaction list against the one-way checklist above.
-4. Submit only if the reverse path remains untouched.
-5. Remove the temporary `unwire.<messaging>` section after the operation if the
-   chain is not being deprecated.
-6. Do not add the chain to `messaging.disconnected-check.yml` unless the chain
-   is fully deprecated.
-
-## Why The Order Matters
-
-- Graph-based unwire should run before deleting chain files because it needs
-  chain config and deployments to resolve contracts.
-- Asset unwire should happen before full messaging shutdown so asset routes are
-  disabled explicitly before transport is removed.
-- The checker should run after messaging transactions land because it reads
-  on-chain peer state.
-- Active `asset.unwire.yml` should be removed after use so later runs do not
-  accidentally reprocess an old operation.
+This is only a stale-peer cleanup tool. Prefer graph-based unwire before
+deleting chain files.
