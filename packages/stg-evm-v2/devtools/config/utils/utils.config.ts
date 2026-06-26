@@ -13,6 +13,10 @@ let CURRENT_STAGE: Stage | undefined
 let SUPPORTED_CHAINS: Chain[] | undefined
 let CHAIN_BY_EID: Map<EndpointId, Chain> | undefined
 
+type ChainFilterOptions = {
+    includeDeprecated?: boolean
+}
+
 const chainsToChainsDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig'),
     [Stage.TESTNET]: path.join(__dirname, '..', 'testnet', 'chainsConfig'),
@@ -46,23 +50,26 @@ export function isValidChain(chain: string): boolean {
 }
 
 export function validateChains(chains: string[], supportedChains: string[]) {
+    const supportedChainSet = new Set(supportedChains)
     chains.forEach((chain) => {
-        if (!isValidChain(chain)) {
+        if (!supportedChainSet.has(chain)) {
             throw new Error(`Invalid chain: ${chain}`)
         }
     })
 }
 
 export function filterValidProvidedChains(providedChains: string[], supportedChains: Chain[]): Chain[] {
+    const normalizedChains = providedChains.map((chain) => chain.trim()).filter(Boolean)
+
     // validate provided chains
     validateChains(
-        providedChains,
+        normalizedChains,
         supportedChains.map((chain) => chain.name)
     )
 
     // get valid chains in the provided chains list
-    return providedChains?.length != 0
-        ? supportedChains.filter((chain) => providedChains.includes(chain.name))
+    return normalizedChains.length !== 0
+        ? supportedChains.filter((chain) => normalizedChains.includes(chain.name))
         : supportedChains
 }
 
@@ -108,6 +115,15 @@ export function getAllChainsConfig(): Chain[] {
     return SUPPORTED_CHAINS
 }
 
+const isDeprecatedChain = (chain: Chain): boolean => chain.status === 'DEPRECATED'
+
+const filterDeprecatedChains = (chains: Chain[], options?: ChainFilterOptions): Chain[] =>
+    options?.includeDeprecated ? chains : chains.filter((chain) => !isDeprecatedChain(chain))
+
+export function getActiveChainsConfig(): Chain[] {
+    return filterDeprecatedChains(getAllChainsConfig())
+}
+
 /** Cached map of eid -> Chain, invalidated when stage or SUPPORTED_CHAINS changes. Reuse across filterConnections etc. */
 export function getChainByEidMap(): Map<EndpointId, Chain> {
     if (CHAIN_BY_EID !== undefined) {
@@ -124,14 +140,19 @@ export function getAllSupportedChains(): string[] {
     return chainsConfig.map((chain) => chain.name)
 }
 
-export function getChainsThatSupportToken(tokenName: string): Chain[] {
-    const chainsConfig = getAllChainsConfig()
+export function getChainsThatSupportToken(tokenName: string, options?: ChainFilterOptions): Chain[] {
+    const chainsConfig = filterDeprecatedChains(getAllChainsConfig(), options)
 
     return chainsConfig.filter((chain) => chain.tokens?.[tokenName.toLowerCase()])
 }
 
-export function getChainsThatSupportTokenWithType(tokenName: string, type: StargateType, isTIP20?: boolean): Chain[] {
-    const chainsConfig = getAllChainsConfig()
+export function getChainsThatSupportTokenWithType(
+    tokenName: string,
+    type: StargateType,
+    isTIP20?: boolean,
+    options?: ChainFilterOptions
+): Chain[] {
+    const chainsConfig = filterDeprecatedChains(getAllChainsConfig(), options)
 
     return chainsConfig.filter((chain) => {
         if (chain.tokens?.[tokenName.toLowerCase()]?.type !== type.toLowerCase()) {
@@ -149,26 +170,26 @@ export function getChainsThatSupportTokenWithType(tokenName: string, type: Starg
     })
 }
 
-export function getChainsThatSupportRewarder(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
+export function getChainsThatSupportRewarder(options?: ChainFilterOptions): Chain[] {
+    const chainsConfig = filterDeprecatedChains(getAllChainsConfig(), options)
 
     return chainsConfig.filter((chain) => chain.rewarder !== undefined)
 }
 
-export function getChainsThatSupportStaking(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
+export function getChainsThatSupportStaking(options?: ChainFilterOptions): Chain[] {
+    const chainsConfig = filterDeprecatedChains(getAllChainsConfig(), options)
 
     return chainsConfig.filter((chain) => chain.staking !== undefined)
 }
 
-export function getChainsThatSupportMessaging(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
+export function getChainsThatSupportMessaging(options?: ChainFilterOptions): Chain[] {
+    const chainsConfig = filterDeprecatedChains(getAllChainsConfig(), options)
 
     return chainsConfig.filter((chain) => chain.credit_messaging || chain.token_messaging)
 }
 
-export function getChainsThatSupportTreasurer(): Chain[] {
-    const chainsConfig = getAllChainsConfig()
+export function getChainsThatSupportTreasurer(options?: ChainFilterOptions): Chain[] {
+    const chainsConfig = filterDeprecatedChains(getAllChainsConfig(), options)
 
     return chainsConfig.filter((chain) => chain.treasurer !== undefined)
 }

@@ -32,7 +32,7 @@ import {
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
 
 import { getContractWithEid } from '../../config/utils'
-import { MESSAGING_UNWIRE_CONFIG_ENV } from '../../config/utils/unwire.config.utils'
+import { MESSAGING_UNWIRE_CHAIN_ENV } from '../../config/utils/unwire.config.utils'
 import { getChainsThatSupportMessaging, setStage } from '../../config/utils/utils.config'
 import { createOneSigSignerFactory } from '../../onesig'
 import {
@@ -69,42 +69,39 @@ const configureCreditMessagingUnwire = createConfigureMultiple(
     configureCreditMessagingUnpeerFullEdges
 )
 
-const withMessagingUnwireConfig = async <T>(unwireConfig: string | undefined, fn: () => Promise<T>): Promise<T> => {
-    const selector = unwireConfig?.trim()
-    if (!selector) {
-        return fn()
+const withMessagingUnwireChain = async <T>(unwireChain: string, fn: () => Promise<T>): Promise<T> => {
+    const chainName = unwireChain.trim()
+    if (!chainName) {
+        throw new Error('--unwire-chain is required')
     }
 
-    const previous = process.env[MESSAGING_UNWIRE_CONFIG_ENV]
-    process.env[MESSAGING_UNWIRE_CONFIG_ENV] = selector
+    const previous = process.env[MESSAGING_UNWIRE_CHAIN_ENV]
+    process.env[MESSAGING_UNWIRE_CHAIN_ENV] = chainName
 
     try {
         return await fn()
     } finally {
         if (previous === undefined) {
-            delete process.env[MESSAGING_UNWIRE_CONFIG_ENV]
+            delete process.env[MESSAGING_UNWIRE_CHAIN_ENV]
         } else {
-            process.env[MESSAGING_UNWIRE_CONFIG_ENV] = previous
+            process.env[MESSAGING_UNWIRE_CHAIN_ENV] = previous
         }
     }
 }
 
 /**
- * Full unwire task for token messaging contracts.
+ * Unwire task for token messaging contracts.
  *
- * Configures executor/DVN without recreating peers, then calls setPeer(eid, bytes32(0))
- * to remove peer relationships.
- *
- * Use with a token-messaging.unwire.config.ts that defines the edges to disable.
+ * Reads direction and allowed peers from chainsConfig/<chain>.yml unwire.token_messaging.
  */
 wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING)
-    .addOptionalParam(
-        'unwireConfig',
-        'Messaging unwire config selector. Example: glue loads messaging.unwire-glue.yml',
+    .addParam(
+        'unwireChain',
+        'Chain name whose chainsConfig unwire.token_messaging section should be applied',
         undefined,
         types.string
     )
-    .setAction(async ({ unwireConfig, ...args }, hre) => {
+    .setAction(async ({ unwireChain, ...args }, hre) => {
         subtask(
             SUBTASK_LZ_OAPP_CONFIG_LOAD,
             'Load token messaging unwire config',
@@ -125,25 +122,22 @@ wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING)
                 })
         )
 
-        return withMessagingUnwireConfig(unwireConfig, () => hre.run(TASK_LZ_OAPP_WIRE, args))
+        return withMessagingUnwireChain(unwireChain, () => hre.run(TASK_LZ_OAPP_WIRE, args))
     })
 
 /**
- * Full unwire task for credit messaging contracts.
+ * Unwire task for credit messaging contracts.
  *
- * Configures executor/DVN without recreating peers, then calls setPeer(eid, bytes32(0))
- * to remove peer relationships.
- *
- * Use with a credit-messaging.unwire.config.ts that defines the edges to disable.
+ * Reads direction and allowed peers from chainsConfig/<chain>.yml unwire.credit_messaging.
  */
 wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING)
-    .addOptionalParam(
-        'unwireConfig',
-        'Messaging unwire config selector. Example: glue loads messaging.unwire-glue.yml',
+    .addParam(
+        'unwireChain',
+        'Chain name whose chainsConfig unwire.credit_messaging section should be applied',
         undefined,
         types.string
     )
-    .setAction(async ({ unwireConfig, ...args }, hre) => {
+    .setAction(async ({ unwireChain, ...args }, hre) => {
         subtask(
             SUBTASK_LZ_OAPP_CONFIG_LOAD,
             'Load credit messaging unwire config',
@@ -164,7 +158,7 @@ wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING)
                 })
         )
 
-        return withMessagingUnwireConfig(unwireConfig, () => hre.run(TASK_LZ_OAPP_WIRE, args))
+        return withMessagingUnwireChain(unwireChain, () => hre.run(TASK_LZ_OAPP_WIRE, args))
     })
 
 /**

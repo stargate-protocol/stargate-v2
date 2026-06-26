@@ -1,5 +1,6 @@
 name: template-chain
 eid: TEMPLATE_V2_MAINNET
+status: ACTIVE # ACTIVE | DEPRECATED | INACTIVE. DEPRECATED is skipped by normal wire but still resolvable by unwire.
 token_messaging: true # if the chain supports token messaging
 credit_messaging: true # if the chain supports credit messaging
 allowed_peers: [] # optional allowlist of chain names for wiring; empty means all
@@ -31,3 +32,12 @@ treasurer: # list of tokens that support the treasurer in the chain
     eth: true
     usdt: true
     usdc: true
+unwire: # required only while running messaging unwire for this chain
+  token_messaging:
+    direction: both # from | to | both
+    allowed_peers:
+      - template-chain
+  credit_messaging:
+    direction: both # from | to | both
+    allowed_peers:
+      - template-chain

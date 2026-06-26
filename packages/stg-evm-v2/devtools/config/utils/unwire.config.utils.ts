@@ -21,7 +21,7 @@ import { Stage } from '@layerzerolabs/lz-definitions'
 import { getDeployedContractAddress } from '@layerzerolabs/lz-evm-sdk-v2'
 import { createLogger } from '@layerzerolabs/lz-utilities'
 
-import { getContractWithEid, getOneSigAddressMaybe } from '../utils'
+import { type Chain, getContractWithEid, getOneSigAddressMaybe } from '../utils'
 
 import { getAssetsConfig } from './shared'
 import {
@@ -37,6 +37,7 @@ import {
 
 type MessagingNode = TokenMessagingNodeConfig | CreditMessagingNodeConfig
 type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
+type MessagingContractName = 'TokenMessaging' | 'CreditMessaging'
 
 /** Controls which direction(s) of edges are disabled for a given unwire rule.
  *  - `both`: disable chain→peers AND peers→chain
@@ -45,60 +46,28 @@ type MessagingEdge = TokenMessagingEdgeConfig | CreditMessagingEdgeConfig
  */
 type UnwireDirection = 'from' | 'to' | 'both'
 
-type MessagingUnwireRule = {
-    chain: string
-    allowed_peers: string[] | string
-    direction?: unknown
-}
-
-type MessagingUnwireYamlConfig = {
-    rules: MessagingUnwireRule[]
-}
-
 type ResolvedMessagingUnwireConfig = {
-    rules: Array<{ chain: string; allowedPeers: string[]; direction: UnwireDirection }>
-    configPath: string
+    chain: Chain
+    peerChains: Chain[]
+    allChains: Chain[]
+    allowedPeers: string[]
+    direction: UnwireDirection
 }
 
-function logMessagingUnwireChains(rules: Array<{ chain: string; allowedPeers: string[] }>): void {
-    const supportedChains = getChainsThatSupportMessaging()
-    const keepNames = new Set(rules.flatMap((r) => r.allowedPeers))
-    const chainsToKeep = supportedChains.filter((c) => keepNames.has(c.name))
-    const chainsToUnwire = supportedChains.filter((c) => !keepNames.has(c.name))
+function logMessagingUnwireChains(allChains: Chain[], allowedPeers: string[]): void {
+    const keepNames = new Set(allowedPeers)
+    const chainsToKeep = allChains.filter((chain) => keepNames.has(chain.name))
+    const chainsToUnwire = allChains.filter((chain) => !keepNames.has(chain.name))
     printChains('Messaging unwire CHAINS (to keep):', chainsToKeep)
     printChains('Messaging unwire CHAINS (to unwire):', chainsToUnwire)
 }
 
-export const MESSAGING_UNWIRE_CONFIG_ENV = 'UNWIRE_CONFIG'
+export const MESSAGING_UNWIRE_CHAIN_ENV = 'UNWIRE_CHAIN'
 
-const DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH = path.join('messaging.unwire.yml')
 const DEFAULT_ASSET_CONFIG_RELATIVE_PATH = path.join('asset.unwire.yml')
 const VALID_DIRECTIONS: UnwireDirection[] = ['from', 'to', 'both']
 const isUnwireDirection = (direction: unknown): direction is UnwireDirection =>
     typeof direction === 'string' && VALID_DIRECTIONS.includes(direction as UnwireDirection)
-
-const resolveMessagingUnwireConfigRelativePath = (): string => {
-    const selector = process.env[MESSAGING_UNWIRE_CONFIG_ENV]?.trim()
-    if (!selector) {
-        return DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH
-    }
-
-    if (selector.includes('/') || selector.includes('\\') || selector.includes('..')) {
-        throw new Error(`${MESSAGING_UNWIRE_CONFIG_ENV} must be a file selector, not a path: ${selector}`)
-    }
-
-    if (!/^[a-zA-Z0-9._-]+$/.test(selector)) {
-        throw new Error(
-            `${MESSAGING_UNWIRE_CONFIG_ENV} contains invalid characters: ${selector}. Use letters, numbers, '.', '_' or '-'.`
-        )
-    }
-
-    if (selector.startsWith('messaging.unwire')) {
-        return selector.endsWith('.yml') ? selector : `${selector}.yml`
-    }
-
-    return `messaging.unwire-${selector}.yml`
-}
 
 const chainsToUnwireConfigDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig', 'unwire'),
@@ -119,45 +88,57 @@ export type ResolvedAssetUnwireConfig = {
     configPath: string
 }
 
-// Load the messaging unwire rules for the current stage (requires stage to be set).
-export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | undefined {
-    const logger = createLogger(process.env.LOG_LEVEL || 'info')
-    const stage = requireStage()
-    const configPath = path.join(chainsToUnwireConfigDir[stage], resolveMessagingUnwireConfigRelativePath())
-    if (!fs.existsSync(configPath)) {
-        logger.warn(`No messaging unwire config file at ${configPath}, chains list empty`)
-        return undefined
+const uniqueChains = (chains: Chain[]): Chain[] =>
+    chains.filter((chain, index) => chains.findIndex((candidate) => candidate.name === chain.name) === index)
+
+const getMessagingUnwireConfigKey = (contractName: MessagingContractName): 'token_messaging' | 'credit_messaging' => {
+    switch (contractName) {
+        case 'TokenMessaging':
+            return 'token_messaging'
+        case 'CreditMessaging':
+            return 'credit_messaging'
+    }
+    const exhaustive: never = contractName
+    throw new Error(`Unsupported messaging unwire contract: ${exhaustive}`)
+}
+
+// Load the messaging unwire rule from the target chain config.
+export function loadMessagingUnwireConfig(contractName: MessagingContractName): ResolvedMessagingUnwireConfig {
+    const unwireChainName = process.env[MESSAGING_UNWIRE_CHAIN_ENV]?.trim()
+    if (!unwireChainName) {
+        throw new Error(`${MESSAGING_UNWIRE_CHAIN_ENV} is required. Pass --unwire-chain <chain-name>.`)
     }
 
-    const fileContents = fs.readFileSync(configPath, 'utf8')
-    const rawConfig = yaml.load(fileContents) as Partial<MessagingUnwireYamlConfig> | undefined
-
-    if (!rawConfig || typeof rawConfig !== 'object' || !Array.isArray(rawConfig.rules)) {
-        throw new Error(`Invalid messaging unwire config at ${configPath}`)
+    const peerChains = getChainsThatSupportMessaging()
+    const resolvableChains = getChainsThatSupportMessaging({ includeDeprecated: true })
+    const chain = resolvableChains.find((chain) => chain.name === unwireChainName)
+    if (!chain) {
+        throw new Error(`Invalid messaging unwire chain: ${unwireChainName}`)
     }
 
-    if (!rawConfig.rules.length) {
-        logger.warn(`Messaging unwire config has no rules at ${configPath}, chains list empty`)
-        return undefined
+    const unwireKey = getMessagingUnwireConfigKey(contractName)
+    const unwireConfig = chain.unwire?.[unwireKey]
+    if (!unwireConfig) {
+        throw new Error(`Missing unwire.${unwireKey} config for ${chain.name}`)
     }
 
-    const rules = rawConfig.rules.map((rule, index) => {
-        if (!rule.chain || typeof rule.chain !== 'string') {
-            throw new Error(`Messaging unwire rule missing 'chain' at ${configPath} (index ${index})`)
-        }
-        const allowedPeers = normalizeChainList(rule.allowed_peers, 'allowed_peers', configPath, 'Messaging unwire')
-        if (!isUnwireDirection(rule.direction)) {
-            throw new Error(
-                `Invalid direction "${String(rule.direction)}" for chain "${rule.chain}" at ${configPath}. Must be one of: ${VALID_DIRECTIONS.join(', ')}`
-            )
-        }
-        return { chain: rule.chain, allowedPeers, direction: rule.direction }
-    })
+    const configLabel = `unwire.${unwireKey} for ${chain.name}`
+    const allowedPeers = normalizeChainList(
+        unwireConfig.allowed_peers,
+        'allowed_peers',
+        configLabel,
+        'Messaging unwire'
+    )
+    if (!isUnwireDirection(unwireConfig.direction)) {
+        throw new Error(
+            `Invalid direction "${String(unwireConfig.direction)}" in ${configLabel}. Must be one of: ${VALID_DIRECTIONS.join(', ')}`
+        )
+    }
 
-    // print the chains to unwire and keep
-    logMessagingUnwireChains(rules)
+    const allChains = uniqueChains([...peerChains, chain])
+    logMessagingUnwireChains(allChains, allowedPeers)
 
-    return { rules, configPath }
+    return { chain, peerChains, allChains, allowedPeers, direction: unwireConfig.direction }
 }
 
 // Load asset unwire config (disconnect/remaining chains) for the current stage (requires stage to be set).
@@ -219,7 +200,7 @@ export function loadAssetUnwireConfig(): ResolvedAssetUnwireConfig | undefined {
 
 // Filter and log valid chain pairs for unwire operations.
 export function resolveAssetUnwireChains(tokenName: TokenName, disconnectChains: string[], remainingChains: string[]) {
-    const supportedChains = getChainsThatSupportToken(tokenName)
+    const supportedChains = getChainsThatSupportToken(tokenName, { includeDeprecated: true })
     const { validFromChains, validToChains } = filterFromAndToChains(disconnectChains, remainingChains, supportedChains)
 
     printChains(`Asset unwire DISCONNECT_CHAINS:`, validFromChains)
@@ -269,63 +250,49 @@ export async function buildAssetMessagingUnwireGraph(
 // Build an omni graph that disables messaging edges per unwire rules. Sets stage then loads config from current stage.
 export async function buildMessagingUnwireGraph(
     stage: Stage,
-    contract: { contractName: string },
+    contract: { contractName: MessagingContractName },
     defaultPlanner: string,
     generateMessagingConfig: (points: OmniPointHardhat[]) => OmniEdgeHardhat<MessagingEdge>[]
 ): Promise<OmniGraphHardhat<MessagingNode, MessagingEdge>> {
     setStage(stage)
 
-    const unwireConfig = loadMessagingUnwireConfig()
-    if (!unwireConfig) {
-        return { contracts: [], connections: [] }
-    }
+    const unwireConfig = loadMessagingUnwireConfig(contract.contractName)
+    const deadDvnByEid = loadDeadDvnByEid(unwireConfig.allChains)
 
-    const supportedChains = getChainsThatSupportMessaging()
-    const chainByName = new Map(supportedChains.map((chain) => [chain.name, chain]))
-    const deadDvnByEid = loadDeadDvnByEid(supportedChains)
+    const disabledEdges = new Map<string, UnwireDirection>()
+    const involvedChains = new Map<string, Chain>()
+    const allowedPeers = new Set(unwireConfig.allowedPeers)
 
-    const disallowedEdges = new Set<string>()
-    const involvedChainNames = new Set<string>()
-
-    unwireConfig.rules.forEach((rule) => {
-        const chain = chainByName.get(rule.chain)
-        if (!chain) {
-            throw new Error(`Invalid messaging unwire chain: ${rule.chain}`)
+    unwireConfig.peerChains.forEach((peer) => {
+        if (peer.name === unwireConfig.chain.name || allowedPeers.has(peer.name)) {
+            return
         }
 
-        const allowedPeers = new Set(rule.allowedPeers)
-        supportedChains.forEach((peer) => {
-            if (peer.name === chain.name || allowedPeers.has(peer.name)) {
-                return
-            }
-            // 'from': chain → peer only (named chain stops sending to peers)
-            // 'to':   peer → chain only (peers stop sending to named chain)
-            // 'both': both directions
-            if (rule.direction !== 'to') {
-                disallowedEdges.add(`${chain.eid}:${peer.eid}`)
-                involvedChainNames.add(chain.name)
-                involvedChainNames.add(peer.name)
-            }
-            if (rule.direction !== 'from') {
-                disallowedEdges.add(`${peer.eid}:${chain.eid}`)
-                involvedChainNames.add(chain.name)
-                involvedChainNames.add(peer.name)
-            }
-        })
+        involvedChains.set(unwireConfig.chain.name, unwireConfig.chain)
+        involvedChains.set(peer.name, peer)
+
+        // 'from': chain → peer only (named chain stops sending to peers)
+        // 'to':   peer → chain only (peers stop sending to named chain)
+        // 'both': both directions
+        if (unwireConfig.direction !== 'to') {
+            disabledEdges.set(`${unwireConfig.chain.eid}:${peer.eid}`, unwireConfig.direction)
+        }
+        if (unwireConfig.direction !== 'from') {
+            disabledEdges.set(`${peer.eid}:${unwireConfig.chain.eid}`, unwireConfig.direction)
+        }
     })
 
-    const contracts = Array.from(involvedChainNames).map((name) => {
-        const chain = chainByName.get(name)
-        if (!chain) {
-            throw new Error(`Missing messaging chain config for ${name}`)
-        }
+    const contracts = Array.from(involvedChains.values()).map((chain) => {
         return getContractWithEid(chain.eid, contract)
     })
 
     const allConnections = generateMessagingConfig(contracts)
     const connections = allConnections
-        .filter((edge) => disallowedEdges.has(`${edge.from.eid}:${edge.to.eid}`))
-        .map((edge) => disableMessagingEdge(edge, deadDvnByEid))
+        .map((edge) => {
+            const direction = disabledEdges.get(`${edge.from.eid}:${edge.to.eid}`)
+            return direction ? disableMessagingEdge(edge, deadDvnByEid, direction) : undefined
+        })
+        .filter((edge): edge is OmniEdgeHardhat<MessagingEdge> => edge !== undefined)
 
     const getEnvironment = createGetHreByEid()
     const contractConfigs = await Promise.all(

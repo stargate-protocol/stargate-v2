@@ -9,14 +9,14 @@ Run `make` commands from the repository root.
 The active files are:
 
 - `asset.unwire.yml`: active asset mesh unwire input.
-- `messaging.unwire.yml`: active messaging unwire input.
 - `messaging.disconnected-check.yml`: persistent checker input for deprecated EIDs.
-- `unwired/`: archive of completed one-off unwire inputs.
+- `chainsConfig/<chain>.yml`: chain-level messaging unwire input under `unwire`.
+- `unwired/`: archive of completed one-off asset unwire inputs.
 
 Templates:
 
 - `0-template-asset.unwire.yml`
-- `0-template-messaging.unwire.yml`
+- `chainsConfig/0-template-chain.yml`
 
 ## Asset Unwire
 
@@ -69,16 +69,26 @@ disabled. This can be a full chain shutdown or a directional block.
 Example:
 
 ```yaml
-rules:
-  - chain: swell-mainnet
+name: swell-mainnet
+status: DEPRECATED
+
+unwire:
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - swell-mainnet
+  credit_messaging:
     direction: both
     allowed_peers:
       - swell-mainnet
 ```
 
-`allowed_peers` is the keep-list for that rule. Every supported messaging chain
-that is not the rule chain and not in `allowed_peers` is treated as a peer to
-unwire.
+`status: DEPRECATED` keeps the chain resolvable for unwire but excludes it from
+normal wire/configure graphs.
+
+`allowed_peers` is the keep-list for that messaging contract. Every active
+messaging chain that is not the unwire chain and not in `allowed_peers` is
+treated as a peer to unwire.
 
 `direction` is required:
 
@@ -89,14 +99,21 @@ unwire.
 Run:
 
 ```bash
-STAGE=mainnet make unwire-chain-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-mainnet
+STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet
 ```
 
 The target runs TokenMessaging first and CreditMessaging second:
 
 1. `stg:unwire::token-messaging`
 2. `stg:unwire::credit-messaging`
+
+To run only one messaging contract:
+
+```bash
+STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+```
 
 ### Edge Semantics
 
@@ -286,24 +303,23 @@ Do not expect:
 
 For a full chain sunset:
 
-1. Keep the chain YAML and deployments available. The normal graph-based unwire
-   needs them to resolve contracts and generated paths.
-2. If the chain has active assets, create `asset.unwire.yml` from the template
+1. Keep the chain YAML and deployments available. The graph-based unwire needs
+   them to resolve contracts and generated paths.
+2. Mark the chain `status: DEPRECATED` and add `unwire.token_messaging` /
+   `unwire.credit_messaging` to the chain YAML. Normal wire skips deprecated
+   chains; unwire still resolves them with `UNWIRE_CHAIN=<chain>`.
+3. If the chain has active assets, create `asset.unwire.yml` from the template
    and dry-run `make unwire-asset-mainnet`.
-3. Review and submit the asset unwire transactions.
-4. Create `messaging.unwire.yml` from the template and dry-run
-   `make unwire-chain-mainnet`.
-5. Review and submit TokenMessaging and CreditMessaging unwire transactions.
-6. Add the deprecated EID to `messaging.disconnected-check.yml`.
-7. Run `make check-messaging-disconnected`.
-8. Archive the active YAML inputs into `unwired/` with descriptive names, for
+4. Review and submit the asset unwire transactions.
+5. Dry-run the relevant messaging target with `UNWIRE_CHAIN=<chain>`.
+6. Review and submit TokenMessaging and CreditMessaging unwire transactions.
+7. Add the deprecated EID to `messaging.disconnected-check.yml`.
+8. Run `make check-messaging-disconnected`.
+9. Archive active asset YAML inputs into `unwired/` with descriptive names, for
    example:
    - `unwired/asset.unwire-swell-eth.yml`
-   - `unwired/messaging.unwire-swell.yml`
-9. Remove the active one-off files:
-   - `asset.unwire.yml`
-   - `messaging.unwire.yml`
-10. Only after the checker passes, remove the chain from active config files.
+10. Remove the active one-off `asset.unwire.yml`.
+11. Only after the checker passes, remove the chain from active config files.
     For a full chain removal this usually includes the chain's
     `chainsConfig/<chain>.yml` and any active references that would make normal
     graph generation include it.
@@ -323,21 +339,22 @@ For an asset-only removal:
 
 For a one-way messaging change:
 
-1. Create `messaging.unwire.yml` with the narrowest possible rule.
-2. Dry-run the messaging target.
+1. Add the narrowest possible `unwire.<messaging>` section to the chain YAML.
+2. Dry-run the messaging target with `UNWIRE_CHAIN=<chain>`.
 3. Review the transaction list against the one-way checklist above.
 4. Submit only if the reverse path remains untouched.
-5. Archive and remove the active `messaging.unwire.yml`.
+5. Remove the temporary `unwire.<messaging>` section after the operation if the
+   chain is not being deprecated.
 6. Do not add the chain to `messaging.disconnected-check.yml` unless the chain
    is fully deprecated.
 
 ## Why The Order Matters
 
 - Graph-based unwire should run before deleting chain files because it needs
-  active config and deployments to resolve contracts.
+  chain config and deployments to resolve contracts.
 - Asset unwire should happen before full messaging shutdown so asset routes are
   disabled explicitly before transport is removed.
 - The checker should run after messaging transactions land because it reads
   on-chain peer state.
-- Active `asset.unwire.yml` and `messaging.unwire.yml` should be removed after
-  use so later runs do not accidentally reprocess an old operation.
+- Active `asset.unwire.yml` should be removed after use so later runs do not
+  accidentally reprocess an old operation.
