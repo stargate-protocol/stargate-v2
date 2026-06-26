@@ -58,6 +58,11 @@ DEPLOY_ARGS=
 # These allow consumers of this script to pass flags like --ci
 CONFIGURE_ARGS_COMMON=
 
+# Optional messaging unwire config selector.
+# Example: UNWIRE_CONFIG=glue loads chainsConfig/unwire/messaging.unwire-glue.yml
+UNWIRE_CONFIG=
+UNWIRE_CONFIG_ARG=$(if $(UNWIRE_CONFIG),--unwire-config $(UNWIRE_CONFIG),)
+
 # Arguments to be always passed to the validate RPCs task
 # 
 # These allow consumers of this script to pass flags like --continue
@@ -516,13 +521,13 @@ testnet-connections-summary:
 #
 unwire-chain-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 unwire-chain-mainnet:
-	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
-	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CONFIG_ARG) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CONFIG_ARG) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 unwire-chain-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 unwire-chain-testnet:
-	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
-	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CONFIG_ARG) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CONFIG_ARG) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 #
 # This target will unwire the asset mesh

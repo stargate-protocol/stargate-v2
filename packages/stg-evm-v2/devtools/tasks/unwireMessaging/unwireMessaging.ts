@@ -37,6 +37,7 @@ import {
 } from '@layerzerolabs/ua-devtools-evm-hardhat'
 
 import { getContractWithEid } from '../../config/utils'
+import { MESSAGING_UNWIRE_CONFIG_ENV } from '../../config/utils/unwire.config.utils'
 import { getChainsThatSupportMessaging, setStage } from '../../config/utils/utils.config'
 import { createOneSigSignerFactory } from '../../onesig'
 import {
@@ -65,6 +66,26 @@ const configureCreditMessagingUnwire = createConfigureMultiple(
     configureUnpeerEdges
 )
 
+const withMessagingUnwireConfig = async <T>(unwireConfig: string | undefined, fn: () => Promise<T>): Promise<T> => {
+    const selector = unwireConfig?.trim()
+    if (!selector) {
+        return fn()
+    }
+
+    const previous = process.env[MESSAGING_UNWIRE_CONFIG_ENV]
+    process.env[MESSAGING_UNWIRE_CONFIG_ENV] = selector
+
+    try {
+        return await fn()
+    } finally {
+        if (previous === undefined) {
+            delete process.env[MESSAGING_UNWIRE_CONFIG_ENV]
+        } else {
+            process.env[MESSAGING_UNWIRE_CONFIG_ENV] = previous
+        }
+    }
+}
+
 /**
  * Full unwire task for token messaging contracts.
  *
@@ -73,29 +94,36 @@ const configureCreditMessagingUnwire = createConfigureMultiple(
  *
  * Use with a token-messaging.unwire.config.ts that defines the edges to disable.
  */
-wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load token messaging unwire config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: TokenMessagingOmniGraphHardhatSchema,
-            })
+wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING)
+    .addOptionalParam(
+        'unwireConfig',
+        'Messaging unwire config selector. Example: glue loads messaging.unwire-glue.yml',
+        undefined,
+        types.string
     )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Unwire token messaging: disable executor/DVN and remove peers',
-        (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureTokenMessagingUnwire,
-                sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
-            })
-    )
+    .setAction(async ({ unwireConfig, ...args }, hre) => {
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load token messaging unwire config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: TokenMessagingOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Unwire token messaging: disable executor/DVN and remove peers',
+            (args: SubtaskConfigureTaskArgs<TokenMessagingOmniGraph, ITokenMessaging>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureTokenMessagingUnwire,
+                    sdkFactory: createTokenMessagingFactory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        return withMessagingUnwireConfig(unwireConfig, () => hre.run(TASK_LZ_OAPP_WIRE, args))
+    })
 
 /**
  * Full unwire task for credit messaging contracts.
@@ -105,29 +133,36 @@ wireTask(TASK_STG_UNWIRE_TOKEN_MESSAGING).setAction(async (args, hre) => {
  *
  * Use with a credit-messaging.unwire.config.ts that defines the edges to disable.
  */
-wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING).setAction(async (args, hre) => {
-    subtask(
-        SUBTASK_LZ_OAPP_CONFIG_LOAD,
-        'Load credit messaging unwire config',
-        (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
-            runSuper({
-                ...args,
-                schema: CreditMessagingOmniGraphHardhatSchema,
-            })
+wireTask(TASK_STG_UNWIRE_CREDIT_MESSAGING)
+    .addOptionalParam(
+        'unwireConfig',
+        'Messaging unwire config selector. Example: glue loads messaging.unwire-glue.yml',
+        undefined,
+        types.string
     )
-    subtask(
-        SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
-        'Unwire credit messaging: disable executor/DVN and remove peers',
-        (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
-            runSuper({
-                ...args,
-                configurator: configureCreditMessagingUnwire,
-                sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
-            })
-    )
+    .setAction(async ({ unwireConfig, ...args }, hre) => {
+        subtask(
+            SUBTASK_LZ_OAPP_CONFIG_LOAD,
+            'Load credit messaging unwire config',
+            (args: SubtaskLoadConfigTaskArgs, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    schema: CreditMessagingOmniGraphHardhatSchema,
+                })
+        )
+        subtask(
+            SUBTASK_LZ_OAPP_WIRE_CONFIGURE,
+            'Unwire credit messaging: disable executor/DVN and remove peers',
+            (args: SubtaskConfigureTaskArgs<CreditMessagingOmniGraph, ICreditMessaging>, hre, runSuper) =>
+                runSuper({
+                    ...args,
+                    configurator: configureCreditMessagingUnwire,
+                    sdkFactory: createCreditMessagingFactory(createConnectedContractFactory()),
+                })
+        )
 
-    return hre.run(TASK_LZ_OAPP_WIRE, args)
-})
+        return withMessagingUnwireConfig(unwireConfig, () => hre.run(TASK_LZ_OAPP_WIRE, args))
+    })
 
 /**
  * Unpeer a fully-removed chain from all live messaging contracts by EID.

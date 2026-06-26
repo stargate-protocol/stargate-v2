@@ -69,11 +69,36 @@ function logMessagingUnwireChains(rules: Array<{ chain: string; allowedPeers: st
     printChains('Messaging unwire CHAINS (to unwire):', chainsToUnwire)
 }
 
+export const MESSAGING_UNWIRE_CONFIG_ENV = 'UNWIRE_CONFIG'
+
 const DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH = path.join('messaging.unwire.yml')
 const DEFAULT_ASSET_CONFIG_RELATIVE_PATH = path.join('asset.unwire.yml')
 const VALID_DIRECTIONS: UnwireDirection[] = ['from', 'to', 'both']
 const isUnwireDirection = (direction: unknown): direction is UnwireDirection =>
     typeof direction === 'string' && VALID_DIRECTIONS.includes(direction as UnwireDirection)
+
+const resolveMessagingUnwireConfigRelativePath = (): string => {
+    const selector = process.env[MESSAGING_UNWIRE_CONFIG_ENV]?.trim()
+    if (!selector) {
+        return DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH
+    }
+
+    if (selector.includes('/') || selector.includes('\\') || selector.includes('..')) {
+        throw new Error(`${MESSAGING_UNWIRE_CONFIG_ENV} must be a file selector, not a path: ${selector}`)
+    }
+
+    if (!/^[a-zA-Z0-9._-]+$/.test(selector)) {
+        throw new Error(
+            `${MESSAGING_UNWIRE_CONFIG_ENV} contains invalid characters: ${selector}. Use letters, numbers, '.', '_' or '-'.`
+        )
+    }
+
+    if (selector.startsWith('messaging.unwire')) {
+        return selector.endsWith('.yml') ? selector : `${selector}.yml`
+    }
+
+    return `messaging.unwire-${selector}.yml`
+}
 
 const chainsToUnwireConfigDir: Record<Stage, string> = {
     [Stage.MAINNET]: path.join(__dirname, '..', 'mainnet', '01', 'chainsConfig', 'unwire'),
@@ -98,7 +123,7 @@ export type ResolvedAssetUnwireConfig = {
 export function loadMessagingUnwireConfig(): ResolvedMessagingUnwireConfig | undefined {
     const logger = createLogger(process.env.LOG_LEVEL || 'info')
     const stage = requireStage()
-    const configPath = path.join(chainsToUnwireConfigDir[stage], DEFAULT_MESSAGING_CONFIG_RELATIVE_PATH)
+    const configPath = path.join(chainsToUnwireConfigDir[stage], resolveMessagingUnwireConfigRelativePath())
     if (!fs.existsSync(configPath)) {
         logger.warn(`No messaging unwire config file at ${configPath}, chains list empty`)
         return undefined
