@@ -14,3 +14,14 @@ treasurer:
     eth: true
     usdt: true
     usdc: true
+# deprecation
+status: DEPRECATED
+unwire:
+  token_messaging:
+    direction: to
+    allowed_peers:
+      - glue-mainnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - glue-mainnet
