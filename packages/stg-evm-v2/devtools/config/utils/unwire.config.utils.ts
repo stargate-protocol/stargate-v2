@@ -328,7 +328,7 @@ const resolveAssetRemainingChains = (
     }
 
     const disconnectSet = new Set(disconnectChains.map((chain) => chain.toLowerCase()))
-    const remainingChains = getChainsThatSupportToken(tokenName)
+    const remainingChains = getChainsThatSupportToken(tokenName, { includeDeprecated: true })
         .map((chain) => chain.name)
         .filter((name) => !disconnectSet.has(name.toLowerCase()))
 
