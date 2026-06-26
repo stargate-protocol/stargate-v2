@@ -69,8 +69,8 @@ const configureCreditMessagingUnwire = createConfigureMultiple(
     configureCreditMessagingUnpeerFullEdges
 )
 
-const withMessagingUnwireChain = async <T>(unwireChain: string, fn: () => Promise<T>): Promise<T> => {
-    const chainName = unwireChain.trim()
+const withMessagingUnwireChain = async <T>(unwireChain: string | undefined, fn: () => Promise<T>): Promise<T> => {
+    const chainName = unwireChain?.trim()
     if (!chainName) {
         throw new Error('--unwire-chain is required')
     }
