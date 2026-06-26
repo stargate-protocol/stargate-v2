@@ -388,16 +388,15 @@ const loadDeadDvnByEid = (chains: Array<{ name: string; eid: number }>): Map<num
     return deadDvnByEid
 }
 
-// Disable a messaging edge by zeroing executor settings and switching to LZ Dead DVN.
+// Disable a messaging edge by zeroing local executor settings and switching local ULN configs to LZ DeadDVN.
 const disableMessagingEdge = (
     edge: OmniEdgeHardhat<MessagingEdge>,
     deadDvnByEid: Map<number, string>
 ): OmniEdgeHardhat<MessagingEdge> => {
     const zeroAddress = makeZeroAddress()
     const fromDeadDvn = deadDvnByEid.get(edge.from.eid)
-    const toDeadDvn = deadDvnByEid.get(edge.to.eid)
-    if (!fromDeadDvn || !toDeadDvn) {
-        throw new Error(`Missing DeadDVN for edge ${edge.from.eid} -> ${edge.to.eid}`)
+    if (!fromDeadDvn) {
+        throw new Error(`Missing DeadDVN for local chain ${edge.from.eid} while disabling edge to ${edge.to.eid}`)
     }
     return {
         ...edge,
@@ -420,7 +419,7 @@ const disableMessagingEdge = (
                 ...edge.config.receiveConfig,
                 ulnConfig: {
                     ...edge.config.receiveConfig?.ulnConfig,
-                    requiredDVNs: [toDeadDvn],
+                    requiredDVNs: [fromDeadDvn],
                     optionalDVNs: [],
                     optionalDVNThreshold: 0,
                 },

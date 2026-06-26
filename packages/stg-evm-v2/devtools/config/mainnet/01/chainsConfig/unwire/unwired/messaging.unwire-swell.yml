@@ -1,0 +1,5 @@
+rules:
+  - chain: swell-mainnet
+    direction: both 
+    allowed_peers:
+      - swell-mainnet
