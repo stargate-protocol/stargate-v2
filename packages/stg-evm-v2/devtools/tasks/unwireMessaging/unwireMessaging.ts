@@ -9,17 +9,12 @@ import {
     ICreditMessaging,
     ITokenMessaging,
     TokenMessagingOmniGraph,
-    configureCreditMessagingGasLimit,
-    configureFares,
-    configureMaxNumPassengers,
     configureMessagingWithoutPeers,
-    configureNativeDropAmount,
-    configureTokenMessagingGasLimit,
     configureUnpeerEdges,
 } from '@stargatefinance/stg-devtools-v2'
 import { subtask, task } from 'hardhat/config'
 
-import { createConfigureMultiple } from '@layerzerolabs/devtools'
+import { type Configurator, OmniTransaction, SignAndSendResult, createConfigureMultiple } from '@layerzerolabs/devtools'
 import {
     SUBTASK_LZ_SIGN_AND_SEND,
     createConnectedContractFactory,
@@ -47,23 +42,31 @@ import {
 } from '../constants'
 import { wireTask } from '../wireTaskSetup'
 
-import type { OmniTransaction, SignAndSendResult } from '@layerzerolabs/devtools'
 import type { SignerDefinition } from '@layerzerolabs/devtools-evm'
 import type { SignAndSendTaskArgs } from '@layerzerolabs/devtools-evm-hardhat/tasks'
 
+// Directional `from`/`to` unwires only carry sendConfig. Only `both` edges carry receiveConfig and should unpeer.
+const isFullUnwireEdge = <TEdge extends { config: { receiveConfig?: unknown } }>(edge: TEdge): boolean =>
+    edge.config.receiveConfig != null
+
+const configureTokenMessagingUnpeerFullEdges: Configurator<TokenMessagingOmniGraph, ITokenMessaging> = (
+    graph,
+    createSdk
+) => configureUnpeerEdges({ ...graph, connections: graph.connections.filter(isFullUnwireEdge) }, createSdk)
+
 const configureTokenMessagingUnwire = createConfigureMultiple(
     configureMessagingWithoutPeers,
-    configureTokenMessagingGasLimit,
-    configureMaxNumPassengers,
-    configureFares,
-    configureNativeDropAmount,
-    configureUnpeerEdges
+    configureTokenMessagingUnpeerFullEdges
 )
+
+const configureCreditMessagingUnpeerFullEdges: Configurator<CreditMessagingOmniGraph, ICreditMessaging> = (
+    graph,
+    createSdk
+) => configureUnpeerEdges({ ...graph, connections: graph.connections.filter(isFullUnwireEdge) }, createSdk)
 
 const configureCreditMessagingUnwire = createConfigureMultiple(
     configureMessagingWithoutPeers,
-    configureCreditMessagingGasLimit,
-    configureUnpeerEdges
+    configureCreditMessagingUnpeerFullEdges
 )
 
 const withMessagingUnwireConfig = async <T>(unwireConfig: string | undefined, fn: () => Promise<T>): Promise<T> => {

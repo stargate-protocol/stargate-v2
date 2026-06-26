@@ -413,42 +413,58 @@ const loadDeadDvnByEid = (chains: Array<{ name: string; eid: number }>): Map<num
     return deadDvnByEid
 }
 
-// Disable a messaging edge by zeroing local executor settings and switching local ULN configs to LZ DeadDVN.
 const disableMessagingEdge = (
     edge: OmniEdgeHardhat<MessagingEdge>,
-    deadDvnByEid: Map<number, string>
+    deadDvnByEid: Map<number, string>,
+    direction: UnwireDirection
 ): OmniEdgeHardhat<MessagingEdge> => {
     const zeroAddress = makeZeroAddress()
     const fromDeadDvn = deadDvnByEid.get(edge.from.eid)
     if (!fromDeadDvn) {
         throw new Error(`Missing DeadDVN for local chain ${edge.from.eid} while disabling edge to ${edge.to.eid}`)
     }
-    return {
-        ...edge,
-        config: {
-            ...edge.config,
-            sendConfig: {
-                ...edge.config.sendConfig,
-                executorConfig: {
-                    maxMessageSize: edge.config.sendConfig?.executorConfig?.maxMessageSize ?? 0,
-                    executor: zeroAddress,
-                },
-                ulnConfig: {
-                    ...edge.config.sendConfig?.ulnConfig,
-                    requiredDVNs: [fromDeadDvn],
-                    optionalDVNs: [],
-                    optionalDVNThreshold: 0,
+
+    const sendUlnConfig = {
+        ...edge.config.sendConfig?.ulnConfig,
+        requiredDVNs: [fromDeadDvn],
+        optionalDVNs: [],
+        optionalDVNThreshold: 0,
+    }
+
+    if (direction !== 'both') {
+        return {
+            ...edge,
+            config: {
+                sendConfig: {
+                    ...edge.config.sendConfig,
+                    ulnConfig: sendUlnConfig,
                 },
             },
-            receiveConfig: {
-                ...edge.config.receiveConfig,
-                ulnConfig: {
-                    ...edge.config.receiveConfig?.ulnConfig,
-                    requiredDVNs: [fromDeadDvn],
-                    optionalDVNs: [],
-                    optionalDVNThreshold: 0,
-                },
+        }
+    }
+
+    const config: MessagingEdge = {
+        ...edge.config,
+        sendConfig: {
+            ...edge.config.sendConfig,
+            executorConfig: {
+                maxMessageSize: edge.config.sendConfig?.executorConfig?.maxMessageSize ?? 0,
+                executor: zeroAddress,
+            },
+            ulnConfig: sendUlnConfig,
+        },
+        receiveConfig: {
+            ulnConfig: {
+                requiredDVNs: [fromDeadDvn],
+                optionalDVNs: [],
+                optionalDVNThreshold: 0,
+                confirmations: 0n,
             },
         },
+    }
+
+    return {
+        ...edge,
+        config,
     }
 }
