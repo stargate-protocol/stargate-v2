@@ -399,9 +399,11 @@ const disableMessagingEdge = (
     }
 
     if (direction !== 'both') {
+        const { receiveConfig: _receiveConfig, ...config } = edge.config
         return {
             ...edge,
             config: {
+                ...config,
                 sendConfig: {
                     ...edge.config.sendConfig,
                     ulnConfig: sendUlnConfig,
