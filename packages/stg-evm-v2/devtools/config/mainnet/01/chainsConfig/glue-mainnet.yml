@@ -18,6 +18,7 @@ treasurer:
 status: DEPRECATED
 unwire:
   token_messaging:
+    # ! disabling incoming messages only for now as part of Phase 1. It should disconnect both directions in Phase 2
     direction: to
     allowed_peers:
       - glue-mainnet
@@ -25,3 +26,4 @@ unwire:
     direction: both
     allowed_peers:
       - glue-mainnet
+# TODO Taiko chain is down we need to unwire it once it is up
