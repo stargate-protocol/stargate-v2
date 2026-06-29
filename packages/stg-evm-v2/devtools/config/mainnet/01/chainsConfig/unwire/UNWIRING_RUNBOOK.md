@@ -163,10 +163,13 @@ remote, and inbound messages from that remote will fail peer validation.
 
 ### Pool Chain Messaging Unwire
 
-Use the pool chain flow when a pool chain is being deprecated and the deployed
-assets no longer hold user funds. This is usually safe for pool chains
-because funds and credits are drained before the messaging unwire happens, so no
-user exit path needs to stay open through TokenMessaging.
+A pool chain is a Stargate-supported chain where every deployed asset has a
+local Pool that locks ERC20s on bridge-out and unlocks them on bridge-in. The
+pool chain flow assumes Pool credits and funds were fully drained before unwire
+starts, and that the treasury fee was already withdrawn.
+
+Use this flow when the deployed assets no longer hold user funds. At that point,
+no TokenMessaging exit path needs to stay open for users.
 
 This flow executes a full unwire for incoming and outgoing paths on both OApps:
 TokenMessaging and CreditMessaging. It is safe only after credits and funds are
@@ -247,9 +250,19 @@ Remove the chain from active config:
 
 ### Hydra Chain Messaging Unwire
 
-Use the Hydra flow when users still need time to exit funds. Hydra needs two
-messaging phases because TokenMessaging outbound paths may still be needed while
-new inbound flow into the deprecated chain should be stopped.
+A Hydra chain is a Stargate-supported chain where at least one deployed asset is
+a Hydra asset that burns on bridge-out and mints on bridge-in. Since Hydra funds
+are held by users and not by a Pool, there is no pool balance to drain; users
+must withdraw their funds themselves.
+
+While user-held Hydra supply/liquidity remains and the withdrawal window is open,
+TokenMessaging outbound paths from the deprecated chain must remain active so
+users can withdraw to other chains. Ideally, supply should go to zero before
+the final disconnect.
+
+Hydra therefore cannot be fully disconnected in the first step; the final
+disconnect only happens after supply is drained or the withdrawal window is
+closed.
 
 CreditMessaging can be fully unwired in phase 1 only after credits are drained.
 
