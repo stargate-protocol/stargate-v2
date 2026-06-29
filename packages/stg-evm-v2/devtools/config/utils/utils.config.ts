@@ -61,6 +61,10 @@ export function validateChains(chains: string[]) {
 export function filterValidProvidedChains(providedChains: string[], supportedChains: Chain[]): Chain[] {
     const normalizedChains = providedChains.map((chain) => chain.trim()).filter(Boolean)
 
+    if (providedChains.length > 0 && normalizedChains.length === 0) {
+        throw new Error('Provided chains list cannot be empty')
+    }
+
     // validate provided chains
     validateChains(normalizedChains)
 

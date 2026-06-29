@@ -21,6 +21,7 @@ import {
 } from '../../devtools/config/utils'
 import {
     __resetUtilsConfigStateForTests,
+    filterValidProvidedChains,
     getAllChainsConfig,
     getAllSupportedChains,
     getChainsThatSupportMessaging,
@@ -687,6 +688,12 @@ unwired_tokens:
 
         it('should throw if a chain is invalid', () => {
             expect(() => validateChains(invalidChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
+        })
+
+        it('should throw if provided chains are only blank values', () => {
+            expect(() => filterValidProvidedChains([' ', ''], getChainsThatSupportToken(TokenName.USDT))).to.throw(
+                'Provided chains list cannot be empty'
+            )
         })
     })
 
