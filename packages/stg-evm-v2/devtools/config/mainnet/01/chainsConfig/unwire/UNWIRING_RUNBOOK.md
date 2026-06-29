@@ -65,8 +65,8 @@ Keep until the asset unwire transactions land:
 
 After the transactions land:
 
-- remove the asset from `tokens:` in `chainsConfig/<chain>.yml`, or move it to
-  `unwired_tokens:` if historical visibility is useful
+- remove the asset from `tokens:` in `chainsConfig/<chain>.yml`, and move it to
+  `unwired_tokens:` for historical visibility
 - archive `chainsConfig/unwire/asset.unwire.yml` under
   `chainsConfig/unwire/unwired/`
 - remove the active `chainsConfig/unwire/asset.unwire.yml`
