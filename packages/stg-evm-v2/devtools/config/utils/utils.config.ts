@@ -49,10 +49,10 @@ export function isValidChain(chain: string): boolean {
     return allSupportedChains.includes(chain)
 }
 
-export function validateChains(chains: string[], supportedChains: string[]) {
-    const supportedChainSet = new Set(supportedChains)
+// Validate that provided names exist in chain config; feature-specific support is filtered separately.
+export function validateChains(chains: string[]) {
     chains.forEach((chain) => {
-        if (!supportedChainSet.has(chain)) {
+        if (!isValidChain(chain)) {
             throw new Error(`Invalid chain: ${chain}`)
         }
     })
@@ -62,10 +62,7 @@ export function filterValidProvidedChains(providedChains: string[], supportedCha
     const normalizedChains = providedChains.map((chain) => chain.trim()).filter(Boolean)
 
     // validate provided chains
-    validateChains(
-        normalizedChains,
-        supportedChains.map((chain) => chain.name)
-    )
+    validateChains(normalizedChains)
 
     // get valid chains in the provided chains list
     return normalizedChains.length !== 0

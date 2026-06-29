@@ -678,19 +678,15 @@ unwired_tokens:
         })
 
         it('should not revert if all chains are valid', () => {
-            const supportedChains = validChains
-            expect(() => validateChains(validChains, supportedChains)).to.not.throw()
+            expect(() => validateChains(validChains)).to.not.throw()
         })
 
         it('should not revert if all chains are valid and supported', () => {
-            const supportedChains = validChains
-            expect(() => validateChains(validChains, supportedChains)).to.not.throw()
+            expect(() => validateChains(validChains)).to.not.throw()
         })
 
         it('should throw if a chain is invalid', () => {
-            const supportedChains = validChains
-
-            expect(() => validateChains(invalidChains, validChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
+            expect(() => validateChains(invalidChains)).to.throw(`Invalid chain: ${invalidChains[0]}`)
         })
     })
 
