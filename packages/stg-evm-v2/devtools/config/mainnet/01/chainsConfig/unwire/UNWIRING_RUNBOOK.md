@@ -131,6 +131,11 @@ the chain itself as the only allowed peer.
 - `from`: disable only `chain -> peers`.
 - `to`: disable only `peers -> chain`.
 
+TokenMessaging and CreditMessaging are fully unwired in both Pool and Hydra
+shutdowns; the difference is timing. Pool chains fully unwire both OApps in one
+step. Hydra chains fully unwire CreditMessaging in phase 1, but delay the full
+TokenMessaging unwire until phase 2 so users can withdraw first.
+
 Run both TokenMessaging and CreditMessaging once with the chain target:
 
 ```bash
