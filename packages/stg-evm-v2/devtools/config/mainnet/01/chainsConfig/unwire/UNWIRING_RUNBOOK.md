@@ -194,7 +194,7 @@ unwire:
     allowed_peers:
       - <chain>
   credit_messaging:
-    # CreditMessaging can be fully unwired once credits are drained/.
+    # CreditMessaging can be fully unwired once credits are drained.
     direction: both
     allowed_peers:
       - <chain>
