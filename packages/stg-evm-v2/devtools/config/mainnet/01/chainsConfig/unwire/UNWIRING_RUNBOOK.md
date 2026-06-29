@@ -157,10 +157,9 @@ On that local contract:
 - `receiveConfig` controls messages received by `A` from `B`.
 - `setPeer(B, bytes32(0))` clears `A`'s peer for `B`.
 
-The peer mapping is not purely send-only. Clearing a peer can affect both local
-sending to that remote and local receive validation from that remote. For any
-one-way unwire where the opposite direction must keep working, transaction
-review must be strict.
+The peer mapping is not send-only. Clearing a peer disables messaging for that
+local/remote pair. The local contract can no longer send messages to that
+remote, and inbound messages from that remote will fail peer validation.
 
 ### Pool Chain Messaging Unwire
 
