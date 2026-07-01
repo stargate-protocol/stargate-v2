@@ -100,6 +100,16 @@ Do not expect:
 Use messaging unwire when TokenMessaging and CreditMessaging paths should be
 disabled for a chain.
 
+Use the Make targets for normal operation. Pass the target chain as
+`UNWIRE_CHAIN=<chain-name>`:
+
+```bash
+make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
+```
+
+The underlying Hardhat tasks read the same `UNWIRE_CHAIN` environment variable.
+
 Messaging unwire is configured in `chainsConfig/<chain>.yml`:
 
 ```yaml
@@ -151,8 +161,8 @@ STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARG
 STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
 ```
 
-Or call each messaging contract separately when reviewing or executing a split
-operation:
+Or call each messaging Make target separately when reviewing or executing a
+split operation:
 
 ```bash
 STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
