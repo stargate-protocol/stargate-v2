@@ -132,9 +132,17 @@ the chain itself as the only allowed peer.
 - `to`: disable only `peers -> chain`.
 
 TokenMessaging and CreditMessaging are fully unwired in both Pool and Hydra
-shutdowns; the difference is timing. Pool chains fully unwire both OApps in one
-step. Hydra chains fully unwire CreditMessaging in phase 1, but delay the full
-TokenMessaging unwire until phase 2 so users can withdraw first.
+shutdowns; the difference is sequencing:
+
+- Pool chains split TokenMessaging into two operational steps that can happen
+  the same day or shortly apart. First disable outgoing TokenMessaging with
+  `direction: from`; then, once no in-flight messages remain, fully disconnect
+  TokenMessaging with `direction: both`. CreditMessaging is fully unwired once
+  with `direction: both`.
+- Hydra chains also use two steps, but they are separate shutdown phases.
+  Phase 1 uses TokenMessaging `direction: to` and CreditMessaging
+  `direction: both`; phase 2 uses TokenMessaging `direction: both` after
+  user-held supply is drained or the withdrawal window closes.
 
 Run both TokenMessaging and CreditMessaging once with the chain target:
 
@@ -176,10 +184,27 @@ starts, and that the treasury fee was already withdrawn.
 Use this flow when the deployed assets no longer hold user funds. At that point,
 no TokenMessaging exit path needs to stay open for users.
 
-This flow executes a full unwire for incoming and outgoing paths on both OApps:
-TokenMessaging and CreditMessaging. It is safe only after credits and funds are
-fully drained, because no funds should be lost when both directions are
-disconnected at once.
+This flow splits TokenMessaging into two operational steps. The steps do not
+require external user action and may happen in a short window, but the split
+prevents in-flight outbound messages from getting stuck.
+
+CreditMessaging is fully unwired once with `direction: both` after credits are
+drained.
+
+If the full mesh is disconnected while a message from the deprecated chain is
+still in flight, the destination peer may already be removed and the message will
+not deliver. Recovering that message would require wiring the path again, which
+should be avoided.
+
+For very low-activity chains, a single full `direction: both` unwire may be
+acceptable, but it carries the stuck-message risk above. Prefer the two-step
+flow.
+
+#### Step 1: Stop Outgoing TokenMessaging
+
+First stop new TokenMessaging messages from the deprecated chain to the rest of
+the mesh. This keeps peer and receive-side config in place so already-sent
+messages can still land on destination chains.
 
 Config:
 
@@ -188,13 +213,11 @@ status: DEPRECATED
 
 unwire:
   token_messaging:
-    # Pool chains use both after funds are drained because users no longer need
-    # a TokenMessaging exit path from the deprecated chain.
-    direction: both
+    # First disable only deprecated-chain -> peers.
+    direction: from
     allowed_peers:
       - <chain>
   credit_messaging:
-    # CreditMessaging can be fully unwired once credits are drained.
     direction: both
     allowed_peers:
       - <chain>
@@ -204,17 +227,63 @@ Order:
 
 1. Drain or account for all pool funds and credits.
 2. Mark the chain `status: DEPRECATED`.
-3. Add `direction: both` for TokenMessaging and CreditMessaging.
+3. Add `direction: from` for TokenMessaging and `direction: both` for
+   CreditMessaging.
 4. Run `make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run`
    and verify transactions to propose match the expected transaction list.
 5. Propose the unwire transactions through OneSig with
    `make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig`.
 6. Wait for the OneSig transactions to be executed on-chain.
-7. Add the EID to `messaging.disconnected-check.yml`.
-8. Run `make check-messaging-disconnected`.
-9. Remove chain-level config only after the checker passes.
 
-Expected transactions for `direction: both`:
+Expected TokenMessaging transactions for `direction: from`:
+
+- Send ULN config to local DeadDVN.
+
+Do not expect for TokenMessaging:
+
+- Receive ULN config changes.
+- Executor config changing to `address(0)`.
+- `setPeer(remoteEid, bytes32(0))`.
+- `setPeer(remoteEid, nonzeroPeer)`.
+- Asset path or fee-lib changes from the messaging unwire target.
+- Owner, delegate, planner, or asset config changes as part of the unwire. If
+  they appear, they are config drift and should be reviewed separately.
+
+Expected CreditMessaging transactions for `direction: both`:
+
+- Send ULN config to local DeadDVN.
+- Send executor config to `address(0)`.
+- Receive ULN config to local DeadDVN.
+- `setPeer(remoteEid, bytes32(0))`.
+
+#### Step 2: Full TokenMessaging Disconnect
+
+Run this after confirming there are no in-flight messages from the deprecated
+chain to any peer.
+
+Update:
+
+```yaml
+unwire:
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - <chain>
+  credit_messaging:
+    # Already applied in step 1.
+    direction: both
+    allowed_peers:
+      - <chain>
+```
+
+Run TokenMessaging only:
+
+```bash
+STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
+STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
+```
+
+Expected TokenMessaging transactions for `direction: both`:
 
 - Send ULN config to local DeadDVN.
 - Send executor config to `address(0)`.
@@ -230,6 +299,12 @@ Do not expect:
 - Owner, delegate, planner, or asset config changes as part of the unwire. If
   they appear, they are config drift and should be reviewed separately.
 
+After step 2 transactions execute:
+
+1. Add the EID to `messaging.disconnected-check.yml`.
+2. Run `make check-messaging-disconnected`.
+3. Remove chain-level config only after the checker passes.
+
 Keep until the disconnected checker passes:
 
 - `chainsConfig/<chain>.yml`
@@ -241,11 +316,13 @@ Keep until the disconnected checker passes:
 After the checker passes:
 
 Keep these files for traceability:
+
 - `chainsConfig/<chain>.yml`
 - `packages/stg-evm-v2/deployments/<chain>/`
 - `packages/stg-evm-sdk-v2/deployments/<chain>/`
 
 Remove the chain from active config:
+
 - chain-level entries in `packages/stg-definitions-v2/src/constant.ts`
   - DVNs and executor for the EID
   - `NETWORKS[EndpointId.<CHAIN>_V2_MAINNET]`
@@ -265,9 +342,10 @@ TokenMessaging outbound paths from the deprecated chain must remain active so
 users can withdraw to other chains. Ideally, supply should go to zero before
 the final disconnect.
 
-Hydra therefore cannot be fully disconnected in the first step; the final
-disconnect only happens after supply is drained or the withdrawal window is
-closed.
+Hydra therefore cannot be fully disconnected in the first step. Its two steps
+are shutdown phases: phase 1 stops new inbound transfers while preserving exits,
+and phase 2 fully disconnects after supply is drained or the maximum withdrawal
+window is reached.
 
 CreditMessaging can be fully unwired in phase 1 only after credits are drained.
 
