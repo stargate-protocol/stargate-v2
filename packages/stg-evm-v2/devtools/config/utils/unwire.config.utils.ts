@@ -62,8 +62,6 @@ function logMessagingUnwireChains(allChains: Chain[], allowedPeers: string[]): v
     printChains('Messaging unwire CHAINS (to unwire):', chainsToUnwire)
 }
 
-export const MESSAGING_UNWIRE_CHAIN_ENV = 'UNWIRE_CHAIN'
-
 const DEFAULT_ASSET_CONFIG_RELATIVE_PATH = path.join('asset.unwire.yml')
 const VALID_DIRECTIONS: UnwireDirection[] = ['from', 'to', 'both']
 const isUnwireDirection = (direction: unknown): direction is UnwireDirection =>
@@ -104,9 +102,9 @@ const getMessagingUnwireConfigKey = (contractName: MessagingContractName): 'toke
 
 // Load the messaging unwire rule from the target chain config.
 export function loadMessagingUnwireConfig(contractName: MessagingContractName): ResolvedMessagingUnwireConfig {
-    const unwireChainName = process.env[MESSAGING_UNWIRE_CHAIN_ENV]?.trim()
+    const unwireChainName = process.env.UNWIRE_CHAIN?.trim()
     if (!unwireChainName) {
-        throw new Error(`${MESSAGING_UNWIRE_CHAIN_ENV} is required. Pass --unwire-chain <chain-name>.`)
+        throw new Error('UNWIRE_CHAIN is required')
     }
 
     const peerChains = getChainsThatSupportMessaging()

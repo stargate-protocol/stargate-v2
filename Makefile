@@ -63,7 +63,6 @@ CONFIGURE_ARGS_COMMON=
 
 # Messaging unwire target chain. Required by unwire-chain and messaging-specific unwire targets.
 UNWIRE_CHAIN=
-UNWIRE_CHAIN_ARG=$(if $(UNWIRE_CHAIN),--unwire-chain $(UNWIRE_CHAIN),)
 
 # Arguments to be always passed to the validate RPCs task
 # 
@@ -527,29 +526,29 @@ endif
 
 unwire-chain-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 unwire-chain-mainnet: require-unwire-chain
-	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
-	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 unwire-token-messaging-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 unwire-token-messaging-mainnet: require-unwire-chain
-	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
 
 unwire-credit-messaging-mainnet: CONFIG_BASE_PATH=./devtools/config/mainnet/01
 unwire-credit-messaging-mainnet: require-unwire-chain
-	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 unwire-chain-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 unwire-chain-testnet: require-unwire-chain
-	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
-	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 unwire-token-messaging-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 unwire-token-messaging-testnet: require-unwire-chain
-	$(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging.unwire.config.ts --signer deployer
 
 unwire-credit-messaging-testnet: CONFIG_BASE_PATH=./devtools/config/testnet
 unwire-credit-messaging-testnet: require-unwire-chain
-	$(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) $(UNWIRE_CHAIN_ARG) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
+	UNWIRE_CHAIN=$(UNWIRE_CHAIN) $(UNWIRE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging.unwire.config.ts --signer deployer
 
 #
 # This target will unwire the asset mesh
