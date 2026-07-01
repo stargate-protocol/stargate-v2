@@ -116,7 +116,7 @@ export function getAllChainsConfig(): Chain[] {
     return SUPPORTED_CHAINS
 }
 
-const isDeprecatedChain = (chain: Chain): boolean => chain.status === 'DEPRECATED'
+const isDeprecatedChain = (chain: Chain): boolean => chain.status?.toUpperCase() === 'DEPRECATED'
 
 const filterDeprecatedChains = (chains: Chain[], options?: ChainFilterOptions): Chain[] =>
     options?.includeDeprecated ? chains : chains.filter((chain) => !isDeprecatedChain(chain))
