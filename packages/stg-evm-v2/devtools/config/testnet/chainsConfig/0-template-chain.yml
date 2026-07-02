@@ -1,5 +1,6 @@
 name: template-chain
 eid: TEMPLATE_V2_TESTNET
+status: ACTIVE # ACTIVE | DEPRECATED | INACTIVE. DEPRECATED is skipped by normal wire but still resolvable by unwire.
 token_messaging: true # if the chain supports token messaging
 credit_messaging: true # if the chain supports credit messaging
 allowed_peers: [] # optional allowlist of chain names for wiring; empty means all
@@ -32,4 +33,12 @@ treasurer: # list of tokens that support the treasurer in the chain
     usdc: true
     usdt: true
 isTIP20: true # marks the network as using TIP-20 for stablecoin (USDC or EURC)
-
+unwire: # required only while running messaging unwire for this chain
+  token_messaging:
+    direction: both # from | to | both
+    allowed_peers:
+      - template-chain
+  credit_messaging:
+    direction: both # from | to | both
+    allowed_peers:
+      - template-chain
