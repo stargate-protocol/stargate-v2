@@ -3631,6 +3631,7 @@ export const NETWORKS: NetworksConfig = {
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
             nativeDropAmount: parseEther('0.0324').toBigInt(),
+            busGasLimit: 65000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x6ad59102caa47cfa76e7cf2ccc7d76557cc5e37d',
