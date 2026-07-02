@@ -138,65 +138,13 @@ transfer.
 
 ## Unwiring messaging paths or an asset mesh
 
-This repo supports two YAML-driven unwire flows:
-- **Messaging path unwire**: disable specific TokenMessaging/CreditMessaging paths between chains.
-- **Asset mesh unwire**: remove a single asset from the mesh on specific chains by disabling OFT paths and clearing its
-  assetId on messaging contracts.
+The detailed unwiring process is documented in
+`devtools/config/mainnet/01/chainsConfig/unwire/UNWIRING_RUNBOOK.md`.
 
-### YAML schemas and templates
-Templates live in:
-- `devtools/config/mainnet/01/chainsConfig/unwire/0-template-asset.unwire.yml`
-- `devtools/config/mainnet/01/chainsConfig/unwire/0-template-messaging.unwire.yml`
-
-Copy these templates to `asset.unwire.yml` and `messaging.unwire.yml` (in the same directory) for use by the unwire flows.
-Asset unwire YAML example (mainnet):
-```
-asset: eurc
-disconnect_chains:
-  - avalanche-mainnet
-  - base-mainnet
-remaining_chains:
-  - ethereum-mainnet
-  - bera-mainnet
-  - plumephoenix-mainnet
-```
-
-Messaging unwire YAML example (mainnet):
-```
-rules:
-  - chain: avalanche-mainnet
-    allowed_peers:
-      - avalanche-mainnet
-```
-
-Note: `allowed_peers` must be non-empty. Use the same chain name to effectively remove all external paths for that chain.
-
-### What it does
-- **Messaging path unwire** (`unwire-chain-mainnet`):
-  - `token-messaging.unwire.config.ts` and `credit-messaging.unwire.config.ts` run three operations in a single pass
-    for every edge defined in `messaging.unwire.yml`:
-    1. Set executor to `address(0)` — disables message execution.
-    2. Set DVN to DeadDVN — ensures no valid verification can occur.
-    3. Call `setPeer(eid, bytes32(0))` — removes the peer relationship entirely.
-- **Asset mesh unwire** (`unwire-asset-mainnet`):
-  - `asset.unwire.config.ts` sets `setOFTPath(dstEid, false)` for all edges between `disconnect_chains` and
-    `remaining_chains`, bidirectionally.
-  - `token-messaging-asset.unwire.config.ts` and `credit-messaging-asset.unwire.config.ts` call
-    `setAssetId(address(0), assetId)` for `disconnect_chains` on TokenMessaging and CreditMessaging.
-
-### Run the unwire flows
-Makefile targets:
-```
-make unwire-chain-mainnet
-make unwire-asset-mainnet
-```
-
-For chains already scrubbed from the repo (no hardhat config), use the by-EID task to remove stale peer pointers from all live chains:
-```
-make unwire-chain-by-eid DEAD_EIDS=30318,30101
-```
-
-Notes:
-- `setOFTPath(false)` only resets OFT paths; messaging asset removal is required to fully disable routing on-chain.
-- Only `disconnect_chains` are removed from messaging; `remaining_chains` remain active for the asset mesh.
-- Credits for pool paths should be set to zero by the planner
+That runbook covers:
+- Asset mesh unwire.
+- Messaging unwire with `direction: from | to | both`.
+- Make targets that pass the selected chain with `UNWIRE_CHAIN=<chain>`.
+- By-EID cleanup for chains already removed from active config.
+- `stg:check::messaging:disconnected`.
+- Transaction review expectations and file cleanup order.

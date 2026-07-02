@@ -424,6 +424,12 @@ enum ChainStatus {
     INACTIVE = 'INACTIVE',
     ACTIVE = 'ACTIVE',
 }
+
+type MessagingUnwireConfig = {
+    direction: 'from' | 'to' | 'both'
+    allowed_peers: string[] | string
+}
+
 export interface Chain {
     name: string
     eid: any
@@ -442,6 +448,10 @@ export interface Chain {
         tokens: Record<string, boolean>
     }
     status?: ChainStatus
+    unwire?: {
+        token_messaging?: MessagingUnwireConfig
+        credit_messaging?: MessagingUnwireConfig
+    }
     isTIP20?: boolean
 }
 

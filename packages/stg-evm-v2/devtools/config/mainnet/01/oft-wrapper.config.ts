@@ -3,7 +3,7 @@ import { OFTWrapperNodeConfig } from '@stargatefinance/stg-devtools-v2'
 import { OmniGraphHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 
 import { getContractWithEid, getOneSigAddress } from '../../utils'
-import { filterValidProvidedChains, getAllChainsConfig, getChainsList, printChains } from '../../utils/utils.config'
+import { filterValidProvidedChains, getActiveChainsConfig, getChainsList, printChains } from '../../utils/utils.config'
 import { setMainnetStage } from '../utils'
 
 const contract = { contractName: 'OFTWrapper' }
@@ -15,7 +15,7 @@ export default async (): Promise<OmniGraphHardhat<OFTWrapperNodeConfig, unknown>
     const chainsList = getChainsList()
 
     // get valid chains config in the chainsList
-    const validChains = filterValidProvidedChains(chainsList, getAllChainsConfig())
+    const validChains = filterValidProvidedChains(chainsList, getActiveChainsConfig())
 
     printChains(`oft.wrapper CHAINS_LIST:`, validChains)
 
