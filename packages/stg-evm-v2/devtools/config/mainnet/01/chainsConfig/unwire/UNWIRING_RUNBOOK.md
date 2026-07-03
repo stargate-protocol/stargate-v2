@@ -210,6 +210,21 @@ For very low-activity chains, a single full `direction: both` unwire may be
 acceptable, but it carries the stuck-message risk above. Prefer the two-step
 flow.
 
+#### Pool Drain and LP Considerations
+
+Pool assets must be drained before protocol unwiring starts. LPs hold LP tokens
+that represent a claim on local pool liquidity and credits on that chain, so
+LPs must be able to redeem their funds before the pool is disconnected.
+
+LPs should be notified that the pool is being deprecated and given a deadline to
+withdraw. During the LP exit window and pool drain, keep pool funds and credits
+safe so LPs can redeem normally. After the deadline passes, the remaining pool
+balance can be fully drained and protocol unwiring can start.
+
+Pools are drained by transferring assets into the deprecated chain. Those
+transfers unlock ERC20s from the local pool. After the ERC20s are unlocked, they
+should be bridged out through another route, not through Stargate.
+
 #### Step 1: Stop Outgoing TokenMessaging
 
 First stop new TokenMessaging messages from the deprecated chain to the rest of
