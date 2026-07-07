@@ -11,7 +11,7 @@ guides for execution details:
 - Coordination source:
   [chain and asset deprecation gist](https://gist.github.com/clauBv23/7ee7fe91496f398e68a1b2ff242264ab)
 - Source planner runbook:
-  [PLANNER_DEPRECATION.md](https://github.com/LayerZero-Labs/offchain-monorepo/blob/stg-planner/documment-chain-deprecation/legacy/offchain-monorepo/apps/stargate/docs/PLANNER_DEPRECATION.md)
+  [PLANNER_DEPRECATION.md](https://github.com/LayerZero-Labs/monorepo-internal/blob/4630b39de4cd0a4c2dd06b579040b34156b79ae9/legacy/offchain-monorepo/apps/stargate/docs/PLANNER_DEPRECATION.md)
 
 The process has three workstreams:
 
