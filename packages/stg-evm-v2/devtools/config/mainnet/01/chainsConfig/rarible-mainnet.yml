@@ -11,3 +11,14 @@ treasurer:
   tokens:
     usdt: true
     usdc: true
+# deprecation
+status: DEPRECATED
+unwire:
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - rarible-mainnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - rarible-mainnet

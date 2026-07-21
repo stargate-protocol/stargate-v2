@@ -26,4 +26,3 @@ unwire:
     direction: both
     allowed_peers:
       - glue-mainnet
-# TODO Taiko chain is down we need to unwire it once it is up
