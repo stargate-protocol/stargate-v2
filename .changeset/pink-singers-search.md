@@ -7,4 +7,4 @@
 "@stargatefinance/stg-evm-sdk-v2": major
 ---
 
-Deprecate Glue mainnet
+Shutdown Glue mainnet
