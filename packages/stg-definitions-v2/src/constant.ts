@@ -75,7 +75,6 @@ export const DVNS = {
         [EndpointId.PLASMA_V2_MAINNET]: '0xa51ce237fafa3052d5d3308df38a024724bb1274',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x882a1ee8891c7d22310dedf032ef9653785532b8',
         [EndpointId.POLYGON_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
-        [EndpointId.RARIBLE_V2_MAINNET]: '0xb53648ca1aa054a80159c1175c03679fdc76bf88',
         [EndpointId.RAYLS_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x6d4fc4bd9f9c29086e2aa67d4c81f32d2e0f285c',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x05aaefdf9db6e0f7d27fa3b6ee099edb33da029e',
@@ -145,7 +144,6 @@ export const DVNS = {
         [EndpointId.PLASMA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x4208d6e27538189bb48e603d6123a94b8abe0a0b',
         [EndpointId.POLYGON_V2_MAINNET]: '0x23de2fe932d9043291f870324b74f820e11dc81a',
-        [EndpointId.RARIBLE_V2_MAINNET]: '0x0b5e5452d0c9da1bb5fb0664f48313e9667d7820',
         [EndpointId.RAYLS_V2_MAINNET]: '0x396dc0a78f789586e2982fccd830c5954c193f3c',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
@@ -233,7 +231,6 @@ export const DVNS = {
         [EndpointId.PLASMA_V2_MAINNET]: '0x2465ee263149a18d61c9224244c61a5871dc0473',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x395b14700812cccc38b8e64f0a06ce2045fe9ba3',
         [EndpointId.POLYGON_V2_MAINNET]: '0x13feb7234ff60a97af04477d6421415766753ba3',
-        [EndpointId.RARIBLE_V2_MAINNET]: '0xb77b8b65ca4a91f211ba54babc733ca8c09f324f',
         [EndpointId.RAYLS_V2_MAINNET]: '0xd01ae6905d48315f7be10c7330aecf8360ef5b12',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x41ef29f974fc9f6772654f005271c64210425391',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
@@ -309,7 +306,6 @@ export const EXECUTORS = {
         [EndpointId.PLASMA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.POLYGON_V2_MAINNET]: '0xCd3F213AD101472e1713C72B1697E727C803885b',
-        [EndpointId.RARIBLE_V2_MAINNET]: '0x1E4CAc6c2c955cAED779ef24d5B8C5EE90b1f914',
         [EndpointId.RAYLS_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.REDBELLY_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
@@ -760,9 +756,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0xda6087E69C51E7D31b6DBAD276a3c44703DFdCAd',
             },
-            [EndpointId.RARIBLE_V2_MAINNET]: {
-                type: StargateType.Oft,
-            },
             [EndpointId.ROOTSTOCK_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0xaf368c91793cb22739386dfcbbb2f1a9e4bcbebf',
@@ -1024,11 +1017,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
                 type: StargateType.Pool,
             },
-            [EndpointId.RARIBLE_V2_MAINNET]: {
-                type: StargateType.Oft,
-                name: 'Bridged USDC (Stargate)',
-                symbol: 'USDC.e',
-            },
             [EndpointId.RAYLS_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x9001dbe4D68d36ab87923A2a9Dfb0c745fd25001',
@@ -1285,8 +1273,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.METIS_V2_MAINNET]: {},
         [EndpointId.MOCA_V2_MAINNET]: {},
         [EndpointId.MODE_V2_MAINNET]: {},
-        [EndpointId.MOONBEAM_V2_MAINNET]: {},
-        [EndpointId.MOONRIVER_V2_MAINNET]: {},
         [EndpointId.NIBIRU_V2_MAINNET]: {},
         [EndpointId.OG_V2_MAINNET]: {},
         [EndpointId.OPBNB_V2_MAINNET]: {},
@@ -1296,7 +1282,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.PLASMA_V2_MAINNET]: {},
         [EndpointId.PLUMEPHOENIX_V2_MAINNET]: {},
         [EndpointId.POLYGON_V2_MAINNET]: {},
-        [EndpointId.RARIBLE_V2_MAINNET]: {},
         [EndpointId.RAYLS_V2_MAINNET]: {},
         [EndpointId.REDBELLY_V2_MAINNET]: {},
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
@@ -1316,7 +1301,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.UNICHAIN_V2_MAINNET]: {},
         [EndpointId.XDC_V2_MAINNET]: {},
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: {},
-        [EndpointId.ZKPOLYGON_V2_MAINNET]: {},
 
         //
         // TESTNET
@@ -3273,26 +3257,6 @@ export const NETWORKS: NetworksConfig = {
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/mode`,
         },
     },
-    [EndpointId.MOONBEAM_V2_MAINNET]: {
-        oneSigConfig: {
-            oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/moonbeam`,
-        },
-        safeConfig: {
-            safeAddress: '0x40533743FC0F3cCb01ca2196d45dd7958dc89f89',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/moonbeam`,
-        },
-    },
-    [EndpointId.MOONRIVER_V2_MAINNET]: {
-        oneSigConfig: {
-            oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/moonriver`,
-        },
-        safeConfig: {
-            safeAddress: '0xBAc08c612a791033BC20D991FB9b1892Cb49A39f',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/moonriver`,
-        },
-    },
     [EndpointId.NIBIRU_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
@@ -3640,47 +3604,6 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x47290DE56E71DC6f46C26e50776fe86cc8b21656',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/polygon`,
-        },
-    },
-    [EndpointId.RARIBLE_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.RARIBLE_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.RARIBLE_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.RARIBLE_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.RARIBLE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00003').toBigInt(),
-        },
-        oneSigConfig: {
-            oneSigAddress: '0x4469467be9eb66c025518db796aee2ed7e9c6e0d',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/rarible`,
-        },
-        safeConfig: {
-            safeAddress: '0x0bB70602d48E1A681B6aCBC788712751A3f0b59d',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/rarible`,
-            contractNetworks: {
-                [1380012617]: {
-                    multiSendAddress: '0xA5B0D16C5B126c58Fe0beD60dDA67Ffce37ad897',
-                    multiSendCallOnlyAddress: '0xa1C6169264FC1157D919DAaA7367082334d8252E',
-                    safeMasterCopyAddress: '0xd2C579a0f0Da63f55D52c3E74e256cae8C4373d8',
-                    safeProxyFactoryAddress: '0x575758E1aBB97d4473709C56330433fa64BdcF00',
-                    fallbackHandlerAddress: '0x58Da6D1445A907e7aF8c7b2ccf5c89EBD56495C5',
-                    signMessageLibAddress: '0xE86ec9806064596DC023B6f9f560e33Ad7372eb8',
-                    createCallAddress: '0x576FDeBAdfB09036Dcb3B3a4B34482A13b5a4407',
-                    simulateTxAccessorAddress: '0xf96B7814BA740fd56511dc698257c41d52683517',
-                },
-            },
         },
     },
     [EndpointId.RAYLS_V2_MAINNET]: {
@@ -4342,16 +4265,6 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xdBd9E7f55C3a7A0F17cCAc06dD4f4cbf06f7AD5c',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zkconsensys`,
-        },
-    },
-    [EndpointId.ZKPOLYGON_V2_MAINNET]: {
-        oneSigConfig: {
-            oneSigAddress: '0xedf2ea1672bb77b827ecbad969d89f4f2b6a8ae1',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/zkpolygon`,
-        },
-        safeConfig: {
-            safeAddress: '0x5D3917b47E963eC703eD66Da6637C701365fF500',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/zkpolygon`,
         },
     },
 
