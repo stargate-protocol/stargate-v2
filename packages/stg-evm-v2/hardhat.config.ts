@@ -548,7 +548,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.MODE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-
     'nibiru-mainnet': {
         eid: EndpointId.NIBIRU_V2_MAINNET,
         url: process.env.RPC_URL_NIBIRU_MAINNET || 'https://evm-rpc.nibiru.fi',
