@@ -78,6 +78,12 @@ Pool or native pool assets have local liquidity and LP tokens. LPs must be able
 to redeem before protocol paths are disconnected. Pool balance, LP supply,
 treasury fees, and finite planner credits must be drained or accepted as dust.
 
+This "LPs redeem first" requirement could be removed by keeping total pool
+liquidity synchronized with LP token supply, which would let LPs redeem even
+after paths are disconnected. This matters mainly if a chain has LPs that fail to
+withdraw in time; it is an unlikely case since we control most LP, but worth
+noting.
+
 Hydra/OFT assets are user-held supply. Users need time and active outbound paths
 to leave. Disable new inbound routes first, keep outbound exit paths available
 through the withdrawal window, and fully disconnect only after the deadline or an
