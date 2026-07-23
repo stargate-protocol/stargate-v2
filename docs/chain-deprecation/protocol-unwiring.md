@@ -2,7 +2,8 @@
 
 This is the canonical Stargate protocol unwiring runbook for chain and asset
 deprecation. Use it with the [chain deprecation overview](./README.md) and the
-[planner deprecation guide](./planner-deprecation.md).
+[planner deprecation runbook](https://github.com/LayerZero-Labs/monorepo-internal/blob/4630b39de4cd0a4c2dd06b579040b34156b79ae9/legacy/offchain-monorepo/apps/stargate/docs/PLANNER_DEPRECATION.md)
+in `monorepo-internal`.
 
 This runbook describes the stage-local inputs and review process for Stargate
 asset and messaging unwires. Run all `make` commands from the repository root.

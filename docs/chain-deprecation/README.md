@@ -7,7 +7,6 @@ Use this file to understand the full process and track the work. Use the focused
 guides for execution details:
 
 - [Protocol unwiring](./protocol-unwiring.md)
-- [Planner deprecation](./planner-deprecation.md)
 - Coordination source:
   [chain and asset deprecation gist](https://gist.github.com/clauBv23/7ee7fe91496f398e68a1b2ff242264ab)
 - Source planner runbook:
@@ -142,7 +141,9 @@ withdrawal deadline.
 
 ### 4. Drain Planner Credit Allocation
 
-Follow [planner deprecation](./planner-deprecation.md).
+Follow the
+[planner deprecation runbook](https://github.com/LayerZero-Labs/monorepo-internal/blob/4630b39de4cd0a4c2dd06b579040b34156b79ae9/legacy/offchain-monorepo/apps/stargate/docs/PLANNER_DEPRECATION.md)
+in `monorepo-internal`.
 
 Important checks:
 
