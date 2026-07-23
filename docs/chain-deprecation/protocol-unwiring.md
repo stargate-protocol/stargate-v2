@@ -215,6 +215,12 @@ Pool chain unwire therefore runs in this order:
 5. Add the EID to `messaging.disconnected-check.yml` and run the disconnected
    checker.
 
+Step 1 only stops sends `from` the deprecated chain, not `to` it, because the
+reverse direction is already blocked: the deprecated chain's inbound credits were
+drained to zero during planner deprecation, so no active chain can allocate
+credit to route into it. There is therefore no need to stop sends from both sides
+at this step.
+
 The split between step 1 and step 4 prevents already-sent outbound messages from
 getting stuck. If TokenMessaging is fully disconnected while an outbound message
 is still in flight, the destination peer may already be removed and the message
