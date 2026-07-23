@@ -57,7 +57,7 @@ is linked.
 | Planner owner | Owner for credit drain and backend/planner deprecation |
 | Protocol owner | Owner for protocol unwiring and disconnected checks |
 | Pool drain / treasury fee owner | Owner for pool drain and treasury fees, or `N/A` |
-| Route freeze time | When new inbound activity should be disabled |
+| Route freeze time | When new transfers into the deprecated chain should be disabled |
 | Withdrawal / final disconnect deadline | Last expected user or LP exit time before final disconnect |
 | Pool dust threshold | Approved threshold for pool balance and LP supply |
 | Credit dust threshold | Approved threshold for finite planner credits |
@@ -83,14 +83,14 @@ after paths are disconnected. This matters mainly if a chain has LPs that fail t
 withdraw in time; it is an unlikely case since we control most LP, but worth
 noting.
 
-Hydra/OFT assets are user-held supply. Users need time and active outbound paths
-to leave. Disable new inbound routes first, keep outbound exit paths available
-through the withdrawal window, and fully disconnect only after the deadline or an
-approved supply threshold is reached.
+Hydra/OFT assets are user-held supply. Users need time and active exit paths
+to leave. Disable new transfers into the deprecated chain first, keep the exit
+paths out of it available through the withdrawal window, and fully disconnect
+only after the deadline or an approved supply threshold is reached.
 
 Mixed chains need both flows. Drain pool assets first. After pool assets are safe,
-use the Hydra/OFT inbound-first flow and preserve user exits until final
-disconnect is allowed.
+use the Hydra/OFT flow that stops new transfers into the chain first and preserves
+user exits until final disconnect is allowed.
 
 ## End-To-End Flow
 
@@ -135,9 +135,9 @@ Pool assets may keep one intended drain path active if the team needs it to
 drain local liquidity. Do not fully disconnect pool paths until pool balance,
 LP supply, treasury fees, and finite credits are handled.
 
-Hydra/OFT assets should stop new inbound activity first while keeping outbound
-exits available. Do not remove the reverse path users need to leave before the
-withdrawal deadline.
+Hydra/OFT assets should stop new transfers into the deprecated chain first while
+keeping the exit paths out of it available. Do not remove the reverse path users
+need to leave before the withdrawal deadline.
 
 ### 4. Drain Planner Credit Allocation
 
@@ -170,7 +170,7 @@ Hydra/OFT assets can proceed to final protocol unwiring only when:
 
 - Users and holders were notified.
 - Inbound routes were disabled.
-- Outbound exit routes stayed available through the withdrawal window.
+- Exit routes out of the chain stayed available through the withdrawal window.
 - User-held supply is zero, within the approved threshold, or the deadline has
   passed.
 - Finite planner credits are zero or within the approved threshold.
@@ -207,8 +207,8 @@ longer include the deprecated chain or asset paths.
 For full chain deprecation, USDT0.s must be checked explicitly.
 
 If USDT0.s is deployed and in scope, coordinate shutdown with the owning team,
-notify users and holders, and use the same inbound-first, exit-preserving
-approach as Hydra/OFT assets.
+notify users and holders, and use the same approach as Hydra/OFT assets: stop
+new transfers into the chain first, and preserve exit paths out of it.
 
 If USDT0.s is not in scope, record the reason, owner, and follow-up deadline in
 the decision record.
