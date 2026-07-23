@@ -1,4 +1,9 @@
-# Stargate Unwiring Runbook
+# Protocol Unwiring
+
+This is the canonical Stargate protocol unwiring runbook for chain and asset
+deprecation. Use it with the [chain deprecation overview](./README.md) and the
+[planner deprecation runbook](https://github.com/LayerZero-Labs/monorepo-internal/blob/4630b39de4cd0a4c2dd06b579040b34156b79ae9/legacy/offchain-monorepo/apps/stargate/docs/PLANNER_DEPRECATION.md)
+in `monorepo-internal`.
 
 This runbook describes the stage-local inputs and review process for Stargate
 asset and messaging unwires. Run all `make` commands from the repository root.
@@ -46,8 +51,8 @@ active chain that supports the asset.
 Run:
 
 ```bash
-STAGE=mainnet make unwire-asset-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-asset-mainnet
+make unwire-asset-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-asset-mainnet
 ```
 
 ### Files
@@ -157,18 +162,18 @@ shutdowns; the difference is sequencing:
 Run both TokenMessaging and CreditMessaging once with the chain target:
 
 ```bash
-STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
+make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-chain-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
 ```
 
 Or call each messaging Make target separately when reviewing or executing a
 split operation:
 
 ```bash
-STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
-STAGE=mainnet make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
+make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-token-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
+make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-credit-messaging-mainnet UNWIRE_CHAIN=swell-mainnet CONFIGURE_ARGS_COMMON=--onesig
 ```
 
 ### Edge Semantics
@@ -187,28 +192,58 @@ remote, and inbound messages from that remote will fail peer validation.
 ### Pool Chain Messaging Unwire
 
 A pool chain is a Stargate-supported chain where every deployed asset has a
-local Pool that locks ERC20s on bridge-out and unlocks them on bridge-in. The
-pool chain flow assumes Pool credits and funds were fully drained before unwire
-starts, and that the treasury fee was already withdrawn.
+local Pool that locks ERC20s on bridge-out and unlocks them on bridge-in.
 
-Use this flow when the deployed assets no longer hold user funds. At that point,
-no TokenMessaging exit path needs to stay open for users.
+Use this flow only after the pool side is ready to shut down:
 
-This flow splits TokenMessaging into two operational steps. The steps do not
-require external user action and may happen in a short window, but the split
-prevents in-flight outbound messages from getting stuck.
+- LPs were notified and the LP exit window is complete.
+- Pool funds are drained or within the approved dust threshold.
+- Treasury fees were withdrawn or explicitly accounted for.
+- Finite planner credits are drained or within the approved dust threshold.
 
-CreditMessaging is fully unwired once with `direction: both` after credits are
-drained.
+At that point, no user exit path needs to stay open on TokenMessaging. The only
+remaining TokenMessaging risk is in-flight messages that were already sent from
+the deprecated chain.
 
-If the full mesh is disconnected while a message from the deprecated chain is
-still in flight, the destination peer may already be removed and the message will
-not deliver. Recovering that message would require wiring the path again, which
-should be avoided.
+Pool chain unwire therefore runs in this order:
 
-For very low-activity chains, a single full `direction: both` unwire may be
-acceptable, but it carries the stuck-message risk above. Prefer the two-step
-flow.
+1. Stop outgoing TokenMessaging with `direction: from`.
+2. Fully unwire CreditMessaging with `direction: both`.
+3. Wait until there are no in-flight TokenMessaging messages from the deprecated
+   chain.
+4. Fully disconnect TokenMessaging with `direction: both`.
+5. Add the EID to `messaging.disconnected-check.yml` and run the disconnected
+   checker.
+
+Step 1 only stops sends `from` the deprecated chain, not `to` it, because the
+reverse direction is already blocked: the deprecated chain's inbound credits were
+drained to zero during planner deprecation, so no active chain can allocate
+credit to route into it. There is therefore no need to stop sends from both sides
+at this step.
+
+The split between step 1 and step 4 prevents already-sent outbound messages from
+getting stuck. If TokenMessaging is fully disconnected while an outbound message
+is still in flight, the destination peer may already be removed and the message
+will not deliver. Recovering that message would require wiring the path again.
+
+For very low-activity chains, a single full `direction: both` TokenMessaging
+unwire may be acceptable only if the team explicitly accepts that stuck-message
+risk. Prefer the two-step flow.
+
+#### Pool Drain and LP Considerations
+
+Pool assets must be drained before protocol unwiring starts. LPs hold LP tokens
+that represent a claim on local pool liquidity and credits on that chain, so
+LPs must be able to redeem their funds before the pool is disconnected.
+
+LPs should be notified that the pool is being deprecated and given a deadline to
+withdraw. During the LP exit window and pool drain, keep pool funds and credits
+safe so LPs can redeem normally. After the deadline passes, the remaining pool
+balance can be fully drained and protocol unwiring can start.
+
+Pools are drained by transferring assets into the deprecated chain. Those
+transfers unlock ERC20s from the local pool. After the ERC20s are unlocked, they
+should be bridged out through another route, not through Stargate.
 
 #### Step 1: Stop Outgoing TokenMessaging
 
@@ -235,7 +270,8 @@ unwire:
 
 Order:
 
-1. Drain or account for all pool funds and credits.
+1. Drain or account for all pool funds and credits, and withdraw or explicitly
+   account for treasury fees.
 2. Mark the chain `status: DEPRECATED`.
 3. Add `direction: from` for TokenMessaging and `direction: both` for
    CreditMessaging.
@@ -289,8 +325,8 @@ unwire:
 Run TokenMessaging only:
 
 ```bash
-STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
+make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
 ```
 
 Expected TokenMessaging transactions for `direction: both`:
@@ -382,8 +418,8 @@ unwire:
 Run:
 
 ```bash
-STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
+make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-chain-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
 ```
 
 Expected TokenMessaging transactions:
@@ -433,8 +469,8 @@ unwire:
 Run:
 
 ```bash
-STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
+make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--dry-run
+make unwire-token-messaging-mainnet UNWIRE_CHAIN=<chain> CONFIGURE_ARGS_COMMON=--onesig
 ```
 
 Then add the EID to `messaging.disconnected-check.yml` and run:

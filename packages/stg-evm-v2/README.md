@@ -139,7 +139,7 @@ transfer.
 ## Unwiring messaging paths or an asset mesh
 
 The detailed unwiring process is documented in
-`devtools/config/mainnet/01/chainsConfig/unwire/UNWIRING_RUNBOOK.md`.
+the [protocol unwiring runbook](../../docs/chain-deprecation/protocol-unwiring.md).
 
 That runbook covers:
 - Asset mesh unwire.
