@@ -100,7 +100,7 @@ Decide whether the work is full-chain or asset-only.
 
 For full-chain deprecation:
 
-1. Check USDC, USDT, EURC, ETH/WETH, and USDT0.s.
+1. Check all deployed Stargate V2 assets and USDT0.s.
 2. Classify each deployed asset as pool, native pool, Hydra/OFT, or mixed.
 3. Assign owners for communications, planner, protocol, pool drain, and USDT0.s.
 
@@ -218,8 +218,8 @@ the decision record.
 Full chain deprecation:
 
 1. Decision record created.
-2. Scope confirmed for USDC, USDT, EURC, ETH/WETH, and USDT0.s; every deployed
-   asset is included or explicitly out of scope.
+2. Scope confirmed for all deployed Stargate V2 assets and USDT0.s; every
+   deployed asset is included or explicitly out of scope.
 3. Asset type and user impact are classified.
 4. Communications sent.
 5. Route freeze time recorded.
