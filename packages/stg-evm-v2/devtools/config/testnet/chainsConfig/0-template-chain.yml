@@ -34,6 +34,7 @@ treasurer: # list of tokens that support the treasurer in the chain
     usdt: true
 isTIP20: true # marks the network as using TIP-20 for stablecoin (USDC or EURC)
 unwire: # required only while running messaging unwire for this chain
+  chain_shutdown: false # set true when the deprecated chain is shut down and its RPC is unavailable
   token_messaging:
     direction: both # from | to | both
     allowed_peers:
