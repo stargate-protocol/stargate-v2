@@ -452,8 +452,9 @@ Run this after pending messages are safe and user exit flow no longer needs the
 Hydra TokenMessaging paths.
 
 If the chain has already shut down and its RPC is unavailable, mark it first in
-the chain YAML by adding `chain_shutdown: true` under `unwire`. This omits the
-dead chain side while still fully unwiring the path on every live chain.
+the chain YAML by adding `chain_shutdown: true` under `unwire` (requires
+`status: DEPRECATED` and `direction: both`). This omits the dead chain side while
+still fully unwiring the path on every live chain.
 
 Update:
 
