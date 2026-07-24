@@ -567,4 +567,4 @@ unwire-chain-by-eid:
 # Verify that deprecated chains are fully disconnected (hasPeer(eid, null) = true) from all active chains.
 # Reads deprecated EIDs and optional active chain list from the stage chainsConfig/unwire directory.
 check-messaging-disconnected:
-	$(CHECK_MESSAGING_DISCONNECTED) $(CONFIGURE_ARGS_COMMON)
+	STAGE=mainnet $(CHECK_MESSAGING_DISCONNECTED) $(CONFIGURE_ARGS_COMMON)
