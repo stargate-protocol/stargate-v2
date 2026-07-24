@@ -72,6 +72,15 @@ deprecated_eids:
       Chain was sunset on June 23, 2026.
       TODO: unwire Taiko -> Swell once the chain is back active
 
+  - eid: 30235
+    chain: rarible-mainnet
+    notes: >
+      Shut down (PR #576) — had USDC OFT and USDT OFT.
+      Was connected to all active chains at the time of shutdown.
+      Chain was sunset on June 14th (https://x.com/RariChain/status/2062579818181362055)
+      and we found out later, so credits on the chain were not drained and the
+      treasury fee was not withdrawn.
+
 # active_chains:
 #   - ethereum-mainnet
 #   - arbitrum-mainnet

@@ -548,22 +548,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.MODE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'moonbeam-mainnet': {
-        eid: EndpointId.MOONBEAM_V2_MAINNET,
-        url: process.env.RPC_URL_MOONBEAM_MAINNET || 'https://rpc.api.moonbeam.network',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.MOONBEAM_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.MOONBEAM_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'moonriver-mainnet': {
-        eid: EndpointId.MOONRIVER_V2_MAINNET,
-        url: process.env.RPC_URL_MOONRIVER_MAINNET || 'https://moonriver-rpc.publicnode.com',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.MOONRIVER_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.MOONRIVER_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'nibiru-mainnet': {
         eid: EndpointId.NIBIRU_V2_MAINNET,
         url: process.env.RPC_URL_NIBIRU_MAINNET || 'https://evm-rpc.nibiru.fi',
@@ -632,14 +616,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.POLYGON_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.POLYGON_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'rarible-mainnet': {
-        eid: EndpointId.RARIBLE_V2_MAINNET,
-        url: process.env.RPC_URL_RARIBLE_MAINNET || 'https://mainnet.rpc.rarichain.org/http',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.RARIBLE_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.RARIBLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'rayls-mainnet': {
@@ -793,14 +769,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.ZKCONSENSYS_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.ZKCONSENSYS_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'zkpolygon-mainnet': {
-        eid: EndpointId.ZKPOLYGON_V2_MAINNET,
-        url: process.env.RPC_URL_ZKPOLYGON_MAINNET || 'https://polygon-zkevm.drpc.org',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.ZKPOLYGON_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
 }
