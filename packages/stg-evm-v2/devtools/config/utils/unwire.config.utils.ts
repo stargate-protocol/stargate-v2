@@ -296,7 +296,7 @@ export async function buildMessagingUnwireGraph(
         unwireConfig.chainShutdown && chain.eid === unwireConfig.chain.eid
             ? {
                   eid: chain.eid,
-                  address: getArchivedDeploymentAddress(chain.name, contract.contractName),
+                  address: makeZeroAddress(),
               }
             : getContractWithEid(chain.eid, contract)
     )
@@ -398,15 +398,6 @@ const loadDeadDvnByEid = (chains: Array<{ name: string; eid: number }>): Map<num
         deadDvnByEid.set(chain.eid, getDeployedContractAddress(chain.name, 'DeadDVN'))
     })
     return deadDvnByEid
-}
-
-const getArchivedDeploymentAddress = (chainName: string, contractName: MessagingContractName): string => {
-    const deploymentPath = path.join(__dirname, '..', '..', '..', 'deployments', chainName, `${contractName}.json`)
-    const deployment = JSON.parse(fs.readFileSync(deploymentPath, 'utf8')) as { address?: unknown }
-    if (typeof deployment.address !== 'string') {
-        throw new Error(`Missing address in archived deployment ${deploymentPath}`)
-    }
-    return deployment.address
 }
 
 const disableMessagingEdge = (
