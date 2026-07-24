@@ -449,6 +449,7 @@ export interface Chain {
     }
     status?: ChainStatus
     unwire?: {
+        chain_shutdown?: boolean
         token_messaging?: MessagingUnwireConfig
         credit_messaging?: MessagingUnwireConfig
     }

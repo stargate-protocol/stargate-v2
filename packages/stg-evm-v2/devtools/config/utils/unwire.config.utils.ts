@@ -52,6 +52,7 @@ type ResolvedMessagingUnwireConfig = {
     allChains: Chain[]
     allowedPeers: string[]
     direction: UnwireDirection
+    chainShutdown: boolean
 }
 
 function logMessagingUnwireChains(allChains: Chain[], allowedPeers: string[]): void {
@@ -133,10 +134,18 @@ export function loadMessagingUnwireConfig(contractName: MessagingContractName): 
         )
     }
 
+    if (chain.unwire?.chain_shutdown != null && typeof chain.unwire.chain_shutdown !== 'boolean') {
+        throw new Error(`Invalid unwire.chain_shutdown for ${chain.name}. Must be true or false`)
+    }
+    const chainShutdown = chain.unwire?.chain_shutdown === true
+    if (chainShutdown && (chain.status?.toUpperCase() !== 'DEPRECATED' || unwireConfig.direction !== 'both')) {
+        throw new Error(`chain_shutdown requires status: DEPRECATED and direction: both for ${chain.name}`)
+    }
+
     const allChains = uniqueChains([...peerChains, chain])
     logMessagingUnwireChains(allChains, allowedPeers)
 
-    return { chain, peerChains, allChains, allowedPeers, direction: unwireConfig.direction }
+    return { chain, peerChains, allChains, allowedPeers, direction: unwireConfig.direction, chainShutdown }
 }
 
 // Load asset unwire config (disconnect/remaining chains) for the current stage (requires stage to be set).
@@ -255,7 +264,10 @@ export async function buildMessagingUnwireGraph(
     setStage(stage)
 
     const unwireConfig = loadMessagingUnwireConfig(contract.contractName)
-    const deadDvnByEid = loadDeadDvnByEid(unwireConfig.allChains)
+    const localChains = unwireConfig.chainShutdown
+        ? unwireConfig.allChains.filter((chain) => chain.eid !== unwireConfig.chain.eid)
+        : unwireConfig.allChains
+    const deadDvnByEid = loadDeadDvnByEid(localChains)
 
     const disabledEdges = new Map<string, UnwireDirection>()
     const involvedChains = new Map<string, Chain>()
@@ -280,12 +292,22 @@ export async function buildMessagingUnwireGraph(
         }
     })
 
-    const contracts = Array.from(involvedChains.values()).map((chain) => {
-        return getContractWithEid(chain.eid, contract)
-    })
+    const allContracts = Array.from(involvedChains.values()).map((chain) =>
+        unwireConfig.chainShutdown && chain.eid === unwireConfig.chain.eid
+            ? {
+                  eid: chain.eid,
+                  address: getArchivedDeploymentAddress(chain.name, contract.contractName),
+              }
+            : getContractWithEid(chain.eid, contract)
+    )
 
-    const allConnections = generateMessagingConfig(contracts)
+    const allConnections = generateMessagingConfig(allContracts)
+    const contracts = unwireConfig.chainShutdown
+        ? allContracts.filter((contract) => contract.eid !== unwireConfig.chain.eid)
+        : allContracts
+
     const connections = allConnections
+        .filter((edge) => !unwireConfig.chainShutdown || edge.from.eid !== unwireConfig.chain.eid)
         .map((edge) => {
             const direction = disabledEdges.get(`${edge.from.eid}:${edge.to.eid}`)
             return direction ? disableMessagingEdge(edge, deadDvnByEid, direction) : undefined
@@ -376,6 +398,15 @@ const loadDeadDvnByEid = (chains: Array<{ name: string; eid: number }>): Map<num
         deadDvnByEid.set(chain.eid, getDeployedContractAddress(chain.name, 'DeadDVN'))
     })
     return deadDvnByEid
+}
+
+const getArchivedDeploymentAddress = (chainName: string, contractName: MessagingContractName): string => {
+    const deploymentPath = path.join(__dirname, '..', '..', '..', 'deployments', chainName, `${contractName}.json`)
+    const deployment = JSON.parse(fs.readFileSync(deploymentPath, 'utf8')) as { address?: unknown }
+    if (typeof deployment.address !== 'string') {
+        throw new Error(`Missing address in archived deployment ${deploymentPath}`)
+    }
+    return deployment.address
 }
 
 const disableMessagingEdge = (
