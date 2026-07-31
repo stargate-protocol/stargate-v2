@@ -35,7 +35,6 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5',
         [EndpointId.BASE_V2_MAINNET]: '0xcd37CA043f8479064e10635020c65FfC005d36f6',
         [EndpointId.BERA_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
-        [EndpointId.BOTANIX_V2_MAINNET]: '0xa4281c1c88f0278ff696edeb517052153190fc9e',
         [EndpointId.BSC_V2_MAINNET]: '0x31F748a368a893Bdb5aBB67ec95F232507601A73',
         [EndpointId.CAMP_V2_MAINNET]: '0x2f29d3d12fc2d1961ad8b5397c0f878003c35e20',
         [EndpointId.COREDAO_V2_MAINNET]: '0x7fe673201724925b5c477d4e1a4bd3e954688cf5',
@@ -104,7 +103,6 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x962f502a63f5fbeb44dc9ab932122648e8352959',
         [EndpointId.BASE_V2_MAINNET]: '0x9e059a54699a285714207b43b055483e78faac25',
         [EndpointId.BERA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
-        [EndpointId.BOTANIX_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.BSC_V2_MAINNET]: '0xfd6865c841c2d64565562fcc7e05e619a30615f0',
         [EndpointId.CAMP_V2_MAINNET]: '0x15e51701f245f6d5bd0fee87bcaf55b0841451b3',
         [EndpointId.COREDAO_V2_MAINNET]: '0x3c5575898f59c097681d1fc239c2c6ad36b7b41c',
@@ -191,7 +189,6 @@ export const DVNS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0xcc49e6fca014c77e1eb604351cc1e08c84511760',
         [EndpointId.BASE_V2_MAINNET]: '0x554833698ae0fb22ecc90b01222903fd62ca4b47',
         [EndpointId.BERA_V2_MAINNET]: '0x06e8042729cef3ae6d6db5350f48f9d736c3675d',
-        [EndpointId.BOTANIX_V2_MAINNET]: '0xbcefdadb8d24b1d36c26b522235012cd4cf162f6',
         [EndpointId.BSC_V2_MAINNET]: '0xfa9ba83c102283958b997adc8b44ed3a3cdb5dda',
         [EndpointId.CAMP_V2_MAINNET]: '0x59b4fb23474d1bd42d30d33ee90d7c7d30df1d84',
         [EndpointId.COREDAO_V2_MAINNET]: '0xc133fd6b4c44277ed592e903c0585936d7585fa5',
@@ -266,7 +263,6 @@ export const EXECUTORS = {
         [EndpointId.AVALANCHE_V2_MAINNET]: '0x90E595783E43eb89fF07f63d27B8430e6B44bD9c',
         [EndpointId.BASE_V2_MAINNET]: '0x2CCA08ae69E0C44b18a57Ab2A87644234dAebaE4',
         [EndpointId.BERA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
-        [EndpointId.BOTANIX_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.BSC_V2_MAINNET]: '0x3ebD570ed38B1b3b4BC886999fcF507e9D584859',
         [EndpointId.CAMP_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.COREDAO_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
@@ -381,11 +377,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Native,
             },
             [EndpointId.BERA_V2_MAINNET]: {
-                symbol: 'WETH',
-                name: 'WETH',
-                type: StargateType.Oft,
-            },
-            [EndpointId.BOTANIX_V2_MAINNET]: {
                 symbol: 'WETH',
                 name: 'WETH',
                 type: StargateType.Oft,
@@ -876,10 +867,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x549943e04f40284185054145c6E4e9568C1D3241',
             },
-            [EndpointId.BOTANIX_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '0x29ee6138dd4c9815f46d34a4a1ed48f46758a402',
-            },
             [EndpointId.BSC_V2_MAINNET]: {
                 address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
                 type: StargateType.Pool,
@@ -1237,7 +1224,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.BASE_V2_MAINNET]: {},
         [EndpointId.BERA_V2_MAINNET]: {},
         [EndpointId.BLAST_V2_MAINNET]: {},
-        [EndpointId.BOTANIX_V2_MAINNET]: {},
         [EndpointId.BSC_V2_MAINNET]: {},
         [EndpointId.CAMP_V2_MAINNET]: {},
         [EndpointId.COREDAO_V2_MAINNET]: {},
@@ -2017,47 +2003,6 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xc53329FD24f3a446b7c3a804Ebc53515c0244012',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/blast`,
-        },
-    },
-    [EndpointId.BOTANIX_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BOTANIX_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.BOTANIX_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BOTANIX_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.BOTANIX_V2_MAINNET],
-            nativeDropAmount: parseEther('0.000000000003').toBigInt(),
-        },
-        oneSigConfig: {
-            oneSigAddress: '0x2f0e1fdc3028720a6191cdfcf2cc4fe9027cdf5a',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/botanix`,
-        },
-        safeConfig: {
-            safeAddress: '0xAC9DFe100F75DC72b68155e99861ECe5A05f72ec',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/botanix`,
-            contractNetworks: {
-                [3637]: {
-                    multiSendAddress: '0x998739BFdAAdde7C933B942a68053933098f9EDa',
-                    multiSendCallOnlyAddress: '0xA1dabEF33b3B82c7814B6D82A79e50F4AC44102B',
-                    safeMasterCopyAddress: '0xfb1bffC9d739B8D520DaF37dF666da4C687191EA',
-                    safeProxyFactoryAddress: '0xC22834581EbC8527d974F8a1c97E1bEA4EF910BC',
-                    fallbackHandlerAddress: '0x017062a1dE2FE6b99BE3d9d37841FeD19F573804',
-                    createCallAddress: '0xB19D6FFc2182150F8Eb585b79D4ABcd7C5640A9d',
-                    signMessageLibAddress: '0x98FFBBF51bb33A056B08ddf711f289936AafF717',
-                    simulateTxAccessorAddress: '0x727a77a074D1E6c4530e814F89E618a3298FC044',
-                },
-            },
         },
     },
     [EndpointId.BSC_V2_MAINNET]: {
