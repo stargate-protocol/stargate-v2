@@ -11,3 +11,15 @@ treasurer:
   tokens:
     eth: true
     usdc: true
+# deprecation
+status: DEPRECATED
+unwire:
+  chain_shutdown: true
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - botanix-mainnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - botanix-mainnet

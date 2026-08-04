@@ -267,14 +267,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.BLAST_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'botanix-mainnet': {
-        eid: EndpointId.BOTANIX_V2_MAINNET,
-        url: process.env.RPC_URL_BOTANIX_MAINNET || 'https://rpc.botanixlabs.com',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.BOTANIX_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.BOTANIX_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'bsc-mainnet': {
         eid: EndpointId.BSC_V2_MAINNET,
         url: process.env.RPC_URL_BSC_MAINNET || 'https://bsc-rpc.publicnode.com',

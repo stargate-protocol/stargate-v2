@@ -80,6 +80,13 @@ deprecated_eids:
       Chain was sunset on June 14th (https://x.com/RariChain/status/2062579818181362055)
       and we found out later, so credits on the chain were not drained and the
       treasury fee was not withdrawn.
+  - eid: 30376
+    chain: botanix-mainnet
+    notes: >
+      Shut down (PR #579) — had USDC OFT and ETH OFT.
+      Was connected to all active chains at the time of shutdown.
+      Chain should have been sunset on August 1st 2026. However their team halted the chain couple hours before the expected time. 
+      We asked them to extend the chain till the expected time, and they argued that it was not possible.
 
 # active_chains:
 #   - ethereum-mainnet
