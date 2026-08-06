@@ -177,7 +177,7 @@ task(TASK_STG_CHECK_MESSAGING_DISCONNECTED, 'Verify deprecated chains are discon
             }
 
             throw new Error(
-                `${stillPeered.length} peer relationship(s) still active. Run unwire-chain-mainnet or unwire-chain-by-eid to remove them.`
+                `${stillPeered.length} peer relationship(s) still active. Run unwire-chain-mainnet to remove them.`
             )
         }
 
