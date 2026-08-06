@@ -145,6 +145,5 @@ That runbook covers:
 - Asset mesh unwire.
 - Messaging unwire with `direction: from | to | both`.
 - Make targets that pass the selected chain with `UNWIRE_CHAIN=<chain>`.
-- By-EID cleanup for chains already removed from active config.
 - `stg:check::messaging:disconnected`.
 - Transaction review expectations and file cleanup order.

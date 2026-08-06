@@ -540,27 +540,3 @@ What it does not check:
 
 Use the checker for full deprecated-chain disconnections. Do not use it for
 Hydra phase 1 or any other one-way messaging unwire.
-
-## By-EID Unwire
-
-Use by-EID unwire only when a deprecated chain has already been removed from
-active YAML or deployments, so the graph can no longer resolve it by chain name.
-
-```bash
-STAGE=mainnet make unwire-chain-by-eid DEAD_EIDS=30318,30101 CONFIGURE_ARGS_COMMON=--dry-run
-STAGE=mainnet make unwire-chain-by-eid DEAD_EIDS=30318,30101
-```
-
-Expected transactions:
-
-- `setPeer(deadEid, bytes32(0))` on TokenMessaging.
-- `setPeer(deadEid, bytes32(0))` on CreditMessaging.
-
-Do not expect:
-
-- DVN or executor changes.
-- Asset config changes.
-- Any transaction involving an active chain EID as the dead EID.
-
-This is only a stale-peer cleanup tool. Prefer graph-based unwire before
-deleting chain files.
