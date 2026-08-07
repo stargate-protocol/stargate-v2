@@ -1,7 +1,7 @@
 # None of the targets actually build any binaries so we make them all as phony
 .PHONY: build deploy configure deploy-sandbox start-sandbox \
 	mainnet-connections-summary testnet-connections-summary \
-	unwire-chain-mainnet unwire-chain-testnet unwire-chain-by-eid unwire-asset-mainnet \
+	unwire-chain-mainnet unwire-chain-testnet unwire-asset-mainnet \
 	unwire-token-messaging-mainnet unwire-credit-messaging-mainnet \
 	unwire-token-messaging-testnet unwire-credit-messaging-testnet \
 	require-unwire-chain \
@@ -27,7 +27,6 @@ CONFIGURE_TOKEN_MESSAGING=$(HARDHAT) stg:wire::token-messaging
 CONFIGURE_TOKEN_MESSAGING_INITIALIZE_STORAGE=$(HARDHAT) stg:wire::token-messaging:initialize-storage
 UNWIRE_TOKEN_MESSAGING=$(HARDHAT) stg:unwire::token-messaging
 UNWIRE_CREDIT_MESSAGING=$(HARDHAT) stg:unwire::credit-messaging
-UNWIRE_MESSAGING_BY_EID=$(HARDHAT) stg:unwire::messaging:by-eid
 CHECK_MESSAGING_DISCONNECTED=$(HARDHAT) stg:check::messaging:disconnected
 CONFIGURE_FEELIB_V1=$(HARDHAT) stg:wire::feelib-v1
 CONFIGURE_REWARDER=$(HARDHAT) stg:wire::rewarder
@@ -560,9 +559,6 @@ unwire-asset-mainnet:
 	# Remove assetId on TokenMessaging/CreditMessaging for the unwired chains
 	$(CONFIGURE_TOKEN_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/token-messaging-asset.unwire.config.ts --signer deployer
 	$(CONFIGURE_CREDIT_MESSAGING) $(CONFIGURE_ARGS_COMMON) --oapp-config $(CONFIG_BASE_PATH)/credit-messaging-asset.unwire.config.ts --signer deployer
-
-unwire-chain-by-eid:
-	$(UNWIRE_MESSAGING_BY_EID) $(CONFIGURE_ARGS_COMMON) --dead-eids $(DEAD_EIDS)
 
 # Verify that deprecated chains are fully disconnected (hasPeer(eid, null) = true) from all active chains.
 # Reads deprecated EIDs and optional active chain list from the stage chainsConfig/unwire directory.
