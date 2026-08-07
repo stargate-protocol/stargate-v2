@@ -1,5 +1,19 @@
 # @stargatefinance/stg-definitions-v2
 
+## 8.0.0
+
+### Major Changes
+
+- 660de73: Shutdown Rarible, Moonbeam and Moonriver
+- 7690d0f: Shutdown Glue mainnet
+- 8d7de0d: Shutdown Swell mainnet
+- 31f3040: Shutdown Botanix
+
+### Patch Changes
+
+- 24197da: Allow defining the max message size per path
+- 938c95d: Bump Polygon TokenMessaging bus gas limit
+
 ## 7.0.7
 
 ### Patch Changes
