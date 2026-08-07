@@ -1,5 +1,23 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 12.0.0
+
+### Major Changes
+
+- 7690d0f: Shutdown Glue mainnet
+
+### Patch Changes
+
+- Updated dependencies [660de73]
+- Updated dependencies [8f99165]
+- Updated dependencies [24197da]
+- Updated dependencies [7690d0f]
+- Updated dependencies [938c95d]
+- Updated dependencies [8d7de0d]
+- Updated dependencies [31f3040]
+  - @stargatefinance/stg-definitions-v2@8.0.0
+  - @stargatefinance/stg-devtools-v2@11.0.0
+
 ## 11.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 3.0.0
+
+### Major Changes
+
+- 7690d0f: Shutdown Glue mainnet
+
 ## 2.0.5
 
 ### Patch Changes
