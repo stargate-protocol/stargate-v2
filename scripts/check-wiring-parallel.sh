@@ -302,6 +302,33 @@ if [[ ${#FAILED_ENTRIES[@]} -gt 0 ]]; then
         echo "     --- full log: ${log_file}"
     done
     echo ""
+
+    # Collect unique chain names from failed per-chain jobs (token/credit) for retry
+    FAILED_CHAINS=()
+    for entry in "${FAILED_ENTRIES[@]}"; do
+        label="${entry%%|*}"
+        case "${label}" in
+            *" (token)")  chain="${label% (token)}" ;;
+            *" (credit)") chain="${label% (credit)}" ;;
+            *) continue ;;  # once-jobs (assets/feelibs/etc.) are not per-chain
+        esac
+        already=0
+        for c in "${FAILED_CHAINS[@]:-}"; do
+            [[ "${c}" == "${chain}" ]] && { already=1; break; }
+        done
+        (( already == 0 )) && FAILED_CHAINS+=("${chain}")
+    done
+
+    if [[ ${#FAILED_CHAINS[@]} -gt 0 ]]; then
+        FAILED_CHAINS_CSV="$(IFS=,; echo "${FAILED_CHAINS[*]}")"
+        echo "Failed chains: ${FAILED_CHAINS_CSV}"
+        echo ""
+        echo "To retry them, run:"
+        echo ""
+        echo "  STAGE=${STAGE} CHAINS_FILTER=${FAILED_CHAINS_CSV} ./scripts/check-wiring-parallel.sh"
+        echo ""
+    fi
+
     exit 1
 fi
 
