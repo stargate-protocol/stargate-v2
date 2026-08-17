@@ -17,6 +17,7 @@ treasurer:
 # deprecation
 status: DEPRECATED
 unwire:
+  chain_shutdown: true
   token_messaging:
     direction: both
     allowed_peers:
