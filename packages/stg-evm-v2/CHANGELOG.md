@@ -1,5 +1,27 @@
 # @stargatefinance/stg-evm-v2
 
+## 9.0.0
+
+### Major Changes
+
+- 660de73: Shutdown Rarible, Moonbeam and Moonriver
+- 8f99165: Shutdown USDC and USDT pools in Sei
+- 7690d0f: Shutdown Glue mainnet
+- 8d7de0d: Shutdown Swell mainnet
+- 31f3040: Shutdown Botanix
+
+### Patch Changes
+
+- 24197da: Allow defining the max message size per path
+- 360ed91: Shutdown ZkPolygon mainnet
+- Updated dependencies [660de73]
+- Updated dependencies [24197da]
+- Updated dependencies [7690d0f]
+- Updated dependencies [938c95d]
+- Updated dependencies [8d7de0d]
+- Updated dependencies [31f3040]
+  - @stargatefinance/stg-definitions-v2@8.0.0
+
 ## 8.0.4
 
 ### Patch Changes
