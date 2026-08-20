@@ -2806,7 +2806,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.HORIZEN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.125').toBigInt(),
+            nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x643cfbc837ed1382f5ac4cb1b821aaeb00b65c75',
