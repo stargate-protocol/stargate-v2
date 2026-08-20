@@ -3234,7 +3234,7 @@ export const NETWORKS: NetworksConfig = {
             nativeDropAmount: parseEther('0.0000000000105').toBigInt(), // TODO: Double check this value
         },
         oneSigConfig: {
-            oneSigAddress: '0x0000000000000000000000000000000000000000', // TODO: Update with the deployed OPN OneSig address
+            oneSigAddress: '0x401407d3cf90d9d550fa2ff0953b097021bf08da',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/opn`,
         },
     },
