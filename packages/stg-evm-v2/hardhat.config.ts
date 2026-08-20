@@ -555,6 +555,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.OPBNB_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'opn-mainnet': {
+        eid: EndpointId.OPN_V2_MAINNET,
+        url: process.env.RPC_URL_OPN_MAINNET || 'https://mainnet-rpc.iopn.tech',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.OPN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'optimism-mainnet': {
         eid: EndpointId.OPTIMISM_V2_MAINNET,
         url: process.env.RPC_URL_OPTIMISM_MAINNET || 'https://optimism.drpc.org',
