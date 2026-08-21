@@ -972,7 +972,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.OPN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x0000000000000000000000000000000000000000', // TODO: Update with deployed USDC address on OPN
+                address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
@@ -3231,7 +3231,8 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0000000000105').toBigInt(), // TODO: Double check this value
+            // TODO: Executor native cap is 0.201 OPN; confirm bus support before increasing this to the full cap.
+            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x401407d3cf90d9d550fa2ff0953b097021bf08da',
