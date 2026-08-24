@@ -642,14 +642,6 @@ const networks: NetworksUserConfig = {
         // Sei is giving us ProviderError: Out of gas: gas required exceeds allowance errors
         useFeeData: true,
     },
-    'shimmer-mainnet': {
-        eid: EndpointId.SHIMMER_V2_MAINNET,
-        url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.SHIMMER_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'somnia-mainnet': {
         eid: EndpointId.SOMNIA_V2_MAINNET,
         url: process.env.RPC_URL_SOMNIA_MAINNET || 'https://api.infra.mainnet.somnia.network/',
