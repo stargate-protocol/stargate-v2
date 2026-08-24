@@ -3104,12 +3104,12 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+            busDisabled: true,
             // TODO: Executor native cap is currently zero; candidate is 0.0000255 M once native drops are enabled.
             nativeDropAmount: parseEther('0').toBigInt(),
         },
         oneSigConfig: {
-            // TODO: Deploy or verify the MemeCore OneSig; this address currently has no code on MemeCore.
-            oneSigAddress: '0x401407d3cf90d9d550fa2ff0953b097021bf08da',
+            oneSigAddress: '0xE590a6730D7a8790E99ce3db11466Acb644c3942',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/memecore`,
         },
     },
