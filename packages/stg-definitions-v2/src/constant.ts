@@ -1273,7 +1273,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.ROOTSTOCK_V2_MAINNET]: {},
         [EndpointId.SCROLL_V2_MAINNET]: {},
         [EndpointId.SEI_V2_MAINNET]: {},
-        [EndpointId.SHIMMER_V2_MAINNET]: {},
         [EndpointId.SOMNIA_V2_MAINNET]: {},
         [EndpointId.SONEIUM_V2_MAINNET]: {},
         [EndpointId.SONIC_V2_MAINNET]: {},
@@ -3669,16 +3668,6 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xC02c4Ac2DBaA4eC11C306dDb0ABab5b421bd19fB',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/scroll`,
-        },
-    },
-    [EndpointId.SHIMMER_V2_MAINNET]: {
-        oneSigConfig: {
-            oneSigAddress: '0xf7d8c13b546fbead84c30ec3e2df4a5d398d003b',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/shimmer`,
-        },
-        safeConfig: {
-            safeAddress: '0x3ae59e4cffaad28e6588a269e2142e4a434d5a94',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/shimmer`,
         },
     },
     [EndpointId.SEI_V2_MAINNET]: {
