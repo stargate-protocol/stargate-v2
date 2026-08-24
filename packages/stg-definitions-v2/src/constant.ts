@@ -3231,8 +3231,8 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
-            // TODO: Executor native cap is 0.201 OPN; confirm bus support before increasing this to the full cap.
-            nativeDropAmount: parseEther('0.01').toBigInt(),
+            nativeDropAmount: parseEther('0.201').toBigInt(),
+            busDisabled: true,
         },
         oneSigConfig: {
             oneSigAddress: '0x401407d3cf90d9d550fa2ff0953b097021bf08da',
