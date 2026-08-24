@@ -19,7 +19,7 @@ When asked to review a pull request in this repository that is labeled
 follow the checklist in
 [docs/pr-review/deployment-and-deprecation-pr-review.md](docs/pr-review/deployment-and-deprecation-pr-review.md)
 file by file, in the order listed there. That doc is the single source of
-truth for this review — it is also used by Claude and GitHub Copilot, so
+truth for this review — it is also used by Claude, Codex, and GitHub Copilot, so
 keep findings consistent with it rather than improvising a different bar.
 
 Keep the review limited to the deployment or deprecation PR checklist; do not
