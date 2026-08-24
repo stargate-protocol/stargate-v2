@@ -93,9 +93,10 @@ an asset-only unwire. The title, description, and diff must agree on scope.
   `allowed_peers`.
 - Allow `chain_shutdown: true` only for a dead RPC and only with
   `status: DEPRECATED` plus `direction: both`.
-- Add the EID to `messaging.disconnected-check.yml` in the final-disconnect PR.
-- Do not remove `constant.ts`, Hardhat, deployment, or OneSig config
-  before the PR provides evidence that the disconnected checker passed.
+- Add the EID to `messaging.disconnected-check.yml` in the final-disconnect PR
+  only when the chain had an OApp deployed and connected. If no OApp was ever
+  deployed, do not add the chain because it was never connected.
+- Keep the chain's deployment folder unchanged in every deprecation phase.
 
 ### Asset-only deprecation
 
@@ -132,13 +133,13 @@ cannot be verified, say so instead of guessing.
 
 ### Deprecation
 
-1. **`constant.ts`** — in the final cleanup PR, check every deprecated chain
-   or asset entry is removed. Before the disconnected check passes, those
-   entries must remain.
-2. **`hardhat.config.ts`** — remove the network only in the final chain cleanup;
-   never remove it for an asset-only deprecation.
+1. **`constant.ts`** — when the PR removes configuration, check every entry for
+   the deprecated chain or asset is removed and no active entry is affected.
+2. **`hardhat.config.ts`** — for a full-chain cleanup, check the network entry
+   is removed; never remove it for an asset-only deprecation.
 3. **`deployments/<chain>/`** — keep the deployment folder unchanged.
 4. **Chain YAML** — check `status`, unwire directions, `allowed_peers`, and
    asset moves match the deprecation type and phase.
-5. **`messaging.disconnected-check.yml`** — add the deprecated EID in the
-   final-disconnect PR, before removing `constant.ts` or Hardhat entries.
+5. **`messaging.disconnected-check.yml`** — if an OApp was deployed and
+   connected, add the deprecated EID in the final-disconnect PR. If no OApp
+   was ever deployed, do not add the chain because it was never connected.
