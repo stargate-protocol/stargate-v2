@@ -56,6 +56,12 @@ deprecated_eids:
       Was connected to all active chains at the time of shutdown.
       Also connected to cronoszkevm-mainnet (30360, also sunset).
 
+  - eid: 30342
+    chain: glue-mainnet
+    notes: >
+      Shut down (PR #581) — had ETH Hydra, USDC Hydra, and USDT Hydra.
+      Was connected to all active chains at the time of shutdown.
+
   - eid: 30360
     chain: cronoszkevm-mainnet
     notes: >
@@ -80,6 +86,7 @@ deprecated_eids:
       Chain was sunset on June 14th (https://x.com/RariChain/status/2062579818181362055)
       and we found out later, so credits on the chain were not drained and the
       treasury fee was not withdrawn.
+
   - eid: 30376
     chain: botanix-mainnet
     notes: >
