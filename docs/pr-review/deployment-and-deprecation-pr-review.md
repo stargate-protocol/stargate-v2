@@ -5,11 +5,40 @@ Use this checklist only for Stargate V2 PRs labeled `new-chain` or
 clearly show a deployment or deprecation.
 
 This is a PR review checklist for agents and humans, not an execution runbook.
-Operational shutdown steps and transaction dry-runs are out of scope. Agents
-perform every check below except those marked **Human**.
+Operational shutdown steps and transaction dry-runs are out of scope. Items
+marked **Manual verification** require a person; all other checks apply to
+every reviewer.
 
-Jump to: [Deployment](#deployment-prs) · [Deprecation](#deprecation-prs) ·
-[TL;DR for Humans](#tldr-for-humans)
+Jump to: [Quick Review Checklist](#quick-review-checklist) ·
+[Deployment](#deployment-prs) · [Deprecation](#deprecation-prs)
+
+## Quick Review Checklist
+
+### Deployment
+
+1. **`constant.ts`** — check DVNs and executor against LayerZero metadata;
+   check token and OneSig addresses have code; **Manual verification:** verify
+   both on the explorer; check asset type, `nativeDropAmount`, per-path DVNs,
+   and that no placeholder or `TODO` remains.
+2. **`hardhat.config.ts`** — check the network name, `EndpointId`, and RPC URL.
+3. **Chain YAML** — check the name, `EndpointId`, active status, messaging
+   flags, tokens, and asset types match `constant.ts`.
+4. **`deployments/<chain>/`** — if present, check `.chainId`, expected contract
+   JSON files, and deployed addresses. If absent, expect it in a follow-up
+   deployment PR.
+
+### Deprecation
+
+1. **`constant.ts`** — when the PR removes configuration, check every entry for
+   the deprecated chain or asset is removed and no active entry is affected.
+2. **`hardhat.config.ts`** — for a full-chain cleanup, check the network entry
+   is removed; never remove it for an asset-only deprecation.
+3. **`deployments/<chain>/`** — keep the deployment folder unchanged.
+4. **Chain YAML** — check `status`, unwire directions, `allowed_peers`, and
+   asset moves match the deprecation type and phase.
+5. **`messaging.disconnected-check.yml`** — if an OApp was deployed and
+   connected, add the deprecated EID in the final-disconnect PR. If no OApp
+   was ever deployed, do not add the chain because it was never connected.
 
 ## Deployment PRs
 
@@ -40,8 +69,9 @@ If any configuration value is still a placeholder or has an unresolved
   the PR intends the same policy for B → A, require the reciprocal override
   under chain B. Do not require it for an intentionally one-way policy.
 
-**Human:** Verify the token contract on the chain explorer and confirm its
-proxy admin address is the configured OneSig address.
+**Manual verification:** Verify the token and OneSig contracts on the chain
+explorer and confirm the token proxy admin address is the configured OneSig
+address.
 
 #### Cross-file consistency
 
@@ -115,31 +145,3 @@ an asset-only unwire. The title, description, and diff must agree on scope.
 
 Report only concrete, actionable findings with a file and line. If a value
 cannot be verified, say so instead of guessing.
-
-## TL;DR for Humans
-
-### Deployment
-
-1. **`constant.ts`** — check DVNs and executor against LayerZero metadata;
-   check token and OneSig addresses have code and verify both on the explorer;
-   check asset type, `nativeDropAmount`, per-path DVNs, and that no placeholder
-   or `TODO` remains.
-2. **`hardhat.config.ts`** — check the network name, `EndpointId`, and RPC URL.
-3. **Chain YAML** — check the name, `EndpointId`, active status, messaging
-   flags, tokens, and asset types match `constant.ts`.
-4. **`deployments/<chain>/`** — if present, check `.chainId`, expected contract
-   JSON files, and deployed addresses. If absent, expect it in a follow-up
-   deployment PR.
-
-### Deprecation
-
-1. **`constant.ts`** — when the PR removes configuration, check every entry for
-   the deprecated chain or asset is removed and no active entry is affected.
-2. **`hardhat.config.ts`** — for a full-chain cleanup, check the network entry
-   is removed; never remove it for an asset-only deprecation.
-3. **`deployments/<chain>/`** — keep the deployment folder unchanged.
-4. **Chain YAML** — check `status`, unwire directions, `allowed_peers`, and
-   asset moves match the deprecation type and phase.
-5. **`messaging.disconnected-check.yml`** — if an OApp was deployed and
-   connected, add the deprecated EID in the final-disconnect PR. If no OApp
-   was ever deployed, do not add the chain because it was never connected.
