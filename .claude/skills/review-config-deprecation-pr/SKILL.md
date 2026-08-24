@@ -17,7 +17,7 @@ description: >
 The checklist lives in
 [docs/pr-review/deployment-and-deprecation-pr-review.md](../../../docs/pr-review/deployment-and-deprecation-pr-review.md) —
 read it in full before reviewing; it is the source of truth, kept in sync for
-Claude, Codex, Copilot, and human reviewers alike. This file only says how to
+Claude, Codex, GitHub Copilot, and human reviewers alike. This file only says how to
 apply it.
 
 ## Steps
