@@ -19,8 +19,8 @@ or `deprecation`, or — if unlabeled — either:
 follow the checklist in
 [docs/pr-review/deployment-and-deprecation-pr-review.md](../docs/pr-review/deployment-and-deprecation-pr-review.md)
 file by file, in the order listed there. That doc is the single source of
-truth for this review — it is also used by Claude and Codex, so keep
-comments consistent with it rather than improvising a different bar.
+truth for this review — it is also used by Claude, Codex, and GitHub Copilot, so
+keep findings consistent with it rather than improvising a different bar.
 
 Keep the review limited to the deployment or deprecation PR checklist; do not
 import operational runbook requirements that are not listed there.
