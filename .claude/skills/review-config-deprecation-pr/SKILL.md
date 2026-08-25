@@ -3,7 +3,7 @@ name: review-config-deprecation-pr
 description: >
   Review Stargate V2 pull requests that add/change chain configuration, add a
   generated chain deployment folder, or deprecate/shut down a chain or asset
-  (status: DEPRECATED, unwire config, disconnected-checker). Use when asked to
+  (status: DEPRECATED, unwire config, disconnected-check). Use when asked to
   review a PR, PR URL/number, branch, or diff labeled "new-chain" or
   "deprecation" on GitHub, or whose title matches "📤 [deploy] ..." or
   "🛑 [shutdown] ...", or that touches
