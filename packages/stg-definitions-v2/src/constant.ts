@@ -1253,6 +1253,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: {},
         [EndpointId.MANTA_V2_MAINNET]: {},
         [EndpointId.MANTLE_V2_MAINNET]: {},
+        [EndpointId.MEMECORE_V2_MAINNET]: {},
         [EndpointId.METIS_V2_MAINNET]: {},
         [EndpointId.MOCA_V2_MAINNET]: {},
         [EndpointId.MODE_V2_MAINNET]: {},
