@@ -390,14 +390,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'glue-mainnet': {
-        eid: EndpointId.GLUE_V2_MAINNET,
-        url: process.env.RPC_URL_GLUE_MAINNET || 'https://rpc.glue.net',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GLUE_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GLUE_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'gnosis-mainnet': {
         eid: EndpointId.GNOSIS_V2_MAINNET,
         url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://gnosis.drpc.org',
@@ -649,14 +641,6 @@ const networks: NetworksUserConfig = {
         timeout: DEFAULT_NETWORK_TIMEOUT,
         // Sei is giving us ProviderError: Out of gas: gas required exceeds allowance errors
         useFeeData: true,
-    },
-    'shimmer-mainnet': {
-        eid: EndpointId.SHIMMER_V2_MAINNET,
-        url: process.env.RPC_URL_SHIMMER_MAINNET || 'https://json-rpc.evm.shimmer.network',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.SHIMMER_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.SHIMMER_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'somnia-mainnet': {
         eid: EndpointId.SOMNIA_V2_MAINNET,
