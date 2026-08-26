@@ -8,3 +8,15 @@ tokens:
 treasurer:
   tokens:
     usdc: true
+# deprecation
+status: DEPRECATED
+unwire:
+  token_messaging:
+  # todo first unwire from then once there are not inflight run with direction: both
+    direction: from
+    allowed_peers:
+      - superposition-mainnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - superposition-mainnet
