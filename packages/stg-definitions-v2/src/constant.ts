@@ -221,6 +221,7 @@ export const DVNS = {
         [EndpointId.MOCA_V2_MAINNET]: '0x7decc6df3af9cfc275e25d2f9703ecf7ad800d5d',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xf85d19e8884eb985a7f77ba385409ec7ad2923a5',
         [EndpointId.OG_V2_MAINNET]: '0x183940c4855a01da92bc2f96f7e0a8aecbf797ff',
+        [EndpointId.OPN_V2_MAINNET]: '0x62564417c87d6a42c3f9d8c066492e342a8a5602',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x5b6735c66d97479ccd18294fc96b3084ecb2fa3f',
         [EndpointId.ORDERLY_V2_MAINNET]: '0xd42306df1a805d8053bc652ce0cd9f62bde80146',
         [EndpointId.PEAQ_V2_MAINNET]: '0x0c0c8fd5351fd936a987c790d88b137df4e73d64',
