@@ -3232,7 +3232,7 @@ export const NETWORKS: NetworksConfig = {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
             requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET]],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.201').toBigInt(),
+            nativeDropAmount: parseEther('0.3').toBigInt(),
             busDisabled: true,
         },
         oneSigConfig: {
