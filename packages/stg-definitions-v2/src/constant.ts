@@ -67,7 +67,7 @@ export const DVNS = {
         [EndpointId.MOCA_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.OG_V2_MAINNET]: '0x95729ea44326f8add8a9b1d987279dbdc1dd3dff',
-        [EndpointId.OPN_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: Update once Nethermind DVN is deployed on OPN
+        [EndpointId.OPN_V2_MAINNET]: '0x6f1f46307a55c2ef70fa3f1b4f01a02813e81bfb',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.ORDERLY_V2_MAINNET]: '0x6a4c9096f162f0ab3c0517b0a40dc1ce44785e16',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
