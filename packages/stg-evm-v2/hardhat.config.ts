@@ -561,6 +561,9 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.OPN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+        // OPN enforces EIP-7623 floor data gas: estimated gas limit falls below the
+        // calldata floor cost, so the node rejects the tx. Bump the estimate to clear the floor.
+        gasMultiplier: 3,
     },
     'optimism-mainnet': {
         eid: EndpointId.OPTIMISM_V2_MAINNET,
