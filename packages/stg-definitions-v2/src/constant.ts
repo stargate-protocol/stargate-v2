@@ -973,7 +973,7 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
             },
             [EndpointId.OPN_V2_MAINNET]: {
                 type: StargateType.Oft,
-                address: '0x12a272A581feE5577A5dFa371afEB4b2F3a8C2F8',
+                address: '0x08C49257767c1f92634A9cDbF0663Af0356a472A',
             },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
