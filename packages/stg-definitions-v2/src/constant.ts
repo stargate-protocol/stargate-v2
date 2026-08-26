@@ -1252,6 +1252,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.NIBIRU_V2_MAINNET]: {},
         [EndpointId.OG_V2_MAINNET]: {},
         [EndpointId.OPBNB_V2_MAINNET]: {},
+        [EndpointId.OPN_V2_MAINNET]: {},
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.ORDERLY_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
