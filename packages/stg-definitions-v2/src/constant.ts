@@ -219,6 +219,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
         [EndpointId.MANTA_V2_MAINNET]: '0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d',
         [EndpointId.MANTLE_V2_MAINNET]: '0xa2447e5b58d357c49bf74b50b14421e6a100e525',
+        [EndpointId.MEMECORE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: Update once Canary DVN is deployed on MemeCore
         [EndpointId.METIS_V2_MAINNET]: '0xaf75bfd402f3d4ee84978179a6c87d16c4bd1724',
         [EndpointId.MOCA_V2_MAINNET]: '0x7decc6df3af9cfc275e25d2f9703ecf7ad800d5d',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xf85d19e8884eb985a7f77ba385409ec7ad2923a5',
@@ -3095,6 +3096,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MEMECORE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
         },
@@ -3103,6 +3105,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MEMECORE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
             busDisabled: true,
