@@ -3226,12 +3226,20 @@ export const NETWORKS: NetworksConfig = {
     [EndpointId.OPN_V2_MAINNET]: {
         creditMessaging: {
             ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET]],
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
+                DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
+            ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
         },
         tokenMessaging: {
             ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET], DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET]],
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
+                DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
+            ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
             nativeDropAmount: parseEther('0.3').toBigInt(),
             busDisabled: true,
