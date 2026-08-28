@@ -509,6 +509,13 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.MANTLE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+    'memecore-mainnet': {
+        eid: EndpointId.MEMECORE_V2_MAINNET,
+        url: process.env.RPC_URL_MEMECORE_MAINNET || 'https://rpc.memecore.net',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.MEMECORE_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
     'metis-mainnet': {
         eid: EndpointId.METIS_V2_MAINNET,
         url: process.env.RPC_URL_METIS_MAINNET || 'https://metis-pokt.nodies.app',

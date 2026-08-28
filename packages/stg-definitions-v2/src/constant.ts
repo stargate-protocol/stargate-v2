@@ -63,6 +63,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x18f76f0d8ccd176bbe59b3870fa486d1fff87026',
         [EndpointId.MANTA_V2_MAINNET]: '0x247624e2143504730aec22912ed41f092498bef2',
         [EndpointId.MANTLE_V2_MAINNET]: '0xB19A9370D404308040A9760678c8Ca28aFfbbb76',
+        [EndpointId.MEMECORE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: Update once Nethermind DVN is deployed on MemeCore
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.MOCA_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
@@ -131,6 +132,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.MANTA_V2_MAINNET]: '0xa09db5142654e3eb5cf547d66833fae7097b21c3',
         [EndpointId.MANTLE_V2_MAINNET]: '0x28b6140ead70cb2fb669705b3598ffb4beaa060b',
+        [EndpointId.MEMECORE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: Update once LayerZero Labs DVN is deployed on MemeCore
         [EndpointId.METIS_V2_MAINNET]: '0x32d4f92437454829b3fe7bebfece5d0523deb475',
         [EndpointId.MOCA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.NIBIRU_V2_MAINNET]: '0x5727e81a40015961145330d91cc27b5e189ff3e1',
@@ -217,6 +219,7 @@ export const DVNS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
         [EndpointId.MANTA_V2_MAINNET]: '0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d',
         [EndpointId.MANTLE_V2_MAINNET]: '0xa2447e5b58d357c49bf74b50b14421e6a100e525',
+        [EndpointId.MEMECORE_V2_MAINNET]: '0x0000000000000000000000000000000000000000', // TODO: Update once Canary DVN is deployed on MemeCore
         [EndpointId.METIS_V2_MAINNET]: '0xaf75bfd402f3d4ee84978179a6c87d16c4bd1724',
         [EndpointId.MOCA_V2_MAINNET]: '0x7decc6df3af9cfc275e25d2f9703ecf7ad800d5d',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xf85d19e8884eb985a7f77ba385409ec7ad2923a5',
@@ -291,6 +294,7 @@ export const EXECUTORS = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
         [EndpointId.MANTA_V2_MAINNET]: '0x8DD9197E51dC6082853aD71D35912C53339777A7',
         [EndpointId.MANTLE_V2_MAINNET]: '0x4Fc3f4A38Acd6E4cC0ccBc04B3Dd1CCAeFd7F3Cd',
+        [EndpointId.MEMECORE_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.METIS_V2_MAINNET]: '0xE6AB3B3E632f3C65c3cb4c250DcC42f5E915A1cf',
         [EndpointId.MOCA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.NIBIRU_V2_MAINNET]: '0x6A02D83e8d433304bba74EF1c427913958187142',
@@ -959,6 +963,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 address: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9',
                 type: StargateType.Pool,
             },
+            [EndpointId.MEMECORE_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x8a2B28364102Bea189D99A475C494330Ef2bDD0B',
+            },
             [EndpointId.MOCA_V2_MAINNET]: {
                 type: StargateType.Oft,
                 address: '0x9560AbcCAfC1159A8772AFef9Ae85d455454a6aA',
@@ -1246,6 +1254,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.LIGHTLINK_V2_MAINNET]: {},
         [EndpointId.MANTA_V2_MAINNET]: {},
         [EndpointId.MANTLE_V2_MAINNET]: {},
+        [EndpointId.MEMECORE_V2_MAINNET]: {},
         [EndpointId.METIS_V2_MAINNET]: {},
         [EndpointId.MOCA_V2_MAINNET]: {},
         [EndpointId.MODE_V2_MAINNET]: {},
@@ -3079,6 +3088,33 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0x44acb81da0D81573Feb9d794422Be91914eDcD3d',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/mantle`,
+        },
+    },
+    [EndpointId.MEMECORE_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
+            busDisabled: true,
+            // TODO: Executor native cap is currently zero; candidate is 0.0000255 M once native drops are enabled.
+            nativeDropAmount: parseEther('0').toBigInt(),
+        },
+        oneSigConfig: {
+            oneSigAddress: '0xE590a6730D7a8790E99ce3db11466Acb644c3942',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/memecore`,
         },
     },
     [EndpointId.METIS_V2_MAINNET]: {
