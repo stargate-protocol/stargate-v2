@@ -1,5 +1,18 @@
 # @stargatefinance/stg-evm-v2
 
+## 10.0.0
+
+### Major Changes
+
+- d580ca9: Shutdown Shimmer mainnet
+
+### Patch Changes
+
+- da784a3: Configured OPN Mainnet
+- Updated dependencies [da784a3]
+- Updated dependencies [d580ca9]
+  - @stargatefinance/stg-definitions-v2@9.0.0
+
 ## 9.0.0
 
 ### Major Changes
