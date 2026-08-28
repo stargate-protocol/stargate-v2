@@ -101,12 +101,6 @@ deprecated_eids:
       Shut down (PR #591) — had ETH OFT, USDC OFT, and USDT OFT.
       Was connected to all active chains at the time of shutdown.
 
-  - eid: 30327
-    chain: superposition-mainnet
-    notes: >
-      Shut down (PR #591) — had USDC OFT.
-      Was connected to all active chains at the time of shutdown.
-
   - eid: 30328
     chain: edu-mainnet
     notes: >

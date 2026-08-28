@@ -5,5 +5,3 @@
 
 Shutdown Edu mainnet
 Shutdown Degen mainnet
-Shutdown Superposition mainnet
-
