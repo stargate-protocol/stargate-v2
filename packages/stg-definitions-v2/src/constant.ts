@@ -66,8 +66,9 @@ export const DVNS = {
         [EndpointId.METIS_V2_MAINNET]: '0x6ABdb569Dc985504cCcB541ADE8445E5266e7388',
         [EndpointId.MOCA_V2_MAINNET]: '0xabc9b1819cc4d9846550f928b985993cf6240439',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
-        [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.OG_V2_MAINNET]: '0x95729ea44326f8add8a9b1d987279dbdc1dd3dff',
+        [EndpointId.OPN_V2_MAINNET]: '0x6f1f46307a55c2ef70fa3f1b4f01a02813e81bfb',
+        [EndpointId.OPTIMISM_V2_MAINNET]: '0xa7b5189bcA84Cd304D8553977c7C614329750d99',
         [EndpointId.ORDERLY_V2_MAINNET]: '0x6a4c9096f162f0ab3c0517b0a40dc1ce44785e16',
         [EndpointId.PEAQ_V2_MAINNET]: '0x725fafe20b74ff6f88daea0c506190a8f1037635',
         [EndpointId.PLASMA_V2_MAINNET]: '0xa51ce237fafa3052d5d3308df38a024724bb1274',
@@ -134,6 +135,7 @@ export const DVNS = {
         [EndpointId.MOCA_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.NIBIRU_V2_MAINNET]: '0x5727e81a40015961145330d91cc27b5e189ff3e1',
         [EndpointId.OG_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
+        [EndpointId.OPN_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x6a02d83e8d433304bba74ef1c427913958187142',
         [EndpointId.ORDERLY_V2_MAINNET]: '0xf53857dbc0d2c59d5666006ec200cba2936b8c35',
         [EndpointId.PEAQ_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
@@ -219,6 +221,7 @@ export const DVNS = {
         [EndpointId.MOCA_V2_MAINNET]: '0x7decc6df3af9cfc275e25d2f9703ecf7ad800d5d',
         [EndpointId.NIBIRU_V2_MAINNET]: '0xf85d19e8884eb985a7f77ba385409ec7ad2923a5',
         [EndpointId.OG_V2_MAINNET]: '0x183940c4855a01da92bc2f96f7e0a8aecbf797ff',
+        [EndpointId.OPN_V2_MAINNET]: '0x62564417c87d6a42c3f9d8c066492e342a8a5602',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x5b6735c66d97479ccd18294fc96b3084ecb2fa3f',
         [EndpointId.ORDERLY_V2_MAINNET]: '0xd42306df1a805d8053bc652ce0cd9f62bde80146',
         [EndpointId.PEAQ_V2_MAINNET]: '0x0c0c8fd5351fd936a987c790d88b137df4e73d64',
@@ -292,6 +295,7 @@ export const EXECUTORS = {
         [EndpointId.MOCA_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.NIBIRU_V2_MAINNET]: '0x6A02D83e8d433304bba74EF1c427913958187142',
         [EndpointId.OG_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
+        [EndpointId.OPN_V2_MAINNET]: '0x4208d6e27538189bb48e603d6123a94b8abe0a0b',
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x2D2ea0697bdbede3F01553D2Ae4B8d0c486B666e',
         [EndpointId.ORDERLY_V2_MAINNET]: '0x1aCe9DD1BC743aD036eF2D92Af42Ca70A1159df5',
         [EndpointId.PEAQ_V2_MAINNET]: '0xcCE466a522984415bC91338c232d98869193D46e',
@@ -967,6 +971,10 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x8a2B28364102Bea189D99A475C494330Ef2bDD0B',
             },
+            [EndpointId.OPN_V2_MAINNET]: {
+                type: StargateType.Oft,
+                address: '0x08C49257767c1f92634A9cDbF0663Af0356a472A',
+            },
             [EndpointId.OPTIMISM_V2_MAINNET]: {
                 address: '0x0b2c639c533813f4aa9d7837caf62653d097ff85',
                 type: StargateType.Pool,
@@ -1244,6 +1252,7 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.NIBIRU_V2_MAINNET]: {},
         [EndpointId.OG_V2_MAINNET]: {},
         [EndpointId.OPBNB_V2_MAINNET]: {},
+        [EndpointId.OPN_V2_MAINNET]: {},
         [EndpointId.OPTIMISM_V2_MAINNET]: {},
         [EndpointId.ORDERLY_V2_MAINNET]: {},
         [EndpointId.PEAQ_V2_MAINNET]: {},
@@ -3212,6 +3221,32 @@ export const NETWORKS: NetworksConfig = {
         safeConfig: {
             safeAddress: '0xD6578c1C35ee901d01D99e17593E25B13994090b',
             safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/opbnb`,
+        },
+    },
+    [EndpointId.OPN_V2_MAINNET]: {
+        creditMessaging: {
+            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
+                DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
+        },
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            requiredDVNs: [
+                DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET],
+                DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
+                DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
+            ],
+            executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
+            nativeDropAmount: parseEther('0.3').toBigInt(),
+            busDisabled: true,
+        },
+        oneSigConfig: {
+            oneSigAddress: '0x401407d3cf90d9d550fa2ff0953b097021bf08da',
+            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/opn`,
         },
     },
     [EndpointId.OPTIMISM_V2_MAINNET]: {
