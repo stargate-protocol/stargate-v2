@@ -12,8 +12,7 @@ treasurer:
 status: DEPRECATED
 unwire:
   token_messaging:
-  # todo first unwire from then once there are not inflight run with direction: both
-    direction: from
+    direction: both
     allowed_peers:
       - edu-mainnet
   credit_messaging:
