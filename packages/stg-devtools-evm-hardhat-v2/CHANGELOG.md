@@ -1,5 +1,15 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 13.0.0
+
+### Patch Changes
+
+- da784a3: Configured OPN Mainnet
+- Updated dependencies [da784a3]
+- Updated dependencies [d580ca9]
+  - @stargatefinance/stg-definitions-v2@9.0.0
+  - @stargatefinance/stg-devtools-v2@12.0.0
+
 ## 12.0.0
 
 ### Major Changes
