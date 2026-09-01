@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 10.0.0
+
+### Major Changes
+
+- 55971a1: Shutdown Edu mainnet
+  Shutdown Degen mainnet
+
 ## 9.0.0
 
 ### Major Changes
