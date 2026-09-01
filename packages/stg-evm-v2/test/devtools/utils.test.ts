@@ -480,7 +480,7 @@ describe('devtools/utils', () => {
 
         const validChains = ['ethereum-mainnet', 'arbitrum-mainnet', 'optimism-mainnet', 'base-mainnet']
         const chainsThatSupportUSDTPool = ['ethereum-mainnet', 'avalanche-mainnet']
-        const chainsThatSupportUSDTOft = ['degen-mainnet', 'flare-mainnet']
+        const chainsThatSupportUSDTOft = ['flare-mainnet']
 
         it('should return all defined chains names', () => {
             const result = getAllSupportedChains()
@@ -643,7 +643,7 @@ unwired_tokens:
 
             expect(result.length).not.to.equal(0)
             expect(result.length).to.be.lessThan(allChains.length)
-            expect(result.map((r) => r.name)).to.include.members(['ethereum-mainnet', 'degen-mainnet'])
+            expect(result.map((r) => r.name)).to.include.members(['ethereum-mainnet'])
             expect(result.map((r) => r.name)).to.not.include.members(['fraxtal-mainnet', 'manta-mainnet'])
         })
 
