@@ -24,8 +24,9 @@ Jump to: [Quick Review Checklist](#quick-review-checklist) ·
 3. **Chain YAML** — check the name, `EndpointId`, active status, messaging
    flags, tokens, and asset types match `constant.ts`.
 4. **`deployments/<chain>/`** — if present, check `.chainId`, expected contract
-   JSON files, and deployed addresses. If absent, expect it in a follow-up
-   deployment PR.
+   JSON files, deployed addresses, runtime bytecode, privileged permissions,
+   and explorer verification. If absent, expect it in a follow-up deployment
+   PR.
 
 ### Deprecation
 
@@ -95,6 +96,19 @@ This part adds only a new
   its configured assets.
 - Require every recorded contract address to be non-zero and to have on-chain
   code.
+- Compare each contract's on-chain runtime bytecode with its committed artifact
+  and a known-good deployment of the same contract version on another chain.
+  For proxies, check both the proxy and implementation. Account for immutable
+  values, linked libraries, compiler metadata, and intentional chain-specific
+  implementations; report every unexplained difference.
+- Verify all on-chain privileged permissions match the repository
+  configuration. Governance and administrative permissions intended for
+  Stargate OneSig must be held by the configured OneSig, intentional planner
+  or operator roles must use their configured addresses, and the deployer must
+  retain no unintended privilege.
+- Confirm every deployed contract is source-verified on the canonical chain
+  explorer. For proxies, confirm both the proxy and implementation are
+  verified.
 - Do not overwrite an existing chain deployment or include unrelated files.
 
 ### Shared PR completeness
