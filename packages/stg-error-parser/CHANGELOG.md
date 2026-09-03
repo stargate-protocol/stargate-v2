@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 3.0.1
+
+### Patch Changes
+
+- da784a3: Configured OPN Mainnet
+
 ## 3.0.0
 
 ### Major Changes

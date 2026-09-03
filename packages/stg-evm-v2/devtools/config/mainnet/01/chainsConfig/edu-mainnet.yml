@@ -8,3 +8,14 @@ tokens:
 treasurer:
   tokens:
     usdc: true
+# deprecation
+status: DEPRECATED
+unwire:
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - edu-mainnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - edu-mainnet

@@ -298,27 +298,11 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.CRONOSEVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'degen-mainnet': {
-        eid: EndpointId.DEGEN_V2_MAINNET,
-        url: process.env.RPC_URL_DEGEN_MAINNET || 'https://rpc.degen.tips',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.DEGEN_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.DEGEN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'doma-mainnet': {
         eid: EndpointId.DOMA_V2_MAINNET,
         url: process.env.RPC_URL_DOMA_MAINNET || 'https://doma.drpc.org',
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.DOMA_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'edu-mainnet': {
-        eid: EndpointId.EDU_V2_MAINNET,
-        url: process.env.RPC_URL_EDU_MAINNET || 'https://rpc.edu-chain.raas.gelato.cloud',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.EDU_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.EDU_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'ethereum-mainnet': {
@@ -554,6 +538,16 @@ const networks: NetworksUserConfig = {
         safeConfig: getSafeConfig(EndpointId.OPBNB_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.OPBNB_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
+    },
+    'opn-mainnet': {
+        eid: EndpointId.OPN_V2_MAINNET,
+        url: process.env.RPC_URL_OPN_MAINNET || 'https://mainnet-rpc.iopn.tech',
+        accounts: mainnetAccounts,
+        oneSigConfig: getOneSigConfig(EndpointId.OPN_V2_MAINNET),
+        timeout: DEFAULT_NETWORK_TIMEOUT,
+        // OPN enforces EIP-7623 floor data gas: estimated gas limit falls below the
+        // calldata floor cost, so the node rejects the tx. Bump the estimate to clear the floor.
+        gasMultiplier: 3,
     },
     'optimism-mainnet': {
         eid: EndpointId.OPTIMISM_V2_MAINNET,
