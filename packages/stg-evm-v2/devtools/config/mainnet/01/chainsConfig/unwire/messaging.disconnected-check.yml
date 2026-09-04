@@ -110,7 +110,7 @@ deprecated_eids:
   - eid: 30327
     chain: superposition-mainnet
     notes: >
-      Shut down (PR #todo: add PR number) — had USDC OFT.
+      Shut down (PR #594) — had USDC OFT.
       Was connected to all active chains at the time of shutdown.
 
 # active_chains:
