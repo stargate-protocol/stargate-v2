@@ -11,8 +11,7 @@ treasurer:
 status: DEPRECATED
 unwire:
     token_messaging:
-    # todo: update to from once fist batch is completed and no inflight messages are pending
-        direction: to
+        direction: both
         allowed_peers:
             - superposition-mainnet
     credit_messaging:
