@@ -1,5 +1,17 @@
 # @stargatefinance/stg-evm-v2
 
+## 11.0.0
+
+### Major Changes
+
+- 55971a1: Shutdown Edu mainnet
+  Shutdown Degen mainnet
+
+### Patch Changes
+
+- Updated dependencies [55971a1]
+  - @stargatefinance/stg-definitions-v2@10.0.0
+
 ## 10.0.0
 
 ### Major Changes
