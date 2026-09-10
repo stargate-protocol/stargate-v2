@@ -83,7 +83,6 @@ export const DVNS = {
         [EndpointId.STABLE_V2_MAINNET]: '0x9bcd17a654bffaa6f8fea38d19661a7210e22196',
         [EndpointId.STORY_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0x8d77d35604a9f37f488e41d1d916b2a0088f82dd',
-        [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x07c05eab7716acb6f83ebf6268f8eecda8892ba1',
         [EndpointId.TAIKO_V2_MAINNET]: '0xdd7b5e1db4aafd5c8ec3b764efb8ed265aa5445b',
         [EndpointId.TELOS_V2_MAINNET]: '0x809cde2afcf8627312e87a6a7bbffab3f8f347c7',
         [EndpointId.TEMPO_V2_MAINNET]: '0x0d875bd6c833cedef7fca4fe154d023cdb8eb1cb',
@@ -149,7 +148,6 @@ export const DVNS = {
         [EndpointId.STABLE_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
         [EndpointId.STORY_V2_MAINNET]: '0x9c061c9a4782294eef65ef28cb88233a987f4bdd',
         [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
-        [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.TAIKO_V2_MAINNET]: '0xc097ab8cd7b053326dfe9fb3e3a31a0cce3b526f',
         [EndpointId.TELOS_V2_MAINNET]: '0x3c5575898f59c097681d1fc239c2c6ad36b7b41c',
         [EndpointId.TEMPO_V2_MAINNET]: '0x76faff60799021b301b45dc1bbede53f261f9961',
@@ -233,7 +231,6 @@ export const DVNS = {
         [EndpointId.STABLE_V2_MAINNET]: '0x8d6cc20d84fbeb5733c60436ceb8957da2ac02c8',
         [EndpointId.STORY_V2_MAINNET]: '0x77aaf86b4466a67869667babe02c6ebe7e7791d6',
         [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0xc71a3d16f00d93c78ab89aaedde7c0012a3b26cb',
-        [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x396dc0a78f789586e2982fccd830c5954c193f3c',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa9ff468ad000a4d5729826459197a0db843f433e',
         [EndpointId.TELOS_V2_MAINNET]: '0xae5273d893ad87c8f38d45e822a7b4321ccefb4c',
         [EndpointId.TEMPO_V2_MAINNET]: '0xb30b5b27cb23356de1d3100e0e120d481da97b1f',
@@ -305,7 +302,6 @@ export const EXECUTORS = {
         [EndpointId.STABLE_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.STORY_V2_MAINNET]: '0x41Bdb4aa4A63a5b2Efc531858d3118392B1A1C3d',
         [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
-        [EndpointId.SUPERPOSITION_V2_MAINNET]: '0x4208D6E27538189bB48E603D6123A94b8Abe0A0b',
         [EndpointId.TAIKO_V2_MAINNET]: '0xa20DB4Ffe74A31D17fc24BD32a7DD7555441058e',
         [EndpointId.TELOS_V2_MAINNET]: '0x1785c94d31E3E3Ab1079e7ca8a9fbDf33EEf9dd5',
         [EndpointId.TEMPO_V2_MAINNET]: '0xf851abCa1d0fD1Df8eAba6de466a102996b7d7B2',
@@ -1015,10 +1011,6 @@ export const ASSETS: Record<TokenName, AssetConfig> = {
                 type: StargateType.Oft,
                 address: '0x9001dbe4D68d36ab87923A2a9Dfb0c745fd25001',
             },
-            [EndpointId.SUPERPOSITION_V2_MAINNET]: {
-                type: StargateType.Oft,
-                address: '0x6c030c5CC283F791B26816f325b9C632d964F8A1',
-            },
             [EndpointId.TAIKO_V2_MAINNET]: {
                 type: StargateType.Oft,
                 name: 'Bridged USDC (Stargate)',
@@ -1243,7 +1235,6 @@ export const OFT_WRAPPER: OftWrapperConfig = {
         [EndpointId.STABLE_V2_MAINNET]: {},
         [EndpointId.STORY_V2_MAINNET]: {},
         [EndpointId.SUBTENSOREVM_V2_MAINNET]: {},
-        [EndpointId.SUPERPOSITION_V2_MAINNET]: {},
         [EndpointId.TAIKO_V2_MAINNET]: {},
         [EndpointId.TELOS_V2_MAINNET]: {},
         [EndpointId.TEMPO_V2_MAINNET]: {},
@@ -3795,50 +3786,6 @@ export const NETWORKS: NetworksConfig = {
         oneSigConfig: {
             oneSigAddress: '0x349c9b918a02e81d0a358eaac9c63f902d95e2da',
             oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/subtensorevm`,
-        },
-    },
-    [EndpointId.SUPERPOSITION_V2_MAINNET]: {
-        creditMessaging: {
-            ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SUPERPOSITION_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
-        },
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            requiredDVNs: [
-                DVNS.NETHERMIND[EndpointId.SUPERPOSITION_V2_MAINNET],
-                DVNS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SUPERPOSITION_V2_MAINNET],
-            ],
-            executor: EXECUTORS.LZ_LABS[EndpointId.SUPERPOSITION_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
-            busGasLimit: 60000n,
-            busRideGasLimit: 60000n,
-            nativeDropGasLimit: 25000n,
-        },
-        oneSigConfig: {
-            oneSigAddress: '0xb95abacefa0d4b0443ae765aac376f42791a610c',
-            oneSigUrl: `${process.env.BASE_ONE_SIG_URL_MAINNET}/superposition`,
-        },
-        safeConfig: {
-            safeAddress: '0x670c49578aFd9644ceF7BFc43b399E11c4ba7837',
-            safeUrl: `${process.env.BASE_SAFE_URL_MAINNET}/superposition`,
-            contractNetworks: {
-                [55244]: {
-                    multiSendAddress: '0x84CDeb280870b531660087f347B2001775C9Ee0F',
-                    multiSendCallOnlyAddress: '0xcE521F12AB380D9a5526410A66932F28f73Cc19B',
-                    safeMasterCopyAddress: '0x1924A4c1C8C9e683E29f62737CfDFB933df1bE73',
-                    safeProxyFactoryAddress: '0xedB7D71C889E00CDcC3838c72CAE8Fb2C46022c1',
-                    fallbackHandlerAddress: '0x68cf966a4a97aD9604e314734260f82D3A9Be44D',
-                    createCallAddress: '0x031473e1F6856C51a19789f3949caD2b9EA07780',
-                    signMessageLibAddress: '0x4807FE023579a061D5fe7e863f953b62884dF1E1',
-                    simulateTxAccessorAddress: '0x814E15f3F7D2a3A2a3f0304166D114cb21750756',
-                },
-            },
         },
     },
     [EndpointId.TAIKO_V2_MAINNET]: {
