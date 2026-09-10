@@ -10,11 +10,11 @@ treasurer:
     usdc: true
 status: DEPRECATED
 unwire:
-    token_messaging:
-        direction: both
-        allowed_peers:
-            - superposition-mainnet
-    credit_messaging:
-        direction: both
-        allowed_peers:
-            - superposition-mainnet
+  token_messaging:
+      direction: both
+      allowed_peers:
+          - superposition-mainnet
+  credit_messaging:
+      direction: both
+      allowed_peers:
+          - superposition-mainnet
