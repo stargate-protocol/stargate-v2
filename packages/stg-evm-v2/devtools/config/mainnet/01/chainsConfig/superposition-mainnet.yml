@@ -15,6 +15,6 @@ unwire:
     allowed_peers:
       - superposition-mainnet
   credit_messaging:
-      direction: both
-      allowed_peers:
-          - superposition-mainnet
+    direction: both
+    allowed_peers:
+      - superposition-mainnet
