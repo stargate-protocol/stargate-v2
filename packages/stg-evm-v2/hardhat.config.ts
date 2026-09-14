@@ -683,14 +683,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.SUBTENSOREVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'superposition-mainnet': {
-        eid: EndpointId.SUPERPOSITION_V2_MAINNET,
-        url: process.env.RPC_URL_SUPERPOSITION_MAINNET || 'https://rpc.superposition.so',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.SUPERPOSITION_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'taiko-mainnet': {
         eid: EndpointId.TAIKO_V2_MAINNET,
         url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.mainnet.taiko.xyz',
