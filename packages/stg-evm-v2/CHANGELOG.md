@@ -1,5 +1,21 @@
 # @stargatefinance/stg-evm-v2
 
+## 11.0.0
+
+### Major Changes
+
+- 55971a1: Shutdown Edu mainnet
+  Shutdown Degen mainnet
+- 6222862: Shutdown superposition
+
+### Patch Changes
+
+- f857213: Configured MemeCore Mainnet
+- Updated dependencies [f857213]
+- Updated dependencies [55971a1]
+- Updated dependencies [6222862]
+  - @stargatefinance/stg-definitions-v2@10.0.0
+
 ## 10.0.0
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # @stargatefinance/stg-error-parser
 
+## 3.0.2
+
+### Patch Changes
+
+- f857213: Configured MemeCore Mainnet
+
 ## 3.0.1
 
 ### Patch Changes
