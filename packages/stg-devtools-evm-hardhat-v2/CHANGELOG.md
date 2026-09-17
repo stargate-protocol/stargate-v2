@@ -1,5 +1,16 @@
 # @stargatefinance/stg-devtools-evm-hardhat-v2
 
+## 14.0.0
+
+### Patch Changes
+
+- f857213: Configured MemeCore Mainnet
+- Updated dependencies [f857213]
+- Updated dependencies [55971a1]
+- Updated dependencies [6222862]
+  - @stargatefinance/stg-definitions-v2@10.0.0
+  - @stargatefinance/stg-devtools-v2@13.0.0
+
 ## 13.0.0
 
 ### Patch Changes
