@@ -112,7 +112,21 @@ deprecated_eids:
     notes: >
       Shut down (PR #594) — had USDC OFT.
       Was connected to all active chains at the time of shutdown.
-
+  - eid: 30211
+    chain: aurora-mainnet
+    notes: >
+      Shut down (PR #594) — had USDC pool.
+      Was connected to all active chains at the time of shutdown.
+  - eid: 30145
+    chain: gnosis-mainnet
+    notes: >
+      Shut down (PR #594) — had USDC and ETH pool.
+      Was connected to all active chains at the time of shutdown.
+  - eid: 30309
+    chain: lightlink-mainnet
+    notes: >
+      Shut down (PR #594) — had USDC and USDT OFT, Native ETH pool.
+      Was connected to all active chains at the time of shutdown.
 # active_chains:
 #   - ethereum-mainnet
 #   - arbitrum-mainnet
