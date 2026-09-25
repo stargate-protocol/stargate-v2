@@ -11,3 +11,13 @@ treasurer:
   tokens:
     eth: true
     usdc: true
+unwire:
+    token_messaging:
+        # todo disconnect both directions on the second step
+        direction: from
+        allowed_peers:
+            - gnosis-mainnet
+    credit_messaging:
+        direction: both
+        allowed_peers:
+            - gnosis-mainnet

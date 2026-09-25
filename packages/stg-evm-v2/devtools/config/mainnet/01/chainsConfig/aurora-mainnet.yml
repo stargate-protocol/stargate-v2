@@ -16,3 +16,15 @@ staking:
 treasurer:
   tokens:
     usdc: true
+status: DEPRECATED
+
+unwire:
+    token_messaging:
+        # todo disconnect both directions on the second step
+        direction: from
+        allowed_peers:
+            - aurora-mainnet
+    credit_messaging:
+        direction: both
+        allowed_peers:
+            - aurora-mainnet

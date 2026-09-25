@@ -11,3 +11,13 @@ treasurer:
   tokens:
     usdt: true
     usdc: true
+unwire:
+    token_messaging:
+        # todo disconnect both directions on the second step
+        direction: to
+        allowed_peers:
+            - taiko-mainnet
+    credit_messaging:
+        direction: both
+        allowed_peers:
+            - taiko-mainnet
