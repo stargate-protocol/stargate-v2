@@ -127,6 +127,11 @@ deprecated_eids:
     notes: >
       Shut down (PR #596) — had USDC and USDT OFT, Native ETH pool.
       Was connected to all active chains at the time of shutdown.
+  - eid: 30290
+    chain: taiko-mainnet
+    notes: >
+      Shut down (PR #596) — had USDC OFT and USDT OFT.
+      Was connected to all active chains at the time of shutdown.
 # active_chains:
 #   - ethereum-mainnet
 #   - arbitrum-mainnet
