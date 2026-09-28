@@ -76,7 +76,6 @@ deprecated_eids:
       Shut down (PR #568) — had ETH native pool.
       Was connected to all active chains at the time of shutdown.
       Chain was sunset on June 23, 2026.
-      TODO: unwire Taiko -> Swell once the chain is back active
 
   - eid: 30235
     chain: rarible-mainnet
