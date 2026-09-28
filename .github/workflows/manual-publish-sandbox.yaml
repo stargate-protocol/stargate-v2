@@ -39,7 +39,7 @@ jobs:
           exit 1
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
         with:
           token: ${{ secrets.STARGATE_BOT_GITHUB_TOKEN }}
 
@@ -78,7 +78,7 @@ jobs:
 
       # And create a PR to the base branch with any deployments created
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5 # v5
         with:
           title: "🗞️ Sandbox deployments for ${{ inputs.tag }} image tag"
           commit-message: "🗞️ Sandbox deployments for ${{ inputs.tag }} image tag"
