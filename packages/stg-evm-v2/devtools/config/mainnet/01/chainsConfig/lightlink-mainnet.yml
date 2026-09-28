@@ -24,8 +24,7 @@ treasurer:
     usdc: true
 unwire:
     token_messaging:
-       # todo disconnect both directions on the second step
-        direction: from
+        direction: both
         allowed_peers:
             - lightlink-mainnet
     credit_messaging:

@@ -20,8 +20,7 @@ status: DEPRECATED
 
 unwire:
     token_messaging:
-        # todo disconnect both directions on the second step
-        direction: from
+        direction: both
         allowed_peers:
             - aurora-mainnet
     credit_messaging:
