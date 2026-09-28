@@ -3,4 +3,4 @@
 "@stargatefinance/stg-evm-v2": major
 ---
 
-Shutdown Aurora, Glue and Lightlink
+Shutdown Aurora, Glue, Lightlink and Taiko
