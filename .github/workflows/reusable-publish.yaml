@@ -24,7 +24,7 @@ jobs:
     environment: main
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           token: ${{ secrets.STARGATE_BOT_GITHUB_TOKEN }}
 
@@ -45,7 +45,7 @@ jobs:
       # - Once this PR is merged, this workflow kicks in again and this time checks
       #   whether there is anything that needs to be published
       - name: Publish packages / create version bump PRs
-        uses: changesets/action@v1
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1 branch
         with:
           version: pnpm release:version
           publish: pnpm release:publish

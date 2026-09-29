@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest-4xlarge
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
       - name: Build
         uses: ./.github/workflows/actions/build
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest-4xlarge
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
       - name: Build
         uses: ./.github/workflows/actions/build
@@ -71,7 +71,7 @@ jobs:
           echo '${{ steps.profile-gas.outputs.gas-report }}' >> $GITHUB_STEP_SUMMARY
 
       - name: Find comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3
         if: ${{ github.event_name == 'pull_request' }}
         id: comment
         with:
@@ -79,7 +79,7 @@ jobs:
           body-includes: "### Gas profile"
 
       - name: Create or update comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4
         if: ${{ github.event_name == 'pull_request' }}
         with:
           issue-number: ${{ github.event.number }}
@@ -99,13 +99,13 @@ jobs:
     runs-on: ubuntu-latest-4xlarge
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
 
       - name: Build
         uses: ./.github/workflows/actions/build
 
       - name: Download gas snapshot
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: packages/stg-evm-v2/snapshot.gas
           key: snapshot.gas-${{ github.event.repository.default_branch }}-
@@ -136,7 +136,7 @@ jobs:
           echo '${{ steps.diff-gas.outputs.gas-report }}' >> $GITHUB_STEP_SUMMARY
 
       - name: Find comment
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3
         if: ${{ steps.diff-gas.outputs.gas-report && github.event_name == 'pull_request' }}
         id: comment
         with:
@@ -144,7 +144,7 @@ jobs:
           body-includes: "### Gas diff"
 
       - name: Create or update comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4
         if: ${{ steps.diff-gas.outputs.gas-report && github.event_name == 'pull_request' }}
         with:
           issue-number: ${{ github.event.number }}
