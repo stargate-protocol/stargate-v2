@@ -11,6 +11,8 @@ treasurer:
   tokens:
     eth: true
     usdc: true
+status: DEPRECATED
+
 unwire:
     token_messaging:
         direction: both
