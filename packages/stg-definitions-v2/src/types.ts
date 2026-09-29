@@ -59,7 +59,6 @@ export enum RewardTokenName {
     wKAVA = 'wKAVA',
     SEI = 'SEI',
     CORE = 'CORE',
-    LLE = 'LLE',
     WETH = 'WETH',
     ETH = 'ETH',
     S = 'S',
