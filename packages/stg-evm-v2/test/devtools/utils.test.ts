@@ -710,9 +710,9 @@ unwired_tokens:
         })
 
         it('should return the reward token name (valid reward token name)', () => {
-            const result = getRewardTokenName('lle')
+            const result = getRewardTokenName('weth')
 
-            expect(result).to.equal(RewardTokenName.LLE)
+            expect(result).to.equal(RewardTokenName.WETH)
         })
 
         it('should throw if a reward token name is invalid', () => {
