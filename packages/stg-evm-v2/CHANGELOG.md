@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-v2
 
+## 12.0.0
+
+### Major Changes
+
+- 9f4f5c0: Shutdown Aurora, Gnosis, Lightlink and Taiko
+
+### Patch Changes
+
+- Updated dependencies [9f4f5c0]
+  - @stargatefinance/stg-definitions-v2@11.0.0
+
 ## 11.0.0
 
 ### Major Changes

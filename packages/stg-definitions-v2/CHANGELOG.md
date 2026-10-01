@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 11.0.0
+
+### Major Changes
+
+- 9f4f5c0: Shutdown Aurora, Gnosis, Lightlink and Taiko
+
 ## 10.0.0
 
 ### Major Changes
