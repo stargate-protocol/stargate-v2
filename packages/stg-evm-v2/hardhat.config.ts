@@ -227,14 +227,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.AULT_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'aurora-mainnet': {
-        eid: EndpointId.AURORA_V2_MAINNET,
-        url: process.env.RPC_URL_AURORA_MAINNET || 'https://aurora.drpc.org',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.AURORA_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.AURORA_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'avalanche-mainnet': {
         eid: EndpointId.AVALANCHE_V2_MAINNET,
         url: process.env.RPC_URL_AVALANCHE_MAINNET || 'https://avalanche-c-chain-rpc.publicnode.com',
@@ -374,14 +366,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'gnosis-mainnet': {
-        eid: EndpointId.GNOSIS_V2_MAINNET,
-        url: process.env.RPC_URL_GNOSIS_MAINNET || 'https://gnosis.drpc.org',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GNOSIS_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GNOSIS_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'goat-mainnet': {
         eid: EndpointId.GOAT_V2_MAINNET,
         url: process.env.RPC_URL_GOAT_MAINNET || 'https://rpc.goat.network',
@@ -467,14 +451,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.KLAYTN_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.KLAYTN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'lightlink-mainnet': {
-        eid: EndpointId.LIGHTLINK_V2_MAINNET,
-        url: process.env.RPC_URL_LIGHTLINK_MAINNET || 'https://replicator.phoenix.lightlink.io/rpc/v1',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.LIGHTLINK_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.LIGHTLINK_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'manta-mainnet': {
@@ -689,15 +665,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.SUBTENSOREVM_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'taiko-mainnet': {
-        eid: EndpointId.TAIKO_V2_MAINNET,
-        url: process.env.RPC_URL_TAIKO_MAINNET || 'https://rpc.mainnet.taiko.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.TAIKO_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.TAIKO_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-        gasPrice: 20000000,
     },
     'telos-mainnet': {
         eid: EndpointId.TELOS_V2_MAINNET,

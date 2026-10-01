@@ -11,3 +11,14 @@ treasurer:
   tokens:
     eth: true
     usdc: true
+status: DEPRECATED
+
+unwire:
+    token_messaging:
+        direction: both
+        allowed_peers:
+            - gnosis-mainnet
+    credit_messaging:
+        direction: both
+        allowed_peers:
+            - gnosis-mainnet
