@@ -314,8 +314,8 @@ Config for <Chain Name> Mainnet (<chain-id>) based on:
 
 TODO:
 
-- [ ] [caleb] Wire protocol for <chain-name>
-- [ ] [ravina] Deploy <token description and link if known> (only include if there are OFT assets with a zero-address placeholder)
+- [ ] Wire protocol for <chain-name>
+- [ ] Deploy <token description and link if known> (only include if there are OFT assets with a zero-address placeholder)
 ```
 
 Rules for the TODO list — derive items directly from the `// TODO:` comments left in the generated code. Do not add any names or owners. Each TODO comment in the code becomes one PR checklist item:
@@ -374,5 +374,4 @@ After all config files are generated, present the deployment checklist. Use chec
 
 ### Post-deployment
 - [ ] Run the offchain checker (GitHub Action) to verify configs
-- [ ] If executor native cap is too low, notify Caleb
 ```
