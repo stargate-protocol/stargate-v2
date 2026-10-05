@@ -14,11 +14,23 @@ with them. Value can only be transferred through a Path that has enough credit, 
 The value can be send through different modes:
 
 * Taxi, the fastest but most expensive one, which ensures the value is sent on its own cross-chain message.
-* Bus, the cheapest but potentially slowest one, which means the message is batched with other bus riders.
-* Drive, drives the bus.
+* Bus / Drive (Deprecated), the cheapest but potentially slowest one, which means the message is batched with other bus riders. Drive drives the bus.
 
 Stargate contracts act as their own treasury, they hold the native coin that can be used to buy tokens locally while `receiving` tokens.
 
+
+## Bus deprecation
+
+All deployments support taxi only. `maxPassengers`
+and both bus fares are zero on all paths, preventing boarding and driving.
+
+Existing deployments retain their bus gas limits, native-drop amounts and bus enforced
+options (message type 2). These settings need no cleanup: zero passenger limits and
+fares already prevent boarding and driving. Wiring skips these unused settings,
+preserving existing values and leaving them zero/unset on new deployments.
+
+`queueCapacity: 512` is kept because the constructor requires it. Bus storage is
+not initialized.
 
 ## Architecture
 Stargates on each chain provide sending and receiving functionality through a series of contracts. The cross-chain protocol is Layer Zero,
