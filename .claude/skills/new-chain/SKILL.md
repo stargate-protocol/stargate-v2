@@ -264,7 +264,7 @@ Add `rewarder:` and `staking:` sections if the user requested them.
 
 ## Step 4 — Commit and open PR
 
-Once all config files are generated, stage and commit the changes, push the branch, and open a PR.
+Present the config files and changeset for review; commit, push, and open a PR only after the user's explicit approval. The PR can remain in draft while addresses or configuration are pending. Resolve all configuration TODOs and replace placeholders before marking it ready for review or deploying.
 
 ### Changeset
 
@@ -299,7 +299,7 @@ git push -u origin deployments/<chain-name>
 
 ### PR
 
-Open the PR with `gh pr create` using this exact format:
+Open the PR with `gh pr create` using this exact format. Use `--draft` while configuration TODOs remain.
 
 **Title:** `📤 [deploy] <Chain Name> Mainnet` (or `Testnet` if it's a testnet deployment)
 - `<Chain Name>` is the human-readable name, properly capitalised (e.g. `Gensyn`, `InjectiveEVM`, `Sonic`)
@@ -361,7 +361,7 @@ After all config files are generated, present the deployment checklist. Use chec
 - [ ] `pnpm build`
 - [ ] `make deploy-mainnet DEPLOY_ARGS_COMMON="--ci"`
 - [ ] Verify contracts:
-      `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> -k <key> --api-url <url>`
+      `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name>-mainnet -k <key> --api-url <url>`
 
 ### Get PR reviewed and merged
 - [ ] Get PR reviewed and merged
@@ -370,8 +370,9 @@ After all config files are generated, present the deployment checklist. Use chec
 ### Wire the chain to the mesh
 - [ ] `make preconfigure-mainnet CONFIGURE_ARGS_COMMON=--ci`
 - [ ] `make transfer-mainnet CONFIGURE_ARGS_COMMON=--ci`
-- [ ] `NEW_CHAIN=<chain-name> make configure-mainnet CONFIGURE_ARGS_COMMON="--onesig --ci"`
+- [ ] `NEW_CHAIN=<chain-name>-mainnet make configure-mainnet CONFIGURE_ARGS_COMMON="--onesig --ci"`
 
 ### Post-deployment
+- [ ] After the multisig executes the configuration proposals, run `make validate-mainnet` to check messaging library versions
 - [ ] Run the offchain checker (GitHub Action) to verify configs
 ```
