@@ -273,6 +273,35 @@ describe('TokenMessaging/configurator', () => {
         for (let i = 0n; i < busSize; i++) expect(await sdk.getPassengerHash(dstEid, i)).to.not.be.undefined
     })
 
+    for (const maxPassengers of [undefined, 0]) {
+        it(`should ${maxPassengers === 0 ? 'skip' : 'initialize'} storage when maxPassengers is ${maxPassengers}`, async () => {
+            const sdkFactory = createTokenMessagingFactory(({ eid, address }: OmniPoint) => ({
+                eid,
+                contract: myTokenMessaging.attach(address),
+            }))
+            const myPoint: OmniPoint = {
+                eid: EndpointId.ETHEREUM_V2_SANDBOX,
+                address: myTokenMessaging.address,
+            }
+            const remotePoint: OmniPoint = { eid: dstEid, address: otherTokenMessaging.address }
+            const graph: TokenMessagingOmniGraph = {
+                contracts: [{ point: myPoint, config: {} }],
+                connections: [{ vector: { from: myPoint, to: remotePoint }, config: { maxPassengers } }],
+            }
+            await myTokenMessaging.setMaxNumPassengers(dstEid, busSize - 2)
+
+            const configTxs = await initializeBusQueueStorage(graph, sdkFactory)
+            expect(configTxs).to.have.length(maxPassengers === 0 ? 0 : 2)
+            for (const tx of configTxs) {
+                await owner.sendTransaction({ to: tx.point.address, data: tx.data })
+            }
+            const sdk = await sdkFactory(myPoint)
+            expect(await sdk.getPassengerHash(dstEid, BigInt(busSize - 1))).to.satisfy((hash: string | undefined) =>
+                maxPassengers === 0 ? hash == null : hash != null
+            )
+        })
+    }
+
     it('should return no Txs when configurations match', async () => {
         const sdkFactory = createTokenMessagingFactory(({ eid, address }: OmniPoint) => ({
             eid,
