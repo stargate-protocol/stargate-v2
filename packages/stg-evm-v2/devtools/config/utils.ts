@@ -12,7 +12,7 @@ import {
     TokenName,
     getNetworkConfig,
 } from '@stargatefinance/stg-definitions-v2'
-import { MSG_TYPE_BUS, MSG_TYPE_CREDIT_MESSAGING, MSG_TYPE_TAXI } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
+import { MSG_TYPE_CREDIT_MESSAGING, MSG_TYPE_TAXI } from '@stargatefinance/stg-devtools-evm-hardhat-v2'
 import { AssetEdgeConfig, CreditMessagingEdgeConfig, TokenMessagingEdgeConfig } from '@stargatefinance/stg-devtools-v2'
 import * as yaml from 'js-yaml'
 
@@ -141,22 +141,13 @@ const toTokenMessagingEdgeConfig = (
     const optionalDVNThreshold = getOptionalDVNThreshold(fromConfig, toEid)
     const maxMessageSize = getMaxMessageSizeForPath(fromConfig, toEid)
     return {
-        maxPassengers: fromConfig.busDisabled ? 0 : toConfig.maxPassengerCount, // if bus is disabled, set passengers to zero
-        gasLimit: {
-            gasLimit: toConfig.busRideGasLimit,
-            nativeDropGasLimit: toConfig.nativeDropGasLimit,
-        },
-        nativeDropAmount: toConfig.nativeDropAmount,
+        // Omit unused bus settings: new deployments skip them, and existing on-chain values remain unchanged.
+        maxPassengers: 0,
         enforcedOptions: [
             {
                 msgType: MSG_TYPE_TAXI,
                 optionType: ExecutorOptionType.LZ_RECEIVE,
                 gas: toConfig.taxiGasLimit,
-            },
-            {
-                msgType: MSG_TYPE_BUS,
-                optionType: ExecutorOptionType.LZ_RECEIVE,
-                gas: toConfig.busGasLimit,
             },
         ],
         sendConfig: {
