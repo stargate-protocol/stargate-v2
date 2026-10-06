@@ -32,8 +32,8 @@ export default async (): Promise<OmniGraphHardhat<TokenMessagingNodeConfig, Toke
             [bscTokenMsging, ethTokenMsging, polygonTokenMsging],
             (): TokenMessagingEdgeConfig => ({
                 fares: {
-                    busFare: 1n,
-                    busAndNativeDropFare: 2n,
+                    busFare: 0n,
+                    busAndNativeDropFare: 0n,
                 },
             })
         ),
