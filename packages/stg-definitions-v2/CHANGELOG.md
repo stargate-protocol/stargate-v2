@@ -1,5 +1,12 @@
 # @stargatefinance/stg-definitions-v2
 
+## 11.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+- 9f4f5c0: Shutdown Aurora, Gnosis, Lightlink and Taiko
+
 ## 10.0.0
 
 ### Major Changes
