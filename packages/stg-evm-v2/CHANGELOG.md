@@ -1,5 +1,18 @@
 # @stargatefinance/stg-evm-v2
 
+## 12.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+- 9f4f5c0: Shutdown Aurora, Gnosis, Lightlink and Taiko
+
+### Patch Changes
+
+- Updated dependencies [c720e22]
+- Updated dependencies [9f4f5c0]
+  - @stargatefinance/stg-definitions-v2@11.0.0
+
 ## 11.0.0
 
 ### Major Changes
