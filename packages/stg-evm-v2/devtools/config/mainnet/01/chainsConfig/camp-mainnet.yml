@@ -1,4 +1,5 @@
 name: camp-mainnet
+status: DEPRECATED
 eid: CAMP_V2_MAINNET
 token_messaging: true
 credit_messaging: true
@@ -11,3 +12,8 @@ treasurer:
   tokens:
     eth: true
     usdc: true
+unwire:
+  token_messaging:
+    direction: to
+    allowed_peers:
+      - camp-mainnet
