@@ -5,9 +5,9 @@ description: >
   Configure a new chain deployment for Stargate V2. Use this skill whenever someone
   mentions deploying Stargate to a new chain, adding a new chain to the mesh, setting up
   chain configuration, or running /new-chain. It auto-fetches EndpointId, chain ID,
-  DVN addresses, and executor from LayerZero APIs, calculates nativeDropAmount via
-  cast gas-price, and generates all required config files (constant.ts, hardhat.config.ts,
-  chain YAML). Trigger even if the user just says "add <chain>" or "deploy to <chain>".
+  DVN addresses, and executor from LayerZero APIs, and generates all required config
+  files (constant.ts, hardhat.config.ts, chain YAML). Trigger even if the user just
+  says "add <chain>" or "deploy to <chain>".
   IMPORTANT: Always ask the user for confirmation before proceeding with the skill.
 ---
 
@@ -16,7 +16,7 @@ description: >
 You are helping configure and deploy a new chain for Stargate V2. The flow is:
 0. Create a branch `deployments/<chain-name>`
 1. Ask the user for the info you need upfront (in a single message)
-2. Auto-fetch everything possible from LayerZero APIs + calculate nativeDropAmount
+2. Auto-fetch everything possible from LayerZero APIs
 3. Generate all 3 config files
 4. Commit the changes and open a PR
 5. Present follow-up checklist for deployment
@@ -50,7 +50,7 @@ Example message:
 > 2. **Assets** — which assets to deploy and their type (`<asset>: native|pool <address>|oft`)
 > 3. **Custom config** — any extra hardhat flags, additional DVNs, rewarder/staking, or per-path DVN overrides? ("none" if nothing)
 >
-> Once you provide these, I'll fetch the chain data from LayerZero APIs, calculate the nativeDropAmount, and generate all config files.
+> Once you provide these, I'll fetch the chain data from LayerZero APIs and generate all config files.
 
 Asset types:
 - `native` — for ETH on native L2s
@@ -128,51 +128,9 @@ From the DVN map for the chain, extract addresses (the map keys) for:
 
 If a DVN is missing, mark it as `⚠ NOT FOUND — needs manual resolution` and leave a placeholder.
 
-### 2c. Calculate nativeDropAmount
+### 2c. Generate configuration files
 
-Always calculate automatically using the formula: `gas_price * 500_000 * 3`.
-
-Resolve the RPC URL using the same logic as `getRpcUrl` in `packages/stg-evm-v2/hardhat.config.ts`:
-
-```bash
-CHAIN_NAME="<chain-name>"
-CHAIN_UPPER=$(echo "$CHAIN_NAME" | tr '[:lower:]' '[:upper:]')
-
-# Try specific env var first
-RPC_VAR="RPC_URL_${CHAIN_UPPER}_MAINNET"
-RPC="${!RPC_VAR:-}"
-
-# Fall back to template
-if [ -z "$RPC" ]; then
-  TEMPLATE="${RPC_URL_MAINNET:-}"
-  if [ -n "$TEMPLATE" ]; then
-    RPC="${TEMPLATE//CHAIN/$CHAIN_NAME}"
-  fi
-fi
-
-# Get gas price
-if [ -n "$RPC" ]; then
-  GAS_PRICE=$(cast gas-price --rpc-url "$RPC" 2>/dev/null)
-  if [ -n "$GAS_PRICE" ]; then
-    # Calculate: gas_price * 500000 * 3
-    NATIVE_DROP=$(echo "$GAS_PRICE * 500000 * 3" | bc)
-    echo "GAS_PRICE=$GAS_PRICE"
-    echo "NATIVE_DROP_WEI=$NATIVE_DROP"
-    # Convert to ether (18 decimals)
-    echo "NATIVE_DROP_ETHER=$(echo "scale=18; $NATIVE_DROP / 1000000000000000000" | bc)"
-  else
-    echo "CAST_FAILED"
-  fi
-else
-  echo "NO_RPC — set RPC_URL_${CHAIN_UPPER}_MAINNET in .env.local"
-fi
-```
-
-If RPC is not configured, find a public RPC on **https://chainlist.org/** (search by chain name or chain ID). Express the result as `parseEther('<value>').toBigInt()`, rounded to 1-4 significant figures (e.g. `parseEther('0.001')`, `parseEther('0.015')`).
-
-### 2d. Generate configuration files
-
-Once all data is fetched, immediately generate the 3 config files. Add `// TODO: Confirm` comments on values that need human verification (addresses, nativeDropAmount). Present each change clearly.
+Once all data is fetched, immediately generate the 3 config files. Add `// TODO: Confirm` comments on values that need human verification (addresses). Present each change clearly.
 
 #### File 1: `packages/stg-definitions-v2/src/constant.ts`
 
@@ -233,7 +191,6 @@ Same pattern for **USDT** and **EURC** OFTs that haven't been deployed yet.
         ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
         requiredDVNs: [DVNS.NETHERMIND[EndpointId.<CHAIN>_V2_MAINNET], DVNS.LZ_LABS[EndpointId.<CHAIN>_V2_MAINNET]],
         executor: EXECUTORS.LZ_LABS[EndpointId.<CHAIN>_V2_MAINNET],
-        nativeDropAmount: parseEther('<X>').toBigInt(), // TODO: Double check this value
     },
     oneSigConfig: {
         oneSigAddress: '<onesig-address>', // TODO: Confirm
@@ -245,7 +202,6 @@ Same pattern for **USDT** and **EURC** OFTs that haven't been deployed yet.
 Variations:
 - **No messaging**: omit `creditMessaging` and/or `tokenMessaging` (like blast-mainnet which has only oneSig)
 - **Extra DVNs with per-path config**: see section below
-- **Custom gas limits**: add `busGasLimit` and/or `nativeDropGasLimit` to tokenMessaging (only when explicitly requested)
 
 **g) Per-path DVN configuration** (if requested) — add to **both** `creditMessaging` and `tokenMessaging`:
 
@@ -308,7 +264,7 @@ Add `rewarder:` and `staking:` sections if the user requested them.
 
 ## Step 4 — Commit and open PR
 
-Once all config files are generated, stage and commit the changes, push the branch, and open a PR.
+Present the config files and changeset for review; commit, push, and open a PR only after the user's explicit approval. The PR can remain in draft while addresses or configuration are pending. Resolve all configuration TODOs and replace placeholders before marking it ready for review or deploying.
 
 ### Changeset
 
@@ -343,7 +299,7 @@ git push -u origin deployments/<chain-name>
 
 ### PR
 
-Open the PR with `gh pr create` using this exact format:
+Open the PR with `gh pr create` using this exact format. Use `--draft` while configuration TODOs remain.
 
 **Title:** `📤 [deploy] <Chain Name> Mainnet` (or `Testnet` if it's a testnet deployment)
 - `<Chain Name>` is the human-readable name, properly capitalised (e.g. `Gensyn`, `InjectiveEVM`, `Sonic`)
@@ -358,14 +314,12 @@ Config for <Chain Name> Mainnet (<chain-id>) based on:
 
 TODO:
 
-- [ ] [caleb] Wire protocol for <chain-name>
-- [ ] [ravina] Deploy <token description and link if known> (only include if there are OFT assets with a zero-address placeholder)
-- [ ] [angus] confirm native drop amount
+- [ ] Wire protocol for <chain-name>
+- [ ] Deploy <token description and link if known> (only include if there are OFT assets with a zero-address placeholder)
 ```
 
 Rules for the TODO list — derive items directly from the `// TODO:` comments left in the generated code. Do not add any names or owners. Each TODO comment in the code becomes one PR checklist item:
 - If any asset has `// TODO: Update with deployed <ASSET> address on <Chain>` → add `- [ ] Update <ASSET> address on <Chain Name> once deployed`
-- If `nativeDropAmount` has `// TODO: Double check this value` → add `- [ ] Double check native drop amount value`
 - Any other `// TODO:` comments in the generated files → include them as-is
 
 Example `gh` command:
@@ -381,7 +335,6 @@ Config for <Chain Name> Mainnet (<chain-id>) based on:
 TODO:
 
 - [ ] Update USDC address on <Chain Name> once deployed
-- [ ] Double check native drop amount value
 EOF
 )"
 ```
@@ -399,7 +352,6 @@ After all config files are generated, present the deployment checklist. Use chec
 
 ### Before deploying
 - [ ] Review generated config — confirm all addresses (OneSig, DVNs, tokens)
-- [ ] Double check nativeDropAmount with the team (gas_price × 500K × 3)
 - [ ] Set `RPC_URL_<CHAIN_UPPER>_MAINNET` in `.env.local`
 - [ ] If `EndpointId.<CHAIN>_V2_MAINNET` was NOT_FOUND in the package, bump `@layerzerolabs/lz-definitions` to a version that includes it before building
 - [ ] Deploy tokens first if needed (OFT addresses from that deployment replace the zero-address placeholders in `constant.ts`)
@@ -409,7 +361,7 @@ After all config files are generated, present the deployment checklist. Use chec
 - [ ] `pnpm build`
 - [ ] `make deploy-mainnet DEPLOY_ARGS_COMMON="--ci"`
 - [ ] Verify contracts:
-      `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name> -k <key> --api-url <url>`
+      `cd packages/stg-evm-v2 && npx @layerzerolabs/verify-contract --network <chain-name>-mainnet -k <key> --api-url <url>`
 
 ### Get PR reviewed and merged
 - [ ] Get PR reviewed and merged
@@ -418,9 +370,9 @@ After all config files are generated, present the deployment checklist. Use chec
 ### Wire the chain to the mesh
 - [ ] `make preconfigure-mainnet CONFIGURE_ARGS_COMMON=--ci`
 - [ ] `make transfer-mainnet CONFIGURE_ARGS_COMMON=--ci`
-- [ ] `NEW_CHAIN=<chain-name> make configure-mainnet CONFIGURE_ARGS_COMMON="--onesig --ci"`
+- [ ] `NEW_CHAIN=<chain-name>-mainnet make configure-mainnet CONFIGURE_ARGS_COMMON="--onesig --ci"`
 
 ### Post-deployment
+- [ ] After the multisig executes the configuration proposals, run `make validate-mainnet` to check messaging library versions
 - [ ] Run the offchain checker (GitHub Action) to verify configs
-- [ ] If executor native cap is too low, notify Caleb
 ```

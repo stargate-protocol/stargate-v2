@@ -34,6 +34,8 @@ export const initializeBusQueueStorage: TokenMessagingConfigurator = withAsyncLo
             async ({ point }, sdk, graph) => {
                 const dstEids = OmniGraphBuilder.fromGraph(graph)
                     .getEdgesFrom(point)
+                    // Skip explicitly disabled paths; an omitted limit is unmanaged.
+                    .filter((edge) => edge.config.maxPassengers !== 0)
                     .map((edge) => edge.vector.to.eid)
 
                 const queueCapacity = await sdk.getQueueCapacity()

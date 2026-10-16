@@ -1,5 +1,3 @@
-import { parseEther, parseUnits } from '@ethersproject/units'
-
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
 import {
@@ -311,13 +309,9 @@ export const DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG: CreditMessagingNetworkConf
 }
 
 // TokenMessaging constants
+// New chains omit legacy bus configuration. The constructor still requires queueCapacity.
 export const DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG: TokenMessagingNetworkConfig = {
-    nativeDropAmount: BigInt(1e13),
     taxiGasLimit: 150000n,
-    busGasLimit: 38000n,
-    busRideGasLimit: 60000n,
-    nativeDropGasLimit: 25000n,
-    maxPassengerCount: 0,
     queueCapacity: 512,
     maxMessageSize: TOKEN_MESSAGING_MAX_MESSAGE_SIZE,
 }
@@ -1423,7 +1417,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.ABSTRACT_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0008').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x984c4702c4d07973078c481a28adb46d1fe49d75',
@@ -1464,7 +1457,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.APE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x1ba45d65782f69daa454c5ff4e773856926fdcf6',
@@ -1505,7 +1497,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x23d1ffcc206ec043c64591da89f9696748698ce8',
@@ -1558,9 +1549,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00001').toBigInt(),
-            busGasLimit: 60000n,
-            busRideGasLimit: 55000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x184257d5b9e25a12d1dcafb697bfaafe0f5ca150',
@@ -1599,8 +1587,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.AULT_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
-            nativeDropAmount: parseEther('0').toBigInt(),
-            busDisabled: true, // bus mode is not supported for ault until price is available, so native drops can be enabled
         },
         oneSigConfig: {
             oneSigAddress: '0x80e6ab28c9da544c8f876162d6ee9e00e9366456',
@@ -1663,7 +1649,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.018').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x18a0b14478f40abf89594bfe1afa6f9e6a4f9a3a',
@@ -1692,9 +1677,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.BASE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00005').toBigInt(),
-            busGasLimit: 60000n,
-            busRideGasLimit: 55000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x7c20d58cb9f3f3cf73b79a3fbda3fff412d7d82d',
@@ -1831,9 +1813,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.POLYGON_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
-            busGasLimit: 60000n,
-            nativeDropGasLimit: 30000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x64a83552ed614c5136327a30e76dbb52e871737e',
@@ -1922,7 +1901,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0012').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x2f7d714632ec8aa70061e536ee645ffbb4f289ef',
@@ -1951,7 +1929,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.CAMP_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.CAMP_V2_MAINNET],
-            nativeDropAmount: parseEther('0.25').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x8c8a79427d31abec383fe8697b235429aeee481e',
@@ -1977,7 +1954,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.COREDAO_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x6312c1793a767f98f069459ff678c9409d1c2f44',
@@ -2006,7 +1982,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.CRONOSEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('5').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x5ab51e3fa70538d01e9579add517e732abe582ad',
@@ -2047,7 +2022,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.DOMA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0003').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x7DD9bFFC30154C25339B7fbffc2FDDae615A1B08',
@@ -2100,7 +2074,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0042').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xbe634b030feaab661300667eaf82510a3a025413',
@@ -2161,9 +2134,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
-            nativeDropAmount: parseEther('3').toBigInt(),
-            busGasLimit: 60000n,
-            nativeDropGasLimit: 30000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
@@ -2204,7 +2174,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.FLOW_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x70599fd481a918CA53DBC6C79f8DF8BBBfD919FE',
@@ -2255,7 +2224,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.FUSE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xeff268107c0231e711cc847c0ed2d8b3974aec48',
@@ -2296,7 +2264,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.GATELAYER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0002').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
@@ -2321,7 +2288,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.GENSYN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0000015').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x34eE86f14fD32868407D42Cf14dFaD503317354c',
@@ -2346,7 +2312,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.GOAT_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GOAT_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00001').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
@@ -2387,7 +2352,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.GRAVITY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GRAVITY_V2_MAINNET],
-            nativeDropAmount: parseEther('2').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x312ead44717dbd6d4fd335a70ab9f7bf9031c4a2',
@@ -2428,7 +2392,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.HEDERA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
-            nativeDropAmount: parseUnits('0.5', 8).toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xa15db586f123537078a16f714969b6a73b52879d',
@@ -2469,7 +2432,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.HEMI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
-            nativeDropAmount: parseEther('0.005').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xf8513918fc689d0ab0c59d7e781f50edd1970e2c',
@@ -2510,7 +2472,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.HORIZEN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HORIZEN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x643cfbc837ed1382f5ac4cb1b821aaeb00b65c75',
@@ -2536,10 +2497,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.INJECTIVEEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.25').toBigInt(),
             taxiGasLimit: 3n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
-            busGasLimit: 5n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.busGasLimit,
-            busRideGasLimit: 5n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.busRideGasLimit,
         },
         oneSigConfig: {
             oneSigAddress: '0x44143b3de2f977b92c054c6f32fdbd3b3cb74120',
@@ -2564,10 +2522,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.INK_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0003').toBigInt(),
-            busGasLimit: 60000n,
-            busRideGasLimit: 60000n,
-            nativeDropGasLimit: 25000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x55338616f2138e2c2090d97139ea8030a455f6dc',
@@ -2608,7 +2562,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.IOTA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xeff268107c0231e711cc847c0ed2d8b3974aec48',
@@ -2649,7 +2602,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.ISLANDER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xc6f71bd1a4c178780fe62787591bfe3c7eb3160e',
@@ -2690,7 +2642,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.KAVA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x6312c1793a767f98f069459ff678c9409d1c2f44',
@@ -2719,7 +2670,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.KLAYTN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.043').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xeff268107c0231e711cc847c0ed2d8b3974aec48',
@@ -2748,7 +2698,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.MANTA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0001').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xb697c9d99ca0e127bd3aa3fb46b750dc305a3342',
@@ -2789,7 +2738,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.MANTLE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
-            nativeDropAmount: parseEther('0.2').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x25689e691a3a6bb8ee79ca5139abd4e1b1cb76b7',
@@ -2818,8 +2766,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
-            busDisabled: true,
-            nativeDropAmount: parseEther('0.201').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xE590a6730D7a8790E99ce3db11466Acb644c3942',
@@ -2844,8 +2790,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.METIS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.METIS_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00813').toBigInt(),
-            busGasLimit: 50000n,
         },
         oneSigConfig: {
             oneSigAddress: '0xc6c85e359f00c46a95ffcd421ed5bd6e550cc582',
@@ -2874,7 +2818,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.MOCA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.2').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xd486d534f4c937c81b9bedf748ba4f3d0dd5b83e',
@@ -2909,8 +2852,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.NIBIRU_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
-            nativeDropAmount: parseEther('2').toBigInt(),
-            busGasLimit: 50000n,
         },
         oneSigConfig: {
             oneSigAddress: '0xd0d341b2c985875084f55d95d337b9d771985c60',
@@ -2951,7 +2892,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.OG_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OG_V2_MAINNET],
-            nativeDropAmount: parseEther('0.001').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x4731ca7d2c06a4b9a615d5ffe0d7a462001acdeb',
@@ -2986,8 +2926,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.3').toBigInt(),
-            busDisabled: true,
         },
         oneSigConfig: {
             oneSigAddress: '0x401407d3cf90d9d550fa2ff0953b097021bf08da',
@@ -3040,9 +2978,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00003').toBigInt(),
-            busGasLimit: 50000n,
-            busRideGasLimit: 55000n,
         },
         oneSigConfig: {
             oneSigAddress: '0xec230013182261343f235b8c92b443f90a8a3c86',
@@ -3071,7 +3006,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.ORDERLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xef9c1b117d4179359ba1a8cbbbe135fc27576c19',
@@ -3114,11 +3048,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.PEAQ_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
-            nativeDropAmount: parseEther('0.1').toBigInt(),
             taxiGasLimit: 190000n,
-            busGasLimit: 80000n,
-            busRideGasLimit: 75000n,
-            nativeDropGasLimit: 45000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x18a0b14478f40abf89594bfe1afa6f9e6a4f9a3a',
@@ -3159,7 +3089,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.PLASMA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x9fffeba0564f5a521428c20ac601c2dba4b2e67f',
@@ -3184,7 +3113,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
-            nativeDropAmount: parseEther('0.05').toBigInt(),
             taxiGasLimit: 230000n,
         },
         oneSigConfig: {
@@ -3254,8 +3182,6 @@ export const NETWORKS: NetworksConfig = {
                 [EndpointId.BERA_V2_MAINNET]: 2,
             },
             executor: EXECUTORS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0324').toBigInt(),
-            busGasLimit: 65000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x6ad59102caa47cfa76e7cf2ccc7d76557cc5e37d',
@@ -3284,7 +3210,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.RAYLS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
-            nativeDropAmount: parseEther('0.13').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x44143B3dE2F977B92c054c6F32fdbD3b3Cb74120',
@@ -3309,7 +3234,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.REDBELLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
-            nativeDropAmount: parseEther('110').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x1fda8b638284d0c599667bdbeca8fc76e81ac46e',
@@ -3334,7 +3258,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.ROOTSTOCK_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
-            nativeDropAmount: parseEther('0.000055').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x3e7f423105854ae9b4019f92d9fe9757074cf2f3',
@@ -3375,7 +3298,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SCROLL_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00035').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xe46b47be62785c20c6f3cb89f7043ea045e6f88e',
@@ -3404,9 +3326,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SEI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0006').toBigInt(),
-            busGasLimit: 60000n,
-            nativeDropGasLimit: 30000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
@@ -3447,7 +3366,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.STABLE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
-            nativeDropAmount: parseEther('2').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xe37e777da889545f01bdbb92271e849c6969f046',
@@ -3473,9 +3391,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.STORY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
-            nativeDropAmount: parseEther('0.05').toBigInt(),
-            busGasLimit: 75000n,
-            nativeDropGasLimit: 45000n,
         },
         oneSigConfig: {
             oneSigAddress: '0xd4e9fe5ff9788496267124f4bdf4b48f8c6dad4a',
@@ -3517,11 +3432,7 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SOMNIA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
             taxiGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
-            busGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
-            busRideGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
-            nativeDropGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
         },
         oneSigConfig: {
             oneSigAddress: '0xd6b03d71e401479cc976fc94a41a37576404e7bd',
@@ -3562,7 +3473,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SONEIUM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.0005').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x18a0b14478f40abf89594bfe1afa6f9e6a4f9a3a',
@@ -3603,7 +3513,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SONIC_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
-            nativeDropAmount: parseEther('0.5').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
@@ -3644,7 +3553,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SUBTENSOREVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
-            nativeDropAmount: parseEther('0.015').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x349c9b918a02e81d0a358eaac9c63f902d95e2da',
@@ -3669,7 +3577,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.TELOS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
-            nativeDropAmount: parseEther('1').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x50bb6dbc58b92aa0bd9593a667b07067e2be5e92',
@@ -3711,8 +3618,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.TEMPO_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
-            nativeDropAmount: parseEther('0').toBigInt(),
-            busDisabled: true, // bus mode is not supported for tempo since it is an alt chain
             taxiGasLimit: 10n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
         },
         oneSigConfig: {
@@ -3738,7 +3643,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.UNICHAIN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
-            nativeDropAmount: parseEther('0.005').toBigInt(),
             taxiGasLimit: 350000n,
         },
         oneSigConfig: {
@@ -3780,7 +3684,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.XDC_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
-            nativeDropAmount: parseEther('0.01').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0x4ddcce7c68b281f256b031f70192d25480d8b139',
@@ -3821,7 +3724,6 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.ZKCONSENSYS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
-            nativeDropAmount: parseEther('0.00005').toBigInt(),
         },
         oneSigConfig: {
             oneSigAddress: '0xd37ba986553f7ac25bdf9867a60b10ebf182e51e',
