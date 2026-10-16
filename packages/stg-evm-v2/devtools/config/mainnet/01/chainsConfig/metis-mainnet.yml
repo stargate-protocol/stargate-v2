@@ -1,4 +1,5 @@
 name: metis-mainnet
+status: DEPRECATED
 eid: METIS_V2_MAINNET
 token_messaging: true
 credit_messaging: true
@@ -24,3 +25,8 @@ treasurer:
     eth: true
     metis: true
     usdt: true
+unwire:
+  token_messaging:
+    direction: from
+    allowed_peers:
+      - metis-mainnet
