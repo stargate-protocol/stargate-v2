@@ -1,15 +1,38 @@
 import '@nomiclabs/hardhat-ethers'
 
+import fs from 'fs'
+import path from 'path'
+
 import { expect } from 'chai'
 import hre from 'hardhat'
 
 import treasurerConfig from '../../devtools/config/mainnet/01/treasurer.config'
-import { getOneSigAddress } from '../../devtools/config/utils'
+import { getOneSigAddress, loadChainConfig } from '../../devtools/config/utils'
 import {
     getAllSupportedChains,
     getChainsThatSupportTreasurer,
     getNewChainEids,
 } from '../../devtools/config/utils/utils.config'
+
+describe('Mainnet Treasurer asset coverage', () => {
+    it('explicitly configures every active asset on chains with a Treasurer', () => {
+        const chainsDir = path.join(__dirname, '../../devtools/config/mainnet/01/chainsConfig')
+        const missingAssets = fs
+            .readdirSync(chainsDir)
+            .filter((file) => file.endsWith('.yml') && file !== '0-template-chain.yml')
+            .flatMap((file) => {
+                const chain = loadChainConfig(path.join(chainsDir, file))
+                if (!chain.treasurer) return []
+
+                // Wiring only checks listed assets, so an omitted pool otherwise passes unnoticed.
+                return Object.keys(chain.tokens ?? {})
+                    .filter((token) => chain.treasurer?.tokens[token] === undefined)
+                    .map((token) => `${chain.name}: missing treasurer.tokens.${token}`)
+            })
+
+        expect(missingAssets).to.deep.equal([])
+    })
+})
 
 describe('treasurer.config', () => {
     let originalEnv: NodeJS.ProcessEnv
