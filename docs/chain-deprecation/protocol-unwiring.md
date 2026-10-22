@@ -140,9 +140,13 @@ messaging chain that is not the unwire chain and not in `allowed_peers` is
 treated as a peer to unwire. The field is required; for a full deprecation, use
 the chain itself as the only allowed peer.
 
-Deprecated chains are not peers by default. When several connected chains are
-deprecated together, list the others in `deprecated_peers` so their routes to
-this chain are unwired too; otherwise those routes stay enabled:
+`deprecated_peers` is optional and works the opposite way: `allowed_peers`
+removes chains from the peer list, `deprecated_peers` adds chains to it.
+Deprecated chains are not peers by default, so putting one in `allowed_peers`
+has no effect. When several connected chains are deprecated together, list the
+others in `deprecated_peers`; otherwise the routes between them stay enabled.
+Which routes are disabled still follows `direction` (for `from`, chain -> peers;
+for `to`, peers -> chain).
 
 ```yaml
 unwire:
@@ -156,8 +160,31 @@ unwire:
       - camp-mainnet
 ```
 
-Each `deprecated_peers` entry must be a `DEPRECATED` messaging chain, must not
-be in `allowed_peers`, and must not have `chain_shutdown: true`.
+Each `deprecated_peers` entry must:
+
+- be a `DEPRECATED` chain that supports this messaging contract;
+- not be the unwire chain itself, and not be listed twice;
+- not be in `allowed_peers`;
+- not have `chain_shutdown: true`. If a listed chain is later shut down, remove
+  it from every list. Its own unwire still disables the live peer -> chain edges.
+
+Things to know when using `deprecated_peers`:
+
+- The lists stay in place for later phases. When a chain moves to
+  `direction: both`, the same list also disables, and unpeers, the routes from
+  those chains back into it.
+- Every listed chain becomes a node in the unwire graph. Its RPC must be
+  reachable, and any config drift on it (planner, assets, delegate, owner,
+  enforced options, executor) shows up as extra transactions. Dry-run every
+  chain in the batch and check that each transaction is the expected send-ULN
+  -> DeadDVN change. If a listed chain is unreachable, temporarily remove it
+  from the other chains' lists.
+- If the chain has no `unwire.credit_messaging` rule, use
+  `make unwire-token-messaging-mainnet`. `make unwire-chain-mainnet` also runs
+  CreditMessaging and fails without that rule.
+- `stg:check::messaging:disconnected` only checks active chains and zero peers.
+  After execution, verify the send ULN config of each deprecated -> deprecated
+  route directly.
 
 `direction` is required:
 
