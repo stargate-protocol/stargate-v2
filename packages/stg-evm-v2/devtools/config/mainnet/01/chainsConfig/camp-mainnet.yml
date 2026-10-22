@@ -17,3 +17,7 @@ unwire:
     direction: to
     allowed_peers:
       - camp-mainnet
+    deprecated_peers:
+      - metis-mainnet
+      - gravity-mainnet
+      - goat-mainnet

@@ -20,3 +20,7 @@ unwire:
     direction: to
     allowed_peers:
       - gravity-mainnet
+    deprecated_peers:
+      - metis-mainnet
+      - goat-mainnet
+      - camp-mainnet

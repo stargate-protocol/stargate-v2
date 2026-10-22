@@ -140,6 +140,25 @@ messaging chain that is not the unwire chain and not in `allowed_peers` is
 treated as a peer to unwire. The field is required; for a full deprecation, use
 the chain itself as the only allowed peer.
 
+Deprecated chains are not peers by default. When several connected chains are
+deprecated together, list the others in `deprecated_peers` so their routes to
+this chain are unwired too; otherwise those routes stay enabled:
+
+```yaml
+unwire:
+  token_messaging:
+    direction: to
+    allowed_peers:
+      - gravity-mainnet
+    deprecated_peers:
+      - metis-mainnet
+      - goat-mainnet
+      - camp-mainnet
+```
+
+Each `deprecated_peers` entry must be a `DEPRECATED` messaging chain, must not
+be in `allowed_peers`, and must not have `chain_shutdown: true`.
+
 `direction` is required:
 
 - `both`: disable `chain -> peers` and `peers -> chain`.

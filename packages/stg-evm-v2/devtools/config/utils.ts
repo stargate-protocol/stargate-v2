@@ -419,6 +419,7 @@ enum ChainStatus {
 type MessagingUnwireConfig = {
     direction: 'from' | 'to' | 'both'
     allowed_peers: string[] | string
+    deprecated_peers?: string[] | string
 }
 
 export interface Chain {
