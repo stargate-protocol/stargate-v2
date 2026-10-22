@@ -1,0 +1,4 @@
+asset: metis
+disconnect_chains:
+  - ethereum-mainnet
+remaining_chains: []
