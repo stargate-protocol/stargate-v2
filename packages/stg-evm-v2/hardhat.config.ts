@@ -476,14 +476,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.MEMECORE_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'metis-mainnet': {
-        eid: EndpointId.METIS_V2_MAINNET,
-        url: process.env.RPC_URL_METIS_MAINNET || 'https://metis-pokt.nodies.app',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.METIS_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.METIS_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'moca-mainnet': {
         eid: EndpointId.MOCA_V2_MAINNET,
         url: process.env.RPC_URL_MOCA_MAINNET || 'https://rpc.mocachain.org',
