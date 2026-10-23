@@ -267,13 +267,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'camp-mainnet': {
-        eid: EndpointId.CAMP_V2_MAINNET,
-        url: process.env.RPC_URL_CAMP_MAINNET || 'https://rpc.camp.raas.gelato.cloud',
-        accounts: mainnetAccounts,
-        oneSigConfig: getOneSigConfig(EndpointId.CAMP_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
@@ -364,22 +357,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_GENSYN_MAINNET || 'https://gensyn-mainnet.g.alchemy.com/public',
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'goat-mainnet': {
-        eid: EndpointId.GOAT_V2_MAINNET,
-        url: process.env.RPC_URL_GOAT_MAINNET || 'https://rpc.goat.network',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GOAT_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GOAT_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'gravity-mainnet': {
-        eid: EndpointId.GRAVITY_V2_MAINNET,
-        url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GRAVITY_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'hedera-mainnet': {
