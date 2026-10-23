@@ -39,6 +39,8 @@ unwire: # required only while running messaging unwire for this chain
     direction: both # from | to | both
     allowed_peers:
       - template-chain
+    deprecated_peers: # optional; deprecated chains still connected to this chain that must also be unwired
+      - other-deprecated-chain
   credit_messaging:
     direction: both # from | to | both
     allowed_peers:
