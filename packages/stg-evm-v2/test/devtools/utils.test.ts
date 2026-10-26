@@ -731,12 +731,11 @@ unwired_tokens:
         it('should return the supported tokens by eid (chain with tokens)', () => {
             const result = getSupportedTokensByEid(EndpointId.ETHEREUM_V2_MAINNET)
 
-            expect(result.length).to.equal(6)
+            expect(result.length).to.equal(5)
             expect(result).to.have.members([
                 TokenName.USDT,
                 TokenName.USDC,
                 TokenName.ETH,
-                TokenName.METIS,
                 TokenName.mETH,
                 TokenName.EURC,
             ])

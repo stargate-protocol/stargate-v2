@@ -7,13 +7,14 @@ tokens:
     type: native
   meth:
     type: pool
-  metis:
-    type: pool
   usdc:
     type: pool
   usdt:
     type: pool
   eurc:
+    type: pool
+unwired_tokens:
+  metis:
     type: pool
 rewarder:
   tokens:
@@ -35,7 +36,6 @@ treasurer:
   tokens:
     eth: true
     meth: true
-    metis: true
     usdt: true
     usdc: true
     eurc: true
