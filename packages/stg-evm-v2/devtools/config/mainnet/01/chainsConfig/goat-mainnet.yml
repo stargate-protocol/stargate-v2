@@ -17,7 +17,15 @@ treasurer:
     usdc: true
 unwire:
   token_messaging:
-    direction: to
+    direction: both
+    allowed_peers:
+      - goat-mainnet
+    deprecated_peers:
+      - metis-mainnet
+      - gravity-mainnet
+      - camp-mainnet
+  credit_messaging:
+    direction: both
     allowed_peers:
       - goat-mainnet
     deprecated_peers:

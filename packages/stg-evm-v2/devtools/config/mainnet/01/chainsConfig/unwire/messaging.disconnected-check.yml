@@ -131,6 +131,26 @@ deprecated_eids:
     notes: >
       Shut down (PR #596) — had USDC OFT and USDT OFT.
       Was connected to all active chains at the time of shutdown.
+  - eid: 30151
+    chain: metis-mainnet
+    notes: >
+      Shut down (PR #606) — had METIS, ETH and USDT pools.
+      Was connected to all active chains at the time of shutdown (Metis -> * already unwired in PR #603).
+  - eid: 30294
+    chain: gravity-mainnet
+    notes: >
+      Shut down (PR #606) — had USDC, USDT and ETH OFTs.
+      Was connected to all active chains at the time of shutdown (* -> Gravity already unwired in PR #603).
+  - eid: 30361
+    chain: goat-mainnet
+    notes: >
+      Shut down (PR #606) — had USDC, USDT and ETH OFTs.
+      Was connected to all active chains at the time of shutdown (* -> GOAT already unwired in PR #603).
+  - eid: 30381
+    chain: camp-mainnet
+    notes: >
+      Shut down (PR #606) — had USDC and ETH OFTs.
+      Was connected to all active chains at the time of shutdown (* -> Camp already unwired in PR #603).
 # active_chains:
 #   - ethereum-mainnet
 #   - arbitrum-mainnet
