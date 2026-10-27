@@ -5,6 +5,7 @@ credit_messaging: true
 tokens:
   usdc:
     type: pool
+unwired_tokens:
   usdt:
     type: pool
 rewarder:
