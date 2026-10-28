@@ -154,7 +154,7 @@ deprecated_eids:
   - eid: 30399
     chain: horizen-mainnet
     notes: >
-      Shut down (PR #TBD) — had a USDC OFT.
+      Shut down (PR #616) — had a USDC OFT.
       Was connected to all active chains at the time of shutdown (* -> Horizen already unwired in PR #615).
 # active_chains:
 #   - ethereum-mainnet
