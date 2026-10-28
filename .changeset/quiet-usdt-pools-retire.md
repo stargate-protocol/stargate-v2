@@ -1,4 +1,5 @@
 ---
+"@stargatefinance/stg-evm-sdk-v2": major
 "@stargatefinance/stg-evm-v2": major
 ---
 
