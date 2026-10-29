@@ -151,6 +151,11 @@ deprecated_eids:
     notes: >
       Shut down (PR #606) — had USDC and ETH OFTs.
       Was connected to all active chains at the time of shutdown (* -> Camp already unwired in PR #603).
+  - eid: 30399
+    chain: horizen-mainnet
+    notes: >
+      Shut down (PR #616) — had a USDC OFT.
+      Was connected to all active chains at the time of shutdown (* -> Horizen already unwired in PR #615).
 # active_chains:
 #   - ethereum-mainnet
 #   - arbitrum-mainnet
