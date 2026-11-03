@@ -11,6 +11,10 @@ treasurer:
     usdc: true
 unwire:
   token_messaging:
-    direction: to
+    direction: both
+    allowed_peers:
+      - horizen-mainnet
+  credit_messaging:
+    direction: both
     allowed_peers:
       - horizen-mainnet

@@ -375,13 +375,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.HEMI_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'horizen-mainnet': {
-        eid: EndpointId.HORIZEN_V2_MAINNET,
-        url: process.env.RPC_URL_HORIZEN_MAINNET || 'https://horizen.calderachain.xyz/http',
-        accounts: mainnetAccounts,
-        oneSigConfig: getOneSigConfig(EndpointId.HORIZEN_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'injectiveevm-mainnet': {
         eid: EndpointId.INJECTIVEEVM_V2_MAINNET,
         url: process.env.RPC_URL_INJECTIVEEVM_MAINNET || 'https://injectiveevm-rpc.polkachu.com',
