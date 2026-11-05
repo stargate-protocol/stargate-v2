@@ -6,8 +6,7 @@ reviewed: 2026-09-03
 # Introduce a new Stargate asset
 
 This document describes the engineering work required to add an asset that is not yet supported by the Stargate
-definitions, contracts, deployment scripts, or wiring tools. Complete this work before using the
-[protocol deployment process](protocol-deployment.md) to deploy the asset on a chain.
+definitions, contracts, deployment scripts, or wiring tools. Complete this work before deploying the asset on a chain.
 
 > [!WARNING]
 > If the current implementation differs from this procedure, or if any step appears outdated, stop and contact the OApp
@@ -92,12 +91,10 @@ deployment, wiring, ownership, and transfer tests pass.
 Add a changeset for every updated package and create a PR containing the definitions, contracts, deployment scripts,
 configuration, and tests.
 
-After the packages are published, follow [Stargate protocol deployment](protocol-deployment.md) to add the asset to each
-chain.
+After the packages are published, deploy and configure the asset on each chain.
 
 ## References
 
-- [Original adding-new-assets guide](https://github.com/LayerZero-Labs/StargateV2-docs/blob/main/04-adding-new-assets.md)
 - [EURC implementation PR](https://github.com/stargate-protocol/stargate-v2/pull/410)
 - [Stargate definitions](https://github.com/stargate-protocol/stargate-v2/tree/main/packages/stg-definitions-v2/src)
 - [Stargate deployment scripts](https://github.com/stargate-protocol/stargate-v2/tree/main/packages/stg-evm-v2/deploy)
