@@ -1,5 +1,14 @@
 # @stargatefinance/stg-definitions-v2
 
+## 11.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+- 7a0e7a6: Shutdown Metis, Gravity, GOAT and Camp mainnet
+- 9f4f5c0: Shutdown Aurora, Gnosis, Lightlink and Taiko
+- 25d53f6: Shutdown Horizen mainnet
+
 ## 10.0.0
 
 ### Major Changes
