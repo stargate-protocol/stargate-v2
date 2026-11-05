@@ -9,6 +9,7 @@ tokens:
     type: pool
   usdc:
     type: pool
+unwired_tokens:
   usdt:
     type: pool
 rewarder:

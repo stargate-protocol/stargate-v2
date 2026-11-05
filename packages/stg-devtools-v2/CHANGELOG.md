@@ -1,5 +1,19 @@
 # @stargatefinance/stg-devtools-v2
 
+## 14.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+
+### Patch Changes
+
+- Updated dependencies [c720e22]
+- Updated dependencies [7a0e7a6]
+- Updated dependencies [9f4f5c0]
+- Updated dependencies [25d53f6]
+  - @stargatefinance/stg-definitions-v2@11.0.0
+
 ## 13.0.0
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @stargatefinance/stg-evm-sdk-v2
 
+## 4.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+- 82e0459: Remove USDT from the active asset configuration on Arbitrum, Mantle, Polygon and Optimism while retaining other assets and historical deployment records.
+
+### Patch Changes
+
+- 25d53f6: Shutdown Horizen mainnet
+
 ## 3.0.2
 
 ### Patch Changes

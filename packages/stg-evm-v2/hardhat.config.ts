@@ -267,13 +267,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.BSC_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'camp-mainnet': {
-        eid: EndpointId.CAMP_V2_MAINNET,
-        url: process.env.RPC_URL_CAMP_MAINNET || 'https://rpc.camp.raas.gelato.cloud',
-        accounts: mainnetAccounts,
-        oneSigConfig: getOneSigConfig(EndpointId.CAMP_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'coredao-mainnet': {
         eid: EndpointId.COREDAO_V2_MAINNET,
         url: process.env.RPC_URL_COREDAO_MAINNET || 'https://rpc.coredao.org',
@@ -366,22 +359,6 @@ const networks: NetworksUserConfig = {
         oneSigConfig: getOneSigConfig(EndpointId.GENSYN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'goat-mainnet': {
-        eid: EndpointId.GOAT_V2_MAINNET,
-        url: process.env.RPC_URL_GOAT_MAINNET || 'https://rpc.goat.network',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GOAT_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GOAT_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'gravity-mainnet': {
-        eid: EndpointId.GRAVITY_V2_MAINNET,
-        url: process.env.RPC_URL_GRAVITY_MAINNET || 'https://rpc.gravity.xyz',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.GRAVITY_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.GRAVITY_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
     'hedera-mainnet': {
         eid: EndpointId.HEDERA_V2_MAINNET,
         url: process.env.RPC_URL_HEDERA_MAINNET || 'https://mainnet.hashio.io/api',
@@ -396,13 +373,6 @@ const networks: NetworksUserConfig = {
         accounts: mainnetAccounts,
         safeConfig: getSafeConfig(EndpointId.HEMI_V2_MAINNET),
         oneSigConfig: getOneSigConfig(EndpointId.HEMI_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'horizen-mainnet': {
-        eid: EndpointId.HORIZEN_V2_MAINNET,
-        url: process.env.RPC_URL_HORIZEN_MAINNET || 'https://horizen.calderachain.xyz/http',
-        accounts: mainnetAccounts,
-        oneSigConfig: getOneSigConfig(EndpointId.HORIZEN_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'injectiveevm-mainnet': {
@@ -474,14 +444,6 @@ const networks: NetworksUserConfig = {
         url: process.env.RPC_URL_MEMECORE_MAINNET || 'https://rpc.memecore.net',
         accounts: mainnetAccounts,
         oneSigConfig: getOneSigConfig(EndpointId.MEMECORE_V2_MAINNET),
-        timeout: DEFAULT_NETWORK_TIMEOUT,
-    },
-    'metis-mainnet': {
-        eid: EndpointId.METIS_V2_MAINNET,
-        url: process.env.RPC_URL_METIS_MAINNET || 'https://metis-pokt.nodies.app',
-        accounts: mainnetAccounts,
-        safeConfig: getSafeConfig(EndpointId.METIS_V2_MAINNET),
-        oneSigConfig: getOneSigConfig(EndpointId.METIS_V2_MAINNET),
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
     'moca-mainnet': {

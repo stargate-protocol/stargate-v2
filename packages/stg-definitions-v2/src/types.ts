@@ -55,7 +55,6 @@ export enum RewardTokenName {
     STG = 'STG',
     ARB = 'ARB',
     OP = 'OP',
-    METIS = 'METIS',
     wKAVA = 'wKAVA',
     SEI = 'SEI',
     CORE = 'CORE',
