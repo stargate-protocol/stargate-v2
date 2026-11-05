@@ -1,0 +1,30 @@
+asset: usdt
+disconnect_chains:
+  - arbitrum-mainnet
+  - mantle-mainnet
+  - polygon-mainnet
+  - optimism-mainnet
+remaining_chains:
+  - abstract-mainnet
+  - ape-mainnet
+  - avalanche-mainnet
+  - bsc-mainnet
+  - coredao-mainnet
+  - ethereum-mainnet
+  - flare-mainnet
+  - flow-mainnet
+  - fuse-mainnet
+  - hemi-mainnet
+  - iota-mainnet
+  - islander-mainnet
+  - kava-mainnet
+  - klaytn-mainnet
+  - nibiru-mainnet
+  - og-mainnet
+  - peaq-mainnet
+  - plumephoenix-mainnet
+  - rootstock-mainnet
+  - somnia-mainnet
+  - story-mainnet
+  - telos-mainnet
+  - xdc-mainnet
