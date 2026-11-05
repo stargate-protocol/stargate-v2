@@ -29,6 +29,9 @@ Empty or omitted `remaining_chains` selects every other chain with the asset
 configured, including `DEPRECATED` chains. An explicit list overrides this.
 The lists must not overlap or contain duplicates.
 
+Before unwiring a Pool or Native Pool asset, drain its finite cross-chain credits.
+Keep CreditMessaging paths and asset IDs configured until the drain is complete.
+
 Expected transactions:
 
 - `setOFTPath(dstEid, false)` for the disconnected asset paths.
@@ -76,7 +79,9 @@ only their respective target.
 ### Transaction Effects
 
 For `from` or `to`, only the sender's send ULN config changes to its local
-DeadDVN. Receive config, executors and peers remain unchanged.
+DeadDVN unless other configured settings have drifted. Receive config and peers
+remain unchanged. Configured executors and enforced options are still reconciled;
+review any extra transactions caused by drift.
 
 For `both`, each side gets send and receive ULN config pointing to its local
 DeadDVN, a zero send executor, and `setPeer(remoteEid, bytes32(0))`.
