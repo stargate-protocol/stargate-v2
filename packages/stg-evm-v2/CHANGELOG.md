@@ -1,5 +1,24 @@
 # @stargatefinance/stg-evm-v2
 
+## 12.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+- 7a0e7a6: Shutdown Metis, Gravity, GOAT and Camp mainnet
+- 056265e: Shutdown the METIS pool on Ethereum
+- 82e0459: Remove USDT from the active asset configuration on Arbitrum, Mantle, Polygon and Optimism while retaining other assets and historical deployment records.
+- 9f4f5c0: Shutdown Aurora, Gnosis, Lightlink and Taiko
+- 25d53f6: Shutdown Horizen mainnet
+
+### Patch Changes
+
+- Updated dependencies [c720e22]
+- Updated dependencies [7a0e7a6]
+- Updated dependencies [9f4f5c0]
+- Updated dependencies [25d53f6]
+  - @stargatefinance/stg-definitions-v2@11.0.0
+
 ## 11.0.0
 
 ### Major Changes
