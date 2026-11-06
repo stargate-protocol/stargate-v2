@@ -131,10 +131,10 @@ importers:
         specifier: ~4.0.1
         version: 4.0.1(@ethersproject/abi@5.7.0)(@ethersproject/bytes@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@layerzerolabs/devtools-evm-hardhat@4.0.0)(@layerzerolabs/devtools-evm@3.0.0)(@layerzerolabs/devtools@2.0.1)(@layerzerolabs/io-devtools@0.3.0)(@layerzerolabs/lz-definitions@3.1.9)(@layerzerolabs/protocol-devtools-evm@5.0.1)(@layerzerolabs/protocol-devtools@3.0.2)(@layerzerolabs/ua-devtools-evm@3.0.1)(@layerzerolabs/ua-devtools@1.0.5)(ethers@5.8.0)(hardhat-deploy@0.12.4)(hardhat@2.28.6)
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~10.0.0
+        specifier: ~11.0.0
         version: link:../stg-definitions-v2
       '@stargatefinance/stg-devtools-v2':
-        specifier: ~13.0.0
+        specifier: ~14.0.0
         version: link:../stg-devtools-v2
       '@types/node':
         specifier: ^18.15.11
@@ -179,7 +179,7 @@ importers:
         specifier: ~1.0.5
         version: 1.0.5(@layerzerolabs/devtools@2.0.1)(@layerzerolabs/io-devtools@0.3.0)(@layerzerolabs/lz-definitions@3.1.9)(@layerzerolabs/lz-v2-utilities@3.0.167)(@layerzerolabs/protocol-devtools@0.4.3)(zod@3.22.5)
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~10.0.0
+        specifier: ~11.0.0
         version: link:../stg-definitions-v2
       '@types/node':
         specifier: ^18.15.11
@@ -210,7 +210,7 @@ importers:
         specifier: ~3.0.7
         version: 3.0.7
       '@stargatefinance/stg-evm-sdk-v2':
-        specifier: ~3.0.2
+        specifier: ~4.0.0
         version: link:../stg-evm-sdk-v2
       '@types/jest':
         specifier: ^29.5.10
@@ -258,7 +258,7 @@ importers:
         specifier: ^4.8.1
         version: 4.9.6
       '@stargatefinance/stg-evm-v2':
-        specifier: ~11.0.0
+        specifier: ~12.0.0
         version: link:../stg-evm-v2
       '@typechain/ethers-v5':
         specifier: ^10.2.0
@@ -339,7 +339,7 @@ importers:
         specifier: 0.0.12
         version: 0.0.12
       '@stargatefinance/stg-definitions-v2':
-        specifier: ~10.0.0
+        specifier: ~11.0.0
         version: link:../stg-definitions-v2
       '@stargatefinance/stg-evm-v1':
         specifier: ~1.0.31
@@ -466,10 +466,10 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@stargatefinance/stg-devtools-evm-hardhat-v2':
-        specifier: ~14.0.0
+        specifier: ~15.0.0
         version: link:../stg-devtools-evm-hardhat-v2
       '@stargatefinance/stg-devtools-v2':
-        specifier: ~13.0.0
+        specifier: ~14.0.0
         version: link:../stg-devtools-v2
       '@typechain/ethers-v5':
         specifier: ~11.1.2
@@ -3790,6 +3790,7 @@ packages:
 
   /@ledgerhq/cryptoassets@5.53.0:
     resolution: {integrity: sha512-M3ibc3LRuHid5UtL7FI3IC6nMEppvly98QHFoSa7lJU0HDzQxY6zHec/SPM4uuJUC8sXoGVAiRJDkgny54damw==}
+    deprecated: This package is no longer maintained and will not receive updates. Published versions remain available.
     dependencies:
       invariant: 2.2.4
     dev: true
@@ -3814,6 +3815,7 @@ packages:
 
   /@ledgerhq/errors@5.50.0:
     resolution: {integrity: sha512-gu6aJ/BHuRlpU7kgVpy2vcYk6atjB4iauP2ymF7Gk0ez0Y/6VSMVSJvubeEQN+IV60+OBK0JgeIZG7OiHaw8ow==}
+    deprecated: This package is no longer maintained and will not receive updates. Published versions remain available.
     dev: true
 
   /@ledgerhq/errors@6.19.1:
@@ -3832,6 +3834,7 @@ packages:
 
   /@ledgerhq/hw-transport-node-hid-noevents@5.51.1:
     resolution: {integrity: sha512-9wFf1L8ZQplF7XOY2sQGEeOhpmBRzrn+4X43kghZ7FBDoltrcK+s/D7S+7ffg3j2OySyP6vIIIgloXylao5Scg==}
+    deprecated: This package is no longer maintained. Use @ledgerhq/device-transport-kit-node-hid instead.
     requiresBuild: true
     dependencies:
       '@ledgerhq/devices': 5.51.1
@@ -3844,6 +3847,7 @@ packages:
 
   /@ledgerhq/hw-transport-node-hid@5.26.0:
     resolution: {integrity: sha512-qhaefZVZatJ6UuK8Wb6WSFNOLWc2mxcv/xgsfKi5HJCIr4bPF/ecIeN+7fRcEaycxj4XykY6Z4A7zDVulfFH4w==}
+    deprecated: This package is no longer maintained. Use @ledgerhq/device-transport-kit-node-hid instead.
     requiresBuild: true
     dependencies:
       '@ledgerhq/devices': 5.51.1
