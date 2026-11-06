@@ -91,6 +91,18 @@ describe('devtools/config utils messaging config generation', () => {
         )
     })
 
+    it('disables bus on every path without managing legacy bus settings', () => {
+        const connections = generateTokenMessagingConfig(createPoints('TokenMessaging'))
+        expect(connections).to.have.length(testEids.length * (testEids.length - 1))
+        for (const { config } of connections) {
+            expect(config?.maxPassengers).to.equal(0)
+            expect(config).not.to.have.property('gasLimit')
+            expect(config).not.to.have.property('nativeDropAmount')
+            expect(config).not.to.have.property('fares')
+            expect(config?.enforcedOptions).to.deep.equal([{ msgType: 1, optionType: 1, gas: 2n }])
+        }
+    })
+
     it('keeps 10k as the shared default and applies the 20k TokenMessaging override', () => {
         expect(DEFAULT_MAX_MESSAGE_SIZE).to.equal(10000)
         expect(TOKEN_MESSAGING_MAX_MESSAGE_SIZE).to.equal(20000)
@@ -110,12 +122,7 @@ describe('devtools/config utils messaging config generation', () => {
             ...overrides?.creditMessaging,
         },
         tokenMessaging: {
-            nativeDropAmount: 1n,
             taxiGasLimit: 2n,
-            busGasLimit: 3n,
-            busRideGasLimit: 4n,
-            nativeDropGasLimit: 5n,
-            maxPassengerCount: 6,
             queueCapacity: 7,
             executor,
             ...overrides?.tokenMessaging,

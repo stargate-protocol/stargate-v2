@@ -18,7 +18,7 @@ Jump to: [Quick Review Checklist](#quick-review-checklist) ·
 
 1. **`constant.ts`** — check DVNs and executor against LayerZero metadata;
    check token and OneSig addresses have code; **Manual verification:** verify
-   both on the explorer; check asset type, `nativeDropAmount`, per-path DVNs,
+   both on the explorer; check asset type, per-path DVNs,
    and that no placeholder or `TODO` remains.
 2. **`hardhat.config.ts`** — check the network name, `EndpointId`, and RPC URL.
 3. **Chain YAML** — check the name, `EndpointId`, active status, messaging
@@ -63,9 +63,6 @@ If any configuration value is still a placeholder or has an unresolved
   code. Do not use LayerZero metadata to identify a token or OneSig.
 - Match each asset type (`Native`, `Pool`, or `Oft`) between `constant.ts` and
   the chain YAML.
-- Check `nativeDropAmount` against `gas_price * 500_000 * 3` and the executor
-  native cap. Treat zero or unusually large values as questions to resolve,
-  not automatic defects when the PR documents a deliberate limit.
 - A per-path DVN override under chain A for chain B configures only A → B. If
   the PR intends the same policy for B → A, require the reciprocal override
   under chain B. Do not require it for an intentionally one-way policy.

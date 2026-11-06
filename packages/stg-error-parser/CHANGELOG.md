@@ -1,5 +1,17 @@
 # @stargatefinance/stg-error-parser
 
+## 4.0.0
+
+### Major Changes
+
+- c720e22: Deprecate Bus mode for all pathways
+
+## 3.0.2
+
+### Patch Changes
+
+- f857213: Configured MemeCore Mainnet
+
 ## 3.0.1
 
 ### Patch Changes

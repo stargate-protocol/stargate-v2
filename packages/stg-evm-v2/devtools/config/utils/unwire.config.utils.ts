@@ -30,6 +30,7 @@ import {
     getChainsThatSupportToken,
     getSupportedTokensByEid,
     getTokenName,
+    isDeprecatedChain,
     printChains,
     requireStage,
     setStage,
@@ -108,7 +109,6 @@ export function loadMessagingUnwireConfig(contractName: MessagingContractName): 
         throw new Error('UNWIRE_CHAIN is required')
     }
 
-    const peerChains = getChainsThatSupportMessaging()
     const resolvableChains = getChainsThatSupportMessaging({ includeDeprecated: true })
     const chain = resolvableChains.find((chain) => chain.name === unwireChainName)
     if (!chain) {
@@ -142,10 +142,62 @@ export function loadMessagingUnwireConfig(contractName: MessagingContractName): 
         throw new Error(`chain_shutdown requires status: DEPRECATED and direction: both for ${chain.name}`)
     }
 
+    const deprecatedPeers = resolveDeprecatedPeers(
+        chain,
+        normalizeOptionalChainList(unwireConfig.deprecated_peers),
+        allowedPeers,
+        resolvableChains,
+        unwireKey,
+        configLabel
+    )
+    // Deprecated chains are not peers by default; deprecated_peers opts in the ones still connected to this chain.
+    const peerChains = [...getChainsThatSupportMessaging(), ...deprecatedPeers]
+
     const allChains = uniqueChains([...peerChains, chain])
     logMessagingUnwireChains(allChains, allowedPeers)
 
     return { chain, peerChains, allChains, allowedPeers, direction: unwireConfig.direction, chainShutdown }
+}
+
+// Resolve deprecated_peers: deprecated chains that are still connected to the unwire chain and must be unwired too.
+export function resolveDeprecatedPeers(
+    chain: Chain,
+    deprecatedPeerNames: string[],
+    allowedPeers: string[],
+    resolvableChains: Chain[],
+    unwireKey: 'token_messaging' | 'credit_messaging',
+    configLabel: string
+): Chain[] {
+    if (new Set(deprecatedPeerNames).size !== deprecatedPeerNames.length) {
+        throw new Error(`deprecated_peers contains duplicate entries in ${configLabel}`)
+    }
+
+    return deprecatedPeerNames.map((name) => {
+        const peer = resolvableChains.find((candidate) => candidate.name === name)
+        if (!peer) {
+            throw new Error(`Invalid deprecated_peers entry "${name}" in ${configLabel}`)
+        }
+        if (peer.name === chain.name) {
+            throw new Error(`deprecated_peers must not include the unwire chain itself in ${configLabel}`)
+        }
+        if (!peer[unwireKey]) {
+            throw new Error(`deprecated_peers entry "${name}" does not support ${unwireKey} in ${configLabel}`)
+        }
+        if (!isDeprecatedChain(peer)) {
+            throw new Error(
+                `deprecated_peers entry "${name}" is not DEPRECATED in ${configLabel}; active chains are already peers`
+            )
+        }
+        if (allowedPeers.includes(name)) {
+            throw new Error(`"${name}" cannot be in both allowed_peers and deprecated_peers in ${configLabel}`)
+        }
+        if (peer.unwire?.chain_shutdown === true) {
+            throw new Error(
+                `deprecated_peers entry "${name}" has chain_shutdown: true and cannot be configured in ${configLabel}`
+            )
+        }
+        return peer
+    })
 }
 
 // Load asset unwire config (disconnect/remaining chains) for the current stage (requires stage to be set).

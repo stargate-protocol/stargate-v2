@@ -21,3 +21,4 @@ treasurer:
   tokens:
     usdt: true
     usdc: true
+    eth: true

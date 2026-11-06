@@ -710,9 +710,9 @@ unwired_tokens:
         })
 
         it('should return the reward token name (valid reward token name)', () => {
-            const result = getRewardTokenName('lle')
+            const result = getRewardTokenName('weth')
 
-            expect(result).to.equal(RewardTokenName.LLE)
+            expect(result).to.equal(RewardTokenName.WETH)
         })
 
         it('should throw if a reward token name is invalid', () => {
@@ -731,12 +731,11 @@ unwired_tokens:
         it('should return the supported tokens by eid (chain with tokens)', () => {
             const result = getSupportedTokensByEid(EndpointId.ETHEREUM_V2_MAINNET)
 
-            expect(result.length).to.equal(6)
+            expect(result.length).to.equal(5)
             expect(result).to.have.members([
                 TokenName.USDT,
                 TokenName.USDC,
                 TokenName.ETH,
-                TokenName.METIS,
                 TokenName.mETH,
                 TokenName.EURC,
             ])
