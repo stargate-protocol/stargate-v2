@@ -1,5 +1,11 @@
 # @stargatefinance/stg-definitions-v2
 
+## 11.0.1
+
+### Patch Changes
+
+- 348621c: Raise Sei TAXI lzReceive gas to 250k
+
 ## 11.0.0
 
 ### Major Changes
