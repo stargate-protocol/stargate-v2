@@ -3082,6 +3082,8 @@ export const NETWORKS: NetworksConfig = {
                 DVNS.CANARY[EndpointId.SEI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
+            // Sei raised SSTORE gas cost (proposal 109); large-compose taxis OOG at 150k
+            taxiGasLimit: 250000n,
         },
         oneSigConfig: {
             oneSigAddress: '0x313bd0ff4cbabf5551bdfbc9329002e9246e1bae',
