@@ -142,16 +142,6 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
-    'klaytn-testnet': {
-        eid: EndpointId.KLAYTN_V2_TESTNET,
-        url: process.env.RPC_URL_KLAYTN_TESTNET || 'https://kaia-kairos.blockpi.network/v1/rpc/public',
-        accounts: testnetAccounts,
-    },
-    'mantlesep-testnet': {
-        eid: EndpointId.MANTLESEP_V2_TESTNET,
-        url: process.env.RPC_URL_MANTLE_TESTNET || 'https://rpc.sepolia.mantle.xyz',
-        accounts: testnetAccounts,
-    },
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
@@ -168,11 +158,6 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         isTIP20: true,
         alt: true,
-    },
-    'monad-testnet': {
-        eid: EndpointId.MONAD_V2_TESTNET,
-        url: process.env.RPC_URL_MONAD_TESTNET || 'https://testnet-rpc.monad.xyz',
-        accounts: testnetAccounts,
     },
 
     //
