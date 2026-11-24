@@ -7,12 +7,10 @@ import {
     TokenMessagingEdgeConfig,
     TokenMessagingNodeConfig,
 } from '@stargatefinance/stg-devtools-v2'
-import hre from 'hardhat'
 
 import { OmniEdgeHardhat, OmniGraphHardhat, OmniPointHardhat } from '@layerzerolabs/devtools-evm-hardhat'
 import { Stage } from '@layerzerolabs/lz-definitions'
 
-import { getNamedAccount } from '../../../ts-src/utils/util'
 import buildAssetDeploymentGraph from '../utils/asset.config.utils'
 import buildCircleFiatTokenGraph from '../utils/circle-fiat-token.config.utils'
 import buildFeeLibV1DeploymentGraph from '../utils/feelib-v1.config.utils'
@@ -31,9 +29,8 @@ export function setTestnetStage() {
     setStage(Stage.TESTNET)
 }
 
-export async function buildAssetDeploymentGraphTestnet(tokenName: TokenName) {
-    const deployer = await hre.getNamedAccounts().then(getNamedAccount(`deployer`))
-    return buildAssetDeploymentGraph(Stage.TESTNET, tokenName, deployer)
+export function buildAssetDeploymentGraphTestnet(tokenName: TokenName) {
+    return buildAssetDeploymentGraph(Stage.TESTNET, tokenName, DEFAULT_PLANNER)
 }
 
 export function buildMessagingGraphTestnet(

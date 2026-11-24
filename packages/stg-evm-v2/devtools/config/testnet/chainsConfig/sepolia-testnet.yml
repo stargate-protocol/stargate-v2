@@ -18,16 +18,13 @@ rewarder:
         eth: 1
         usdc: 1
         usdt: 1
-        eurc: 1
 staking:
   tokens:
     eth: true
     usdc: true
     usdt: true
-    eurc: true
 treasurer:
   tokens:
     eth: true
     usdt: true
     usdc: true
-    eurc: true
