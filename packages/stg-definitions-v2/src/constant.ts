@@ -3526,7 +3526,11 @@ export const NETWORKS: NetworksConfig = {
     },
     [EndpointId.SEPOLIA_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+        tokenMessaging: {
+            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
+            // A composed USDT delivery needed more than 200k gas in a Sepolia replay.
+            taxiGasLimit: 250000n,
+        },
     },
     [EndpointId.MODERATO_V2_TESTNET]: {
         creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
