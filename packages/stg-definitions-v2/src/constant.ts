@@ -136,6 +136,12 @@ export const DVNS = {
         [EndpointId.UNICHAIN_V2_MAINNET]: '0x282b3386571f7f794450d5789911a9804fa346b4',
         [EndpointId.XDC_V2_MAINNET]: '0x6788f52439aca6bff597d3eec2dc9a44b8fee842',
         [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x129ee430cb2ff2708ccaddbdb408a88fe4ffd480',
+        [EndpointId.ARBSEP_V2_TESTNET]: '0x53f488E93b4f1b60E8E83aa374dBe1780A1EE8a8',
+        [EndpointId.AVALANCHE_V2_TESTNET]: '0x9f0e79Aeb198750F963b6f30B99d87c6EE5A0467',
+        [EndpointId.BSC_V2_TESTNET]: '0x0eE552262f7B562eFcED6DD4A7e2878AB897d405',
+        [EndpointId.MODERATO_V2_TESTNET]: '0x0ac2924460A5b285fd205DeDB46738Ad46971061',
+        [EndpointId.OPTSEP_V2_TESTNET]: '0xd680ec569f269aa7015F7979b4f1239b5aa4582C',
+        [EndpointId.SEPOLIA_V2_TESTNET]: '0x8eebf8b423B73bFCa51a1Db4B7354AA0bFCA9193',
     } satisfies Partial<Record<EndpointId, string>>,
     BERA: {
         [EndpointId.ARBITRUM_V2_MAINNET]: '0xf2e89ed7e342c708ba8cd79b293ad9244f5fccb3',
@@ -1259,6 +1265,17 @@ export const REWARDS: RewardsConfig = {
             },
         },
     },
+}
+
+const testnetMessagingConfig = (
+    eid: keyof typeof DVNS.LZ_LABS,
+    taxiGasLimit = DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit
+) => {
+    const requiredDVNs = [DVNS.LZ_LABS[eid]]
+    return {
+        creditMessaging: { ...DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG, requiredDVNs },
+        tokenMessaging: { ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG, requiredDVNs, taxiGasLimit },
+    }
 }
 
 export const NETWORKS: NetworksConfig = {
@@ -3451,34 +3468,13 @@ export const NETWORKS: NetworksConfig = {
     //
     // TESTNET
     //
-    [EndpointId.ARBSEP_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.AVALANCHE_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.BSC_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.OPTSEP_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
-    [EndpointId.SEPOLIA_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: {
-            ...DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-            // A composed USDT delivery needed more than 200k gas in a Sepolia replay.
-            taxiGasLimit: 250000n,
-        },
-    },
-    [EndpointId.MODERATO_V2_TESTNET]: {
-        creditMessaging: DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG,
-        tokenMessaging: DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG,
-    },
+    [EndpointId.ARBSEP_V2_TESTNET]: testnetMessagingConfig(EndpointId.ARBSEP_V2_TESTNET),
+    [EndpointId.AVALANCHE_V2_TESTNET]: testnetMessagingConfig(EndpointId.AVALANCHE_V2_TESTNET),
+    [EndpointId.BSC_V2_TESTNET]: testnetMessagingConfig(EndpointId.BSC_V2_TESTNET),
+    [EndpointId.OPTSEP_V2_TESTNET]: testnetMessagingConfig(EndpointId.OPTSEP_V2_TESTNET),
+    // A composed USDT delivery needed more than 200k gas in a Sepolia replay.
+    [EndpointId.SEPOLIA_V2_TESTNET]: testnetMessagingConfig(EndpointId.SEPOLIA_V2_TESTNET, 250000n),
+    [EndpointId.MODERATO_V2_TESTNET]: testnetMessagingConfig(EndpointId.MODERATO_V2_TESTNET),
 
     //
     // SANDBOX

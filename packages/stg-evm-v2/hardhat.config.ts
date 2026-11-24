@@ -92,7 +92,7 @@ const hardhatNamedAccounts: HardhatUserConfig = {
             default: 2,
         },
         tokenAdmin: {
-            default: 3, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
+            default: 0, // 0x126A13528A923EF289B5b72FFFD6c4a198F91Db4
         },
     },
 }
@@ -142,6 +142,7 @@ const networks: NetworksUserConfig = {
         accounts: testnetAccounts,
         timeout: DEFAULT_NETWORK_TIMEOUT,
     },
+
     'optsep-testnet': {
         eid: EndpointId.OPTSEP_V2_TESTNET,
         url: process.env.RPC_URL_OPTIMISM_TESTNET || 'https://sepolia.optimism.io',
