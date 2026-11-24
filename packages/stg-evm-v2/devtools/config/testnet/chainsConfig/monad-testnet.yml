@@ -27,3 +27,21 @@ treasurer:
     eth: true
     usdt: true
     usdc: true
+unwire:
+  # The legacy Monad messaging contracts have no bytecode on the current RPC.
+  # Kaia and Mantle remain reachable, so clear their peer entries for Monad here.
+  chain_shutdown: true
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - monad-testnet
+    deprecated_peers:
+      - mantlesep-testnet
+      - klaytn-testnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - monad-testnet
+    deprecated_peers:
+      - mantlesep-testnet
+      - klaytn-testnet

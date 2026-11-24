@@ -15,3 +15,16 @@ treasurer:
     eth: true
     usdt: true
     usdc: true
+unwire:
+  token_messaging:
+    direction: both
+    allowed_peers:
+      - klaytn-testnet
+    deprecated_peers:
+      - mantlesep-testnet
+  credit_messaging:
+    direction: both
+    allowed_peers:
+      - klaytn-testnet
+    deprecated_peers:
+      - mantlesep-testnet
