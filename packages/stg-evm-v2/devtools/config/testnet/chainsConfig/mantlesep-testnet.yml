@@ -1,4 +1,5 @@
 name: mantlesep-testnet
+status: DEPRECATED
 eid: MANTLESEP_V2_TESTNET
 token_messaging: true
 credit_messaging: true
