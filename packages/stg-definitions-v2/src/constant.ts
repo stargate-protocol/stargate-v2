@@ -155,62 +155,62 @@ export const DVNS = {
         [EndpointId.OPTIMISM_V2_MAINNET]: '0x947bb89919d1e5996d6c46223626ac2e97bcf8a3',
         [EndpointId.POLYGON_V2_MAINNET]: '0xdd3d71ff05d9206c69c667d22b3a0970009780e4',
     } satisfies Partial<Record<EndpointId, string>>,
-    CANARY: {
-        [EndpointId.ABSTRACT_V2_MAINNET]: '0xcb773caf620d2a6703d2cd30c567a6c2906ccfbb',
-        [EndpointId.APE_V2_MAINNET]: '0x9bb011796fc3604d3a4faa5863f587a33f6224af',
-        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x00e91548787caf130d811ef1872f2bc2c0583d90',
-        [EndpointId.ARBITRUM_V2_MAINNET]: '0xf2e380c90e6c09721297526dbc74f870e114dfcb',
-        [EndpointId.AULT_V2_MAINNET]: '0xa70c51c38d5a9990f3113a403d74eba01fce4ccb',
-        [EndpointId.AVALANCHE_V2_MAINNET]: '0xcc49e6fca014c77e1eb604351cc1e08c84511760',
-        [EndpointId.BASE_V2_MAINNET]: '0x554833698ae0fb22ecc90b01222903fd62ca4b47',
-        [EndpointId.BERA_V2_MAINNET]: '0x06e8042729cef3ae6d6db5350f48f9d736c3675d',
-        [EndpointId.BSC_V2_MAINNET]: '0xfa9ba83c102283958b997adc8b44ed3a3cdb5dda',
-        [EndpointId.COREDAO_V2_MAINNET]: '0xc133fd6b4c44277ed592e903c0585936d7585fa5',
-        [EndpointId.CRONOSEVM_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
-        [EndpointId.DOMA_V2_MAINNET]: '0x1f5523a61b47ed841972419b2b0fd977b05f2fe7',
-        [EndpointId.ETHEREUM_V2_MAINNET]: '0xa4fe5a5b9a846458a70cd0748228aed3bf65c2cd',
-        [EndpointId.FLARE_V2_MAINNET]: '0xd791948db16ab4373fa394b74c727ddb7fb02520',
-        [EndpointId.FLOW_V2_MAINNET]: '0xe4e65d80deb0e2c8391215bcba4b5f7603420407',
-        [EndpointId.FUSE_V2_MAINNET]: '0x7a3d18e2324536294cd6f054cdde7c994f40391a',
-        [EndpointId.GATELAYER_V2_MAINNET]: '0x05df4949f0b4dc4c4b1adc0e01700bc669e935c3',
-        [EndpointId.GENSYN_V2_MAINNET]: '0x796e526de6ebb62b006ea680e52175a22eadbff7',
-        [EndpointId.HEDERA_V2_MAINNET]: '0x4b92bc2a7d681bf5230472c80d92acfe9a6b9435',
-        [EndpointId.HEMI_V2_MAINNET]: '0x396dc0a78f789586e2982fccd830c5954c193f3c',
-        [EndpointId.INJECTIVEEVM_V2_MAINNET]: '0x57555da46d20f39bc6795bcd6ff50ce425a0e5af',
-        [EndpointId.INK_V2_MAINNET]: '0x1e4ce74ccf5498b19900649d9196e64bab592451',
-        [EndpointId.IOTA_V2_MAINNET]: '0xecbaa45c33ce6fa284995e5f8314f5bc7f1c2008',
-        [EndpointId.ISLANDER_V2_MAINNET]: '0x45a7305c65aad28384f20a80f87a5183772e4f70',
-        [EndpointId.KAVA_V2_MAINNET]: '0x06b85533967179ed5bc9c754b84ae7d02f7ed830',
-        [EndpointId.KLAYTN_V2_MAINNET]: '0x1154d04d07aee26ff2c200bd373eb76a7e5694d6',
-        [EndpointId.MANTA_V2_MAINNET]: '0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d',
-        [EndpointId.MANTLE_V2_MAINNET]: '0xa2447e5b58d357c49bf74b50b14421e6a100e525',
-        [EndpointId.MEMECORE_V2_MAINNET]: '0xd8bf7f4a429f4f23aeba45867a366d1fc3597ab3',
-        [EndpointId.MOCA_V2_MAINNET]: '0x7decc6df3af9cfc275e25d2f9703ecf7ad800d5d',
-        [EndpointId.NIBIRU_V2_MAINNET]: '0xf85d19e8884eb985a7f77ba385409ec7ad2923a5',
-        [EndpointId.OG_V2_MAINNET]: '0x183940c4855a01da92bc2f96f7e0a8aecbf797ff',
-        [EndpointId.OPN_V2_MAINNET]: '0x62564417c87d6a42c3f9d8c066492e342a8a5602',
-        [EndpointId.OPTIMISM_V2_MAINNET]: '0x5b6735c66d97479ccd18294fc96b3084ecb2fa3f',
-        [EndpointId.ORDERLY_V2_MAINNET]: '0xd42306df1a805d8053bc652ce0cd9f62bde80146',
-        [EndpointId.PEAQ_V2_MAINNET]: '0x0c0c8fd5351fd936a987c790d88b137df4e73d64',
-        [EndpointId.PLASMA_V2_MAINNET]: '0x2465ee263149a18d61c9224244c61a5871dc0473',
-        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0x395b14700812cccc38b8e64f0a06ce2045fe9ba3',
-        [EndpointId.POLYGON_V2_MAINNET]: '0x13feb7234ff60a97af04477d6421415766753ba3',
-        [EndpointId.RAYLS_V2_MAINNET]: '0xd01ae6905d48315f7be10c7330aecf8360ef5b12',
-        [EndpointId.REDBELLY_V2_MAINNET]: '0x41ef29f974fc9f6772654f005271c64210425391',
-        [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xf1042bba248634583d0678d53fb33bc885e09f11',
-        [EndpointId.SCROLL_V2_MAINNET]: '0xdf44a1594d3d516f7cdfb4dc275a79a5f6e3db1d',
-        [EndpointId.SEI_V2_MAINNET]: '0x33051ad47157a50bb49a646256b854c60f707c86',
-        [EndpointId.SOMNIA_V2_MAINNET]: '0xc9ca319f6da263910fd9b037ec3d817a814ef3d8',
-        [EndpointId.SONEIUM_V2_MAINNET]: '0xdd1564f68aa802e30819f9e8043664584a8a3e87',
-        [EndpointId.SONIC_V2_MAINNET]: '0xb2c7832aa8dda878de6f949485f927e9e532e92c',
-        [EndpointId.STABLE_V2_MAINNET]: '0x8d6cc20d84fbeb5733c60436ceb8957da2ac02c8',
-        [EndpointId.STORY_V2_MAINNET]: '0x77aaf86b4466a67869667babe02c6ebe7e7791d6',
-        [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0xc71a3d16f00d93c78ab89aaedde7c0012a3b26cb',
-        [EndpointId.TELOS_V2_MAINNET]: '0xae5273d893ad87c8f38d45e822a7b4321ccefb4c',
-        [EndpointId.TEMPO_V2_MAINNET]: '0xb30b5b27cb23356de1d3100e0e120d481da97b1f',
-        [EndpointId.UNICHAIN_V2_MAINNET]: '0x00a979a5d306e9c5f8cf473659e75f8002e06fc8',
-        [EndpointId.XDC_V2_MAINNET]: '0x307d81ef09c72730f57667bf1e9b62db4904053f',
-        [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0xda63525a0fc42bcc2cad1dd28708d5ed11849347',
+    CANARY_SPONSORED: {
+        [EndpointId.ABSTRACT_V2_MAINNET]: '0xd97e3c39b07913a3dddfba674270c2abbfe070a2',
+        [EndpointId.APE_V2_MAINNET]: '0x99efcb223bad7523411c8a7abd0ed250e23dad83',
+        [EndpointId.APEXFUSIONNEXUS_V2_MAINNET]: '0x3c4e4c3baa5d883654970fe34db8c943ebf43ab2',
+        [EndpointId.ARBITRUM_V2_MAINNET]: '0xbacfe8d53f8728b8980b9f99e897d8b29334c922',
+        [EndpointId.AULT_V2_MAINNET]: '0x3d68d48c315e91e69868cd2b7f730bae6913544c',
+        [EndpointId.AVALANCHE_V2_MAINNET]: '0xdec88bcef6ef7ecf1062d6554bbbc64dff8adb6e',
+        [EndpointId.BASE_V2_MAINNET]: '0xd752c8dbb10158d66c91518437349002d6542986',
+        [EndpointId.BERA_V2_MAINNET]: '0xc535feef6de466c62414774f9a1a70cd7f42ab5d',
+        [EndpointId.BSC_V2_MAINNET]: '0x97e19088d0c9d490a99b57fb52ad3636d7c3612c',
+        [EndpointId.COREDAO_V2_MAINNET]: '0x8bd6ca3229c03ffc4abb277d2a478073f6570999',
+        [EndpointId.CRONOSEVM_V2_MAINNET]: '0xb0646fb9028364ac1f04477271375ef32a8a5e62',
+        [EndpointId.DOMA_V2_MAINNET]: '0x6fdd7a49775d54dbdd9c797d06b9ca8bd867f6cd',
+        [EndpointId.ETHEREUM_V2_MAINNET]: '0xf9d2c0915cac4c75b7ae359089333c8ac258e12c',
+        [EndpointId.FLARE_V2_MAINNET]: '0x86858b2c7070d14c1cc7acc34253c528197e7d59',
+        [EndpointId.FLOW_V2_MAINNET]: '0x08b4aec7ef83a2e7e745a19c1250c352a855ce2d',
+        [EndpointId.FUSE_V2_MAINNET]: '0xa29e324aa1c75b37bd55d56c2d1417c581796529',
+        [EndpointId.GATELAYER_V2_MAINNET]: '0x7c4d515a56ad9149cc039769b185a6662bb55057',
+        [EndpointId.GENSYN_V2_MAINNET]: '0xf85f51c1d5b4de2446d99b104acfca7ff63bd3ad',
+        [EndpointId.HEDERA_V2_MAINNET]: '0x341b198d603cea5de488ccda612edf26c7a330ef',
+        [EndpointId.HEMI_V2_MAINNET]: '0x8f6fbca9d24f7177ee57a10b36d2ae3a74f4aefc',
+        [EndpointId.INJECTIVEEVM_V2_MAINNET]: '0x6bea5b5799f5fb11da9d801b2ae599e3237c92fd',
+        [EndpointId.INK_V2_MAINNET]: '0xb4f6632b78046de37531549dfb23d79862ca6a68',
+        [EndpointId.IOTA_V2_MAINNET]: '0x4d7933c0d6355b263b8396b18fe64e2609cb7e99',
+        [EndpointId.ISLANDER_V2_MAINNET]: '0xc033f93157a5a2a0ea1c4fddb673315737c87ea5',
+        [EndpointId.KAVA_V2_MAINNET]: '0x4702e2cfa0224ccc6a1073fc7838c7d2dfee66da',
+        [EndpointId.KLAYTN_V2_MAINNET]: '0x38f5e988234665d6307262ed6fa2057c7e7315e6',
+        [EndpointId.MANTA_V2_MAINNET]: '0xbe57e9e7d9eb16b92c6383792abe28d64a18c0f1',
+        [EndpointId.MANTLE_V2_MAINNET]: '0xcc2697009ac9c3bedfa5438cd92c033e4f310f82',
+        [EndpointId.MEMECORE_V2_MAINNET]: '0x5fddd320a1e29bb466fa635661b125d51d976f92',
+        [EndpointId.MOCA_V2_MAINNET]: '0xf0159a62617b98308793ac7395af673242a1cdac',
+        [EndpointId.NIBIRU_V2_MAINNET]: '0xbb78ee9aa83e3c4c6255413eb74a888b31aed52c',
+        [EndpointId.OG_V2_MAINNET]: '0xaef9e69b57041f3db7c3c1e91d3c2d65a1cae37d',
+        [EndpointId.OPN_V2_MAINNET]: '0xd841a741addcb6dea735d3b8c9faf96ba3f3d30d',
+        [EndpointId.OPTIMISM_V2_MAINNET]: '0x4be02c7e81bcd78ead40aac095a2115541f86c52',
+        [EndpointId.ORDERLY_V2_MAINNET]: '0xb212750bc22d26499dabf3ffe2ba1931dc3af3e1',
+        [EndpointId.PEAQ_V2_MAINNET]: '0x12dc44912b4715cfd73aadfb14ad8d2d2ed60f59',
+        [EndpointId.PLASMA_V2_MAINNET]: '0x2cad582a78e71c5756e7e4851c365d86d95645b4',
+        [EndpointId.PLUMEPHOENIX_V2_MAINNET]: '0xb941ec9e7fb7e0e991e59f1206f7965afcab1f99',
+        [EndpointId.POLYGON_V2_MAINNET]: '0xe34a8d1c1e8ec397314ac019879df14de9bcf490',
+        [EndpointId.RAYLS_V2_MAINNET]: '0x051820c894fd8864247b001d3ec48a40ecefe896',
+        [EndpointId.REDBELLY_V2_MAINNET]: '0xe3109707aaac00f16a5a736b418a9e5104e23f21',
+        [EndpointId.ROOTSTOCK_V2_MAINNET]: '0xa276bff946dc76e415d49fa16bba3e2d8e70e15b',
+        [EndpointId.SCROLL_V2_MAINNET]: '0xe81d43f3a41c9a4901cda66165aba3a397827b69',
+        [EndpointId.SEI_V2_MAINNET]: '0xff7a69c1a5a887e15183f064cab571d111fb3dec',
+        [EndpointId.SOMNIA_V2_MAINNET]: '0x74c95cf31d4acc69a3b5193535aea15930a973ab',
+        [EndpointId.SONEIUM_V2_MAINNET]: '0x4c745c8fba0633f7f4c0c481cbe1fd5f8c2f9047',
+        [EndpointId.SONIC_V2_MAINNET]: '0xe98e6dbf8fb7aa6c8c377ebf769e84ce5cdf7772',
+        [EndpointId.STABLE_V2_MAINNET]: '0x003853cf57b7c769e6ce798dee268574e3e4a2a3',
+        [EndpointId.STORY_V2_MAINNET]: '0x83ca83a27607984613f56aef3880d27f0100f338',
+        [EndpointId.SUBTENSOREVM_V2_MAINNET]: '0xccdebdb5acfd6ae062859ac66653b10ed77586c2',
+        [EndpointId.TELOS_V2_MAINNET]: '0x1af9cbccb874f900bef791d2c3dabbfed4046b2f',
+        [EndpointId.TEMPO_V2_MAINNET]: '0xe23dc7996e569cdae276021dbd654289ff85242e',
+        [EndpointId.UNICHAIN_V2_MAINNET]: '0x06bd01bfa19ac2c1974cb7a36dde44ce1068a8c5',
+        [EndpointId.XDC_V2_MAINNET]: '0xa4ab35c4f165cd80de2445419bcb303e3b46f13b',
+        [EndpointId.ZKCONSENSYS_V2_MAINNET]: '0x1c2ebcb8018af15447b1df30cbf60bf4b798b37d',
     } satisfies Partial<Record<EndpointId, string>>,
 }
 
@@ -1316,7 +1316,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ABSTRACT_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ABSTRACT_V2_MAINNET],
             ],
 
             executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
@@ -1326,7 +1326,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ABSTRACT_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ABSTRACT_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ABSTRACT_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ABSTRACT_V2_MAINNET],
         },
@@ -1357,7 +1357,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.APE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.APE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
         },
@@ -1366,7 +1366,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.APE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.APE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.APE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.APE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.APE_V2_MAINNET],
         },
@@ -1397,7 +1397,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
         },
@@ -1406,7 +1406,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.APEXFUSIONNEXUS_V2_MAINNET],
         },
@@ -1421,7 +1421,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ARBITRUM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ARBITRUM_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET]],
@@ -1431,7 +1431,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
                     DVNS.BERA[EndpointId.ARBITRUM_V2_MAINNET],
                     DVNS.USDT0[EndpointId.ARBITRUM_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.ARBITRUM_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.ARBITRUM_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1444,7 +1444,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ARBITRUM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ARBITRUM_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.ARBITRUM_V2_MAINNET]],
@@ -1454,7 +1454,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ARBITRUM_V2_MAINNET],
                     DVNS.BERA[EndpointId.ARBITRUM_V2_MAINNET],
                     DVNS.USDT0[EndpointId.ARBITRUM_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.ARBITRUM_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.ARBITRUM_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1487,7 +1487,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
-                DVNS.CANARY[EndpointId.AULT_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.AULT_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
         },
@@ -1496,7 +1496,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.AULT_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
-                DVNS.CANARY[EndpointId.AULT_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.AULT_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.AULT_V2_MAINNET],
         },
@@ -1511,14 +1511,14 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.AVALANCHE_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET]],
                 [EndpointId.BSC_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNs: {
@@ -1526,7 +1526,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.BERA[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.USDT0[EndpointId.AVALANCHE_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1539,14 +1539,14 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.AVALANCHE_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET]],
                 [EndpointId.BSC_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.AVALANCHE_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNs: {
@@ -1554,7 +1554,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.BERA[EndpointId.AVALANCHE_V2_MAINNET],
                     DVNS.USDT0[EndpointId.AVALANCHE_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.AVALANCHE_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.AVALANCHE_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1577,7 +1577,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BASE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.BASE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
         },
@@ -1586,7 +1586,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.BASE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BASE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.BASE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.BASE_V2_MAINNET],
         },
@@ -1605,7 +1605,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.ARBITRUM_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET]],
@@ -1620,37 +1620,37 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.BSC_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.ETHEREUM_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.OPTIMISM_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.POLYGON_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1668,7 +1668,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.ARBITRUM_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BERA_V2_MAINNET]],
@@ -1683,37 +1683,37 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.BSC_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.ETHEREUM_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.OPTIMISM_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
                 [EndpointId.POLYGON_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BERA_V2_MAINNET],
                     DVNS.BERA[EndpointId.BERA_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BERA_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BERA_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BERA_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1763,13 +1763,13 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.BSC_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET]],
             },
@@ -1778,7 +1778,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.BERA[EndpointId.BSC_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BSC_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BSC_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1791,13 +1791,13 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
-                DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.BSC_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.AVALANCHE_V2_MAINNET]: [
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BSC_V2_MAINNET],
                 ],
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.BSC_V2_MAINNET]],
             },
@@ -1806,7 +1806,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.BSC_V2_MAINNET],
                     DVNS.BERA[EndpointId.BSC_V2_MAINNET],
                     DVNS.USDT0[EndpointId.BSC_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.BSC_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.BSC_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1830,7 +1830,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
-                DVNS.CANARY[EndpointId.COREDAO_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.COREDAO_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
         },
@@ -1839,7 +1839,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.COREDAO_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
-                DVNS.CANARY[EndpointId.COREDAO_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.COREDAO_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.COREDAO_V2_MAINNET],
         },
@@ -1858,7 +1858,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.CRONOSEVM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.CRONOSEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
         },
@@ -1867,7 +1867,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.CRONOSEVM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.CRONOSEVM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.CRONOSEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.CRONOSEVM_V2_MAINNET],
         },
@@ -1898,7 +1898,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.DOMA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.DOMA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
         },
@@ -1907,7 +1907,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.DOMA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.DOMA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.DOMA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.DOMA_V2_MAINNET],
         },
@@ -1922,7 +1922,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ETHEREUM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ETHEREUM_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET]],
@@ -1932,7 +1932,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                     DVNS.BERA[EndpointId.ETHEREUM_V2_MAINNET],
                     DVNS.USDT0[EndpointId.ETHEREUM_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.ETHEREUM_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -1945,7 +1945,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ETHEREUM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ETHEREUM_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.ETHEREUM_V2_MAINNET]],
@@ -1955,7 +1955,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.ETHEREUM_V2_MAINNET],
                     DVNS.BERA[EndpointId.ETHEREUM_V2_MAINNET],
                     DVNS.USDT0[EndpointId.ETHEREUM_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.ETHEREUM_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.ETHEREUM_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -2010,7 +2010,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.FLARE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
         },
@@ -2019,7 +2019,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.FLARE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.FLARE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.FLARE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FLARE_V2_MAINNET],
         },
@@ -2050,7 +2050,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
-                DVNS.CANARY[EndpointId.FLOW_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.FLOW_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
         },
@@ -2059,7 +2059,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.FLOW_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
-                DVNS.CANARY[EndpointId.FLOW_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.FLOW_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FLOW_V2_MAINNET],
         },
@@ -2100,7 +2100,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.FUSE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.FUSE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
         },
@@ -2109,7 +2109,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.FUSE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.FUSE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.FUSE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.FUSE_V2_MAINNET],
         },
@@ -2140,7 +2140,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.GATELAYER_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
-                DVNS.CANARY[EndpointId.GATELAYER_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.GATELAYER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
         },
@@ -2149,7 +2149,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.GATELAYER_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
-                DVNS.CANARY[EndpointId.GATELAYER_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.GATELAYER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GATELAYER_V2_MAINNET],
         },
@@ -2164,7 +2164,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.GENSYN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.GENSYN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.GENSYN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
         },
@@ -2173,7 +2173,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.GENSYN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.GENSYN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.GENSYN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.GENSYN_V2_MAINNET],
         },
@@ -2188,7 +2188,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.HEDERA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.HEDERA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
         },
@@ -2197,7 +2197,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.HEDERA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.HEDERA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.HEDERA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEDERA_V2_MAINNET],
         },
@@ -2228,7 +2228,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
-                DVNS.CANARY[EndpointId.HEMI_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.HEMI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
         },
@@ -2237,7 +2237,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.HEMI_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
-                DVNS.CANARY[EndpointId.HEMI_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.HEMI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.HEMI_V2_MAINNET],
         },
@@ -2268,7 +2268,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.INJECTIVEEVM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.INJECTIVEEVM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.INJECTIVEEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
             sendCreditGasLimit: 2n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
@@ -2278,7 +2278,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.INJECTIVEEVM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.INJECTIVEEVM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.INJECTIVEEVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INJECTIVEEVM_V2_MAINNET],
             taxiGasLimit: 3n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
@@ -2294,7 +2294,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
-                DVNS.CANARY[EndpointId.INK_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.INK_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
         },
@@ -2303,7 +2303,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.INK_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.INK_V2_MAINNET],
-                DVNS.CANARY[EndpointId.INK_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.INK_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.INK_V2_MAINNET],
         },
@@ -2334,7 +2334,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.IOTA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.IOTA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
         },
@@ -2343,7 +2343,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.IOTA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.IOTA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.IOTA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.IOTA_V2_MAINNET],
         },
@@ -2374,7 +2374,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ISLANDER_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ISLANDER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
         },
@@ -2383,7 +2383,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ISLANDER_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ISLANDER_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ISLANDER_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ISLANDER_V2_MAINNET],
         },
@@ -2414,7 +2414,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.KAVA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.KAVA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
         },
@@ -2423,7 +2423,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.KAVA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.KAVA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.KAVA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.KAVA_V2_MAINNET],
         },
@@ -2442,7 +2442,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.KLAYTN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.KLAYTN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
         },
@@ -2451,7 +2451,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.KLAYTN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.KLAYTN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.KLAYTN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.KLAYTN_V2_MAINNET],
         },
@@ -2470,7 +2470,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MANTA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MANTA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
         },
@@ -2479,7 +2479,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MANTA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MANTA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MANTA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTA_V2_MAINNET],
         },
@@ -2510,7 +2510,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MANTLE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MANTLE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
         },
@@ -2519,7 +2519,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MANTLE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MANTLE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MANTLE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MANTLE_V2_MAINNET],
         },
@@ -2538,7 +2538,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MEMECORE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MEMECORE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
         },
@@ -2547,7 +2547,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MEMECORE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MEMECORE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MEMECORE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MEMECORE_V2_MAINNET],
         },
@@ -2562,7 +2562,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MOCA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MOCA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MOCA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
         },
@@ -2571,7 +2571,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.MOCA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.MOCA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.MOCA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.MOCA_V2_MAINNET],
         },
@@ -2596,7 +2596,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
-                DVNS.CANARY[EndpointId.NIBIRU_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.NIBIRU_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
         },
@@ -2605,7 +2605,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.NIBIRU_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
-                DVNS.CANARY[EndpointId.NIBIRU_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.NIBIRU_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.NIBIRU_V2_MAINNET],
         },
@@ -2636,7 +2636,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
-                DVNS.CANARY[EndpointId.OG_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.OG_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OG_V2_MAINNET],
         },
@@ -2645,7 +2645,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.OG_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.OG_V2_MAINNET],
-                DVNS.CANARY[EndpointId.OG_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.OG_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OG_V2_MAINNET],
         },
@@ -2670,7 +2670,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.OPN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
         },
@@ -2679,7 +2679,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.OPN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.OPN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.OPN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.OPN_V2_MAINNET],
         },
@@ -2694,7 +2694,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.OPTIMISM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.OPTIMISM_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET]],
@@ -2704,7 +2704,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
                     DVNS.BERA[EndpointId.OPTIMISM_V2_MAINNET],
                     DVNS.USDT0[EndpointId.OPTIMISM_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.OPTIMISM_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.OPTIMISM_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -2717,7 +2717,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.OPTIMISM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.OPTIMISM_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.OPTIMISM_V2_MAINNET]],
@@ -2727,7 +2727,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.OPTIMISM_V2_MAINNET],
                     DVNS.BERA[EndpointId.OPTIMISM_V2_MAINNET],
                     DVNS.USDT0[EndpointId.OPTIMISM_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.OPTIMISM_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.OPTIMISM_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -2750,7 +2750,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ORDERLY_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ORDERLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
         },
@@ -2759,7 +2759,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ORDERLY_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ORDERLY_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ORDERLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ORDERLY_V2_MAINNET],
         },
@@ -2791,7 +2791,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
-                DVNS.CANARY[EndpointId.PEAQ_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.PEAQ_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             sendCreditGasLimit: 90000n,
@@ -2801,7 +2801,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.PEAQ_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
-                DVNS.CANARY[EndpointId.PEAQ_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.PEAQ_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PEAQ_V2_MAINNET],
             taxiGasLimit: 190000n,
@@ -2833,7 +2833,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.PLASMA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.PLASMA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
         },
@@ -2842,7 +2842,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.PLASMA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.PLASMA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.PLASMA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLASMA_V2_MAINNET],
         },
@@ -2857,7 +2857,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
-                DVNS.CANARY[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
         },
@@ -2866,7 +2866,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.PLUMEPHOENIX_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
-                DVNS.CANARY[EndpointId.PLUMEPHOENIX_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.PLUMEPHOENIX_V2_MAINNET],
             taxiGasLimit: 230000n,
@@ -2898,7 +2898,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
-                DVNS.CANARY[EndpointId.POLYGON_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.POLYGON_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET]],
@@ -2908,7 +2908,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
                     DVNS.BERA[EndpointId.POLYGON_V2_MAINNET],
                     DVNS.USDT0[EndpointId.POLYGON_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.POLYGON_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.POLYGON_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -2921,7 +2921,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET],
-                DVNS.CANARY[EndpointId.POLYGON_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.POLYGON_V2_MAINNET],
             ],
             perPathRequiredDVNs: {
                 [EndpointId.BERA_V2_MAINNET]: [DVNS.LZ_LABS[EndpointId.POLYGON_V2_MAINNET]],
@@ -2931,7 +2931,7 @@ export const NETWORKS: NetworksConfig = {
                     DVNS.NETHERMIND[EndpointId.POLYGON_V2_MAINNET],
                     DVNS.BERA[EndpointId.POLYGON_V2_MAINNET],
                     DVNS.USDT0[EndpointId.POLYGON_V2_MAINNET],
-                    DVNS.CANARY[EndpointId.POLYGON_V2_MAINNET],
+                    DVNS.CANARY_SPONSORED[EndpointId.POLYGON_V2_MAINNET],
                 ],
             },
             perPathOptionalDVNsThreshold: {
@@ -2954,7 +2954,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.RAYLS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.RAYLS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.RAYLS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
         },
@@ -2963,7 +2963,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.RAYLS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.RAYLS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.RAYLS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.RAYLS_V2_MAINNET],
         },
@@ -2978,7 +2978,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.REDBELLY_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
-                DVNS.CANARY[EndpointId.REDBELLY_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.REDBELLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
         },
@@ -2987,7 +2987,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.REDBELLY_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
-                DVNS.CANARY[EndpointId.REDBELLY_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.REDBELLY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.REDBELLY_V2_MAINNET],
         },
@@ -3002,7 +3002,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ROOTSTOCK_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ROOTSTOCK_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
         },
@@ -3011,7 +3011,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ROOTSTOCK_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ROOTSTOCK_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ROOTSTOCK_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ROOTSTOCK_V2_MAINNET],
         },
@@ -3042,7 +3042,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SCROLL_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SCROLL_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
         },
@@ -3051,7 +3051,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SCROLL_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SCROLL_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SCROLL_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SCROLL_V2_MAINNET],
         },
@@ -3070,7 +3070,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SEI_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SEI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
         },
@@ -3079,7 +3079,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SEI_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SEI_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SEI_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SEI_V2_MAINNET],
             // Sei raised SSTORE gas cost (proposal 109); large-compose taxis OOG at 150k
@@ -3112,7 +3112,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.STABLE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.STABLE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.STABLE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
         },
@@ -3121,7 +3121,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.STABLE_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
-                DVNS.CANARY[EndpointId.STABLE_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.STABLE_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.STABLE_V2_MAINNET],
         },
@@ -3137,7 +3137,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
-                DVNS.CANARY[EndpointId.STORY_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.STORY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
         },
@@ -3146,7 +3146,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.STORY_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
-                DVNS.CANARY[EndpointId.STORY_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.STORY_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.STORY_V2_MAINNET],
         },
@@ -3177,7 +3177,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SOMNIA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SOMNIA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
             sendCreditGasLimit: 1_000_000n + 20n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
@@ -3187,7 +3187,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SOMNIA_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SOMNIA_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SOMNIA_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SOMNIA_V2_MAINNET],
             taxiGasLimit: 20n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
@@ -3219,7 +3219,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SONEIUM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SONEIUM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
         },
@@ -3228,7 +3228,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SONEIUM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SONEIUM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SONEIUM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONEIUM_V2_MAINNET],
         },
@@ -3259,7 +3259,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SONIC_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SONIC_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
         },
@@ -3268,7 +3268,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SONIC_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SONIC_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SONIC_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SONIC_V2_MAINNET],
         },
@@ -3299,7 +3299,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SUBTENSOREVM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SUBTENSOREVM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SUBTENSOREVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
         },
@@ -3308,7 +3308,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.SUBTENSOREVM_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
-                DVNS.CANARY[EndpointId.SUBTENSOREVM_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.SUBTENSOREVM_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.SUBTENSOREVM_V2_MAINNET],
         },
@@ -3323,7 +3323,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.TELOS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.TELOS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
         },
@@ -3332,7 +3332,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.TELOS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.TELOS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.TELOS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.TELOS_V2_MAINNET],
         },
@@ -3363,7 +3363,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.TEMPO_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
-                DVNS.CANARY[EndpointId.TEMPO_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.TEMPO_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
             sendCreditGasLimit: 1_000_000n + 10n * DEFAULT_CREDIT_MESSAGING_NETWORK_CONFIG.sendCreditGasLimit,
@@ -3373,7 +3373,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.TEMPO_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
-                DVNS.CANARY[EndpointId.TEMPO_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.TEMPO_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.TEMPO_V2_MAINNET],
             taxiGasLimit: 10n * DEFAULT_TOKEN_MESSAGING_NETWORK_CONFIG.taxiGasLimit,
@@ -3389,7 +3389,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.UNICHAIN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.UNICHAIN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
         },
@@ -3398,7 +3398,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.UNICHAIN_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
-                DVNS.CANARY[EndpointId.UNICHAIN_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.UNICHAIN_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.UNICHAIN_V2_MAINNET],
             taxiGasLimit: 350000n,
@@ -3430,7 +3430,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
-                DVNS.CANARY[EndpointId.XDC_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.XDC_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
         },
@@ -3439,7 +3439,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.XDC_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
-                DVNS.CANARY[EndpointId.XDC_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.XDC_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.XDC_V2_MAINNET],
         },
@@ -3470,7 +3470,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ZKCONSENSYS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
         },
@@ -3479,7 +3479,7 @@ export const NETWORKS: NetworksConfig = {
             requiredDVNs: [
                 DVNS.NETHERMIND[EndpointId.ZKCONSENSYS_V2_MAINNET],
                 DVNS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
-                DVNS.CANARY[EndpointId.ZKCONSENSYS_V2_MAINNET],
+                DVNS.CANARY_SPONSORED[EndpointId.ZKCONSENSYS_V2_MAINNET],
             ],
             executor: EXECUTORS.LZ_LABS[EndpointId.ZKCONSENSYS_V2_MAINNET],
         },
